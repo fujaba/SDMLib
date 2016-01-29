@@ -118,7 +118,7 @@ public class MSChatGroupPO extends PatternObject<MSChatGroupPO, MSChatGroup>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -133,7 +133,7 @@ public class MSChatGroupPO extends PatternObject<MSChatGroupPO, MSChatGroup>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

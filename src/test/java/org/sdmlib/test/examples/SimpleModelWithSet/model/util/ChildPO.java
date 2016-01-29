@@ -55,7 +55,7 @@ public class ChildPO extends PatternObject<ChildPO, Child>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

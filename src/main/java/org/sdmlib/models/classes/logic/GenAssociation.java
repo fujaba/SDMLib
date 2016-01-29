@@ -1586,6 +1586,7 @@ public class GenAssociation extends Generator<Association>
 			}
 
 			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getClazz());
+			// GenAssociation otherGen = this.getGenerator(model.getOther());
 			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
 		}
 
@@ -1606,7 +1607,8 @@ public class GenAssociation extends Generator<Association>
 			}
 
 			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getOtherClazz());
-			this.generate(kidClass, rootDir, helperDir, model, !needsImplementation);
+			GenAssociation otherGen = this.getGenerator(model.getOther());
+			otherGen.generate(kidClass, rootDir, helperDir, model, !needsImplementation);
 		}
 		return this;
 	}

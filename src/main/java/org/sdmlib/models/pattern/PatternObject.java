@@ -752,7 +752,7 @@ public PatternLinkSet getIncomming()
       }
    }
 
-   protected void hasAttr() {
+   protected void filterAttr() {
       if(!this.getPattern().findMatch()) 
       {
          setCurrentMatch(null);

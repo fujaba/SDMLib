@@ -41,7 +41,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       }
       newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
-   public UniversityPO hasName(String value)
+   public UniversityPO filterName(String value)
    {
       new AttributeConstraint()
       .withAttrName(University.PROPERTY_NAME)
@@ -50,12 +50,12 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public UniversityPO hasName(String lower, String upper)
+   public UniversityPO filterName(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(University.PROPERTY_NAME)
@@ -65,14 +65,14 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public UniversityPO createName(String value)
    {
-      this.startCreate().hasName(value).endCreate();
+      this.startCreate().filterName(value).endCreate();
       return this;
    }
    
@@ -94,7 +94,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return this;
    }
    
-   public StudentPO hasStudents()
+   public StudentPO filterStudents()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -106,17 +106,17 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
    public StudentPO createStudents()
    {
-      return this.startCreate().hasStudents().endCreate();
+      return this.startCreate().filterStudents().endCreate();
    }
 
-   public UniversityPO hasStudents(StudentPO tgt)
+   public UniversityPO filterStudents(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_STUDENTS);
    }
 
    public UniversityPO createStudents(StudentPO tgt)
    {
-      return this.startCreate().hasStudents(tgt).endCreate();
+      return this.startCreate().filterStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()
@@ -128,7 +128,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return null;
    }
 
-   public RoomPO hasRooms()
+   public RoomPO filterRooms()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -140,17 +140,17 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
    public RoomPO createRooms()
    {
-      return this.startCreate().hasRooms().endCreate();
+      return this.startCreate().filterRooms().endCreate();
    }
 
-   public UniversityPO hasRooms(RoomPO tgt)
+   public UniversityPO filterRooms(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_ROOMS);
    }
 
    public UniversityPO createRooms(RoomPO tgt)
    {
-      return this.startCreate().hasRooms(tgt).endCreate();
+      return this.startCreate().filterRooms(tgt).endCreate();
    }
 
    public RoomSet getRooms()

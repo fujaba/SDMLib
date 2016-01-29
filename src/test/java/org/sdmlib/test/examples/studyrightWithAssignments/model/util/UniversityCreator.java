@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
-public class UniversityCreator extends EntityFactory
+public class UniversityCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -80,15 +80,15 @@ public class UniversityCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
       if (University.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((University) target).withName((String) value);
          return true;
+      }
+
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
@@ -123,9 +123,7 @@ public class UniversityCreator extends EntityFactory
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((University) entity).removeYou();
    }

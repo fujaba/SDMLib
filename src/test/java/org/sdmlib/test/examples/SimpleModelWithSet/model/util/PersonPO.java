@@ -44,7 +44,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

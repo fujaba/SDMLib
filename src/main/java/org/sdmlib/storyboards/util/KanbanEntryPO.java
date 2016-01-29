@@ -47,7 +47,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -62,7 +62,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -100,7 +100,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -115,7 +115,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

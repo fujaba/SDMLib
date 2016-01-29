@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,24 +21,25 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class UniversitySet extends SimpleSet<University>
+public class UniversitySet extends SDMSet<University>
 {
 
    public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
 
 
-   public UniversityPO hasUniversityPO()
+   public UniversityPO filterUniversityPO()
    {
       return new UniversityPO(this.toArray(new University[this.size()]));
    }
@@ -53,7 +54,11 @@ public class UniversitySet extends SimpleSet<University>
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<University>)value);
       }
@@ -71,6 +76,18 @@ public class UniversitySet extends SimpleSet<University>
       return this;
    }
 
+   @Override
+   public UniversitySet filter(Condition<University> newValue) {
+      UniversitySet filterList = new UniversitySet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of University objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -83,7 +100,15 @@ public class UniversitySet extends SimpleSet<University>
       return result;
    }
 
-   public UniversitySet hasName(String value)
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet filterName(String value)
    {
       UniversitySet result = new UniversitySet();
       
@@ -98,7 +123,16 @@ public class UniversitySet extends SimpleSet<University>
       return result;
    }
 
-   public UniversitySet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet filterName(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();
       
@@ -113,6 +147,14 @@ public class UniversitySet extends SimpleSet<University>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of University objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of University objects now with new attribute values.
+    */
    public UniversitySet withName(String value)
    {
       for (University obj : this)
@@ -123,19 +165,31 @@ public class UniversitySet extends SimpleSet<University>
       return this;
    }
 
+   /**
+    * Loop through the current set of University objects and collect a set of the Student objects reached via students. 
+    * 
+    * @return Set of Student objects reachable via students
+    */
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
       
       for (University obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;
    }
 
-   public UniversitySet hasStudents(Object value)
+   /**
+    * Loop through the current set of University objects and collect all contained objects with reference students pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as students neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via students
+    */
+   public UniversitySet filterStudents(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -161,6 +215,11 @@ public class UniversitySet extends SimpleSet<University>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the University object passed as parameter to the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    */
    public UniversitySet withStudents(Student value)
    {
       for (University obj : this)
@@ -171,6 +230,11 @@ public class UniversitySet extends SimpleSet<University>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the University object passed as parameter from the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public UniversitySet withoutStudents(Student value)
    {
       for (University obj : this)
@@ -181,19 +245,31 @@ public class UniversitySet extends SimpleSet<University>
       return this;
    }
 
+   /**
+    * Loop through the current set of University objects and collect a set of the Room objects reached via rooms. 
+    * 
+    * @return Set of Room objects reachable via rooms
+    */
    public RoomSet getRooms()
    {
       RoomSet result = new RoomSet();
       
       for (University obj : this)
       {
-         result.addAll(obj.getRooms());
+         result.with(obj.getRooms());
       }
       
       return result;
    }
 
-   public UniversitySet hasRooms(Object value)
+   /**
+    * Loop through the current set of University objects and collect all contained objects with reference rooms pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as rooms neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via rooms
+    */
+   public UniversitySet filterRooms(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -219,6 +295,11 @@ public class UniversitySet extends SimpleSet<University>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the University object passed as parameter to the Rooms attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Rooms attributes.
+    */
    public UniversitySet withRooms(Room value)
    {
       for (University obj : this)
@@ -229,6 +310,11 @@ public class UniversitySet extends SimpleSet<University>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the University object passed as parameter from the Rooms attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public UniversitySet withoutRooms(Room value)
    {
       for (University obj : this)

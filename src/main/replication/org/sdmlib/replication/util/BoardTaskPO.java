@@ -326,7 +326,7 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -375,7 +375,7 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

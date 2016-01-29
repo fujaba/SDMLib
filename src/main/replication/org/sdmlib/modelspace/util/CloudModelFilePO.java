@@ -46,7 +46,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -61,7 +61,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -99,7 +99,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -114,7 +114,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

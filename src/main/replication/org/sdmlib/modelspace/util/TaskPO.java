@@ -80,7 +80,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -95,7 +95,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -133,7 +133,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -148,7 +148,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -186,7 +186,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -201,7 +201,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -239,7 +239,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -254,7 +254,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

@@ -13,11 +13,13 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+import org.sdmlib.models.modelsets.SDMSet;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
@@ -342,7 +344,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             StringBuilder text = new StringBuilder("" +
                "package packageName;\n" +
                "\n" +
-               "import de.uniks.networkparser.list.SDMSet;\n" +
+               "import sdmsetimport;\n" +
                "import fullEntityClassName;\n" +
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
@@ -354,6 +356,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                "entitiyClassName", entitiyClassName,
                "fullEntityClassName", fullEntityClassName,
                "packageName", packageName,
+               "sdmsetimport", SDMSet.class.getName(),
                "Item", entitiyClassName
                );
             modelSetParser.withFileBody(text).withFileChanged(true);
@@ -372,14 +375,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    private void insertSetStartModelPattern(Parser parser)
    {
-      String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getName()) + "PO()";
+      String searchString = Parser.METHOD + ":filter" + CGUtil.shortClassName(model.getName()) + "PO()";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
                "\n\n" +
-                  "   public ModelPO hasModelPO()\n" +
+                  "   public ModelPO filterModelPO()\n" +
                   "   {\n" +
                   "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
                   "   }\n"
@@ -415,15 +418,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          partnerPos = parser.indexOf(Parser.CLASS_END);
 
          StringBuilder partnerText = new StringBuilder
-               ("\n   public static final type EMPTY_SET = new type()READONLY;" +
+               ("\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);" +
                   "\n"
                );
 
-         String replaceReadOnly = ".withReadOnly()";
-
          CGUtil.replaceAll(partnerText,
-            "type", modelSetClassName,
-            "READONLY", replaceReadOnly
+            "type", modelSetClassName
             );
 
          parser.insert(partnerPos, partnerText.toString());
@@ -464,7 +464,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "      this.remove(value);\n" +
                   "      return this;\n" +
                   "   }\n"
-                  + "\n"
+                + "\n"
+                + "   @Override\n" + 
+                  "   public ModelTypeSet filter(Condition<ModelType> newValue) {\r\n" + 
+                  "      ModelTypeSet filterList = new ModelTypeSet();\r\n" + 
+                  "      filterItems(filterList, newValue);\r\n" + 
+                  "      return filterList;\r\n" + 
+                  "   }"
+                + "\n"
                );
 
          CGUtil.replaceAll(text,
@@ -475,6 +482,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
 
          parser.insertImport("java.util.Collection");
+         parser.insertImport(Condition.class.getName());
       }
    }
 

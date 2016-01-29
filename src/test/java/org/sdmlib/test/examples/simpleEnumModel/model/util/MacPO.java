@@ -98,7 +98,7 @@ public class MacPO extends PatternObject<MacPO, Mac>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -136,7 +136,7 @@ public class MacPO extends PatternObject<MacPO, Mac>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

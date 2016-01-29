@@ -46,7 +46,7 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -61,7 +61,7 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -99,7 +99,7 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -114,7 +114,7 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

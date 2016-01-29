@@ -1,9 +1,11 @@
 package org.sdmlib.models.modelsets;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 
 import org.sdmlib.CGUtil;
 
+import de.uniks.networkparser.list.AbstractList;
 import de.uniks.networkparser.list.SimpleSet;
 
 
@@ -36,6 +38,26 @@ public abstract class SDMSet<T> extends SimpleSet<T> {
       return target;
    }
    
+   @SuppressWarnings("unchecked")
+   @Override
+   public AbstractList<T> getNewList(boolean keyValue)
+   {
+      AbstractList<T> result = null;
+      try
+      {
+         result = this.getClass().newInstance();
+      }
+      catch (InstantiationException e)
+      {
+         e.printStackTrace();
+      }
+      catch (IllegalAccessException e)
+      {
+         e.printStackTrace();
+      }
+      return result;
+   }
+ 
 //   public <ST extends SDMSet<T>> ST union(Collection<? extends T> other)
 //   {
 //      @SuppressWarnings("unchecked")

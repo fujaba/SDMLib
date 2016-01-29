@@ -53,6 +53,19 @@
             "cardinality":"many",
             "property":"tas"
          }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TeachingAssistant",
+            "cardinality":"many",
+            "property":"tas"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
       }
    ]
 }   ;
@@ -66,13 +79,6 @@
    {
          "typ":"node",
          "id":"Student",
-         "attributes":[
-         "name : String",
-            "id : String",
-            "assignmentPoints : int",
-            "motivation : int",
-            "credits : int"
-         ],
          "methods":[
          "getFriendsTransitive() StudentSet",
             "createFriendsTeachingAssistant() TeachingAssistant"
@@ -81,15 +87,10 @@
       {
          "typ":"node",
          "id":"Room",
-         "attributes":[
-         "name : String",
-            "topic : String",
-            "credits : int"
-         ],
          "methods":[
-         "getDoorsTransitive() RoomSet",
-            "createStudentsTeachingAssistant() TeachingAssistant",
-            "findPath(int p0) void"
+         "findPath(int p0) String",
+            "getDoorsTransitive() RoomSet",
+            "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
       {
@@ -99,10 +100,6 @@
       {
          "typ":"node",
          "id":"Assignment",
-         "attributes":[
-         "content : String",
-            "points : int"
-         ],
          "methods":[
          "createStudentsTeachingAssistant() TeachingAssistant"
          ]
@@ -110,9 +107,6 @@
       {
          "typ":"node",
          "id":"TeachingAssistant",
-         "attributes":[
-         "certified : boolean"
-         ],
          "methods":[
          "isCertified() boolean"
          ]
@@ -120,16 +114,72 @@
       {
          "typ":"node",
          "id":"University",
-         "attributes":[
-         "name : String"
-         ],
          "methods":[
          "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
       {
          "typ":"node",
+         "id":"AssignmentCreator",
+         "methods":[
+         "getSendableInstance(boolean p0) Object",
+            "getValue(Object p0, String p1) Object",
+            "setValue(Object p0, String p1, Object p2, String p3) boolean",
+            "createIdMap(String p0) JsonIdMap",
+            "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RoomCreator",
+         "methods":[
+         "getSendableInstance(boolean p0) Object",
+            "getValue(Object p0, String p1) Object",
+            "setValue(Object p0, String p1, Object p2, String p3) boolean",
+            "createIdMap(String p0) JsonIdMap",
+            "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"StudentCreator",
+         "methods":[
+         "getSendableInstance(boolean p0) Object",
+            "getValue(Object p0, String p1) Object",
+            "setValue(Object p0, String p1, Object p2, String p3) boolean",
+            "createIdMap(String p0) JsonIdMap",
+            "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TeachingAssistantCreator",
+         "methods":[
+         "getSendableInstance(boolean p0) Object",
+            "getValue(Object p0, String p1) Object",
+            "setValue(Object p0, String p1, Object p2, String p3) boolean",
+            "createIdMap(String p0) JsonIdMap",
+            "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"UniversityCreator",
+         "methods":[
+         "getSendableInstance(boolean p0) Object",
+            "getValue(Object p0, String p1) Object",
+            "setValue(Object p0, String p1, Object p2, String p3) boolean",
+            "createIdMap(String p0) JsonIdMap",
+            "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"SendableEntity"
+      },
+      {
+         "typ":"node",
+         "id":"SendableEntityCreator"
       }
    ],
    "edges":[
@@ -175,6 +225,19 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"TeachingAssistant",
+            "cardinality":"one",
+            "property":"teachingassistant"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"Room",
             "cardinality":"one",
             "property":"room"
@@ -196,6 +259,19 @@
             "id":"University",
             "cardinality":"one",
             "property":"university"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TeachingAssistant",
+            "cardinality":"many",
+            "property":"tas"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
          }
       },
       {
@@ -225,6 +301,201 @@
          }
       },
       {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"AssignmentCreator",
+            "cardinality":"one",
+            "property":"assignmentcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"RoomCreator",
+            "cardinality":"one",
+            "property":"roomcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"StudentCreator",
+            "cardinality":"one",
+            "property":"studentcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TeachingAssistantCreator",
+            "cardinality":"one",
+            "property":"teachingassistantcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"UniversityCreator",
+            "cardinality":"one",
+            "property":"universitycreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         },
+         "target":{
+            "id":"Assignment",
+            "cardinality":"one",
+            "property":"assignment"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         },
+         "target":{
+            "id":"AssignmentCreator",
+            "cardinality":"one",
+            "property":"assignmentcreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         },
+         "target":{
+            "id":"RoomCreator",
+            "cardinality":"one",
+            "property":"roomcreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         },
+         "target":{
+            "id":"StudentCreator",
+            "cardinality":"one",
+            "property":"studentcreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         },
+         "target":{
+            "id":"TeachingAssistantCreator",
+            "cardinality":"one",
+            "property":"teachingassistantcreator"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         },
+         "target":{
+            "id":"UniversityCreator",
+            "cardinality":"one",
+            "property":"universitycreator"
+         }
+      },
+      {
          "typ":"generalisation",
          "source":{"id":"Student"},
          "target":{"id":"SendableEntity"}
@@ -248,6 +519,31 @@
          "typ":"generalisation",
          "source":{"id":"University"},
          "target":{"id":"SendableEntity"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"AssignmentCreator"},
+         "target":{"id":"SendableEntityCreator"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"RoomCreator"},
+         "target":{"id":"SendableEntityCreator"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"StudentCreator"},
+         "target":{"id":"SendableEntityCreator"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"TeachingAssistantCreator"},
+         "target":{"id":"SendableEntityCreator"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"UniversityCreator"},
+         "target":{"id":"SendableEntityCreator"}
       }
    ]
 }   ;
@@ -255,494 +551,6 @@
 </script>
 <p>How to navigate and query an object model.</p>
 <p>Start: Example object structure:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"studyRight : University",
-         "attributes":[
-         "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"abu : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : TeachingAssistant",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"alice : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"artsRoom : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"examRoom : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"placeToBe : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A1 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A4 : Assignment",
-         "attributes":[
-         "content=Pushups",
-            "points=4"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A2 : Assignment",
-         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A3 : Assignment",
-         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
-         "attributes":[
-         "content=Integrals",
-            "points=8"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A4 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A4 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A2 : Assignment"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
       
@@ -758,99 +566,32 @@
       RoomSet rooms = availableAssignments.getRoom();
       
 </pre><p>Results in:</p>
-<pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
+<pre>      (senate math 17, gymnasium sports 2)</pre><p>Check: rooms.size():  2 actual 2</p>
 <p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
-      RoomSet rooms17 = university.getRooms().hasCredits(17);
-      RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().filterCredits(17);
+      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
-<pre>      rooms17: (senate math 17)
-      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
+<pre>      rooms17: (senate math 1)
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 4)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
-      RoomSet roomsEven = university.getRooms().has(new Condition&lt;Room&gt;() {
-         @Override
-         public boolean check(Room value) {
-            return value.getCredits() % 2 == 0;
-         }
-      });
+      RoomSet roomsEven = university.getRooms().filter(value -&gt; value.getCredits() % 2 == 0);
       
 </pre><p>Results in:</p>
-<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 4)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
       TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
       
-</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
+</pre><pre>(Karli 4242 0 0 )</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
       university.getStudents().withMotivation(42);
       
-</pre><script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"abu : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"alice : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : TeachingAssistant",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"alice : Student"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries32", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
-      RoomPO roomPO = university.getRooms().hasRoomPO();
+</pre><p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
+      RoomPO roomPO = university.getRooms().filterRoomPO();
             
-      StudentPO stud1PO = roomPO.hasStudents();      
+      StudentPO stud1PO = roomPO.filterStudents();      
       
-      roomPO.hasStudents().hasMotivation(42).hasFriends(stud1PO);
+      roomPO.filterStudents().filterMotivation(42).filterFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -914,18 +655,18 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram34", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram32", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
-      roomPO = university.getRooms().hasRoomPO();
+<pre>      (gymnasium sports 2)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
+      roomPO = university.getRooms().filterRoomPO();
             
-      stud1PO = roomPO.hasStudents();      
+      stud1PO = roomPO.filterStudents();      
       
-      final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
+      final StudentPO stud2PO = roomPO.filterStudents().filterMotivation(0, 50);
       
-      stud2PO.hasFriends(stud1PO);
+      stud2PO.filterFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -989,18 +730,18 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram39", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram37", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
-      roomPO = university.getRooms().hasRoomPO();
+<pre>      (gymnasium sports 2)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
+      roomPO = university.getRooms().filterRoomPO();
             
-      stud1PO = roomPO.hasStudents();      
+      stud1PO = roomPO.filterStudents();      
       
-      roomPO.hasStudents().hasFriends(stud1PO);
+      roomPO.filterStudents().filterFriends(stud1PO);
       
-      roomPO.hasTas(null);
+      roomPO.filterTas(null);
       
       roomPO.createTas();
       
@@ -1105,121 +846,14 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram42", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"abu : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"alice : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T5 : TeachingAssistant",
-         "attributes":[
-         "certified=false",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"tas",
-            "id":"T5 : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"alice : Student"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries47", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
-      roomPO = university.getRooms().hasRoomPO();
+<pre>      (gymnasium sports 2)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
+      roomPO = university.getRooms().filterRoomPO();
       
-      stud1PO = roomPO.hasStudents();
+      stud1PO = roomPO.filterStudents();
       
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
       
@@ -1272,36 +906,13 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"karli : TeachingAssistant",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries52", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram47", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
-      roomPO = university.getRooms().hasRoomPO();
+      roomPO = university.getRooms().filterRoomPO();
       
-      stud1PO = roomPO.hasStudents();
+      stud1PO = roomPO.filterStudents();
 
       for (Match match : (Iterable&lt;Match&gt;) roomPO.getPattern())
       {
@@ -1346,140 +957,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"abu : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"alice : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : TeachingAssistant",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

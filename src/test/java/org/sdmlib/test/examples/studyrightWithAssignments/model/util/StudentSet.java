@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,17 +21,21 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class StudentSet extends SDMSet<Student>
 {
@@ -39,7 +43,7 @@ public class StudentSet extends SDMSet<Student>
    public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
 
 
-   public StudentPO hasStudentPO()
+   public StudentPO filterStudentPO()
    {
       return new StudentPO(this.toArray(new Student[this.size()]));
    }
@@ -54,7 +58,11 @@ public class StudentSet extends SDMSet<Student>
    @SuppressWarnings("unchecked")
    public StudentSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Student>)value);
       }
@@ -72,6 +80,18 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   @Override
+   public StudentSet filter(Condition<Student> newValue) {
+      StudentSet filterList = new StudentSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Student objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -84,7 +104,15 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasName(String value)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterName(String value)
    {
       StudentSet result = new StudentSet();
       
@@ -99,7 +127,16 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterName(String lower, String upper)
    {
       StudentSet result = new StudentSet();
       
@@ -114,6 +151,14 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Student objects now with new attribute values.
+    */
    public StudentSet withName(String value)
    {
       for (Student obj : this)
@@ -124,6 +169,12 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and collect a list of the id attribute values. 
+    * 
+    * @return List of String objects reachable via id attribute
+    */
    public StringList getId()
    {
       StringList result = new StringList();
@@ -136,7 +187,15 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasId(String value)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the id attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterId(String value)
    {
       StudentSet result = new StudentSet();
       
@@ -151,7 +210,16 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasId(String lower, String upper)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the id attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterId(String lower, String upper)
    {
       StudentSet result = new StudentSet();
       
@@ -166,6 +234,14 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and assign value to the id attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Student objects now with new attribute values.
+    */
    public StudentSet withId(String value)
    {
       for (Student obj : this)
@@ -176,6 +252,12 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and collect a list of the assignmentPoints attribute values. 
+    * 
+    * @return List of int objects reachable via assignmentPoints attribute
+    */
    public intList getAssignmentPoints()
    {
       intList result = new intList();
@@ -188,7 +270,15 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasAssignmentPoints(int value)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the assignmentPoints attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterAssignmentPoints(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -203,7 +293,16 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasAssignmentPoints(int lower, int upper)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the assignmentPoints attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterAssignmentPoints(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -218,6 +317,14 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and assign value to the assignmentPoints attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Student objects now with new attribute values.
+    */
    public StudentSet withAssignmentPoints(int value)
    {
       for (Student obj : this)
@@ -228,6 +335,12 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and collect a list of the motivation attribute values. 
+    * 
+    * @return List of int objects reachable via motivation attribute
+    */
    public intList getMotivation()
    {
       intList result = new intList();
@@ -240,7 +353,15 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasMotivation(int value)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the motivation attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMotivation(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -255,7 +376,16 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasMotivation(int lower, int upper)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the motivation attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMotivation(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -270,6 +400,14 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and assign value to the motivation attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Student objects now with new attribute values.
+    */
    public StudentSet withMotivation(int value)
    {
       for (Student obj : this)
@@ -280,6 +418,12 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and collect a list of the credits attribute values. 
+    * 
+    * @return List of int objects reachable via credits attribute
+    */
    public intList getCredits()
    {
       intList result = new intList();
@@ -292,7 +436,15 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasCredits(int value)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterCredits(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -307,7 +459,16 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
-   public StudentSet hasCredits(int lower, int upper)
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterCredits(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -322,6 +483,14 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Student objects and assign value to the credits attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Student objects now with new attribute values.
+    */
    public StudentSet withCredits(int value)
    {
       for (Student obj : this)
@@ -332,19 +501,31 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through the current set of Student objects and collect a set of the University objects reached via university. 
+    * 
+    * @return Set of University objects reachable via university
+    */
    public UniversitySet getUniversity()
    {
       UniversitySet result = new UniversitySet();
       
       for (Student obj : this)
       {
-         result.add(obj.getUniversity());
+         result.with(obj.getUniversity());
       }
       
       return result;
    }
 
-   public StudentSet hasUniversity(Object value)
+   /**
+    * Loop through the current set of Student objects and collect all contained objects with reference university pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as university neighbor of the collected results. 
+    * 
+    * @return Set of University objects referring to value via university
+    */
+   public StudentSet filterUniversity(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -361,7 +542,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         if (neighbors.contains(obj.getUniversity()))
+         if (neighbors.contains(obj.getUniversity()) || (neighbors.isEmpty() && obj.getUniversity() == null))
          {
             answer.add(obj);
          }
@@ -370,6 +551,11 @@ public class StudentSet extends SDMSet<Student>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the University attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
+    */
    public StudentSet withUniversity(University value)
    {
       for (Student obj : this)
@@ -380,19 +566,31 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through the current set of Student objects and collect a set of the Room objects reached via in. 
+    * 
+    * @return Set of Room objects reachable via in
+    */
    public RoomSet getIn()
    {
       RoomSet result = new RoomSet();
       
       for (Student obj : this)
       {
-         result.add(obj.getIn());
+         result.with(obj.getIn());
       }
       
       return result;
    }
 
-   public StudentSet hasIn(Object value)
+   /**
+    * Loop through the current set of Student objects and collect all contained objects with reference in pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as in neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via in
+    */
+   public StudentSet filterIn(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -409,7 +607,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         if (neighbors.contains(obj.getIn()))
+         if (neighbors.contains(obj.getIn()) || (neighbors.isEmpty() && obj.getIn() == null))
          {
             answer.add(obj);
          }
@@ -418,6 +616,11 @@ public class StudentSet extends SDMSet<Student>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the In attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their In attributes.
+    */
    public StudentSet withIn(Room value)
    {
       for (Student obj : this)
@@ -428,19 +631,31 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through the current set of Student objects and collect a set of the Assignment objects reached via done. 
+    * 
+    * @return Set of Assignment objects reachable via done
+    */
    public AssignmentSet getDone()
    {
       AssignmentSet result = new AssignmentSet();
       
       for (Student obj : this)
       {
-         result.addAll(obj.getDone());
+         result.with(obj.getDone());
       }
       
       return result;
    }
 
-   public StudentSet hasDone(Object value)
+   /**
+    * Loop through the current set of Student objects and collect all contained objects with reference done pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as done neighbor of the collected results. 
+    * 
+    * @return Set of Assignment objects referring to value via done
+    */
+   public StudentSet filterDone(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -466,6 +681,11 @@ public class StudentSet extends SDMSet<Student>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
+    */
    public StudentSet withDone(Assignment value)
    {
       for (Student obj : this)
@@ -476,6 +696,11 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the Student object passed as parameter from the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public StudentSet withoutDone(Assignment value)
    {
       for (Student obj : this)
@@ -486,19 +711,31 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through the current set of Student objects and collect a set of the Student objects reached via friends. 
+    * 
+    * @return Set of Student objects reachable via friends
+    */
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
       
       for (Student obj : this)
       {
-         result.addAll(obj.getFriends());
+         result.with(obj.getFriends());
       }
       
       return result;
    }
 
-   public StudentSet hasFriends(Object value)
+   /**
+    * Loop through the current set of Student objects and collect all contained objects with reference friends pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as friends neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via friends
+    */
+   public StudentSet filterFriends(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -524,7 +761,11 @@ public class StudentSet extends SDMSet<Student>
       return answer;
    }
 
-
+   /**
+    * Follow friends reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Student objects reachable via friends transitively (including the start set)
+    */
    public StudentSet getFriendsTransitive()
    {
       StudentSet todo = new StudentSet().with(this);
@@ -541,13 +782,18 @@ public class StudentSet extends SDMSet<Student>
          {
             result.add(current);
             
-            todo.with(current.getFriends().minus(result));
+            todo.with(current.getFriends()).minus(result);
          }
       }
       
       return result;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the Friends attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Friends attributes.
+    */
    public StudentSet withFriends(Student value)
    {
       for (Student obj : this)
@@ -558,6 +804,11 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the Student object passed as parameter from the Friends attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public StudentSet withoutFriends(Student value)
    {
       for (Student obj : this)

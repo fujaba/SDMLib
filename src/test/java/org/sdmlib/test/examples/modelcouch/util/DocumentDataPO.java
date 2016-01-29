@@ -51,7 +51,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -66,7 +66,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -104,7 +104,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -119,7 +119,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -157,7 +157,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -172,7 +172,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -210,7 +210,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -225,7 +225,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -263,7 +263,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -278,7 +278,7 @@ public class DocumentDataPO extends PatternObject<DocumentDataPO, DocumentData>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

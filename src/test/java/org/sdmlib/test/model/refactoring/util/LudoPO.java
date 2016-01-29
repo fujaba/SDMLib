@@ -105,7 +105,7 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -120,7 +120,7 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

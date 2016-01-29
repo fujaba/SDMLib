@@ -299,8 +299,6 @@ public class StoryboardTests {
    }
 
    /**
-    * 
-    * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
     */
    @Test
@@ -465,8 +463,8 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      RoomSet rooms17 = university.getRooms().hasCredits(17);
-      RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().filterCredits(17);
+      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
       story.addCode();
       
@@ -518,11 +516,11 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      RoomPO roomPO = university.getRooms().hasRoomPO();
+      RoomPO roomPO = university.getRooms().filterRoomPO();
             
-      StudentPO stud1PO = roomPO.hasStudents();      
+      StudentPO stud1PO = roomPO.filterStudents();      
       
-      roomPO.hasStudents().hasMotivation(42).hasFriends(stud1PO);
+      roomPO.filterStudents().filterMotivation(42).filterFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -540,13 +538,13 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().hasRoomPO();
+      roomPO = university.getRooms().filterRoomPO();
             
-      stud1PO = roomPO.hasStudents();      
+      stud1PO = roomPO.filterStudents();      
       
-      final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
+      final StudentPO stud2PO = roomPO.filterStudents().filterMotivation(0, 50);
       
-      stud2PO.hasFriends(stud1PO);
+      stud2PO.filterFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -563,13 +561,13 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().hasRoomPO();
+      roomPO = university.getRooms().filterRoomPO();
             
-      stud1PO = roomPO.hasStudents();      
+      stud1PO = roomPO.filterStudents();      
       
-      roomPO.hasStudents().hasFriends(stud1PO);
+      roomPO.filterStudents().filterFriends(stud1PO);
       
-      roomPO.hasTas(null);
+      roomPO.filterTas(null);
       
       roomPO.createTas();
       
@@ -594,9 +592,9 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().hasRoomPO();
+      roomPO = university.getRooms().filterRoomPO();
       
-      stud1PO = roomPO.hasStudents();
+      stud1PO = roomPO.filterStudents();
       
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
       
@@ -614,9 +612,9 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().hasRoomPO();
+      roomPO = university.getRooms().filterRoomPO();
       
-      stud1PO = roomPO.hasStudents();
+      stud1PO = roomPO.filterStudents();
 
       for (Match match : (Iterable<Match>) roomPO.getPattern())
       {

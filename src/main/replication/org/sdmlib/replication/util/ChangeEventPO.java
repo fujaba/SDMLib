@@ -43,7 +43,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -58,7 +58,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -96,7 +96,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -111,7 +111,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -149,7 +149,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -164,7 +164,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -202,7 +202,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -217,7 +217,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -255,7 +255,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -270,7 +270,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -308,7 +308,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -323,7 +323,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -361,7 +361,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -376,7 +376,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -414,7 +414,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -429,7 +429,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -467,7 +467,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -482,7 +482,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

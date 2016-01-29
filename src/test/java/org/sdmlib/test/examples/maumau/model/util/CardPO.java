@@ -50,7 +50,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -88,7 +88,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

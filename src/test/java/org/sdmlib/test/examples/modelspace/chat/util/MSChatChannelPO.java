@@ -81,7 +81,7 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -96,7 +96,7 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

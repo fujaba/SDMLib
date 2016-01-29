@@ -91,7 +91,7 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -106,7 +106,7 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

@@ -54,7 +54,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -69,7 +69,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -107,7 +107,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -122,7 +122,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -160,7 +160,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -175,7 +175,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -213,7 +213,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -251,7 +251,7 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }

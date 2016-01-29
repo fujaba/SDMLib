@@ -49,7 +49,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -64,7 +64,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -102,7 +102,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -117,7 +117,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -155,7 +155,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -193,7 +193,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -208,7 +208,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -246,7 +246,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -261,7 +261,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -299,7 +299,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -314,7 +314,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -352,7 +352,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -367,7 +367,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -405,7 +405,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -443,7 +443,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -458,7 +458,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }

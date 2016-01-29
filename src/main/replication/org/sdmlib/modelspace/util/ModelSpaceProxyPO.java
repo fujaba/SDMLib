@@ -49,7 +49,7 @@ public class ModelSpaceProxyPO extends PatternObject<ModelSpaceProxyPO, ModelSpa
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -64,7 +64,7 @@ public class ModelSpaceProxyPO extends PatternObject<ModelSpaceProxyPO, ModelSpa
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
