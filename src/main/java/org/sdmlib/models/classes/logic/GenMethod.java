@@ -151,17 +151,21 @@ public class GenMethod extends Generator<Method>
    }
 
    private SymTabEntry getMethodSymTabEntry(Clazz clazz, Parser parser) {
-	   String signature = Parser.METHOD + ":" + model.getName(false);
-	      parser.indexOf(Parser.CLASS_END);
-	      int pos = parser.indexOf(signature);
-	      if(pos <0) {
-	    	  signature = Parser.METHOD + ":" + model.getName(true);
-	    	  pos = parser.indexOf(signature);
-	      }
+      String signature = Parser.METHOD + ":" +model.getName()+ "(";
+      SimpleSet<Parameter> parameters = model.getParameter();
+      for(int i = 0; i < parameters.size(); i++) {
+         Parameter param = parameters.get(i); 
+         if(i > 0) {
+            signature += ",";
+         } 
+         signature += param.getType(true);
+      }
 
-//	      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreate(clazz);
-	      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
-	      return symTabEntry;
+      signature += ")";
+
+      parser.indexOf(signature);
+      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+      return symTabEntry;
    }
    
    private void insertMethodDeclClazz(Clazz clazz, Parser parser)
@@ -271,10 +275,9 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(false);
-      int pos = parser.indexOf(Parser.METHOD + ":" + signature);
-
-      if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
+      SymTabEntry entry = getMethodSymTabEntry(clazz2, parser);
+      
+      if (entry == null && model.getModifier().has(Modifier.PUBLIC))
       {
          StringBuilder text = new StringBuilder
                ("   " +
@@ -364,7 +367,7 @@ public class GenMethod extends Generator<Method>
             "actualParameter", actualParameter.toString()
             );
 
-         pos = parser.indexOf(Parser.CLASS_END);
+         int pos = parser.indexOf(Parser.CLASS_END);
 
          parser.insert(pos, text.toString());
       }
@@ -398,13 +401,11 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(false);
-
-      String key = Parser.METHOD + ":" + signature;
-
-      int pos = parser.indexOf(key);
-
-      if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
+      
+      
+      SymTabEntry entry = getMethodSymTabEntry(clazz2, parser);
+      
+      if (entry == null && model.getModifier().has(Modifier.PUBLIC))
       {
 //         signature = model.getName(true);
          StringBuilder text = new StringBuilder
@@ -473,7 +474,7 @@ public class GenMethod extends Generator<Method>
             "actualParameter", actualParameter.toString()
             );
 
-         pos = parser.indexOf(Parser.CLASS_END);
+         int pos = parser.indexOf(Parser.CLASS_END);
 
          parser.insert(pos, text.toString());
       }

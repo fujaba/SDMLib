@@ -50,15 +50,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    
    //==========================================================================
    
-   public String findPath(int motivation)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) getCurrentMatch()).findPath(motivation);
-      }
-      return null;
-   }
-
+ 
    public RoomPO filterName(String value)
    {
       new AttributeConstraint()
@@ -387,6 +379,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return null;
    }
+
 
    
    //==========================================================================

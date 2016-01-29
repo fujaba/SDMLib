@@ -42,13 +42,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
    
    //==========================================================================
-   public String findPath( int motivation )
-   {
-      return null;
-   }
-
-   
-   //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
@@ -466,10 +459,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       return this;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();
@@ -555,4 +544,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    {
       return null;
    }
+
+
 }

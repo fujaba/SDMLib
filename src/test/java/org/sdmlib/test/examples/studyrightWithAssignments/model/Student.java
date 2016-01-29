@@ -374,10 +374,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
       return this.done;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Student withDone(Assignment... value)
    {
       if(value==null){
@@ -456,10 +452,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
    }
 
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Student withFriends(Student... value)
    {
       if(value==null){

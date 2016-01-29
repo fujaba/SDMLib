@@ -40,9 +40,9 @@ public abstract class SDMSet<T> extends SimpleSet<T> {
    
    @SuppressWarnings("unchecked")
    @Override
-   public AbstractList<T> getNewList(boolean keyValue)
+   public SimpleSet<T> getNewList(boolean keyValue)
    {
-      AbstractList<T> result = null;
+      SimpleSet<T> result = null;
       try
       {
          result = this.getClass().newInstance();
