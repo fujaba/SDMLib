@@ -103,14 +103,12 @@ public class GenEnumeration extends GenClazzEntity{
 				enumCurrentPos = endPos;
 		}
 		
-		boolean isNew = false;
-		if (enumCurrentPos < 0)
-			isNew  = true;
-		
-		for (Literal valueNames : model.getValues()) {
-			enumCurrentPos = insertValue(valueNames, enumCurrentPos, true);
-		}	
-		
+		SimpleSet<Literal> values = model.getValues();
+		for(int i=0;i<values.size();i++) {
+			Literal valueNames =values.get(i);
+			enumCurrentPos = insertValue(valueNames, enumCurrentPos, i == values.size() - 1);
+			
+		}
 	}
 	
 	private void generateAttributes(String rootDir, String helpersDir)

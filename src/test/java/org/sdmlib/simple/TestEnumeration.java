@@ -33,6 +33,8 @@ public class TestEnumeration {
 	
 	}
 
+	// FIXME bei mehreren Eintraegen ein , statt einem ; generiern außer bei letztem Eintrag
+	
 	@Test
 	public void testEnumerationWithMultipleEntries() {
 

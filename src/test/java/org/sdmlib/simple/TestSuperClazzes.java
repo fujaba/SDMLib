@@ -29,8 +29,6 @@ public class TestSuperClazzes {
 //		model.generate("src/test/java");
 	}
 	
-	// FIXME fehlendes other Element bei Generalisierungsassociation durch withSuperClazz(...)
-	
 	@Test
 	public void testClazzAsSuperClazzWithMultipleKids() {
 		
