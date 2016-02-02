@@ -17,6 +17,7 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.util.ParameterSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenMethod extends Generator<Method>
@@ -61,7 +62,7 @@ public class GenMethod extends Generator<Method>
 
       return this;
    }
-
+   
    private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
 	   SymTabEntry symTabEntry;
@@ -222,6 +223,15 @@ public class GenMethod extends Generator<Method>
 
          int pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
+         
+         // Add Imports for all Parameters to Clazz-File
+         for(Parameter param : model.getParameter()) {
+        	 String paramType = param.getType().getClazz().getName();
+        	 if(paramType.indexOf(".") > 0 ) {
+        		 parser.insertImport(paramType);
+        	 }
+         }
+         
          symTabEntry = getMethodSymTabEntry(Parser.METHOD, clazz, parser);
       }
 
@@ -253,7 +263,7 @@ public class GenMethod extends Generator<Method>
    public void generate(String rootDir, String helpersDir)
    {
       if (model.getClazz() != null) {
-    	  if(model.getClazz().getType()==ClazzType.CLAZZ) {
+    	  if(model.getClazz().getType()==ClazzType.CLAZZ || model.getClazz().getType()==ClazzType.INTERFACE) {
     		  generateClazz(model.getClazz(), rootDir, helpersDir);
     	  } else if(model.getClazz().getType()==ClazzType.ENUMERATION) {
     		  generateEnum(model.getClazz(), rootDir, helpersDir);

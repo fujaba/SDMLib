@@ -1575,6 +1575,9 @@ public class GenAssociation extends Generator<Association>
 		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.GENERALISATION) {
 			return this;
 		}
+		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.IMPLEMENTS) {
+			return this;
+		}
 		this.generate(rootDir, helperDir, model.getOther());
 //		sourceGenRole.generate((Clazz) model.getOtherClazz());
 

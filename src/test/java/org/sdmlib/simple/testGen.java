@@ -29,7 +29,7 @@ public class testGen {
 		
 		// Class is Interface (Class als Interface erstellen?)
 		// Class is Enumeration (Class als Enumeration erstellen?)
-		model.generate("gen");
+//		model.generate("gen");
 		System.out.println("Generation complete");
 	}
 }
