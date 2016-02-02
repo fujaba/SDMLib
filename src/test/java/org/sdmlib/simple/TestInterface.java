@@ -40,4 +40,25 @@ public class TestInterface {
 		
 	}
 	
+	@Test
+	public void testMultipleInterfacesWithMultipleChildren() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.interface_c");
+		Clazz person = model.createClazz("Person");
+		Clazz pupil = model.createClazz("Pupil");
+		Clazz teacher = model.createClazz("Teacher");
+		Clazz secretary = model.createClazz("Secretary");
+	
+		person.enableInterface();
+		pupil.enableInterface();
+		
+		teacher.withImplements(person);
+		teacher.withImplements(pupil);
+		secretary.withImplements(person);
+		secretary.withImplements(pupil);
+		
+		model.getGenerator().testGeneratedCode();
+
+	}
+	
 }
