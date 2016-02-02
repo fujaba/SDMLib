@@ -88,8 +88,10 @@ public class GenClass extends GenClazzEntity
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if ((GraphUtil.isEnumeration(model) == false) && (GraphUtil.isInterface(model) == false) && classModel.hasFeature(Feature.Serialization, model))
-      {
+//      if ((GraphUtil.isEnumeration(model) == false) && (GraphUtil.isInterface(model) == false) && classModel.hasFeature(Feature.Serialization, model))
+//      {
+      if (classModel.hasFeature(Feature.Serialization, model))
+      { 
          // now generate the corresponding creator class
          if (getRepairClassModel().hasFeature(Feature.Serialization))
          {
@@ -266,7 +268,8 @@ public class GenClass extends GenClazzEntity
    }
 
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
-		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+//		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+		if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -467,7 +470,8 @@ public class GenClass extends GenClazzEntity
 
    private void insertRemoveObjectInCreatorClass()
    {
-      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
+	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) 
+//      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
       {
          return;
       }

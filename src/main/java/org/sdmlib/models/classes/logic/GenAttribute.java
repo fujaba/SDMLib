@@ -875,6 +875,7 @@ public class GenAttribute extends Generator<Attribute>
          if(patternObjectParser != null) {
             insertFilterMethodInPatternObjectClass(patternObjectParser, clazz);
             insertGetterInPatternObjectClass(patternObjectParser, clazz);
+            getGenerator(clazz).printFile(patternObjectParser);
          }
       }
       //      }

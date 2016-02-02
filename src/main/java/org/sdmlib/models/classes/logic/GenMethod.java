@@ -8,11 +8,11 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
+import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.GraphSimpleSet;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
@@ -64,12 +64,16 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
-      String signature = model.getName(false);
-      int pos = parser.indexOf(Parser.METHOD + ":" + signature);
-      String string = Parser.METHOD + ":" + signature;
-      SymTabEntry symTabEntry = parser.getSymTab().get(string);
+	   SymTabEntry symTabEntry;
+//	   SymTabEntry symTabEntry = getMethodSymTabEntry(Parser.METHOD, enumeration, parser);
+	   if (model.getReturnType().equals(DataType.CONSTRUCTOR)) {
+	    	  symTabEntry = getMethodSymTabEntry(Parser.CONSTRUCTOR, model.getClazz(), parser);
+	      } else {
+	    	  symTabEntry = getMethodSymTabEntry(Parser.METHOD, model.getClazz(), parser);
+	      }
+//	   int pos = 0;
       ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreate(enumeration);
-      if (pos < 0)
+      if (symTabEntry == null)
       {
          StringBuilder text = new StringBuilder
                ("\n   " +
@@ -81,8 +85,12 @@ public class GenMethod extends Generator<Method>
                "\n   }" +
                "\n"
             );
-         String methodName = signature.substring(0, signature.indexOf("("));
-         String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
+         String methodName = model.getName();
+         CharacterBuffer methodParameters = GraphUtil.getMethodParameters(model, true);
+// 		String signature = methodName + methodParameters.toString();
+          String parameter = methodParameters.withStartPosition(1).withLength(methodParameters.length() - 1).toString();
+//         String methodName = signature.substring(0, signature.indexOf("("));
+//         String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
          String returnClause = "";
 
          String name = model.getReturnType().getName(false);
@@ -112,46 +120,28 @@ public class GenMethod extends Generator<Method>
             "parameter", parameter,
             "returnClause", returnClause
             );
-         pos = parser.indexOf(Parser.CLASS_END);
+         int pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
          pos = parser.indexOf(Parser.CLASS_END);
+         if (model.getReturnType().equals(DataType.CONSTRUCTOR)) {
+	    	  symTabEntry = getMethodSymTabEntry(Parser.CONSTRUCTOR, model.getClazz(), parser);
+	      } else {
+	    	  symTabEntry = getMethodSymTabEntry(Parser.METHOD, model.getClazz(), parser);
+	      }
       }
 //      String signatureSimple = model.getName(false);
-      
-      String signatureSimple = "";
-      if (model.getReturnType().equals(DataType.CONSTRUCTOR)) {
-    	  signatureSimple = Parser.CONSTRUCTOR + ":" ;
-      } else {
-    	  signatureSimple = Parser.METHOD + ":"; 
-      }
-      
-      signatureSimple += model.getName() + "(";
-      
-      SimpleSet<Parameter> parameters = model.getParameter();
-      for(int i = 0; i < parameters.size(); i++) {
-    	  Parameter param = parameters.get(i); 
-    	  if(i > 0) {
-    		  signatureSimple += ",";
-    	  } 
-    	  signatureSimple += param.getType(false);
-      }
-
-      signatureSimple += ")";
-      
-      pos = parser.indexOf(signatureSimple);
-      symTabEntry = parser.getSymTab().get(signatureSimple);
+     
       // in case of a method body, remove old method
-      if (pos >= 0 && model.getBody() != null)
+      if (symTabEntry != null && model.getBody() != null)
       {
     	  parser.parseMethodBody(symTabEntry);
          int startPos = symTabEntry.getEndPos();
          parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
-         pos = -1;
       }
    }
 
-   private SymTabEntry getMethodSymTabEntry(Clazz clazz, Parser parser) {
-      String signature = Parser.METHOD + ":" +model.getName()+ "(";
+   private SymTabEntry getMethodSymTabEntry(String type, Clazz clazz, Parser parser) {
+      String signature = type + ":" +model.getName()+ "(";
       SimpleSet<Parameter> parameters = model.getParameter();
       for(int i = 0; i < parameters.size(); i++) {
          Parameter param = parameters.get(i); 
@@ -170,10 +160,10 @@ public class GenMethod extends Generator<Method>
    
    private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
-	   SymTabEntry symTabEntry = getMethodSymTabEntry(clazz, parser);
+	   SymTabEntry symTabEntry = getMethodSymTabEntry(Parser.METHOD, clazz, parser);
       if (symTabEntry == null)
       {
-         String signature = model.getName(false);
+//         String signature = model.getName(false);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -193,9 +183,12 @@ public class GenMethod extends Generator<Method>
                );
          }
 
-         String methodName = signature.substring(0, signature.indexOf("("));
-
-         String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
+         String methodName = model.getName();
+         
+         CharacterBuffer methodParameters = GraphUtil.getMethodParameters(model, true);
+//		String signature = methodName + methodParameters.toString();
+         String parameter = methodParameters.withStartPosition(1).withLength(methodParameters.length() - 1).toString();
+//        		 (len)wisignature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
 
          String returnClause = "";
 
@@ -229,7 +222,7 @@ public class GenMethod extends Generator<Method>
 
          int pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
-         symTabEntry = getMethodSymTabEntry(clazz, parser);
+         symTabEntry = getMethodSymTabEntry(Parser.METHOD, clazz, parser);
       }
 
 //      String signatureSimple = model.getName(false);
@@ -275,7 +268,7 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      SymTabEntry entry = getMethodSymTabEntry(clazz2, parser);
+      SymTabEntry entry = getMethodSymTabEntry(Parser.METHOD, clazz2, parser);
       
       if (entry == null && model.getModifier().has(Modifier.PUBLIC))
       {
@@ -403,7 +396,7 @@ public class GenMethod extends Generator<Method>
       }
       
       
-      SymTabEntry entry = getMethodSymTabEntry(clazz2, parser);
+      SymTabEntry entry = getMethodSymTabEntry(Parser.METHOD, clazz2, parser);
       
       if (entry == null && model.getModifier().has(Modifier.PUBLIC))
       {

@@ -15,12 +15,14 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.modelsets.SDMSet;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public abstract class GenClazzEntity extends Generator<Clazz>{
@@ -272,9 +274,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 				&& getRepairClassModel().hasFeature(Feature.Serialization) == false) {
 			return null;
 		}
-		if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
-			return null;
-		}
+//		if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
+//			return null;
+//		}
 		if (((ClassModel) model.getClassModel()).hasFeature(Feature.ALBERTsSets) == false) {
 			return null;
 		}
@@ -287,6 +289,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
          // try to find existing file
          String name = model.getName(false);
+//         if(EntityUtil.isNumericType(name) ) {
+//        	 model.with(NumberList.class.getName());
+//        	 return null;
+//         }
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -562,6 +568,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       {
          // try to find existing file
          String name = model.getName(false);
+
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -679,10 +686,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    public Parser getOrCreateParserForCreatorClass(String rootDir)
    {
-	  if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
-		  return null;
-	  } else if (((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization) == false) {
-		  return null;
+//	  if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
+//		  return null;
+//	  } else if (((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization) == false) {
+	  if (((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization) == false) {	
+	   	  return null;
 	  }
       if (creatorParser == null)
       {
@@ -822,7 +830,15 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                }
             }
 
-            String instanceCreationClause = "new " + entitiyClassName + "()";
+            String instanceCreationClause = "";
+            
+            if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
+            	instanceCreationClause = entitiyClassName + ".class" ;
+            } else {
+            	instanceCreationClause = "new " + entitiyClassName + "()";
+            }
+            
+//            String instanceCreationClause = "new " + entitiyClassName + "()";
 
             String modelPackage = CGUtil.packageName(model.getName(false));
 
