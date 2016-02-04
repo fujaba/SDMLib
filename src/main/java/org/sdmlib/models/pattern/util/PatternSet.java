@@ -42,7 +42,7 @@ public class PatternSet extends SimpleSet<Pattern>
       
       for (Pattern<?> obj : this)
       {
-         result.withAll(obj.getElements());
+         result.withList(obj.getElements());
       }
       
       return result;

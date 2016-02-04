@@ -46,6 +46,7 @@ import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
@@ -350,7 +351,7 @@ import javafx.application.Platform;
 
    //==============================================================================
    @Override
-   public boolean update(String typ, BaseItem item, PropertyChangeEvent event) {
+   public boolean update(String typ, Entity item, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore

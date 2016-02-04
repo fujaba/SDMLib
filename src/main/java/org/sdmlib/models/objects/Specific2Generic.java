@@ -3,9 +3,8 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
@@ -21,8 +20,8 @@ public class Specific2Generic
       public String secondPropName = null;
 
       @Override
-  	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
-  			Object tmp = source.getValueItem(JsonIdMap.REMOVE);
+  	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
+  			Object tmp = source.getValue(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
@@ -43,7 +42,7 @@ public class Specific2Generic
       GenericGraph graph = new GenericGraph();
       
       LinkedHashMap<String, GenericObject> genObjMap = new LinkedHashMap<String, GenericObject>();
-      LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
+//      LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
       
       MyUpdateListener changeListener = new MyUpdateListener();
       idMap.with(changeListener);

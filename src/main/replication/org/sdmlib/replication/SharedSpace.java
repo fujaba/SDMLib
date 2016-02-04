@@ -54,7 +54,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.SimpleIdCounter;
-import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -827,7 +827,7 @@ import javafx.application.Platform;
    static public int msgNo = 0;
 
    @Override
-	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
+	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -837,14 +837,14 @@ import javafx.application.Platform;
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId((String) source.getValueItem(JsonIdMap.ID))
+      .withTargetObjectId((String) source.getValue(JsonIdMap.ID))
       .withChangeMsg(source.toString());
 
-      Object object = source.getValueItem(JsonIdMap.UPDATE);
+      Object object = source.getValue(JsonIdMap.UPDATE);
       
       if (object == null)
       {
-         object = source.getValueItem(JsonIdMap.REMOVE);
+         object = source.getValue(JsonIdMap.REMOVE);
       }
 
       if (object != null)

@@ -29,7 +29,7 @@ public abstract class SDMSet<T> extends SimpleSet<T> {
          {
             if (targetClass.isAssignableFrom(elem.getClass()))
             {
-               target.withAll(elem);
+               target.with(elem);
             }
          }
       }

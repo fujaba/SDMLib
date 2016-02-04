@@ -240,7 +240,7 @@ public class ReachableStateSet extends SimpleSet<ReachableState> implements org.
    {
       if (value instanceof java.util.Collection)
       {
-         this.withAll((Collection<?>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {

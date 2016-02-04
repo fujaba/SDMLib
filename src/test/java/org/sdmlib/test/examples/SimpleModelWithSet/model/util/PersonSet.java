@@ -79,7 +79,7 @@ public class PersonSet extends SimpleSet<Person>
       
       for (Person obj : this)
       {
-         result.withAll(obj.getName());
+         result.withList(obj.getName());
       }
       
       return result;

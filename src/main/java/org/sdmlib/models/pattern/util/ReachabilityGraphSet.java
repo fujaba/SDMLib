@@ -164,7 +164,7 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph> implement
    {
       if (value instanceof java.util.Collection)
       {
-         this.withAll((Collection<?>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {

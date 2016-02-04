@@ -39,6 +39,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
@@ -208,7 +209,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 
 	@Override
-	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
+	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
 		if (mdbListener.isApplyingChangeMsg())
 		{
 			// ignore

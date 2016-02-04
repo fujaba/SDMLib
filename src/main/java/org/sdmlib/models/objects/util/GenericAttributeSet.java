@@ -129,7 +129,7 @@ public class GenericAttributeSet extends SimpleSet<GenericAttribute>
    {
       if (value instanceof java.util.Collection)
       {
-         this.withAll((Collection<?>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {

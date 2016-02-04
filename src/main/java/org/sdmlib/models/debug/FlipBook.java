@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -309,7 +309,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    @Override
-   public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
+   public boolean update(String typ, Entity source, PropertyChangeEvent event) {
       if (isReading)
       {
          // do nothing

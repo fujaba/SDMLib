@@ -299,7 +299,7 @@ public class CGUtil
             // target object and target attribute name
             Object target = objects[i];
             String attrName = (String) objects[i+1];
-            ObjectSet value = new ObjectSet().with(target, attrName);
+            ObjectSet value = new ObjectSet().withValue(target, attrName);
             placeholderTargets.put(placeholder, value);
             
             i += 2;
