@@ -9,7 +9,7 @@ import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.graph.GraphConverter;
+import de.uniks.networkparser.converter.GraphConverter;
 import de.uniks.networkparser.graph.GraphIdMapDiff;
 import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.json.JsonIdMap;
