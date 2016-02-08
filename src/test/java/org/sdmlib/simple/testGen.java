@@ -25,7 +25,6 @@ public class testGen {
 		
 		// Test modellieren
 
-		// Test - gueltiges Modell zu ungueltigem Modell umformen
 //		model.generate("gen");
 		System.out.println("Generation complete");
 	}
