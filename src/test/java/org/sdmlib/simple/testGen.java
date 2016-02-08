@@ -23,8 +23,6 @@ public class testGen {
 		
 		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
 		
-		// Test modellieren
-
 //		model.generate("gen");
 		System.out.println("Generation complete");
 	}
