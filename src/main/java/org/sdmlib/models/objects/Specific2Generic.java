@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
@@ -21,7 +20,7 @@ public class Specific2Generic
       public String secondPropName = null;
 
       @Override
-  	public boolean update(String typ,PropertyChangeEvent event) {
+  	public boolean update(PropertyChangeEvent event) {
     	  SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
   			Object tmp = simpleEvent.getEntity().getValue(JsonIdMap.REMOVE);
          

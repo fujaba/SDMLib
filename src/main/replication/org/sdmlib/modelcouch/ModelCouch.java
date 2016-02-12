@@ -38,8 +38,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.interfaces.BaseItem;
-import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
@@ -210,7 +208,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 
 	@Override
-	public boolean update(String typ, PropertyChangeEvent event) {
+	public boolean update(PropertyChangeEvent event) {
 		if (mdbListener.isApplyingChangeMsg())
 		{
 			// ignore
@@ -319,7 +317,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 							// call recursive
 							//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
 							simpleEvent.with(valueJsonObject);
-							this.update(typ, simpleEvent);
+							this.update(simpleEvent);
 						}
 					}
 				}

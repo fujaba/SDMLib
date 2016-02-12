@@ -828,7 +828,7 @@ import javafx.application.Platform;
    static public int msgNo = 0;
 
    @Override
-	public boolean update(String typ, PropertyChangeEvent event) {
+	public boolean update(PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore

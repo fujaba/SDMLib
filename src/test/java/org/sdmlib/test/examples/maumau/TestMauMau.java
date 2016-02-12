@@ -23,7 +23,7 @@ public class TestMauMau {
 		game.withPlayers(albert, stefan);
 		game.getPlayers().getCards().filter(new Condition<Card>() {
 			@Override
-			public boolean check(Card value) {
+			public boolean update(Card value) {
 				System.out.println(value.toString());
 				return false;
 			}

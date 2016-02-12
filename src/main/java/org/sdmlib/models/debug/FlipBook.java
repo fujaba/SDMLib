@@ -310,7 +310,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    @Override
-   public boolean update(String typ, PropertyChangeEvent event) {
+   public boolean update(PropertyChangeEvent event) {
       if (isReading)
       {
          // do nothing

@@ -53,8 +53,6 @@ import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.BaseItem;
-import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
@@ -542,7 +540,7 @@ import javafx.application.Platform;
    }
 
    @Override
-	public boolean update(String typ, PropertyChangeEvent event) {
+	public boolean update(PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -661,7 +659,7 @@ import javafx.application.Platform;
                      // call recursive
 //                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
                 	  simpleEvent.with(valueJsonObject);
-                	  this.update(typ, event);
+                	  this.update(simpleEvent);
                   }
                }
             }

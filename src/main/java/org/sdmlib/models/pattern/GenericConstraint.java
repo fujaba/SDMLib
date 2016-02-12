@@ -51,7 +51,7 @@ import de.uniks.networkparser.interfaces.Condition;
       else
       {
          // forward 
-         boolean ok = condition.check(getSrc().getCurrentMatch());
+         boolean ok = condition.update(getSrc().getCurrentMatch());
          
          this.setHasMatch(ok);
          

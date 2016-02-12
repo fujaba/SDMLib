@@ -45,14 +45,11 @@ import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.BaseItem;
-import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.SimpleConditionMap;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
    /**
@@ -318,8 +315,7 @@ import javafx.application.Platform;
       }
    }
 
-   public static class RestrictToFilter extends SimpleConditionMap
-   {
+   public static class RestrictToFilter implements UpdateListener {
       private ObjectSet explicitElems;
 
       public RestrictToFilter(ObjectSet explicitElems2)
@@ -329,29 +325,29 @@ import javafx.application.Platform;
       }
 
       @Override
-      public boolean check(SimpleMapEvent values)
-      {
-         if (values.getNewValue() != null)
+      public boolean update(PropertyChangeEvent evt) {
+         if (evt.getNewValue() != null)
          {
-            if (values.getDeep() >= 3)
+        	 SimpleMapEvent event=(SimpleMapEvent) evt;
+            if (event.getDeep() >= 3)
             {
                return false;
             }
             else if ("Integer Float Double Long Boolean String"
-               .indexOf(values.getNewValue().getClass().getSimpleName()) >= 0)
+               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0)
             {
                return true;
             }
          }
          
-         return explicitElems.contains(values.getNewValue());
+         return explicitElems.contains(evt.getNewValue());
       }
    }
 
 
    //==============================================================================
    @Override
-   public boolean update(String typ, PropertyChangeEvent event) {
+   public boolean update(PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -469,7 +465,7 @@ import javafx.application.Platform;
                      // call recursive
 //                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
                 	  simpleEvent.with(valueJsonObject);
-                	  this.update(typ, simpleEvent);
+                	  this.update(simpleEvent);
                   }
                }
             }

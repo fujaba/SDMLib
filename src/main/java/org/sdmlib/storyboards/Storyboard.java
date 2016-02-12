@@ -39,7 +39,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.EventObject;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -68,12 +67,10 @@ import org.sdmlib.storyboards.util.StoryboardStepSet;
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.logic.SimpleConditionMap;
-import de.uniks.networkparser.logic.SimpleConditionProperty;
-import de.uniks.networkparser.logic.SimpleConditionValue;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -981,17 +978,15 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   private class AlwaysTrueCondition implements SimpleConditionValue
+   private class AlwaysTrueCondition implements UpdateListener
    {
-      @Override
-      public boolean check(EventObject values)
-      {
-         // TODO Auto-generated method stub
-         return true;
-      }
+	   @Override
+	public boolean update(PropertyChangeEvent value) {
+		return true;
+	}
    }
 
-   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, SimpleConditionMap filter)
+   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, UpdateListener filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -1742,7 +1737,7 @@ public class Storyboard implements PropertyChangeInterface
       add(po.getPattern().dumpDiagram(name));
    }
 
-   public static class RestrictToFilter extends SimpleConditionProperty
+   public static class RestrictToFilter implements UpdateListener
    {
       private LinkedHashSet<Object> explicitElems;
 
@@ -1753,7 +1748,7 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       @Override
-      public boolean check(PropertyChangeEvent values)
+      public boolean update(PropertyChangeEvent values)
       {
          if (values.getNewValue() != null
             && ("Integer Float Double Long Boolean String"

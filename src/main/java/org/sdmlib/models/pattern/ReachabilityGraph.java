@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.pattern;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -34,14 +35,10 @@ import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.SimpleConditionMap;
-import de.uniks.networkparser.logic.SimpleMapEvent;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -49,7 +46,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
    public class ReachabilityGraph implements PropertyChangeInterface
 {
    //==========================================================================
-   private final class OmitRootCondition extends SimpleConditionMap
+   private final class OmitRootCondition implements UpdateListener
    {
       private Object root;
 
@@ -58,11 +55,10 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
          this.root = root;
       }
 
-      @Override
-      public boolean check(SimpleMapEvent values)
-      {
-         return values.getNewValue() != root;
-      }
+	      @Override
+	    public boolean update(PropertyChangeEvent evt) {
+	    	return evt.getNewValue() != root;
+	    }
    }
 
    public String dumpDiagram(String name)
