@@ -61,6 +61,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
 
    /**
@@ -541,14 +542,16 @@ import javafx.application.Platform;
    }
 
    @Override
-	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
+	public boolean update(String typ, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
+      
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
 
-      JsonObject jsonObject = (JsonObject) source;
+      JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
       // {"id":"testerProxy",
       //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
@@ -657,7 +660,8 @@ import javafx.application.Platform;
                   {
                      // call recursive
 //                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
-                	  this.update(typ, valueJsonObject, event);
+                	  simpleEvent.with(valueJsonObject);
+                	  this.update(typ, event);
                   }
                }
             }

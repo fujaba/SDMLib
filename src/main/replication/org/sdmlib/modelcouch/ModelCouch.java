@@ -46,6 +46,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 
 /**
  * 
@@ -209,14 +210,14 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 
 	@Override
-	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
+	public boolean update(String typ, PropertyChangeEvent event) {
 		if (mdbListener.isApplyingChangeMsg())
 		{
 			// ignore
 			return true;
 		}
-
-		JsonObject jsonObject = (JsonObject) source;
+		SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+		JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
 		String opCode = JsonIdMap.UPDATE;
 
@@ -317,7 +318,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 						{
 							// call recursive
 							//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
-							this.update(typ, valueJsonObject, event);
+							simpleEvent.with(valueJsonObject);
+							this.update(typ, simpleEvent);
 						}
 					}
 				}

@@ -351,15 +351,15 @@ import javafx.application.Platform;
 
    //==============================================================================
    @Override
-   public boolean update(String typ, Entity item, PropertyChangeEvent event) {
+   public boolean update(String typ, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
-      
-      JsonObject jsonObject = (JsonObject) item;
-      
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
+
       // {"id":"testerProxy",
       //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
       //  "upd":{"scopes":{"class":"org.sdmlib.replication.SeppelScope",
@@ -468,7 +468,8 @@ import javafx.application.Platform;
                   {
                      // call recursive
 //                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
-                	  this.update(typ, valueJsonObject, event);
+                	  simpleEvent.with(valueJsonObject);
+                	  this.update(typ, simpleEvent);
                   }
                }
             }

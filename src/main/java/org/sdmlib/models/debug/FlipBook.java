@@ -15,6 +15,7 @@ import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 
 public class FlipBook implements UpdateListener,  PropertyChangeInterface
 
@@ -309,14 +310,15 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    @Override
-   public boolean update(String typ, Entity source, PropertyChangeEvent event) {
+   public boolean update(String typ, PropertyChangeEvent event) {
       if (isReading)
       {
          // do nothing
          return true;
       }
       // store message in list
-      StepInfo stepInfo = new StepInfo((JsonObject)source, new RuntimeException());
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      StepInfo stepInfo = new StepInfo((JsonObject)simpleEvent.getEntity(), new RuntimeException());
       changes.add(stepInfo);
       
       currentStep = changes.size();

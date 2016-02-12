@@ -60,6 +60,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
 
 
@@ -827,12 +828,14 @@ import javafx.application.Platform;
    static public int msgNo = 0;
 
    @Override
-	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
+	public boolean update(String typ, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      Entity source = simpleEvent.getEntity();
 
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)

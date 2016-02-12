@@ -10,6 +10,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 
 public class Specific2Generic
 {
@@ -20,8 +21,9 @@ public class Specific2Generic
       public String secondPropName = null;
 
       @Override
-  	public boolean update(String typ, Entity source, PropertyChangeEvent event) {
-  			Object tmp = source.getValue(JsonIdMap.REMOVE);
+  	public boolean update(String typ,PropertyChangeEvent event) {
+    	  SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+  			Object tmp = simpleEvent.getEntity().getValue(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
