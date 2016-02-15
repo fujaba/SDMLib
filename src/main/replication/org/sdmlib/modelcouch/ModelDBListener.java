@@ -33,15 +33,19 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
 import java.beans.PropertyChangeListener;
+import org.sdmlib.modelcouch.ModelCouch;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
  */
 public  class ModelDBListener implements SendableEntity, Runnable
 {
@@ -50,9 +54,9 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	private long lastPersisted = 0;
 
 	private boolean isApplyingChangeMsg;
-	private ChangeEventList history = new ChangeEventList();
+	private ChangeEventList history = new ChangeEventList().withCollectOverwrittenChanges(true);
 	private int historyPos = 0;
-
+	
 	@Override
 	public void run()
 	{
@@ -146,6 +150,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	}
 
 	EntityUtil entityUtil = new EntityUtil();
+	
+	LinkedHashMap<ChangeEvent, JsonObject> jsonMap = new LinkedHashMap<>();
 
 	private void handleDBChange(String changeLine)
 	{
@@ -166,7 +172,14 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		changeLine = entityUtil.decode(changeLine);
 
 		JsonObject seqObject = new JsonObject().withValue(changeLine);
+		
 		JsonObject changeObject = seqObject.getJsonObject("doc");
+		
+		// deleted documents are still in db..
+		Object deleted = changeObject.getValue("_deleted");
+		if( deleted != null && deleted.toString().equals("true")){
+			return;
+		}
 
 		lastPersisted = seqObject.getLong("seq");
 
@@ -174,6 +187,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		try 
 		{
 			ChangeEvent change = new ChangeEvent(changeObject);
+			jsonMap.put(change, seqObject);
 			historyPos = history.addChange(change);
 
 			if (historyPos < 0 || couch == null)
@@ -184,6 +198,10 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 			// try to apply change
 			applyChange(change, couch.getIdMap());
+			
+			// remove changes that were overwritten
+			removeOverwrittenChanges(seqObject, change, history.getOverwrittenChanges());
+			history.clearOverwrittenChanges();
 		}
 		catch (Exception e)
 		{
@@ -196,6 +214,15 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 		// ChangeEvent change = new ChangeEvent(changeObject);
 		// applyChange(change, couch.getIdMap()); //apply change
+	}
+
+	private void removeOverwrittenChanges(JsonObject seqObject, ChangeEvent change, List<ChangeEvent> changes) {
+		if (changes.size() == 0)
+			return;
+		for (ChangeEvent changeEvent : changes) {
+			System.out.println("Deleting: " + changeEvent);
+			couch.delete(jsonMap.get(changeEvent));
+		}
 	}
 
 	private void applyChange(ChangeEvent change, JsonIdMap idMap)

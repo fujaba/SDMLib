@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -36,6 +37,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
    public class ChangeEventList implements PropertyChangeInterface
 {
    private ObjectChangeTable objectTable = new ObjectChangeTable();
+   private LinkedList<ChangeEvent> overwrittenObjectsList = new LinkedList<>();
+   
+   private boolean collectOverwrittenChanges = false;
 
    public int addChange(ChangeEvent change)
    {
@@ -83,12 +87,17 @@ import org.sdmlib.serialization.PropertyChangeInterface;
             if (oldEvent.compareTo(change) < 0)
             {
                // new change is newer
-               attrTable.put(property, change);
+               Object overwrittenChange = attrTable.put(property, change);
+               if(overwrittenChange != null && collectOverwrittenChanges){
+            	   overwrittenObjectsList.add((ChangeEvent) overwrittenChange);
+               }
                return 0;
             }
             else
             {
                // new change is older
+            	if(collectOverwrittenChanges)
+            		overwrittenObjectsList.add(change);
                return -1;
             }
          }
@@ -113,12 +122,15 @@ import org.sdmlib.serialization.PropertyChangeInterface;
                {
                   // new change is newer
                   eventList.remove(oldChange);
-
+                  if(collectOverwrittenChanges)
+                	  overwrittenObjectsList.add(oldChange);
                   return eventList.addSorted(change);
                }
                else
                {
                   // oldChange is newer
+            	  if(collectOverwrittenChanges)
+            		   overwrittenObjectsList.add(change);
                   return -1;
                }
             }
@@ -221,9 +233,27 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       
       return result;
    }
-
-
-
+   
+   public List<ChangeEvent> getOverwrittenChanges()
+   {
+	  if(this.overwrittenObjectsList == null){
+		  this.overwrittenObjectsList = new LinkedList<>();
+	  }
+      return this.overwrittenObjectsList;
+   }
+   
+   public void clearOverwrittenChanges(){
+	   overwrittenObjectsList.clear();
+   }
+   
+   public void setCollectOverwrittenChanges(boolean collectOverwrittenChanges) {
+	   this.collectOverwrittenChanges = collectOverwrittenChanges;
+   }
+   
+   public ChangeEventList withCollectOverwrittenChanges(boolean collectOverwrittenChanges){
+	   this.setCollectOverwrittenChanges(collectOverwrittenChanges);
+	   return this;
+   }
 
    //==========================================================================
 

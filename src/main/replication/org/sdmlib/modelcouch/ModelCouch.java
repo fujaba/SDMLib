@@ -45,10 +45,12 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
+import org.sdmlib.modelcouch.ModelDBListener;
 
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
  */
 public  class ModelCouch implements SendableEntity, PropertyChangeInterface, UpdateListener
 {
@@ -144,6 +146,36 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			wr.writeBytes(urlParameters);
 			wr.flush();
 			wr.close();
+
+			responsecode = con.getResponseCode();
+			con.disconnect();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return responsecode;
+	}
+	
+	public int delete(JsonObject change){
+		/**
+		 * url for delete should look like
+		 * "http://localhost:5989/dss/7264fb7568709355423ca63ee1c97b94/001?rev=1-6c8068c8e999096447efef68d4e76c53"
+		 */
+		int responsecode = -1;
+
+		JsonObject jsonObject = change;
+		String objId = jsonObject.getValue("id").toString();
+		JsonArray changeRev = (JsonArray) jsonObject.getValue("changes");
+		JsonObject rev = ((JsonObject)changeRev.get(0));
+
+		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValue(0);
+		try{
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			con.setRequestMethod("DELETE");	
+			con.setRequestProperty("Content-Type", "application/json");
 
 			responsecode = con.getResponseCode();
 			con.disconnect();
