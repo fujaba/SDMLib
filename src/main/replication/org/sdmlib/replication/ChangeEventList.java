@@ -201,7 +201,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return result;
    }
 
-   public void getChanges(String valueObjectId)
+   public ArrayList<ChangeEvent> getChanges(String valueObjectId)
    {
       ArrayList<ChangeEvent> result = new ArrayList<ChangeEvent>();
 
@@ -218,6 +218,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
             result.addAll((TimeSortedChangeList)attrChange);
          }
       }
+      
+      return result;
    }
 
 
