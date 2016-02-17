@@ -220,7 +220,6 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		if (changes.size() == 0)
 			return;
 		for (ChangeEvent changeEvent : changes) {
-			System.out.println("Deleting: " + changeEvent);
 			couch.delete(jsonMap.get(changeEvent));
 		}
 	}
