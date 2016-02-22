@@ -37,6 +37,8 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             .withStudents(karli)
             .withAssignments(matrixMult, series, a3);
 
+      storyboard.addObjectDiagram(university);
+      
       Room artsRoom = university.createRooms()
             .withName(&quot;7522&quot;)
             .withTopic(&quot;arts&quot;)
@@ -60,332 +62,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             .withTopic(&quot;Software Engineering&quot;)
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
-</pre><script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"studyRight : University",
-         "attributes":[
-         "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"artsRoom : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"examRoom : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"placeToBe : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A1 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A2 : Assignment",
-         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A3 : Assignment",
-         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
-         "attributes":[
-         "content=Integrals",
-            "points=8"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
+</pre><p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
@@ -396,12 +73,11 @@ Karli's motivation is reduced by 5 points to now 209.
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
+      {
          "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "id":"S4 : Student",
          "attributes":[
-         "name=Karli",
+            "name=Karli",
             "id=4242",
             "assignmentPoints=5",
             "motivation=0",
@@ -410,111 +86,110 @@ Karli's motivation is reduced by 5 points to now 209.
       },
       {
          "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "id":"R3 : Room",
          "attributes":[
-         "name=senate",
+            "name=senate",
             "topic=math",
             "credits=17"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Assignment",
+         "id":"A5 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
-         "content=Matrix Multiplication",
+            "content=Matrix Multiplication",
             "points=5"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A2 : Assignment",
+         "id":"A6 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
-         "content=Series",
+            "content=Series",
             "points=6"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A3 : Assignment",
+         "id":"A7 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
-         "content=Integrals",
+            "content=Integrals",
             "points=8"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"EDGE",
+      {
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+            "id":"R3 : Room"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"done",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
+            "id":"A5 : Assignment"
          },
          "target":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
+            "property":"students",
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A2 : Assignment"
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A3 : Assignment"
+            "id":"A6 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A7 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
@@ -527,12 +202,11 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
+      {
          "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "id":"S4 : Student",
          "attributes":[
-         "name=Karli",
+            "name=Karli",
             "id=4242",
             "assignmentPoints=11",
             "motivation=0",
@@ -541,124 +215,123 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       },
       {
          "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "id":"R3 : Room",
          "attributes":[
-         "name=senate",
+            "name=senate",
             "topic=math",
             "credits=17"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Assignment",
+         "id":"A5 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
-         "content=Matrix Multiplication",
+            "content=Matrix Multiplication",
             "points=5"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A2 : Assignment",
+         "id":"A6 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
-         "content=Series",
+            "content=Series",
             "points=6"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A3 : Assignment",
+         "id":"A7 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
-         "content=Integrals",
+            "content=Integrals",
             "points=8"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"EDGE",
+      {
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+            "id":"R3 : Room"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A5 : Assignment"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"done",
-            "id":"A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
+            "id":"A6 : Assignment"
          },
          "target":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
+            "property":"students",
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A2 : Assignment"
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A3 : Assignment"
+            "id":"A6 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A7 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>4. Karli does the third assignment on Integrals, earns <br>
@@ -671,12 +344,11 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
+      {
          "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "id":"S4 : Student",
          "attributes":[
-         "name=Karli",
+            "name=Karli",
             "id=4242",
             "assignmentPoints=19",
             "motivation=0",
@@ -685,137 +357,136 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       },
       {
          "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "id":"R3 : Room",
          "attributes":[
-         "name=senate",
+            "name=senate",
             "topic=math",
             "credits=17"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Assignment",
+         "id":"A5 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
-         "content=Matrix Multiplication",
+            "content=Matrix Multiplication",
             "points=5"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A2 : Assignment",
+         "id":"A6 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
-         "content=Series",
+            "content=Series",
             "points=6"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A3 : Assignment",
+         "id":"A7 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
-         "content=Integrals",
+            "content=Integrals",
             "points=8"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"EDGE",
+      {
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+            "id":"R3 : Room"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A5 : Assignment"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A2 : Assignment"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A6 : Assignment"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"done",
-            "id":"A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
+            "id":"A7 : Assignment"
          },
          "target":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
+            "property":"students",
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A2 : Assignment"
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A3 : Assignment"
+            "id":"A6 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A7 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5. Since 19 points are more than the 17 points required 
@@ -833,12 +504,11 @@ the credit points, the credit points will be awarded to the student.)</p>
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
+      {
          "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "id":"S4 : Student",
          "attributes":[
-         "name=Karli",
+            "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
@@ -847,137 +517,136 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "id":"R3 : Room",
          "attributes":[
-         "name=senate",
+            "name=senate",
             "topic=math",
             "credits=17"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Assignment",
+         "id":"A5 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
-         "content=Matrix Multiplication",
+            "content=Matrix Multiplication",
             "points=5"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A2 : Assignment",
+         "id":"A6 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
-         "content=Series",
+            "content=Series",
             "points=6"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A3 : Assignment",
+         "id":"A7 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
-         "content=Integrals",
+            "content=Integrals",
             "points=8"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"EDGE",
+      {
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+            "id":"R3 : Room"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A5 : Assignment"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A2 : Assignment"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A6 : Assignment"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"done",
-            "id":"A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
+            "id":"A7 : Assignment"
          },
          "target":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
+            "property":"students",
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A2 : Assignment"
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A3 : Assignment"
+            "id":"A6 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A7 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>

@@ -37,6 +37,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityPO;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -84,6 +85,8 @@ public class StoryboardTests {
             .withStudents(karli)
             .withAssignments(matrixMult, series, a3);
 
+      storyboard.addObjectDiagram(university);
+      
       Room artsRoom = university.createRooms()
             .withName("7522")
             .withTopic("arts")
@@ -402,20 +405,7 @@ public class StoryboardTests {
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
 
-      story.addObjectDiagram(
-         "studyRight", university, 
-         "karli", "icons/karli.png", karli, 
-         "abu", "icons/karli.png", abu, 
-         "alice", "icons/karli.png", alice, 
-         "mathRoom", "icons/mathroom.png", mathRoom, 
-         "artsRoom", artsRoom,
-         "sportsRoom", sportsRoom, 
-         "examRoom", examRoom, 
-         "placeToBe", softwareEngineering, 
-         "icons/matrix.png", a1, 
-         "icons/limes.png", a2 , 
-         "icons/integralAssignment.png", a3, 
-         a4);
+      story.addObjectDiagram(university);
 
       
       //=====================================================
@@ -483,7 +473,7 @@ public class StoryboardTests {
       RoomSet roomsEven = university.getRooms().filter(value -> value.getCredits() % 2 == 0);
       
       story.addCode();
-      
+       
       story.add("Results in:");
       
       story.addPreformatted("      " + roomsEven);
@@ -561,9 +551,11 @@ public class StoryboardTests {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().filterRoomPO();
+      UniversityPO uniPO = new UniversityPO(university);
+      
+      roomPO = uniPO.filterRooms();
             
-      stud1PO = roomPO.filterStudents();      
+      stud1PO = roomPO.filterStudents().filterMotivation(0, 42);      
       
       roomPO.filterStudents().filterFriends(stud1PO);
       
@@ -575,7 +567,7 @@ public class StoryboardTests {
       
       story.addCode();
      
-      story.addPattern(roomPO, false);
+      story.addPattern(uniPO, false);
       
       //      story.add("Internal pattern structure for debugging.");
       //      
@@ -637,4 +629,65 @@ public class StoryboardTests {
       story.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+ */
+   @Test
+   public void testStudyRightReachabilityGraph()
+   {
+      StoryPage story = new StoryPage();
+      
+
+      story.addStep("Build a start graph");
+      
+      University university = new University()
+      .withName("StudyRight");
+
+//      Student karli = university.createStudents()
+//            .withId("1337")
+//            .withName("Karli")
+//            .withMotivation(123);
+//      
+//
+//
+//      Room mathRoom = university.createRooms()
+//            .withName("senate")
+//            .withTopic("math")
+//            .withCredits(17)  
+//            .withStudents(karli);
+//
+//      Room artsRoom = university.createRooms()
+//            .withName("7522")
+//            .withTopic("arts")
+//            .withCredits(16)
+//            .withDoors(mathRoom); 
+//
+//      Room sportsRoom = university.createRooms()
+//            .withName("gymnasium")
+//            .withTopic("sports")
+//            .withCredits(25)
+//            .withDoors(mathRoom, artsRoom); 
+//      
+//      
+//      Room examRoom = university.createRooms()
+//            .withName("The End")
+//            .withTopic("exam")
+//            .withCredits(0)
+//            .withDoors(sportsRoom, artsRoom);
+//
+//      Room softwareEngineering = university.createRooms()
+//            .withName("7422")
+//            .withTopic("Software Engineering")
+//            .withCredits(42)
+//            .withDoors(artsRoom, examRoom);
+
+      story.addObjectDiagram(university);
+
+      
+      //=====================================================
+      
+      
+      story.dumpHTML();
+   }
 }
