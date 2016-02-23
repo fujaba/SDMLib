@@ -450,7 +450,7 @@ public class GenAttribute extends Generator<Attribute>
 
      if(isMap(dataType))
      {
-        add = "withAll";
+        add = "with";
      } else if (isSet(dataType)) {
     	 add = "addAll";
      }
