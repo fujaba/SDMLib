@@ -235,6 +235,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
       }
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ */
    public Student withCredits(int value)
    {
       setCredits(value);

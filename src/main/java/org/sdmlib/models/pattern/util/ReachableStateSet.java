@@ -153,6 +153,21 @@ public class ReachableStateSet extends SimpleSet<ReachableState> implements org.
       
       return this;
    }
+   
+   public ReachableStateSet filterNumber(int lower, int upper)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
 
    public RuleApplicationSet getRuleapplications()
    {

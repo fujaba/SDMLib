@@ -773,6 +773,12 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
+   /**
+    * Depricated. Use filter() instead.
+    * @param condition
+    * @return
+    */
+   @Deprecated
    public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
@@ -786,6 +792,18 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
+   public POC filter(Condition<Object> condition)
+   {
+      GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
+         .withCondition(condition)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
+      this.getPattern().findMatch();
+
+      return (POC) this;
+   }
    /********************************************************************
     * <pre>
     *              one                       one

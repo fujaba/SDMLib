@@ -83,6 +83,18 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return null;
    }
 
+
+   public ObjectPO filterGraphRoot()
+   {
+      ObjectPO result = new ObjectPO(new Object[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_GRAPHROOT, result);
+      
+      return result;
+   }
+
+   
    public ReachableStatePO hasGraphRoot(Object value)
    {
       new AttributeConstraint()

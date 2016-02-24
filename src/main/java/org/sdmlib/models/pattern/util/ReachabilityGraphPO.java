@@ -33,7 +33,7 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
       return matches;
    }
    
-   public ReachableStatePO hasStates()
+   public ReachableStatePO filterStates()
    {
       ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
       
@@ -107,7 +107,7 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
 
    public ReachableStatePO createStates()
    {
-      return this.startCreate().hasStates().endCreate();
+      return this.startCreate().filterStates().endCreate();
    }
 
    public ReachabilityGraphPO createStates(ReachableStatePO tgt)

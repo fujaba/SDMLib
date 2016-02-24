@@ -23,7 +23,17 @@ package org.sdmlib.test.examples.studyrightWithAssignments;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.Match;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.util.ObjectPO;
+import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
+import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
@@ -31,18 +41,23 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomCreator;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.test.model.util.StudentCreator;
 
 public class StoryboardTests {
    /**
@@ -644,49 +659,147 @@ public class StoryboardTests {
       University university = new University()
       .withName("StudyRight");
 
-//      Student karli = university.createStudents()
-//            .withId("1337")
-//            .withName("Karli")
-//            .withMotivation(123);
-//      
-//
-//
-//      Room mathRoom = university.createRooms()
-//            .withName("senate")
-//            .withTopic("math")
-//            .withCredits(17)  
-//            .withStudents(karli);
-//
-//      Room artsRoom = university.createRooms()
-//            .withName("7522")
-//            .withTopic("arts")
-//            .withCredits(16)
-//            .withDoors(mathRoom); 
-//
-//      Room sportsRoom = university.createRooms()
-//            .withName("gymnasium")
-//            .withTopic("sports")
-//            .withCredits(25)
-//            .withDoors(mathRoom, artsRoom); 
-//      
-//      
-//      Room examRoom = university.createRooms()
-//            .withName("The End")
-//            .withTopic("exam")
-//            .withCredits(0)
-//            .withDoors(sportsRoom, artsRoom);
-//
-//      Room softwareEngineering = university.createRooms()
-//            .withName("7422")
-//            .withTopic("Software Engineering")
-//            .withCredits(42)
-//            .withDoors(artsRoom, examRoom);
+      Student karli = university.createStudents()
+            .withId("1337")
+            .withName("Karli")
+            .withMotivation(100);
+      
 
-      story.addObjectDiagram(university);
+      Room mathRoom = university.createRooms()
+            .withName("senate")
+            .withTopic("math")
+            .withCredits(17)  
+            .withStudents(karli);
+      
+      karli.withCredits(17).withMotivation(100-17);
+
+      Room artsRoom = university.createRooms()
+            .withName("7522")
+            .withTopic("arts")
+            .withCredits(16)
+            .withDoors(mathRoom); 
+
+      Room sportsRoom = university.createRooms()
+            .withName("gymnasium")
+            .withTopic("sports")
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom); 
+      
+      
+      Room examRoom = university.createRooms()
+            .withName("The End")
+            .withTopic("exam")
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
+
+      Room softwareEngineering = university.createRooms()
+            .withName("7422")
+            .withTopic("Software Engineering")
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
+
+      story.addObjectDiagramOnlyWith(university, karli, university.getRooms());
 
       
       //=====================================================
+      JsonIdMap idMap = UniversityCreator.createIdMap("s");
+      idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
       
+      ReachableState startState = new ReachableState().withGraphRoot(university);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph().withMasterMap(idMap)
+            .withStates(startState).withTodo(startState);
+      
+      
+      UniversityPO uniPO = new UniversityPO();
+      
+      StudentPO studPO = uniPO.filterStudents();
+      
+      RoomPO currentRoomPO = studPO.filterIn();
+      
+      RoomPO nextRoomPO = currentRoomPO.filterDoors();
+      
+      studPO.filter(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
+      
+      uniPO.getPattern().clone(reachabilityGraph);
+      
+      studPO.startCreate().filterIn(nextRoomPO).endCreate();
+      
+      studPO.filter(s -> 
+         {
+            studPO.withMotivation(studPO.getMotivation()-nextRoomPO.getCredits());
+            studPO.withCredits(studPO.getCredits()+nextRoomPO.getCredits());
+            return true;
+         });
+      
+      story.addPattern(uniPO, false);
+      
+      reachabilityGraph.addToRules(uniPO.getPattern().withName("next"));
+      
+      reachabilityGraph.explore();
+      
+      ReachableStateSet allStates = reachabilityGraph.getStates();
+      // interestingStates.addAll(reachabilityGraph.getStates().filterNumber(60, Integer.MAX_VALUE));
+
+      ReachableStateSet interestingStates = new ReachableStateSet();
+      
+      for (ReachableState state : allStates)
+      {
+         University uni = (University) state.getGraphRoot();
+         Student student = uni.getStudents().first();
+         Room room = student.getIn();
+         if (student.getMotivation() == 0 && room.getTopic().equals("exam"))
+         {
+            interestingStates.add(state);
+            break;
+         }
+      }
+
+      RuleApplicationSet ruleApplications = new RuleApplicationSet();
+      
+      ReachableState endState = interestingStates.first();
+      
+      for (int i = 1; i <= 10; i++)
+      {
+         RuleApplication ruleApplication = endState.getResultOf().first();
+         
+         if (ruleApplication != null)
+         {
+            ruleApplications.add(ruleApplication);
+            endState = ruleApplication.getSrc();
+            interestingStates.add(endState);
+         }
+         else 
+         {
+            break;
+         }
+      }
+      
+      UniversitySet interestingUniversities = interestingStates.getGraphRoot().instanceOf(new UniversitySet());
+
+      StudentSet studentsSet = allStates.getGraphRoot().instanceOf(new UniversitySet()).getStudents().filterMotivation(0);
+
+      story.addObjectDiagramOnlyWith(
+         interestingStates, 
+         ruleApplications,
+         interestingUniversities, 
+         interestingUniversities.getStudents(), 
+         interestingUniversities.getStudents().getIn());
+      
+      
+      // ok do it with search pattern
+      ReachabilityGraphPO reachabilityGraphPO = new ReachabilityGraphPO(reachabilityGraph);
+      ReachableStatePO statePO = reachabilityGraphPO.filterStates();
+      UniversityPO universityPO = statePO.filterGraphRoot().instanceOf(new UniversityPO());
+      StudentPO studentPO = universityPO.filterStudents().filterMotivation(0);
+      RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
+      
+      ReachableState currentMatch = statePO.getCurrentMatch();
+      
+      story.add("Total number of states " + reachabilityGraph.getStates().size());
+      
+      story.add("Success state " + currentMatch.getNumber());
+      
+      story.addPattern(reachabilityGraphPO, true);
       
       story.dumpHTML();
    }
