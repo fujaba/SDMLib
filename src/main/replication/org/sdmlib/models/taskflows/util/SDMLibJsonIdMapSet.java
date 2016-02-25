@@ -59,4 +59,16 @@ public class SDMLibJsonIdMapSet extends SimpleSet<SDMLibJsonIdMap>
 
 
    public static final SDMLibJsonIdMapSet EMPTY_SET = new SDMLibJsonIdMapSet().withFlag(SDMLibJsonIdMapSet.READONLY);
+
+
+   public SDMLibJsonIdMapPO filterSDMLibJsonIdMapPO()
+   {
+      return new SDMLibJsonIdMapPO(this.toArray(new SDMLibJsonIdMap[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.serialization.SDMLibJsonIdMap";
+   }
 }

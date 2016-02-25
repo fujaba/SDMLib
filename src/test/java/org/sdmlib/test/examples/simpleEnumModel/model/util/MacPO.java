@@ -189,4 +189,61 @@ public class MacPO extends PatternObject<MacPO, Mac>
       return null;
    }
 
+   public MacPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO filterType(TEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO filterOwner(Alex value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_OWNER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

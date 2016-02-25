@@ -8,16 +8,16 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
 <script>
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"TaskFlow",
          "attributes":[
-         "taskNo : int",
+            "taskNo : int",
             "idMap : SDMLibJsonIdMap"
          ]
       },
@@ -25,7 +25,7 @@
          "typ":"node",
          "id":"PeerProxy",
          "attributes":[
-         "ip : String",
+            "ip : String",
             "port : int",
             "idMap : SDMLibJsonIdMap"
          ]
@@ -34,7 +34,7 @@
          "typ":"node",
          "id":"SocketThread",
          "attributes":[
-         "ip : String",
+            "ip : String",
             "port : int",
             "idMap : SDMLibJsonIdMap",
             "defaultTargetThread : Object"
@@ -44,25 +44,25 @@
          "typ":"node",
          "id":"FetchFileFlow",
          "attributes":[
-         "fileServer : PeerProxy",
+            "fileServer : PeerProxy",
             "fileName : String"
          ],
          "methods":[
-         "run()"
+            "run()"
          ]
       },
       {
          "typ":"node",
          "id":"Logger",
          "attributes":[
-         "startPeer : PeerProxy"
+            "startPeer : PeerProxy"
          ]
       },
       {
          "typ":"node",
          "id":"LogEntry",
          "attributes":[
-         "nodeName : String",
+            "nodeName : String",
             "taskName : String"
          ]
       },
@@ -76,17 +76,56 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"TaskFlow",
             "cardinality":"one",
-            "property":"parent"
+            "property":"subFlow"
          },
          "target":{
             "id":"TaskFlow",
             "cardinality":"one",
-            "property":"subFlow"
+            "property":"parent"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         },
+         "target":{
+            "id":"FetchFileFlow",
+            "cardinality":"one",
+            "property":"fetchfileflow"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         },
+         "target":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"FetchFileFlow",
+            "cardinality":"one",
+            "property":"fetchfileflow"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
          }
       },
       {
@@ -106,13 +145,52 @@
          "typ":"edge",
          "source":{
             "id":"LogEntry",
-            "cardinality":"one",
-            "property":"parent"
+            "cardinality":"many",
+            "property":"entries"
          },
          "target":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"LogEntry",
             "cardinality":"many",
             "property":"children"
+         },
+         "target":{
+            "id":"LogEntry",
+            "cardinality":"one",
+            "property":"parent"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Timer",
+            "cardinality":"one",
+            "property":"timer"
+         },
+         "target":{
+            "id":"SDMTimer",
+            "cardinality":"one",
+            "property":"sdmtimer"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMTimer",
+            "cardinality":"one",
+            "property":"sdmtimer"
+         },
+         "target":{
+            "id":"Timer",
+            "cardinality":"one",
+            "property":"timer"
          }
       },
       {

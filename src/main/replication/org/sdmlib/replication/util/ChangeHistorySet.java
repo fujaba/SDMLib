@@ -29,6 +29,7 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.ReplicationChangeSet;
 
 public class ChangeHistorySet extends SimpleSet<ChangeHistory>
 {
@@ -120,4 +121,16 @@ public class ChangeHistorySet extends SimpleSet<ChangeHistory>
 
 
    public static final ChangeHistorySet EMPTY_SET = new ChangeHistorySet().withFlag(ChangeHistorySet.READONLY);
+
+
+   public ChangeHistoryPO filterChangeHistoryPO()
+   {
+      return new ChangeHistoryPO(this.toArray(new ChangeHistory[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ChangeHistory";
+   }
 }

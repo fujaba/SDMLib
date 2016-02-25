@@ -256,4 +256,109 @@ public class MacSet extends SimpleSet<Mac>
       return result;
    }
 
+
+
+   public MacPO filterMacPO()
+   {
+      return new MacPO(this.toArray(new Mac[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleEnumModel.model.Mac";
+   }
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the Name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet filterName(String value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the Name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet filterName(String lower, String upper)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet filterType(TEnum value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the owner attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet filterOwner(Alex value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value == obj.getOwner())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

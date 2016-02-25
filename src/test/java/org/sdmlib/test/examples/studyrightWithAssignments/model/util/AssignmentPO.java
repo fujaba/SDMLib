@@ -31,14 +31,14 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 
 
    public AssignmentPO(){
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public AssignmentPO(Assignment... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    public AssignmentPO filterContent(String value)
    {

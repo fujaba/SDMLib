@@ -9,47 +9,6 @@
 <script src="includes/graph.js"></script>
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelspace/chat/MSChatClientTest.java' type='text/x-java'>DirectChat</a></p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"M1 : MSChatChannel",
-         "attributes":[
-         "task=testDirectChat Sabine is ready"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"M2 : MSChatMsg",
-         "attributes":[
-         "text=Thank you for your cooperation",
-            "time=0",
-            "sender=testDirectChat"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"channel",
-            "id":"M1 : MSChatChannel"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"msgs",
-            "id":"M2 : MSChatMsg"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasDirectChat1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 
 </body>
 </html>

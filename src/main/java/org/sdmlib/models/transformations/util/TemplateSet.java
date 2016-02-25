@@ -33,6 +33,9 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class TemplateSet extends SimpleSet<Template>
 {
@@ -723,6 +726,393 @@ public class TemplateSet extends SimpleSet<Template>
       }
 
       return this;
+   }
+
+
+
+   public TemplatePO filterTemplatePO()
+   {
+      return new TemplatePO(this.toArray(new Template[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.transformations.Template";
+   }
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the templateText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterTemplateText(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getTemplateText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the templateText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterTemplateText(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the expandedText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterExpandedText(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getExpandedText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the expandedText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterExpandedText(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the modelObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterModelObject(Object value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value == obj.getModelObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the modelClassName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterModelClassName(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getModelClassName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the modelClassName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterModelClassName(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listStart attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListStart(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getListStart()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listStart attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListStart(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listSeparator attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListSeparator(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getListSeparator()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listSeparator attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListSeparator(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listEnd attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListEnd(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getListEnd()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the listEnd attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterListEnd(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the referenceLookup attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterReferenceLookup(boolean value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value == obj.isReferenceLookup())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterName(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Template objects and collect those Template objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Template objects that match the parameter
+    */
+   public TemplateSet filterName(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

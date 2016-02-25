@@ -57,4 +57,16 @@ public class ThreadSet extends SimpleSet<Thread>
 
 
    public static final ThreadSet EMPTY_SET = new ThreadSet().withFlag(ThreadSet.READONLY);
+
+
+   public ThreadPO filterThreadPO()
+   {
+      return new ThreadPO(this.toArray(new Thread[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.lang.Thread";
+   }
 }

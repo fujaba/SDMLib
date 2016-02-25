@@ -161,4 +161,63 @@ public class ModelSpaceProxyPO extends PatternObject<ModelSpaceProxyPO, ModelSpa
       return null;
    }
 
+   public ModelSpaceProxyPO filterLocation(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelSpaceProxy.PROPERTY_LOCATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelSpaceProxyPO filterLocation(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelSpaceProxy.PROPERTY_LOCATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO filterCloud()
+   {
+      ModelCloudPO result = new ModelCloudPO(new ModelCloud[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelSpaceProxy.PROPERTY_CLOUD, result);
+      
+      return result;
+   }
+
+   public ModelSpaceProxyPO filterCloud(ModelCloudPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelSpaceProxy.PROPERTY_CLOUD);
+   }
+
+   public ModelCloudProxyPO filterProvidingClouds()
+   {
+      ModelCloudProxyPO result = new ModelCloudProxyPO(new ModelCloudProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS, result);
+      
+      return result;
+   }
+
+   public ModelSpaceProxyPO filterProvidingClouds(ModelCloudProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS);
+   }
+
 }

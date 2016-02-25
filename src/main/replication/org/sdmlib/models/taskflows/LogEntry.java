@@ -29,11 +29,15 @@ import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.models.taskflows.Logger;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
-   public class LogEntry implements PropertyChangeInterface
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
+   public class LogEntry implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -132,7 +136,23 @@ import de.uniks.networkparser.json.JsonIdMap;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
    
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
    //==========================================================================
    
    public void removeYou()

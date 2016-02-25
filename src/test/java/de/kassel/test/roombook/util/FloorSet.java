@@ -30,6 +30,7 @@ import org.sdmlib.models.modelsets.intList;
 import de.kassel.test.roombook.Building;
 import de.kassel.test.roombook.Floor;
 import de.uniks.networkparser.list.SimpleSet;
+import de.kassel.test.roombook.util.BuildingSet;
 
 public class FloorSet extends SimpleSet<Floor>
 {
@@ -251,6 +252,159 @@ public class FloorSet extends SimpleSet<Floor>
    }
 
    public FloorSet hasGuest(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getGuest()) <= 0 && obj.getGuest().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public FloorPO filterFloorPO()
+   {
+      return new FloorPO(this.toArray(new Floor[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "de.kassel.test.roombook.Floor";
+   }
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the level attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterLevel(int value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value == obj.getLevel())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the level attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterLevel(int lower, int upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower <= obj.getLevel() && obj.getLevel() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterName(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterName(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the guest attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterGuest(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getGuest()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the guest attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet filterGuest(String lower, String upper)
    {
       FloorSet result = new FloorSet();
       

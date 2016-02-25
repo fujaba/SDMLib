@@ -442,4 +442,167 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+   public PlayerPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterLane(Lane value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_LANE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO filterDeckOwner()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterDeckOwner(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_DECKOWNER);
+   }
+
+   public MauMauPO filterStackOwner()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterStackOwner(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_STACKOWNER);
+   }
+
+   public CardPO filterCards()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterCards(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_CARDS);
+   }
+
+   public MauMauPO filterGame()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterGame(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_GAME);
+   }
+
+   public MauMauPO filterWonGame()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_WONGAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterWonGame(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_WONGAME);
+   }
+
+   public MauMauPO filterLostGame()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_LOSTGAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterLostGame(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_LOSTGAME);
+   }
+
+   public PlayerPO filterPrev()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterPrev(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PREV);
+   }
+
+   public DutyPO filterDuty()
+   {
+      DutyPO result = new DutyPO(new Duty[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_DUTY, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterDuty(DutyPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_DUTY);
+   }
+
 }

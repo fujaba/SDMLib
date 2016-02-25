@@ -10,6 +10,8 @@ import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.util.BoardTaskPO;
 import java.beans.PropertyChangeEvent;
+import org.sdmlib.replication.util.LogEntryPO;
+import org.sdmlib.replication.util.LanePO;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {
@@ -404,4 +406,150 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return this;
    }
    
+   public BoardTaskPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO filterStatus(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STATUS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO filterStatus(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STATUS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO filterManualExecution(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_MANUALEXECUTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO filterStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterLogEntries()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LOGENTRIES, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO filterLogEntries(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES);
+   }
+
+   public LanePO filterLane()
+   {
+      LanePO result = new LanePO(new Lane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BoardTask.PROPERTY_LANE, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO filterLane(LanePO tgt)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_LANE);
+   }
+
+   public BoardTaskPO filterPrev()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BoardTask.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO filterPrev(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_PREV);
+   }
+
+   public SeppelSpaceProxyPO filterProxy()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BoardTask.PROPERTY_PROXY, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO filterProxy(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_PROXY);
+   }
+
 }

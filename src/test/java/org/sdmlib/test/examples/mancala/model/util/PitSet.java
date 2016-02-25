@@ -448,4 +448,63 @@ public class PitSet extends SimpleSet<Pit>
 
 
    public static final PitSet EMPTY_SET = new PitSet().withFlag(PitSet.READONLY);
+
+
+   public PitPO filterPitPO()
+   {
+      return new PitPO(this.toArray(new Pit[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Pit";
+   }
+
+   /**
+    * Loop through the current set of Pit objects and collect those Pit objects where the nr attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Pit objects that match the parameter
+    */
+   public PitSet filterNr(int value)
+   {
+      PitSet result = new PitSet();
+      
+      for (Pit obj : this)
+      {
+         if (value == obj.getNr())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pit objects and collect those Pit objects where the nr attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Pit objects that match the parameter
+    */
+   public PitSet filterNr(int lower, int upper)
+   {
+      PitSet result = new PitSet();
+      
+      for (Pit obj : this)
+      {
+         if (lower <= obj.getNr() && obj.getNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,29 +21,40 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class WindowSet extends SimpleSet<Window>
+public class WindowSet extends SDMSet<Window>
 {
 
    public static final WindowSet EMPTY_SET = new WindowSet().withFlag(WindowSet.READONLY);
 
 
-   public WindowPO hasWindowPO()
+   public WindowPO filterWindowPO()
    {
       return new WindowPO(this.toArray(new Window[this.size()]));
    }
 
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.annotations.model.simple.Window";
+   }
+
+
    @SuppressWarnings("unchecked")
    public WindowSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Window>)value);
       }
@@ -61,19 +72,37 @@ public class WindowSet extends SimpleSet<Window>
       return this;
    }
 
+   @Override
+   public WindowSet filter(Condition<Window> newValue) {
+      WindowSet filterList = new WindowSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Window objects and collect a set of the House objects reached via house. 
+    * 
+    * @return Set of House objects reachable via house
+    */
    public HouseSet getHouse()
    {
       HouseSet result = new HouseSet();
       
       for (Window obj : this)
       {
-         result.add(obj.getHouse());
+         result.with(obj.getHouse());
       }
       
       return result;
    }
 
-   public WindowSet hasHouse(Object value)
+   /**
+    * Loop through the current set of Window objects and collect all contained objects with reference house pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as house neighbor of the collected results. 
+    * 
+    * @return Set of House objects referring to value via house
+    */
+   public WindowSet filterHouse(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -90,7 +119,7 @@ public class WindowSet extends SimpleSet<Window>
       
       for (Window obj : this)
       {
-         if (neighbors.contains(obj.getHouse()))
+         if (neighbors.contains(obj.getHouse()) || (neighbors.isEmpty() && obj.getHouse() == null))
          {
             answer.add(obj);
          }
@@ -99,6 +128,11 @@ public class WindowSet extends SimpleSet<Window>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Window object passed as parameter to the House attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
+    */
    public WindowSet withHouse(House value)
    {
       for (Window obj : this)

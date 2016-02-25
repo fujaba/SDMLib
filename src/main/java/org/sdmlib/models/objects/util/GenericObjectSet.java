@@ -350,5 +350,158 @@ public class GenericObjectSet extends SimpleSet<GenericObject>
       return result;
    }
 
+
+
+   public GenericObjectPO filterGenericObjectPO()
+   {
+      return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericObject";
+   }
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterName(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterName(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterType(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterType(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterIcon(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getIcon()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterIcon(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getIcon()) <= 0 && obj.getIcon().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 

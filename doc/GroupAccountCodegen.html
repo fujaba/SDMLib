@@ -14,21 +14,21 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"GroupAccount",
          "attributes":[
-         "task : String"
+            "task : String"
          ],
          "methods":[
-         "updateBalances()"
+            "updateBalances()"
          ]
       },
       {
          "typ":"node",
          "id":"Person",
          "attributes":[
-         "name : String",
+            "name : String",
             "balance : double"
          ]
       },
@@ -36,13 +36,13 @@
          "typ":"node",
          "id":"Item",
          "attributes":[
-         "description : String",
+            "description : String",
             "value : double"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"GroupAccount",
@@ -59,6 +59,19 @@
          "typ":"edge",
          "source":{
             "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         },
+         "target":{
+            "id":"GroupAccount",
+            "cardinality":"one",
+            "property":"parent"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
             "cardinality":"one",
             "property":"buyer"
          },
@@ -66,6 +79,19 @@
             "id":"Item",
             "cardinality":"many",
             "property":"item"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"item"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"buyer"
          }
       }
    ]

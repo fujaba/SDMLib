@@ -29,10 +29,13 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.ChangeHistory;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public class ReplicationChange extends Task implements PropertyChangeInterface,
       Comparable<ReplicationChange>
 {

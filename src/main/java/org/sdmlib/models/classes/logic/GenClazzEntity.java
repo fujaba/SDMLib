@@ -630,13 +630,13 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                      + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
                      + "{\nALLMATCHES\n\n"
                      + "   public patternObjectClassName(){\n"
-                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+                     + "      newInstance(null);\n"
                      + "   }\n\n"
                      + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
                      + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
                      + "         return ;\n"
                      + "      }\n"
-                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
+                     + "      newInstance(null, hostGraphObject);\n"
                      + "   }\n"
                      + "}\n");
 

@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
+import org.sdmlib.models.taskflows.util.LoggerPO;
+import org.sdmlib.models.taskflows.util.LogEntryPO;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {
@@ -241,6 +243,94 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
          return ((LogEntry) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public LogEntryPO filterNodeName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_NODENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterNodeName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_NODENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterTaskName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TASKNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterTaskName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TASKNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO filterLogger()
+   {
+      LoggerPO result = new LoggerPO(new Logger[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntry.PROPERTY_LOGGER, result);
+      
+      return result;
+   }
+
+   public LogEntryPO filterLogger(LoggerPO tgt)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_LOGGER);
+   }
+
+   public LogEntryPO filterParent()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntry.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public LogEntryPO filterParent(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_PARENT);
    }
 
 }

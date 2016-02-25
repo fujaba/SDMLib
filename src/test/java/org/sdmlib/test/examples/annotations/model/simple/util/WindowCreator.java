@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,12 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
-
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 
-public class WindowCreator extends EntityFactory
+public class WindowCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -87,9 +86,7 @@ public class WindowCreator extends EntityFactory
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Window) entity).removeYou();
    }

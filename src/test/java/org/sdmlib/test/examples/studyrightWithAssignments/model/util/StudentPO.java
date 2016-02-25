@@ -8,10 +8,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class StudentPO extends PatternObject<StudentPO, Student>
 {
@@ -34,14 +34,14 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
 
    public StudentPO(){
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public StudentPO(Student... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    public StudentPO filterName(String value)
    {
@@ -376,40 +376,6 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return null;
    }
 
-   public AssignmentPO filterDone()
-   {
-      AssignmentPO result = new AssignmentPO(new Assignment[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_DONE, result);
-      
-      return result;
-   }
-
-   public AssignmentPO createDone()
-   {
-      return this.startCreate().filterDone().endCreate();
-   }
-
-   public StudentPO filterDone(AssignmentPO tgt)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
-   }
-
-   public StudentPO createDone(AssignmentPO tgt)
-   {
-      return this.startCreate().filterDone(tgt).endCreate();
-   }
-
-   public AssignmentSet getDone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) this.getCurrentMatch()).getDone();
-      }
-      return null;
-   }
-
    public StudentPO filterFriends()
    {
       StudentPO result = new StudentPO(new Student[]{});
@@ -440,6 +406,40 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       if (this.getPattern().getHasMatch())
       {
          return ((Student) this.getCurrentMatch()).getFriends();
+      }
+      return null;
+   }
+
+   public AssignmentPO filterDone()
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Student.PROPERTY_DONE, result);
+      
+      return result;
+   }
+
+   public AssignmentPO createDone()
+   {
+      return this.startCreate().filterDone().endCreate();
+   }
+
+   public StudentPO filterDone(AssignmentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
+   }
+
+   public StudentPO createDone(AssignmentPO tgt)
+   {
+      return this.startCreate().filterDone(tgt).endCreate();
+   }
+
+   public AssignmentSet getDone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) this.getCurrentMatch()).getDone();
       }
       return null;
    }

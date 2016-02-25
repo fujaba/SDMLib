@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
+import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
+import org.sdmlib.test.examples.ludo.model.util.PawnPO;
+import org.sdmlib.test.examples.ludo.model.util.FieldPO;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
@@ -276,6 +279,123 @@ import org.sdmlib.test.examples.ludo.model.Player;
          return ((Pawn) this.getCurrentMatch()).getPos();
       }
       return null;
+   }
+
+   public PawnPO filterColor(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PawnPO filterColor(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PawnPO filterX(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_X)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PawnPO filterX(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_X)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PawnPO filterY(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_Y)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PawnPO filterY(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_Y)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterPlayer()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pawn.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public PawnPO filterPlayer(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pawn.PROPERTY_PLAYER);
+   }
+
+   public FieldPO filterPos()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pawn.PROPERTY_POS, result);
+      
+      return result;
+   }
+
+   public PawnPO filterPos(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pawn.PROPERTY_POS);
    }
 
 }

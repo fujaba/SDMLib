@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.replication.util.RemoteTaskBoardPO;
+import org.sdmlib.replication.util.LanePO;
+import org.sdmlib.replication.util.BoardTaskPO;
 
 public class LanePO extends PatternObject<LanePO, Lane>
 {
@@ -155,6 +158,65 @@ public class LanePO extends PatternObject<LanePO, Lane>
          return ((Lane) this.getCurrentMatch()).getTasks();
       }
       return null;
+   }
+
+   public LanePO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LanePO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RemoteTaskBoardPO filterBoard()
+   {
+      RemoteTaskBoardPO result = new RemoteTaskBoardPO(new RemoteTaskBoard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Lane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public LanePO filterBoard(RemoteTaskBoardPO tgt)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_BOARD);
+   }
+
+   public BoardTaskPO filterTasks()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Lane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public LanePO filterTasks(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_TASKS);
    }
 
 }

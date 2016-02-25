@@ -5,6 +5,8 @@ import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountPO;
 
 public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 {
@@ -135,4 +137,48 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       return this;
    }
    
+   public GroupAccountPO filterTask(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GroupAccount.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GroupAccountPO filterTask(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GroupAccount.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterPersons()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GroupAccount.PROPERTY_PERSONS, result);
+      
+      return result;
+   }
+
+   public GroupAccountPO filterPersons(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, GroupAccount.PROPERTY_PERSONS);
+   }
+
 }

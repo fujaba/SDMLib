@@ -112,4 +112,63 @@ public class AlexSet extends SimpleSet<Alex>
 
 
    public static final AlexSet EMPTY_SET = new AlexSet().withFlag(AlexSet.READONLY);
+
+
+   public AlexPO filterAlexPO()
+   {
+      return new AlexPO(this.toArray(new Alex[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleEnumModel.model.Alex";
+   }
+
+   /**
+    * Loop through the current set of Alex objects and collect those Alex objects where the Name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Alex objects that match the parameter
+    */
+   public AlexSet filterName(String value)
+   {
+      AlexSet result = new AlexSet();
+      
+      for (Alex obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Alex objects and collect those Alex objects where the Name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Alex objects that match the parameter
+    */
+   public AlexSet filterName(String lower, String upper)
+   {
+      AlexSet result = new AlexSet();
+      
+      for (Alex obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

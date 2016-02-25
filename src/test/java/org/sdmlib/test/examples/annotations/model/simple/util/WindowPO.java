@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.annotations.model.simple.House;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
 import org.sdmlib.test.examples.annotations.model.simple.util.HousePO;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowPO;
 
 public class WindowPO extends PatternObject<WindowPO, Window>
@@ -27,16 +27,16 @@ public class WindowPO extends PatternObject<WindowPO, Window>
 
 
    public WindowPO(){
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public WindowPO(Window... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
-   public HousePO hasHouse()
+   public HousePO filterHouse()
    {
       HousePO result = new HousePO(new House[]{});
       
@@ -48,17 +48,17 @@ public class WindowPO extends PatternObject<WindowPO, Window>
 
    public HousePO createHouse()
    {
-      return this.startCreate().hasHouse().endCreate();
+      return this.startCreate().filterHouse().endCreate();
    }
 
-   public WindowPO hasHouse(HousePO tgt)
+   public WindowPO filterHouse(HousePO tgt)
    {
       return hasLinkConstraint(tgt, Window.PROPERTY_HOUSE);
    }
 
    public WindowPO createHouse(HousePO tgt)
    {
-      return this.startCreate().hasHouse(tgt).endCreate();
+      return this.startCreate().filterHouse(tgt).endCreate();
    }
 
    public House getHouse()

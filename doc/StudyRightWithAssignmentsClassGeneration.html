@@ -18,11 +18,11 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
@@ -41,18 +41,18 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -70,18 +70,18 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -90,7 +90,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -136,22 +136,24 @@
 
       &#x2F;&#x2F; Association studentsInRoom = 
       studentClass.withBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+      studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+      
 </pre><script>
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -162,17 +164,17 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "name : String",
+            "name : String",
             "topic : String",
             "credits : int"
          ],
          "methods":[
-         "findPath(int motivation) String"
+            "findPath(int motivation) String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -222,6 +224,19 @@
             "id":"Room",
             "cardinality":"one",
             "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
          }
       },
       {
@@ -278,18 +293,18 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -300,25 +315,25 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "name : String",
+            "name : String",
             "topic : String",
             "credits : int"
          ],
          "methods":[
-         "findPath(int motivation) String"
+            "findPath(int motivation) String"
          ]
       },
       {
          "typ":"node",
          "id":"Assignment",
          "attributes":[
-         "content : String",
+            "content : String",
             "points : int"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -368,6 +383,19 @@
             "id":"Room",
             "cardinality":"one",
             "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
          }
       },
       {

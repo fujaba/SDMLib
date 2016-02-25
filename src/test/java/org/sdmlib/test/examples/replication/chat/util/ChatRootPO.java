@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.replication.chat.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
 
 public class ChatRootPO extends PatternObject<ChatRootPO, ChatRoot>
 {
@@ -66,6 +68,21 @@ public class ChatRootPO extends PatternObject<ChatRootPO, ChatRoot>
          return ((ChatRoot) this.getCurrentMatch()).getUsers();
       }
       return null;
+   }
+
+   public ChatUserPO filterUsers()
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatRoot.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatRootPO filterUsers(ChatUserPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatRoot.PROPERTY_USERS);
    }
 
 }

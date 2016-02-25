@@ -5,6 +5,10 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.PersonPO;
+import org.sdmlib.test.examples.m2m.model.util.RelationPO;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {
@@ -136,6 +140,51 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
          return ((Graph) this.getCurrentMatch()).getRelations();
       }
       return null;
+   }
+
+   public GraphComponentPO filterGcs()
+   {
+      GraphComponentPO result = new GraphComponentPO(new GraphComponent[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+
+   public GraphPO filterGcs(GraphComponentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_GCS);
+   }
+
+   public PersonPO filterPersons()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_PERSONS, result);
+      
+      return result;
+   }
+
+   public GraphPO filterPersons(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_PERSONS);
+   }
+
+   public RelationPO filterRelations()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_RELATIONS, result);
+      
+      return result;
+   }
+
+   public GraphPO filterRelations(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_RELATIONS);
    }
 
 }

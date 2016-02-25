@@ -26,12 +26,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.Date;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/SimpleModel.java'>SimpleModel.java</a>
 */
-   public class Item implements PropertyChangeInterface
+   public class Item implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -52,9 +53,20 @@ System.out.println(new Date());   }
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

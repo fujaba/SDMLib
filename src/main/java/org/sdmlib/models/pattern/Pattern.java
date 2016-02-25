@@ -316,7 +316,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
 
                if (value instanceof PatternObject || value instanceof Pattern)
-               {
+               {  
                   getTopPattern().incrementPatternObjectCount();
                }
             }

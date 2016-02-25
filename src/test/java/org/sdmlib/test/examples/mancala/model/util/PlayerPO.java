@@ -8,6 +8,9 @@ import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
+import org.sdmlib.test.examples.mancala.model.util.StonePO;
+import org.sdmlib.test.examples.mancala.model.Stone;
+import org.sdmlib.test.examples.mancala.model.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -300,6 +303,97 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       if (this.getPattern().getHasMatch())
       {
          return ((Player) this.getCurrentMatch()).getKalah();
+      }
+      return null;
+   }
+
+   public PlayerPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterState(PlayerState value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterColor(Color value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StonePO filterStone()
+   {
+      StonePO result = new StonePO(new Stone[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_STONE, result);
+      
+      return result;
+   }
+
+   public StonePO createStone()
+   {
+      return this.startCreate().filterStone().endCreate();
+   }
+
+   public PlayerPO filterStone(StonePO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_STONE);
+   }
+
+   public PlayerPO createStone(StonePO tgt)
+   {
+      return this.startCreate().filterStone(tgt).endCreate();
+   }
+
+   public Stone getStone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) this.getCurrentMatch()).getStone();
       }
       return null;
    }

@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -158,5 +160,17 @@ public class PersonSet extends SimpleSet<Person>
 
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Person";
+   }
 }
 

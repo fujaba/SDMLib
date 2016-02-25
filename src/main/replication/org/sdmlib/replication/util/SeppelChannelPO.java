@@ -6,6 +6,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.replication.util.SeppelChannelPO;
 
 public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChannel>
 {
@@ -145,6 +147,49 @@ public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChanne
          return ((SeppelChannel) this.getCurrentMatch()).getSeppelSpaceProxy();
       }
       return null;
+   }
+
+   public SeppelChannelPO filterSocket(Socket value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_SOCKET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelChannelPO filterLoginValidated(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_LOGINVALIDATED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterSeppelSpaceProxy()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelChannel.PROPERTY_SEPPELSPACEPROXY, result);
+      
+      return result;
+   }
+
+   public SeppelChannelPO filterSeppelSpaceProxy(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelChannel.PROPERTY_SEPPELSPACEPROXY);
    }
 
 }

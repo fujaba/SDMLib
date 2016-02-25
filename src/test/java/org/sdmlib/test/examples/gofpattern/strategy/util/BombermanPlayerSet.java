@@ -311,4 +311,197 @@ public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
       return this;
    }
 
+
+
+   public BombermanPlayerPO filterBombermanPlayerPO()
+   {
+      return new BombermanPlayerPO(this.toArray(new BombermanPlayer[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the xPosition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterXPosition(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getXPosition())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the xPosition attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterXPosition(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getXPosition() && obj.getXPosition() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the yPosition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterYPosition(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getYPosition())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the yPosition attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterYPosition(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getYPosition() && obj.getYPosition() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the numberOfBombs attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterNumberOfBombs(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getNumberOfBombs())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the numberOfBombs attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterNumberOfBombs(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getNumberOfBombs() && obj.getNumberOfBombs() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the lastKey attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterLastKey(char value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getLastKey())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the shortTest attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet filterShortTest(short value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getShortTest())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.Value;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.util.HolderSet;
 
 public class CardSet extends SimpleSet<Card>
 {
@@ -239,6 +241,58 @@ public class CardSet extends SimpleSet<Card>
       }
       
       return this;
+   }
+
+
+
+   public CardPO filterCardPO()
+   {
+      return new CardPO(this.toArray(new Card[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Card objects and collect those Card objects where the suit attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Card objects that match the parameter
+    */
+   public CardSet filterSuit(Suit value)
+   {
+      CardSet result = new CardSet();
+      
+      for (Card obj : this)
+      {
+         if (value == obj.getSuit())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Card objects and collect those Card objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Card objects that match the parameter
+    */
+   public CardSet filterValue(Value value)
+   {
+      CardSet result = new CardSet();
+      
+      for (Card obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

@@ -31,6 +31,7 @@ import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
 public class GraphSet extends SimpleSet<Graph>
 {
@@ -241,4 +242,16 @@ public class GraphSet extends SimpleSet<Graph>
 
 
    public static final GraphSet EMPTY_SET = new GraphSet().withFlag(GraphSet.READONLY);
+
+
+   public GraphPO filterGraphPO()
+   {
+      return new GraphPO(this.toArray(new Graph[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.helloworld.model.Graph";
+   }
 }

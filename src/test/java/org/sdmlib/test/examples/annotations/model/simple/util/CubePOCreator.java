@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
 
 public class CubePOCreator extends PatternObjectCreator
 {

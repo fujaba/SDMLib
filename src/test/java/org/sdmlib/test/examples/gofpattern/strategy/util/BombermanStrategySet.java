@@ -154,4 +154,10 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
       return this;
    }
 
+
+
+   public BombermanStrategyPO filterBombermanStrategyPO()
+   {
+      return new BombermanStrategyPO(this.toArray(new BombermanStrategy[this.size()]));
+   }
 }

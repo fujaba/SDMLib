@@ -1,7 +1,6 @@
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.json.JsonIdMap;
 
 class CreatorCreator{
 

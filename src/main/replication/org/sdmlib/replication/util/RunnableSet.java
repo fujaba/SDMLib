@@ -58,4 +58,16 @@ public class RunnableSet extends SimpleSet<Runnable>
 
 
    public static final RunnableSet EMPTY_SET = new RunnableSet().withFlag(RunnableSet.READONLY);
+
+
+   public RunnablePO filterRunnablePO()
+   {
+      return new RunnablePO(this.toArray(new Runnable[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.lang.Runnable";
+   }
 }

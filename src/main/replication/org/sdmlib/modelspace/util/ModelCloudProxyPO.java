@@ -214,4 +214,92 @@ public class ModelCloudProxyPO extends PatternObject<ModelCloudProxyPO, ModelClo
       return null;
    }
 
+   public ModelCloudProxyPO filterHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO filterHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO filterPortNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO filterPortNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_PORTNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO filterRoot()
+   {
+      ModelCloudPO result = new ModelCloudPO(new ModelCloud[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloudProxy.PROPERTY_ROOT, result);
+      
+      return result;
+   }
+
+   public ModelCloudProxyPO filterRoot(ModelCloudPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_ROOT);
+   }
+
+   public ModelSpaceProxyPO filterProvidedSpaces()
+   {
+      ModelSpaceProxyPO result = new ModelSpaceProxyPO(new ModelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloudProxy.PROPERTY_PROVIDEDSPACES, result);
+      
+      return result;
+   }
+
+   public ModelCloudProxyPO filterProvidedSpaces(ModelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_PROVIDEDSPACES);
+   }
+
 }

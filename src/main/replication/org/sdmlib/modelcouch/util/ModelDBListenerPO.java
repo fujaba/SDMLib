@@ -70,4 +70,19 @@ public class ModelDBListenerPO extends PatternObject<ModelDBListenerPO, ModelDBL
       return null;
    }
 
+   public ModelCouchPO filterCouch()
+   {
+      ModelCouchPO result = new ModelCouchPO(new ModelCouch[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelDBListener.PROPERTY_COUCH, result);
+      
+      return result;
+   }
+
+   public ModelDBListenerPO filterCouch(ModelCouchPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelDBListener.PROPERTY_COUCH);
+   }
+
 }

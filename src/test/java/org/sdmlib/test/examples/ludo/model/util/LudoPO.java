@@ -8,6 +8,10 @@ import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
+import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
+import org.sdmlib.test.examples.ludo.model.util.LudoPO;
+import org.sdmlib.test.examples.ludo.model.util.DicePO;
+import org.sdmlib.test.examples.ludo.model.util.FieldPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -177,6 +181,65 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
          return ((Ludo) this.getCurrentMatch()).getFields();
       }
       return null;
+   }
+
+   public LudoPO filterDate(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_DATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterPlayers()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public LudoPO filterPlayers(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS);
+   }
+
+   public DicePO filterDice()
+   {
+      DicePO result = new DicePO(new Dice[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_DICE, result);
+      
+      return result;
+   }
+
+   public LudoPO filterDice(DicePO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_DICE);
+   }
+
+   public FieldPO filterFields()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_FIELDS, result);
+      
+      return result;
+   }
+
+   public LudoPO filterFields(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_FIELDS);
    }
 
 }

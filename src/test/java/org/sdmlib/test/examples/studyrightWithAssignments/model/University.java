@@ -33,7 +33,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
  */
    public  class University implements SendableEntity
 {
@@ -128,10 +127,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
    private StudentSet students = null;
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public StudentSet getStudents()
    {
       if (this.students == null)
@@ -142,10 +137,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
       return this.students;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public University withStudents(Student... value)
    {
       if(value==null){
@@ -188,10 +179,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
       return this;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Student createStudents()
    {
       Student value = new Student();
@@ -199,10 +186,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
       return value;
    } 
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
@@ -223,10 +206,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
    private RoomSet rooms = null;
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public RoomSet getRooms()
    {
       if (this.rooms == null)
@@ -279,10 +258,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
       return this;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Room createRooms()
    {
       Room value = new Room();

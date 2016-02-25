@@ -30,11 +30,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class ChangeEventList implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class ChangeEventList implements PropertyChangeInterface, SendableEntity
 {
    private ObjectChangeTable objectTable = new ObjectChangeTable();
    private LinkedList<ChangeEvent> overwrittenObjectsList = new LinkedList<>();
@@ -264,10 +266,22 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
 
    //==========================================================================

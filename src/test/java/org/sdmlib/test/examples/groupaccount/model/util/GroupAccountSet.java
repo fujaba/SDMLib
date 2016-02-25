@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class GroupAccountSet extends SimpleSet<GroupAccount>
 {
@@ -219,6 +220,65 @@ public class GroupAccountSet extends SimpleSet<GroupAccount>
       }
       
       return this;
+   }
+
+
+
+   public GroupAccountPO filterGroupAccountPO()
+   {
+      return new GroupAccountPO(this.toArray(new GroupAccount[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.groupaccount.model.GroupAccount";
+   }
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet filterTask(String value)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet filterTask(String lower, String upper)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

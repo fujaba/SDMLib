@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.m2m.model.util.GraphSet;
+import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -448,6 +450,112 @@ public class PersonSet extends SimpleSet<Person>
    }
 
    public PersonSet hasText(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.m2m.model.Person";
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the firstName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterFirstName(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getFirstName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the firstName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterFirstName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getFirstName()) <= 0 && obj.getFirstName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterText(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterText(String lower, String upper)
    {
       PersonSet result = new PersonSet();
       

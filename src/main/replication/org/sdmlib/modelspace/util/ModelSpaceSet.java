@@ -66,4 +66,10 @@ public class ModelSpaceSet extends SimpleSet<ModelSpace>
       return this;
    }
 
+
+
+   public ModelSpacePO filterModelSpacePO()
+   {
+      return new ModelSpacePO(this.toArray(new ModelSpace[this.size()]));
+   }
 }

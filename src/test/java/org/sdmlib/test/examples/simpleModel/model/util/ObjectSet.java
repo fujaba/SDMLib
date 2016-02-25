@@ -57,4 +57,16 @@ public class ObjectSet extends SimpleSet<Object>
       return this;
    }
 
+
+
+   public ObjectPO filterObjectPO()
+   {
+      return new ObjectPO(this.toArray(new Object[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.lang.Object";
+   }
 }

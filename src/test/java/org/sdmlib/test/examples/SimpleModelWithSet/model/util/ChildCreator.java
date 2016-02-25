@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -67,15 +67,15 @@ public class ChildCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
       if (Child.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          ((Child) target).withParent((Person) value);
          return true;
+      }
+
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
       
       return false;

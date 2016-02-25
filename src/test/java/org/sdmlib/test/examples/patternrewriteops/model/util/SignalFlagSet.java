@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagSet extends SimpleSet<SignalFlag>
 {
@@ -120,5 +121,17 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
 
 
    public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withFlag(SignalFlagSet.READONLY);
+
+
+   public SignalFlagPO filterSignalFlagPO()
+   {
+      return new SignalFlagPO(this.toArray(new SignalFlag[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
+   }
 }
 

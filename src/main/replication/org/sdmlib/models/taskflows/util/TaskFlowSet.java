@@ -299,4 +299,86 @@ public class TaskFlowSet extends SimpleSet<TaskFlow>
 
 
    public static final TaskFlowSet EMPTY_SET = new TaskFlowSet().withFlag(TaskFlowSet.READONLY);
+
+
+   public TaskFlowPO filterTaskFlowPO()
+   {
+      return new TaskFlowPO(this.toArray(new TaskFlow[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.TaskFlow";
+   }
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the taskNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet filterTaskNo(int value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the taskNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet filterTaskNo(int lower, int upper)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (lower <= obj.getTaskNo() && obj.getTaskNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet filterIdMap(SDMLibJsonIdMap value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

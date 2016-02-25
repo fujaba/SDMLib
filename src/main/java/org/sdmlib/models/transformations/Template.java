@@ -42,11 +42,15 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import java.lang.Object;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.Match;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
 */
-   public class Template implements PropertyChangeInterface
+   public class Template implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
 
@@ -58,9 +62,20 @@ import java.lang.Object;
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

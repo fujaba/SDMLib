@@ -13,11 +13,11 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Template",
          "attributes":[
-         "templateText : String",
+            "templateText : String",
             "expandedText : String",
             "modelObject : Object",
             "modelClassName : String",
@@ -32,7 +32,7 @@
          "typ":"node",
          "id":"PlaceHolderDescription",
          "attributes":[
-         "textFragment : String",
+            "textFragment : String",
             "value : String",
             "attrName : String",
             "isKeyAttribute : boolean",
@@ -47,7 +47,7 @@
          "typ":"node",
          "id":"Match",
          "attributes":[
-         "startPos : int",
+            "startPos : int",
             "endPos : int",
             "fullText : String",
             "matchText : String",
@@ -56,7 +56,72 @@
       }
    ],
    "edges":[
-   {
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Template",
+            "cardinality":"many",
+            "property":"owners"
+         },
+         "target":{
+            "id":"PlaceHolderDescription",
+            "cardinality":"many",
+            "property":"placeholders"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"template"
+         },
+         "target":{
+            "id":"ChoiceTemplate",
+            "cardinality":"one",
+            "property":"choicetemplate"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Template",
+            "cardinality":"many",
+            "property":"choices"
+         },
+         "target":{
+            "id":"ChoiceTemplate",
+            "cardinality":"one",
+            "property":"chooser"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"template"
+         },
+         "target":{
+            "id":"Match",
+            "cardinality":"many",
+            "property":"matches"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"subTemplate"
+         },
+         "target":{
+            "id":"PlaceHolderDescription",
+            "cardinality":"many",
+            "property":"parents"
+         }
+      },
+      {
          "typ":"edge",
          "source":{
             "id":"PlaceHolderDescription",
@@ -67,6 +132,32 @@
             "id":"Template",
             "cardinality":"many",
             "property":"owners"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"PlaceHolderDescription",
+            "cardinality":"one",
+            "property":"placeholder"
+         },
+         "target":{
+            "id":"Match",
+            "cardinality":"many",
+            "property":"matches"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"PlaceHolderDescription",
+            "cardinality":"many",
+            "property":"parents"
+         },
+         "target":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"subTemplate"
          }
       },
       {
@@ -98,19 +189,6 @@
       {
          "typ":"edge",
          "source":{
-            "id":"PlaceHolderDescription",
-            "cardinality":"many",
-            "property":"parents"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"one",
-            "property":"subTemplate"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
             "id":"Match",
             "cardinality":"many",
             "property":"matches"
@@ -125,13 +203,13 @@
          "typ":"edge",
          "source":{
             "id":"Match",
-            "cardinality":"one",
-            "property":"parentMatch"
+            "cardinality":"many",
+            "property":"subMatches"
          },
          "target":{
             "id":"Match",
-            "cardinality":"many",
-            "property":"subMatches"
+            "cardinality":"one",
+            "property":"parentMatch"
          }
       },
       {

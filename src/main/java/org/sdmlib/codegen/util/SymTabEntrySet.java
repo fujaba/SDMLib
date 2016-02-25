@@ -666,4 +666,521 @@ public class SymTabEntrySet extends SimpleSet<SymTabEntry>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterKind(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterKind(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the memberName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterMemberName(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getMemberName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the memberName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterMemberName(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getMemberName()) <= 0 && obj.getMemberName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterType(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the type attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterType(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the bodyStartPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterBodyStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getBodyStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the bodyStartPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterBodyStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getBodyStartPos() && obj.getBodyStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterEndPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterEndPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the annotations attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterAnnotations(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getAnnotations()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the annotations attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterAnnotations(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getAnnotations()) <= 0 && obj.getAnnotations().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the modifiers attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterModifiers(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getModifiers()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the modifiers attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterModifiers(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getModifiers()) <= 0 && obj.getModifiers().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the annotationsStartPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterAnnotationsStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getAnnotationsStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the annotationsStartPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterAnnotationsStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getAnnotationsStartPos() && obj.getAnnotationsStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the preCommentStartPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterPreCommentStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getPreCommentStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the preCommentStartPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterPreCommentStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getPreCommentStartPos() && obj.getPreCommentStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the preCommentEndPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterPreCommentEndPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getPreCommentEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SymTabEntry objects and collect those SymTabEntry objects where the preCommentEndPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SymTabEntry objects that match the parameter
+    */
+   public SymTabEntrySet filterPreCommentEndPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getPreCommentEndPos() && obj.getPreCommentEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

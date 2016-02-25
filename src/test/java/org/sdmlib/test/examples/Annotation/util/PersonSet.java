@@ -66,4 +66,10 @@ public class PersonSet extends SimpleSet<Person>
       return this;
    }
 
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
 }

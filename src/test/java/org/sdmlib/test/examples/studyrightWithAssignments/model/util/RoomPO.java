@@ -38,19 +38,27 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
 
    public RoomPO(){
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    
    //==========================================================================
    
- 
+   public String findPath(int motivation)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) getCurrentMatch()).findPath(motivation);
+      }
+      return null;
+   }
+
    public RoomPO filterName(String value)
    {
       new AttributeConstraint()
@@ -376,19 +384,6 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       if (this.getPattern().getHasMatch())
       {
          return ((Room) this.getCurrentMatch()).getTas();
-      }
-      return null;
-   }
-
-
-   
-   //==========================================================================
-   
-   public String findPath(int motivation)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) getCurrentMatch()).findPath(motivation);
       }
       return null;
    }

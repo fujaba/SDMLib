@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 
 public class TrainSet extends SimpleSet<Train>
 {
@@ -169,5 +171,17 @@ public class TrainSet extends SimpleSet<Train>
 
 
    public static final TrainSet EMPTY_SET = new TrainSet().withFlag(TrainSet.READONLY);
+
+
+   public TrainPO filterTrainPO()
+   {
+      return new TrainPO(this.toArray(new Train[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Train";
+   }
 }
 

@@ -32,11 +32,15 @@ import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.modelspace.ModelCloud;
+import org.sdmlib.modelspace.ModelCloudProxy;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
-*/
-   public  class ModelSpaceProxy implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+ */
+   public  class ModelSpaceProxy implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -49,10 +53,22 @@ import de.uniks.networkparser.json.JsonObject;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================

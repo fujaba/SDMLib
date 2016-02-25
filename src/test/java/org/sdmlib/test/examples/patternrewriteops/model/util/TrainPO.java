@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
@@ -129,6 +132,36 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
          return ((Train) this.getCurrentMatch()).getPassengers();
       }
       return null;
+   }
+
+   public StationPO filterStation()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Train.PROPERTY_STATION, result);
+      
+      return result;
+   }
+
+   public TrainPO filterStation(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Train.PROPERTY_STATION);
+   }
+
+   public PersonPO filterPassengers()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Train.PROPERTY_PASSENGERS, result);
+      
+      return result;
+   }
+
+   public TrainPO filterPassengers(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Train.PROPERTY_PASSENGERS);
    }
 
 }

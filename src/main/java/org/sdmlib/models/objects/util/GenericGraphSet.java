@@ -149,5 +149,11 @@ public class GenericGraphSet extends SimpleSet<GenericGraph>
    }
 
    public static final GenericGraphSet EMPTY_SET = new GenericGraphSet().withFlag(GenericGraphSet.READONLY);
+
+
+   public GenericGraphPO filterGenericGraphPO()
+   {
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
+   }
 }
 

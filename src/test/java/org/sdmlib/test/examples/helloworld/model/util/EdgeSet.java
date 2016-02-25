@@ -359,6 +359,112 @@ public class EdgeSet extends SimpleSet<Edge>
       return result;
    }
 
+
+
+   public EdgePO filterEdgePO()
+   {
+      return new EdgePO(this.toArray(new Edge[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.helloworld.model.Edge";
+   }
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterName(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterName(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterText(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterText(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

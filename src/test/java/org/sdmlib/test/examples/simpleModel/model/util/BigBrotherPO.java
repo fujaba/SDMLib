@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
+import org.sdmlib.test.examples.simpleModel.model.util.PersonPO;
+import org.sdmlib.test.examples.simpleModel.model.util.BigBrotherPO;
 
 public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
 {
@@ -134,6 +136,51 @@ public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
          return ((BigBrother) this.getCurrentMatch()).getSuspects();
       }
       return null;
+   }
+
+   public PersonPO filterNoOne()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BigBrother.PROPERTY_NOONE, result);
+      
+      return result;
+   }
+
+   public BigBrotherPO filterNoOne(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, BigBrother.PROPERTY_NOONE);
+   }
+
+   public PersonPO filterSuspects()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BigBrother.PROPERTY_SUSPECTS, result);
+      
+      return result;
+   }
+
+   public BigBrotherPO filterSuspects(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, BigBrother.PROPERTY_SUSPECTS);
+   }
+
+   public ObjectPO filterKids()
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BigBrother.PROPERTY_KIDS, result);
+      
+      return result;
+   }
+
+   public BigBrotherPO filterKids(ObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, BigBrother.PROPERTY_KIDS);
    }
 
 }

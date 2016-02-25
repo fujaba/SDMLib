@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
 
 public class DrawingStackSet extends SimpleSet<DrawingStack>
 {
@@ -272,4 +274,10 @@ public class DrawingStackSet extends SimpleSet<DrawingStack>
       return this;
    }
 
+
+
+   public DrawingStackPO filterDrawingStackPO()
+   {
+      return new DrawingStackPO(this.toArray(new DrawingStack[this.size()]));
+   }
 }

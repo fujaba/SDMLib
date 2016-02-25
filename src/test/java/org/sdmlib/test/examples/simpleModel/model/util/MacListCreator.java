@@ -31,6 +31,7 @@ public class MacListCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       MacList.PROPERTY_NAME,
+      MacList.PROPERTY_SERIALVERSIONUID,
    };
    
    @Override
@@ -60,6 +61,11 @@ public class MacListCreator extends EntityFactory
       {
          return ((MacList) target).getName();
       }
+
+      if (MacList.PROPERTY_SERIALVERSIONUID.equalsIgnoreCase(attribute))
+      {
+         return ((MacList) target).getSerialVersionUID();
+      }
       
       return null;
    }
@@ -67,6 +73,12 @@ public class MacListCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (MacList.PROPERTY_SERIALVERSIONUID.equalsIgnoreCase(attrName))
+      {
+         ((MacList) target).withSerialVersionUID(Long.parseLong(value.toString()));
+         return true;
+      }
+
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;

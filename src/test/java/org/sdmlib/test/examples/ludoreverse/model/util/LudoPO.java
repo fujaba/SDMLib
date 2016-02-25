@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+import org.sdmlib.test.examples.ludoreverse.model.util.PlayerPO;
+import org.sdmlib.test.examples.ludoreverse.model.util.LudoPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -173,6 +175,79 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
          return ((Ludo) this.getCurrentMatch()).getGame();
       }
       return null;
+   }
+
+   public LudoPO filterStyle(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterStyle(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterAge(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterAge(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterGame()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public LudoPO filterGame(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_GAME);
    }
 
 }

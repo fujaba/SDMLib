@@ -70,4 +70,16 @@ public class ItemSet extends SimpleSet<Item>
       
       return this;
    }
+
+
+   public ItemPO filterItemPO()
+   {
+      return new ItemPO(this.toArray(new Item[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleModel.model.Item";
+   }
 }

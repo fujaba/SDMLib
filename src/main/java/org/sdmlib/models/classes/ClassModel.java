@@ -41,8 +41,12 @@ import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
-
-public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity {
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+ */
+public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
+{
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
 	public static final String PROPERTY_CLASSES = "classes";
 	private static final String PROPERTY_FEATURE = "feature";
@@ -128,7 +132,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		StringBuilder result = new StringBuilder();
 
 		result.append(" ").append(this.getId());
-		return result.substring(1);
+		result.append(" ").append(this.getName());
+      return result.substring(1);
 	}
 	
 	public ClassModel with(Clazz... values) {
@@ -294,4 +299,12 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		getPropertyChangeSupport().addPropertyChangeListener(listener);
 		return true;
 	}
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }

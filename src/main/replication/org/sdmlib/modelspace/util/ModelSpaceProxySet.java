@@ -31,6 +31,8 @@ import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.ModelCloudSet;
+import org.sdmlib.modelspace.util.ModelCloudProxySet;
 
 public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
 {
@@ -227,6 +229,59 @@ public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
       }
       
       return this;
+   }
+
+
+
+   public ModelSpaceProxyPO filterModelSpaceProxyPO()
+   {
+      return new ModelSpaceProxyPO(this.toArray(new ModelSpaceProxy[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of ModelSpaceProxy objects and collect those ModelSpaceProxy objects where the location attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ModelSpaceProxy objects that match the parameter
+    */
+   public ModelSpaceProxySet filterLocation(String value)
+   {
+      ModelSpaceProxySet result = new ModelSpaceProxySet();
+      
+      for (ModelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getLocation()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelSpaceProxy objects and collect those ModelSpaceProxy objects where the location attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ModelSpaceProxy objects that match the parameter
+    */
+   public ModelSpaceProxySet filterLocation(String lower, String upper)
+   {
+      ModelSpaceProxySet result = new ModelSpaceProxySet();
+      
+      for (ModelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getLocation()) <= 0 && obj.getLocation().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

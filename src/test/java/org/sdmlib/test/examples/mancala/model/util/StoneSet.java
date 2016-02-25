@@ -59,4 +59,16 @@ public class StoneSet extends SimpleSet<Stone>
 
 
    public static final StoneSet EMPTY_SET = new StoneSet().withFlag(StoneSet.READONLY);
+
+
+   public StonePO filterStonePO()
+   {
+      return new StonePO(this.toArray(new Stone[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Stone";
+   }
 }

@@ -35,8 +35,8 @@ public class GenerateClasses
 {
 
 	/**
-	 * 
-	 * @see <a href='../../../../../../../../doc/main.html'>main.html</a>/n * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsClassGeneration.html'>StudyRightWithAssignmentsClassGeneration.html</a>/n */
+	 * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsClassGeneration.html'>StudyRightWithAssignmentsClassGeneration.html</a>
+	 */
 	@Test
 	public void testStudyRightWithAssignmentsClassGeneration()
 	{
@@ -44,9 +44,7 @@ public class GenerateClasses
 	   * StudyRight with Assignments example in the Story Driven Modeling book
 	   */
 
-	  // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
-
-	  StoryPage story = new StoryPage();
+	   StoryPage story = new StoryPage();
 
 	  //============================================================
 	  story.add("1. generate class University");
@@ -105,6 +103,8 @@ public class GenerateClasses
 
       // Association studentsInRoom = 
       studentClass.withBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
+      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      
       story.addCode();
 
       story.addClassDiagram(model);

@@ -26,11 +26,12 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
 */
-   public class SymTabEntry implements PropertyChangeInterface 
+   public class SymTabEntry implements PropertyChangeInterface, SendableEntity 
 {   
    public static final String PROPERTY_KIND = "kind";
    public static final String PROPERTY_MEMBERNAME = "memberName";
@@ -191,6 +192,23 @@ import java.beans.PropertyChangeListener;
    {
       return listeners;
    }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,29 +21,40 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class DoorSet extends SimpleSet<Door>
+public class DoorSet extends SDMSet<Door>
 {
 
    public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
 
 
-   public DoorPO hasDoorPO()
+   public DoorPO filterDoorPO()
    {
       return new DoorPO(this.toArray(new Door[this.size()]));
    }
 
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.annotations.model.simple.Door";
+   }
+
+
    @SuppressWarnings("unchecked")
    public DoorSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Door>)value);
       }
@@ -61,19 +72,37 @@ public class DoorSet extends SimpleSet<Door>
       return this;
    }
 
+   @Override
+   public DoorSet filter(Condition<Door> newValue) {
+      DoorSet filterList = new DoorSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Door objects and collect a set of the House objects reached via house. 
+    * 
+    * @return Set of House objects reachable via house
+    */
    public HouseSet getHouse()
    {
       HouseSet result = new HouseSet();
       
       for (Door obj : this)
       {
-         result.add(obj.getHouse());
+         result.with(obj.getHouse());
       }
       
       return result;
    }
 
-   public DoorSet hasHouse(Object value)
+   /**
+    * Loop through the current set of Door objects and collect all contained objects with reference house pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as house neighbor of the collected results. 
+    * 
+    * @return Set of House objects referring to value via house
+    */
+   public DoorSet filterHouse(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -90,7 +119,7 @@ public class DoorSet extends SimpleSet<Door>
       
       for (Door obj : this)
       {
-         if (neighbors.contains(obj.getHouse()))
+         if (neighbors.contains(obj.getHouse()) || (neighbors.isEmpty() && obj.getHouse() == null))
          {
             answer.add(obj);
          }
@@ -99,6 +128,11 @@ public class DoorSet extends SimpleSet<Door>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Door object passed as parameter to the House attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
+    */
    public DoorSet withHouse(House value)
    {
       for (Door obj : this)

@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -114,6 +117,36 @@ public class PersonPO extends PatternObject<PersonPO, Person>
          return ((Person) this.getCurrentMatch()).getTrain();
       }
       return null;
+   }
+
+   public StationPO filterStation()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_STATION, result);
+      
+      return result;
+   }
+
+   public PersonPO filterStation(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_STATION);
+   }
+
+   public TrainPO filterTrain()
+   {
+      TrainPO result = new TrainPO(new Train[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_TRAIN, result);
+      
+      return result;
+   }
+
+   public PersonPO filterTrain(TrainPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN);
    }
 
 }

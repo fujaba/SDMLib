@@ -26,11 +26,14 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
 */
-   public class Person implements PropertyChangeInterface
+   public class Person implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -44,9 +47,20 @@ import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

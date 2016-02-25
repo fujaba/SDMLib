@@ -26,16 +26,16 @@ public class PersonPO extends PatternObject<PersonPO, Person>
 
 
    public PersonPO(){
-      newInstance(org.sdmlib.test.examples.SimpleModelWithSet.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public PersonPO(Person... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.SimpleModelWithSet.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
-   public PersonPO hasName(SimpleKeyValueList<String,String> value)
+   public PersonPO filterName(SimpleKeyValueList<String,Person> value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -49,13 +49,13 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createName(SimpleKeyValueList<String,String> value)
+   public PersonPO createName(SimpleKeyValueList<String,Person> value)
    {
-      this.startCreate().hasName(value).endCreate();
+      this.startCreate().filterName(value).endCreate();
       return this;
    }
    
-   public SimpleKeyValueList<String,String> getName()
+   public SimpleKeyValueList<String,Person> getName()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -64,7 +64,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
    
-   public PersonPO withName(SimpleKeyValueList<String,String> value)
+   public PersonPO withName(SimpleKeyValueList<String,Person> value)
    {
       if (this.getPattern().getHasMatch())
       {

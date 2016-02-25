@@ -71,4 +71,19 @@ public class TaskBoardPO extends PatternObject<TaskBoardPO, TaskBoard>
       return null;
    }
 
+   public TaskLanePO filterLanes()
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskBoard.PROPERTY_LANES, result);
+      
+      return result;
+   }
+
+   public TaskBoardPO filterLanes(TaskLanePO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskBoard.PROPERTY_LANES);
+   }
+
 }

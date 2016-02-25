@@ -71,4 +71,16 @@ public class SDMTimerSet extends SimpleSet<SDMTimer>
 
 
    public static final SDMTimerSet EMPTY_SET = new SDMTimerSet().withFlag(SDMTimerSet.READONLY);
+
+
+   public SDMTimerPO filterSDMTimerPO()
+   {
+      return new SDMTimerPO(this.toArray(new SDMTimer[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.SDMTimer";
+   }
 }

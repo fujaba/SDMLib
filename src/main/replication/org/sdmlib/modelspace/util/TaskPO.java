@@ -317,4 +317,150 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return null;
    }
 
+   public TaskPO filterState(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterState(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_STATE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterSpaceName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_SPACENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterSpaceName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_SPACENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterFileName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterFileName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterLastModified(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_LASTMODIFIED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterLastModified(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_LASTMODIFIED)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO filterLane()
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LANE, result);
+      
+      return result;
+   }
+
+   public TaskPO filterLane(TaskLanePO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LANE);
+   }
+
+   public TaskLanePO filterFileTargetCloud()
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_FILETARGETCLOUD, result);
+      
+      return result;
+   }
+
+   public TaskPO filterFileTargetCloud(TaskLanePO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_FILETARGETCLOUD);
+   }
+
 }

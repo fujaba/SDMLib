@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
  */
    public  class TeachingAssistant extends Student
 {
@@ -44,8 +43,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
       setUniversity(null);
       setIn(null);
-      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       setRoom(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

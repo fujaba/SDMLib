@@ -440,4 +440,221 @@ public class StatementEntrySet extends SimpleSet<StatementEntry>
       return result;
    }
 
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.codegen.StatementEntry";
+   }
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterKind(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterKind(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the tokenList attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterTokenList(ArrayList<String> value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getTokenList())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the assignTargetVarName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterAssignTargetVarName(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getAssignTargetVarName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the assignTargetVarName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterAssignTargetVarName(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getAssignTargetVarName()) <= 0 && obj.getAssignTargetVarName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterStartPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterStartPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterEndPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterEndPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

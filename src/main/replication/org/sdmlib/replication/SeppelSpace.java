@@ -52,11 +52,14 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.ChangeEventList;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener, SendableEntity
 {
    //==========================================================================
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
@@ -555,10 +558,22 @@ import javafx.application.Platform;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================

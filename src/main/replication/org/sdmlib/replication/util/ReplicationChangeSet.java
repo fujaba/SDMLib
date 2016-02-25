@@ -479,4 +479,268 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
 
 
    public static final ReplicationChangeSet EMPTY_SET = new ReplicationChangeSet();
+
+
+   public ReplicationChangePO filterReplicationChangePO()
+   {
+      return new ReplicationChangePO(this.toArray(new ReplicationChange[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the historyIdPrefix attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterHistoryIdPrefix(String value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value.equals(obj.getHistoryIdPrefix()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the historyIdPrefix attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterHistoryIdPrefix(String lower, String upper)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (lower.compareTo(obj.getHistoryIdPrefix()) <= 0 && obj.getHistoryIdPrefix().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the historyIdNumber attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterHistoryIdNumber(long value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value == obj.getHistoryIdNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the historyIdNumber attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterHistoryIdNumber(long lower, long upper)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (lower <= obj.getHistoryIdNumber() && obj.getHistoryIdNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the targetObjectId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterTargetObjectId(String value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value.equals(obj.getTargetObjectId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the targetObjectId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterTargetObjectId(String lower, String upper)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (lower.compareTo(obj.getTargetObjectId()) <= 0 && obj.getTargetObjectId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the targetProperty attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterTargetProperty(String value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value.equals(obj.getTargetProperty()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the targetProperty attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterTargetProperty(String lower, String upper)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (lower.compareTo(obj.getTargetProperty()) <= 0 && obj.getTargetProperty().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the isToManyProperty attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterIsToManyProperty(boolean value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value == obj.isIsToManyProperty())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the changeMsg attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterChangeMsg(String value)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (value.equals(obj.getChangeMsg()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChange objects and collect those ReplicationChange objects where the changeMsg attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChange objects that match the parameter
+    */
+   public ReplicationChangeSet filterChangeMsg(String lower, String upper)
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for (ReplicationChange obj : this)
+      {
+         if (lower.compareTo(obj.getChangeMsg()) <= 0 && obj.getChangeMsg().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -59,4 +59,16 @@ public class ColorSet extends SimpleSet<Color>
 
 
    public static final ColorSet EMPTY_SET = new ColorSet().withFlag(ColorSet.READONLY);
+
+
+   public ColorPO filterColorPO()
+   {
+      return new ColorPO(this.toArray(new Color[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.referencemodel.Color";
+   }
 }

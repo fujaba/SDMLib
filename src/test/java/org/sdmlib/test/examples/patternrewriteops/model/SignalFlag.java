@@ -27,11 +27,13 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
 */
-   public class SignalFlag implements PropertyChangeInterface
+   public class SignalFlag implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +47,20 @@ import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

@@ -29,6 +29,7 @@ import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskBoardSet extends SimpleSet<TaskBoard>
 {
@@ -127,4 +128,10 @@ public class TaskBoardSet extends SimpleSet<TaskBoard>
       return this;
    }
 
+
+
+   public TaskBoardPO filterTaskBoardPO()
+   {
+      return new TaskBoardPO(this.toArray(new TaskBoard[this.size()]));
+   }
 }

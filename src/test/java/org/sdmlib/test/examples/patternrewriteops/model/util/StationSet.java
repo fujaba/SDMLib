@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagSet;
 
 public class StationSet extends SimpleSet<Station>
 {
@@ -378,5 +381,17 @@ public class StationSet extends SimpleSet<Station>
 
 
    public static final StationSet EMPTY_SET = new StationSet().withFlag(StationSet.READONLY);
+
+
+   public StationPO filterStationPO()
+   {
+      return new StationPO(this.toArray(new Station[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Station";
+   }
 }
 

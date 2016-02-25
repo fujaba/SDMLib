@@ -218,4 +218,90 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return this;
    }
    
+   public SocketThreadPO filterIp(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO filterIp(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO filterPort(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO filterPort(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO filterIdMap(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO filterDefaultTargetThread(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_DEFAULTTARGETTHREAD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

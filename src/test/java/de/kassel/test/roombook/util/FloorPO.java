@@ -5,6 +5,8 @@ import org.sdmlib.models.pattern.PatternObject;
 
 import de.kassel.test.roombook.Building;
 import de.kassel.test.roombook.Floor;
+import de.kassel.test.roombook.util.BuildingPO;
+import de.kassel.test.roombook.util.FloorPO;
 
 public class FloorPO extends PatternObject<FloorPO, Floor>
 {
@@ -227,6 +229,108 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
          return ((Floor) this.getCurrentMatch()).getBuildings();
       }
       return null;
+   }
+
+   public FloorPO filterLevel(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_LEVEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterLevel(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_LEVEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterGuest(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_GUEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterGuest(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_GUEST)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BuildingPO filterBuildings()
+   {
+      BuildingPO result = new BuildingPO(new de.kassel.test.roombook.Building[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Floor.PROPERTY_BUILDINGS, result);
+      
+      return result;
+   }
+
+   public FloorPO filterBuildings(BuildingPO tgt)
+   {
+      return hasLinkConstraint(tgt, Floor.PROPERTY_BUILDINGS);
    }
 
 }

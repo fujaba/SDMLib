@@ -33,12 +33,16 @@ import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.SharedSpace;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public class ReplicationChannel extends Thread implements
-      PropertyChangeInterface
+      PropertyChangeInterface, SendableEntity
 {
    @Override
    public void run()
@@ -195,6 +199,22 @@ import de.uniks.networkparser.json.JsonObject;
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

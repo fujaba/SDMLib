@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class HolderSet extends SimpleSet<Holder>
 {
@@ -218,4 +220,16 @@ public class HolderSet extends SimpleSet<Holder>
       return this;
    }
 
+
+
+   public HolderPO filterHolderPO()
+   {
+      return new HolderPO(this.toArray(new Holder[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.maumau.model.Holder";
+   }
 }

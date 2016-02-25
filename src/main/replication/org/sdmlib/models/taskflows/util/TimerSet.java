@@ -58,4 +58,16 @@ public class TimerSet extends SimpleSet<Timer>
 
 
    public static final TimerSet EMPTY_SET = new TimerSet().withFlag(TimerSet.READONLY);
+
+
+   public TimerPO filterTimerPO()
+   {
+      return new TimerPO(this.toArray(new Timer[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.util.Timer";
+   }
 }

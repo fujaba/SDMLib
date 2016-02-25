@@ -29,12 +29,14 @@ import org.sdmlib.test.examples.simpleModel.model.util.ObjectSet;
 import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 import java.lang.Object;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.simpleModel.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
 */
-   public class BigBrother implements PropertyChangeInterface
+   public class BigBrother implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -48,9 +50,20 @@ import java.lang.Object;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

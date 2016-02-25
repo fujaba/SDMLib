@@ -8,13 +8,13 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java' type='text/x-java'>ModelSpaceModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java' type='text/x-java'>ModelSpaceModel</a></p>
 <p>ModelSpace provides incremental persistance and collaboration</p>
 <script>
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"ModelSpace"
       },
@@ -22,7 +22,7 @@
          "typ":"node",
          "id":"ModelCloud",
          "attributes":[
-         "hostName : String",
+            "hostName : String",
             "acceptPort : int"
          ]
       },
@@ -30,7 +30,7 @@
          "typ":"node",
          "id":"ModelCloudProxy",
          "attributes":[
-         "hostName : String",
+            "hostName : String",
             "portNo : int"
          ]
       },
@@ -38,7 +38,7 @@
          "typ":"node",
          "id":"ModelSpaceProxy",
          "attributes":[
-         "location : String"
+            "location : String"
          ]
       },
       {
@@ -49,7 +49,7 @@
          "typ":"node",
          "id":"CloudModelFile",
          "attributes":[
-         "fileName : String",
+            "fileName : String",
             "lastModifiedTime : long"
          ]
       },
@@ -61,7 +61,7 @@
          "typ":"node",
          "id":"TaskLane",
          "attributes":[
-         "hostName : String",
+            "hostName : String",
             "portNo : long"
          ]
       },
@@ -69,7 +69,7 @@
          "typ":"node",
          "id":"Task",
          "attributes":[
-         "state : String",
+            "state : String",
             "spaceName : String",
             "fileName : String",
             "lastModified : long"
@@ -77,7 +77,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"ModelCloud",
@@ -108,12 +108,51 @@
          "source":{
             "id":"ModelCloudProxy",
             "cardinality":"many",
+            "property":"servers"
+         },
+         "target":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"root"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
             "property":"providingClouds"
          },
          "target":{
             "id":"ModelSpaceProxy",
             "cardinality":"many",
             "property":"providedSpaces"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"modelSpaces"
+         },
+         "target":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"cloud"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"providedSpaces"
+         },
+         "target":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"providingClouds"
          }
       },
       {
@@ -127,6 +166,19 @@
             "id":"CloudModelFile",
             "cardinality":"many",
             "property":"files"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"CloudModelFile",
+            "cardinality":"many",
+            "property":"files"
+         },
+         "target":{
+            "id":"CloudModelDirectory",
+            "cardinality":"one",
+            "property":"dir"
          }
       },
       {
@@ -146,6 +198,19 @@
          "typ":"edge",
          "source":{
             "id":"TaskLane",
+            "cardinality":"many",
+            "property":"lanes"
+         },
+         "target":{
+            "id":"TaskBoard",
+            "cardinality":"one",
+            "property":"board"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskLane",
             "cardinality":"one",
             "property":"lane"
          },
@@ -153,6 +218,32 @@
             "id":"Task",
             "cardinality":"many",
             "property":"tasks"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"fileTargetCloud"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"myRequests"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"tasks"
+         },
+         "target":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"lane"
          }
       },
       {

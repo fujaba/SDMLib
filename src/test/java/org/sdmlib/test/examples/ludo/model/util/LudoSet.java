@@ -33,6 +33,9 @@ import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.test.examples.ludo.model.util.DiceSet;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -272,6 +275,35 @@ public class LudoSet extends SimpleSet<Ludo>
       }
       
       return this;
+   }
+
+
+
+   public LudoPO filterLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the date attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterDate(Date value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getDate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

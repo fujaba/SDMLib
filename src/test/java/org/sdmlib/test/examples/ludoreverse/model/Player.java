@@ -28,11 +28,13 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.ludoreverse.model.Ludo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludoreverse/LudoReverseModel.java'>LudoReverseModel.java</a>
 */
-   public class Player implements PropertyChangeInterface
+   public class Player implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -46,9 +48,20 @@ import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

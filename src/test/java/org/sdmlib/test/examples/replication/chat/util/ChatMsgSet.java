@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
 
 public class ChatMsgSet extends SimpleSet<ChatMsg>
 {
@@ -265,6 +266,159 @@ public class ChatMsgSet extends SimpleSet<ChatMsg>
       }
       
       return this;
+   }
+
+
+
+   public ChatMsgPO filterChatMsgPO()
+   {
+      return new ChatMsgPO(this.toArray(new ChatMsg[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.replication.chat.ChatMsg";
+   }
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterText(String value)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterText(String lower, String upper)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the time attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterTime(long value)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (value == obj.getTime())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the time attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterTime(long lower, long upper)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (lower <= obj.getTime() && obj.getTime() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the sender attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterSender(String value)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (value.equals(obj.getSender()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the sender attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChatMsg objects that match the parameter
+    */
+   public ChatMsgSet filterSender(String lower, String upper)
+   {
+      ChatMsgSet result = new ChatMsgSet();
+      
+      for (ChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getSender()) <= 0 && obj.getSender().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

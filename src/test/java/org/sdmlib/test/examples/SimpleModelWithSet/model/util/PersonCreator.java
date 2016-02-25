@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -66,15 +66,15 @@ public class PersonCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).withName((de.uniks.networkparser.list.SimpleKeyValueList<String,org.sdmlib.test.examples.SimpleModelWithSet.model.Person>) value);
+         return true;
+      }
+
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Person) target).withName((de.uniks.networkparser.list.SimpleKeyValueList<String,String>) value);
-         return true;
       }
       
       return false;

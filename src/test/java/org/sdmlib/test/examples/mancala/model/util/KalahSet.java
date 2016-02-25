@@ -485,4 +485,63 @@ public class KalahSet extends SimpleSet<Kalah>
 
 
    public static final KalahSet EMPTY_SET = new KalahSet().withFlag(KalahSet.READONLY);
+
+
+   public KalahPO filterKalahPO()
+   {
+      return new KalahPO(this.toArray(new Kalah[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Kalah";
+   }
+
+   /**
+    * Loop through the current set of Kalah objects and collect those Kalah objects where the nr attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Kalah objects that match the parameter
+    */
+   public KalahSet filterNr(int value)
+   {
+      KalahSet result = new KalahSet();
+      
+      for (Kalah obj : this)
+      {
+         if (value == obj.getNr())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Kalah objects and collect those Kalah objects where the nr attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Kalah objects that match the parameter
+    */
+   public KalahSet filterNr(int lower, int upper)
+   {
+      KalahSet result = new KalahSet();
+      
+      for (Kalah obj : this)
+      {
+         if (lower <= obj.getNr() && obj.getNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,27 +21,37 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class CubeSet extends SimpleSet<Cube>
+public class CubeSet extends SDMSet<Cube>
 {
 
    public static final CubeSet EMPTY_SET = new CubeSet().withFlag(CubeSet.READONLY);
 
 
-   public CubePO hasCubePO()
+   public CubePO filterCubePO()
    {
       return new CubePO(this.toArray(new Cube[this.size()]));
    }
 
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.annotations.model.simple.Cube";
+   }
+
+
    @SuppressWarnings("unchecked")
    public CubeSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Cube>)value);
       }
@@ -59,6 +69,12 @@ public class CubeSet extends SimpleSet<Cube>
       return this;
    }
 
+   @Override
+   public CubeSet filter(Condition<Cube> newValue) {
+      CubeSet filterList = new CubeSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
    
    //==========================================================================
    

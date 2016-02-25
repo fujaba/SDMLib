@@ -58,4 +58,16 @@ public class SocketSet extends SimpleSet<Socket>
 
 
    public static final SocketSet EMPTY_SET = new SocketSet().withFlag(SocketSet.READONLY);
+
+
+   public SocketPO filterSocketPO()
+   {
+      return new SocketPO(this.toArray(new Socket[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.net.Socket";
+   }
 }

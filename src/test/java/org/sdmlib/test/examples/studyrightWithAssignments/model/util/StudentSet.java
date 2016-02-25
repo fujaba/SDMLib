@@ -33,9 +33,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class StudentSet extends SDMSet<Student>
 {
@@ -632,86 +632,6 @@ public class StudentSet extends SDMSet<Student>
    }
 
    /**
-    * Loop through the current set of Student objects and collect a set of the Assignment objects reached via done. 
-    * 
-    * @return Set of Assignment objects reachable via done
-    */
-   public AssignmentSet getDone()
-   {
-      AssignmentSet result = new AssignmentSet();
-      
-      for (Student obj : this)
-      {
-         result.with(obj.getDone());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Student objects and collect all contained objects with reference done pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as done neighbor of the collected results. 
-    * 
-    * @return Set of Assignment objects referring to value via done
-    */
-   public StudentSet filterDone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      StudentSet answer = new StudentSet();
-      
-      for (Student obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDone()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the Done attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
-    */
-   public StudentSet withDone(Assignment value)
-   {
-      for (Student obj : this)
-      {
-         obj.withDone(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Student object passed as parameter from the Done attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public StudentSet withoutDone(Assignment value)
-   {
-      for (Student obj : this)
-      {
-         obj.withoutDone(value);
-      }
-      
-      return this;
-   }
-
-   /**
     * Loop through the current set of Student objects and collect a set of the Student objects reached via friends. 
     * 
     * @return Set of Student objects reachable via friends
@@ -814,6 +734,86 @@ public class StudentSet extends SDMSet<Student>
       for (Student obj : this)
       {
          obj.withoutFriends(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Student objects and collect a set of the Assignment objects reached via done. 
+    * 
+    * @return Set of Assignment objects reachable via done
+    */
+   public AssignmentSet getDone()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Student obj : this)
+      {
+         result.with(obj.getDone());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Student objects and collect all contained objects with reference done pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as done neighbor of the collected results. 
+    * 
+    * @return Set of Assignment objects referring to value via done
+    */
+   public StudentSet filterDone(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Student object passed as parameter to the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
+    */
+   public StudentSet withDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Student object passed as parameter from the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public StudentSet withoutDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withoutDone(value);
       }
       
       return this;

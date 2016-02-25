@@ -134,4 +134,16 @@ public class PointSet extends SimpleSet<Point>
 
 
    public static final PointSet EMPTY_SET = new PointSet().withFlag(PointSet.READONLY);
+
+
+   public PointPO filterPointPO()
+   {
+      return new PointPO(this.toArray(new Point[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.awt.Point";
+   }
 }

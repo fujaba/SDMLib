@@ -30,11 +30,16 @@ import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.BoardTask;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class SeppelSpaceProxy implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class SeppelSpaceProxy implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -48,10 +53,22 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================

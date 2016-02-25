@@ -34,10 +34,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
 public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
@@ -693,86 +693,6 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    }
 
    /**
-    * Loop through the current set of TeachingAssistant objects and collect a set of the Assignment objects reached via done. 
-    * 
-    * @return Set of Assignment objects reachable via done
-    */
-   public AssignmentSet getDone()
-   {
-      AssignmentSet result = new AssignmentSet();
-      
-      for (TeachingAssistant obj : this)
-      {
-         result.with(obj.getDone());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference done pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as done neighbor of the collected results. 
-    * 
-    * @return Set of Assignment objects referring to value via done
-    */
-   public TeachingAssistantSet filterDone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TeachingAssistantSet answer = new TeachingAssistantSet();
-      
-      for (TeachingAssistant obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDone()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the Done attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
-    */
-   public TeachingAssistantSet withDone(Assignment value)
-   {
-      for (TeachingAssistant obj : this)
-      {
-         obj.withDone(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the TeachingAssistant object passed as parameter from the Done attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public TeachingAssistantSet withoutDone(Assignment value)
-   {
-      for (TeachingAssistant obj : this)
-      {
-         obj.withoutDone(value);
-      }
-      
-      return this;
-   }
-
-   /**
     * Loop through the current set of TeachingAssistant objects and collect a set of the Student objects reached via friends. 
     * 
     * @return Set of Student objects reachable via friends
@@ -875,6 +795,86 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       for (TeachingAssistant obj : this)
       {
          obj.withoutFriends(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the Assignment objects reached via done. 
+    * 
+    * @return Set of Assignment objects reachable via done
+    */
+   public AssignmentSet getDone()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getDone());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference done pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as done neighbor of the collected results. 
+    * 
+    * @return Set of Assignment objects referring to value via done
+    */
+   public TeachingAssistantSet filterDone(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
+    */
+   public TeachingAssistantSet withDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the TeachingAssistant object passed as parameter from the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public TeachingAssistantSet withoutDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withoutDone(value);
       }
       
       return this;

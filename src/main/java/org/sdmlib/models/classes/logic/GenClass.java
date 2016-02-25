@@ -88,8 +88,6 @@ public class GenClass extends GenClazzEntity
          generateAttributes(rootDir, helpersDir, false);
       }
 
-//      if ((GraphUtil.isEnumeration(model) == false) && (GraphUtil.isInterface(model) == false) && classModel.hasFeature(Feature.Serialization, model))
-//      {
       if (classModel.hasFeature(Feature.Serialization, model))
       { 
          // now generate the corresponding creator class

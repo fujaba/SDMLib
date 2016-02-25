@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
 
 public class ChatRootSet extends SimpleSet<ChatRoot>
 {
@@ -120,4 +121,16 @@ public class ChatRootSet extends SimpleSet<ChatRoot>
       return this;
    }
 
+
+
+   public ChatRootPO filterChatRootPO()
+   {
+      return new ChatRootPO(this.toArray(new ChatRoot[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.replication.chat.ChatRoot";
+   }
 }

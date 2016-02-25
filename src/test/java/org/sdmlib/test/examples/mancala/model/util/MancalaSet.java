@@ -251,4 +251,16 @@ public class MancalaSet extends SimpleSet<Mancala>
 
 
    public static final MancalaSet EMPTY_SET = new MancalaSet().withFlag(MancalaSet.READONLY);
+
+
+   public MancalaPO filterMancalaPO()
+   {
+      return new MancalaPO(this.toArray(new Mancala[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Mancala";
+   }
 }

@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.maumau.model.DutyType;
 import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 
 public class DutySet extends SimpleSet<Duty>
 {
@@ -205,6 +206,82 @@ public class DutySet extends SimpleSet<Duty>
       }
       
       return this;
+   }
+
+
+
+   public DutyPO filterDutyPO()
+   {
+      return new DutyPO(this.toArray(new Duty[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet filterType(DutyType value)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the number attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet filterNumber(int value)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (value == obj.getNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the number attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet filterNumber(int lower, int upper)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

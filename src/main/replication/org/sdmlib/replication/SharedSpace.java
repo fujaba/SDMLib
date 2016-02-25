@@ -62,14 +62,19 @@ import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.ReplicationNode;
+import org.sdmlib.replication.ReplicationChannel;
 
 
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-      UpdateListener
+      UpdateListener, SendableEntity
 {
 
    public static final String JLOG = "jlog";
@@ -1023,6 +1028,22 @@ import javafx.application.Platform;
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

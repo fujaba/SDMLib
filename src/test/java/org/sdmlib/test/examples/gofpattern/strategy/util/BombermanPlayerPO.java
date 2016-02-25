@@ -280,4 +280,119 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       return this;
    }
    
+   public BombermanPlayerPO filterXPosition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_XPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterXPosition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_XPOSITION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterYPosition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_YPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterYPosition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_YPOSITION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterNumberOfBombs(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_NUMBEROFBOMBS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterNumberOfBombs(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_NUMBEROFBOMBS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterLastKey(char value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_LASTKEY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO filterShortTest(short value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_SHORTTEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

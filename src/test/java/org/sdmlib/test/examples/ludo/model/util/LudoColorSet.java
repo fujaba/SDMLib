@@ -59,4 +59,16 @@ public class LudoColorSet extends SimpleSet<LudoColor>
 
 
    public static final LudoColorSet EMPTY_SET = new LudoColorSet().withFlag(LudoColorSet.READONLY);
+
+
+   public LudoColorPO filterLudoColorPO()
+   {
+      return new LudoColorPO(this.toArray(new LudoColor[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.ludo.LudoModel.LudoColor";
+   }
 }

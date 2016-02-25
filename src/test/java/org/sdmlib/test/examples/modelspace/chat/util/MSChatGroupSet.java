@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
 
 public class MSChatGroupSet extends SimpleSet<MSChatGroup>
 {
@@ -237,6 +239,59 @@ public class MSChatGroupSet extends SimpleSet<MSChatGroup>
       }
       
       return this;
+   }
+
+
+
+   public MSChatGroupPO filterMSChatGroupPO()
+   {
+      return new MSChatGroupPO(this.toArray(new MSChatGroup[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MSChatGroup objects and collect those MSChatGroup objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatGroup objects that match the parameter
+    */
+   public MSChatGroupSet filterTask(String value)
+   {
+      MSChatGroupSet result = new MSChatGroupSet();
+      
+      for (MSChatGroup obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatGroup objects and collect those MSChatGroup objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatGroup objects that match the parameter
+    */
+   public MSChatGroupSet filterTask(String lower, String upper)
+   {
+      MSChatGroupSet result = new MSChatGroupSet();
+      
+      for (MSChatGroup obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

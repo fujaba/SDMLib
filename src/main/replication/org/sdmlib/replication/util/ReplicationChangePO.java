@@ -6,6 +6,9 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ReplicationChange;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.util.LogEntryPO;
+import org.sdmlib.replication.util.ReplicationChangePO;
+import org.sdmlib.replication.util.ChangeHistoryPO;
 
 public class ReplicationChangePO extends PatternObject<ReplicationChangePO, ReplicationChange>
 {
@@ -406,6 +409,195 @@ public class ReplicationChangePO extends PatternObject<ReplicationChangePO, Repl
          return ((ReplicationChange) this.getCurrentMatch()).getHistory();
       }
       return null;
+   }
+
+   public ReplicationChangePO filterHistoryIdPrefix(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDPREFIX)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterHistoryIdPrefix(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDPREFIX)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterHistoryIdNumber(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDNUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterHistoryIdNumber(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDNUMBER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterTargetObjectId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETOBJECTID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterTargetObjectId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETOBJECTID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterTargetProperty(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETPROPERTY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterTargetProperty(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETPROPERTY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterIsToManyProperty(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_ISTOMANYPROPERTY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterChangeMsg(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_CHANGEMSG)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO filterChangeMsg(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_CHANGEMSG)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterLogEntries()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LOGENTRIES, result);
+      
+      return result;
+   }
+
+   public ReplicationChangePO filterLogEntries(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES);
+   }
+
+   public ChangeHistoryPO filterHistory()
+   {
+      ChangeHistoryPO result = new ChangeHistoryPO(new ChangeHistory[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationChange.PROPERTY_HISTORY, result);
+      
+      return result;
+   }
+
+   public ReplicationChangePO filterHistory(ChangeHistoryPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationChange.PROPERTY_HISTORY);
    }
 
 }

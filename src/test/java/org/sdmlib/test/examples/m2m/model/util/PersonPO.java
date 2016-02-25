@@ -6,6 +6,9 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.PersonPO;
+import org.sdmlib.test.examples.m2m.model.util.RelationPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -311,6 +314,139 @@ public class PersonPO extends PatternObject<PersonPO, Person>
          return ((GraphComponent) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public PersonPO filterFirstName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_FIRSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterFirstName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_FIRSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO filterGraph()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public PersonPO filterGraph(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_GRAPH);
+   }
+
+   public RelationPO filterOutEdges()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_OUTEDGES, result);
+      
+      return result;
+   }
+
+   public PersonPO filterOutEdges(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_OUTEDGES);
+   }
+
+   public RelationPO filterInEdges()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_INEDGES, result);
+      
+      return result;
+   }
+
+   public PersonPO filterInEdges(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_INEDGES);
+   }
+
+   public PersonPO filterKnows()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_KNOWS, result);
+      
+      return result;
+   }
+
+   public PersonPO filterKnows(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_KNOWS);
+   }
+
+   public GraphPO filterParent()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public PersonPO filterParent(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
    }
 
 }

@@ -13,29 +13,33 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
+         "typ":"node",
+         "id":"TEnum",
+         "methods":[
+            "toString() String",
+            "TEnum() "
+         ]
+      },
+      {
          "typ":"node",
          "id":"Alex",
          "attributes":[
-         "Name : String"
+            "Name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Mac",
          "attributes":[
-         "Name : String",
+            "Name : String",
             "type : TEnum",
             "owner : Alex"
          ],
          "methods":[
-         "concat(int p1) String",
-            "select(int p1) org.sdmlib.test.examples.simpleEnumModel.model.TEnum"
+            "concat(int p0) String",
+            "select(int p0) org.sdmlib.test.examples.simpleEnumModel.model.TEnum"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"TEnum"
       }
    ],
    "edges":[]

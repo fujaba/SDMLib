@@ -30,12 +30,13 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import de.uniks.networkparser.interfaces.SendableEntity;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
  */
-public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
+public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener, SendableEntity
 {
    /**
     * 
@@ -83,12 +84,22 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
-
    
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+  
    //==========================================================================
    
    

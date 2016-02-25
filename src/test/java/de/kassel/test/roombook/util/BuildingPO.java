@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.kassel.test.roombook.Building;
+import de.kassel.test.roombook.util.FloorPO;
+import de.kassel.test.roombook.util.BuildingPO;
 
 public class BuildingPO extends PatternObject<BuildingPO, Building>
 {
@@ -120,6 +122,50 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
          return ((Building) this.getCurrentMatch()).getHas();
       }
       return null;
+   }
+
+   public BuildingPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Building.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BuildingPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Building.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FloorPO filterHas()
+   {
+      FloorPO result = new FloorPO(new de.kassel.test.roombook.Floor[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Building.PROPERTY_HAS, result);
+      
+      return result;
+   }
+
+   public BuildingPO filterHas(FloorPO tgt)
+   {
+      return hasLinkConstraint(tgt, Building.PROPERTY_HAS);
    }
 
 }

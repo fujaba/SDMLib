@@ -248,4 +248,107 @@ public class TaskLanePO extends PatternObject<TaskLanePO, TaskLane>
       return null;
    }
 
+   public TaskLanePO filterHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO filterHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO filterPortNo(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO filterPortNo(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_PORTNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskBoardPO filterBoard()
+   {
+      TaskBoardPO result = new TaskBoardPO(new TaskBoard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public TaskLanePO filterBoard(TaskBoardPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_BOARD);
+   }
+
+   public TaskPO filterTasks()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public TaskLanePO filterTasks(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_TASKS);
+   }
+
+   public TaskPO filterMyRequests()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_MYREQUESTS, result);
+      
+      return result;
+   }
+
+   public TaskLanePO filterMyRequests(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_MYREQUESTS);
+   }
+
 }

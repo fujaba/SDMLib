@@ -405,4 +405,156 @@ public class FetchFileFlowSet extends SimpleSet<FetchFileFlow>
 
 
    public static final FetchFileFlowSet EMPTY_SET = new FetchFileFlowSet().withFlag(FetchFileFlowSet.READONLY);
+
+
+   public FetchFileFlowPO filterFetchFileFlowPO()
+   {
+      return new FetchFileFlowPO(this.toArray(new FetchFileFlow[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.FetchFileFlow";
+   }
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the fileServer attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterFileServer(PeerProxy value)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (value == obj.getFileServer())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the fileName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterFileName(String value)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (value.equals(obj.getFileName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the fileName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterFileName(String lower, String upper)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (lower.compareTo(obj.getFileName()) <= 0 && obj.getFileName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the taskNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterTaskNo(int value)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the taskNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterTaskNo(int lower, int upper)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (lower <= obj.getTaskNo() && obj.getTaskNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of FetchFileFlow objects that match the parameter
+    */
+   public FetchFileFlowSet filterIdMap(SDMLibJsonIdMap value)
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for (FetchFileFlow obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -29,12 +29,14 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.helloworld.model.Graph;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTmp.java'>HelloWorldTmp.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
 */
-   public class Node extends GraphComponent implements PropertyChangeInterface
+   public class Node extends GraphComponent implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -48,9 +50,20 @@ import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

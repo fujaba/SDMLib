@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,19 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
-import java.util.Collection;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
-
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleSet;
 
-public class PersonSet extends SimpleSet<Person>
+public class PersonSet extends SDMSet<Person>
 {
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
-   public PersonPO hasPersonPO()
+   public PersonPO filterPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
@@ -49,7 +48,11 @@ public class PersonSet extends SimpleSet<Person>
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Person>)value);
       }
@@ -67,19 +70,25 @@ public class PersonSet extends SimpleSet<Person>
       return this;
    }
 
+   @Override
+   public PersonSet filter(Condition<Person> newValue) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
 
    /**
     * Loop through the current set of Person objects and collect a list of the name attribute values. 
     * 
-    * @return List of de.uniks.networkparser.list.SimpleKeyValueList<String,String> objects reachable via name attribute
+    * @return List of de.uniks.networkparser.list.SimpleKeyValueList<String,org.sdmlib.test.examples.SimpleModelWithSet.model.Person> objects reachable via name attribute
     */
-   public SimpleKeyValueList<String,String> getName()
+   public SimpleKeyValueList<String,Person> getName()
    {
-      SimpleKeyValueList<String,String> result = new SimpleKeyValueList<String,String>();
+      SimpleKeyValueList<String,Person> result = new SimpleKeyValueList<String,Person>();
       
       for (Person obj : this)
       {
-         result.withList(obj.getName());
+         result.with(obj.getName());
       }
       
       return result;
@@ -93,7 +102,7 @@ public class PersonSet extends SimpleSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet hasName(SimpleKeyValueList<String,String> value)
+   public PersonSet filterName(SimpleKeyValueList<String,Person> value)
    {
       PersonSet result = new PersonSet();
       
@@ -116,7 +125,7 @@ public class PersonSet extends SimpleSet<Person>
     * 
     * @return Current set of Person objects now with new attribute values.
     */
-   public PersonSet withName(SimpleKeyValueList<String,String> value)
+   public PersonSet withName(SimpleKeyValueList<String,Person> value)
    {
       for (Person obj : this)
       {

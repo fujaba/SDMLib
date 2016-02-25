@@ -32,6 +32,8 @@ import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.ModelCloudProxySet;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 
 public class ModelCloudSet extends SimpleSet<ModelCloud>
 {
@@ -290,6 +292,106 @@ public class ModelCloudSet extends SimpleSet<ModelCloud>
       }
       
       return this;
+   }
+
+
+
+   public ModelCloudPO filterModelCloudPO()
+   {
+      return new ModelCloudPO(this.toArray(new ModelCloud[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of ModelCloud objects and collect those ModelCloud objects where the hostName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ModelCloud objects that match the parameter
+    */
+   public ModelCloudSet filterHostName(String value)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloud objects and collect those ModelCloud objects where the hostName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ModelCloud objects that match the parameter
+    */
+   public ModelCloudSet filterHostName(String lower, String upper)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloud objects and collect those ModelCloud objects where the acceptPort attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ModelCloud objects that match the parameter
+    */
+   public ModelCloudSet filterAcceptPort(int value)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (value == obj.getAcceptPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloud objects and collect those ModelCloud objects where the acceptPort attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ModelCloud objects that match the parameter
+    */
+   public ModelCloudSet filterAcceptPort(int lower, int upper)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (lower <= obj.getAcceptPort() && obj.getAcceptPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

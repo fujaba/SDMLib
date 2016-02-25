@@ -66,4 +66,10 @@ public class ChangeEventListSet extends SimpleSet<ChangeEventList>
       return this;
    }
 
+
+
+   public ChangeEventListPO filterChangeEventListPO()
+   {
+      return new ChangeEventListPO(this.toArray(new ChangeEventList[this.size()]));
+   }
 }

@@ -15,26 +15,26 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Greeting",
          "attributes":[
-         "text : String"
+            "text : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"Greeting",
-            "cardinality":"many",
-            "property":""
+            "cardinality":"one",
+            "property":"tgt"
          },
          "target":{
             "id":"Greeting",
             "cardinality":"one",
-            "property":"tgt"
+            "property":"greeting"
          }
       }
    ]
@@ -53,11 +53,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GreetingPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< create>>",
             "text == Hello World"
          ]
@@ -74,11 +74,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GreetingPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< create>>",
             "text == Hello World"
          ]
@@ -90,23 +90,6 @@
    g.layout(100,100);
 </script>
 <p>For completeness just the host graph:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"G1 : Greeting",
-         "attributes":[
-         "text=Hello World"
-         ]
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation111", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting()

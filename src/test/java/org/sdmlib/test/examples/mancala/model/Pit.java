@@ -26,11 +26,14 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.mancala.model.util.PitSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.mancala.model.Mancala;
+import org.sdmlib.test.examples.mancala.model.Player;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
 */
-   public class Pit implements PropertyChangeInterface
+   public class Pit implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -52,9 +55,20 @@ import org.sdmlib.test.examples.mancala.model.util.PitSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

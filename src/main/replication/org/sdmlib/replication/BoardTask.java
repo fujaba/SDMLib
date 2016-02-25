@@ -29,11 +29,17 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.Lane;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.SeppelSpaceProxy;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class BoardTask extends Task implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class BoardTask extends Task implements PropertyChangeInterface, SendableEntity
 {
    
    public BoardTask()

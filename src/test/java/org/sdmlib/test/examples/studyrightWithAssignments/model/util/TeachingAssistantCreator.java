@@ -41,8 +41,8 @@ public class TeachingAssistantCreator implements SendableEntityCreator
       Student.PROPERTY_CREDITS,
       Student.PROPERTY_UNIVERSITY,
       Student.PROPERTY_IN,
-      Student.PROPERTY_DONE,
       Student.PROPERTY_FRIENDS,
+      Student.PROPERTY_DONE,
       TeachingAssistant.PROPERTY_ROOM,
    };
    
@@ -109,14 +109,14 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return ((TeachingAssistant) target).getIn();
       }
 
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attribute))
-      {
-         return ((TeachingAssistant) target).getDone();
-      }
-
       if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attribute))
       {
          return ((TeachingAssistant) target).getFriends();
+      }
+
+      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attribute))
+      {
+         return ((TeachingAssistant) target).getDone();
       }
 
       if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attribute))
@@ -183,18 +183,6 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return true;
       }
 
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withDone((Assignment) value);
-         return true;
-      }
-      
-      if ((TeachingAssistant.PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withoutDone((Assignment) value);
-         return true;
-      }
-
       if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withFriends((Student) value);
@@ -204,6 +192,18 @@ public class TeachingAssistantCreator implements SendableEntityCreator
       if ((TeachingAssistant.PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withoutFriends((Student) value);
+         return true;
+      }
+
+      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         ((TeachingAssistant) target).withDone((Assignment) value);
+         return true;
+      }
+      
+      if ((TeachingAssistant.PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((TeachingAssistant) target).withoutDone((Assignment) value);
          return true;
       }
 

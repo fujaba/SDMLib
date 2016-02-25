@@ -28,11 +28,13 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
 */
-   public class StatementEntry implements PropertyChangeInterface
+   public class StatementEntry implements PropertyChangeInterface, SendableEntity
 {
 
    @Override
@@ -63,6 +65,22 @@ import org.sdmlib.serialization.PropertyChangeInterface;
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

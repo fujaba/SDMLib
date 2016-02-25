@@ -65,4 +65,10 @@ public class PropertyChangeEventSet extends SimpleSet<PropertyChangeEvent>
       return this;
    }
 
+
+
+   public PropertyChangeEventPO filterPropertyChangeEventPO()
+   {
+      return new PropertyChangeEventPO(this.toArray(new PropertyChangeEvent[this.size()]));
+   }
 }

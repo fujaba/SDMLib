@@ -14,7 +14,7 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Graph"
       },
@@ -22,71 +22,18 @@
          "typ":"node",
          "id":"Edge",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Node",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
-   "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"Graph",
-            "cardinality":"one",
-            "property":"graph"
-         },
-         "target":{
-            "id":"Node",
-            "cardinality":"many",
-            "property":"nodes"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Graph",
-            "cardinality":"one",
-            "property":"graph"
-         },
-         "target":{
-            "id":"Edge",
-            "cardinality":"many",
-            "property":"edges"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Edge",
-            "cardinality":"many",
-            "property":"outEdges"
-         },
-         "target":{
-            "id":"Node",
-            "cardinality":"one",
-            "property":"src"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Edge",
-            "cardinality":"many",
-            "property":"inEdges"
-         },
-         "target":{
-            "id":"Node",
-            "cardinality":"one",
-            "property":"tgt"
-         }
-      }
-   ]
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
@@ -96,7 +43,7 @@
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
+      {
          "typ":"clazz",
          "id":"S1 : SDMLibJsonIdMap"
       },
@@ -129,11 +76,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -144,7 +91,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -164,11 +111,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -179,7 +126,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -210,11 +157,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -225,7 +172,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -245,11 +192,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -260,7 +207,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -293,11 +240,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -313,7 +260,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -355,11 +302,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -375,7 +322,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -450,11 +397,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -468,7 +415,7 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"e3 : EdgePO",
                "attributes":[]
@@ -480,7 +427,7 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"e4 : EdgePO",
                "attributes":[]
@@ -489,7 +436,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -531,11 +478,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -549,7 +496,7 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"e3 : EdgePO",
                "attributes":[]
@@ -561,7 +508,7 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"e4 : EdgePO",
                "attributes":[]
@@ -570,7 +517,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -650,11 +597,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -690,7 +637,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -776,11 +723,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -816,7 +763,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -933,11 +880,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -973,7 +920,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -1059,11 +1006,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -1099,7 +1046,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -1252,11 +1199,11 @@ n5 --> n3 --> n4 -->
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -1270,7 +1217,7 @@ n5 --> n3 --> n4 -->
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"n3 : NodePO",
                "attributes":[]
@@ -1284,7 +1231,7 @@ n5 --> n3 --> n4 -->
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -1326,11 +1273,11 @@ n5 --> n3 --> n4 -->
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< bound>>"
          ]
       },
@@ -1344,7 +1291,7 @@ n5 --> n3 --> n4 -->
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"n3 : NodePO",
                "attributes":[]
@@ -1358,7 +1305,7 @@ n5 --> n3 --> n4 -->
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",

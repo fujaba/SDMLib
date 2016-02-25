@@ -31,11 +31,12 @@ import org.sdmlib.test.examples.helloworld.model.Node;
 import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.test.examples.helloworld.model.util.GraphComponentSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
 */
-   public class Graph implements PropertyChangeInterface
+   public class Graph implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -49,11 +50,21 @@ import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
 
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
    
    //==========================================================================
    

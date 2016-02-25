@@ -143,4 +143,10 @@ public class BlastSet extends SimpleSet<Blast>
       return this;
    }
 
+
+
+   public BlastPO filterBlastPO()
+   {
+      return new BlastPO(this.toArray(new Blast[this.size()]));
+   }
 }

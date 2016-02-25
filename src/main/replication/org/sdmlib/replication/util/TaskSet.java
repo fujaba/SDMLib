@@ -29,6 +29,7 @@ import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.LogEntrySet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -120,4 +121,16 @@ public class TaskSet extends SimpleSet<Task>
 
 
    public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
+
+
+   public TaskPO filterTaskPO()
+   {
+      return new TaskPO(this.toArray(new Task[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.Task";
+   }
 }

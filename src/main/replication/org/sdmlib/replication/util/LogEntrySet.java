@@ -30,6 +30,7 @@ import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.TaskSet;
 
 public class LogEntrySet extends SimpleSet<LogEntry>
 {
@@ -267,4 +268,157 @@ public class LogEntrySet extends SimpleSet<LogEntry>
 
 
    public static final LogEntrySet EMPTY_SET = new LogEntrySet().withFlag(LogEntrySet.READONLY);
+
+
+   public LogEntryPO filterLogEntryPO()
+   {
+      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.LogEntry";
+   }
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the stepName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterStepName(String value)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (value.equals(obj.getStepName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the stepName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterStepName(String lower, String upper)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (lower.compareTo(obj.getStepName()) <= 0 && obj.getStepName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the executedBy attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterExecutedBy(String value)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (value.equals(obj.getExecutedBy()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the executedBy attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterExecutedBy(String lower, String upper)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (lower.compareTo(obj.getExecutedBy()) <= 0 && obj.getExecutedBy().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the timeStamp attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterTimeStamp(long value)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (value == obj.getTimeStamp())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the timeStamp attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterTimeStamp(long lower, long upper)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (lower <= obj.getTimeStamp() && obj.getTimeStamp() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

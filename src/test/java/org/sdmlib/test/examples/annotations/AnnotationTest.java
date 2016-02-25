@@ -34,6 +34,7 @@ public class AnnotationTest {
 		house.withBidirectional(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
 		house.withBidirectional(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
 		
+		model.removeAllGeneratedCode("src/test/java");
 		model.generate("src/test/java");
 		
 		model = new ClassModel();

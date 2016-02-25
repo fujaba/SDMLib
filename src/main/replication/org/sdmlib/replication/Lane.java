@@ -30,11 +30,16 @@ import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.replication.BoardTask;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class Lane implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class Lane implements PropertyChangeInterface, SendableEntity
 {
 
    // ==========================================================================
@@ -98,6 +103,23 @@ import de.uniks.networkparser.json.JsonIdMap;
    {
       return listeners;
    }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    // ==========================================================================
 

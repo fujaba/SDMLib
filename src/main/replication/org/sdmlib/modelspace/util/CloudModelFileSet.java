@@ -30,6 +30,7 @@ import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.CloudModelDirectorySet;
 
 public class CloudModelFileSet extends SimpleSet<CloudModelFile>
 {
@@ -220,6 +221,106 @@ public class CloudModelFileSet extends SimpleSet<CloudModelFile>
       }
       
       return this;
+   }
+
+
+
+   public CloudModelFilePO filterCloudModelFilePO()
+   {
+      return new CloudModelFilePO(this.toArray(new CloudModelFile[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the fileName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet filterFileName(String value)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (value.equals(obj.getFileName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the fileName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet filterFileName(String lower, String upper)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (lower.compareTo(obj.getFileName()) <= 0 && obj.getFileName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the lastModifiedTime attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet filterLastModifiedTime(long value)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (value == obj.getLastModifiedTime())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the lastModifiedTime attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet filterLastModifiedTime(long lower, long upper)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (lower <= obj.getLastModifiedTime() && obj.getLastModifiedTime() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

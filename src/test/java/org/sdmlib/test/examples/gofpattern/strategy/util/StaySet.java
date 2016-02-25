@@ -143,4 +143,10 @@ public class StaySet extends SimpleSet<Stay>
       return this;
    }
 
+
+
+   public StayPO filterStayPO()
+   {
+      return new StayPO(this.toArray(new Stay[this.size()]));
+   }
 }

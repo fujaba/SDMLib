@@ -6,6 +6,8 @@ import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import org.sdmlib.test.examples.helloworld.Person;
 import org.sdmlib.test.examples.helloworld.util.GreetingPO;
+import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
+import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -216,6 +218,65 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return null;
    }
 
+   public GreetingMessagePO filterGreetingMessage()
+   {
+      GreetingMessagePO result = new GreetingMessagePO(new org.sdmlib.test.examples.helloworld.GreetingMessage[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_GREETINGMESSAGE, result);
+      
+      return result;
+   }
+
+   public GreetingPO filterGreetingMessage(GreetingMessagePO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE);
+   }
+
+   public PersonPO filterPerson()
+   {
+      PersonPO result = new PersonPO(new org.sdmlib.test.examples.helloworld.Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_PERSON, result);
+      
+      return result;
+   }
+
+   public GreetingPO filterPerson(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON);
+   }
+
+   public GreetingPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Greeting.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Greeting.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

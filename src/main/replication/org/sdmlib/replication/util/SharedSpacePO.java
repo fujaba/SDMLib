@@ -432,4 +432,149 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       return this;
    }
    
+   public SharedSpacePO filterSpaceId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_SPACEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterSpaceId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_SPACEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterHistory(ChangeHistory value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_HISTORY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterLastChangeId(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterLastChangeId(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterNodeId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_NODEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterNodeId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_NODEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO filterJavaFXApplication(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_JAVAFXAPPLICATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationNodePO filterNode()
+   {
+      ReplicationNodePO result = new ReplicationNodePO(new ReplicationNode[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SharedSpace.PROPERTY_NODE, result);
+      
+      return result;
+   }
+
+   public SharedSpacePO filterNode(ReplicationNodePO tgt)
+   {
+      return hasLinkConstraint(tgt, SharedSpace.PROPERTY_NODE);
+   }
+
+   public ReplicationChannelPO filterChannels()
+   {
+      ReplicationChannelPO result = new ReplicationChannelPO(new ReplicationChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SharedSpace.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public SharedSpacePO filterChannels(ReplicationChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, SharedSpace.PROPERTY_CHANNELS);
+   }
+
 }

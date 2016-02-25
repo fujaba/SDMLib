@@ -8,13 +8,13 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/main/replication/org/sdmlib/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
 <p>ReplicationModel</p>
 <script>
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Thread"
       },
@@ -30,7 +30,7 @@
          "typ":"node",
          "id":"SharedSpace",
          "attributes":[
-         "spaceId : String",
+            "spaceId : String",
             "history : ChangeHistory",
             "lastChangeId : long",
             "nodeId : String",
@@ -41,7 +41,7 @@
          "typ":"node",
          "id":"ReplicationChannel",
          "attributes":[
-         "socket : Socket",
+            "socket : Socket",
             "targetNodeId : String"
          ]
       },
@@ -53,7 +53,7 @@
          "typ":"node",
          "id":"ServerSocketAcceptThread",
          "attributes":[
-         "port : int",
+            "port : int",
             "replicationNode : ReplicationNode"
          ]
       },
@@ -65,7 +65,7 @@
          "typ":"node",
          "id":"LogEntry",
          "attributes":[
-         "stepName : String",
+            "stepName : String",
             "executedBy : String",
             "timeStamp : long"
          ]
@@ -78,7 +78,7 @@
          "typ":"node",
          "id":"ReplicationChange",
          "attributes":[
-         "historyIdPrefix : String",
+            "historyIdPrefix : String",
             "historyIdNumber : long",
             "targetObjectId : String",
             "targetProperty : String",
@@ -94,20 +94,20 @@
          "typ":"node",
          "id":"Lane",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"BoardTask",
          "attributes":[
-         "name : String",
+            "name : String",
             "status : String",
             "manualExecution : boolean",
             "stashedPropertyChangeEvent : PropertyChangeEvent"
          ],
          "methods":[
-         "execute()"
+            "execute()"
          ]
       },
       {
@@ -118,28 +118,63 @@
          "typ":"node",
          "id":"RemoteTask",
          "attributes":[
-         "boardTask : BoardTask"
+            "boardTask : BoardTask"
          ]
       },
       {
          "typ":"node",
          "id":"ReplicationRoot",
          "attributes":[
-         "name : String",
+            "name : String",
             "applicationObject : Object"
          ]
       },
       {
          "typ":"node",
          "id":"PropertyChangeEvent"
-      },
-      {
-         "typ":"node",
-         "id":"Object"
       }
    ],
    "edges":[
-   {
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         },
+         "target":{
+            "id":"ReplicationChannel",
+            "cardinality":"one",
+            "property":"replicationchannel"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         },
+         "target":{
+            "id":"ServerSocketAcceptThread",
+            "cardinality":"one",
+            "property":"serversocketacceptthread"
+         }
+      },
+      {
          "typ":"edge",
          "source":{
             "id":"ReplicationNode",
@@ -150,6 +185,32 @@
             "id":"SharedSpace",
             "cardinality":"many",
             "property":"sharedSpaces"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"replicationnode"
+         },
+         "target":{
+            "id":"ReplicationServer",
+            "cardinality":"one",
+            "property":"replicationserver"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"many",
+            "property":"sharedSpaces"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"node"
          }
       },
       {
@@ -168,6 +229,45 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ReplicationChannel",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedSpace"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ReplicationServer",
+            "cardinality":"one",
+            "property":"replicationserver"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"replicationnode"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ServerSocketAcceptThread",
+            "cardinality":"one",
+            "property":"serversocketacceptthread"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"Task",
             "cardinality":"one",
             "property":"task"
@@ -176,6 +276,58 @@
             "id":"LogEntry",
             "cardinality":"many",
             "property":"logEntries"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         },
+         "target":{
+            "id":"ReplicationChange",
+            "cardinality":"one",
+            "property":"replicationchange"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         },
+         "target":{
+            "id":"BoardTask",
+            "cardinality":"one",
+            "property":"boardtask"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Runnable",
+            "cardinality":"one",
+            "property":"runnable"
+         },
+         "target":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"logEntries"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
          }
       },
       {
@@ -194,6 +346,19 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ReplicationChange",
+            "cardinality":"many",
+            "property":"changes"
+         },
+         "target":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"RemoteTaskBoard",
             "cardinality":"one",
             "property":"board"
@@ -202,6 +367,19 @@
             "id":"Lane",
             "cardinality":"many",
             "property":"lanes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Lane",
+            "cardinality":"many",
+            "property":"lanes"
+         },
+         "target":{
+            "id":"RemoteTaskBoard",
+            "cardinality":"one",
+            "property":"board"
          }
       },
       {
@@ -222,25 +400,51 @@
          "source":{
             "id":"BoardTask",
             "cardinality":"many",
-            "property":"prev"
+            "property":"tasks"
+         },
+         "target":{
+            "id":"Lane",
+            "cardinality":"one",
+            "property":"lane"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"next"
          },
          "target":{
             "id":"BoardTask",
             "cardinality":"many",
-            "property":"next"
+            "property":"prev"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         },
+         "target":{
+            "id":"Runnable",
+            "cardinality":"one",
+            "property":"runnable"
          }
       },
       {
          "typ":"edge",
          "source":{
             "id":"ReplicationRoot",
-            "cardinality":"one",
-            "property":"parent"
+            "cardinality":"many",
+            "property":"kids"
          },
          "target":{
             "id":"ReplicationRoot",
-            "cardinality":"many",
-            "property":"kids"
+            "cardinality":"one",
+            "property":"parent"
          }
       },
       {
@@ -271,11 +475,6 @@
       {
          "typ":"generalisation",
          "source":{"id":"BoardTask"},
-         "target":{"id":"Task"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"RemoteTask"},
          "target":{"id":"Task"}
       },
       {

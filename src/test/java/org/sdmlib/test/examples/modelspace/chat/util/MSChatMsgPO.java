@@ -230,4 +230,106 @@ public class MSChatMsgPO extends PatternObject<MSChatMsgPO, MSChatMsg>
       return null;
    }
 
+   public MSChatMsgPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterTime(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_TIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterTime(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_TIME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterSender(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_SENDER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterSender(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMsg.PROPERTY_SENDER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO filterChannel()
+   {
+      MSChatChannelPO result = new MSChatChannelPO(new MSChatChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatMsg.PROPERTY_CHANNEL, result);
+      
+      return result;
+   }
+
+   public MSChatMsgPO filterChannel(MSChatChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatMsg.PROPERTY_CHANNEL);
+   }
+
 }

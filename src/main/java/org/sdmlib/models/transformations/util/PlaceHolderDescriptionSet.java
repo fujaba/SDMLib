@@ -32,6 +32,8 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
 {
@@ -471,6 +473,229 @@ public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
       }
 
       return this;
+   }
+
+
+
+   public PlaceHolderDescriptionPO filterPlaceHolderDescriptionPO()
+   {
+      return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.transformations.PlaceHolderDescription";
+   }
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the textFragment attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterTextFragment(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getTextFragment()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the textFragment attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterTextFragment(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getTextFragment()) <= 0 && obj.getTextFragment().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterValue(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterValue(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the attrName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterAttrName(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getAttrName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the attrName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterAttrName(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getAttrName()) <= 0 && obj.getAttrName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the isKeyAttribute attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterIsKeyAttribute(boolean value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value == obj.isIsKeyAttribute())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the prefix attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterPrefix(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getPrefix()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the prefix attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PlaceHolderDescription objects that match the parameter
+    */
+   public PlaceHolderDescriptionSet filterPrefix(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getPrefix()) <= 0 && obj.getPrefix().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

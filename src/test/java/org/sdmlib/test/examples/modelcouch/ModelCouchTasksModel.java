@@ -44,7 +44,7 @@ public class ModelCouchTasksModel
 		.withBidirectional(task, "firstTasks", Cardinality.MANY, "taskFlowFirst", Cardinality.ONE);
 
 		task
-		.withBidirectional(task, "transitionTargets", Cardinality.MANY, "transitionSource", Cardinality.ONE)
+		.withBidirectional(task, "transitionSource", Cardinality.ONE, "transitionTargets", Cardinality.MANY)
 		.withBidirectional(userGroup, "responsibles", Cardinality.MANY, "responsible", Cardinality.MANY)
 		.withBidirectional(user, "handledBy", Cardinality.ONE, "handledTasks", Cardinality.MANY);
 		

@@ -143,4 +143,10 @@ public class MoveLeftSet extends SimpleSet<MoveLeft>
       return this;
    }
 
+
+
+   public MoveLeftPO filterMoveLeftPO()
+   {
+      return new MoveLeftPO(this.toArray(new MoveLeft[this.size()]));
+   }
 }

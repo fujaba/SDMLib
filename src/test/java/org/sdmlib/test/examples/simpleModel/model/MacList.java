@@ -27,11 +27,12 @@ import java.util.ArrayList;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
 */
-   public class MacList extends ArrayList implements PropertyChangeInterface
+   public class MacList extends ArrayList implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +46,20 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -62,7 +74,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
    
    //==========================================================================
    
-   private static final long serialVersionUID = 1L;
+   private static long serialVersionUID = 1L;
 
    
    //==========================================================================
@@ -102,4 +114,30 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return result.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_SERIALVERSIONUID = "serialVersionUID";
+   
+   public long getSerialVersionUID()
+   {
+      return this.serialVersionUID;
+   }
+   
+   public void setSerialVersionUID(long value)
+   {
+      if (this.serialVersionUID != value) {
+      
+         long oldValue = this.serialVersionUID;
+         this.serialVersionUID = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SERIALVERSIONUID, oldValue, value);
+      }
+   }
+   
+   public MacList withSerialVersionUID(long value)
+   {
+      setSerialVersionUID(value);
+      return this;
+   } 
 }

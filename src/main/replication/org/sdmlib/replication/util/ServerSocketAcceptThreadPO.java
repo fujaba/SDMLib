@@ -126,4 +126,47 @@ public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAccept
       return this;
    }
    
+   public ServerSocketAcceptThreadPO filterPort(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO filterPort(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO filterReplicationNode(ReplicationNode value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_REPLICATIONNODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

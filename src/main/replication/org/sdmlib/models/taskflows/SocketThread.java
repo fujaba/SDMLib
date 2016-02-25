@@ -31,13 +31,16 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public class SocketThread extends Thread implements PropertyChangeInterface
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
+   public class SocketThread extends Thread implements PropertyChangeInterface, SendableEntity
 {
 
    // ==========================================================================
@@ -149,6 +152,24 @@ import de.uniks.networkparser.json.JsonIdMap;
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
 
    // ==========================================================================
 

@@ -26,6 +26,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
 
 /**
  * 
@@ -35,14 +37,17 @@ import org.sdmlib.serialization.PropertyChangeInterface;
  * @see <a href=
  *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>
  *      TaskFlowModel.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
  */
-public class SDMTimer extends Timer implements PropertyChangeInterface {
+public class SDMTimer extends Timer implements PropertyChangeInterface, SendableEntity {
 	/**
 	 * @param name The name of SDMTimer
 	 * @see <a href=
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
-	 */
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
 	public SDMTimer(String name) {
 		super(name);
 	}
@@ -55,7 +60,8 @@ public class SDMTimer extends Timer implements PropertyChangeInterface {
 	 * @see <a href=
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
-	 */
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
 	public SDMTimer() {
 
 	}
@@ -107,6 +113,23 @@ public class SDMTimer extends Timer implements PropertyChangeInterface {
 	public PropertyChangeSupport getPropertyChangeSupport() {
 		return listeners;
 	}
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
 	// ==========================================================================
 

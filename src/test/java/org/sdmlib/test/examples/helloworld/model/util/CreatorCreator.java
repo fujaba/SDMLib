@@ -16,6 +16,8 @@ class CreatorCreator{
       jsonIdMap.with(new EdgeCreator());
       jsonIdMap.with(new EdgePOCreator());
 
+      jsonIdMap.with(new GraphComponentCreator());
+      jsonIdMap.with(new GraphComponentPOCreator());
       return jsonIdMap;
    }
 }

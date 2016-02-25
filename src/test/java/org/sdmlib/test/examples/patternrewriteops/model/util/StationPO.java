@@ -6,6 +6,10 @@ import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {
@@ -233,6 +237,66 @@ public class StationPO extends PatternObject<StationPO, Station>
          return ((Station) this.getCurrentMatch()).getFlag();
       }
       return null;
+   }
+
+   public TrainPO filterTrains()
+   {
+      TrainPO result = new TrainPO(new Train[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_TRAINS, result);
+      
+      return result;
+   }
+
+   public StationPO filterTrains(TrainPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_TRAINS);
+   }
+
+   public StationPO filterPrev()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public StationPO filterPrev(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PREV);
+   }
+
+   public PersonPO filterPeople()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_PEOPLE, result);
+      
+      return result;
+   }
+
+   public StationPO filterPeople(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PEOPLE);
+   }
+
+   public SignalFlagPO filterFlag()
+   {
+      SignalFlagPO result = new SignalFlagPO(new SignalFlag[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_FLAG, result);
+      
+      return result;
+   }
+
+   public StationPO filterFlag(SignalFlagPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_FLAG);
    }
 
 }

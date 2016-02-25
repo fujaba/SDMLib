@@ -29,11 +29,14 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.lang.Object;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
 */
-   public class Match implements PropertyChangeInterface
+   public class Match implements PropertyChangeInterface, SendableEntity
 {
       
    //==========================================================================
@@ -46,9 +49,20 @@ import java.lang.Object;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

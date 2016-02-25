@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
 public class WindowSet extends SimpleSet<Window>
 {
@@ -109,4 +110,16 @@ public class WindowSet extends SimpleSet<Window>
       return this;
    }
 
+
+
+   public WindowPO filterWindowPO()
+   {
+      return new WindowPO(this.toArray(new Window[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.features.model.albertsets.Window";
+   }
 }

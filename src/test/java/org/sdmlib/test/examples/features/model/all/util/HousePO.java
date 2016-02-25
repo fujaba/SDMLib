@@ -108,4 +108,34 @@ public class HousePO extends PatternObject<HousePO, House>
       return null;
    }
 
+   public DoorPO filterDoors()
+   {
+      DoorPO result = new DoorPO(new Door[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(House.PROPERTY_DOORS, result);
+      
+      return result;
+   }
+
+   public HousePO filterDoors(DoorPO tgt)
+   {
+      return hasLinkConstraint(tgt, House.PROPERTY_DOORS);
+   }
+
+   public WindowPO filterWindows()
+   {
+      WindowPO result = new WindowPO(new Window[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(House.PROPERTY_WINDOWS, result);
+      
+      return result;
+   }
+
+   public HousePO filterWindows(WindowPO tgt)
+   {
+      return hasLinkConstraint(tgt, House.PROPERTY_WINDOWS);
+   }
+
 }

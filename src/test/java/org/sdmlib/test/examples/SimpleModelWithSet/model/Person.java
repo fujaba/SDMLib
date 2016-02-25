@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/SimpleModelWithSet/testSimpleSetModel.java'>testSimpleSetModel.java</a>
@@ -73,24 +74,24 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
    
    public static final String PROPERTY_NAME = "name";
    
-   private SimpleKeyValueList<String,String> name;
+   private SimpleKeyValueList<String,Person> name;
 
-   public SimpleKeyValueList<String,String> getName()
+   public SimpleKeyValueList<String,Person> getName()
    {
       return this.name;
    }
    
-   public void setName(SimpleKeyValueList<String,String> value)
+   public void setName(SimpleKeyValueList<String,Person> value)
    {
       if (this.name != value) {
       
-         SimpleKeyValueList<String,String> oldValue = this.name;
+         SimpleKeyValueList<String,Person> oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
-   public Person withName(SimpleKeyValueList<String,String> value)
+   public Person withName(SimpleKeyValueList<String,Person> value)
    {
       setName(value);
       return this;

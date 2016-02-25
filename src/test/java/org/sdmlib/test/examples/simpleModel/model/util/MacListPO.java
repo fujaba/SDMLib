@@ -87,4 +87,86 @@ public class MacListPO extends PatternObject<MacListPO, MacList>
       return this;
    }
    
+   public MacListPO filterSerialVersionUID(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_SERIALVERSIONUID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO filterSerialVersionUID(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_SERIALVERSIONUID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createSerialVersionUID(long value)
+   {
+      this.startCreate().filterSerialVersionUID(value).endCreate();
+      return this;
+   }
+   
+   public long getSerialVersionUID()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((MacList) getCurrentMatch()).getSerialVersionUID();
+      }
+      return 0;
+   }
+   
+   public MacListPO withSerialVersionUID(long value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((MacList) getCurrentMatch()).setSerialVersionUID(value);
+      }
+      return this;
+   }
+   
+   public MacListPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

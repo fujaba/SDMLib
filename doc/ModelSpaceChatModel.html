@@ -14,18 +14,18 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"MSChatChannel",
          "attributes":[
-         "task : String"
+            "task : String"
          ]
       },
       {
          "typ":"node",
          "id":"MSChatMsg",
          "attributes":[
-         "text : String",
+            "text : String",
             "time : long",
             "sender : String"
          ]
@@ -34,27 +34,27 @@
          "typ":"node",
          "id":"MSChatGroup",
          "attributes":[
-         "task : String"
+            "task : String"
          ]
       },
       {
          "typ":"node",
          "id":"MSChatMember",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"MSChatChannelDescription",
          "attributes":[
-         "name : String",
+            "name : String",
             "location : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"MSChatChannel",
@@ -70,6 +70,19 @@
       {
          "typ":"edge",
          "source":{
+            "id":"MSChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         },
+         "target":{
+            "id":"MSChatChannel",
+            "cardinality":"one",
+            "property":"channel"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"MSChatGroup",
             "cardinality":"one",
             "property":"group"
@@ -101,9 +114,48 @@
             "property":"members"
          },
          "target":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
+         },
+         "target":{
             "id":"MSChatChannelDescription",
             "cardinality":"many",
             "property":"channels"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
          }
       }
    ]

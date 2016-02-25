@@ -25,11 +25,12 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java'>StrategyModel.java</a>
 */
-   public abstract class BombermanStrategy implements PropertyChangeInterface
+   public abstract class BombermanStrategy implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -49,11 +50,21 @@ import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
 
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
    
    //==========================================================================
    

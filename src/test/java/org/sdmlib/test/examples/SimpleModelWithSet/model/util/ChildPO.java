@@ -2,8 +2,8 @@ package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class ChildPO extends PatternObject<ChildPO, Child>
 {
@@ -26,14 +26,14 @@ public class ChildPO extends PatternObject<ChildPO, Child>
 
 
    public ChildPO(){
-      newInstance(org.sdmlib.test.examples.SimpleModelWithSet.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public ChildPO(Child... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.SimpleModelWithSet.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    
    //==========================================================================
@@ -46,7 +46,7 @@ public class ChildPO extends PatternObject<ChildPO, Child>
       }
    }
 
-   public ChildPO hasParent(Person value)
+   public ChildPO filterParent(Person value)
    {
       new AttributeConstraint()
       .withAttrName(Child.PROPERTY_PARENT)
@@ -62,7 +62,7 @@ public class ChildPO extends PatternObject<ChildPO, Child>
    
    public ChildPO createParent(Person value)
    {
-      this.startCreate().hasParent(value).endCreate();
+      this.startCreate().filterParent(value).endCreate();
       return this;
    }
    

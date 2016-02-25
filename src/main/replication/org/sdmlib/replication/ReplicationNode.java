@@ -34,12 +34,15 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.SharedSpace;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-public class ReplicationNode extends Thread implements PropertyChangeInterface
+public class ReplicationNode extends Thread implements PropertyChangeInterface, SendableEntity
 {
    private Collection<SendableEntityCreator> modelCreators = new LinkedHashSet<SendableEntityCreator>();
    
@@ -50,6 +53,22 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

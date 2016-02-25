@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+import org.sdmlib.test.examples.ludoreverse.model.util.LudoPO;
+import org.sdmlib.test.examples.ludoreverse.model.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -173,6 +175,79 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
          return ((Player) this.getCurrentMatch()).getPlayers();
       }
       return null;
+   }
+
+   public PlayerPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterColor(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterColor(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterPlayers()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterPlayers(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PLAYERS);
    }
 
 }

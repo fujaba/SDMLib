@@ -51,7 +51,8 @@ public class ReplicationModel
      /**
     * 
     * @see <a href='../../../../../../doc/SeppelModel.html'>SeppelModel.html</a>
-*/
+* @see <a href='../../../../../../../doc/SeppelModel.html'>SeppelModel.html</a>
+ */
    @Test
    public void testSeppelModel()
    {

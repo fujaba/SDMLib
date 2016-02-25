@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherSet extends SimpleSet<BigBrother>
 {
@@ -226,4 +227,16 @@ public class BigBrotherSet extends SimpleSet<BigBrother>
       return this;
    }
 
+
+
+   public BigBrotherPO filterBigBrotherPO()
+   {
+      return new BigBrotherPO(this.toArray(new BigBrother[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
+   }
 }

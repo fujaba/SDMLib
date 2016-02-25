@@ -13,25 +13,25 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"BombermanPlayer",
          "attributes":[
-         "xPosition : int",
+            "xPosition : int",
             "yPosition : int",
             "numberOfBombs : int",
             "lastKey : char",
             "shortTest : short"
          ],
          "methods":[
-         "keyPress(String key)"
+            "keyPress(String key)"
          ]
       },
       {
          "typ":"node",
          "id":"BombermanStrategy",
          "methods":[
-         "handleMove()"
+            "handleMove()"
          ]
       },
       {
@@ -60,17 +60,173 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"BombermanStrategy",
-            "cardinality":"many",
-            "property":""
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"MoveUp",
+            "cardinality":"one",
+            "property":"moveup"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"MoveDown",
+            "cardinality":"one",
+            "property":"movedown"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"MoveLeft",
+            "cardinality":"one",
+            "property":"moveleft"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"MoveRight",
+            "cardinality":"one",
+            "property":"moveright"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"Blast",
+            "cardinality":"one",
+            "property":"blast"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         },
+         "target":{
+            "id":"Stay",
+            "cardinality":"one",
+            "property":"stay"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"successor"
          },
          "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
-            "property":"successor"
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MoveUp",
+            "cardinality":"one",
+            "property":"moveup"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MoveDown",
+            "cardinality":"one",
+            "property":"movedown"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MoveLeft",
+            "cardinality":"one",
+            "property":"moveleft"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MoveRight",
+            "cardinality":"one",
+            "property":"moveright"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Blast",
+            "cardinality":"one",
+            "property":"blast"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Stay",
+            "cardinality":"one",
+            "property":"stay"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
          }
       },
       {

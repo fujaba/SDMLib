@@ -30,6 +30,7 @@ import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskLane;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -372,6 +373,200 @@ public class TaskSet extends SimpleSet<Task>
       }
       
       return this;
+   }
+
+
+
+   public TaskPO filterTaskPO()
+   {
+      return new TaskPO(this.toArray(new Task[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the state attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterState(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getState()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the state attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterState(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getState()) <= 0 && obj.getState().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the spaceName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterSpaceName(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getSpaceName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the spaceName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterSpaceName(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceName()) <= 0 && obj.getSpaceName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the fileName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterFileName(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getFileName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the fileName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterFileName(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getFileName()) <= 0 && obj.getFileName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the lastModified attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterLastModified(long value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value == obj.getLastModified())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the lastModified attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet filterLastModified(long lower, long upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower <= obj.getLastModified() && obj.getLastModified() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

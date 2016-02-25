@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
@@ -66,12 +67,12 @@ import java.lang.Object;
    private AttributeConstraintSet attrConstraints = null;
 
    protected void newInstance(JsonIdMap map){
-      Pattern<Object> pattern = new Pattern<Object>(map);
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap());
       pattern.addToElements(this);
    }
    
    protected void newInstance(JsonIdMap map, Object[] hostGraphObject){
-      Pattern<Object> pattern = new Pattern<Object>(map);
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap());
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
          this.withCandidates(Arrays.asList(hostGraphObject));

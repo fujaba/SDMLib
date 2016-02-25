@@ -65,4 +65,10 @@ public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
       return this;
    }
 
+
+
+   public SimpleKeyValueListPO filterSimpleKeyValueListPO()
+   {
+      return new SimpleKeyValueListPO(this.toArray(new SimpleKeyValueList[this.size()]));
+   }
 }

@@ -29,6 +29,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
 
 public class ChatChannelSet extends SDMSet<ChatChannel>
 {
@@ -178,4 +180,16 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
       return this;
    }
 
+
+
+   public ChatChannelPO filterChatChannelPO()
+   {
+      return new ChatChannelPO(this.toArray(new ChatChannel[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.replication.chat.ChatChannel";
+   }
 }

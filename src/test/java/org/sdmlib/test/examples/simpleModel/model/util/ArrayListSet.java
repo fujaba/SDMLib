@@ -58,4 +58,16 @@ public class ArrayListSet extends SimpleSet<ArrayList<?>>
       return this;
    }
 
+
+
+   public ArrayListPO filterArrayListPO()
+   {
+      return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.util.ArrayList";
+   }
 }

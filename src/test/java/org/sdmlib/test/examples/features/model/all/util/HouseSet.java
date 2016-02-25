@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.features.model.all.util.DoorSet;
+import org.sdmlib.test.examples.features.model.all.util.WindowSet;
 
 public class HouseSet extends SimpleSet<House>
 {
@@ -179,4 +181,16 @@ public class HouseSet extends SimpleSet<House>
       return this;
    }
 
+
+
+   public HousePO filterHousePO()
+   {
+      return new HousePO(this.toArray(new House[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.features.model.all.House";
+   }
 }

@@ -29,6 +29,7 @@ import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.CloudModelFileSet;
 
 public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
 {
@@ -127,4 +128,10 @@ public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
       return this;
    }
 
+
+
+   public CloudModelDirectoryPO filterCloudModelDirectoryPO()
+   {
+      return new CloudModelDirectoryPO(this.toArray(new CloudModelDirectory[this.size()]));
+   }
 }

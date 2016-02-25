@@ -31,11 +31,15 @@ import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
+import org.sdmlib.models.taskflows.PeerProxy;
+import org.sdmlib.models.taskflows.TaskFlow;
+import org.sdmlib.models.taskflows.LogEntry;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
    public class Logger extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames 
@@ -208,7 +212,8 @@ import de.uniks.networkparser.json.JsonArray;
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
 	 * @return the LogEntry
-	 */
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
 	public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();

@@ -66,4 +66,10 @@ public class LaneSet extends SimpleSet<Lane>
       return this;
    }
 
+
+
+   public LanePO filterLanePO()
+   {
+      return new LanePO(this.toArray(new Lane[this.size()]));
+   }
 }

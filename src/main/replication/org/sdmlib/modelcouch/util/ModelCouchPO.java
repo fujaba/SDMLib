@@ -177,4 +177,77 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       return null;
    }
 
+   public ModelCouchPO filterHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO filterHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO filterPort(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO filterPort(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelDBListenerPO filterModelDBListener()
+   {
+      ModelDBListenerPO result = new ModelDBListenerPO(new ModelDBListener[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCouch.PROPERTY_MODELDBLISTENER, result);
+      
+      return result;
+   }
+
+   public ModelCouchPO filterModelDBListener(ModelDBListenerPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCouch.PROPERTY_MODELDBLISTENER);
+   }
+
 }

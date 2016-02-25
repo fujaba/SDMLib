@@ -28,11 +28,13 @@ import java.util.Date;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
 */
-   public  class MSChatMsg implements PropertyChangeInterface
+   public  class MSChatMsg implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +47,20 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

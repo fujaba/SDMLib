@@ -50,6 +50,16 @@ class CreatorCreator{
       jsonIdMap.with(new ChangeEventPOCreator());
       jsonIdMap.with(new ChangeEventListCreator());
       jsonIdMap.with(new ChangeEventListPOCreator());
+      jsonIdMap.with(new RunnableCreator());
+      jsonIdMap.with(new RunnablePOCreator());
+      jsonIdMap.with(new SeppelSpaceCreator());
+      jsonIdMap.with(new SeppelSpacePOCreator());
+      jsonIdMap.with(new SeppelSpaceProxyCreator());
+      jsonIdMap.with(new SeppelSpaceProxyPOCreator());
+      jsonIdMap.with(new SeppelScopeCreator());
+      jsonIdMap.with(new SeppelScopePOCreator());
+      jsonIdMap.with(new SeppelChannelCreator());
+      jsonIdMap.with(new SeppelChannelPOCreator());
       return jsonIdMap;
    }
 }

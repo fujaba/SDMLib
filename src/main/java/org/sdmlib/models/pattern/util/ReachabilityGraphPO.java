@@ -1,21 +1,24 @@
 package org.sdmlib.models.pattern.util;
 
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 
+import de.uniks.networkparser.json.JsonIdMap;
+
 public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, ReachabilityGraph>
 {
    public ReachabilityGraphPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public ReachabilityGraphPO(ReachabilityGraph... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
   }
    public ReachabilityGraphSet allMatches()
    {

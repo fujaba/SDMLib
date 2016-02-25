@@ -27,10 +27,10 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
@@ -73,8 +73,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
    
       setUniversity(null);
       setIn(null);
-      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -161,10 +161,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
       return this.assignmentPoints;
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public void setAssignmentPoints(int value)
    {
       if (this.assignmentPoints != value) {
@@ -221,10 +217,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
       return this.credits;
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public void setCredits(int value)
    {
       if (this.credits != value) {
@@ -235,10 +227,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
       }
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Student withCredits(int value)
    {
       setCredits(value);
@@ -367,82 +355,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
    /********************************************************************
     * <pre>
     *              many                       many
-    * Student ----------------------------------- Assignment
-    *              students                   done
-    * </pre>
-    */
-   
-   public static final String PROPERTY_DONE = "done";
-
-   private AssignmentSet done = null;
-   
-   public AssignmentSet getDone()
-   {
-      if (this.done == null)
-      {
-         return AssignmentSet.EMPTY_SET;
-      }
-   
-      return this.done;
-   }
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
-   public Student withDone(Assignment... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Assignment item : value)
-      {
-         if (item != null)
-         {
-            if (this.done == null)
-            {
-               this.done = new AssignmentSet();
-            }
-            
-            boolean changed = this.done.add (item);
-
-            if (changed)
-            {
-               item.withStudents(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Student withoutDone(Assignment... value)
-   {
-      for (Assignment item : value)
-      {
-         if ((this.done != null) && (item != null))
-         {
-            if (this.done.remove(item))
-            {
-               item.withoutStudents(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Assignment createDone()
-   {
-      Assignment value = new Assignment();
-      withDone(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
     * Student ----------------------------------- Student
     *              friends                   friends
     * </pre>
@@ -468,10 +380,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
    }
 
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
    public Student withFriends(Student... value)
    {
       if(value==null){
@@ -525,6 +433,78 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
    {
       TeachingAssistant value = new TeachingAssistant();
       withFriends(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Student ----------------------------------- Assignment
+    *              students                   done
+    * </pre>
+    */
+   
+   public static final String PROPERTY_DONE = "done";
+
+   private AssignmentSet done = null;
+   
+   public AssignmentSet getDone()
+   {
+      if (this.done == null)
+      {
+         return AssignmentSet.EMPTY_SET;
+      }
+   
+      return this.done;
+   }
+
+   public Student withDone(Assignment... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Assignment item : value)
+      {
+         if (item != null)
+         {
+            if (this.done == null)
+            {
+               this.done = new AssignmentSet();
+            }
+            
+            boolean changed = this.done.add (item);
+
+            if (changed)
+            {
+               item.withStudents(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Student withoutDone(Assignment... value)
+   {
+      for (Assignment item : value)
+      {
+         if ((this.done != null) && (item != null))
+         {
+            if (this.done.remove(item))
+            {
+               item.withoutStudents(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Assignment createDone()
+   {
+      Assignment value = new Assignment();
+      withDone(value);
       return value;
    } 
 }

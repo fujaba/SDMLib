@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
 public class DoorSet extends SimpleSet<Door>
 {
@@ -109,4 +110,16 @@ public class DoorSet extends SimpleSet<Door>
       return this;
    }
 
+
+
+   public DoorPO filterDoorPO()
+   {
+      return new DoorPO(this.toArray(new Door[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.features.model.albertsets.Door";
+   }
 }

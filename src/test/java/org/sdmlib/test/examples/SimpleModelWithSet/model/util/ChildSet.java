@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,19 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
-import java.util.Collection;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class ChildSet extends SimpleSet<Child>
+public class ChildSet extends SDMSet<Child>
 {
 
    public static final ChildSet EMPTY_SET = new ChildSet().withFlag(ChildSet.READONLY);
 
 
-   public ChildPO hasChildPO()
+   public ChildPO filterChildPO()
    {
       return new ChildPO(this.toArray(new Child[this.size()]));
    }
@@ -49,7 +48,11 @@ public class ChildSet extends SimpleSet<Child>
    @SuppressWarnings("unchecked")
    public ChildSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Child>)value);
       }
@@ -67,6 +70,12 @@ public class ChildSet extends SimpleSet<Child>
       return this;
    }
 
+   @Override
+   public ChildSet filter(Condition<Child> newValue) {
+      ChildSet filterList = new ChildSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
    
    //==========================================================================
    
@@ -83,7 +92,7 @@ public class ChildSet extends SimpleSet<Child>
    /**
     * Loop through the current set of Child objects and collect a list of the parent attribute values. 
     * 
-    * @return List of Person objects reachable via parent attribute
+    * @return List of org.sdmlib.test.examples.SimpleModelWithSet.model.Person objects reachable via parent attribute
     */
    public PersonSet getParent()
    {
@@ -105,7 +114,7 @@ public class ChildSet extends SimpleSet<Child>
     * 
     * @return Subset of Child objects that match the parameter
     */
-   public ChildSet hasParent(Person value)
+   public ChildSet filterParent(Person value)
    {
       ChildSet result = new ChildSet();
       

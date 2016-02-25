@@ -3,6 +3,8 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.replication.util.LanePO;
+import org.sdmlib.replication.util.RemoteTaskBoardPO;
 
 public class RemoteTaskBoardPO extends PatternObject<RemoteTaskBoardPO, RemoteTaskBoard>
 {
@@ -66,6 +68,21 @@ public class RemoteTaskBoardPO extends PatternObject<RemoteTaskBoardPO, RemoteTa
          return ((RemoteTaskBoard) this.getCurrentMatch()).getLanes();
       }
       return null;
+   }
+
+   public LanePO filterLanes()
+   {
+      LanePO result = new LanePO(new Lane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(RemoteTaskBoard.PROPERTY_LANES, result);
+      
+      return result;
+   }
+
+   public RemoteTaskBoardPO filterLanes(LanePO tgt)
+   {
+      return hasLinkConstraint(tgt, RemoteTaskBoard.PROPERTY_LANES);
    }
 
 }

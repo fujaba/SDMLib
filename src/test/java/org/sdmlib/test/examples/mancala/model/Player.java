@@ -29,11 +29,17 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.mancala.model.util.PitSet;
 import org.sdmlib.test.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.mancala.model.PlayerState;
+import org.sdmlib.test.examples.mancala.model.Mancala;
+import org.sdmlib.test.examples.mancala.model.Kalah;
+import org.sdmlib.test.examples.mancala.model.Pit;
+import org.sdmlib.test.examples.mancala.model.Stone;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
 */
-   public class Player implements PropertyChangeInterface
+   public class Player implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -47,9 +53,20 @@ import org.sdmlib.test.examples.mancala.referencemodel.Color;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

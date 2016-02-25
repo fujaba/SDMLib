@@ -34,6 +34,11 @@ import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.HolderSet;
+import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
+import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
 
 public class MauMauSet extends SimpleSet<MauMau>
 {
@@ -560,6 +565,58 @@ public class MauMauSet extends SimpleSet<MauMau>
       }
       
       return this;
+   }
+
+
+
+   public MauMauPO filterMauMauPO()
+   {
+      return new MauMauPO(this.toArray(new MauMau[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MauMau objects and collect those MauMau objects where the currentPlayer attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MauMau objects that match the parameter
+    */
+   public MauMauSet filterCurrentPlayer(Player value)
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (MauMau obj : this)
+      {
+         if (value == obj.getCurrentPlayer())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MauMau objects and collect those MauMau objects where the currentSuit attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MauMau objects that match the parameter
+    */
+   public MauMauSet filterCurrentSuit(Suit value)
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (MauMau obj : this)
+      {
+         if (value == obj.getCurrentSuit())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

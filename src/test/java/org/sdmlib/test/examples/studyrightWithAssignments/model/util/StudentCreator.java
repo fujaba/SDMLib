@@ -39,8 +39,8 @@ public class StudentCreator implements SendableEntityCreator
       Student.PROPERTY_CREDITS,
       Student.PROPERTY_UNIVERSITY,
       Student.PROPERTY_IN,
-      Student.PROPERTY_DONE,
       Student.PROPERTY_FRIENDS,
+      Student.PROPERTY_DONE,
    };
    
    @Override
@@ -101,14 +101,14 @@ public class StudentCreator implements SendableEntityCreator
          return ((Student) target).getIn();
       }
 
-      if (Student.PROPERTY_DONE.equalsIgnoreCase(attribute))
-      {
-         return ((Student) target).getDone();
-      }
-
       if (Student.PROPERTY_FRIENDS.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getFriends();
+      }
+
+      if (Student.PROPERTY_DONE.equalsIgnoreCase(attribute))
+      {
+         return ((Student) target).getDone();
       }
       
       return null;
@@ -164,18 +164,6 @@ public class StudentCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Student.PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).withDone((Assignment) value);
-         return true;
-      }
-      
-      if ((Student.PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Student) target).withoutDone((Assignment) value);
-         return true;
-      }
-
       if (Student.PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
       {
          ((Student) target).withFriends((Student) value);
@@ -185,6 +173,18 @@ public class StudentCreator implements SendableEntityCreator
       if ((Student.PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Student) target).withoutFriends((Student) value);
+         return true;
+      }
+
+      if (Student.PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         ((Student) target).withDone((Assignment) value);
+         return true;
+      }
+      
+      if ((Student.PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Student) target).withoutDone((Assignment) value);
          return true;
       }
       

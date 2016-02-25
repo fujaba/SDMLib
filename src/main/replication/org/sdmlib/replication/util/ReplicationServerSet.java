@@ -33,6 +33,7 @@ import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationServerSet extends SimpleSet<ReplicationServer>
 {
@@ -354,4 +355,16 @@ public class ReplicationServerSet extends SimpleSet<ReplicationServer>
 
 
    public static final ReplicationServerSet EMPTY_SET = new ReplicationServerSet().withFlag(ReplicationServerSet.READONLY);
+
+
+   public ReplicationServerPO filterReplicationServerPO()
+   {
+      return new ReplicationServerPO(this.toArray(new ReplicationServer[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ReplicationServer";
+   }
 }

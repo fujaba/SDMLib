@@ -143,4 +143,10 @@ public class MoveDownSet extends SimpleSet<MoveDown>
       return this;
    }
 
+
+
+   public MoveDownPO filterMoveDownPO()
+   {
+      return new MoveDownPO(this.toArray(new MoveDown[this.size()]));
+   }
 }

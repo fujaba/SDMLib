@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.util.TaskPO;
+import org.sdmlib.replication.util.LogEntryPO;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {
@@ -226,6 +228,108 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
          return ((LogEntry) this.getCurrentMatch()).getTask();
       }
       return null;
+   }
+
+   public LogEntryPO filterStepName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterStepName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterExecutedBy(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterExecutedBy(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterTimeStamp(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterTimeStamp(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO filterTask()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntry.PROPERTY_TASK, result);
+      
+      return result;
+   }
+
+   public LogEntryPO filterTask(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_TASK);
    }
 
 }

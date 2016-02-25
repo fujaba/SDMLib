@@ -30,11 +30,12 @@ import org.sdmlib.replication.util.ChangeEventCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 */
-   public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>
+   public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>, SendableEntity
 {
    public static final String PLAIN = "plain"; 
    public static final String TO_ONE = "toOne";
@@ -130,9 +131,20 @@ import de.uniks.networkparser.json.JsonObject;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
