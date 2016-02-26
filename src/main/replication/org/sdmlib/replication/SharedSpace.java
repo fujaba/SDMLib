@@ -1051,6 +1051,7 @@ UpdateListener, SendableEntity
       setNode(null);
       removeAllFromChannels();
       withoutChannels(this.getChannels().toArray(new ReplicationChannel[this.getChannels().size()]));
+      setHistory(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1663,5 +1664,12 @@ UpdateListener, SendableEntity
    {
       this.getMap().put(string, object);
    }
+
+   public ChangeHistory createHistory()
+   {
+      ChangeHistory value = new ChangeHistory();
+      withHistory(value);
+      return value;
+   } 
 }
 

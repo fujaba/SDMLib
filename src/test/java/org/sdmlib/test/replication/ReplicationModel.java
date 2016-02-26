@@ -5,6 +5,7 @@ import java.net.Socket;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
@@ -116,10 +117,14 @@ public class ReplicationModel
       main(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../doc/ReplicationModel.html'>ReplicationModel.html</a>
+ */
    public static void main(String[] args)
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/ReplicationModel.html
-      Storyboard storyboard = new Storyboard("src/main/replication", "ReplicationModel");
+      StoryPage storyboard = new StoryPage();
 
       ClassModel model = new ClassModel("org.sdmlib.replication");
 
@@ -129,13 +134,15 @@ public class ReplicationModel
 
       Clazz replicationNode = model.createClazz(REPLICATION_NODE);
 
+      Clazz changeHistory = model.createClazz(CHANGE_HISTORY);
+
       Clazz sharedSpace = model.createClazz("SharedSpace")
             .withAttribute("spaceId", DataType.STRING) 
-      .withAttribute("history", DataType.create(CHANGE_HISTORY))
-      .withAttribute("lastChangeId", DataType.LONG) 
-      .withAttribute("nodeId", DataType.STRING) 
-      .withAttribute("javaFXApplication", DataType.BOOLEAN)
-      .withSuperClazz(thread);
+            .withUniDirectional(changeHistory, "history", Cardinality.ONE)
+            .withAttribute("lastChangeId", DataType.LONG) 
+            .withAttribute("nodeId", DataType.STRING) 
+            .withAttribute("javaFXApplication", DataType.BOOLEAN)
+            .withSuperClazz(thread);
 
       replicationNode.withBidirectional(sharedSpace, "sharedSpaces", Cardinality.MANY, "node", Cardinality.ONE);
       
@@ -165,8 +172,7 @@ public class ReplicationModel
       
       task.withBidirectional(logEntry, "logEntries", Cardinality.MANY, "task", Cardinality.ONE);
 
-      Clazz changeHistory = model.createClazz(CHANGE_HISTORY);
-
+      
       Clazz change = model.createClazz("ReplicationChange")
             .withSuperClazz(task)
             .withAttribute("historyIdPrefix", DataType.STRING)

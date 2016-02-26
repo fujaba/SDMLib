@@ -8,8 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/main/replication/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
-<p>ReplicationModel</p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
 <script>
    var json = {
    "typ":"classdiagram",
@@ -28,10 +27,13 @@
       },
       {
          "typ":"node",
+         "id":"ChangeHistory"
+      },
+      {
+         "typ":"node",
          "id":"SharedSpace",
          "attributes":[
             "spaceId : String",
-            "history : ChangeHistory",
             "lastChangeId : long",
             "nodeId : String",
             "javaFXApplication : boolean"
@@ -69,10 +71,6 @@
             "executedBy : String",
             "timeStamp : long"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"ChangeHistory"
       },
       {
          "typ":"node",
@@ -203,6 +201,45 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         },
+         "target":{
+            "id":"ReplicationChange",
+            "cardinality":"many",
+            "property":"changes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         },
+         "target":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
             "id":"SharedSpace",
             "cardinality":"many",
             "property":"sharedSpaces"
@@ -328,19 +365,6 @@
             "id":"Task",
             "cardinality":"one",
             "property":"task"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ChangeHistory",
-            "cardinality":"one",
-            "property":"history"
-         },
-         "target":{
-            "id":"ReplicationChange",
-            "cardinality":"many",
-            "property":"changes"
          }
       },
       {
@@ -484,7 +508,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasReplicationModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasReplicationModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

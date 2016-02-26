@@ -35,6 +35,9 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.ChangeHistorySet;
+import org.sdmlib.replication.util.ReplicationNodeSet;
+import org.sdmlib.replication.util.ReplicationChannelSet;
 
 public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {

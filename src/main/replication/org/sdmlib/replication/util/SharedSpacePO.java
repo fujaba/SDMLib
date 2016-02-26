@@ -8,6 +8,8 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.ChangeHistoryPO;
+import org.sdmlib.replication.util.SharedSpacePO;
 
 public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
 {
@@ -575,6 +577,31 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
    public SharedSpacePO filterChannels(ReplicationChannelPO tgt)
    {
       return hasLinkConstraint(tgt, SharedSpace.PROPERTY_CHANNELS);
+   }
+
+   public ChangeHistoryPO filterHistory()
+   {
+      ChangeHistoryPO result = new ChangeHistoryPO(new ChangeHistory[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SharedSpace.PROPERTY_HISTORY, result);
+      
+      return result;
+   }
+
+   public ChangeHistoryPO createHistory()
+   {
+      return this.startCreate().filterHistory().endCreate();
+   }
+
+   public SharedSpacePO filterHistory(ChangeHistoryPO tgt)
+   {
+      return hasLinkConstraint(tgt, SharedSpace.PROPERTY_HISTORY);
+   }
+
+   public SharedSpacePO createHistory(ChangeHistoryPO tgt)
+   {
+      return this.startCreate().filterHistory(tgt).endCreate();
    }
 
 }
