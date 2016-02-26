@@ -105,7 +105,12 @@ public class GenEnumeration extends GenClazzEntity{
 			{
 			   enumCurrentPos = endPos;
 			}
-			knownValues.add(symTabEnumEntry.getMemberName());
+			String memberName = symTabEnumEntry.getMemberName();
+			if (memberName.startsWith("_"))
+			{
+			   memberName = memberName.substring(1);
+			}
+         knownValues.add(memberName);
 		}
 		
 		SimpleSet<Literal> values = model.getValues();
