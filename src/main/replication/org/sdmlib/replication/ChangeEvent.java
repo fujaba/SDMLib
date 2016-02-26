@@ -34,7 +34,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>, SendableEntity
 {
    public static final String PLAIN = "plain"; 
