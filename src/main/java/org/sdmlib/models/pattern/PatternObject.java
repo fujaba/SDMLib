@@ -39,6 +39,8 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import java.lang.Object;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

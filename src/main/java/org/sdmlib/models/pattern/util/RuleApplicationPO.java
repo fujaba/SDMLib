@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.util.RuleApplicationPO;
 
 public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleApplication>
 {
@@ -152,6 +154,65 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
    public RuleApplicationPO createTgt(ReachableStatePO tgt)
    {
       return this.startCreate().hasTgt(tgt).endCreate();
+   }
+
+   public RuleApplicationPO filterDescription(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RuleApplicationPO filterDescription(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachableStatePO filterSrc()
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(RuleApplication.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO filterSrc(ReachableStatePO tgt)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_SRC);
+   }
+
+   public ReachableStatePO filterTgt()
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(RuleApplication.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO filterTgt(ReachableStatePO tgt)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_TGT);
    }
 
 }

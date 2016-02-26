@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.models.pattern.ReachabilityGraph;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

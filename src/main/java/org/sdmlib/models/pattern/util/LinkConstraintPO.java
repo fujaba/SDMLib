@@ -426,6 +426,135 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
       return this.startCreate().hasPattern(tgt).endCreate();
    }
 
+   public LinkConstraintPO filterTgtRoleName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_TGTROLENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterTgtRoleName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_TGTROLENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterHostGraphSrcObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LinkConstraintPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

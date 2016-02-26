@@ -6,6 +6,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
+import org.sdmlib.models.pattern.util.PatternObjectPO;
+import org.sdmlib.models.pattern.util.CardinalityConstraintPO;
 
 public class CardinalityConstraintPO extends PatternObject<CardinalityConstraintPO, CardinalityConstraint>
 {
@@ -525,6 +527,208 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    public CardinalityConstraintPO createSrc(PatternObjectPO tgt)
    {
       return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public CardinalityConstraintPO filterTgtRoleName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_TGTROLENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterTgtRoleName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_TGTROLENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterHostGraphSrcObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterMinCard(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MINCARD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterMinCard(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MINCARD)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterMaxCard(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MAXCARD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterMaxCard(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MAXCARD)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CardinalityConstraint.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterSrc()
+   {
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(CardinalityConstraint.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public CardinalityConstraintPO filterSrc(PatternObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, CardinalityConstraint.PROPERTY_SRC);
    }
 
 }

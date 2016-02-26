@@ -376,4 +376,173 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
+
+
+   public MatchOtherThenPO filterMatchOtherThenPO()
+   {
+      return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the hostGraphSrcObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterHostGraphSrcObject(Object value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterModifier(String value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterModifier(String lower, String upper)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterHasMatch(boolean value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterPatternObjectName(String value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterPatternObjectName(String lower, String upper)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchOtherThen objects that match the parameter
+    */
+   public MatchOtherThenSet filterDoAllMatches(boolean value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -261,6 +261,92 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
       return this.startCreate().hasPattern(tgt).endCreate();
    }
 
+   public PatternElementPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternElementPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternElementPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternElementPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternElementPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternElementPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

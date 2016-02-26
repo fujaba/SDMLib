@@ -346,6 +346,205 @@ public class GenericConstraintSet extends SimpleSet<GenericConstraint>
       return result;
    }
 
+
+
+   public GenericConstraintPO filterGenericConstraintPO()
+   {
+      return new GenericConstraintPO(this.toArray(new GenericConstraint[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.pattern.GenericConstraint";
+   }
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterText(String value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterText(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterModifier(String value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterModifier(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterHasMatch(boolean value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterPatternObjectName(String value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterPatternObjectName(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet filterDoAllMatches(boolean value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

@@ -54,6 +54,7 @@ import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.ReachabilityGraph;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

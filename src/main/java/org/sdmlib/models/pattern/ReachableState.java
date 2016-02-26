@@ -39,11 +39,14 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import java.beans.PropertyChangeListener;
 import java.lang.Object;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.RuleApplication;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
-   public class ReachableState implements PropertyChangeInterface
+   public class ReachableState implements PropertyChangeInterface, SendableEntity
 {
    private class JsonIdCompare implements Comparator<Object>
    {
@@ -241,6 +244,21 @@ import java.lang.Object;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
 
    //==========================================================================
 

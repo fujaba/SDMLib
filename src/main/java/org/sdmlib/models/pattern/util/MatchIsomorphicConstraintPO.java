@@ -264,6 +264,92 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this.startCreate().hasPattern(tgt).endCreate();
    }
 
+   public MatchIsomorphicConstraintPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

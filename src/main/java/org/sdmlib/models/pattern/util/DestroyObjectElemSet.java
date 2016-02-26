@@ -310,4 +310,150 @@ public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
       return result;
    }
 
+
+
+   public DestroyObjectElemPO filterDestroyObjectElemPO()
+   {
+      return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterModifier(String value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterModifier(String lower, String upper)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterHasMatch(boolean value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterPatternObjectName(String value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterPatternObjectName(String lower, String upper)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of DestroyObjectElem objects and collect those DestroyObjectElem objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of DestroyObjectElem objects that match the parameter
+    */
+   public DestroyObjectElemSet filterDoAllMatches(boolean value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

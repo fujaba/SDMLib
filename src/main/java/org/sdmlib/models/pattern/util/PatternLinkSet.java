@@ -435,4 +435,220 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
       return result;
    }
 
+
+
+   public PatternLinkPO filterPatternLinkPO()
+   {
+      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the tgtRoleName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterTgtRoleName(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getTgtRoleName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the tgtRoleName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterTgtRoleName(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the hostGraphSrcObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterHostGraphSrcObject(Object value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterModifier(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterModifier(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterHasMatch(boolean value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterPatternObjectName(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterPatternObjectName(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect those PatternLink objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternLink objects that match the parameter
+    */
+   public PatternLinkSet filterDoAllMatches(boolean value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

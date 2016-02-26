@@ -35,6 +35,9 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
+import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 
 public class PatternObjectSet extends SimpleSet<PatternObject>
 {
@@ -601,6 +604,198 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
    }
 
    public PatternObjectSet hasDoAllMatches(boolean value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public PatternObjectPO filterPatternObjectPO()
+   {
+      return new PatternObjectPO(this.toArray(new PatternObject[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the currentMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterCurrentMatch(Object value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.getCurrentMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the candidates attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterCandidates(Object value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.getCandidates())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterModifier(String value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterModifier(String lower, String upper)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterHasMatch(boolean value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterPatternObjectName(String value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterPatternObjectName(String lower, String upper)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternObject objects and collect those PatternObject objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternObject objects that match the parameter
+    */
+   public PatternObjectSet filterDoAllMatches(boolean value)
    {
       PatternObjectSet result = new PatternObjectSet();
       

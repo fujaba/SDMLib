@@ -424,4 +424,220 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
       return result;
    }
 
+
+
+   public LinkConstraintPO filterLinkConstraintPO()
+   {
+      return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the tgtRoleName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterTgtRoleName(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getTgtRoleName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the tgtRoleName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterTgtRoleName(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the hostGraphSrcObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterHostGraphSrcObject(Object value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterModifier(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterModifier(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterHasMatch(boolean value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterPatternObjectName(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterPatternObjectName(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LinkConstraint objects that match the parameter
+    */
+   public LinkConstraintSet filterDoAllMatches(boolean value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

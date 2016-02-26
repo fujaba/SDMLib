@@ -7,6 +7,9 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.util.PatternPO;
 
 public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, ReachabilityGraph>
 {
@@ -136,6 +139,41 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
    public ReachabilityGraphPO createRules(PatternPO tgt)
    {
       return this.startCreate().hasRules(tgt).endCreate();
+   }
+
+   public ReachabilityGraphPO filterStates(ReachableStatePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_STATES);
+   }
+
+   public ReachableStatePO filterTodo()
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachabilityGraph.PROPERTY_TODO, result);
+      
+      return result;
+   }
+
+   public ReachabilityGraphPO filterTodo(ReachableStatePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_TODO);
+   }
+
+   public PatternPO filterRules()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachabilityGraph.PROPERTY_RULES, result);
+      
+      return result;
+   }
+
+   public ReachabilityGraphPO filterRules(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_RULES);
    }
 
 }

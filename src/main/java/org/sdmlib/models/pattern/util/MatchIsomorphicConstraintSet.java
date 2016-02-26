@@ -288,4 +288,150 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
       return result;
    }
 
+
+
+   public MatchIsomorphicConstraintPO filterMatchIsomorphicConstraintPO()
+   {
+      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterModifier(String value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterModifier(String lower, String upper)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterHasMatch(boolean value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterPatternObjectName(String value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterPatternObjectName(String lower, String upper)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MatchIsomorphicConstraint objects that match the parameter
+    */
+   public MatchIsomorphicConstraintSet filterDoAllMatches(boolean value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

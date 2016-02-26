@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.util.OptionalSubPatternPO;
 
 public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, OptionalSubPattern>
 {
@@ -569,6 +571,179 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
    public OptionalSubPatternPO createRgraph(ReachabilityGraphPO tgt)
    {
       return this.startCreate().hasRgraph(tgt).endCreate();
+   }
+
+   public OptionalSubPatternPO filterMatchForward(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_MATCHFORWARD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterDebugMode(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_DEBUGMODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterDebugMode(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_DEBUGMODE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public OptionalSubPatternPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachabilityGraphPO filterRgraph()
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pattern.PROPERTY_RGRAPH, result);
+      
+      return result;
+   }
+
+   public OptionalSubPatternPO filterRgraph(ReachabilityGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
    }
 
 }

@@ -31,6 +31,8 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
 public class ReachableStateSet extends SimpleSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -310,6 +312,82 @@ public class ReachableStateSet extends SimpleSet<ReachableState> implements org.
    }
 
    public ReachableStateSet hasGraphRoot(Object value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getGraphRoot())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public ReachableStatePO filterReachableStatePO()
+   {
+      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the number attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet filterNumber(long value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the number attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet filterNumber(long lower, long upper)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the graphRoot attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet filterGraphRoot(Object value)
    {
       ReachableStateSet result = new ReachableStateSet();
       

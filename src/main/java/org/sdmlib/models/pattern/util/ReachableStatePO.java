@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 import java.lang.Object;
+import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.util.RuleApplicationPO;
 
 public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableState>
 {
@@ -287,6 +290,109 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    public ReachableStatePO createMaster(ReachabilityGraphPO tgt)
    {
       return this.startCreate().hasMaster(tgt).endCreate();
+   }
+
+   public ReachableStatePO filterNumber(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_NUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachableStatePO filterNumber(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_NUMBER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachableStatePO filterGraphRoot(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_GRAPHROOT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachabilityGraphPO filterParent()
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public ReachableStatePO filterParent(ReachabilityGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_PARENT);
+   }
+
+   public RuleApplicationPO filterRuleapplications()
+   {
+      RuleApplicationPO result = new RuleApplicationPO(new RuleApplication[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_RULEAPPLICATIONS, result);
+      
+      return result;
+   }
+
+   public ReachableStatePO filterRuleapplications(RuleApplicationPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_RULEAPPLICATIONS);
+   }
+
+   public RuleApplicationPO filterResultOf()
+   {
+      RuleApplicationPO result = new RuleApplicationPO(new RuleApplication[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_RESULTOF, result);
+      
+      return result;
+   }
+
+   public ReachableStatePO filterResultOf(RuleApplicationPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_RESULTOF);
+   }
+
+   public ReachabilityGraphPO filterMaster()
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_MASTER, result);
+      
+      return result;
+   }
+
+   public ReachableStatePO filterMaster(ReachabilityGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
    }
 
 }

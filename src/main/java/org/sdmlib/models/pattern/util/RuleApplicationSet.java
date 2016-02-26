@@ -28,6 +28,7 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.ReachableStateSet;
 
 public class RuleApplicationSet extends SimpleSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -170,6 +171,59 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication> implements or
    }
 
    public RuleApplicationSet hasDescription(String lower, String upper)
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public RuleApplicationPO filterRuleApplicationPO()
+   {
+      return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect those RuleApplication objects where the description attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of RuleApplication objects that match the parameter
+    */
+   public RuleApplicationSet filterDescription(String value)
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (value.equals(obj.getDescription()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect those RuleApplication objects where the description attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of RuleApplication objects that match the parameter
+    */
+   public RuleApplicationSet filterDescription(String lower, String upper)
    {
       RuleApplicationSet result = new RuleApplicationSet();
       

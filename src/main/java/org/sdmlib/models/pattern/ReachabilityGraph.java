@@ -39,11 +39,17 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
-   public class ReachabilityGraph implements PropertyChangeInterface
+   public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
    //==========================================================================
    private final class OmitRootCondition implements UpdateListener
@@ -104,6 +110,21 @@ import de.uniks.networkparser.json.JsonObject;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
 
    //==========================================================================
 

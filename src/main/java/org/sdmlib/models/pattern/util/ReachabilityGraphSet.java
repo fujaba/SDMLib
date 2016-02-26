@@ -29,6 +29,8 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -188,4 +190,10 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph> implement
    }
 
    public static final ReachabilityGraphSet EMPTY_SET = new ReachabilityGraphSet().withFlag(ReachabilityGraphSet.READONLY);
+
+
+   public ReachabilityGraphPO filterReachabilityGraphPO()
+   {
+      return new ReachabilityGraphPO(this.toArray(new ReachabilityGraph[this.size()]));
+   }
 }
