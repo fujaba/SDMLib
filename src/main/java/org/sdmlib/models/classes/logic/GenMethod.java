@@ -324,6 +324,10 @@ public class GenMethod extends Generator<Method>
          {
             type = type.substring(0, type.length() - 2);
          }
+         if (type.endsWith("..."))
+         {
+            type = type.substring(0, type.length() - 3);
+         }
          String importType = type;
          if ("void".equals(type))
          {
