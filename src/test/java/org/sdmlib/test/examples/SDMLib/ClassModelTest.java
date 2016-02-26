@@ -82,13 +82,13 @@ public class ClassModelTest
 
       Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz);
       annotationClass
-         .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
-         .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
-         .with(
-            new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
-                  new Parameter(DataType.create("String...")).with("values")))
-         .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
-      
+      .with(
+         new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
+            new Parameter(DataType.create("String...")).with("values")))
+      .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
+      .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
+      .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
+
       Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
       Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
       Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SafeVarargs");

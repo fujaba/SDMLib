@@ -225,13 +225,21 @@ public class GenMethod extends Generator<Method>
          parser.insert(pos, text.toString());
          
          // Add Imports for all Parameters to Clazz-File
-         for(Parameter param : model.getParameter()) {
-        	 String paramType = param.getType().getClazz().getName();
-        	 if(paramType.indexOf(".") > 0 ) {
-        		 parser.insertImport(paramType);
-        	 }
+         for (Parameter param : model.getParameter()) 
+         {
+            String paramType = param.getType().getClazz().getName();
+            int endOfName = paramType.length();
+            if (paramType.endsWith("..."))
+            {
+               endOfName -= 3;
+            }
+            int firstPos = paramType.indexOf(".");
+            if(firstPos > 0 && firstPos < endOfName) 
+            {
+               parser.insertImport(paramType);
+            }
          }
-         
+
          symTabEntry = getMethodSymTabEntry(Parser.METHOD, clazz, parser);
       }
 
@@ -516,6 +524,12 @@ public class GenMethod extends Generator<Method>
 	@Override
 	ClassModel getClazz() {
 		return (ClassModel) this.getModel().getClazz().getClassModel();
+	}
+	
+	@Override
+	public String toString()
+	{
+	   return "gen " + model;
 	}
 
 }
