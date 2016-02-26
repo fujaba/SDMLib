@@ -23,6 +23,7 @@ package org.sdmlib.models.classes.logic;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
@@ -97,17 +98,23 @@ public class GenEnumeration extends GenClazzEntity{
 		String signature = Parser.ENUMVALUE + ":";
 		ArrayList<SymTabEntry> enumEntriesInSymTab = parser.getSymTabEntriesFor(signature);
 		
+		HashSet<String> knownValues = new HashSet<String>();
 		for (SymTabEntry symTabEnumEntry : enumEntriesInSymTab) {
 			int endPos = symTabEnumEntry.getEndPos();
-			if (endPos > -1 && endPos < enumCurrentPos)
-				enumCurrentPos = endPos;
+			if (endPos > -1 && endPos < enumCurrentPos) 
+			{
+			   enumCurrentPos = endPos;
+			}
+			knownValues.add(symTabEnumEntry.getMemberName());
 		}
 		
 		SimpleSet<Literal> values = model.getValues();
 		for(int i=0;i<values.size();i++) {
 			Literal valueNames =values.get(i);
-			enumCurrentPos = insertValue(valueNames, enumCurrentPos, i == values.size() - 1);
-			
+			if (! knownValues.contains(valueNames.getName()))
+			{
+			   enumCurrentPos = insertValue(valueNames, enumCurrentPos, i == values.size() - 1);
+			}
 		}
 	}
 	
