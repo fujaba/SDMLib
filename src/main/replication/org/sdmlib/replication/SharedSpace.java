@@ -68,13 +68,11 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ReplicationChannel;
 
 
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+/**
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-   public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-      UpdateListener, SendableEntity
+public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
+UpdateListener, SendableEntity
 {
 
    public static final String JLOG = "jlog";
