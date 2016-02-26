@@ -108,4 +108,11 @@ import org.sdmlib.models.classes.SDMLibClass;
    //==========================================================================
    
    public String SUPPRESS_WARNINGS = "SuppressWarnings";
+
+   
+   //==========================================================================
+   public Annotation createSuppressWarningsAnnotation( String... values )
+   {
+      return null;
+   }
 }

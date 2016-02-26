@@ -206,4 +206,17 @@ public class AnnotationSet extends SDMSet<Annotation>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public AnnotationSet createSuppressWarningsAnnotation(String... values)
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSuppressWarningsAnnotation(values));
+      }
+      return result;
+   }
+
 }

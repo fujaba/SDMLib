@@ -37,7 +37,7 @@ public class GenAttribute extends Generator<Attribute>
       {
     	  templates = AttributeTemplates.insertPropertyInClass(model);
       }
-	  templates.insert(parser, (ClassModel) model.getClazz().getClassModel(),
+      templates.insert(parser, (ClassModel) model.getClazz().getClassModel(),
 			  	"name", model.getName(),
 			  	"type", model.getType().getName(true),
 			  	"modifier", model.getModifier().getName(),
@@ -88,7 +88,10 @@ public class GenAttribute extends Generator<Attribute>
       int methodBodyStartPos = parser.getMethodBodyStartPos();
 
       
-      AddTemplate templateAttr = new AddTemplate(methodBodyStartPos, "get" + StrUtil.upFirstChar(model.getName()), ".append(" + model.getName() + ")");
+      AddTemplate templateAttr = new AddTemplate(methodBodyStartPos, 
+         "get" + StrUtil.upFirstChar(model.getName()), 
+         ".append(" + model.getName() + ")",
+         ".append(this." + model.getName() + ")");
       templateAttr.withLast("return");
       if(model.getModifier().has(Modifier.PUBLIC)) {
     	  templateAttr.withTemplate("result.append(\" \").append(this.{{name}});\n      ");
