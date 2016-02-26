@@ -46,11 +46,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
-*/
-   public class Template implements PropertyChangeInterface, SendableEntity
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+ */
+public class Template implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
 
