@@ -2305,7 +2305,7 @@ public class Parser
 
    public void insertImport(String className)
    {
-      if (className.startsWith("Change"))
+      if (className.startsWith("short"))
       {
          System.out.println("hm");
       }
