@@ -440,10 +440,10 @@ public class GenAttribute extends Generator<Attribute>
      if (!CGUtil.isPrimitiveType(fullModelSetType) && !fullModelSetType.contains("<") && !fullModelSetType.endsWith("Set"))
      {
         ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
-		Clazz clazz = classModel.getClazz(model.getType().getName(false));
+        Clazz clazz = classModel.getClazz(model.getType().getName(false));
         if (clazz != null)
         {
-        	parser.insertImport(clazz.getName(false));
+           parser.insertImport(clazz.getName(false));
         }
 
         modelSetType = dataType.getName(true) + "Set";
@@ -460,9 +460,14 @@ public class GenAttribute extends Generator<Attribute>
 
      if (CGUtil.isPrimitiveType(fullModelSetType))
      {
-    	 if(!fullModelSetType.equalsIgnoreCase("object")) {
-    		 modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
-    	 }
+        if(!fullModelSetType.equalsIgnoreCase("object")) 
+        {
+           modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
+        }
+        else
+        {
+           modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
+        }
         fullModelSetType = "org.sdmlib.models.modelsets."
               + modelSetType;
         importClassesFromTypes.add(fullModelSetType);

@@ -43,9 +43,9 @@ public class ModelToTextToModelClassModel
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
 
       Clazz template = model.createClazz("Template")
+         .withAttribute("modelObject", DataType.OBJECT)
          .withAttribute("templateText", DataType.STRING)
          .withAttribute("expandedText", DataType.STRING)
-         .withAttribute("modelObject", DataType.OBJECT)
          .withAttribute("modelClassName", DataType.STRING)
          .withAttribute("listStart", DataType.STRING)
          .withAttribute("listSeparator", DataType.STRING)
