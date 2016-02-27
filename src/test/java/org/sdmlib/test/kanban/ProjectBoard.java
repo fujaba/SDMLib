@@ -78,7 +78,7 @@ public class ProjectBoard
 
       // model.getGenerator().withShowDiff(true);
       
-      model.generate();
+      // model.generate();
 
       story.addStep("Show some internals");
 
