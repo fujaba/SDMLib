@@ -612,6 +612,26 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                // e.printStackTrace();
             }
 
+            try
+            {
+               hasPOMethod = setClass.getMethod("filter" + CGUtil.shortClassName(className) + "PO");
+               patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+               patternObjectClass = patternObject.getClass();
+
+               // call allMatches
+               Method allMatchesMethod = patternObjectClass.getMethod("allMatches");
+               allMatchesMethod.invoke(patternObject);
+
+               // Method poConstructor =
+               // patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
+               // poConstructor.invoke(null);
+
+            }
+            catch (Exception e)
+            {
+               // e.printStackTrace();
+            }
             // toString
             String text = setObject.toString();
 
@@ -693,6 +713,31 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                   {
                   }
 
+                  try
+                  {
+                     Method hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), valueClass);
+                     hasMethod.invoke(setObject, value);
+
+                     hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                     hasMethod.invoke(setObject, value, value);
+                  }
+                  catch (Exception e)
+                  {
+                  }
+
+                  try
+                  {
+                     Method hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), Object.class);
+                     hasMethod.invoke(setObject, value);
+                     if (setValue != null)
+                     {
+                        hasMethod.invoke(setObject, setValue);
+                     }
+                  }
+                  catch (Exception e)
+                  {
+                  }
+
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
                   creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
@@ -741,6 +786,15 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                      }
                      try
                      {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
+                           valueClass);
+                        hasMethod.invoke(patternObject, value);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
                            valueClass, valueClass);
                         hasMethod.invoke(patternObject, value, value);
@@ -750,7 +804,24 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                      }
                      try
                      {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
+                           valueClass, valueClass);
+                        hasMethod.invoke(patternObject, value, value);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
+                        hasMethod.invoke(patternObject);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName));
                         hasMethod.invoke(patternObject);
                      }
                      catch (Exception e)
@@ -772,6 +843,15 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
+                           method.invoke(patternObject, po);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
                               po.getClass());
                            method.invoke(patternObject, po);
                         }
