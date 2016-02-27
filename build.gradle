@@ -28,6 +28,7 @@ configurations.all {
 }
 
 sourceSets.main.java.srcDirs += ['src/main/replication']
+sourceSets.main.java.srcDirs += ['src/test/java']
 
 buildscript {
     repositories {
