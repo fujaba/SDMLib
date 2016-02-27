@@ -71,6 +71,9 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.storyboards.StoryboardWall;
+import org.sdmlib.storyboards.StoryboardStep;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -82,7 +85,7 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
 */
-public class Storyboard implements PropertyChangeInterface
+public class Storyboard implements PropertyChangeInterface, SendableEntity
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
    public static final String PROPERTY_STEPCOUNTER = "stepCounter";
@@ -1441,10 +1444,22 @@ public class Storyboard implements PropertyChangeInterface
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    // ==========================================================================
 

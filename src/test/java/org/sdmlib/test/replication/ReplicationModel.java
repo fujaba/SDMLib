@@ -65,7 +65,7 @@ public class ReplicationModel
 
       Clazz seppelSpace = model.createClazz("SeppelSpace")
             .withAttribute("spaceId", DataType.STRING) 
-            .withAttribute("history", DataType.create("ChangeEventList"))
+            .withAttribute("history", DataType.create("org.sdmlib.replication.ChangeEventList"))
             .withAttribute("lastChangeId", DataType.LONG) 
             .withAttribute("javaFXApplication", DataType.BOOLEAN)
             .withSuperClazz(thread);

@@ -93,4 +93,16 @@ public class MaleSet extends SimpleSet<Male>
 
 
    public static final MaleSet EMPTY_SET = new MaleSet().withFlag(MaleSet.READONLY);
+
+
+   public MalePO filterMalePO()
+   {
+      return new MalePO(this.toArray(new Male[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Male";
+   }
 }

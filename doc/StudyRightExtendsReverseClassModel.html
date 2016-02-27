@@ -14,50 +14,37 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Lecture",
          "attributes":[
-         "Title : String"
+            "Title : String"
          ]
       },
       {
          "typ":"node",
-         "id":"Person",
-         "methods":[
-         "findMyPosition()",
-            "findMyPosition(String p0)",
-            "findMyPosition(String p0, int p1)"
-         ]
+         "id":"Person"
       },
       {
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "roomNo : String",
+            "roomNo : String",
             "credits : int"
-         ],
-         "methods":[
-         "studentCount() int"
          ]
       },
       {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Female",
          "attributes":[
-         "name : String"
-         ],
-         "methods":[
-         "findMyPosition()",
-            "findMyPosition(String p0)",
-            "findMyPosition(String p0, int p1)"
+            "name : String"
          ]
       },
       {
@@ -68,87 +55,95 @@
          "typ":"node",
          "id":"Professor",
          "attributes":[
-         "PersNr : int"
+            "PersNr : int"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int"
-         ],
-         "methods":[
-         "findMyPosition()",
-            "findMyPosition(String p0)",
-            "findMyPosition(String p0, int p1)"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
-            "id":"Lecture",
-            "cardinality":"many",
-            "property":"lecture"
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
          },
          "target":{
-            "id":"Room",
+            "id":"Female",
             "cardinality":"one",
-            "property":"in"
+            "property":"female"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"Lecture",
-            "cardinality":"many",
-            "property":"lecture"
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Male",
+            "cardinality":"one",
+            "property":"male"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
          },
          "target":{
             "id":"Professor",
             "cardinality":"one",
-            "property":"has"
+            "property":"professor"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"Lecture",
-            "cardinality":"many",
-            "property":"lecture"
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
          },
          "target":{
             "id":"Student",
             "cardinality":"one",
-            "property":"listen"
+            "property":"student"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"rooms"
-         },
-         "target":{
-            "id":"University",
+            "id":"Professor",
             "cardinality":"one",
-            "property":"uni"
+            "property":"professor"
+         },
+         "target":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
          }
       },
       {
@@ -165,11 +160,6 @@
          "typ":"generalisation",
          "source":{"id":"Professor"},
          "target":{"id":"Female"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Student"},
-         "target":{"id":"Male"}
       },
       {
          "typ":"generalisation",

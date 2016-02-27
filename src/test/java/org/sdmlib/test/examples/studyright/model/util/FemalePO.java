@@ -120,4 +120,33 @@ public class FemalePO extends PatternObject<FemalePO, Female>
       return this;
    }
    
+   public FemalePO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Female.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FemalePO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Female.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

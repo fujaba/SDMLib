@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
+import org.sdmlib.test.examples.studyright.model.util.TopicPO;
+import org.sdmlib.test.examples.studyright.model.util.ProfessorPO;
 
 public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
 {
@@ -207,6 +209,79 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
          return ((Professor) this.getCurrentMatch()).getTopic();
       }
       return null;
+   }
+
+   public ProfessorPO filterPersNr(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_PERSNR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO filterPersNr(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_PERSNR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TopicPO filterTopic()
+   {
+      TopicPO result = new TopicPO(new Topic[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Professor.PROPERTY_TOPIC, result);
+      
+      return result;
+   }
+
+   public ProfessorPO filterTopic(TopicPO tgt)
+   {
+      return hasLinkConstraint(tgt, Professor.PROPERTY_TOPIC);
    }
 
 }

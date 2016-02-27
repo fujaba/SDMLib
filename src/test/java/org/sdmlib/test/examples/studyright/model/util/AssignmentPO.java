@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
+import org.sdmlib.test.examples.studyright.model.util.RoomPO;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentPO;
+import org.sdmlib.test.examples.studyright.model.util.StudentPO;
 
 public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 {
@@ -208,6 +211,94 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
          return ((Assignment) this.getCurrentMatch()).getStudents();
       }
       return null;
+   }
+
+   public AssignmentPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO filterPoints(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_POINTS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO filterPoints(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_POINTS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO filterAssignments()
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Assignment.PROPERTY_ASSIGNMENTS, result);
+      
+      return result;
+   }
+
+   public AssignmentPO filterAssignments(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_ASSIGNMENTS);
+   }
+
+   public StudentPO filterStudents()
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
+      
+      return result;
+   }
+
+   public AssignmentPO filterStudents(StudentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
    }
 
 }

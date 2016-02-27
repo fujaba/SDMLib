@@ -6,6 +6,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentPO;
+import org.sdmlib.test.examples.studyright.model.util.StudentPO;
 
 public class StudentPO extends PatternObject<StudentPO, Student>
 {
@@ -416,6 +418,137 @@ public class StudentPO extends PatternObject<StudentPO, Student>
          return ((Student) this.getCurrentMatch()).getDone();
       }
       return null;
+   }
+
+   public StudentPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterMatrNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MATRNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterMatrNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MATRNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterCredits(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterCredits(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_CREDITS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterMotivation(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO filterMotivation(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO filterDone()
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Student.PROPERTY_DONE, result);
+      
+      return result;
+   }
+
+   public StudentPO filterDone(AssignmentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
    }
 
 }

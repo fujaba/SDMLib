@@ -25,8 +25,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-
-public  class Window implements SendableEntity
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>
+ */
+   public  class Window implements SendableEntity
 {
 
    

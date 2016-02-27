@@ -30,6 +30,7 @@ import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.model.refactoring.util.PlayerSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -258,6 +259,59 @@ public class LudoSet extends SimpleSet<Ludo>
       }
       
       return this;
+   }
+
+
+
+   public LudoPO filterLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the location attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterLocation(String value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value.equals(obj.getLocation()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the location attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterLocation(String lower, String upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.compareTo(obj.getLocation()) <= 0 && obj.getLocation().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

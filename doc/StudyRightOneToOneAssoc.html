@@ -14,23 +14,23 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Professor",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Topic",
          "attributes":[
-         "title : String"
+            "title : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"Professor",
@@ -41,6 +41,19 @@
             "id":"Topic",
             "cardinality":"one",
             "property":"topic"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Topic",
+            "cardinality":"one",
+            "property":"topic"
+         },
+         "target":{
+            "id":"Professor",
+            "cardinality":"one",
+            "property":"prof"
          }
       }
    ]

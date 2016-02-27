@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
+import org.sdmlib.storyboards.util.StoryboardPO;
+import org.sdmlib.storyboards.util.StoryboardStepPO;
 
 public class StoryboardStepPO extends PatternObject<StoryboardStepPO, StoryboardStep>
 {
@@ -118,6 +120,50 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    public StoryboardStepPO createStoryboard(StoryboardPO tgt)
    {
       return this.startCreate().hasStoryboard(tgt).endCreate();
+   }
+
+   public StoryboardStepPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(StoryboardStep.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardStepPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(StoryboardStep.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterStoryboard()
+   {
+      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.Storyboard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(StoryboardStep.PROPERTY_STORYBOARD, result);
+      
+      return result;
+   }
+
+   public StoryboardStepPO filterStoryboard(StoryboardPO tgt)
+   {
+      return hasLinkConstraint(tgt, StoryboardStep.PROPERTY_STORYBOARD);
    }
 
 }

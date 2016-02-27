@@ -28,6 +28,7 @@ import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.model.refactoring.util.LudoSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -133,4 +134,10 @@ public class PlayerSet extends SimpleSet<Player>
       return this;
    }
 
+
+
+   public PlayerPO filterPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
 }

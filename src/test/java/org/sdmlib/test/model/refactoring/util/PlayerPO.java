@@ -70,4 +70,19 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+   public LudoPO filterGame()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterGame(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_GAME);
+   }
+
 }

@@ -146,4 +146,63 @@ public class FemaleSet extends SimpleSet<Female>
       return result;
    }
 
+
+
+   public FemalePO filterFemalePO()
+   {
+      return new FemalePO(this.toArray(new Female[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Female";
+   }
+
+   /**
+    * Loop through the current set of Female objects and collect those Female objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Female objects that match the parameter
+    */
+   public FemaleSet filterName(String value)
+   {
+      FemaleSet result = new FemaleSet();
+      
+      for (Female obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Female objects and collect those Female objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Female objects that match the parameter
+    */
+   public FemaleSet filterName(String lower, String upper)
+   {
+      FemaleSet result = new FemaleSet();
+      
+      for (Female obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

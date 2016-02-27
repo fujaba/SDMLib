@@ -34,6 +34,7 @@ import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 
 public class StudentSet extends SimpleSet<Student>
 {
@@ -510,6 +511,206 @@ public class StudentSet extends SimpleSet<Student>
    }
 
    public StudentSet hasMotivation(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public StudentPO filterStudentPO()
+   {
+      return new StudentPO(this.toArray(new Student[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Student";
+   }
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterName(String value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterName(String lower, String upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the matrNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMatrNo(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getMatrNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the matrNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMatrNo(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getMatrNo() && obj.getMatrNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterCredits(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterCredits(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the motivation attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMotivation(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getMotivation())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Student objects and collect those Student objects where the motivation attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Student objects that match the parameter
+    */
+   public StudentSet filterMotivation(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       

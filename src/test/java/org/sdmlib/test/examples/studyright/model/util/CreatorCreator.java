@@ -35,6 +35,10 @@ class CreatorCreator{
       jsonIdMap.with(new AssignmentCreator());
       jsonIdMap.with(new AssignmentPOCreator());
       
+      jsonIdMap.with(new PersonCreator());
+      jsonIdMap.with(new PersonPOCreator());
+      jsonIdMap.with(new MaleCreator());
+      jsonIdMap.with(new MalePOCreator());
       return jsonIdMap;
    }
 }

@@ -32,6 +32,8 @@ import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyright.model.util.RoomSet;
+import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
@@ -261,6 +263,112 @@ public class AssignmentSet extends SimpleSet<Assignment>
    }
 
    public AssignmentSet hasPoints(int lower, int upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower <= obj.getPoints() && obj.getPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public AssignmentPO filterAssignmentPO()
+   {
+      return new AssignmentPO(this.toArray(new Assignment[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Assignment";
+   }
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterName(String value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterName(String lower, String upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterPoints(int value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value == obj.getPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterPoints(int lower, int upper)
    {
       AssignmentSet result = new AssignmentSet();
       

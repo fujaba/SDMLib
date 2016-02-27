@@ -233,4 +233,104 @@ public class KanbanEntrySet extends SimpleSet<KanbanEntry>
       return this;
    }
 
+
+
+   public KanbanEntryPO filterKanbanEntryPO()
+   {
+      return new KanbanEntryPO(this.toArray(new KanbanEntry[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of KanbanEntry objects and collect those KanbanEntry objects where the oldNoOfLogEntries attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of KanbanEntry objects that match the parameter
+    */
+   public KanbanEntrySet filterOldNoOfLogEntries(int value)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (value == obj.getOldNoOfLogEntries())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of KanbanEntry objects and collect those KanbanEntry objects where the oldNoOfLogEntries attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of KanbanEntry objects that match the parameter
+    */
+   public KanbanEntrySet filterOldNoOfLogEntries(int lower, int upper)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (lower <= obj.getOldNoOfLogEntries() && obj.getOldNoOfLogEntries() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of KanbanEntry objects and collect those KanbanEntry objects where the phases attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of KanbanEntry objects that match the parameter
+    */
+   public KanbanEntrySet filterPhases(String value)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (value.equals(obj.getPhases()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of KanbanEntry objects and collect those KanbanEntry objects where the phases attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of KanbanEntry objects that match the parameter
+    */
+   public KanbanEntrySet filterPhases(String lower, String upper)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (lower.compareTo(obj.getPhases()) <= 0 && obj.getPhases().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

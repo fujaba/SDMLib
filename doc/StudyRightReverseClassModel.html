@@ -14,36 +14,33 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Professor",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Topic",
          "attributes":[
-         "title : String"
+            "title : String"
          ]
       },
       {
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "roomNo : String",
+            "roomNo : String",
             "credits : int"
-         ],
-         "methods":[
-         "findPath(String p0, int p1)"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int"
          ]
       },
@@ -51,77 +48,11 @@
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
-   "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"Professor",
-            "cardinality":"one",
-            "property":"prof"
-         },
-         "target":{
-            "id":"Topic",
-            "cardinality":"one",
-            "property":"topic"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"in"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"rooms"
-         },
-         "target":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         },
-         "target":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         }
-      }
-   ]
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasStudyRightReverseClassModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>

@@ -31,16 +31,15 @@ import java.util.List;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.interfaces.SendableEntity;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+/**
+ * 
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-   public class ChangeEventList implements PropertyChangeInterface, SendableEntity
+public class ChangeEventList implements PropertyChangeInterface, SendableEntity
 {
    private ObjectChangeTable objectTable = new ObjectChangeTable();
    private LinkedList<ChangeEvent> overwrittenObjectsList = new LinkedList<>();
-   
+
    private boolean collectOverwrittenChanges = false;
 
    public int addChange(ChangeEvent change)
@@ -91,15 +90,15 @@ import de.uniks.networkparser.interfaces.SendableEntity;
                // new change is newer
                Object overwrittenChange = attrTable.put(property, change);
                if(overwrittenChange != null && collectOverwrittenChanges){
-            	   overwrittenObjectsList.add((ChangeEvent) overwrittenChange);
+                  overwrittenObjectsList.add((ChangeEvent) overwrittenChange);
                }
                return 0;
             }
             else
             {
                // new change is older
-            	if(collectOverwrittenChanges)
-            		overwrittenObjectsList.add(change);
+               if(collectOverwrittenChanges)
+                  overwrittenObjectsList.add(change);
                return -1;
             }
          }
@@ -125,14 +124,14 @@ import de.uniks.networkparser.interfaces.SendableEntity;
                   // new change is newer
                   eventList.remove(oldChange);
                   if(collectOverwrittenChanges)
-                	  overwrittenObjectsList.add(oldChange);
+                     overwrittenObjectsList.add(oldChange);
                   return eventList.addSorted(change);
                }
                else
                {
                   // oldChange is newer
-            	  if(collectOverwrittenChanges)
-            		   overwrittenObjectsList.add(change);
+                  if(collectOverwrittenChanges)
+                     overwrittenObjectsList.add(change);
                   return -1;
                }
             }
@@ -172,22 +171,22 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       {
          this.add(change);
          Collections.sort(this);
-         
+
          int pos = 0;
-         
+
          for (ChangeEvent e : this)
          {
             if (e == change)
             {
                return pos;
             }
-            
+
             if (e.getNewValue() != null)
             {
                pos++;
             }
          }
-         
+
          // should not be reached. 
          return this.indexOf(change);
       }
@@ -232,29 +231,29 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             result.addAll((TimeSortedChangeList)attrChange);
          }
       }
-      
+
       return result;
    }
-   
+
    public List<ChangeEvent> getOverwrittenChanges()
    {
-	  if(this.overwrittenObjectsList == null){
-		  this.overwrittenObjectsList = new LinkedList<>();
-	  }
+      if(this.overwrittenObjectsList == null){
+         this.overwrittenObjectsList = new LinkedList<>();
+      }
       return this.overwrittenObjectsList;
    }
-   
+
    public void clearOverwrittenChanges(){
-	   overwrittenObjectsList.clear();
+      overwrittenObjectsList.clear();
    }
-   
+
    public void setCollectOverwrittenChanges(boolean collectOverwrittenChanges) {
-	   this.collectOverwrittenChanges = collectOverwrittenChanges;
+      this.collectOverwrittenChanges = collectOverwrittenChanges;
    }
-   
+
    public ChangeEventList withCollectOverwrittenChanges(boolean collectOverwrittenChanges){
-	   this.setCollectOverwrittenChanges(collectOverwrittenChanges);
-	   return this;
+      this.setCollectOverwrittenChanges(collectOverwrittenChanges);
+      return this;
    }
 
    //==========================================================================
@@ -271,12 +270,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       getPropertyChangeSupport().addPropertyChangeListener(listener);
       return true;
    }
-   
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
-   
+
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
       getPropertyChangeSupport().removePropertyChangeListener(listener);
       return true;

@@ -26,10 +26,12 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.test.model.refactoring.util.PlayerSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.model.refactoring.Player;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
-   public  class Ludo implements PropertyChangeInterface
+   public  class Ludo implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +47,20 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

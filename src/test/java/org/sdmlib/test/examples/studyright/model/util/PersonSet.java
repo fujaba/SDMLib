@@ -95,4 +95,16 @@ public class PersonSet extends SimpleSet<Person>
 
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Person";
+   }
 }

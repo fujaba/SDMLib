@@ -149,4 +149,48 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       return this;
    }
    
+   public LudoPO filterLocation(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterLocation(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterPlayers()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public LudoPO filterPlayers(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS);
+   }
+
 }

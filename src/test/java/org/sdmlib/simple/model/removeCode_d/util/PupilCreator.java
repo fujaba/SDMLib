@@ -31,7 +31,9 @@ public class PupilCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
 
+
    };
+
 
    
    @Override
@@ -61,9 +63,15 @@ public class PupilCreator implements SendableEntityCreator
 
 
 
+
+
+
+
+
       
       return null;
    }
+
 
    
    @Override
@@ -79,9 +87,16 @@ public class PupilCreator implements SendableEntityCreator
 
 
 
+
+
+
+
+
+
       
       return false;
    }
+
 
    public static JsonIdMap createIdMap(String sessionID)
    {

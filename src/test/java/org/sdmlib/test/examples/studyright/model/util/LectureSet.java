@@ -260,4 +260,63 @@ public class LectureSet extends SimpleSet<Lecture>
       return result;
    }
 
+
+
+   public LecturePO filterLecturePO()
+   {
+      return new LecturePO(this.toArray(new Lecture[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Lecture";
+   }
+
+   /**
+    * Loop through the current set of Lecture objects and collect those Lecture objects where the Title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Lecture objects that match the parameter
+    */
+   public LectureSet filterTitle(String value)
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Lecture obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Lecture objects and collect those Lecture objects where the Title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Lecture objects that match the parameter
+    */
+   public LectureSet filterTitle(String lower, String upper)
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Lecture obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

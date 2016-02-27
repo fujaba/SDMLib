@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
+import org.sdmlib.test.examples.studyright.model.util.ProfessorPO;
+import org.sdmlib.test.examples.studyright.model.util.TopicPO;
 
 public class TopicPO extends PatternObject<TopicPO, Topic>
 {
@@ -120,6 +122,50 @@ public class TopicPO extends PatternObject<TopicPO, Topic>
          return ((Topic) this.getCurrentMatch()).getProf();
       }
       return null;
+   }
+
+   public TopicPO filterTitle(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Topic.PROPERTY_TITLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TopicPO filterTitle(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Topic.PROPERTY_TITLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO filterProf()
+   {
+      ProfessorPO result = new ProfessorPO(new Professor[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Topic.PROPERTY_PROF, result);
+      
+      return result;
+   }
+
+   public TopicPO filterProf(ProfessorPO tgt)
+   {
+      return hasLinkConstraint(tgt, Topic.PROPERTY_PROF);
    }
 
 }

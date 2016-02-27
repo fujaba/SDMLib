@@ -63,9 +63,24 @@ public  class Pupil implements SendableEntity
    {
    
 
+
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+
+
+   
+   
+
+   
+
+   
+
+   
+
+    
+
+    
 
    
    

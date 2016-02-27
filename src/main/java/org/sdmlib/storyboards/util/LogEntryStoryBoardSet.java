@@ -116,4 +116,10 @@ public class LogEntryStoryBoardSet extends SimpleSet<LogEntryStoryBoard>
       return this;
    }
 
+
+
+   public LogEntryStoryBoardPO filterLogEntryStoryBoardPO()
+   {
+      return new LogEntryStoryBoardPO(this.toArray(new LogEntryStoryBoard[this.size()]));
+   }
 }

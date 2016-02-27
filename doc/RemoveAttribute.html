@@ -13,14 +13,14 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Ludo",
          "attributes":[
-         "location : String"
+            "location : String"
          ],
          "methods":[
-         "init(String p)"
+            "init(String p)"
          ]
       },
       {
@@ -29,7 +29,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"Ludo",
@@ -40,6 +40,19 @@
             "id":"Player",
             "cardinality":"many",
             "property":"players"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         },
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
          }
       }
    ]

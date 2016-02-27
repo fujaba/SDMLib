@@ -178,4 +178,62 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       return null;
    }
 
+   public KanbanEntryPO filterOldNoOfLogEntries(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KanbanEntryPO filterOldNoOfLogEntries(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KanbanEntryPO filterPhases(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_PHASES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KanbanEntryPO filterPhases(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_PHASES)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

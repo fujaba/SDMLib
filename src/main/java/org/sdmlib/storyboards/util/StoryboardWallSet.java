@@ -28,6 +28,7 @@ import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.storyboards.util.StoryboardSet;
 
 public class StoryboardWallSet extends SimpleSet<StoryboardWall>
 {
@@ -106,6 +107,18 @@ public class StoryboardWallSet extends SimpleSet<StoryboardWall>
 
 
    public static final StoryboardWallSet EMPTY_SET = new StoryboardWallSet().withFlag(StoryboardWallSet.READONLY);
+
+
+   public StoryboardWallPO filterStoryboardWallPO()
+   {
+      return new StoryboardWallPO(this.toArray(new StoryboardWall[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.storyboards.StoryboardWall";
+   }
 }
 
 
