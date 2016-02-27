@@ -442,7 +442,7 @@ public class GenClass extends GenClazzEntity
                insertImport(interfaze.getName(false));
             }
          }
-      }
+      }      
    }
 
    private void insertSuperClass()
