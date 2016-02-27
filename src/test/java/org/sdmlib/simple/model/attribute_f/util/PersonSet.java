@@ -80,7 +80,7 @@ public class PersonSet extends SDMSet<Person>
    /**
     * Loop through the current set of Person objects and collect a list of the names attribute values. 
     * 
-    * @return List of de.uniks.networkparser.list.SimpleSet objects reachable via names attribute
+    * @return List of de.uniks.networkparser.list.SimpleSet<String> objects reachable via names attribute
     */
    public SimpleSet<String> getNames()
    {
@@ -139,7 +139,7 @@ public class PersonSet extends SDMSet<Person>
    /**
     * Loop through the current set of Person objects and collect a list of the ages attribute values. 
     * 
-    * @return List of de.uniks.networkparser.list.SimpleSet objects reachable via ages attribute
+    * @return List of de.uniks.networkparser.list.SimpleSet<Integer> objects reachable via ages attribute
     */
    public SimpleSet<Integer> getAges()
    {

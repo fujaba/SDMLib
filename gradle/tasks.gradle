@@ -58,7 +58,7 @@ compileJava {
 	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
 }
 compileTestJava {
-	source = fileTree(dir: 'src/main/replication')+fileTree(dir: 'src/main/java')+fileTree(dir: 'src/test/java').matching { exclude 'org/sdmlib/test/**' }
+	source = fileTree(dir: 'src/main/replication')+fileTree(dir: 'src/main/java')+fileTree(dir: 'src/test/java')
 }
 
 //classes.dependsOn compileJava17
