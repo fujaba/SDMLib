@@ -66,4 +66,14 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
 
    
 
+   
+
+   
+
+   
+
+   
+
+   
+
 }

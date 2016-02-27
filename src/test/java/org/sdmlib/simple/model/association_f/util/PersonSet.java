@@ -78,6 +78,8 @@ public class PersonSet extends SDMSet<Person>
       filterItems(filterList, newValue);
       return filterList;
    }
+   
+   
    /**
     * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
     * 

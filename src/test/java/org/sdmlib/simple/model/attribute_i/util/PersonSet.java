@@ -80,7 +80,7 @@ public class PersonSet extends SDMSet<Person>
    /**
     * Loop through the current set of Person objects and collect a list of the namesMap attribute values. 
     * 
-    * @return List of de.uniks.networkparser.list.SimpleKeyValueList<String,de.uniks.networkparser.list.SimpleKeyValueList> objects reachable via namesMap attribute
+    * @return List of de.uniks.networkparser.list.SimpleKeyValueList objects reachable via namesMap attribute
     */
    public SimpleKeyValueList<String,SimpleKeyValueList> getNamesMap()
    {
