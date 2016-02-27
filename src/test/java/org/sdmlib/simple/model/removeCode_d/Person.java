@@ -65,10 +65,25 @@ public  class Person implements SendableEntity
    
 
 
+
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
+
+
+   
+   
+
+   
+   
+   
+
+    
+
+   
+
+    
 
    
    

@@ -2305,10 +2305,6 @@ public class Parser
 
    public void insertImport(String className)
    {
-      if (className.startsWith("short"))
-      {
-         System.out.println("hm");
-      }
 	   int genericType = className.indexOf("<");
 	   String[] strings;
       if (genericType > 0)

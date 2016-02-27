@@ -32,7 +32,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
 */
-   public class Female implements Person, PropertyChangeInterface, SendableEntity
+   public class Female extends Person implements Person, PropertyChangeInterface, SendableEntity
 {
 
    
