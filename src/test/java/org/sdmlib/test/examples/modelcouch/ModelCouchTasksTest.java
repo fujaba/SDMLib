@@ -38,6 +38,14 @@ public class ModelCouchTasksTest
 				.withIdMap(idMap)
 				.registerAtIdMap()
 				.open(databaseName);
+		
+		if (couch.getModelDBListener() == null)
+		{
+		   // no database. 
+		   // abort test
+		   System.out.println("Could not connect to " + couch.getHostName());
+		   return;
+		}
 
 		Person seGroup = new Person();
 		idMap.put("root", seGroup);
