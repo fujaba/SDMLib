@@ -23,12 +23,10 @@ package org.sdmlib.test.examples.studyrightWithAssignments;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.util.ObjectPO;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.util.ReachableStatePO;
@@ -41,7 +39,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomCreator;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
@@ -56,8 +53,6 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.test.model.util.StudentCreator;
 
 public class StoryboardTests {
    /**
