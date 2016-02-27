@@ -1067,6 +1067,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
    {
       StringBuilder s = new StringBuilder();
 
+      s.append(" ").append("Pattern");
       s.append(" ").append(this.getDebugMode());
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());

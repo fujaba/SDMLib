@@ -1,38 +1,65 @@
 package org.sdmlib.models;
 
+import org.sdmlib.CGUtil;
+import org.sdmlib.serialization.NullCreator;
+
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class SDMLibIdMap extends JsonIdMap
 {
+   public SDMLibIdMap(String sessionId)
+   {
+      this.withSessionId(sessionId);
+   }
+
    @Override
    public SendableEntityCreator getCreator(String clazz, boolean fullName)
    {
       SendableEntityCreator result = super.getCreator(clazz, fullName);
       
+      if (result == NullCreator.get())
+      {
+         return null;
+      }
+      
       if (result == null)
       {
          // try reflection
-         int splitPos = clazz.lastIndexOf('.');
-         if (splitPos >= 0)
+         String creatorName = null;
+         
+         // is it a PO class? 
+         int utilPos = clazz.lastIndexOf(".util.");
+         
+         if (utilPos > 0 && clazz.endsWith("PO") )
          {
-            String creatorName = clazz.substring(0, splitPos+1)
+            creatorName = clazz + "Creator";
+         }
+         else
+         {
+            int splitPos = clazz.lastIndexOf('.');
+            if (splitPos >= 0)
+            {
+               creatorName = clazz.substring(0, splitPos+1)
                   + "util." 
                   + clazz.substring(splitPos+1)
                   + "Creator";
-            try
-            {
-               Class<?> creatorClass = Class.forName(creatorName);
-               result = (SendableEntityCreator) creatorClass.newInstance();
-               if (result != null)
-               {
-                  this.creators.put(clazz, result);
-               }
             }
-            catch (Exception e)
+         }
+         
+         try
+         {
+            Class<?> creatorClass = Class.forName(creatorName);
+            result = (SendableEntityCreator) creatorClass.newInstance();
+            if (result != null)
             {
-               result = null;
+               this.creators.put(clazz, result);
             }
+         }
+         catch (Exception e)
+         {
+            result = null;
+            this.creators.put(clazz, NullCreator.get());
          }
       }
       

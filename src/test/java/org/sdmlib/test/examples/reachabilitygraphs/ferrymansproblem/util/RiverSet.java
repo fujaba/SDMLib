@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
@@ -178,4 +180,16 @@ import de.uniks.networkparser.list.SimpleSet;
 
 
    public static final RiverSet EMPTY_SET = new RiverSet().withFlag(RiverSet.READONLY);
+
+
+   public RiverPO filterRiverPO()
+   {
+      return new RiverPO(this.toArray(new River[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
+   }
 }

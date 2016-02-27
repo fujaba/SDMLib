@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
 public class SimpleStateSet extends SimpleSet<SimpleState>
 {
@@ -120,4 +121,16 @@ public class SimpleStateSet extends SimpleSet<SimpleState>
 
 
    public static final SimpleStateSet EMPTY_SET = new SimpleStateSet().withFlag(SimpleStateSet.READONLY);
+
+
+   public SimpleStatePO filterSimpleStatePO()
+   {
+      return new SimpleStatePO(this.toArray(new SimpleState[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
+   }
 }

@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
@@ -115,6 +118,36 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
          return ((River) this.getCurrentMatch()).getBanks();
       }
       return null;
+   }
+
+   public BoatPO filterBoat()
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(River.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public RiverPO filterBoat(BoatPO tgt)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BOAT);
+   }
+
+   public BankPO filterBanks()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(River.PROPERTY_BANKS, result);
+      
+      return result;
+   }
+
+   public RiverPO filterBanks(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BANKS);
    }
 
 }

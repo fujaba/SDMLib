@@ -69,12 +69,12 @@ import org.sdmlib.models.pattern.MatchOtherThen;
    private AttributeConstraintSet attrConstraints = null;
 
    protected void newInstance(JsonIdMap map){
-      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap());
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
    }
    
    protected void newInstance(JsonIdMap map, Object[] hostGraphObject){
-      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap());
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
          this.withCandidates(Arrays.asList(hostGraphObject));
@@ -865,6 +865,7 @@ public PatternLinkSet getIncomming()
    {
       StringBuilder s = new StringBuilder();
 
+      s.append(" ").append(CGUtil.shortClassName(this.getClass().getName()));
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);

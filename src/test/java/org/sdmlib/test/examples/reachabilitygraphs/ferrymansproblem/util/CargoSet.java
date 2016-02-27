@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
 
 public class CargoSet extends SimpleSet<Cargo>
 {
@@ -211,4 +213,63 @@ public class CargoSet extends SimpleSet<Cargo>
 
 
    public static final CargoSet EMPTY_SET = new CargoSet().withFlag(CargoSet.READONLY);
+
+
+   public CargoPO filterCargoPO()
+   {
+      return new CargoPO(this.toArray(new Cargo[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo";
+   }
+
+   /**
+    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Cargo objects that match the parameter
+    */
+   public CargoSet filterName(String value)
+   {
+      CargoSet result = new CargoSet();
+      
+      for (Cargo obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Cargo objects that match the parameter
+    */
+   public CargoSet filterName(String lower, String upper)
+   {
+      CargoSet result = new CargoSet();
+      
+      for (Cargo obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

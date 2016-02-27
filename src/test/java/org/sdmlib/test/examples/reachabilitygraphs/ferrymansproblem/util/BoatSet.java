@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 public class BoatSet extends SimpleSet<Boat>
 {
@@ -207,4 +210,16 @@ public class BoatSet extends SimpleSet<Boat>
 
 
    public static final BoatSet EMPTY_SET = new BoatSet().withFlag(BoatSet.READONLY);
+
+
+   public BoatPO filterBoatPO()
+   {
+      return new BoatPO(this.toArray(new Boat[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
+   }
 }

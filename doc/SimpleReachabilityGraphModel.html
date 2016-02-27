@@ -13,7 +13,7 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"SimpleState"
       },
@@ -21,12 +21,12 @@
          "typ":"node",
          "id":"Node",
          "attributes":[
-         "num : int"
+            "num : int"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"SimpleState",
@@ -44,12 +44,25 @@
          "source":{
             "id":"Node",
             "cardinality":"many",
-            "property":"prev"
+            "property":"nodes"
+         },
+         "target":{
+            "id":"SimpleState",
+            "cardinality":"one",
+            "property":"graph"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Node",
+            "cardinality":"many",
+            "property":"next"
          },
          "target":{
             "id":"Node",
             "cardinality":"many",
-            "property":"next"
+            "property":"prev"
          }
       }
    ]

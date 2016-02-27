@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.m2m;
 
 import org.junit.Test;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
@@ -323,14 +324,14 @@ public class BanfM2MTransformations
       JsonIdMap origMap = forwardRule.getJsonIdMap();
       origMap.with(PatternCreator.createIdMap("x"));
       
-      JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().with(origMap);
+      SDMLibIdMap fwdMap =  new SDMLibIdMap("y");
 
       JsonArray jsonArray = fwdMap.toJsonArray(forwardRule);
       Object firstObject = jsonArray.get(0);
       jsonArray.remove(0);
       jsonArray.add(firstObject);
       
-      JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().with(origMap);
+      SDMLibIdMap bwdMap = new SDMLibIdMap("z");
       
       PatternElement<?> decode = (PatternElement<?>) bwdMap.decode(jsonArray);
       Pattern<?> backwardRule = (Pattern<?>) decode.getPattern();

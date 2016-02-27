@@ -13,7 +13,7 @@
    var json = {
    "typ":"classdiagram",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"River"
       },
@@ -25,7 +25,7 @@
          "typ":"node",
          "id":"Bank",
          "attributes":[
-         "name : String",
+            "name : String",
             "age : int"
          ]
       },
@@ -33,12 +33,12 @@
          "typ":"node",
          "id":"Cargo",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"River",
@@ -72,6 +72,84 @@
             "property":"boat"
          },
          "target":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         },
+         "target":{
+            "id":"Cargo",
+            "cardinality":"one",
+            "property":"cargo"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         },
+         "target":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Bank",
+            "cardinality":"many",
+            "property":"banks"
+         },
+         "target":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         },
+         "target":{
+            "id":"Cargo",
+            "cardinality":"many",
+            "property":"cargos"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Cargo",
+            "cardinality":"many",
+            "property":"cargos"
+         },
+         "target":{
             "id":"Bank",
             "cardinality":"one",
             "property":"bank"
@@ -88,19 +166,6 @@
             "id":"Boat",
             "cardinality":"one",
             "property":"boat"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Bank",
-            "cardinality":"one",
-            "property":"bank"
-         },
-         "target":{
-            "id":"Cargo",
-            "cardinality":"many",
-            "property":"cargos"
          }
       }
    ]
