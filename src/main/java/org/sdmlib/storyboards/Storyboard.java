@@ -561,7 +561,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       // loop through objects in idMap, pack them into set, read and write
       // all attributes
       LinkedHashSet<String> keySet = new LinkedHashSet<String>();
-      keySet.addAll(copyMap.getCreators().keySet());
+      keySet.addAll(copyMap.getKeyValue().keySet());
       for (String key : keySet)
       {
          Object object = copyMap.getObject(key);

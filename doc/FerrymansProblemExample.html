@@ -16,25 +16,25 @@
   "prop":{
     "name":"left",
     "boat":{
-      "id":"#3",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
+      "id":"#3"
     },
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     },
     "cargos":[
       {
-        "id":"#4",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#4"
       },
       {
-        "id":"#5",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#5"
       },
       {
-        "id":"#6",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#6"
       }
     ]
   }
@@ -44,8 +44,8 @@
   "prop":{
     "name":"right",
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     }
   }
 }*1
@@ -53,12 +53,12 @@
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
   "prop":{
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     },
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -67,8 +67,8 @@
   "prop":{
     "name":"cabbage",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -77,8 +77,8 @@
   "prop":{
     "name":"goat",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -87,8 +87,8 @@
   "prop":{
     "name":"wolf",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -96,17 +96,17 @@
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
   "prop":{
     "boat":{
-      "id":"#3",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
+      "id":"#3"
     },
     "banks":[
       {
-        "id":"#1",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+        "id":"#1"
       },
       {
-        "id":"#2",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+        "id":"#2"
       }
     ]
   }
@@ -640,16 +640,7 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"S2 : SDMLibJsonIdMap"
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : ReachabilityGraph"
-      }
-   ]
+   "nodes":null
 }   ;
    json["options"]={"canvasid":"canvasFerrymansProblemExample10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

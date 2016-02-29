@@ -32,6 +32,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -3314,7 +3315,8 @@ public class GenClassModel implements ClassModelAdapter
          String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
          Class<?> creatorClass = Class.forName(creatorClassName);
          java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         IdMap map = (IdMap) method.invoke(null, "t");
+         // IdMap map = (IdMap) method.invoke(null, "t");
+         IdMap map = new SDMLibIdMap("t");
 
          // now loop through model classes and create two objects for each class
          // using the corresponding creator class
