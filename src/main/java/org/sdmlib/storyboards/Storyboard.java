@@ -906,7 +906,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
             creatorClass.getValue(object, "foo.bar");
 
-            ((EntityFactory) creatorClass).removeObject(object);
+            // creatorClass.removeObject(object);
+            Method removeMethod = creatorClass.getClass().getMethod("removeObject", Object.class);
+            removeMethod.invoke(creatorClass, object);
          }
          catch (Exception e)
          {
