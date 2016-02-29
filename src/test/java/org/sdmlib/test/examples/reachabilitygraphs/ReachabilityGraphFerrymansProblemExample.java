@@ -18,7 +18,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverCr
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReachabilityGraphFerrymansProblemExample
 {
@@ -55,7 +55,7 @@ public class ReachabilityGraphFerrymansProblemExample
       
       RiverCreator cc = new RiverCreator();
 
-      JsonIdMap map = cc.createIdMap("s");
+      IdMap map = cc.createIdMap("s");
       map.with(ReachabilityGraphCreator.createIdMap("rg"));
       
       String s1cert = rs1.computeCertificate(map);

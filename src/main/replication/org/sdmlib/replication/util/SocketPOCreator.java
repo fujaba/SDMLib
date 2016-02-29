@@ -4,7 +4,7 @@ import java.net.Socket;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SocketPOCreator extends PatternObjectCreator
 {
@@ -18,7 +18,7 @@ public class SocketPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return CreatorCreator.createIdMap(sessionID);
    }
 }

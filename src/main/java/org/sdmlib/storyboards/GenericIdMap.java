@@ -6,7 +6,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericIdMap extends SDMLibJsonIdMap
 {

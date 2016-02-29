@@ -25,7 +25,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.replication.SharedSpace;
    /**
     * 
@@ -73,7 +73,7 @@ import org.sdmlib.replication.SharedSpace;
          return true;
       }
 
-      if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_SHAREDSPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromSharedSpaces((SharedSpace) value);
          return true;

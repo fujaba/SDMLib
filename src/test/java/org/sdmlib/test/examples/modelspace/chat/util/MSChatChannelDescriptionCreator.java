@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.modelspace.chat.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
 import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
@@ -86,7 +86,7 @@ public class MSChatChannelDescriptionCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -115,7 +115,7 @@ public class MSChatChannelDescriptionCreator extends EntityFactory
          return true;
       }
       
-      if ((MSChatChannelDescription.PROPERTY_MEMBERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MSChatChannelDescription.PROPERTY_MEMBERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((MSChatChannelDescription) target).withoutMembers((MSChatMember) value);
          return true;
@@ -123,7 +123,7 @@ public class MSChatChannelDescriptionCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.modelspace.chat.util.CreatorCreator.createIdMap(sessionID);
    }

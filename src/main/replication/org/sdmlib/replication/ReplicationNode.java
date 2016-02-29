@@ -33,7 +33,7 @@ import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.SharedSpace;
 /**
@@ -103,7 +103,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface, 
          sharedSpace.setName("SharedSpace" + getSharedSpaces().size());
          
          // add replication root 
-         JsonIdMap map = ReplicationNodeCreator.createIdMap("s42");
+         IdMap map = ReplicationNodeCreator.createIdMap("s42");
          
          map.with(modelCreators);
          sharedSpace.withMap(map);

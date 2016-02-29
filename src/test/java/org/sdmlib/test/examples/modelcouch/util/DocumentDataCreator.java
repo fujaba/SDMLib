@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.modelcouch.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
 import org.sdmlib.test.examples.modelcouch.Task;
 import org.sdmlib.test.examples.modelcouch.Person;
@@ -146,7 +146,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -157,7 +157,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_SUBDATA + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_SUBDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutSubData((DocumentData) value);
          return true;
@@ -169,7 +169,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_PARENTDATA + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_PARENTDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutParentData((DocumentData) value);
          return true;
@@ -181,7 +181,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutTasks((Task) value);
          return true;
@@ -193,7 +193,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutPersons((Person) value);
          return true;
@@ -201,7 +201,7 @@ public class DocumentDataCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.modelcouch.util.CreatorCreator.createIdMap(sessionID);
    }

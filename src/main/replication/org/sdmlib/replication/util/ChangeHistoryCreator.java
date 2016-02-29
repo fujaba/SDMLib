@@ -25,7 +25,7 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ChangeHistoryCreator extends EntityFactory
 {
@@ -68,7 +68,7 @@ public class ChangeHistoryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +79,7 @@ public class ChangeHistoryCreator extends EntityFactory
          return true;
       }
       
-      if ((ChangeHistory.PROPERTY_CHANGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChangeHistory.PROPERTY_CHANGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChangeHistory) target).withoutChanges((ReplicationChange) value);
          return true;
@@ -87,7 +87,7 @@ public class ChangeHistoryCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

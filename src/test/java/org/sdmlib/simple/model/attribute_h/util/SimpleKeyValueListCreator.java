@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.attribute_h.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SimpleKeyValueListCreator implements SendableEntityCreator
 {
@@ -59,14 +59,14 @@ public class SimpleKeyValueListCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.attribute_h.util.CreatorCreator.createIdMap(sessionID);
    }

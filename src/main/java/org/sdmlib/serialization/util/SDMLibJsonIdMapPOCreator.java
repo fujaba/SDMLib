@@ -3,7 +3,7 @@ package org.sdmlib.serialization.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SDMLibJsonIdMapPOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class SDMLibJsonIdMapPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

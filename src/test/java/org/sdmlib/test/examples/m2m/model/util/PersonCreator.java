@@ -27,7 +27,7 @@ import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator extends EntityFactory
 {
@@ -106,7 +106,7 @@ public class PersonCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -135,7 +135,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_OUTEDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_OUTEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromOutEdges((Relation) value);
          return true;
@@ -147,7 +147,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_INEDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_INEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromInEdges((Relation) value);
          return true;
@@ -159,7 +159,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_KNOWS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_KNOWS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromKnows((Person) value);
          return true;
@@ -173,7 +173,7 @@ public class PersonCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

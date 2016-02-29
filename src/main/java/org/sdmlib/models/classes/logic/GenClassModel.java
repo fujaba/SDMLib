@@ -38,6 +38,7 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
@@ -55,7 +56,6 @@ import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.Throws;
 import de.uniks.networkparser.graph.util.AssociationSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -3314,7 +3314,7 @@ public class GenClassModel implements ClassModelAdapter
          String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
          Class<?> creatorClass = Class.forName(creatorClassName);
          java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         JsonIdMap map = (JsonIdMap) method.invoke(null, "t");
+         IdMap map = (IdMap) method.invoke(null, "t");
 
          // now loop through model classes and create two objects for each class
          // using the corresponding creator class

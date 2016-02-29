@@ -37,8 +37,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.ReachableState;
@@ -512,7 +513,7 @@ import org.sdmlib.models.pattern.Pattern;
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().with(rule.getJsonIdMap());
+               IdMap newJsonIdMap = (IdMap) new IdMap().with(rule.getIdMap());
                newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
@@ -549,8 +550,8 @@ import org.sdmlib.models.pattern.Pattern;
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
       
-      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().with(masterMap);
-      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().with(masterMap);
+	   IdMap map1 = (IdMap) new IdMap().with(masterMap);
+      IdMap map2 = (IdMap) new IdMap().with(masterMap);
       
       map1.withSessionId("s");
       map2.withSessionId("s");
@@ -576,7 +577,7 @@ import org.sdmlib.models.pattern.Pattern;
       {
          JsonObject jo = (JsonObject) object;
 
-         String key = jo.getString(JsonIdMap.ID);
+         String key = jo.getString(IdMap.ID);
 
          joMap1.put(key, jo);
       }
@@ -587,7 +588,7 @@ import org.sdmlib.models.pattern.Pattern;
       {
          JsonObject jo = (JsonObject) object;
 
-         String key = jo.getString(JsonIdMap.ID);
+         String key = jo.getString(IdMap.ID);
 
          joMap2.put(key, jo);
       }
@@ -610,8 +611,8 @@ import org.sdmlib.models.pattern.Pattern;
 
       // certificates are equal, only check refs
       // go through properties
-      JsonObject currentProps1 = currentJo1.getJsonObject(JsonIdMap.JSON_PROPS);
-      JsonObject currentProps2 = currentJo2.getJsonObject(JsonIdMap.JSON_PROPS);
+      JsonObject currentProps1 = currentJo1.getJsonObject(JsonTokener.PROPS);
+      JsonObject currentProps2 = currentJo2.getJsonObject(JsonTokener.PROPS);
 
       for (Iterator<String> iter = currentProps1.keyIterator(); iter.hasNext();)
       {
@@ -622,9 +623,9 @@ import org.sdmlib.models.pattern.Pattern;
          if (value instanceof JsonObject)
          {
             JsonObject ref = (JsonObject) value;
-            String tgt1 = ref.getString(JsonIdMap.ID);
+            String tgt1 = ref.getString(IdMap.ID);
 
-            String tgt2 = currentProps2.getJsonObject(key).getString(JsonIdMap.ID);
+            String tgt2 = currentProps2.getJsonObject(key).getString(IdMap.ID);
 
             String mappingOfTgt1 = fwdmapping.get(tgt1);
 
@@ -660,7 +661,7 @@ import org.sdmlib.models.pattern.Pattern;
             {
                JsonObject ref = (JsonObject) object;
 
-               String tgt1 = ref.getString(JsonIdMap.ID);
+               String tgt1 = ref.getString(IdMap.ID);
 
                // might already have been matched
                String tgt1Map = fwdmapping.get(tgt1);
@@ -671,7 +672,7 @@ import org.sdmlib.models.pattern.Pattern;
                   for (Object o : currentProps2.getJsonArray(key))
                   {
                      ref = (JsonObject) o;
-                     String tgt2 = ref.getString(JsonIdMap.ID);
+                     String tgt2 = ref.getString(IdMap.ID);
 
                      if (tgt2.equals(tgt1Map))
                      {
@@ -687,7 +688,7 @@ import org.sdmlib.models.pattern.Pattern;
                for (Object o : currentProps2.getJsonArray(key))
                {
                   ref = (JsonObject) o;
-                  String tgt2 = ref.getString(JsonIdMap.ID);
+                  String tgt2 = ref.getString(IdMap.ID);
 
                   // already used for other match?
                   if (bwdmapping.get(tgt2) != null )
@@ -729,19 +730,19 @@ import org.sdmlib.models.pattern.Pattern;
       return true;
    }
 
-   private JsonIdMap masterMap = null;
+   private IdMap masterMap = null;
    
-   public JsonIdMap getMasterMap()
+   public IdMap getMasterMap()
    {
       return masterMap;
    }
    
-   public void setMasterMap(JsonIdMap newMasterMap)
+   public void setMasterMap(IdMap newMasterMap)
    {
       masterMap = newMasterMap;
    }
    
-   public ReachabilityGraph withMasterMap(JsonIdMap map)
+   public ReachabilityGraph withMasterMap(IdMap map)
    {
       setMasterMap(map);
       

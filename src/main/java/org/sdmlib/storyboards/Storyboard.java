@@ -65,11 +65,12 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.storyboards.StoryboardWall;
@@ -113,7 +114,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    private StoryboardStepSet storyboardSteps = null;
    private int codeStartLineNumber = -1;
    private ByteArrayOutputStream systemOutRecorder;
-   private JsonIdMap jsonIdMap = null;
+   private IdMap jsonIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
    
    public String getJavaTestFileName()
@@ -126,7 +127,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       this.javaTestFileName = javaTestFileName;
    }
 
-   public Storyboard withJsonIdMap(JsonIdMap jsonIdMap)
+   public Storyboard withJsonIdMap(IdMap jsonIdMap)
    {
       this.jsonIdMap = jsonIdMap;
       return this;
@@ -422,7 +423,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       this.add(string);
    }
 
-   public Storyboard withMap(JsonIdMap map)
+   public Storyboard withMap(IdMap map)
    {
       this.jsonIdMap = map;
       return this;
@@ -450,7 +451,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
             idMap = method.invoke(null, "debug");
 
-            jsonIdMap = (JsonIdMap) idMap;
+            jsonIdMap = (IdMap) idMap;
          }
 
          if (largestJsonArray == null)
@@ -458,7 +459,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             largestJsonArray = jsonIdMap.toJsonArray(root);
          }
 
-         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().with(jsonIdMap);
+         IdMap copyMap = (IdMap) new IdMap().with(jsonIdMap);
 
          copyMap.decode(largestJsonArray);
 
@@ -474,13 +475,13 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       }
    }
 
-   public void coverSeldomModelMethods(JsonIdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
+   public void coverSeldomModelMethods(IdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
          InvocationTargetException
    {
       LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
 
       LinkedHashSet<String> keySet = new LinkedHashSet<String>();
-      keySet.addAll(copyMap.keySet());
+      keySet.addAll(copyMap.getCreators().keySet());
       // loop through objects
       for (String key : keySet)
       {
@@ -555,12 +556,12 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       }
    }
 
-   public void coverSetAndPOClasses(JsonIdMap copyMap)
+   public void coverSetAndPOClasses(IdMap copyMap)
    {
-      // loop through objects in jsonIdMap, pack them into set, read and write
+      // loop through objects in idMap, pack them into set, read and write
       // all attributes
       LinkedHashSet<String> keySet = new LinkedHashSet<String>();
-      keySet.addAll(copyMap.keySet());
+      keySet.addAll(copyMap.getCreators().keySet());
       for (String key : keySet)
       {
          Object object = copyMap.getObject(key);
@@ -740,7 +741,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
-                  creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
+                  creatorClass.setValue(object, attrName, value, IdMap.REMOVE);
 
                   patternObject = (PatternObject) hasPOMethod.invoke(setObject);
 
@@ -947,8 +948,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       // do we have a JsonIdMap?
       if (jsonIdMap == null)
       {
-         jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
-         jsonIdMap.getLogger().withError(false);
+         jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
+//FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
       }
 
 
@@ -1069,7 +1070,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 	}
    }
 
-   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, UpdateListener filter)
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, UpdateListener filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 

@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
@@ -126,7 +126,7 @@ public class MauMauCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -149,7 +149,7 @@ public class MauMauCreator extends EntityFactory
          return true;
       }
       
-      if ((MauMau.PROPERTY_CARDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MauMau.PROPERTY_CARDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((MauMau) target).withoutCards((Card) value);
          return true;
@@ -173,7 +173,7 @@ public class MauMauCreator extends EntityFactory
          return true;
       }
       
-      if ((MauMau.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MauMau.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((MauMau) target).withoutPlayers((Player) value);
          return true;
@@ -191,7 +191,7 @@ public class MauMauCreator extends EntityFactory
          return true;
       }
       
-      if ((MauMau.PROPERTY_LOSERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MauMau.PROPERTY_LOSERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((MauMau) target).withoutLosers((Player) value);
          return true;
@@ -211,7 +211,7 @@ public class MauMauCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.maumau.model.util.CreatorCreator.createIdMap(sessionID);
    }

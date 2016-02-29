@@ -25,7 +25,7 @@ import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PlayerCreator extends EntityFactory
 {
@@ -80,7 +80,7 @@ public class PlayerCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -103,7 +103,7 @@ public class PlayerCreator extends EntityFactory
          return true;
       }
       
-      if ((Player.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Player.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Player) target).removeFromPlayers((Ludo) value);
          return true;
@@ -111,7 +111,7 @@ public class PlayerCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

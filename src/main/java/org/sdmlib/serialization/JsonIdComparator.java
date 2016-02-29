@@ -2,7 +2,7 @@ package org.sdmlib.serialization;
 
 import java.util.Comparator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 
 public class JsonIdComparator implements Comparator<Object>
@@ -12,8 +12,8 @@ public class JsonIdComparator implements Comparator<Object>
    {
       if (o1 instanceof JsonObject)
       {
-         o1 = ((JsonObject) o1).get(JsonIdMap.ID);
-         o2 = ((JsonObject) o2).get(JsonIdMap.ID);
+         o1 = ((JsonObject) o1).get(IdMap.ID);
+         o2 = ((JsonObject) o2).get(IdMap.ID);
       }
       String id1 = (String) o1;
       String id2 = (String) o2;

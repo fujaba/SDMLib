@@ -12,7 +12,7 @@ import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReplicationChatServer 
 {
@@ -31,7 +31,7 @@ public class ReplicationChatServer
    {
       // open shared space and load data
       String serverName = args[0];
-      JsonIdMap idMap = new ChatRootCreator().createIdMap(serverName);
+      IdMap idMap = new ChatRootCreator().createIdMap(serverName);
       idMap.with(StoryboardCreator.createIdMap(serverName));
       seppelSpace = new SeppelSpace().init(idMap, false, args[1], Integer.parseInt(args[2]));
       seppelSpace.start();

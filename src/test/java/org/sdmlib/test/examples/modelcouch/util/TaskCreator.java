@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.modelcouch.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelcouch.Task;
 import org.sdmlib.test.examples.modelcouch.Person;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
@@ -86,7 +86,7 @@ public class TaskCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -97,7 +97,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_SUBTASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_SUBTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutSubTasks((Task) value);
          return true;
@@ -109,7 +109,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_PARENTTASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_PARENTTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutParentTasks((Task) value);
          return true;
@@ -121,7 +121,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutPersons((Person) value);
          return true;
@@ -133,7 +133,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_TASKDATA + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_TASKDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutTaskData((DocumentData) value);
          return true;
@@ -141,7 +141,7 @@ public class TaskCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.modelcouch.util.CreatorCreator.createIdMap(sessionID);
    }

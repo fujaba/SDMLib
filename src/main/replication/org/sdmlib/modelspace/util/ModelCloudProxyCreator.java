@@ -22,7 +22,7 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelSpaceProxy;
@@ -86,7 +86,7 @@ public class ModelCloudProxyCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -115,7 +115,7 @@ public class ModelCloudProxyCreator extends EntityFactory
          return true;
       }
       
-      if ((ModelCloudProxy.PROPERTY_PROVIDEDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ModelCloudProxy.PROPERTY_PROVIDEDSPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ModelCloudProxy) target).withoutProvidedSpaces((ModelSpaceProxy) value);
          return true;
@@ -123,7 +123,7 @@ public class ModelCloudProxyCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.modelspace.util.CreatorCreator.createIdMap(sessionID);
    }

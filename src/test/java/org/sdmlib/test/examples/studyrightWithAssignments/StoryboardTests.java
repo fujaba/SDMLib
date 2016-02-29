@@ -52,7 +52,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityS
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class StoryboardTests {
    /**
@@ -277,7 +277,7 @@ public class StoryboardTests {
       
       storyboard.markCodeStart();
       
-      JsonIdMap idMap = UniversityCreator.createIdMap("demo");
+      IdMap idMap = UniversityCreator.createIdMap("demo");
       
       JsonArray jsonArray = idMap.toJsonArray(university);
       
@@ -300,7 +300,7 @@ public class StoryboardTests {
       // read jsonText from file
       JsonArray readJsonArray = new JsonArray().withValue(jsonText);
       
-      JsonIdMap readerMap = UniversityCreator.createIdMap("demo");
+      IdMap readerMap = UniversityCreator.createIdMap("demo");
       
       Object rootObject = readerMap.decode(readJsonArray);
       
@@ -697,7 +697,7 @@ public class StoryboardTests {
 
       
       //=====================================================
-      JsonIdMap idMap = UniversityCreator.createIdMap("s");
+      IdMap idMap = UniversityCreator.createIdMap("s");
       idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
       
       ReachableState startState = new ReachableState().withGraphRoot(university);

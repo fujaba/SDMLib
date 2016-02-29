@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Teacher;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.simple.model.modelling_a.Room;
@@ -117,7 +117,7 @@ public class TeacherCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -140,7 +140,7 @@ public class TeacherCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Teacher.PROPERTY_PUPILS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Teacher.PROPERTY_PUPILS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Teacher) target).withoutPupils((Pupil) value);
          return true;
@@ -148,7 +148,7 @@ public class TeacherCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.modelling_a.util.CreatorCreator.createIdMap(sessionID);
    }

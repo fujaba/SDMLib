@@ -12,6 +12,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.modelsets.ObjectSet;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
@@ -19,7 +20,6 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenAssociation extends Generator<Association>
@@ -358,7 +358,7 @@ public class GenAssociation extends Generator<Association>
       GenClazzEntity generator = getGenerator(model.getClazz());
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
-      kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
+      kidClasses = (SimpleSet<Clazz>) partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
@@ -612,7 +612,7 @@ public class GenAssociation extends Generator<Association>
       
       String realPartnerClassName = partnerClassName;
       
-      SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
+      SimpleSet<Clazz> kidClasses = (SimpleSet<Clazz>) partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
     	  if (item.getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
@@ -1386,7 +1386,7 @@ public class GenAssociation extends Generator<Association>
                "\n         return true;" +
                "\n      }" +
                "\n      " + 
-               "\n      if ((ClassName.PROPERTY_NAME + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))" +
+               "\n      if ((ClassName.PROPERTY_NAME + IdMap.REMOVE).equalsIgnoreCase(attrName))" +
                "\n      {" +
                "\n         ((ClassName) target).withoutPropertyName((type) value);" +
                "\n         return true;" +
@@ -1406,7 +1406,7 @@ public class GenAssociation extends Generator<Association>
 
          parser.insert(lastIfEndPos, text.toString());
          
-         parser.insertImport(JsonIdMap.class.getName());
+         parser.insertImport(IdMap.class.getName());
          parser.insertImport(partnerRole.getClazz().getName(false));
          
       }

@@ -55,7 +55,7 @@ import org.sdmlib.models.pattern.PatternObject;
 
          if (hostGraphSrcObject != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
 
             long valueSize = -1;
@@ -82,7 +82,7 @@ import org.sdmlib.models.pattern.PatternObject;
                   msg = msg.replaceFirst("minCard", "" + minCard);
                   msg = msg.replaceFirst("tgtRole", "" + tgtRoleName);
                   msg = msg.replaceFirst("size", "" + valueSize);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
@@ -97,7 +97,7 @@ import org.sdmlib.models.pattern.PatternObject;
                   msg = msg.replaceFirst("minCard", "" + minCard);
                   msg = msg.replaceFirst("tgtRole", "" + tgtRoleName);
                   msg = msg.replaceFirst("size", "" + valueSize);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 

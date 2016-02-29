@@ -24,7 +24,7 @@ package org.sdmlib.modelcouch;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.application.Platform;
 
@@ -224,7 +224,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		}
 	}
 
-	private void applyChange(ChangeEvent change, JsonIdMap idMap)
+	private void applyChange(ChangeEvent change, IdMap idMap)
 	{
 		Object object = idMap.getObject(change.getObjectId());
 
@@ -283,7 +283,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 				if (targetObject != null)
 				{
-					creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+					creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
 				}
 			}
 			else

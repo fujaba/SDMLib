@@ -22,7 +22,7 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 
@@ -79,7 +79,7 @@ public class KanbanEntryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -102,7 +102,7 @@ public class KanbanEntryCreator extends EntityFactory
          return true;
       }
       
-      if ((KanbanEntry.PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((KanbanEntry.PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((KanbanEntry) target).withoutLogEntries((LogEntryStoryBoard) value);
          return true;
@@ -110,7 +110,7 @@ public class KanbanEntryCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.storyboards.util.CreatorCreator.createIdMap(sessionID);
    }

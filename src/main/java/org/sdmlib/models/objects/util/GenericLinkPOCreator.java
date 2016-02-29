@@ -3,7 +3,7 @@ package org.sdmlib.models.objects.util;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericLinkPOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class GenericLinkPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
        return CreatorCreator.createIdMap(sessionID);
    }
 }

@@ -22,6 +22,7 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
@@ -30,7 +31,6 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
 
 /**
@@ -366,15 +366,15 @@ public class GenClass extends GenClazzEntity
 	    	  creatorCreator.withFileBody(
 	               new StringBuilder(
 	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
-	                           + "import " + JsonIdMap.class.getName() + ";\n"
+	                           + "import " + IdMap.class.getName() + ";\n"
 	                           +
 	                           "\n"
 	                           +
 	                           "class CreatorCreator{\n" +
 	                           "\n" +
-	                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
+	                           "   public static IdMap createIdMap(String sessionID)\n" +
 	                           "   {\n" +
-	                           "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" +
+	                           "      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);\n" +
 	                           "      return jsonIdMap;\n" +
 	                           "   }\n" +
 	                           "}\n")
@@ -499,7 +499,7 @@ public class GenClass extends GenClazzEntity
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model)) {
+		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
 			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
@@ -537,7 +537,7 @@ public class GenClass extends GenClazzEntity
 
       String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model))
+      for (Clazz clazz : model.getSuperClazzes(true).without(model))
       {
          if (GraphUtil.isInterface(clazz))
          {
@@ -772,7 +772,7 @@ public class GenClass extends GenClazzEntity
                   "package packageName;\n" +
                      "\n" +
                      "import org.sdmlib.models.pattern.util.PatternObjectCreator;\n" +
-                     "import " + JsonIdMap.class.getName() + ";\n" +
+                     "import " + IdMap.class.getName() + ";\n" +
                      "\n" +
                      "public class patternObjectCreatorClassName extends PatternObjectCreator\n" +
                      "{\n" +
@@ -786,7 +786,7 @@ public class GenClass extends GenClazzEntity
                      "      }\n" +
                      "   }\n" +
                      "   \n" +
-                     "   public static JsonIdMap createIdMap(String sessionID) {\n" +
+                     "   public static IdMap createIdMap(String sessionID) {\n" +
                      "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                      "   }\n" +
                      "}\n");

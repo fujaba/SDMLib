@@ -1,7 +1,7 @@
 package org.sdmlib.modelcouch.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelcouch.ModelCouch;
 
 public class ModelCouchPOCreator extends PatternObjectCreator
@@ -16,7 +16,7 @@ public class ModelCouchPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.modelcouch.util.CreatorCreator.createIdMap(sessionID);
    }
 }

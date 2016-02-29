@@ -11,17 +11,17 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.converter.GraphConverter;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphIdMap;
 import de.uniks.networkparser.graph.GraphList;
+import de.uniks.networkparser.graph.GraphTokener;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -29,7 +29,7 @@ public class Javascript implements GuiAdapter
 {
    public static final String NAME="Javascript";
    private String rootDir = "src";
-   private JsonIdMap lastIdMap = null;
+   private IdMap lastIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<>();
 
    @Override
@@ -67,7 +67,7 @@ public class Javascript implements GuiAdapter
 
       // new diagram
       GraphConverter graphConverter = new GraphConverter();
-      JsonObject objectModel = graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
+      JsonObject objectModel = graphConverter.convertToJson(GraphTokener.OBJECT, jsonArray, true);
 
       String text =
             "<script>\n" +
@@ -115,7 +115,7 @@ public class Javascript implements GuiAdapter
    }
    
    public GraphList convertModelToGraphList(ClassModel model) {
-	   GraphList list = new GraphList().withTyp(GraphIdMap.CLASS);
+	   GraphList list = new GraphList().withTyp(IdMap.CLASS);
 	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
 	      
       for (Clazz clazz : model.getClazzes())
@@ -172,7 +172,7 @@ public class Javascript implements GuiAdapter
    public JsonObject convertModel(ClassModel model) {
 	   JsonObject json = new JsonObject();
 	      
-	      json.put("typ", GraphIdMap.CLASS);
+	      json.put("typ", IdMap.CLASS);
 	      
 	      JsonArray jsonNodes = new JsonArray();
 	      JsonArray jsonEdges = new JsonArray();

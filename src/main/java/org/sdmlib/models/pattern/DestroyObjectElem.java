@@ -53,7 +53,7 @@ import org.sdmlib.storyboards.Kanban;
             
             Object currentMatch = this.getPatternObject().getCurrentMatch();
             
-            EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
+            EntityFactory creatorClass = (EntityFactory) this.getPattern().getIdMap().getCreatorClass(currentMatch);
             
             creatorClass.removeObject(currentMatch);
             

@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.removeCode_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.removeCode_a.Person;
 
 public class PersonCreator implements SendableEntityCreator
@@ -228,7 +228,7 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -247,7 +247,7 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.removeCode_a.util.CreatorCreator.createIdMap(sessionID);
    }

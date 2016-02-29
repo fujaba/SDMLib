@@ -29,7 +29,7 @@ import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.RemoteTaskBoard;
@@ -86,7 +86,7 @@ import org.sdmlib.replication.BoardTask;
          return true;
       }
 
-      if ((PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTasks((BoardTask) value);
          return true;

@@ -30,7 +30,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
    /**
@@ -242,7 +242,7 @@ import java.beans.PropertyChangeListener;
    {
       if (this.idMap != value)
       {
-         JsonIdMap oldValue = this.idMap;
+    	  IdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP,
             oldValue, value);

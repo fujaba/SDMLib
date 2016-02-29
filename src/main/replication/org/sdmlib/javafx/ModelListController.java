@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleSet;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 public class ModelListController implements PropertyChangeListener
 {
 
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private VBox vBox;
    private PropertyChangeInterface listRoot;
    private String property;
@@ -25,7 +25,7 @@ public class ModelListController implements PropertyChangeListener
    private LinkedHashMap<PropertyChangeInterface, ModelObjectController> objectControllers = new LinkedHashMap<PropertyChangeInterface, ModelObjectController>();
    private SendableEntityCreator creator;
 
-   public ModelListController(JsonIdMap idMap, VBox vBox, PropertyChangeInterface listRoot, String property,
+   public ModelListController(IdMap idMap, VBox vBox, PropertyChangeInterface listRoot, String property,
          Class<? extends ModelObjectController> elementControllerClass2)
    {
       this.idMap = idMap;

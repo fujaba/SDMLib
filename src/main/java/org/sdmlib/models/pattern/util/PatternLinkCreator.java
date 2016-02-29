@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PatternLinkCreator extends PatternElementCreator
 {
@@ -119,7 +119,7 @@ public class PatternLinkCreator extends PatternElementCreator
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

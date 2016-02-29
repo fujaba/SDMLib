@@ -3,7 +3,7 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.PatternElement;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class CloneOpCreator extends PatternElementCreator
 {
@@ -28,7 +28,7 @@ public class CloneOpCreator extends PatternElementCreator
       return new CloneOp();
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

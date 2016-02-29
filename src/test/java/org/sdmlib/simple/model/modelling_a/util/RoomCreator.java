@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Room;
 import org.sdmlib.simple.model.modelling_a.roomInterface;
 import org.sdmlib.simple.model.modelling_a.Person;
@@ -94,7 +94,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -105,7 +105,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutPersons((Person) value);
          return true;
@@ -117,7 +117,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_CURRENTPUPILS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_CURRENTPUPILS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutCurrentPupils((Pupil) value);
          return true;
@@ -131,7 +131,7 @@ public class RoomCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.modelling_a.util.CreatorCreator.createIdMap(sessionID);
    }

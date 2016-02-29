@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class OptionalSubPatternCreator extends PatternCreator
 {
@@ -83,7 +83,7 @@ public class OptionalSubPatternCreator extends PatternCreator
          return true;
       }
       
-      if ((OptionalSubPattern.PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((OptionalSubPattern.PROPERTY_ELEMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((OptionalSubPattern) target).removeFromElements((PatternElement) value);
          return true;
@@ -103,7 +103,7 @@ public class OptionalSubPatternCreator extends PatternCreator
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

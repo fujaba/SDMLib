@@ -57,7 +57,7 @@ import de.uniks.networkparser.SimpleIdCounter;
 import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.logic.SimpleMapEvent;
@@ -105,7 +105,7 @@ UpdateListener, SendableEntity
    {
    }
 
-   public SharedSpace(String spaceId, String nodeId, String serverIp, int serverPort, JsonIdMap map)
+   public SharedSpace(String spaceId, String nodeId, String serverIp, int serverPort, IdMap map)
    {
       this.spaceId = spaceId;
       this.nodeId = nodeId;
@@ -326,7 +326,7 @@ UpdateListener, SendableEntity
             return;
          }
 
-         JsonIdMap cmap = getChangeMap();
+         IdMap cmap = getChangeMap();
 
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
          
@@ -378,13 +378,13 @@ UpdateListener, SendableEntity
                   // find source object, property and earlier content object
                   String changeMsg = higher.getChangeMsg();
                   JsonObject higherJson = new JsonObject().withValue(changeMsg);
-                  String sourceId = higherJson.getString(JsonIdMap.ID);
+                  String sourceId = higherJson.getString(IdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
-                  JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
+                  JsonObject updateJson = (JsonObject) higherJson.get(IdMap.UPDATE);
                   
                   if (updateJson == null)
                   {
-                     updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
+                     updateJson = (JsonObject) higherJson.get(IdMap.REMOVE);
                   }
 
                   for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
@@ -393,7 +393,7 @@ UpdateListener, SendableEntity
 
                      JsonObject targetJson = updateJson.getJsonObject(property);
 
-                     String targetId = targetJson.getString(JsonIdMap.ID);
+                     String targetId = targetJson.getString(IdMap.ID);
 
                      Object targetObj = map.getObject(targetId);
 
@@ -422,7 +422,7 @@ UpdateListener, SendableEntity
                      // remove higher elems from collection
                      for (Object obj : higherList)
                      {
-                        creatorClass.setValue(sourceObject, property + JsonIdMap.REMOVE, obj, null);
+                        creatorClass.setValue(sourceObject, property + IdMap.REMOVE, obj, null);
                      }
 
                      // add new
@@ -487,7 +487,7 @@ UpdateListener, SendableEntity
          return;
       }
 
-      JsonIdMap cmap = getChangeMap();
+      IdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
 
@@ -843,14 +843,14 @@ UpdateListener, SendableEntity
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId((String) source.getValue(JsonIdMap.ID))
+      .withTargetObjectId((String) source.getValue(IdMap.ID))
       .withChangeMsg(source.toString());
 
-      Object object = source.getValue(JsonIdMap.UPDATE);
+      Object object = source.getValue(IdMap.UPDATE);
       
       if (object == null)
       {
-         object = source.getValue(JsonIdMap.REMOVE);
+         object = source.getValue(IdMap.REMOVE);
       }
 
       if (object != null)
@@ -886,11 +886,11 @@ UpdateListener, SendableEntity
       return true;
    }
 
-   private JsonIdMap changeMap = null;
+   private IdMap changeMap = null;
 
    private void sendNewChange(ReplicationChange change)
    {
-      JsonIdMap cmap = getChangeMap();
+	   IdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
 
@@ -926,7 +926,7 @@ UpdateListener, SendableEntity
    }
 
    // ==========================================================================
-   public JsonIdMap getChangeMap()
+   public IdMap getChangeMap()
    {
       if (changeMap == null)
       {
@@ -992,7 +992,7 @@ UpdateListener, SendableEntity
          return true;
       }
 
-      if ((PROPERTY_CHANNELS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChannels((ReplicationChannel) value);
          return true;
@@ -1163,14 +1163,14 @@ UpdateListener, SendableEntity
 
    private ReplicationChannelSet channels = null;
 
-   private JsonIdMap map;
+   private IdMap map;
 
-   public JsonIdMap getMap()
+   public IdMap getMap()
    {
       return map;
    }
 
-   public void setMap(JsonIdMap map)
+   public void setMap(IdMap map)
    {
       this.map = map;
    }
@@ -1275,7 +1275,7 @@ UpdateListener, SendableEntity
    } 
 
 
-   public void withMap(JsonIdMap map)
+   public void withMap(IdMap map)
    {
       this.map = map;
       map.with((UpdateListener)this);
@@ -1646,7 +1646,7 @@ UpdateListener, SendableEntity
       return this;
    }
 
-   public SharedSpace init(JsonIdMap userModelIdMap, boolean javaFXApplication)
+   public SharedSpace init(IdMap userModelIdMap, boolean javaFXApplication)
    {
       String userName = userModelIdMap.getCounter().getPrefixId();
       

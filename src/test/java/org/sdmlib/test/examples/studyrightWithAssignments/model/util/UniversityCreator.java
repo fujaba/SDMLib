@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
@@ -86,7 +86,7 @@ public class UniversityCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -97,7 +97,7 @@ public class UniversityCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((University.PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).withoutStudents((Student) value);
          return true;
@@ -109,7 +109,7 @@ public class UniversityCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((University.PROPERTY_ROOMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_ROOMS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).withoutRooms((Room) value);
          return true;
@@ -117,7 +117,7 @@ public class UniversityCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
    }

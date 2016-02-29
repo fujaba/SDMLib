@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.interface_b.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.interface_b.Pupil;
 import org.sdmlib.simple.model.interface_b.Person;
 
@@ -73,14 +73,14 @@ public class PupilCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.interface_b.util.CreatorCreator.createIdMap(sessionID);
    }

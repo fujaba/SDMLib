@@ -85,7 +85,7 @@ import org.sdmlib.replication.SharedSpace;
                this.setTargetNodeId(senderNodeId);
                // send history
                for (ReplicationChange change : sharedSpace.getHistory().getChanges()) {
-            	   this.send(sharedSpace.getChangeMap().encode(change).toString());
+            	   this.send(sharedSpace.getChangeMap().toJsonObject(change).toString());
                }
             }
             else if (line.startsWith("mouse"))

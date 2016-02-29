@@ -22,7 +22,7 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskLane;
 
@@ -97,7 +97,7 @@ public class TaskCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -140,7 +140,7 @@ public class TaskCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.modelspace.util.CreatorCreator.createIdMap(sessionID);
    }

@@ -26,9 +26,9 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
-public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
+public class JsonIdMapSet extends LinkedHashSet<IdMap>
 {
    private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
    {
       StringList stringList = new StringList();
       
-      for (JsonIdMap elem : this)
+      for (IdMap elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -57,17 +57,17 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<JsonIdMap>)value);
+         this.addAll((Collection<IdMap>)value);
       }
       else if (value != null)
       {
-         this.add((JsonIdMap) value);
+         this.add((IdMap) value);
       }
       
       return this;
    }
    
-   public JsonIdMapSet without(JsonIdMap value)
+   public JsonIdMapSet without(IdMap value)
    {
       this.remove(value);
       return this;
@@ -77,6 +77,6 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 
    public JsonIdMapPO hasJsonIdMapPO()
    {
-      return new JsonIdMapPO(this.toArray(new JsonIdMap[this.size()]));
+      return new JsonIdMapPO(this.toArray(new IdMap[this.size()]));
    }
 }

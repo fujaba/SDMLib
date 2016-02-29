@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleSet;
 import javafx.application.Application;
 import javafx.scene.layout.HBox;
@@ -18,7 +18,7 @@ public class ListController implements PropertyChangeListener
 
    private VBox vBox;
    
-   private JsonIdMap idMap;
+   private IdMap idMap;
    
    private PropertyChangeInterface parent;
 
@@ -30,7 +30,7 @@ public class ListController implements PropertyChangeListener
 
    private Application app;
 
-   public VBox init(JsonIdMap idMap, Application app, PropertyChangeInterface parent, String property, Class subControllerClass)
+   public VBox init(IdMap idMap, Application app, PropertyChangeInterface parent, String property, Class subControllerClass)
    {
       this.idMap = idMap;
       this.app = app;

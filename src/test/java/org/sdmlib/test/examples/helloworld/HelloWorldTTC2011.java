@@ -34,8 +34,9 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
 
 public class HelloWorldTTC2011
 {
@@ -1129,7 +1130,7 @@ public class HelloWorldTTC2011
 
    private Graph simpleMigrationByJsonArray(Graph graph)
    {
-      JsonIdMap idMap = GraphCreator.createIdMap("hg");
+	   IdMap idMap = GraphCreator.createIdMap("hg");
 
       JsonArray jsonArray = idMap.toJsonArray(graph);
 
@@ -1137,11 +1138,11 @@ public class HelloWorldTTC2011
       {
          JsonObject jsonObject = jsonArray.getJSONObject(i);
 
-         String className = jsonObject.getString(JsonIdMap.CLASS);
+         String className = jsonObject.getString(IdMap.CLASS);
 
          if (Graph.class.getName().equals(className))
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonTokener.PROPS);
 
             // migrate nodes and edges to gcs
             JsonArray gcsArray = jsonProps.getJsonArray(Graph.PROPERTY_NODES);
@@ -1156,7 +1157,7 @@ public class HelloWorldTTC2011
          }
          else if (Node.class.getName().equals(className))
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonTokener.PROPS);
 
             // migrate name to text
             jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
@@ -1170,7 +1171,7 @@ public class HelloWorldTTC2011
          }
          else if (Edge.class.getName().equals(className))
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonTokener.PROPS);
 
             // migrate name to text
             jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));

@@ -9,7 +9,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PatternObjectCreator extends PatternElementCreator
 {
@@ -121,7 +121,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_INCOMMING + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_INCOMMING + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromIncomming((PatternLink) value);
          return true;
@@ -133,7 +133,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_OUTGOING + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_OUTGOING + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromOutgoing((PatternLink) value);
          return true;
@@ -151,7 +151,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_ATTRCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_ATTRCONSTRAINTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromAttrConstraints((AttributeConstraint) value);
          return true;
@@ -169,7 +169,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_CARDCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_CARDCONSTRAINTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromCardConstraints((CardinalityConstraint) value);
          return true;
@@ -181,7 +181,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_MATCHOTHERTHEN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_MATCHOTHERTHEN + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromMatchOtherThen((MatchOtherThen) value);
          return true;
@@ -193,7 +193,7 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if ((PatternObject.PROPERTY_EXCLUDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_EXCLUDERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromExcluders((MatchOtherThen) value);
          return true;
@@ -210,7 +210,7 @@ public class PatternObjectCreator extends PatternElementCreator
    
    // ==========================================================================
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

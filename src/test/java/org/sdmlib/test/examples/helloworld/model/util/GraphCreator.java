@@ -6,7 +6,7 @@ import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GraphCreator extends EntityFactory
 {
@@ -53,7 +53,7 @@ public class GraphCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -64,7 +64,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_NODES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_NODES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromNodes((Node) value);
          return true;
@@ -76,7 +76,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_EDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_EDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromEdges((Edge) value);
          return true;
@@ -88,14 +88,14 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_GCS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_GCS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromGcs((GraphComponent) value);
          return true;
       }
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

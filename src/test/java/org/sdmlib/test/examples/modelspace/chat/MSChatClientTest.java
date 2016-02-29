@@ -7,13 +7,13 @@ import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class MSChatClientTest
 {
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private MSChatChannel channel;
    private String sessionId;
    private String userName;

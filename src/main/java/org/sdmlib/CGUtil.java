@@ -38,7 +38,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class CGUtil 
 {
@@ -299,7 +299,7 @@ public class CGUtil
             // target object and target attribute name
             Object target = objects[i];
             String attrName = (String) objects[i+1];
-            ObjectSet value = new ObjectSet().withValue(target, attrName);
+            ObjectSet value = new ObjectSet().with(target, attrName);
             placeholderTargets.put(placeholder, value);
             
             i += 2;
@@ -377,7 +377,7 @@ public class CGUtil
       
       placeholderValues.put(SEARCH_POS, "" + searchPos);
       
-      JsonIdMap map = new GenericIdMap();
+      IdMap map = new GenericIdMap();
       
       // finally assign values to model objects
       for ( String placeholder : placeholderTargets.keySet())

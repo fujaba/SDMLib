@@ -28,7 +28,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.ReplicationChange;
@@ -64,7 +64,7 @@ import org.sdmlib.replication.ReplicationChange;
          return true;
       }
 
-      if ((PROPERTY_CHANGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHANGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChanges((ReplicationChange) value);
          return true;

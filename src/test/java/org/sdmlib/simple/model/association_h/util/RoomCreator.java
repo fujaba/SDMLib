@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.association_h.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_h.Room;
 import org.sdmlib.simple.model.association_h.Person;
 import org.sdmlib.simple.model.association_h.Teacher;
@@ -74,7 +74,7 @@ public class RoomCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -91,7 +91,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_TEACHERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_TEACHERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutTeachers((Teacher) value);
          return true;
@@ -99,7 +99,7 @@ public class RoomCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.simple.model.association_h.util.CreatorCreator.createIdMap(sessionID);
    }

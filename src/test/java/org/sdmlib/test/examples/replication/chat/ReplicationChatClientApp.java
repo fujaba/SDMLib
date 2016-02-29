@@ -22,7 +22,7 @@ import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatUserCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -99,7 +99,7 @@ public class ReplicationChatClientApp extends Application
       userName = parameters.get(0);
       pwd = parameters.get(1);
       
-      JsonIdMap idMap = ChatRootCreator.createIdMap(userName);
+      IdMap idMap = ChatRootCreator.createIdMap(userName);
       idMap.with(StoryboardCreator.createIdMap(userName));
       seppelSpace = new SeppelSpace().init(idMap, true, null, 0);
 
@@ -273,7 +273,7 @@ public class ReplicationChatClientApp extends Application
          SeppelSpaceProxyPO spaceProxyPO = selfProxy.getPartners().hasSeppelSpaceProxyPO();
          SeppelScopePO scopePO = spaceProxyPO.hasScopes();
          ChatUserPO chatUser = scopePO.hasObservedObjects().instanceOf(new ChatUserPO());
-         chatUser.getPattern().getJsonIdMap().with(ChatUserCreator.createIdMap("m42"));
+         chatUser.getPattern().getIdMap().with(ChatUserCreator.createIdMap("m42"));
          chatUser.hasUserName(currentUser.getUserName());
          
          if (spaceProxyPO.getHasMatch())

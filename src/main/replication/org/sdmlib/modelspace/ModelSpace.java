@@ -56,7 +56,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
 import de.uniks.networkparser.logic.SimpleMapEvent;
@@ -76,7 +76,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    //==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private String userName;
    private File modelDir;
    private WatchService watcher;
@@ -103,12 +103,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this.history;
    }
 
-   public ModelSpace(JsonIdMap idMap, String userName)
+   public ModelSpace(IdMap idMap, String userName)
    {
       this (idMap, userName, ApplicationType.StandAlone);
    }
 
-   public ModelSpace(JsonIdMap idMap, String userName, ApplicationType appType)
+   public ModelSpace(IdMap idMap, String userName, ApplicationType appType)
    {
       this.idMap = idMap;
       this.appType = appType;   
@@ -450,7 +450,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
             if (targetObject != null)
             {
-               creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+               creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
             }
          }
          else
@@ -572,19 +572,19 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       //                   "prop":{"scopeName":"commands",
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
-      String opCode = JsonIdMap.UPDATE;
+      String opCode = IdMap.UPDATE;
 
-      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+      Object attributes = jsonObject.get(IdMap.UPDATE);
 
       if (attributes == null)
       {
-         attributes = jsonObject.get(JsonIdMap.REMOVE);
-         opCode = JsonIdMap.REMOVE;
+         attributes = jsonObject.get(IdMap.REMOVE);
+         opCode = IdMap.REMOVE;
 
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
-            opCode = JsonIdMap.UPDATE;
+            opCode = IdMap.UPDATE;
          }
       }
 
@@ -604,8 +604,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             ChangeEvent change = new ChangeEvent()
             .withSessionId(userName)
             .withChangeNo("" + getNewHistoryIdNumber())
-            .withObjectId(jsonObject.getString(JsonIdMap.ID))
-            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+            .withObjectId(jsonObject.getString(IdMap.ID))
+            .withObjectType(jsonObject.getString(IdMap.CLASS))
             .withProperty(prop);
 
             Object attrValue = attributesJson.get(prop);
@@ -625,9 +625,9 @@ import de.uniks.networkparser.interfaces.SendableEntity;
                {
                   valueJsonObject = (JsonObject) arrayElem;
 
-                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+                  String valueObjectId = (String) valueJsonObject.get(IdMap.ID);
 
-                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+                  String valueObjectType = (String) valueJsonObject.get(IdMap.CLASS);
 
                   Object valueObject = idMap.getObject(valueObjectId);
 
@@ -654,7 +654,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(JsonIdMap.REMOVE))
+                  if (opCode.equals(IdMap.REMOVE))
                   {
                      change.withOldValue(valueObjectId);
                   }

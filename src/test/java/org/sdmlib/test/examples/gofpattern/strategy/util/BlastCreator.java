@@ -25,7 +25,7 @@ import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.gofpattern.strategy.Blast;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class BlastCreator extends EntityFactory
 {
@@ -68,7 +68,7 @@ public class BlastCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -81,7 +81,7 @@ public class BlastCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.gofpattern.strategy.util.CreatorCreator.createIdMap(sessionID);
    }

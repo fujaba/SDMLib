@@ -1,7 +1,7 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.maumau.model.Value;
 
 public class ValuePOCreator extends PatternObjectCreator
@@ -16,7 +16,7 @@ public class ValuePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.test.examples.maumau.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }

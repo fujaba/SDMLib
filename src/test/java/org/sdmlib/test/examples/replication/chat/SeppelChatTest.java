@@ -14,7 +14,7 @@ import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SeppelChatTest
 {
@@ -62,7 +62,7 @@ public class SeppelChatTest
       final LinkedBlockingQueue<BoardTask> inbox = new LinkedBlockingQueue<BoardTask>();
       
       // open my own seppelspace and login to zuenFamilyChatServer
-      JsonIdMap idMap = ChatRootCreator.createIdMap("tester");
+      IdMap idMap = ChatRootCreator.createIdMap("tester");
       idMap.with(StoryboardCreator.createIdMap("tester"));
       seppelSpace = new SeppelSpace().init(idMap, false, null, 0);
       

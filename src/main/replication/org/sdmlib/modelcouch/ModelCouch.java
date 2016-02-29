@@ -42,7 +42,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import org.sdmlib.modelcouch.ModelDBListener;
@@ -59,7 +59,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	private final int RESPONSE_CODE_DB_MISSING = 404;
 
-	private JsonIdMap idMap;
+	private IdMap idMap;
 	private String databaseName;
 	private String userName = "couchdb";
 
@@ -249,19 +249,19 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
 		JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
-		String opCode = JsonIdMap.UPDATE;
+		String opCode = IdMap.UPDATE;
 
-		Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+		Object attributes = jsonObject.get(IdMap.UPDATE);
 
 		if (attributes == null)
 		{
-			attributes = jsonObject.get(JsonIdMap.REMOVE);
-			opCode = JsonIdMap.REMOVE;
+			attributes = jsonObject.get(IdMap.REMOVE);
+			opCode = IdMap.REMOVE;
 
 			if (attributes == null)
 			{
 				attributes = jsonObject.get("prop");
-				opCode = JsonIdMap.UPDATE;
+				opCode = IdMap.UPDATE;
 			}
 		}
 
@@ -280,9 +280,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				ChangeEvent change = new ChangeEvent()
 						.withSessionId(((IdMap)idMap).getCounter().getPrefixId())
-						.withObjectId(jsonObject.getString(JsonIdMap.ID))
+						.withObjectId(jsonObject.getString(IdMap.ID))
 						.withChangeNo("" + getNewHistoryIdNumber())
-						.withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+						.withObjectType(jsonObject.getString(IdMap.CLASS))
 						.withProperty(prop);
 
 				Object attrValue = attributesJson.get(prop);
@@ -302,9 +302,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					{
 						valueJsonObject = (JsonObject) arrayElem;
 
-						String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+						String valueObjectId = (String) valueJsonObject.get(IdMap.ID);
 
-						String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+						String valueObjectType = (String) valueJsonObject.get(IdMap.CLASS);
 
 						Object valueObject = idMap.getObject(valueObjectId);
 
@@ -331,7 +331,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 						}
 
 						// newValue or oldValue?
-						if (opCode.equals(JsonIdMap.REMOVE))
+						if (opCode.equals(IdMap.REMOVE))
 						{
 							change.withOldValue(valueObjectId);
 						}
@@ -478,7 +478,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		setPort(value);
 		return this;
 	}
-	public JsonIdMap getIdMap()
+	public IdMap getIdMap()
 	{
 		return idMap;
 	}
@@ -499,12 +499,12 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return this;
 	}
 
-	public void setIdMap(JsonIdMap idMap)
+	public void setIdMap(IdMap idMap)
 	{
 		this.idMap = idMap;
 	}
 
-	public ModelCouch withIdMap(JsonIdMap idMap)
+	public ModelCouch withIdMap(IdMap idMap)
 	{
 		setIdMap(idMap);
 		return this;

@@ -25,7 +25,7 @@ import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class RemoteTaskBoardCreator extends EntityFactory
 {
@@ -68,7 +68,7 @@ public class RemoteTaskBoardCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +79,7 @@ public class RemoteTaskBoardCreator extends EntityFactory
          return true;
       }
       
-      if ((RemoteTaskBoard.PROPERTY_LANES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((RemoteTaskBoard.PROPERTY_LANES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((RemoteTaskBoard) target).withoutLanes((Lane) value);
          return true;
@@ -87,7 +87,7 @@ public class RemoteTaskBoardCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

@@ -6,7 +6,7 @@ import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelcouch.util.PersonCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ModelCouchTasksTest
 {
@@ -28,7 +28,7 @@ public class ModelCouchTasksTest
 
 		String sessionid = "testBasicModelOnTheCouch" + System.currentTimeMillis();
 
-		JsonIdMap idMap = PersonCreator.createIdMap(sessionid);
+		IdMap idMap = PersonCreator.createIdMap(sessionid);
 		
 		ModelCouch couch = new ModelCouch()
 				.withHostName("docker.cs.uni-kassel.de")
@@ -86,7 +86,7 @@ public class ModelCouchTasksTest
 				);
 		
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
-		JsonIdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
+		IdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
 		
 		couch = new ModelCouch()
 				.withHostName("docker.cs.uni-kassel.de")

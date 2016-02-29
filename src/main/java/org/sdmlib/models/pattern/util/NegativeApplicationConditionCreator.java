@@ -4,7 +4,7 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class NegativeApplicationConditionCreator extends PatternCreator
 {
@@ -35,7 +35,7 @@ public class NegativeApplicationConditionCreator extends PatternCreator
       return new NegativeApplicationCondition();
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

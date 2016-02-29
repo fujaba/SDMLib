@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator extends EntityFactory
 {
@@ -87,7 +87,7 @@ public class PersonCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -116,7 +116,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_ITEM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_ITEM + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutItem((Item) value);
          return true;
@@ -124,7 +124,7 @@ public class PersonCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.groupaccount.model.util.CreatorCreator.createIdMap(sessionID);
    }

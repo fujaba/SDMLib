@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
@@ -130,7 +130,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -147,7 +147,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutDoors((Room) value);
          return true;
@@ -159,7 +159,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutStudents((Student) value);
          return true;
@@ -171,7 +171,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_ASSIGNMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutAssignments((Assignment) value);
          return true;
@@ -183,7 +183,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_TAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_TAS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutTas((TeachingAssistant) value);
          return true;
@@ -191,7 +191,7 @@ public class RoomCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
    }

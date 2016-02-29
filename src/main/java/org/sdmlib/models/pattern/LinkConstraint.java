@@ -28,7 +28,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -55,7 +55,7 @@ import de.uniks.networkparser.json.JsonIdMap;
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             
@@ -83,7 +83,7 @@ import de.uniks.networkparser.json.JsonIdMap;
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
             Object value = creatorClass.getValue(srcObj, this.getTgtRoleName());
             if (value == null)
             {
@@ -97,7 +97,7 @@ import de.uniks.networkparser.json.JsonIdMap;
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
                }
                
-            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + JsonIdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
+            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + IdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
             {
@@ -123,7 +123,7 @@ import de.uniks.networkparser.json.JsonIdMap;
          
          if (getHostGraphSrcObject() != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(getHostGraphSrcObject());
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(getHostGraphSrcObject());
             Object value = creatorClass.getValue(getHostGraphSrcObject(), getTgtRoleName());
             Object hostGraphTgtObject = this.getTgt().getCurrentMatch();
             
@@ -133,8 +133,8 @@ import de.uniks.networkparser.json.JsonIdMap;
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   String msg = "// cnet link from x to y exists";
-                  msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
-                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("y", getTopPattern().getIdMap().getId(value) + " " + value.toString());
+                  msg = msg.replaceFirst("x", getTopPattern().getIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
                   msg = msg.replaceFirst("cnet", getTgtRoleName());
                   getTopPattern().addLogMsg(msg);
                }
@@ -148,9 +148,9 @@ import de.uniks.networkparser.json.JsonIdMap;
                   String msg = "// cnet link from x to ? does not exists, backtrack";
                   if (value != null)
                   {
-                     msg = msg.replaceFirst("\\?", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
+                     msg = msg.replaceFirst("\\?", getTopPattern().getIdMap().getId(value) + " " + value.toString());
                   }
-                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("x", getTopPattern().getIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
                   msg = msg.replaceFirst("cnet", getTgtRoleName());
                   getTopPattern().addLogMsg(msg);
                }

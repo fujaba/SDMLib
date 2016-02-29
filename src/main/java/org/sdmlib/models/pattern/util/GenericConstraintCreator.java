@@ -4,7 +4,7 @@ import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericConstraintCreator extends PatternElementCreator
 {
@@ -62,7 +62,7 @@ public class GenericConstraintCreator extends PatternElementCreator
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

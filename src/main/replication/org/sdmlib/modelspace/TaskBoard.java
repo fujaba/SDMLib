@@ -27,7 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.modelspace.util.TaskLaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.modelspace.TaskLane;
    /**
@@ -45,9 +45,9 @@ import org.sdmlib.modelspace.TaskLane;
 
    private ModelCloud modelCloud;
 
-   private JsonIdMap taskIdMap;
+   private IdMap taskIdMap;
    
-   public TaskBoard(ModelCloud modelCloud, JsonIdMap taskIdMap)
+   public TaskBoard(ModelCloud modelCloud, IdMap taskIdMap)
    {
       this.modelCloud = modelCloud;
       this.taskIdMap = taskIdMap;

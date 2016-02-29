@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ItemPOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class ItemPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.test.examples.groupaccount.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }

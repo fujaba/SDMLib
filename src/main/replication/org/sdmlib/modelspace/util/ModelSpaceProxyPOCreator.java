@@ -1,7 +1,7 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelSpaceProxy;
 
 public class ModelSpaceProxyPOCreator extends PatternObjectCreator
@@ -16,7 +16,7 @@ public class ModelSpaceProxyPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.modelspace.util.CreatorCreator.createIdMap(sessionID);
    }
 }

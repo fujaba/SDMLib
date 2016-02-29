@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PatternCreator extends EntityFactory
 {
@@ -93,7 +93,7 @@ public class PatternCreator extends EntityFactory
          return true;
       }
       
-      if ((Pattern.PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Pattern.PROPERTY_ELEMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Pattern<?>)target).removeFromElements((PatternElement<?>) value);
          return true;
@@ -137,7 +137,7 @@ public class PatternCreator extends EntityFactory
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

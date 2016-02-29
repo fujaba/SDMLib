@@ -27,7 +27,7 @@ import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ProfessorCreator extends EntityFactory
 {
@@ -88,7 +88,7 @@ public class ProfessorCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -111,7 +111,7 @@ public class ProfessorCreator extends EntityFactory
          return true;
       }
       
-      if ((Professor.PROPERTY_LECTURE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Professor.PROPERTY_LECTURE + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Professor) target).removeFromLecture((Lecture) value);
          return true;
@@ -125,7 +125,7 @@ public class ProfessorCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

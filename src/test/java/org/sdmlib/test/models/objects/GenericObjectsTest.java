@@ -36,7 +36,7 @@ import de.kassel.test.roombook.Building;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericObjectsTest implements PropertyChangeInterface 
 {
@@ -90,7 +90,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTgt(wa03)
       .withTgtLabel("has");
 
-      // JsonIdMap jsonIdMap = GenericGraphCreator.createIdMap("go");
+      // IdMap jsonIdMap = GenericGraphCreator.createIdMap("go");
       // storyboard.withJsonIdMap(GenericGraphCreator.createIdMap("g"));
       storyboard.addObjectDiagram(graph);
 
@@ -141,7 +141,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       //====================================================================================================
       storyboard.add("Step 7: derive non-generic objects from the generic objects ");
 
-      JsonIdMap createIdMap = de.kassel.test.roombook.util.BuildingCreator.createIdMap("gen2spec");
+      IdMap createIdMap = de.kassel.test.roombook.util.BuildingCreator.createIdMap("gen2spec");
 
       Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.test.roombook", graph);
 

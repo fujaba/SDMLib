@@ -4,13 +4,13 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.test.examples.mancala.referencemodel.util.ColorCreator;
 import org.sdmlib.test.examples.mancala.referencemodel.util.ColorPOCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
       jsonIdMap.with(new MancalaCreator());
       jsonIdMap.with(new MancalaPOCreator());

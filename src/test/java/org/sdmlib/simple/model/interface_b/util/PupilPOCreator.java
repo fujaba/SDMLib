@@ -1,7 +1,7 @@
 package org.sdmlib.simple.model.interface_b.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.interface_b.Pupil;
 
 public class PupilPOCreator extends PatternObjectCreator
@@ -16,7 +16,7 @@ public class PupilPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.simple.model.interface_b.util.CreatorCreator.createIdMap(sessionID);
    }
 }

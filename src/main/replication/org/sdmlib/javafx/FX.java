@@ -13,12 +13,12 @@ import javafx.scene.layout.VBox;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class FX
 {
 
-   public static void bindTextFieldIntegerProperty(JsonIdMap idMap, final TextField field, 
+   public static void bindTextFieldIntegerProperty(IdMap idMap, final TextField field, 
          final PropertyChangeInterface modelObject, final String property)
    {
       final SendableEntityCreator creator = idMap.getCreatorClass(modelObject);
@@ -66,7 +66,7 @@ public class FX
       
    }
 
-   public static void bindListProperty(JsonIdMap idMap, VBox vBox, PropertyChangeInterface listRoot,
+   public static void bindListProperty(IdMap idMap, VBox vBox, PropertyChangeInterface listRoot,
          String property, Class<? extends ModelObjectController> elementControllerClass)
    {
       new ModelListController(idMap, vBox, listRoot, property, elementControllerClass);

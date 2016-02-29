@@ -257,7 +257,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
    public String dumpHostGraphObject(Object hostGraphObject)
    {
-      return getTopPattern().getJsonIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
+      return getTopPattern().getIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
    }
 
 

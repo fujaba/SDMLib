@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.couchspace.tasks.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 
@@ -85,7 +85,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -96,7 +96,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TaskFlow.PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskFlow.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskFlow) target).withoutTasks((Task) value);
          return true;
@@ -108,7 +108,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TaskFlow.PROPERTY_FIRSTTASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskFlow.PROPERTY_FIRSTTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskFlow) target).withoutFirstTasks((Task) value);
          return true;
@@ -116,7 +116,7 @@ public class TaskFlowCreator implements SendableEntityCreator
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.couchspace.tasks.util.CreatorCreator.createIdMap(sessionID);
    }

@@ -1,12 +1,12 @@
 package org.sdmlib.modelcouch.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
       jsonIdMap.with(new ModelCouchCreator());
       jsonIdMap.with(new ModelCouchPOCreator());
       jsonIdMap.with(new ModelDBListenerCreator());

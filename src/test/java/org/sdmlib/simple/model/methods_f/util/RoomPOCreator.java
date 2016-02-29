@@ -1,7 +1,7 @@
 package org.sdmlib.simple.model.methods_f.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.methods_f.Room;
 
 public class RoomPOCreator extends PatternObjectCreator
@@ -16,7 +16,7 @@ public class RoomPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.simple.model.methods_f.util.CreatorCreator.createIdMap(sessionID);
    }
 }

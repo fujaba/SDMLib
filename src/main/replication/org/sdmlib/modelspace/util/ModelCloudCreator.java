@@ -22,7 +22,7 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
@@ -86,7 +86,7 @@ public class ModelCloudCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -103,7 +103,7 @@ public class ModelCloudCreator extends EntityFactory
          return true;
       }
       
-      if ((ModelCloud.PROPERTY_SERVERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ModelCloud.PROPERTY_SERVERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ModelCloud) target).withoutServers((ModelCloudProxy) value);
          return true;
@@ -115,7 +115,7 @@ public class ModelCloudCreator extends EntityFactory
          return true;
       }
       
-      if ((ModelCloud.PROPERTY_MODELSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ModelCloud.PROPERTY_MODELSPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ModelCloud) target).withoutModelSpaces((ModelSpaceProxy) value);
          return true;
@@ -129,7 +129,7 @@ public class ModelCloudCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.modelspace.util.CreatorCreator.createIdMap(sessionID);
    }

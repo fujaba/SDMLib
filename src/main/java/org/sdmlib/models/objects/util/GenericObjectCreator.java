@@ -6,7 +6,7 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericObjectCreator extends EntityFactory
 {
@@ -77,7 +77,7 @@ public class GenericObjectCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -112,7 +112,7 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_ATTRS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_ATTRS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromAttrs((GenericAttribute) value);
          return true;
@@ -124,7 +124,7 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_OUTGOINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_OUTGOINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromOutgoingLinks((GenericLink) value);
          return true;
@@ -136,14 +136,14 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_INCOMMINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_INCOMMINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromIncommingLinks((GenericLink) value);
          return true;
       }
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

@@ -28,7 +28,7 @@ import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class RoomCreator extends EntityFactory
 {
@@ -107,7 +107,7 @@ public class RoomCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -130,7 +130,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_NEIGHBORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_NEIGHBORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromNeighbors((Room) value);
          return true;
@@ -142,7 +142,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_LECTURE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_LECTURE + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromLecture((Lecture) value);
          return true;
@@ -160,7 +160,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromStudents((Student) value);
          return true;
@@ -174,7 +174,7 @@ public class RoomCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

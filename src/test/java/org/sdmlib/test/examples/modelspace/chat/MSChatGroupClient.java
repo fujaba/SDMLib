@@ -7,7 +7,7 @@ import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -42,7 +42,7 @@ public class MSChatGroupClient  extends Application
    private Stage stage;
    private String userName = null;
    private String location = null;
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private MSChatGroup group;
    private ModelSpace space;
    private String sessionId;

@@ -29,7 +29,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationRootSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
@@ -92,7 +92,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
       
-      if ((PROPERTY_KIDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_KIDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromKids((ReplicationRoot) value);
          return true;

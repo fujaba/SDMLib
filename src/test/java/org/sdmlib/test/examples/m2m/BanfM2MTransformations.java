@@ -28,7 +28,7 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class BanfM2MTransformations
 {
@@ -321,7 +321,7 @@ public class BanfM2MTransformations
 
    private Pattern<?> revertRule(Pattern<?> forwardRule)
    {
-      JsonIdMap origMap = forwardRule.getJsonIdMap();
+      IdMap origMap = forwardRule.getIdMap();
       origMap.with(PatternCreator.createIdMap("x"));
       
       SDMLibIdMap fwdMap =  new SDMLibIdMap("y");
@@ -335,7 +335,7 @@ public class BanfM2MTransformations
       
       PatternElement<?> decode = (PatternElement<?>) bwdMap.decode(jsonArray);
       Pattern<?> backwardRule = (Pattern<?>) decode.getPattern();
-      backwardRule.setJsonIdMap(origMap);
+      backwardRule.setIdMap(origMap);
       
       // look for attribute constraint with modifer create
       for (PatternElement<?> elem : backwardRule.getElements())

@@ -26,7 +26,7 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class PlaceHolderDescriptionCreator extends EntityFactory
 {
@@ -111,7 +111,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -152,7 +152,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return true;
       }
 
-      if ((PlaceHolderDescription.PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PlaceHolderDescription.PROPERTY_OWNERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutOwners((Template) value);
          return true;
@@ -164,7 +164,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return true;
       }
 
-      if ((PlaceHolderDescription.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PlaceHolderDescription.PROPERTY_MATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutMatches((Match) value);
          return true;
@@ -179,7 +179,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       return false;
    }
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }

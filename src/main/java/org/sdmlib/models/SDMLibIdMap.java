@@ -1,12 +1,11 @@
 package org.sdmlib.models;
 
-import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.NullCreator;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 
-public class SDMLibIdMap extends JsonIdMap
+public class SDMLibIdMap extends IdMap
 {
    public SDMLibIdMap(String sessionId)
    {

@@ -40,7 +40,7 @@ import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import java.lang.Object;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
@@ -234,7 +234,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
 
    private String expandedText;
 
-   protected JsonIdMap idMap;
+   protected IdMap idMap;
 
    public String getExpandedText()
    {
@@ -688,7 +688,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return !"".equals(this.getListStart() + this.getListSeparator() + this.getListEnd());
    }
 
-   protected Template withIdMap(JsonIdMap idMap2)
+   protected Template withIdMap(IdMap idMap2)
    {
       this.idMap = idMap2;
 
@@ -872,7 +872,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
             Class<?> creatorClass = Class.forName(className);
             Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
 
-            JsonIdMap newIdMap = (JsonIdMap) method.invoke(null, "debug");
+            IdMap newIdMap = (IdMap) method.invoke(null, "debug");
 
             idMap.with(newIdMap);
          }

@@ -18,12 +18,12 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GroupAccountAppSimpleTest
 {
    LinkedBlockingQueue<Object> testResults = new LinkedBlockingQueue<>();
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private GroupAccount dataRoot;
    private ModelSpace space;
    

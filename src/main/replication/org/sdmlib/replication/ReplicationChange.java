@@ -27,7 +27,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ChangeHistory;
@@ -138,7 +138,7 @@ import org.sdmlib.replication.ChangeHistory;
          return true;
       }
 
-      if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
          return true;

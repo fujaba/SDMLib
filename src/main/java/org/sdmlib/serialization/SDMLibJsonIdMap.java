@@ -26,9 +26,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.debug.FlipBook;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.json.JsonIdMap;
 
-public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
+public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
 	/** The Constant JSON_PROPS. */
 	public static final String JSON_HYPERREF = "hyperref";
 

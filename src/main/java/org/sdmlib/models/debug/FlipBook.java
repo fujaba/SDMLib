@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.Entity;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.UpdateListener;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 
@@ -45,9 +44,9 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
 
       JsonObject undo = new JsonObject();
       
-      undo.put(JsonIdMap.ID, jo.getString(JsonIdMap.ID));
+      undo.put(IdMap.ID, jo.getString(IdMap.ID));
       
-      Object update = jo.get(JsonIdMap.UPDATE);
+      Object update = jo.get(IdMap.UPDATE);
       if (update != null)
       {
          // if the value is a JsonObject, just use the id
@@ -60,21 +59,21 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
             JsonObject jsonValue = (JsonObject) value;
             
             JsonObject newValue = new JsonObject();
-            newValue.put(JsonIdMap.ID, jsonValue.getString(JsonIdMap.ID));
+            newValue.put(IdMap.ID, jsonValue.getString(IdMap.ID));
             JsonObject newUpdate = new JsonObject();
             newUpdate.put(key, newValue);
-            undo.put(JsonIdMap.REMOVE, newUpdate);
+            undo.put(IdMap.REMOVE, newUpdate);
          }
          else
          {
-            undo.put(JsonIdMap.REMOVE, update);
+            undo.put(IdMap.REMOVE, update);
          }
       }
       
-      Object remove = jo.get(JsonIdMap.REMOVE);
+      Object remove = jo.get(IdMap.REMOVE);
       if (remove != null)
       {
-         undo.put(JsonIdMap.UPDATE, remove);
+         undo.put(IdMap.UPDATE, remove);
       }
       
       setReading(true);
@@ -102,13 +101,13 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
          
          JsonObject jo = stepInfo.change;
          
-         String id = jo.getString(JsonIdMap.ID);
+         String id = jo.getString(IdMap.ID);
          
          Object obj = map.getObject(id);
          
          if (obj == target)
          {
-            Object update = jo.get(JsonIdMap.UPDATE);
+            Object update = jo.get(IdMap.UPDATE);
             
             if (update != null)
             {
@@ -151,7 +150,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
          
          JsonObject jo = stepInfo.change;
          
-         String id = jo.getString(JsonIdMap.ID);
+         String id = jo.getString(IdMap.ID);
          
          Object obj = map.getObject(id);
          
@@ -218,7 +217,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       return this;
    }
    
-   private static JsonIdMap map = null;
+   private static IdMap map = null;
 
    public long stopStep = Long.MAX_VALUE;
    
@@ -253,7 +252,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       return this;
    }
    
-   public FlipBook init(JsonIdMap theMap)
+   public FlipBook init(IdMap theMap)
    {
       map = theMap;
       

@@ -15,14 +15,12 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.modelsets.SDMSet;
 
-import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public abstract class GenClazzEntity extends Generator<Clazz>{
@@ -753,7 +751,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "package packageName;\n" +
                      "\n" +
                      "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
-                     "import " + JsonIdMap.class.getName() + ";\n" +
+                     "import " + IdMap.class.getName() + ";\n" +
                      "fullEntityClassName" +
                      "\n" +
                      "public class creatorClassName implements SendableEntityCreator\n" +
@@ -791,14 +789,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                      "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
-                     "      if (JsonIdMap.REMOVE.equals(type) && value != null)\n" +
+                     "      if (IdMap.REMOVE.equals(type) && value != null)\n" +
                      "      {\n" +
                      "         attrName = attrName + type;\n" +
                      "      }\n" +
                      "      \n" +
                      "      return false;\n" +
                      "   }\n" +
-                     "   public static JsonIdMap createIdMap(String sessionID)\n" +
+                     "   public static IdMap createIdMap(String sessionID)\n" +
                      "   {\n" +
                      "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                      "   }" +

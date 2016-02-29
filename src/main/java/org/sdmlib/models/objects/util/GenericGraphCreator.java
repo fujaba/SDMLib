@@ -5,7 +5,7 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GenericGraphCreator extends EntityFactory
 {
@@ -46,7 +46,7 @@ public class GenericGraphCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -57,7 +57,7 @@ public class GenericGraphCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericGraph.PROPERTY_OBJECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericGraph.PROPERTY_OBJECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericGraph) target).removeFromObjects((GenericObject) value);
          return true;
@@ -69,14 +69,14 @@ public class GenericGraphCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericGraph.PROPERTY_LINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericGraph.PROPERTY_LINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericGraph) target).removeFromLinks((GenericLink) value);
          return true;
       }
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

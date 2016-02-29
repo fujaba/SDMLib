@@ -35,8 +35,10 @@ import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
+
 import java.beans.PropertyChangeListener;
 import java.lang.Object;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -55,7 +57,7 @@ import org.sdmlib.models.pattern.RuleApplication;
       {
          JsonObject jo1 = (JsonObject) o1;
          JsonObject jo2 = (JsonObject) o2;
-         return jo1.getString(JsonIdMap.ID).compareTo(jo2.getString(JsonIdMap.ID));
+         return jo1.getString(IdMap.ID).compareTo(jo2.getString(IdMap.ID));
       }
    }
 
@@ -71,7 +73,7 @@ import org.sdmlib.models.pattern.RuleApplication;
       this.certificate = certificate;
    }
 
-   public String computeCertificate(JsonIdMap map)
+   public String computeCertificate(IdMap map)
    {
       this.certificate = null;
       
@@ -90,7 +92,7 @@ import org.sdmlib.models.pattern.RuleApplication;
          JsonObject jsonObj = (JsonObject) o;
 
          // get the id
-         String id = jsonObj.getString(JsonIdMap.ID);
+         String id = jsonObj.getString(IdMap.ID);
          oldnode2certificates.put(id, "#" + id.charAt(2));
       }
 
@@ -103,11 +105,11 @@ import org.sdmlib.models.pattern.RuleApplication;
             JsonObject jsonObj = (JsonObject) o;
 
             // drop the id
-            String id = jsonObj.getString(JsonIdMap.ID);
+            String id = jsonObj.getString(IdMap.ID);
 
-            jsonObj.remove(JsonIdMap.ID);
+            jsonObj.remove(IdMap.ID);
 
-            JsonObject propObj = jsonObj.getJsonObject(JsonIdMap.JSON_PROPS);
+            JsonObject propObj = jsonObj.getJsonObject(JsonTokener.PROPS);
 
             // make references anonymous
             for (Iterator<String> iter = propObj.keyIterator(); iter.hasNext();)
@@ -119,9 +121,9 @@ import org.sdmlib.models.pattern.RuleApplication;
                if (value instanceof JsonObject)
                {
                   JsonObject ref = (JsonObject) value;
-                  if (ref.get(JsonIdMap.ID) != null)
+                  if (ref.get(IdMap.ID) != null)
                   {
-                     ref.withValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                     ref.withValue(IdMap.ID, oldnode2certificates.get(ref.getString(IdMap.ID)));
                   }
                }
                else if (value instanceof JsonArray)
@@ -130,9 +132,9 @@ import org.sdmlib.models.pattern.RuleApplication;
                   for (Object ao : refArray)
                   {
                      JsonObject ref = (JsonObject) ao;
-                     if (ref.get(JsonIdMap.ID) != null)
+                     if (ref.get(IdMap.ID) != null)
                      {
-                        ref.withValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                        ref.withValue(IdMap.ID, oldnode2certificates.get(ref.getString(IdMap.ID)));
                      }
                   }
                   

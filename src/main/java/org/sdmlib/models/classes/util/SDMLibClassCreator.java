@@ -21,9 +21,10 @@
    
 package org.sdmlib.models.classes.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.classes.SDMLibClass;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SDMLibClassCreator implements SendableEntityCreator
 {
@@ -72,14 +73,14 @@ public class SDMLibClassCreator implements SendableEntityCreator
          return true;
       }
 
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }

@@ -27,7 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.LogEntry;
@@ -61,7 +61,7 @@ import org.sdmlib.replication.LogEntry;
          return true;
       }
 
-      if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
          return true;

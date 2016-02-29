@@ -2,13 +2,13 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       jsonIdMap.with(new org.sdmlib.models.pattern.util.PatternElementCreator());
       jsonIdMap.with(new org.sdmlib.models.pattern.util.PatternElementPOCreator());
       jsonIdMap.with(new org.sdmlib.models.pattern.util.PatternCreator());

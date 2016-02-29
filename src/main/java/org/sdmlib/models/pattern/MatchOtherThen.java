@@ -59,8 +59,8 @@ import org.sdmlib.models.pattern.PatternObject;
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x differs from node y";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", "" + getTopPattern().getIdMap().getId(forbidden) + " " + forbidden);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
@@ -71,8 +71,8 @@ import org.sdmlib.models.pattern.PatternObject;
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x equals forbidden node y, backtrack!";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", "" + getTopPattern().getIdMap().getId(forbidden) + " " + forbidden);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 

@@ -1,13 +1,13 @@
 package org.sdmlib.test.examples.modelspace.chat.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       jsonIdMap.with(new MSChatChannelCreator());
       jsonIdMap.with(new MSChatChannelPOCreator());
       jsonIdMap.with(new MSChatMsgCreator());

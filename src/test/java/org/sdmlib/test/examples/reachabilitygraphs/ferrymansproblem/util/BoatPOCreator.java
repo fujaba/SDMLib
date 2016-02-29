@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class BoatPOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class BoatPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
    }
 }

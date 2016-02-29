@@ -27,7 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.Lane;
@@ -62,7 +62,7 @@ public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
          return true;
       }
 
-      if ((PROPERTY_LANES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LANES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLanes((Lane) value);
          return true;

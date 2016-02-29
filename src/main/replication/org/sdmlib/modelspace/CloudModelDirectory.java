@@ -27,7 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.modelspace.util.CloudModelFileSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.modelspace.CloudModelFile;
    /**
@@ -147,7 +147,7 @@ import org.sdmlib.modelspace.CloudModelFile;
       return value;
    }
 
-   public CloudModelFile getOrCreateFiles(JsonIdMap fileDataIdMap, String fileName)
+   public CloudModelFile getOrCreateFiles(IdMap fileDataIdMap, String fileName)
    {
       for (CloudModelFile file : this.getFiles())
       {
