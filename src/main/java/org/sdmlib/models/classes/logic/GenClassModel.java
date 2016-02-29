@@ -3318,6 +3318,7 @@ public class GenClassModel implements ClassModelAdapter
          // IdMap map = (IdMap) method.invoke(null, "t");
          IdMap map = new SDMLibIdMap("t");
 
+         Object largestModelRoot = null;
          // now loop through model classes and create two objects for each class
          // using the corresponding creator class
          for (Clazz clazz : model.getClazzes())
@@ -3327,6 +3328,10 @@ public class GenClassModel implements ClassModelAdapter
                SendableEntityCreator creator = map.getCreator(clazz.getName(false), true);
 
                Object object1 = creator.getSendableInstance(false);
+               if (largestModelRoot == null)
+               {
+                  largestModelRoot = object1;
+               }
                map.getId(object1);
 
                // try to add some attribute values
@@ -3377,6 +3382,7 @@ public class GenClassModel implements ClassModelAdapter
          Storyboard story = new Storyboard("coverage");
          story.coverSetAndPOClasses(map);
          story.coverSeldomModelMethods(map);
+         story.coverage4GeneratedModelCode(largestModelRoot);
       }
       catch (Exception e)
       {
