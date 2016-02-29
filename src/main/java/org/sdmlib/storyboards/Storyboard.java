@@ -556,7 +556,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       }
    }
 
-   public void coverSetAndPOClasses(IdMap copyMap)
+   public void coverSetAndPOClasses(IdMap copyMap) throws NoSuchMethodException, SecurityException
    {
       // loop through objects in idMap, pack them into set, read and write
       // all attributes
@@ -914,6 +914,19 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             // no problem, just lower coverage
             // e.printStackTrace();
+         }
+      }
+      
+      // go through all creator classes and call createIdMap
+      for ( SendableEntityCreator creator : copyMap.getCreators().values())
+      {
+         try
+         {
+            Method createIdMapMethod = creator.getClass().getMethod("createIdMap", String.class);
+            createIdMapMethod.invoke(creator, "t");
+         }
+         catch (Exception e)
+         {
          }
       }
 
