@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -448,7 +449,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             Class<?> creatorClass = Class.forName(className);
             Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-
+            method.setAccessible(true);   
             idMap = method.invoke(null, "debug");
 
             jsonIdMap = (IdMap) idMap;

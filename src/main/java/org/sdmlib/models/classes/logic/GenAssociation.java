@@ -1579,7 +1579,9 @@ public class GenAssociation extends Generator<Association>
 			return this;
 		}
 		this.generate(rootDir, helperDir, model.getOther());
-//		sourceGenRole.generate((Clazz) model.getOtherClazz());
+		if(model.getOtherClazz() == model.getClazz()) {
+			this.generate(rootDir, helperDir, model);
+		}
 
 		// also for subclasses
 		Clazz clazz = model.getClazz();

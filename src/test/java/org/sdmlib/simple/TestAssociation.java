@@ -1,5 +1,8 @@
 package org.sdmlib.simple;
 
+import static de.uniks.networkparser.graph.Cardinality.MANY;
+import static de.uniks.networkparser.graph.DataType.STRING;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
@@ -146,6 +149,21 @@ public class TestAssociation {
 		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
+	}
+	
+	@Test
+	public void testManyToMany() {
+
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.association_k");
+//		Clazz lecture = model.createClazz("Lecture");
+//		Clazz student = model.createClazz("Student");
+//
+//		student.withBidirectional(lecture, "attended", Cardinality.MANY, "has", Cardinality.MANY);
 		
+	    Clazz task = model.createClazz("Task").withAttribute("name", STRING);
+	    task.withBidirectional(task, "subTasks", MANY, "parentTasks", MANY);
+
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 	}
 }
