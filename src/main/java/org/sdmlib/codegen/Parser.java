@@ -2083,11 +2083,6 @@ public class Parser
       return this;
    }
 
-   public boolean exists()
-   {
-      return new File(fileName).exists();
-   }
-
    public boolean loadFile()
    {
       File file = new File(fileName);
