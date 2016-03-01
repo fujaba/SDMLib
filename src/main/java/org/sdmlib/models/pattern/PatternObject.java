@@ -38,6 +38,8 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
 
    /**
     * 

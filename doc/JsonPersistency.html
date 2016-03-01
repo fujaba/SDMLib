@@ -12,7 +12,7 @@
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
-      JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
+      IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       JsonArray jsonArray = idMap.toJsonArray(university);
       
@@ -23,239 +23,239 @@
 </pre><p>Results in:</p>
 <pre>[
    {
-      "id":"demo.U1",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+      "id":"demo.U1",
       "prop":{
          "name":"StudyRight",
          "students":[
             {
-               "id":"demo.S2",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+               "id":"demo.S2"
             }
          ],
          "rooms":[
             {
-               "id":"demo.R3",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
             },
             {
-               "id":"demo.R4",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
             },
             {
-               "id":"demo.R5",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
             },
             {
-               "id":"demo.R6",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
             },
             {
-               "id":"demo.R7",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
             }
          ]
       }
    },
    {
-      "id":"demo.S2",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+      "id":"demo.S2",
       "prop":{
          "name":"Karli",
          "id":"4242",
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "in":{
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
       }
    },
    {
-      "id":"demo.R3",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R3",
       "prop":{
          "name":"senate",
          "topic":"math",
          "credits":17,
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "doors":[
             {
-               "id":"demo.R4",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
             },
             {
-               "id":"demo.R5",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
             }
          ],
          "students":[
             {
-               "id":"demo.S2",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+               "id":"demo.S2"
             }
          ],
          "assignments":[
             {
-               "id":"demo.A8",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A8"
             },
             {
-               "id":"demo.A9",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A9"
             },
             {
-               "id":"demo.A10",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A10"
             }
          ]
       }
    },
    {
-      "id":"demo.R4",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R4",
       "prop":{
          "name":"7522",
          "topic":"arts",
          "credits":16,
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "doors":[
             {
-               "id":"demo.R3",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
             },
             {
-               "id":"demo.R5",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
             },
             {
-               "id":"demo.R6",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
             },
             {
-               "id":"demo.R7",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
             }
          ]
       }
    },
    {
-      "id":"demo.R5",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R5",
       "prop":{
          "name":"gymnasium",
          "topic":"sports",
          "credits":25,
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "doors":[
             {
-               "id":"demo.R3",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
             },
             {
-               "id":"demo.R4",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
             },
             {
-               "id":"demo.R6",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
             }
          ]
       }
    },
    {
-      "id":"demo.R6",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R6",
       "prop":{
          "name":"The End",
          "topic":"exam",
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "doors":[
             {
-               "id":"demo.R5",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
             },
             {
-               "id":"demo.R4",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
             },
             {
-               "id":"demo.R7",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
             }
          ]
       }
    },
    {
-      "id":"demo.R7",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R7",
       "prop":{
          "name":"7422",
          "topic":"Software Engineering",
          "credits":42,
          "university":{
-            "id":"demo.U1",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
          "doors":[
             {
-               "id":"demo.R4",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
             },
             {
-               "id":"demo.R6",
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
             }
          ]
       }
    },
    {
-      "id":"demo.A8",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A8",
       "prop":{
          "content":"Matrix Multiplication",
          "points":5,
          "room":{
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
       }
    },
    {
-      "id":"demo.A9",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A9",
       "prop":{
          "content":"Series",
          "points":6,
          "room":{
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
       }
    },
    {
-      "id":"demo.A10",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A10",
       "prop":{
          "content":"Integrals",
          "points":8,
          "room":{
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
       }
    }
@@ -263,7 +263,7 @@
       &#x2F;&#x2F; read jsonText from file
       JsonArray readJsonArray = new JsonArray().withValue(jsonText);
       
-      JsonIdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
+      IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       Object rootObject = readerMap.decode(readJsonArray);
       

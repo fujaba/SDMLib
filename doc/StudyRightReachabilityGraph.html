@@ -17,38 +17,18 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=83",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room",
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
          "id":"R4 : Room",
          "attributes":[
             "name=7522",
             "topic=arts",
             "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
          ]
       },
       {
@@ -81,185 +61,55 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
             "cardinality":"one",
             "property":"university",
             "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R3 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
+            "property":"room",
             "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"many",
-            "property":"rooms",
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
             "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"many",
-            "property":"rooms",
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
             "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"many",
-            "property":"rooms",
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
             "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
          }
       }
    ]
@@ -351,50 +201,9 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"R8 : ReachableState",
-         "attributes":[
-            "number=43"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"U10 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : RuleApplication",
-         "attributes":[
-            "description=next"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S11 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=100"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R12 : Room",
-         "attributes":[
-            "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
          "id":"R13 : ReachableState",
          "attributes":[
-            "number=22"
+            "number=26"
          ]
       },
       {
@@ -406,116 +215,35 @@
       },
       {
          "typ":"clazz",
-         "id":"R17 : RuleApplication",
-         "attributes":[
-            "description=next"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S15 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=100"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R16 : Room",
-         "attributes":[
-            "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R18 : ReachableState",
+         "id":"R15 : ReachableState",
          "attributes":[
             "number=9"
          ]
       },
       {
          "typ":"clazz",
-         "id":"U19 : University",
+         "id":"U16 : University",
          "attributes":[
             "name=StudyRight"
          ]
       },
       {
          "typ":"clazz",
-         "id":"R22 : RuleApplication",
-         "attributes":[
-            "description=next"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S20 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=58"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R21 : Room",
-         "attributes":[
-            "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R23 : ReachableState",
+         "id":"R17 : ReachableState",
          "attributes":[
             "number=3"
          ]
       },
       {
          "typ":"clazz",
-         "id":"U24 : University",
+         "id":"U18 : University",
          "attributes":[
             "name=StudyRight"
          ]
       },
       {
          "typ":"clazz",
-         "id":"R27 : RuleApplication",
-         "attributes":[
-            "description=next"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S25 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=58",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R26 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R28 : ReachableState",
+         "id":"R19 : ReachableState",
          "attributes":[
             "number=1"
          ]
@@ -529,22 +257,83 @@
       },
       {
          "typ":"clazz",
-         "id":"S2 : Student",
+         "id":"R20 : RuleApplication",
          "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=83",
-            "credits=17"
+            "description=next"
          ]
       },
       {
          "typ":"clazz",
-         "id":"R3 : Room",
+         "id":"R21 : RuleApplication",
          "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
+            "description=next"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R22 : RuleApplication",
+         "attributes":[
+            "description=next"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S23 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=100"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R24 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S25 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=58"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R26 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S27 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=58",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R28 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
          ]
       }
    ],
@@ -554,77 +343,12 @@
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
-            "id":"U10 : University"
+            "id":"U14 : University"
          },
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R8 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"R9 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R8 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S11 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U10 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R12 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U10 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R12 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S11 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
             "id":"R13 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"ruleapplications",
-            "id":"R9 : RuleApplication"
          }
       },
       {
@@ -632,77 +356,12 @@
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
-            "id":"U14 : University"
+            "id":"U16 : University"
          },
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R13 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"R17 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R13 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S15 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U14 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R16 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U14 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R16 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S15 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R18 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"ruleapplications",
-            "id":"R17 : RuleApplication"
+            "id":"R15 : ReachableState"
          }
       },
       {
@@ -710,76 +369,89 @@
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
-            "id":"U19 : University"
+            "id":"U18 : University"
          },
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R18 : ReachableState"
+            "id":"R17 : ReachableState"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"R22 : RuleApplication"
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"one",
-            "property":"tgt",
-            "id":"R18 : ReachableState"
+            "property":"reachablestate",
+            "id":"R19 : ReachableState"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S20 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U19 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R21 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U19 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R21 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S20 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"R23 : ReachableState"
+            "id":"R15 : ReachableState"
          },
          "target":{
-            "cardinality":"many",
-            "property":"ruleapplications",
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R13 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R19 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
             "id":"R22 : RuleApplication"
          }
       },
@@ -787,130 +459,130 @@
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
-            "property":"graphRoot",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"R23 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"R27 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"tgt",
-            "id":"R23 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S25 : Student"
+            "id":"R17 : ReachableState"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"U24 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R26 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U24 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R26 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S25 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R28 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"ruleapplications",
-            "id":"R27 : RuleApplication"
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
          }
       },
       {
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
-            "property":"graphRoot",
-            "id":"U1 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"R28 : ReachableState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R3 : Room"
+            "id":"U14 : University"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
+            "property":"student",
+            "id":"S23 : Student"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
             "property":"in",
-            "id":"R3 : Room"
+            "id":"R24 : Room"
          },
          "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
+            "cardinality":"one",
+            "property":"student",
+            "id":"S23 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R24 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S25 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R26 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S25 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R26 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S27 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R28 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S27 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R28 : Room"
          }
       }
    ]
@@ -918,8 +590,8 @@
    json["options"]={"canvasid":"canvasStudyRightReachabilityGraph4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Total number of states 65</p>
-<p>Success state 43</p>
+<p>Total number of states 107</p>
+<p>Success state 59</p>
 <script>
    var json = {
    "typ":"object",

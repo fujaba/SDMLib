@@ -32,6 +32,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -3314,8 +3315,10 @@ public class GenClassModel implements ClassModelAdapter
          String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
          Class<?> creatorClass = Class.forName(creatorClassName);
          java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         IdMap map = (IdMap) method.invoke(null, "t");
+         // IdMap map = (IdMap) method.invoke(null, "t");
+         IdMap map = new SDMLibIdMap("t");
 
+         Object largestModelRoot = null;
          // now loop through model classes and create two objects for each class
          // using the corresponding creator class
          for (Clazz clazz : model.getClazzes())
@@ -3325,6 +3328,10 @@ public class GenClassModel implements ClassModelAdapter
                SendableEntityCreator creator = map.getCreator(clazz.getName(false), true);
 
                Object object1 = creator.getSendableInstance(false);
+               if (largestModelRoot == null)
+               {
+                  largestModelRoot = object1;
+               }
                map.getId(object1);
 
                // try to add some attribute values
@@ -3375,6 +3382,7 @@ public class GenClassModel implements ClassModelAdapter
          Storyboard story = new Storyboard("coverage");
          story.coverSetAndPOClasses(map);
          story.coverSeldomModelMethods(map);
+         story.coverage4GeneratedModelCode(largestModelRoot);
       }
       catch (Exception e)
       {

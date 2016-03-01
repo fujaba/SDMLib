@@ -12,7 +12,7 @@
 <p>Extend the class model:</p>
 <script>
    var json = {
-   "typ":"classdiagram",
+   "typ":"class",
    "nodes":[
       {
          "typ":"node",
@@ -74,7 +74,7 @@
 <p>Full class model from code:</p>
 <script>
    var json = {
-   "typ":"classdiagram",
+   "typ":"class",
    "nodes":[
       {
          "typ":"node",
@@ -125,7 +125,7 @@
             "getSendableInstance(boolean p0) Object",
             "getValue(Object p0, String p1) Object",
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) JsonIdMap",
+            "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
          ]
       },
@@ -136,7 +136,7 @@
             "getSendableInstance(boolean p0) Object",
             "getValue(Object p0, String p1) Object",
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) JsonIdMap",
+            "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
          ]
       },
@@ -147,7 +147,7 @@
             "getSendableInstance(boolean p0) Object",
             "getValue(Object p0, String p1) Object",
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) JsonIdMap",
+            "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
          ]
       },
@@ -158,7 +158,7 @@
             "getSendableInstance(boolean p0) Object",
             "getValue(Object p0, String p1) Object",
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) JsonIdMap",
+            "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
          ]
       },
@@ -169,7 +169,7 @@
             "getSendableInstance(boolean p0) Object",
             "getValue(Object p0, String p1) Object",
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) JsonIdMap",
+            "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
          ]
       },
@@ -593,29 +593,7 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S3 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T4 : TeachingAssistant",
+         "id":"T3 : TeachingAssistant",
          "attributes":[
             "certified=true",
             "name=Karli",
@@ -624,21 +602,17 @@
             "motivation=42",
             "credits=0"
          ]
-      }
-   ],
-   "edges":[
+      },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S3 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
+         "typ":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=0"
+         ]
       }
    ]
 }   ;
@@ -934,103 +908,7 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S3 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T6 : TeachingAssistant",
-         "attributes":[
-            "certified=false",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S3 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"tas",
-            "id":"T6 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S3 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
-      }
-   ]
+   "nodes":null
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1098,20 +976,7 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"T4 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      }
-   ]
+   "nodes":null
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries51", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1174,122 +1039,12 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S3 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
          "id":"R7 : Room",
          "attributes":[
             "name=senate",
             "topic=math",
             "credits=17"
          ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T4 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S3 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S3 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T4 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         }
       }
    ]
 }   ;
