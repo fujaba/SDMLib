@@ -25,6 +25,7 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.application.Platform;
 
@@ -56,13 +57,14 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	private boolean isApplyingChangeMsg;
 	private ChangeEventList history = new ChangeEventList().withCollectOverwrittenChanges(true);
 	private int historyPos = 0;
+	private boolean continuous = true;
 	
 	@Override
 	public void run()
 	{
 		//?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
 		//for every change apply to idmap
-		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + couch.getDatabaseName() + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
+		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + couch.getDatabaseName() + "/_changes?since=" + lastPersisted + "&include_docs=true" + ((continuous)?"&feed=continuous":"") + "&heartbeat=10000";
 		try{
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -77,31 +79,47 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			{
 				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				String changeLine;
-
-				while (couch != null && (changeLine = in.readLine()) != null)
-				{
-					final String localChangeLine = changeLine;
-					//handle changes
-					if(!changeLine.equals("") && !changeLine.contains("last_seq"))
+				
+				if (!continuous) {
+					/**
+					 * result looks like {"results":[], "last_seq":85}
+					 */
+					StringBuffer buffer = new StringBuffer();
+					while (couch != null && (changeLine = in.readLine()) != null){
+						buffer.append(changeLine);
+					}
+					JsonObject jsonResult = new JsonObject().withValue(buffer.toString());
+					JsonArray object = (JsonArray) jsonResult.get("results");
+					for (Object object2 : object) {
+						handleDBChange(object2.toString());
+					}
+					
+				} else {
+					while (couch != null && (changeLine = in.readLine()) != null)
 					{
-						if(couch != null && couch.getApplicationType() == ApplicationType.JavaFX)
+						final String localChangeLine = changeLine;
+						//handle changes
+						if(!changeLine.equals("") && !changeLine.contains("last_seq"))
 						{
-							Platform.runLater(new Runnable()
+							if(couch != null && couch.getApplicationType() == ApplicationType.JavaFX)
 							{
-								@Override
-								public void run()
+								Platform.runLater(new Runnable()
 								{
-									handleDBChange(localChangeLine);
-								}
-							});
-						}
-						else
-						{
-							handleDBChange(localChangeLine);
+									@Override
+									public void run()
+									{
+										handleDBChange(localChangeLine);
+									}
+								});
+							}
+							else
+							{
+								handleDBChange(localChangeLine);
+							}
 						}
 					}
+					in.close();
 				}
-				in.close();
 			}
 			con.disconnect();
 		} catch (Exception e)
@@ -408,5 +426,13 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	public void setApplyingChangeMsg(boolean isApplyingChangeMsg)
 	{
 		this.isApplyingChangeMsg = isApplyingChangeMsg;
+	}
+	
+	public void setContinuous(boolean continuous) {
+		this.continuous = continuous;
+	}
+	
+	public boolean isContinuous() {
+		return continuous;
 	}
 }

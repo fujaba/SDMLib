@@ -29,8 +29,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.ChangeEvent;
@@ -63,7 +67,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	private String databaseName;
 	private String userName = "couchdb";
 
-	private ExecutorService executor;
+	private ExecutorService executor = Executors.newFixedThreadPool(1);
 	private long lastChangeId = 0;
 
 	public ModelCouch registerAtIdMap()
@@ -111,15 +115,39 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			mdbListener = createModelDBListener();
 			
 			mdbListener.loadOldChanges();
-
-			executor = Executors.newFixedThreadPool(1);
-			executor.execute(mdbListener);
+			
+			if(isContinuous()){
+				start();
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 
 		return this;
+	}
+	
+	private Future<?> started = null;
+	public Future<?> start(){
+		if(!isContinuous() || isContinuous() && (started == null || started != null && started.isDone())){
+			mdbListener.setContinuous(isContinuous());			
+			started = executor.submit(mdbListener,true);
+		}
+		return started;
+	}
+	
+	public void start(boolean wait, long timeout){
+		Future<?> start = start();
+		if(start == null)
+			return;
+		if(wait){
+			try {
+				start.get(timeout, TimeUnit.MILLISECONDS);
+			} catch (InterruptedException | ExecutionException | TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	EntityUtil entityUtil = new EntityUtil();
@@ -585,4 +613,21 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		withModelDBListener(value);
 		return value;
 	} 
+	
+	private boolean continuous = false;
+	
+	public void setContinuous(boolean continuous) {
+		if(this.continuous != continuous){
+			this.continuous = continuous;
+		}
+	}
+	
+	public ModelCouch withContinuous(boolean continous){
+		setContinuous(continous);
+		return this;
+	}
+	
+	public boolean isContinuous() {
+		return continuous;
+	}
 }
