@@ -196,8 +196,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		String objId = jsonObject.getValue("id").toString();
 		JsonArray changeRev = (JsonArray) jsonObject.getValue("changes");
 		JsonObject rev = ((JsonObject)changeRev.get(0));
-
-		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValue(0);
+		
+		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
 		try{
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
