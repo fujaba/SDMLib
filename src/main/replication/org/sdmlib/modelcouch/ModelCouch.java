@@ -29,11 +29,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -159,7 +161,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	public int send(ChangeEvent change)
 	{
-		Task<Integer> task = new Task<Integer>() {
+		FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>() {
 			@Override
 			public Integer call() throws Exception {
 				int responsecode = -1;
@@ -192,9 +194,10 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				return responsecode;
 			}
-		};
+		});
 		if(isContinuous()){
 			try {
+				executor.submit(task);
 				return task.get();
 			} catch (InterruptedException | ExecutionException e) {
 				// TODO Auto-generated catch block
@@ -211,7 +214,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		 * url for delete should look like
 		 * "http://localhost:5989/dss/7264fb7568709355423ca63ee1c97b94/001?rev=1-6c8068c8e999096447efef68d4e76c53"
 		 */
-		Task<Integer> task = new Task<Integer>() {
+		FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>(){
 			@Override
 			public Integer call() throws Exception {
 				int responsecode = -1;
@@ -238,9 +241,10 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				return responsecode;
 			}
-		};
+		});
 		if(isContinuous()){
 			try {
+				executor.submit(task);
 				return task.get();
 			} catch (InterruptedException | ExecutionException e) {
 				// TODO Auto-generated catch block
