@@ -118,8 +118,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 							}
 						}
 					}
-					in.close();
 				}
+				in.close();
 			}
 			con.disconnect();
 		} catch (Exception e)

@@ -29,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +50,8 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
+import javafx.concurrent.Task;
+
 import org.sdmlib.modelcouch.ModelDBListener;
 
 /**
@@ -67,8 +70,10 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	private String databaseName;
 	private String userName = "couchdb";
 
-	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	private ExecutorService executor = Executors.newFixedThreadPool(2);
 	private long lastChangeId = 0;
+
+	private ConcurrentLinkedQueue<Task<Boolean>> queue = new ConcurrentLinkedQueue<>();
 
 	public ModelCouch registerAtIdMap()
 	{
@@ -154,35 +159,51 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	public int send(ChangeEvent change)
 	{
-		int responsecode = -1;
+		Task<Integer> task = new Task<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				int responsecode = -1;
 
-		JsonObject jsonObject = change.toJson();
+				JsonObject jsonObject = change.toJson();
 
-		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			String urlParameters = jsonObject.toString();
+				String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
+				try{
+					URL obj = new URL(url);
+					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+					String urlParameters = jsonObject.toString();
 
-			urlParameters = entityUtil.encode(urlParameters);
+					urlParameters = entityUtil.encode(urlParameters);
 
-			con.setRequestMethod("POST");	
-			con.setDoOutput(true);
-			con.setDoInput(true);
-			con.setRequestProperty("Content-Type", "application/json");
-			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			wr.writeBytes(urlParameters);
-			wr.flush();
-			wr.close();
+					con.setRequestMethod("POST");	
+					con.setDoOutput(true);
+					con.setDoInput(true);
+					con.setRequestProperty("Content-Type", "application/json");
+					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+					wr.writeBytes(urlParameters);
+					wr.flush();
+					wr.close();
 
-			responsecode = con.getResponseCode();
-			con.disconnect();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
+					responsecode = con.getResponseCode();
+					con.disconnect();
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+
+				return responsecode;
+			}
+		};
+		if(isContinuous()){
+			try {
+				return task.get();
+			} catch (InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			executor.submit(task);
 		}
-
-		return responsecode;
+		return 0;
 	}
 	
 	public int delete(JsonObject change){
@@ -190,29 +211,45 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		 * url for delete should look like
 		 * "http://localhost:5989/dss/7264fb7568709355423ca63ee1c97b94/001?rev=1-6c8068c8e999096447efef68d4e76c53"
 		 */
-		int responsecode = -1;
+		Task<Integer> task = new Task<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				int responsecode = -1;
 
-		JsonObject jsonObject = change;
-		String objId = jsonObject.getValue("id").toString();
-		JsonArray changeRev = (JsonArray) jsonObject.getValue("changes");
-		JsonObject rev = ((JsonObject)changeRev.get(0));
-		
-		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+				JsonObject jsonObject = change;
+				String objId = jsonObject.getValue("id").toString();
+				JsonArray changeRev = (JsonArray) jsonObject.getValue("changes");
+				JsonObject rev = ((JsonObject)changeRev.get(0));
+				
+				String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
+				try{
+					URL obj = new URL(url);
+					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-			con.setRequestMethod("DELETE");	
-			con.setRequestProperty("Content-Type", "application/json");
+					con.setRequestMethod("DELETE");	
+					con.setRequestProperty("Content-Type", "application/json");
 
-			responsecode = con.getResponseCode();
-			con.disconnect();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
+					responsecode = con.getResponseCode();
+					con.disconnect();
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+
+				return responsecode;
+			}
+		};
+		if(isContinuous()){
+			try {
+				return task.get();
+			} catch (InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			executor.submit(task);
 		}
-
-		return responsecode;
+		return 0;
 	}
 
 	public void close()
