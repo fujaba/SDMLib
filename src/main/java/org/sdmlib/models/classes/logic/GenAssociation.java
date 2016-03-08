@@ -90,6 +90,7 @@ public class GenAssociation extends Generator<Association>
       
       
       String partnerRoleName = partnerRole.getName();
+      String myRoleName = partnerRole.getOther().getName();
       String partnerClassNameSet = partnerClazz.getModelSetClassNameShort();
       
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
@@ -422,8 +423,8 @@ public class GenAssociation extends Generator<Association>
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
          "realPartnerClassName", realPartnerClassName,
-         "myRoleName", model.getName(),
-         "MyRoleName", StrUtil.upFirstChar(model.getName()),
+         "myRoleName", myRoleName,
+         "MyRoleName", StrUtil.upFirstChar(myRoleName),
          "partnerRoleName", partnerRoleName,
          "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
          "PartnerRoleName", partnerRoleUpFirstChar,
