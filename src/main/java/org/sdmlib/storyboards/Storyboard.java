@@ -1080,7 +1080,6 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    private class AlwaysTrueCondition implements UpdateListener
    {
-	   @Override
 	public boolean update(Object value) {
 		return true;
 	}
@@ -1859,7 +1858,6 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
       }
 
-      @Override
       public boolean update(Object values)
       {
     	  PropertyChangeEvent evt = (PropertyChangeEvent) values;
