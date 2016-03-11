@@ -309,7 +309,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 
 	@Override
-	public boolean update(PropertyChangeEvent event) {
+	public boolean update(Object event) {
 		if (mdbListener.isApplyingChangeMsg())
 		{
 			// ignore
@@ -424,8 +424,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				}
 				else
 				{
-					String oldValueString = "" + event.getOldValue();
-					if (event.getOldValue() == null)
+					PropertyChangeEvent evt = (PropertyChangeEvent) event;
+					String oldValueString = "" + evt.getOldValue();
+					if (evt.getOldValue() == null)
 					{
 						oldValueString = null;
 					}

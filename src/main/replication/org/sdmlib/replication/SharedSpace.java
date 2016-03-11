@@ -831,7 +831,7 @@ UpdateListener, SendableEntity
    static public int msgNo = 0;
 
    @Override
-	public boolean update(PropertyChangeEvent event) {
+	public boolean update(Object event) {
       if (isApplyingChangeMsg)
       {
          // ignore

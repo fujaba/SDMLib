@@ -75,7 +75,7 @@ public class Javascript implements GuiAdapter
                objectModel.toString(3) +
                "   ;\n" +
                "   json[\"options\"]={\"canvasid\":\"canvas" + imgName + "\", "
-               + "\"display\":\"html\", "
+               + "\"display\":\"svg\", "
                + "\"fontsize\":10,"
                + "\"bar\":true};" +
                "   var g = new Graph(json);\n" +
@@ -271,8 +271,7 @@ public class Javascript implements GuiAdapter
                "   ;\n" +
                "   new Graph(json, {\"canvasid\":\"canvas" + diagName + "\", "
                + "\"display\":\"html\", "
-               + "\"fontsize\":10,"
-               + "\"bar\":true}).layout(100,100);\n" +
+               + "fontsize:10, bar:false, propertyinfo:false}).layout(100,100);\n" +
                "</script>\n";      
       return text;
    }

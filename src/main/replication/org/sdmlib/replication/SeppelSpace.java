@@ -329,11 +329,11 @@ import org.sdmlib.replication.ChangeEventList;
       }
 
       @Override
-      public boolean update(PropertyChangeEvent evt) {
+      public boolean update(Object event) {
+    	  SimpleMapEvent evt=(SimpleMapEvent) event;
          if (evt.getNewValue() != null)
          {
-        	 SimpleMapEvent event=(SimpleMapEvent) evt;
-            if (event.getDeep() >= 3)
+            if (evt.getDeep() >= 3)
             {
                return false;
             }
@@ -351,7 +351,7 @@ import org.sdmlib.replication.ChangeEventList;
 
    //==============================================================================
    @Override
-   public boolean update(PropertyChangeEvent event) {
+   public boolean update(Object event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -475,8 +475,9 @@ import org.sdmlib.replication.ChangeEventList;
             }
             else
             {
-               String oldValueString = "" + event.getOldValue();
-               if (event.getOldValue() == null)
+            	PropertyChangeEvent evt = (PropertyChangeEvent) event;
+               String oldValueString = "" + evt.getOldValue();
+               if (evt.getOldValue() == null)
                {
                   oldValueString = null;
                }

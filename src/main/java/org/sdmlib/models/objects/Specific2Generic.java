@@ -21,7 +21,7 @@ public class Specific2Generic
       public String secondPropName = null;
 
       @Override
-  	public boolean update(PropertyChangeEvent event) {
+  	public boolean update(Object event) {
     	  SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
   			Object tmp = simpleEvent.getEntity().getValue(IdMap.REMOVE);
          

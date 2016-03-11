@@ -97,9 +97,6 @@ task pmJar(type: Jar) {
 	exclude('org/sdmlib/models/transformations/**')
 	exclude('org/sdmlib/replication/**')
 
-	// REMOVE not nessessary Files NetworkParser
-	exclude('de/uniks/networkparser/bytes/**')
-	exclude('de/uniks/networkparser/date/**')
 	classifier = 'pm'
 }
 task androidJar(type: Jar) {

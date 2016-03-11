@@ -1,6 +1,5 @@
 package org.sdmlib.models.debug;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
@@ -309,7 +308,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    @Override
-   public boolean update(PropertyChangeEvent event) {
+   public boolean update(Object event) {
       if (isReading)
       {
          // do nothing

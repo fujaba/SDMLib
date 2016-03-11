@@ -63,7 +63,8 @@ import org.sdmlib.models.pattern.Pattern;
       }
 
 	      @Override
-	    public boolean update(PropertyChangeEvent evt) {
+	    public boolean update(Object event) {
+          	PropertyChangeEvent evt = (PropertyChangeEvent) event;
 	    	return evt.getNewValue() != root;
 	    }
    }

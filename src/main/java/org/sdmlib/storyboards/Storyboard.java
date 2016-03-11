@@ -1081,7 +1081,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    private class AlwaysTrueCondition implements UpdateListener
    {
 	   @Override
-	public boolean update(PropertyChangeEvent value) {
+	public boolean update(Object value) {
 		return true;
 	}
    }
@@ -1860,15 +1860,16 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       }
 
       @Override
-      public boolean update(PropertyChangeEvent values)
+      public boolean update(Object values)
       {
-         if (values.getNewValue() != null
+    	  PropertyChangeEvent evt = (PropertyChangeEvent) values;
+         if (evt.getNewValue() != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(values.getNewValue().getClass().getSimpleName()) >= 0))
+               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(values.getNewValue());
+         return explicitElems.contains(evt.getNewValue());
       }
    }
 
