@@ -5,7 +5,7 @@ master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)
 
 develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib)
 
-[Download SDMLib-SNAPSHOT-pm.jar for standard user](https://seblog.cs.uni-kassel.de/fileadmin/se/courses/ProgMeth/repository/org/sdmlib/SDMLib/SNAPSHOT/SDMLib-SNAPSHOT-pm.jar)
+[![SDMLIB-PM](http://se.cs.uni-kassel.de/maven/icon?project=SDMLib&left=SDMLib-PM%20for%20standard%20User)](http://se.cs.uni-kassel.de/maven/org/sdmlib/SDMLib/latest/SDMLib-pm.jar)
 
 Welcome to SDMLib
 
