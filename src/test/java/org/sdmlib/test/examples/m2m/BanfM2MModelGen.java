@@ -41,9 +41,9 @@ public class BanfM2MModelGen
       
       return model;
    }
-   
-   @Test
-   public void testBanGenModel(){
+
+   public static void main(String[] args)
+   {
       genModel();
    }
 }
