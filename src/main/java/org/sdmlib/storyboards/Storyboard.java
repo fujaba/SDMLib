@@ -472,7 +472,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
-         e.printStackTrace();
+         // e.printStackTrace();
       }
    }
 
