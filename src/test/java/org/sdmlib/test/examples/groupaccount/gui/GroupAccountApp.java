@@ -83,7 +83,7 @@ public class GroupAccountApp extends Application
    @Override
    public void start(Stage stage) throws Exception
    {
-      System.out.println("starting");
+//      System.out.println("starting");
       theApp = this;
       
       cloudLocation = "modeldata";

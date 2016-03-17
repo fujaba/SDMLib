@@ -50,7 +50,7 @@ public class AnnotationTest {
 		for (Method method : methods) {
 		
 			if ("init".equals(method.getName())) {
-				System.out.println(method.getAnnotation());
+//				System.out.println(method.getAnnotation());
 				return;
 			}
 		}

@@ -2391,7 +2391,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private Clazz handleMember(Clazz clazz, String rootDir, File projectRoot)
    {
-      System.out.println("parse " + clazz.getName(false));
+//      System.out.println("parse " + clazz.getName(false));
       Parser parser = getOrCreateClazz(clazz).getOrCreateParser(projectRoot.getAbsolutePath() + "//" + rootDir);
       parser.indexOf(Parser.CLASS_END);
 

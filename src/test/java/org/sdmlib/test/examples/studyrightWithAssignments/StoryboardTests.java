@@ -20,6 +20,7 @@
  */
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
@@ -627,7 +628,26 @@ public class StoryboardTests {
          // or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
         
-         System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
+         Room assertMatch = roomPO.getCurrentMatch();
+         
+         if (match.number == 1) {
+        	 Assert.assertEquals("Karli", currentMatch.getName());
+        	 Assert.assertEquals("senate", assertMatch.getName());
+        	 Assert.assertEquals("math", assertMatch.getTopic());
+        	 Assert.assertEquals(17, assertMatch.getCredits());
+         } else if (match.number == 2) {
+        	 Assert.assertEquals("Abu", currentMatch.getName());
+        	 Assert.assertEquals("gymnasium", assertMatch.getName());
+        	 Assert.assertEquals("sports", assertMatch.getTopic());
+        	 Assert.assertEquals(25, assertMatch.getCredits());
+         } else if (match.number == 3) {
+        	 Assert.assertEquals("Alice", currentMatch.getName());
+        	 Assert.assertEquals("gymnasium", assertMatch.getName());
+        	 Assert.assertEquals("sports", assertMatch.getTopic());
+        	 Assert.assertEquals(25, assertMatch.getCredits());
+         }
+         
+//         System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
       }
       
       story.addCode();

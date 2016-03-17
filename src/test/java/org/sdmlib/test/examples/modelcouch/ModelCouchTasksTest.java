@@ -43,7 +43,7 @@ public class ModelCouchTasksTest
 		{
 		   // no database. 
 		   // abort test
-		   System.out.println("Could not connect to " + couch.getHostName());
+//		   System.out.println("Could not connect to " + couch.getHostName());
 		   return;
 		}
 

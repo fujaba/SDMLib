@@ -235,7 +235,7 @@ public class PersonController implements PropertyChangeListener
             // if an item is removed, remove its label
             if (evt.getNewValue() == null)
             {
-               System.out.println("should remove " + evt.getOldValue());
+//               System.out.println("should remove " + evt.getOldValue());
                Item lostItem = (Item) evt.getOldValue();
                ItemController lostController = itemControllers.get(lostItem);
                lostController.getItemList().getChildren().remove(lostController.getView());

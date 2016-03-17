@@ -87,7 +87,7 @@ public class MSChatClientTest
          
          if (buf == null) 
          {
-            System.out.println("time out waiting for change: ");
+//            System.out.println("time out waiting for change: ");
             story.add("time out waiting for change: ");
             break;
          }
@@ -147,7 +147,7 @@ public class MSChatClientTest
 
       story.dumpHTML();
       
-      System.out.println("Testing model Space done");
+//      System.out.println("Testing model Space done");
       
       // Platform.exit();
       // System.exit(0);

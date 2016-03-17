@@ -1,5 +1,6 @@
 package org.sdmlib.test.examples.maumau;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.MauMau;
@@ -24,7 +25,7 @@ public class TestMauMau {
 		game.getPlayers().getCards().filter(new Condition<Card>() {
 			@Override
 			public boolean update(Card value) {
-				System.out.println(value.toString());
+				Assert.assertTrue(value.toString().startsWith("org.sdmlib.test.examples.maumau.model.Card@"));
 				return false;
 			}
 		});

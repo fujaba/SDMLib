@@ -347,7 +347,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             String fileContent = new String(byteBuf.array());
             String[] lines = fileContent.split("\n");
             
-            System.out.println("Read from " + canonicalPath + "\n" + fileContent);
+//            System.out.println("Read from " + canonicalPath + "\n" + fileContent);
             
             for (String line : lines)
             {
