@@ -12,7 +12,7 @@ task printVersion {
 }
 
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: 788, hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
+	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), branch: getWorkingBranch(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
 }
 version = gitVersion
 group = 'org.sdmlib'
@@ -27,6 +27,7 @@ public class GITVersion {
     String buildTime
     String mavenTime
     String year
+	String branch
     String hash = ""
     // change, if release is needed some day: boolean release
     // also change version above to accept release property
@@ -40,6 +41,12 @@ public class GITVersion {
 		}
 		"$major.$minor.$revision${release ? '' : '-SNAPSHOT'}"
     }
+	boolean isMaster() {
+		return branch.contains("master")
+	}
+	boolean isRelease() {
+		return branch.contains("release")
+	}
 }
 
 def getGitTag() {
@@ -120,4 +127,31 @@ def mavenTime() {
 	def df = new SimpleDateFormat("yyyyMMddHHmmss")
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))
 	return df.format(new Date())
+}
+/*
+ * Get the name of the working branch of the project
+ *
+ * @return Name of the working branch
+ */
+def getWorkingBranch() {
+    // Triple double-quotes for the breaklines
+	def commit, branch="", value
+	executeCommand("git", "rev-parse", "HEAD").eachLine {
+		commit = it.trim()
+		println "Commit: "+commit
+		executeCommand("git", "branch", "-r", "--contains", commit).eachLine {
+	        if(it.startsWith("* ")) {
+				value = it.substring(1).trim()
+			} else {
+				value = it.trim()
+			}
+			if(value.lastIndexOf("/")>0) {
+				value = value.substring(value.lastIndexOf("/")+1)
+			}
+			branch = branch + " "+value
+		}
+	}
+	branch = branch.trim()
+	println "Git-Branch: " + branch
+	branch
 }
