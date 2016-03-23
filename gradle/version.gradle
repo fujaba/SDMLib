@@ -43,8 +43,8 @@ public class GITVersion {
 }
 
 def getGitTag() {
-	def gittag=-1
-	def test = [-1]
+	def gittag=0
+	def test = [0]
 	executeCommand("git", "tag").eachLine {
 		try {
 			test << (it.trim() as int)
