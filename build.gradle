@@ -54,7 +54,11 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-     maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
+	if(gitVersion.isMaster() || isTravisSnapshot()) {
+		maven { url "https://se.cs.uni-kassel.de/artifactory/libs-release-local" }
+    }else{
+        maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+    }
 }
 
 dependencies {
@@ -100,7 +104,7 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:none'
 }
 
-def isTravisSnaphot() {
+def isTravisSnapshot() {
 	boolean result=false;
 	Map<String, String> env = System.getenv();
 	for (String envName : env.keySet()) {
