@@ -39,7 +39,11 @@ public class GITVersion {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-		"$major.$minor.$revision${release ? '' : '-SNAPSHOT'}"
+		if(!isRelease() && !isMaster()) {
+			"$major.$minor.$revision${'-SNAPSHOT'}"
+		} else {
+			"$major.$minor.$revision"
+		}
     }
 	boolean isMaster() {
 		return branch.contains("master")
