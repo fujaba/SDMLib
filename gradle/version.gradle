@@ -1,6 +1,6 @@
 // MAJOR VERSION - Manually set
 //----------------------
-def majorNumber = 1
+def majorNumber = 2
 //----------------------
 
 import java.text.SimpleDateFormat
