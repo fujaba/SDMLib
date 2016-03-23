@@ -6,7 +6,7 @@ import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class NodeCreator extends EntityFactory
 {
@@ -95,7 +95,7 @@ public class NodeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -130,7 +130,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_OUTEDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_OUTEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromOutEdges((Edge) value);
          return true;
@@ -142,7 +142,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_INEDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_INEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromInEdges((Edge) value);
          return true;
@@ -166,7 +166,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_LINKSTO + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_LINKSTO + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromLinksTo((Node) value);
          return true;
@@ -178,14 +178,14 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_LINKSFROM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_LINKSFROM + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromLinksFrom((Node) value);
          return true;
       }
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

@@ -38,27 +38,28 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
 
    public RoomPO(){
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    
    //==========================================================================
    
-   public void findPath(int String)
+   public String findPath(int motivation)
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Room) getCurrentMatch()).findPath(String);
+         return ((Room) getCurrentMatch()).findPath(motivation);
       }
+      return null;
    }
 
-   public RoomPO hasName(String value)
+   public RoomPO filterName(String value)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_NAME)
@@ -67,12 +68,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public RoomPO hasName(String lower, String upper)
+   public RoomPO filterName(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_NAME)
@@ -82,14 +83,14 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public RoomPO createName(String value)
    {
-      this.startCreate().hasName(value).endCreate();
+      this.startCreate().filterName(value).endCreate();
       return this;
    }
    
@@ -111,7 +112,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
-   public RoomPO hasTopic(String value)
+   public RoomPO filterTopic(String value)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_TOPIC)
@@ -120,12 +121,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public RoomPO hasTopic(String lower, String upper)
+   public RoomPO filterTopic(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_TOPIC)
@@ -135,14 +136,14 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public RoomPO createTopic(String value)
    {
-      this.startCreate().hasTopic(value).endCreate();
+      this.startCreate().filterTopic(value).endCreate();
       return this;
    }
    
@@ -164,7 +165,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
-   public RoomPO hasCredits(int value)
+   public RoomPO filterCredits(int value)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_CREDITS)
@@ -173,12 +174,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public RoomPO hasCredits(int lower, int upper)
+   public RoomPO filterCredits(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Room.PROPERTY_CREDITS)
@@ -188,14 +189,14 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public RoomPO createCredits(int value)
    {
-      this.startCreate().hasCredits(value).endCreate();
+      this.startCreate().filterCredits(value).endCreate();
       return this;
    }
    
@@ -217,7 +218,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
-   public UniversityPO hasUniversity()
+   public UniversityPO filterUniversity()
    {
       UniversityPO result = new UniversityPO(new University[]{});
       
@@ -229,17 +230,17 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public UniversityPO createUniversity()
    {
-      return this.startCreate().hasUniversity().endCreate();
+      return this.startCreate().filterUniversity().endCreate();
    }
 
-   public RoomPO hasUniversity(UniversityPO tgt)
+   public RoomPO filterUniversity(UniversityPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY);
    }
 
    public RoomPO createUniversity(UniversityPO tgt)
    {
-      return this.startCreate().hasUniversity(tgt).endCreate();
+      return this.startCreate().filterUniversity(tgt).endCreate();
    }
 
    public University getUniversity()
@@ -251,7 +252,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public RoomPO hasDoors()
+   public RoomPO filterDoors()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -263,17 +264,17 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public RoomPO createDoors()
    {
-      return this.startCreate().hasDoors().endCreate();
+      return this.startCreate().filterDoors().endCreate();
    }
 
-   public RoomPO hasDoors(RoomPO tgt)
+   public RoomPO filterDoors(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_DOORS);
    }
 
    public RoomPO createDoors(RoomPO tgt)
    {
-      return this.startCreate().hasDoors(tgt).endCreate();
+      return this.startCreate().filterDoors(tgt).endCreate();
    }
 
    public RoomSet getDoors()
@@ -285,7 +286,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public StudentPO hasStudents()
+   public StudentPO filterStudents()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -297,17 +298,17 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public StudentPO createStudents()
    {
-      return this.startCreate().hasStudents().endCreate();
+      return this.startCreate().filterStudents().endCreate();
    }
 
-   public RoomPO hasStudents(StudentPO tgt)
+   public RoomPO filterStudents(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS);
    }
 
    public RoomPO createStudents(StudentPO tgt)
    {
-      return this.startCreate().hasStudents(tgt).endCreate();
+      return this.startCreate().filterStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()
@@ -319,7 +320,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public AssignmentPO hasAssignments()
+   public AssignmentPO filterAssignments()
    {
       AssignmentPO result = new AssignmentPO(new Assignment[]{});
       
@@ -331,17 +332,17 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public AssignmentPO createAssignments()
    {
-      return this.startCreate().hasAssignments().endCreate();
+      return this.startCreate().filterAssignments().endCreate();
    }
 
-   public RoomPO hasAssignments(AssignmentPO tgt)
+   public RoomPO filterAssignments(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_ASSIGNMENTS);
    }
 
    public RoomPO createAssignments(AssignmentPO tgt)
    {
-      return this.startCreate().hasAssignments(tgt).endCreate();
+      return this.startCreate().filterAssignments(tgt).endCreate();
    }
 
    public AssignmentSet getAssignments()
@@ -353,7 +354,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public TeachingAssistantPO hasTas()
+   public TeachingAssistantPO filterTas()
    {
       TeachingAssistantPO result = new TeachingAssistantPO(new TeachingAssistant[]{});
       
@@ -365,17 +366,17 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public TeachingAssistantPO createTas()
    {
-      return this.startCreate().hasTas().endCreate();
+      return this.startCreate().filterTas().endCreate();
    }
 
-   public RoomPO hasTas(TeachingAssistantPO tgt)
+   public RoomPO filterTas(TeachingAssistantPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_TAS);
    }
 
    public RoomPO createTas(TeachingAssistantPO tgt)
    {
-      return this.startCreate().hasTas(tgt).endCreate();
+      return this.startCreate().filterTas(tgt).endCreate();
    }
 
    public TeachingAssistantSet getTas()

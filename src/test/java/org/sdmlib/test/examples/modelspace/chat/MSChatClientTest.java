@@ -2,19 +2,18 @@ package org.sdmlib.test.examples.modelspace.chat;
 
 import java.io.File;
 
-import javafx.application.Platform;
-import javafx.stage.Stage;
-
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class MSChatClientTest
 {
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private MSChatChannel channel;
    private String sessionId;
    private String userName;
@@ -88,7 +87,7 @@ public class MSChatClientTest
          
          if (buf == null) 
          {
-            System.out.println("time out waiting for change: ");
+//            System.out.println("time out waiting for change: ");
             story.add("time out waiting for change: ");
             break;
          }
@@ -148,7 +147,7 @@ public class MSChatClientTest
 
       story.dumpHTML();
       
-      System.out.println("Testing model Space done");
+//      System.out.println("Testing model Space done");
       
       // Platform.exit();
       // System.exit(0);

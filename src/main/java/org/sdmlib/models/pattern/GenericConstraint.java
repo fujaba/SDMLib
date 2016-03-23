@@ -27,7 +27,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
-import de.uniks.networkparser.logic.Condition;
+import de.uniks.networkparser.interfaces.Condition;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -51,7 +51,7 @@ import de.uniks.networkparser.logic.Condition;
       else
       {
          // forward 
-         boolean ok = condition.check(getSrc().getCurrentMatch());
+         boolean ok = condition.update(getSrc().getCurrentMatch());
          
          this.setHasMatch(ok);
          
@@ -74,9 +74,20 @@ import de.uniks.networkparser.logic.Condition;
       setHasMatch(false);
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
 

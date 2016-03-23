@@ -11,8 +11,8 @@ apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
 apply from: 'gradle/tasks.gradle'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
@@ -59,37 +59,38 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-	compile 'com.github.fujaba:NetworkParser:[4.2,):sources'
+	compile 'de.uniks:NetworkParser:[4.2,):sources'
 }
 
 jacoco {
-    toolVersion = "0.7.4.201502262128"
+	toolVersion = "0.7.5.201505241946"
 }
-
 jacocoTestReport {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    executionData = files("$buildDir/jacoco/test.exec")
-    reports {
-        xml {
-            enabled true
-            //Following value is a file
-            destination "${buildDir}/reports/jacoco/jacoco.xml"
-        }
-        csv.enabled false
-        html {
-            enabled true
-            //Following value is a folder
-            destination "${buildDir}/reports/jacoco"
-        }
-    }
+	group = "Reporting"
+	description = "Generate Jacoco coverage reports after running tests."
+	executionData = files("$buildDir/jacoco/test.exec")
+	reports {
+		xml {
+			enabled true
+			//Following value is a file
+			destination "${buildDir}/reports/jacoco/jacoco.xml"
+		}
+		csv.enabled false
+		html {
+			enabled true
+			//Following value is a folder
+			destination "${buildDir}/reports/jacoco"
+		}
+	}
 }
 
 test {
     testLogging {
-        showStandardStreams = true
-        showStackTraces = true
-        exceptionFormat = "full"
+		events "failed"
+		exceptionFormat "short"
+		showStackTraces	true
+		showStandardStreams true
+		showCauses true
     }
 }
 
@@ -98,8 +99,6 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
-
-defaultTasks = ['clean', 'jar']
 
 def isTravisSnaphot() {
 	boolean result=false;
@@ -111,3 +110,5 @@ def isTravisSnaphot() {
 	}
 	return result;
 }
+
+defaultTasks 'clean', 'test', 'jar'

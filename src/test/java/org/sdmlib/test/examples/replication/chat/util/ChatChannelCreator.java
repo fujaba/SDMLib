@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ChatChannelCreator extends EntityFactory
 {
@@ -75,7 +75,7 @@ public class ChatChannelCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -86,7 +86,7 @@ public class ChatChannelCreator extends EntityFactory
          return true;
       }
       
-      if ((ChatChannel.PROPERTY_USERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChatChannel.PROPERTY_USERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChatChannel) target).withoutUsers((ChatUser) value);
          return true;
@@ -98,7 +98,7 @@ public class ChatChannelCreator extends EntityFactory
          return true;
       }
       
-      if ((ChatChannel.PROPERTY_MSGS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChatChannel.PROPERTY_MSGS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChatChannel) target).withoutMsgs((ChatMsg) value);
          return true;
@@ -106,7 +106,7 @@ public class ChatChannelCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.replication.chat.util.CreatorCreator.createIdMap(sessionID);
    }

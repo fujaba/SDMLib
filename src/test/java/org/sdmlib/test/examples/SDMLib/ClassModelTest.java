@@ -22,18 +22,19 @@
 package org.sdmlib.test.examples.SDMLib;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
 
 public class ClassModelTest
 {
@@ -60,41 +61,38 @@ public class ClassModelTest
          .withAttribute("interfaze", DataType.BOOLEAN)
          .withAttribute("external", DataType.BOOLEAN);
 
-      new Association()
-         .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(clazzClass, "classes", Card.MANY);
+      new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(clazzClass).with("classes").with(Cardinality.MANY));
 
-      new Association()
-         .withSource(clazzClass, "superClazzes", Card.MANY)
-         .withTarget(clazzClass, "kidClazzes", Card.MANY);
+      new Association(clazzClass).with("superClazzes").with(Cardinality.MANY)
+      	.with(new Association(clazzClass).with("kidClazzes").with(Cardinality.MANY));
 
       Clazz valueClass = model.createClazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
-         .withAttribute("type", DataType.ref(DataType.class));
+         .withAttribute("type", DataType.create(DataType.class));
 
       Clazz attributeClass = model.createClazz("Attribute").withSuperClazz(valueClass);
 
-      new Association()
-         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(attributeClass, "attributes", Card.MANY);
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(attributeClass).with("attributes").with(Cardinality.MANY));
 
       Clazz methodClass = model.createClazz("Method").withSuperClazz(sdmLibClazz)
-         .withAttribute("returnType", DataType.ref(DataType.class))
+         .withAttribute("returnType", DataType.create(DataType.class))
          .withAttribute("body", DataType.STRING);
 
       Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz);
       annotationClass
-         .withMethod("createOverrideAnnotation", DataType.ref(annotationClass))
-         .withMethod("createDeprecatedAnnotation", DataType.ref(annotationClass))
-         .with(
-            new Method("createSuppressWarningsAnnotation", DataType.ref(annotationClass),
-                  new Parameter(DataType.ref("String...")).withName("values")))
-         .withMethod("createSafeVarargsAnnotation", DataType.ref(annotationClass));
-      
-      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Deprecated");
-      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Override");
-      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SafeVarargs");
-      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SuppressWarnings");
+      .with(
+         new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
+            new Parameter(DataType.create("String...")).with("values")))
+      .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
+      .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
+      .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
+
+      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
+      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
+      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SafeVarargs");
+      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SuppressWarnings");
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
       
@@ -102,36 +100,31 @@ public class ClassModelTest
 
       Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
 
-      new Association()
-         .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(enumClass, "enumerations", Card.MANY);
+      new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(enumClass).with("enumerations").with(Cardinality.MANY));
 
       // ---- Enumeration END ----
 
       model.createClazz("Parameter").withSuperClazz(valueClass)
-         .withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
+         .withBidirectional(methodClass, "method", Cardinality.ONE, "parameter", Cardinality.MANY);
 
-      new Association()
-         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(methodClass, "methods", Card.MANY);
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(methodClass).with("methods").with(Cardinality.MANY));
 
       Clazz associationClass = model.createClazz("Association").withSuperClazz(sdmLibClazz);
 
       Clazz roleClass = model.createClazz("Role").withSuperClazz(sdmLibClazz)
-         .withAttribute("card", DataType.STRING, "MANY")
-         .withAttribute("kind", DataType.STRING, "VANILLA");
+         .with(new Attribute("card", DataType.STRING).withValue("MANY"))
+         .with(new Attribute("kind", DataType.STRING).withValue("VANILLA"));
 
-      new Association()
-         .withSource(clazzClass, "clazz", Card.ONE)
-         .withTarget(roleClass, "roles", Card.MANY);
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("roles").with(Cardinality.MANY));
 
-      new Association()
-         .withSource(associationClass, "assoc", Card.ONE)
-         .withTarget(roleClass, "source", Card.ONE);
+      new Association(associationClass).with("assoc").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("source").with(Cardinality.ONE));
 
-      new Association()
-         .withSource(associationClass, "assoc", Card.ONE)
-         .withTarget(roleClass, "target", Card.ONE);
+      new Association(associationClass).with("assoc").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("target").with(Cardinality.ONE));
 
       model.createClazz("org.sdmlib.codegen.SymTabEntry")
          .withAttribute("kind", DataType.STRING)
@@ -156,14 +149,13 @@ public class ClassModelTest
 
       Clazz statementEntry = model.createClazz("org.sdmlib.codegen.StatementEntry")
          .withAttribute("kind", DataType.STRING)
-         .withAttribute("tokenList", DataType.ref("java.util.ArrayList<String>", true))
+         .withAttribute("tokenList", DataType.create("java.util.ArrayList<String>", true))
          .withAttribute("assignTargetVarName", DataType.STRING)
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);
 
-      new Association()
-         .withSource(statementEntry, "parent", Card.ONE)
-         .withTarget(statementEntry, "bodyStats", Card.MANY);
+      new Association(statementEntry).with("parent").with(Cardinality.ONE)
+      	.with(new Association(statementEntry).with("bodyStats").with(Cardinality.MANY));
 
      storyboard.addClassDiagram(model);
 

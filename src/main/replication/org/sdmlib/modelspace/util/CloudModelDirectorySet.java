@@ -21,18 +21,20 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.CloudModelDirectory;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.modelspace.util.CloudModelFileSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
 
-public class CloudModelDirectorySet extends SDMSet<CloudModelDirectory>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.CloudModelFileSet;
+
+public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
 {
 
-   public static final CloudModelDirectorySet EMPTY_SET = new CloudModelDirectorySet().withReadOnly(true);
+   public static final CloudModelDirectorySet EMPTY_SET = new CloudModelDirectorySet().withFlag(CloudModelDirectorySet.READONLY);
 
 
    public CloudModelDirectoryPO hasCloudModelDirectoryPO()
@@ -126,4 +128,10 @@ public class CloudModelDirectorySet extends SDMSet<CloudModelDirectory>
       return this;
    }
 
+
+
+   public CloudModelDirectoryPO filterCloudModelDirectoryPO()
+   {
+      return new CloudModelDirectoryPO(this.toArray(new CloudModelDirectory[this.size()]));
+   }
 }

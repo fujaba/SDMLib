@@ -25,30 +25,23 @@ import java.net.Socket;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class SeppelChannelSet extends SDMSet<SeppelChannel>
+public class SeppelChannelSet extends SimpleSet<SeppelChannel>
 {
 
-   public static final SeppelChannelSet EMPTY_SET = new SeppelChannelSet().withReadOnly(true);
+   public static final SeppelChannelSet EMPTY_SET = new SeppelChannelSet().withFlag(SeppelChannelSet.READONLY);
 
 
    public SeppelChannelPO hasSeppelChannelPO()
    {
       return new SeppelChannelPO(this.toArray(new SeppelChannel[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelChannel";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelChannelSet with(Object value)
@@ -191,6 +184,64 @@ public class SeppelChannelSet extends SDMSet<SeppelChannel>
       }
       
       return this;
+   }
+
+
+
+   public SeppelChannelPO filterSeppelChannelPO()
+   {
+      return new SeppelChannelPO(this.toArray(new SeppelChannel[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.SeppelChannel";
+   }
+
+   /**
+    * Loop through the current set of SeppelChannel objects and collect those SeppelChannel objects where the socket attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelChannel objects that match the parameter
+    */
+   public SeppelChannelSet filterSocket(Socket value)
+   {
+      SeppelChannelSet result = new SeppelChannelSet();
+      
+      for (SeppelChannel obj : this)
+      {
+         if (value == obj.getSocket())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelChannel objects and collect those SeppelChannel objects where the loginValidated attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelChannel objects that match the parameter
+    */
+   public SeppelChannelSet filterLoginValidated(boolean value)
+   {
+      SeppelChannelSet result = new SeppelChannelSet();
+      
+      for (SeppelChannel obj : this)
+      {
+         if (value == obj.isLoginValidated())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

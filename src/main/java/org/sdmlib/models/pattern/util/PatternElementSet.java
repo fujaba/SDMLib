@@ -23,14 +23,14 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class PatternElementSet extends SDMSet<PatternElement<?>>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PatternElementSet extends SimpleSet<PatternElement<?>>
 {
    public PatternSet getPattern()
    {
@@ -220,7 +220,7 @@ public class PatternElementSet extends SDMSet<PatternElement<?>>
       return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
 
-   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withReadOnly(true);
+   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withFlag(PatternElementSet.READONLY);
    public PatternElementSet hasModifier(String value)
    {
       PatternElementSet result = new PatternElementSet();
@@ -297,6 +297,152 @@ public class PatternElementSet extends SDMSet<PatternElement<?>>
    }
 
    public PatternElementSet hasDoAllMatches(boolean value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public PatternElementPO filterPatternElementPO()
+   {
+      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterModifier(String value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterModifier(String lower, String upper)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterHasMatch(boolean value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterPatternObjectName(String value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterPatternObjectName(String lower, String upper)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect those PatternElement objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PatternElement objects that match the parameter
+    */
+   public PatternElementSet filterDoAllMatches(boolean value)
    {
       PatternElementSet result = new PatternElementSet();
       

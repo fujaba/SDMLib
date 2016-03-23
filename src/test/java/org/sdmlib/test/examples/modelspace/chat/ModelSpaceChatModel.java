@@ -1,11 +1,12 @@
 package org.sdmlib.test.examples.modelspace.chat;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ModelSpaceChatModel
 {
@@ -30,7 +31,7 @@ public class ModelSpaceChatModel
             .withAttribute("time", DataType.LONG)
             .withAttribute("sender", DataType.STRING);
             
-      chatChannel.withAssoc(chatMsg, "msgs", Card.MANY, "channel", Card.ONE);
+      chatChannel.withBidirectional(chatMsg, "msgs", Cardinality.MANY, "channel", Cardinality.ONE);
       
       Clazz chatGroup = model.createClazz("MSChatGroup")
             .withAttribute("task", DataType.STRING);
@@ -42,11 +43,11 @@ public class ModelSpaceChatModel
             .withAttribute("name", DataType.STRING)
             .withAttribute("location", DataType.STRING);
       
-      chatGroup.withAssoc(chatMember, "members", Card.MANY, "group", Card.ONE);
+      chatGroup.withBidirectional(chatMember, "members", Cardinality.MANY, "group", Cardinality.ONE);
       
-      chatGroup.withAssoc(chatChannelDesc, "channels", Card.MANY, "group", Card.ONE);
+      chatGroup.withBidirectional(chatChannelDesc, "channels", Cardinality.MANY, "group", Cardinality.ONE);
       
-      chatMember.withAssoc(chatChannelDesc, "channels", Card.MANY, "members", Card.MANY);
+      chatMember.withBidirectional(chatChannelDesc, "channels", Cardinality.MANY, "members", Cardinality.MANY);
       
       model.generate("src/test/java");
       

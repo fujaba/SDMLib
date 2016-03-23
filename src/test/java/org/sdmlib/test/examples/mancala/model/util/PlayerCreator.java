@@ -29,7 +29,8 @@ import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.mancala.model.Stone;
 
 public class PlayerCreator extends EntityFactory
 {
@@ -42,6 +43,7 @@ public class PlayerCreator extends EntityFactory
       Player.PROPERTY_GAME,
       Player.PROPERTY_PITS,
       Player.PROPERTY_KALAH,
+      Player.PROPERTY_STONE,
    };
    
    @Override
@@ -101,6 +103,11 @@ public class PlayerCreator extends EntityFactory
       {
          return ((Player) target).getKalah();
       }
+
+      if (Player.PROPERTY_STONE.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getStone();
+      }
       
       return null;
    }
@@ -108,7 +115,7 @@ public class PlayerCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -149,7 +156,7 @@ public class PlayerCreator extends EntityFactory
          return true;
       }
       
-      if ((Player.PROPERTY_PITS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Player.PROPERTY_PITS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Player) target).withoutPits((Pit) value);
          return true;
@@ -160,10 +167,16 @@ public class PlayerCreator extends EntityFactory
          ((Player) target).setKalah((Kalah) value);
          return true;
       }
+
+      if (Player.PROPERTY_STONE.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).setStone((Stone) value);
+         return true;
+      }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.mancala.model.util.CreatorCreator.createIdMap(sessionID);
    }

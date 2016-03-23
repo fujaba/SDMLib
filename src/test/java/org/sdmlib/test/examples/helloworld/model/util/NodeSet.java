@@ -25,36 +25,26 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
 
-public class NodeSet extends SDMSet<Node>
+public class NodeSet extends SimpleSet<Node>
 {
-
-
    public NodePO hasNodePO()
    {
       return new NodePO (this.toArray(new Node[this.size()]));
    }
 
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.model.Node";
-   }
-
-
    public NodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Node>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -671,7 +661,7 @@ public class NodeSet extends SDMSet<Node>
    }
 
 
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
    public NodeSet hasName(String lower, String upper)
    {
       NodeSet result = new NodeSet();
@@ -702,76 +692,109 @@ public class NodeSet extends SDMSet<Node>
       return result;
    }
 
+
+   public NodePO filterNodePO()
+   {
+      return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.helloworld.model.Node";
+   }
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterName(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterName(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterText(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterText(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

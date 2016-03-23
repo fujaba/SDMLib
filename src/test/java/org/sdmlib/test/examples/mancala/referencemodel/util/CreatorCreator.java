@@ -2,37 +2,16 @@ package org.sdmlib.test.examples.mancala.referencemodel.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorPOCreator());
-
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.with(new ColorCreator());
+      jsonIdMap.with(new ColorPOCreator());
       return jsonIdMap;
    }
 }

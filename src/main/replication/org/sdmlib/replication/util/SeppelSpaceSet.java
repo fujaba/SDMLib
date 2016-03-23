@@ -23,32 +23,24 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeEventList;
-import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SeppelSpace;
 
-public class SeppelSpaceSet extends SDMSet<SeppelSpace>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
 {
 
-   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withReadOnly(true);
+   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withFlag(SeppelSpaceSet.READONLY);
 
 
    public SeppelSpacePO hasSeppelSpacePO()
    {
       return new SeppelSpacePO(this.toArray(new SeppelSpace[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelSpace";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelSpaceSet with(Object value)
@@ -240,6 +232,158 @@ public class SeppelSpaceSet extends SDMSet<SeppelSpace>
       }
       
       return this;
+   }
+
+
+
+   public SeppelSpacePO filterSeppelSpacePO()
+   {
+      return new SeppelSpacePO(this.toArray(new SeppelSpace[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.SeppelSpace";
+   }
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the spaceId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterSpaceId(String value)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (value.equals(obj.getSpaceId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the spaceId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterSpaceId(String lower, String upper)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceId()) <= 0 && obj.getSpaceId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the history attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterHistory(ChangeEventList value)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (value == obj.getHistory())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the lastChangeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterLastChangeId(long value)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (value == obj.getLastChangeId())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the lastChangeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterLastChangeId(long lower, long upper)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (lower <= obj.getLastChangeId() && obj.getLastChangeId() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the javaFXApplication attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpace objects that match the parameter
+    */
+   public SeppelSpaceSet filterJavaFXApplication(boolean value)
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for (SeppelSpace obj : this)
+      {
+         if (value == obj.isJavaFXApplication())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

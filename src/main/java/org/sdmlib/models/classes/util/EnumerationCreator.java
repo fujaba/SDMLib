@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 NeTH 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,22 +21,17 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.SDMLibClass;
-import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class EnumerationCreator extends EntityFactory
+public class EnumerationCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Enumeration.PROPERTY_VALUENAMES,
       SDMLibClass.PROPERTY_NAME,
-      Enumeration.PROPERTY_CLASSMODEL,
-      Enumeration.PROPERTY_METHODS,
    };
    
    @Override
@@ -62,24 +57,9 @@ public class EnumerationCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Enumeration.PROPERTY_VALUENAMES.equalsIgnoreCase(attribute))
-      {
-         return ((Enumeration) target).getValueNames();
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
-      }
-
-      if (Enumeration.PROPERTY_CLASSMODEL.equalsIgnoreCase(attribute))
-      {
-         return ((Enumeration) target).getClassModel();
-      }
-
-      if (Enumeration.PROPERTY_METHODS.equalsIgnoreCase(attribute))
-      {
-         return ((Enumeration) target).getMethods();
       }
       
       return null;
@@ -88,52 +68,26 @@ public class EnumerationCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
-      if (Enumeration.PROPERTY_VALUENAMES.equalsIgnoreCase(attrName))
-      {
-         ((Enumeration) target).withValueNames((ArrayListSet) value);
-         return true;
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
-      if (Enumeration.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
-         ((Enumeration) target).setClassModel((ClassModel) value);
-         return true;
-      }
-
-      if (Enumeration.PROPERTY_METHODS.equalsIgnoreCase(attrName))
-      {
-         ((Enumeration) target).withMethods((Method) value);
-         return true;
-      }
-      
-      if ((Enumeration.PROPERTY_METHODS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Enumeration) target).withoutMethods((Method) value);
-         return true;
+         attrName = attrName + type;
       }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Enumeration) entity).removeYou();
    }

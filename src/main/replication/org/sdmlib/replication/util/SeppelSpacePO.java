@@ -2,9 +2,8 @@ package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.replication.ChangeHistory;
-import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.ChangeEventList;
+import org.sdmlib.replication.SeppelSpace;
 
 public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
 {
@@ -189,7 +188,7 @@ public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -215,6 +214,92 @@ public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
       {
          ((SeppelSpace) getCurrentMatch()).setHistory(value);
       }
+      return this;
+   }
+   
+   public SeppelSpacePO filterSpaceId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_SPACEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO filterSpaceId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_SPACEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO filterHistory(ChangeEventList value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_HISTORY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO filterLastChangeId(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO filterLastChangeId(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO filterJavaFXApplication(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_JAVAFXAPPLICATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

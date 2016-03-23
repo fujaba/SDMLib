@@ -21,17 +21,19 @@
    
 package org.sdmlib.test.model.refactoring.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.model.refactoring.Player;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.model.refactoring.util.LudoSet;
-import org.sdmlib.test.model.refactoring.Ludo;
 
-public class PlayerSet extends SDMSet<Player>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.model.refactoring.Ludo;
+import org.sdmlib.test.model.refactoring.Player;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.model.refactoring.util.LudoSet;
+
+public class PlayerSet extends SimpleSet<Player>
 {
 
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withFlag(PlayerSet.READONLY);
 
 
    public PlayerPO hasPlayerPO()
@@ -67,10 +69,75 @@ public class PlayerSet extends SDMSet<Player>
       return this;
    }
 
-   
+   /**
+    * Loop through the current set of Player objects and collect a set of the Ludo objects reached via game. 
+    * 
+    * @return Set of Ludo objects reachable via game
+    */
+   public LudoSet getGame()
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getGame());
+      }
+      
+      return result;
+   }
 
-   
+   /**
+    * Loop through the current set of Player objects and collect all contained objects with reference game pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as game neighbor of the collected results. 
+    * 
+    * @return Set of Ludo objects referring to value via game
+    */
+   public PlayerSet hasGame(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
 
-   
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlayerSet answer = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (neighbors.contains(obj.getGame()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Player object passed as parameter to the Game attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Game attributes.
+    */
+   public PlayerSet withGame(Ludo value)
+   {
+      for (Player obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
+
+
+   public PlayerPO filterPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
@@ -33,18 +34,18 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
 public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
 
-   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withReadOnly(true);
+   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withFlag(TeachingAssistantSet.READONLY);
 
 
-   public TeachingAssistantPO hasTeachingAssistantPO()
+   public TeachingAssistantPO filterTeachingAssistantPO()
    {
       return new TeachingAssistantPO(this.toArray(new TeachingAssistant[this.size()]));
    }
@@ -59,7 +60,11 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    @SuppressWarnings("unchecked")
    public TeachingAssistantSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<TeachingAssistant>)value);
       }
@@ -77,6 +82,18 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+   @Override
+   public TeachingAssistantSet filter(Condition<TeachingAssistant> newValue) {
+      TeachingAssistantSet filterList = new TeachingAssistantSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the certified attribute values. 
+    * 
+    * @return List of boolean objects reachable via certified attribute
+    */
    public booleanList getCertified()
    {
       booleanList result = new booleanList();
@@ -89,7 +106,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasCertified(boolean value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the certified attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterCertified(boolean value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -104,6 +129,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the certified attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withCertified(boolean value)
    {
       for (TeachingAssistant obj : this)
@@ -114,6 +147,12 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -126,7 +165,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasName(String value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterName(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -141,7 +188,16 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterName(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -156,6 +212,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withName(String value)
    {
       for (TeachingAssistant obj : this)
@@ -166,6 +230,12 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the id attribute values. 
+    * 
+    * @return List of String objects reachable via id attribute
+    */
    public StringList getId()
    {
       StringList result = new StringList();
@@ -178,7 +248,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasId(String value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the id attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterId(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -193,7 +271,16 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasId(String lower, String upper)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the id attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterId(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -208,6 +295,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the id attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withId(String value)
    {
       for (TeachingAssistant obj : this)
@@ -218,6 +313,12 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the assignmentPoints attribute values. 
+    * 
+    * @return List of int objects reachable via assignmentPoints attribute
+    */
    public intList getAssignmentPoints()
    {
       intList result = new intList();
@@ -230,7 +331,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasAssignmentPoints(int value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the assignmentPoints attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterAssignmentPoints(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -245,7 +354,16 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasAssignmentPoints(int lower, int upper)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the assignmentPoints attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterAssignmentPoints(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -260,6 +378,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the assignmentPoints attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withAssignmentPoints(int value)
    {
       for (TeachingAssistant obj : this)
@@ -270,6 +396,12 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the motivation attribute values. 
+    * 
+    * @return List of int objects reachable via motivation attribute
+    */
    public intList getMotivation()
    {
       intList result = new intList();
@@ -282,7 +414,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasMotivation(int value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the motivation attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterMotivation(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -297,7 +437,16 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasMotivation(int lower, int upper)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the motivation attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterMotivation(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -312,6 +461,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the motivation attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withMotivation(int value)
    {
       for (TeachingAssistant obj : this)
@@ -322,6 +479,12 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a list of the credits attribute values. 
+    * 
+    * @return List of int objects reachable via credits attribute
+    */
    public intList getCredits()
    {
       intList result = new intList();
@@ -334,7 +497,15 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasCredits(int value)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterCredits(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -349,7 +520,16 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
-   public TeachingAssistantSet hasCredits(int lower, int upper)
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet filterCredits(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -364,6 +544,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and assign value to the credits attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of TeachingAssistant objects now with new attribute values.
+    */
    public TeachingAssistantSet withCredits(int value)
    {
       for (TeachingAssistant obj : this)
@@ -374,19 +562,31 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the University objects reached via university. 
+    * 
+    * @return Set of University objects reachable via university
+    */
    public UniversitySet getUniversity()
    {
       UniversitySet result = new UniversitySet();
       
       for (TeachingAssistant obj : this)
       {
-         result.add(obj.getUniversity());
+         result.with(obj.getUniversity());
       }
       
       return result;
    }
 
-   public TeachingAssistantSet hasUniversity(Object value)
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference university pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as university neighbor of the collected results. 
+    * 
+    * @return Set of University objects referring to value via university
+    */
+   public TeachingAssistantSet filterUniversity(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -403,7 +603,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       
       for (TeachingAssistant obj : this)
       {
-         if (neighbors.contains(obj.getUniversity()))
+         if (neighbors.contains(obj.getUniversity()) || (neighbors.isEmpty() && obj.getUniversity() == null))
          {
             answer.add(obj);
          }
@@ -412,6 +612,11 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the University attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
+    */
    public TeachingAssistantSet withUniversity(University value)
    {
       for (TeachingAssistant obj : this)
@@ -422,19 +627,31 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the Room objects reached via in. 
+    * 
+    * @return Set of Room objects reachable via in
+    */
    public RoomSet getIn()
    {
       RoomSet result = new RoomSet();
       
       for (TeachingAssistant obj : this)
       {
-         result.add(obj.getIn());
+         result.with(obj.getIn());
       }
       
       return result;
    }
 
-   public TeachingAssistantSet hasIn(Object value)
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference in pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as in neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via in
+    */
+   public TeachingAssistantSet filterIn(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -451,7 +668,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       
       for (TeachingAssistant obj : this)
       {
-         if (neighbors.contains(obj.getIn()))
+         if (neighbors.contains(obj.getIn()) || (neighbors.isEmpty() && obj.getIn() == null))
          {
             answer.add(obj);
          }
@@ -460,6 +677,11 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the In attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their In attributes.
+    */
    public TeachingAssistantSet withIn(Room value)
    {
       for (TeachingAssistant obj : this)
@@ -470,77 +692,31 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
-   public AssignmentSet getDone()
-   {
-      AssignmentSet result = new AssignmentSet();
-      
-      for (TeachingAssistant obj : this)
-      {
-         result.addAll(obj.getDone());
-      }
-      
-      return result;
-   }
-
-   public TeachingAssistantSet hasDone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TeachingAssistantSet answer = new TeachingAssistantSet();
-      
-      for (TeachingAssistant obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDone()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TeachingAssistantSet withDone(Assignment value)
-   {
-      for (TeachingAssistant obj : this)
-      {
-         obj.withDone(value);
-      }
-      
-      return this;
-   }
-
-   public TeachingAssistantSet withoutDone(Assignment value)
-   {
-      for (TeachingAssistant obj : this)
-      {
-         obj.withoutDone(value);
-      }
-      
-      return this;
-   }
-
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the Student objects reached via friends. 
+    * 
+    * @return Set of Student objects reachable via friends
+    */
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
       
       for (TeachingAssistant obj : this)
       {
-         result.addAll(obj.getFriends());
+         result.with(obj.getFriends());
       }
       
       return result;
    }
 
-   public TeachingAssistantSet hasFriends(Object value)
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference friends pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as friends neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via friends
+    */
+   public TeachingAssistantSet filterFriends(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -566,7 +742,11 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return answer;
    }
 
-
+   /**
+    * Follow friends reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Student objects reachable via friends transitively (including the start set)
+    */
    public StudentSet getFriendsTransitive()
    {
       StudentSet todo = new StudentSet().with(this);
@@ -583,13 +763,18 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
          {
             result.add(current);
             
-            todo.with(current.getFriends().minus(result));
+            todo.with(current.getFriends()).minus(result);
          }
       }
       
       return result;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the Friends attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Friends attributes.
+    */
    public TeachingAssistantSet withFriends(Student value)
    {
       for (TeachingAssistant obj : this)
@@ -600,6 +785,11 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the TeachingAssistant object passed as parameter from the Friends attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public TeachingAssistantSet withoutFriends(Student value)
    {
       for (TeachingAssistant obj : this)
@@ -610,19 +800,31 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return this;
    }
 
-   public RoomSet getRoom()
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the Assignment objects reached via done. 
+    * 
+    * @return Set of Assignment objects reachable via done
+    */
+   public AssignmentSet getDone()
    {
-      RoomSet result = new RoomSet();
+      AssignmentSet result = new AssignmentSet();
       
       for (TeachingAssistant obj : this)
       {
-         result.add(obj.getRoom());
+         result.with(obj.getDone());
       }
       
       return result;
    }
 
-   public TeachingAssistantSet hasRoom(Object value)
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference done pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as done neighbor of the collected results. 
+    * 
+    * @return Set of Assignment objects referring to value via done
+    */
+   public TeachingAssistantSet filterDone(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -639,7 +841,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       
       for (TeachingAssistant obj : this)
       {
-         if (neighbors.contains(obj.getRoom()))
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
          {
             answer.add(obj);
          }
@@ -648,6 +850,91 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Done attributes.
+    */
+   public TeachingAssistantSet withDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the TeachingAssistant object passed as parameter from the Done attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public TeachingAssistantSet withoutDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withoutDone(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect a set of the Room objects reached via room. 
+    * 
+    * @return Set of Room objects reachable via room
+    */
+   public RoomSet getRoom()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getRoom());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect all contained objects with reference room pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as room neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via room
+    */
+   public TeachingAssistantSet filterRoom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the TeachingAssistant object passed as parameter to the Room attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    */
    public TeachingAssistantSet withRoom(Room value)
    {
       for (TeachingAssistant obj : this)

@@ -6,7 +6,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class StationCreator extends EntityFactory
 {
@@ -65,7 +65,7 @@ public class StationCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -76,7 +76,7 @@ public class StationCreator extends EntityFactory
          return true;
       }
       
-      if ((Station.PROPERTY_TRAINS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Station.PROPERTY_TRAINS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Station) target).removeFromTrains((Train) value);
          return true;
@@ -100,7 +100,7 @@ public class StationCreator extends EntityFactory
          return true;
       }
       
-      if ((Station.PROPERTY_PEOPLE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Station.PROPERTY_PEOPLE + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Station) target).removeFromPeople((Person) value);
          return true;
@@ -113,7 +113,7 @@ public class StationCreator extends EntityFactory
       }
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

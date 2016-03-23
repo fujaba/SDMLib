@@ -24,31 +24,19 @@ package org.sdmlib.test.examples.helloworld.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
-import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
-public class EdgeSet extends SDMSet<Edge>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class EdgeSet extends SimpleSet<Edge>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public EdgePO hasEdgePO()
    {
       return new EdgePO (this.toArray(new Edge[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.model.Edge";
-   }
-
 
    public EdgeSet with(Object value)
    {
@@ -340,7 +328,7 @@ public class EdgeSet extends SDMSet<Edge>
    }
 
 
-   public static final EdgeSet EMPTY_SET = new EdgeSet().withReadOnly(true);
+   public static final EdgeSet EMPTY_SET = new EdgeSet().withFlag(EdgeSet.READONLY);
    public EdgeSet hasName(String lower, String upper)
    {
       EdgeSet result = new EdgeSet();
@@ -357,6 +345,112 @@ public class EdgeSet extends SDMSet<Edge>
    }
 
    public EdgeSet hasText(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public EdgePO filterEdgePO()
+   {
+      return new EdgePO(this.toArray(new Edge[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.helloworld.model.Edge";
+   }
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterName(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterName(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterText(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet filterText(String lower, String upper)
    {
       EdgeSet result = new EdgeSet();
       

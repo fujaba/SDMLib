@@ -21,15 +21,14 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.LinkedHashMap;
 
-import javafx.application.Platform;
-
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.modelspace.util.CloudModelDirectoryCreator;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
+import javafx.application.Platform;
 
 public class ModelDirListener extends Thread implements PropertyChangeListener
 {
@@ -246,7 +245,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
    }
    
    public ModelSpace fileDataModelSpace = null;
-   private JsonIdMap fileDataIdMap;
+   private IdMap fileDataIdMap;
    private CloudModelDirectory cloudModelDirectory;
 
 

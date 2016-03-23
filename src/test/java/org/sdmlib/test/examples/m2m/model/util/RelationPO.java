@@ -6,6 +6,9 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.RelationPO;
+import org.sdmlib.test.examples.m2m.model.util.PersonPO;
 
 public class RelationPO extends PatternObject<RelationPO, Relation>
 {
@@ -277,6 +280,124 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
          return ((GraphComponent) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public RelationPO filterKind(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_KIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RelationPO filterKind(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_KIND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO filterGraph()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Relation.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public RelationPO filterGraph(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Relation.PROPERTY_GRAPH);
+   }
+
+   public PersonPO filterSrc()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Relation.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public RelationPO filterSrc(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Relation.PROPERTY_SRC);
+   }
+
+   public PersonPO filterTgt()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Relation.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public RelationPO filterTgt(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Relation.PROPERTY_TGT);
+   }
+
+   public RelationPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RelationPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO filterParent()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public RelationPO filterParent(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
    }
 
 }

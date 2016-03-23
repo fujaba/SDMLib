@@ -32,13 +32,15 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
-   public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
+   public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>, SendableEntity
 {
    public PeerProxy ()
    {
@@ -157,6 +159,23 @@ import java.beans.PropertyChangeListener;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
    
    //==========================================================================
    
@@ -238,7 +257,7 @@ import java.beans.PropertyChangeListener;
    {
       if (this.idMap != value)
       {
-         JsonIdMap oldValue = this.idMap;
+         IdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }

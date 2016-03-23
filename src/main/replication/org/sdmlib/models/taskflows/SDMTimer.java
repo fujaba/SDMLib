@@ -26,97 +26,116 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public class SDMTimer extends Timer implements PropertyChangeInterface
-{
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public SDMTimer(String name)
+
+/**
+ * 
+ * @see <a href=
+ *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+ *      TaskFlowObjectScenarioForCoverage.java</a>
+ * @see <a href=
+ *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>
+ *      TaskFlowModel.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
+public class SDMTimer extends Timer implements PropertyChangeInterface, SendableEntity {
+	/**
+	 * @param name The name of SDMTimer
+	 * @see <a href=
+	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+	 *      TaskFlowObjectScenarioForCoverage.java</a>
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
+	public SDMTimer(String name) {
+		super(name);
+	}
+
+	/**
+	 * 
+	 * @see <a href=
+	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+	 *      TaskFlowObjectScenarioForCoverage.java</a>
+	 * @see <a href=
+	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+	 *      TaskFlowObjectScenarioForCoverage.java</a>
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
+	public SDMTimer() {
+
+	}
+
+	private long lastScheduleTime = 0;
+
+	// ==========================================================================
+
+	public void schedule(TimerTask task) {
+		long now = System.currentTimeMillis();
+		long delay = 0;
+
+		if (now <= lastScheduleTime) {
+			// this milli second has already been used. Use next free to achieve
+			// stable schedule
+			delay = lastScheduleTime - now + 1;
+			lastScheduleTime++;
+		} else {
+			delay = 0;
+			lastScheduleTime = now;
+		}
+
+		super.schedule(task, delay);
+	}
+
+	// ==========================================================================
+
+	public Object get(String attrName) {
+		int pos = attrName.indexOf('.');
+		String attribute = attrName;
+
+		if (pos > 0) {
+			attribute = attrName.substring(0, pos);
+		}
+
+		return null;
+	}
+
+	// ==========================================================================
+
+	public boolean set(String attrName, Object value) {
+		return false;
+	}
+
+	// ==========================================================================
+
+	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+	public PropertyChangeSupport getPropertyChangeSupport() {
+		return listeners;
+	}
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      super(name);
-   }
-
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public SDMTimer()
-   {
-
-   }
-
-   private long lastScheduleTime = 0;
-
-   // ==========================================================================
-
-   public void schedule(TimerTask task)
-   {
-      long now = System.currentTimeMillis();
-      long delay = 0;
-
-      if (now <= lastScheduleTime)
-      {
-         // this milli second has already been used. Use next free to achieve
-         // stable schedule
-         delay = lastScheduleTime - now + 1;
-         lastScheduleTime++;
-      }
-      else
-      {
-         delay = 0;
-         lastScheduleTime = now;
-      }
-
-      super.schedule(task, delay);
-   }
-
-   // ==========================================================================
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      return null;
-   }
-
-   // ==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      return false;
-   }
-
-   // ==========================================================================
-
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   // ==========================================================================
-
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      // super.removeYou();
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
    
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
+	// ==========================================================================
+
+	public void removeYou() {
+		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+		// super.removeYou();
+	}
+
 }

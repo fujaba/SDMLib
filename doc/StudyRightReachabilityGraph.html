@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightReachabilityGraph</a></p>
+<p>Start: Build a start graph</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightReachabilityGraph2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"u1 : UniversityPO",
+         "attributes":[
+            "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"r3 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"r4 : RoomPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r3 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"doors",
+            "id":"r4 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r4 : RoomPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightReachabilityGraphPatternDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R13 : ReachableState",
+         "attributes":[
+            "number=26"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U14 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R15 : ReachableState",
+         "attributes":[
+            "number=9"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U16 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R17 : ReachableState",
+         "attributes":[
+            "number=3"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U18 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R19 : ReachableState",
+         "attributes":[
+            "number=1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R20 : RuleApplication",
+         "attributes":[
+            "description=next"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R21 : RuleApplication",
+         "attributes":[
+            "description=next"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R22 : RuleApplication",
+         "attributes":[
+            "description=next"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S23 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=100"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R24 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S25 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=58"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R26 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S27 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=58",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R28 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R13 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R15 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R17 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R19 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R13 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R19 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S23 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R24 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S23 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R24 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S25 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R26 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S25 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R26 : Room"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S27 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R28 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S27 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R28 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightReachabilityGraph4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Total number of states 107</p>
+<p>Success state 59</p>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"r1 : ReachabilityGraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"r2 : ReachableStatePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"o3 : ObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"u4 : UniversityPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s5 : StudentPO",
+         "attributes":[
+            "motivation == 0"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"r6 : RoomPO",
+         "attributes":[
+            "topic == exam"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : ReachabilityGraphPO"
+         },
+         "target":{
+            "property":"states",
+            "id":"r2 : ReachableStatePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : ReachableStatePO"
+         },
+         "target":{
+            "property":"graphRoot",
+            "id":"o3 : ObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"o3 : ObjectPO"
+         },
+         "target":{
+            "property":"instanceof",
+            "id":"u4 : UniversityPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UniversityPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s5 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s5 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r6 : RoomPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightReachabilityGraphPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

@@ -21,18 +21,20 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.TaskBoard;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.modelspace.util.TaskLaneSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
 
-public class TaskBoardSet extends SDMSet<TaskBoard>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.TaskLaneSet;
+
+public class TaskBoardSet extends SimpleSet<TaskBoard>
 {
 
-   public static final TaskBoardSet EMPTY_SET = new TaskBoardSet().withReadOnly(true);
+   public static final TaskBoardSet EMPTY_SET = new TaskBoardSet().withFlag(TaskBoardSet.READONLY);
 
 
    public TaskBoardPO hasTaskBoardPO()
@@ -126,4 +128,10 @@ public class TaskBoardSet extends SDMSet<TaskBoard>
       return this;
    }
 
+
+
+   public TaskBoardPO filterTaskBoardPO()
+   {
+      return new TaskBoardPO(this.toArray(new TaskBoard[this.size()]));
+   }
 }

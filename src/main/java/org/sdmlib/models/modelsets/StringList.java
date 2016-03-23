@@ -33,7 +33,17 @@ public class StringList extends ArrayList<String>
       return "(" + this.concat(", ") + ")";
    }
    
-
+   public String first()
+   {
+      if (this.size() > 0)
+      {
+         return this.get(0);
+      }
+      else
+      {
+         return null;
+      }
+   }
 
    public String concat()
    {

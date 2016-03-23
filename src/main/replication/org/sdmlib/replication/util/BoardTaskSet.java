@@ -26,18 +26,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.SeppelSpaceProxy;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.LogEntrySet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class BoardTaskSet extends SDMSet<BoardTask>
+public class BoardTaskSet extends SimpleSet<BoardTask>
 {
 
 
@@ -45,14 +46,6 @@ public class BoardTaskSet extends SDMSet<BoardTask>
    {
       return new BoardTaskPO(this.toArray(new BoardTask[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.BoardTask";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BoardTaskSet with(Object value)
@@ -450,7 +443,7 @@ public class BoardTaskSet extends SDMSet<BoardTask>
    }
 
 
-   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withReadOnly(true);
+   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withFlag(BoardTaskSet.READONLY);
    public SeppelSpaceProxySet getProxy()
    {
       SeppelSpaceProxySet result = new SeppelSpaceProxySet();
@@ -580,6 +573,158 @@ public class BoardTaskSet extends SDMSet<BoardTask>
       for (BoardTask obj : this)
       {
          result.add(obj.getStashedPropertyChangeEvent());
+      }
+      
+      return result;
+   }
+
+
+
+   public BoardTaskPO filterBoardTaskPO()
+   {
+      return new BoardTaskPO(this.toArray(new BoardTask[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.BoardTask";
+   }
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterName(String value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterName(String lower, String upper)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the status attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterStatus(String value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value.equals(obj.getStatus()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the status attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterStatus(String lower, String upper)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (lower.compareTo(obj.getStatus()) <= 0 && obj.getStatus().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the manualExecution attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterManualExecution(boolean value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value == obj.isManualExecution())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BoardTask objects and collect those BoardTask objects where the stashedPropertyChangeEvent attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BoardTask objects that match the parameter
+    */
+   public BoardTaskSet filterStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value == obj.getStashedPropertyChangeEvent())
+         {
+            result.add(obj);
+         }
       }
       
       return result;

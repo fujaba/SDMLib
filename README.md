@@ -7,6 +7,8 @@ develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop
 
 [![SDMLIB-PM](http://se.cs.uni-kassel.de/maven/icon?project=SDMLib&left=SDMLib-PM%20for%20standard%20User)](http://se.cs.uni-kassel.de/maven/org/sdmlib/SDMLib/latest/SDMLib-pm.jar)
 
+[![SDMLIB-PM](http://se.cs.uni-kassel.de/maven/icon?project=SDMLib&left=SDMLib-PM%20for%20standard%20User)](http://se.cs.uni-kassel.de/maven/org/sdmlib/SDMLib/latest/SDMLib-pm.jar)
+
 Welcome to SDMLib
 
 SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. 

@@ -23,13 +23,13 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
 
-public class GenericAttributeSet extends SDMSet<GenericAttribute>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericAttributeSet extends SimpleSet<GenericAttribute>
 {
    public StringList getName()
    {
@@ -129,7 +129,7 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericAttribute>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -152,7 +152,7 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
       return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
 
-   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadOnly(true);
+   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withFlag(GenericAttributeSet.READONLY);
    public GenericAttributeSet hasName(String value)
    {
       GenericAttributeSet result = new GenericAttributeSet();
@@ -199,6 +199,106 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
    }
 
    public GenericAttributeSet hasValue(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public GenericAttributePO filterGenericAttributePO()
+   {
+      return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet filterName(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet filterName(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet filterValue(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet filterValue(String lower, String upper)
    {
       GenericAttributeSet result = new GenericAttributeSet();
       

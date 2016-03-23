@@ -25,12 +25,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationRoot;
-import java.lang.Object;
 
-public class ReplicationRootSet extends SDMSet<ReplicationRoot>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
 {
 
 
@@ -38,14 +38,6 @@ public class ReplicationRootSet extends SDMSet<ReplicationRoot>
    {
       return new ReplicationRootPO(this.toArray(new ReplicationRoot[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationRoot";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationRootSet with(Object value)
@@ -315,5 +307,87 @@ public class ReplicationRootSet extends SDMSet<ReplicationRoot>
    }
 
 
-   public static final ReplicationRootSet EMPTY_SET = new ReplicationRootSet().withReadOnly(true);
+   public static final ReplicationRootSet EMPTY_SET = new ReplicationRootSet().withFlag(ReplicationRootSet.READONLY);
+
+
+   public ReplicationRootPO filterReplicationRootPO()
+   {
+      return new ReplicationRootPO(this.toArray(new ReplicationRoot[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ReplicationRoot";
+   }
+
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet filterName(String value)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet filterName(String lower, String upper)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the applicationObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet filterApplicationObject(Object value)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (value == obj.getApplicationObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

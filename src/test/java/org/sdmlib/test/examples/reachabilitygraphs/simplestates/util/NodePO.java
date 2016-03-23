@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {
@@ -188,6 +190,65 @@ public class NodePO extends PatternObject<NodePO, Node>
          return ((Node) this.getCurrentMatch()).getPrev();
       }
       return null;
+   }
+
+   public NodePO filterNum(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NUM)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO filterNum(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NUM)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SimpleStatePO filterGraph()
+   {
+      SimpleStatePO result = new SimpleStatePO(new SimpleState[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public NodePO filterGraph(SimpleStatePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_GRAPH);
+   }
+
+   public NodePO filterPrev()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public NodePO filterPrev(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_PREV);
    }
 
 }

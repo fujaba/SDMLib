@@ -1,48 +1,46 @@
 package org.sdmlib.test.examples.maumau;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.replication.ApplicationObject;
 import org.sdmlib.replication.Lane;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class GenModel {
 	@Test
 	public void genModel() {
 		ClassModel model = new ClassModel("org.sdmlib.test.examples.maumau.model");
 		Clazz mauMauClass = model.createClazz("MauMau");
-		Enumeration suitEnum = model.createEnumeration("Suit").withValueNames("Clubs", "Spades", "Hearts", "Diamonds");
-		Enumeration valueEnum = model.createEnumeration("Value").withValueNames("7", "8", "9", "10", "Jack", "Queen",
-				"King", "Ace");
-		Clazz cardClass = model.createClazz("Card").withAttribute("suit", DataType.ref(suitEnum)).withAttribute("value",
-				DataType.ref(valueEnum));
-		mauMauClass.withAssoc(cardClass, "cards", Card.MANY, "game", Card.ONE)
-				.withAnnotation(new Annotation().withName(ApplicationObject.class.getName()));
-		Clazz holderClass = model.createClazz("Holder").withAssoc(cardClass, "cards", Card.MANY, "holder", Card.ONE);
-		mauMauClass.withAssoc(holderClass, "deck", Card.ONE, "deckOwner", Card.ONE);
-		mauMauClass.withAssoc(holderClass, "stack", Card.ONE, "stackOwner", Card.ONE);
+		Clazz suitEnum = model.createClazz("Suit").enableEnumeration("Clubs", "Spades", "Hearts", "Diamonds");
+		Clazz valueEnum = model.createClazz("Value").enableEnumeration("7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
+		Clazz cardClass = model.createClazz("Card").withAttribute("suit", DataType.create(suitEnum)).withAttribute("value",
+				DataType.create(valueEnum));
+		mauMauClass.withBidirectional(cardClass, "cards", Cardinality.MANY, "game", Cardinality.ONE).with(new Annotation(ApplicationObject.class.getName()));
+		Clazz holderClass = model.createClazz("Holder").withBidirectional(cardClass, "cards", Cardinality.MANY, "holder", Cardinality.ONE);
+		mauMauClass.withBidirectional(holderClass, "deck", Cardinality.ONE, "deckOwner", Cardinality.ONE);
+		mauMauClass.withBidirectional(holderClass, "stack", Cardinality.ONE, "stackOwner", Cardinality.ONE);
 		Clazz playerClass = model.createClazz("Player").withSuperClazz(holderClass).withAttribute("name",
 				DataType.STRING);
-		mauMauClass.withAssoc(playerClass, "players", Card.MANY, "game", Card.ONE);
-		mauMauClass.withAssoc(playerClass, "winner", Card.ONE, "wonGame", Card.ONE);
-		mauMauClass.withAssoc(playerClass, "losers", Card.MANY, "lostGame", Card.ONE);
-		mauMauClass.with(new Attribute("currentPlayer", DataType.ref(playerClass)));
-		mauMauClass.with(new Attribute("currentSuit", DataType.ref(suitEnum)));
-		playerClass.withAssoc(playerClass, "next", Card.ONE, "prev", Card.ONE);
-		playerClass.withAttribute("lane", DataType.ref(Lane.class));
+		mauMauClass.withBidirectional(playerClass, "players", Cardinality.MANY, "game", Cardinality.ONE);
+		mauMauClass.withBidirectional(playerClass, "winner", Cardinality.ONE, "wonGame", Cardinality.ONE);
+		mauMauClass.withBidirectional(playerClass, "losers", Cardinality.MANY, "lostGame", Cardinality.ONE);
+		mauMauClass.with(new Attribute("currentPlayer", DataType.create(playerClass)));
+		mauMauClass.with(new Attribute("currentSuit", DataType.create(suitEnum)));
+		playerClass.withBidirectional(playerClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
+		playerClass.withAttribute("lane", DataType.create(Lane.class));
 		Clazz dutyClass = model.createClazz("Duty");
-		Enumeration dutyType = model.createEnumeration("DutyType").withValueNames("PlayCard", "TakeOne", "TakeTwo");
-		dutyClass.with(new Attribute("type", DataType.ref(dutyType)), new Attribute("number", DataType.INT));
-		playerClass.withAssoc(dutyClass, "duty", Card.MANY, "player", Card.ONE);
+		Clazz dutyType = model.createClazz("DutyType").enableEnumeration("PlayCard", "TakeOne", "TakeTwo");
+		dutyClass.with(new Attribute("type", DataType.create(dutyType)), new Attribute("number", DataType.INT));
+		playerClass.withBidirectional(dutyClass, "duty", Cardinality.MANY, "player", Cardinality.ONE);
 		Clazz openStack = model.createClazz("OpenStack").withSuperClazz(holderClass);
 		Clazz drawingStack = model.createClazz("DrawingStack").withSuperClazz(holderClass);
-		mauMauClass.withAssoc(drawingStack, "drawingStack", Card.ONE, "game", Card.ONE);
-		mauMauClass.withAssoc(openStack, "openStack", Card.ONE, "game", Card.ONE);
+		mauMauClass.withBidirectional(drawingStack, "drawingStack", Cardinality.ONE, "game", Cardinality.ONE);
+		mauMauClass.withBidirectional(openStack, "openStack", Cardinality.ONE, "game", Cardinality.ONE);
 		model.generate("src/test/java");
 	}
 }

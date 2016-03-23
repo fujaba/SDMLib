@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
+import org.sdmlib.test.examples.ludo.model.util.LudoPO;
+import org.sdmlib.test.examples.ludo.model.util.DicePO;
+import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
 
 public class DicePO extends PatternObject<DicePO, Dice>
 {
@@ -155,6 +158,65 @@ public class DicePO extends PatternObject<DicePO, Dice>
          return ((Dice) this.getCurrentMatch()).getPlayer();
       }
       return null;
+   }
+
+   public DicePO filterValue(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Dice.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DicePO filterValue(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Dice.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterGame()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Dice.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public DicePO filterGame(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_GAME);
+   }
+
+   public PlayerPO filterPlayer()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Dice.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public DicePO filterPlayer(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_PLAYER);
    }
 
 }

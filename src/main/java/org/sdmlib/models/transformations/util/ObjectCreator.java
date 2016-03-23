@@ -22,7 +22,8 @@
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+
+import de.uniks.networkparser.IdMap;
 
 public class ObjectCreator extends EntityFactory
 {
@@ -45,13 +46,13 @@ public class ObjectCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
+//      int pos = attrName.indexOf('.');
+//      String attribute = attrName;
+//      
+//      if (pos > 0)
+//      {
+//         attribute = attrName.substring(0, pos);
+//      }
       
       return null;
    }
@@ -59,14 +60,14 @@ public class ObjectCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }

@@ -6,6 +6,23 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.SeppelBoardTaskAction;
+import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.SeppelTaskHandler;
+import org.sdmlib.replication.util.SeppelScopePO;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.util.StoryboardCreator;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserCreator;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+
+import de.uniks.networkparser.IdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -23,25 +40,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.SeppelBoardTaskAction;
-import org.sdmlib.replication.SeppelChannel;
-import org.sdmlib.replication.SeppelScope;
-import org.sdmlib.replication.SeppelSpace;
-import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.SeppelTaskHandler;
-import org.sdmlib.replication.util.SeppelScopePO;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
-import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.util.StoryboardCreator;
-import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserCreator;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 
 public class ReplicationChatClientApp extends Application
@@ -101,8 +99,8 @@ public class ReplicationChatClientApp extends Application
       userName = parameters.get(0);
       pwd = parameters.get(1);
       
-      JsonIdMap idMap = ChatRootCreator.createIdMap(userName);
-      idMap.withCreator(StoryboardCreator.createIdMap(userName));
+      IdMap idMap = ChatRootCreator.createIdMap(userName);
+      idMap.with(StoryboardCreator.createIdMap(userName));
       seppelSpace = new SeppelSpace().init(idMap, true, null, 0);
 
       selfProxy = seppelSpace.getSelfProxy();
@@ -275,7 +273,7 @@ public class ReplicationChatClientApp extends Application
          SeppelSpaceProxyPO spaceProxyPO = selfProxy.getPartners().hasSeppelSpaceProxyPO();
          SeppelScopePO scopePO = spaceProxyPO.hasScopes();
          ChatUserPO chatUser = scopePO.hasObservedObjects().instanceOf(new ChatUserPO());
-         chatUser.getPattern().getJsonIdMap().withCreator(ChatUserCreator.createIdMap("m42"));
+         chatUser.getPattern().getIdMap().with(ChatUserCreator.createIdMap("m42"));
          chatUser.hasUserName(currentUser.getUserName());
          
          if (spaceProxyPO.getHasMatch())

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 NeTH 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,21 +21,18 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Enumeration;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClassModelSet;
-import org.sdmlib.models.classes.util.MethodSet;
 
 public class EnumerationSet extends SDMSet<Enumeration>
 {
-   @Override
+
+   public static final EnumerationSet EMPTY_SET = new EnumerationSet().withFlag(EnumerationSet.READONLY);
+
+
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Enumeration";
@@ -45,7 +42,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
    @SuppressWarnings("unchecked")
    public EnumerationSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Enumeration>)value);
       }
@@ -63,43 +64,18 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return this;
    }
 
-   public ArrayListSet getValueNames()
-   {
-      ArrayListSet result = new ArrayListSet();
-      
-      for (Enumeration obj : this)
-      {
-         result.addAll(obj.getValueNames());
-      }
-      
-      return result;
+   @Override
+   public EnumerationSet filter(Condition<Enumeration> newValue) {
+      EnumerationSet filterList = new EnumerationSet();
+      filterItems(filterList, newValue);
+      return filterList;
    }
 
-   public EnumerationSet hasValueNames(ArrayListSet value)
-   {
-      EnumerationSet result = new EnumerationSet();
-      
-      for (Enumeration obj : this)
-      {
-         if (value == obj.getValueNames())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public EnumerationSet withValueNames(ArrayListSet value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.setValueNames(value);
-      }
-      
-      return this;
-   }
-
+   /**
+    * Loop through the current set of Enumeration objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -112,7 +88,15 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet hasName(String value)
+
+   /**
+    * Loop through the current set of Enumeration objects and collect those Enumeration objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Enumeration objects that match the parameter
+    */
+   public EnumerationSet filterName(String value)
    {
       EnumerationSet result = new EnumerationSet();
       
@@ -127,7 +111,16 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Enumeration objects and collect those Enumeration objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Enumeration objects that match the parameter
+    */
+   public EnumerationSet filterName(String lower, String upper)
    {
       EnumerationSet result = new EnumerationSet();
       
@@ -142,122 +135,22 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Enumeration objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Enumeration objects now with new attribute values.
+    */
    public EnumerationSet withName(String value)
    {
       for (Enumeration obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
    }
 
-   public ClassModelSet getClassModel()
-   {
-      ClassModelSet result = new ClassModelSet();
-      
-      for (Enumeration obj : this)
-      {
-         result.add(obj.getClassModel());
-      }
-      
-      return result;
-   }
-
-   public EnumerationSet hasClassModel(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      EnumerationSet answer = new EnumerationSet();
-      
-      for (Enumeration obj : this)
-      {
-         if (neighbors.contains(obj.getClassModel()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public EnumerationSet withClassModel(ClassModel value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.withClassModel(value);
-      }
-      
-      return this;
-   }
-
-   public MethodSet getMethods()
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Enumeration obj : this)
-      {
-         result.addAll(obj.getMethods());
-      }
-      
-      return result;
-   }
-
-   public EnumerationSet hasMethods(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      EnumerationSet answer = new EnumerationSet();
-      
-      for (Enumeration obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getMethods()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public EnumerationSet withMethods(Method value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.withMethods(value);
-      }
-      
-      return this;
-   }
-
-   public EnumerationSet withoutMethods(Method value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.withoutMethods(value);
-      }
-      
-      return this;
-   }
-
-
-   public static final EnumerationSet EMPTY_SET = new EnumerationSet().withReadOnly(true);
 }

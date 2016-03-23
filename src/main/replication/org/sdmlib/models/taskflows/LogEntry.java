@@ -28,13 +28,16 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.models.taskflows.Logger;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
-   public class LogEntry implements PropertyChangeInterface
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
+   public class LogEntry implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -107,7 +110,7 @@ import java.beans.PropertyChangeListener;
          return true;
       }
       
-      if ((PROPERTY_CHILDREN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHILDREN + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChildren((LogEntry) value);
          return true;
@@ -133,7 +136,23 @@ import java.beans.PropertyChangeListener;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
    
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
    //==========================================================================
    
    public void removeYou()
@@ -346,12 +365,12 @@ import java.beans.PropertyChangeListener;
       }
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public LogEntry createChildren()
+	/**
+	 *  Create Children LogEntry
+	 *  @return the created Children
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+	 */
+	   public LogEntry createChildren()
    {
       LogEntry value = new LogEntry();
       withChildren(value);

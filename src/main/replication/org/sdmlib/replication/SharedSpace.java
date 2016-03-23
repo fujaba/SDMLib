@@ -43,11 +43,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
-
-
-
-import javafx.application.Platform;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
@@ -59,21 +54,25 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.SimpleIdCounter;
-import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.logic.SimpleMapEvent;
+import javafx.application.Platform;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.ReplicationNode;
+import org.sdmlib.replication.ReplicationChannel;
 
 
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-      UpdateListener
+/**
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
+UpdateListener, SendableEntity
 {
 
    public static final String JLOG = "jlog";
@@ -106,7 +105,7 @@ import org.sdmlib.replication.ChangeHistory;
    {
    }
 
-   public SharedSpace(String spaceId, String nodeId, String serverIp, int serverPort, JsonIdMap map)
+   public SharedSpace(String spaceId, String nodeId, String serverIp, int serverPort, IdMap map)
    {
       this.spaceId = spaceId;
       this.nodeId = nodeId;
@@ -117,9 +116,9 @@ import org.sdmlib.replication.ChangeHistory;
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(ReplicationNodeCreator.createIdMap("i"));
+      map.with(ReplicationNodeCreator.createIdMap("i"));
       
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
       
       setReplicationRoot(new ReplicationRoot());
       map.put(SharedSpace.REPLICATION_ROOT, getReplicationRoot());
@@ -327,7 +326,7 @@ import org.sdmlib.replication.ChangeHistory;
             return;
          }
 
-         JsonIdMap cmap = getChangeMap();
+         IdMap cmap = getChangeMap();
 
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
          
@@ -379,13 +378,13 @@ import org.sdmlib.replication.ChangeHistory;
                   // find source object, property and earlier content object
                   String changeMsg = higher.getChangeMsg();
                   JsonObject higherJson = new JsonObject().withValue(changeMsg);
-                  String sourceId = higherJson.getString(JsonIdMap.ID);
+                  String sourceId = higherJson.getString(IdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
-                  JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
+                  JsonObject updateJson = (JsonObject) higherJson.get(IdMap.UPDATE);
                   
                   if (updateJson == null)
                   {
-                     updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
+                     updateJson = (JsonObject) higherJson.get(IdMap.REMOVE);
                   }
 
                   for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
@@ -394,7 +393,7 @@ import org.sdmlib.replication.ChangeHistory;
 
                      JsonObject targetJson = updateJson.getJsonObject(property);
 
-                     String targetId = targetJson.getString(JsonIdMap.ID);
+                     String targetId = targetJson.getString(IdMap.ID);
 
                      Object targetObj = map.getObject(targetId);
 
@@ -423,7 +422,7 @@ import org.sdmlib.replication.ChangeHistory;
                      // remove higher elems from collection
                      for (Object obj : higherList)
                      {
-                        creatorClass.setValue(sourceObject, property + JsonIdMap.REMOVE, obj, null);
+                        creatorClass.setValue(sourceObject, property + IdMap.REMOVE, obj, null);
                      }
 
                      // add new
@@ -488,7 +487,7 @@ import org.sdmlib.replication.ChangeHistory;
          return;
       }
 
-      JsonIdMap cmap = getChangeMap();
+      IdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
 
@@ -547,7 +546,10 @@ import org.sdmlib.replication.ChangeHistory;
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject(); 
       
-      new JsonTokener().withAllowCRLF(true).withBuffer(change.getChangeMsg()).parseToEntity(jsonUpdate);
+      JsonTokener tokener = new JsonTokener();
+      String changeTxt = change.getChangeMsg();
+//      tokener.withBuffer(changeTxt);
+      tokener.parseToEntity(jsonUpdate);
       
 
       
@@ -829,25 +831,26 @@ import org.sdmlib.replication.ChangeHistory;
    static public int msgNo = 0;
 
    @Override
-   public boolean update(String typ, BaseItem jsonObject, Object target, String property, 
-			Object oldValue, Object newValue) {
+	public boolean update(Object event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      Entity source = simpleEvent.getEntity();
 
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId((String) jsonObject.getValueItem(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString());
+      .withTargetObjectId((String) source.getValue(IdMap.ID))
+      .withChangeMsg(source.toString());
 
-      Object object = jsonObject.getValueItem(JsonIdMap.UPDATE);
+      Object object = source.getValue(IdMap.UPDATE);
       
       if (object == null)
       {
-         object = jsonObject.getValueItem(JsonIdMap.REMOVE);
+         object = source.getValue(IdMap.REMOVE);
       }
 
       if (object != null)
@@ -883,11 +886,11 @@ import org.sdmlib.replication.ChangeHistory;
       return true;
    }
 
-   private JsonIdMap changeMap = null;
+   private IdMap changeMap = null;
 
    private void sendNewChange(ReplicationChange change)
    {
-      JsonIdMap cmap = getChangeMap();
+	   IdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
 
@@ -923,7 +926,7 @@ import org.sdmlib.replication.ChangeHistory;
    }
 
    // ==========================================================================
-   public JsonIdMap getChangeMap()
+   public IdMap getChangeMap()
    {
       if (changeMap == null)
       {
@@ -989,7 +992,7 @@ import org.sdmlib.replication.ChangeHistory;
          return true;
       }
 
-      if ((PROPERTY_CHANNELS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChannels((ReplicationChannel) value);
          return true;
@@ -1025,6 +1028,22 @@ import org.sdmlib.replication.ChangeHistory;
       return listeners;
    }
 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
    // ==========================================================================
 
    public void removeYou()
@@ -1032,6 +1051,7 @@ import org.sdmlib.replication.ChangeHistory;
       setNode(null);
       removeAllFromChannels();
       withoutChannels(this.getChannels().toArray(new ReplicationChannel[this.getChannels().size()]));
+      setHistory(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1143,14 +1163,14 @@ import org.sdmlib.replication.ChangeHistory;
 
    private ReplicationChannelSet channels = null;
 
-   private JsonIdMap map;
+   private IdMap map;
 
-   public JsonIdMap getMap()
+   public IdMap getMap()
    {
       return map;
    }
 
-   public void setMap(JsonIdMap map)
+   public void setMap(IdMap map)
    {
       this.map = map;
    }
@@ -1230,10 +1250,9 @@ import org.sdmlib.replication.ChangeHistory;
    }
 
      /**
-    * 
+    * @return Return the created Channel 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ReplicationChannel createChannels()
    {
       ReplicationChannel value = new ReplicationChannel();
@@ -1242,10 +1261,11 @@ import org.sdmlib.replication.ChangeHistory;
    }
    
      /**
-    * 
+      * @param hostName The Hostname
+      * @param replicationServerPort The Port of the ReplicationChannel
+    *@return the ReplicationChannel 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ReplicationChannel createChannels(String hostName, int replicationServerPort)
    {
       ReplicationChannel channel = this.createChannels();
@@ -1255,10 +1275,10 @@ import org.sdmlib.replication.ChangeHistory;
    } 
 
 
-   public void withMap(JsonIdMap map)
+   public void withMap(IdMap map)
    {
       this.map = map;
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
    }
 
    @Override
@@ -1626,7 +1646,7 @@ import org.sdmlib.replication.ChangeHistory;
       return this;
    }
 
-   public SharedSpace init(JsonIdMap userModelIdMap, boolean javaFXApplication)
+   public SharedSpace init(IdMap userModelIdMap, boolean javaFXApplication)
    {
       String userName = userModelIdMap.getCounter().getPrefixId();
       
@@ -1635,7 +1655,7 @@ import org.sdmlib.replication.ChangeHistory;
       .withJavaFXApplication(javaFXApplication);
       
       this.withMap(userModelIdMap);
-      userModelIdMap.withCreator(SharedSpaceCreator.createIdMap(null));
+      userModelIdMap.with(SharedSpaceCreator.createIdMap(null));
       
       return this;
    }
@@ -1644,5 +1664,12 @@ import org.sdmlib.replication.ChangeHistory;
    {
       this.getMap().put(string, object);
    }
+
+   public ChangeHistory createHistory()
+   {
+      ChangeHistory value = new ChangeHistory();
+      withHistory(value);
+      return value;
+   } 
 }
 

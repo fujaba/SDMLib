@@ -6,6 +6,8 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
+import org.sdmlib.test.examples.helloworld.model.util.NodePO;
+import org.sdmlib.test.examples.helloworld.model.util.GraphPO;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {
@@ -168,6 +170,21 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       super.hasLink(Graph.PROPERTY_GCS, result);
       
       return result;
+   }
+
+   public NodePO filterNodes()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_NODES, result);
+      
+      return result;
+   }
+
+   public GraphPO filterNodes(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_NODES);
    }
 
 }

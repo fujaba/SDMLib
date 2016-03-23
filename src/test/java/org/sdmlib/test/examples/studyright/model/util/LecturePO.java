@@ -192,4 +192,33 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       return null;
    }
 
+   public LecturePO filterTitle(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lecture.PROPERTY_TITLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LecturePO filterTitle(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lecture.PROPERTY_TITLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

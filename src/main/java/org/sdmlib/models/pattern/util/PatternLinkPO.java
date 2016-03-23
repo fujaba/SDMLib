@@ -448,6 +448,135 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
       return this.startCreate().hasPattern(tgt).endCreate();
    }
 
+   public PatternLinkPO filterTgtRoleName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_TGTROLENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterTgtRoleName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_TGTROLENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterHostGraphSrcObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternLinkPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

@@ -50,7 +50,7 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -65,7 +65,7 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -171,7 +171,7 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -186,7 +186,7 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -215,4 +215,92 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       return this;
    }
    
+   public ModelCloudPO filterHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO filterHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO filterAcceptPort(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_ACCEPTPORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO filterAcceptPort(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_ACCEPTPORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO filterServers()
+   {
+      ModelCloudProxyPO result = new ModelCloudProxyPO(new ModelCloudProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloud.PROPERTY_SERVERS, result);
+      
+      return result;
+   }
+
+   public ModelCloudPO filterServers(ModelCloudProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloud.PROPERTY_SERVERS);
+   }
+
+   public ModelSpaceProxyPO filterModelSpaces()
+   {
+      ModelSpaceProxyPO result = new ModelSpaceProxyPO(new ModelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloud.PROPERTY_MODELSPACES, result);
+      
+      return result;
+   }
+
+   public ModelCloudPO filterModelSpaces(ModelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloud.PROPERTY_MODELSPACES);
+   }
+
 }

@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class HouseCreator extends EntityFactory
 {
@@ -75,7 +75,7 @@ public class HouseCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -86,7 +86,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutDoors((Door) value);
          return true;
@@ -98,7 +98,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_WINDOWS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_WINDOWS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutWindows((Window) value);
          return true;
@@ -106,7 +106,7 @@ public class HouseCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.features.model.albertsets.util.CreatorCreator.createIdMap(sessionID);
    }

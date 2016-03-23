@@ -25,27 +25,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 import de.kassel.test.roombook.Building;
 import de.kassel.test.roombook.Floor;
+import de.uniks.networkparser.list.SimpleSet;
 import de.kassel.test.roombook.util.FloorSet;
 
-public class BuildingSet extends SDMSet<Building>
+public class BuildingSet extends SimpleSet<Building>
 {
    public BuildingPO hasBuildingPO()
    {
       return new BuildingPO(this.toArray(new Building[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "de.kassel.test.roombook.Building";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BuildingSet with(Object value)
@@ -164,8 +156,67 @@ public class BuildingSet extends SDMSet<Building>
    }
 
 
-   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadOnly(true);
+   public static final BuildingSet EMPTY_SET = new BuildingSet().withFlag(BuildingSet.READONLY);
    public BuildingSet hasName(String lower, String upper)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public BuildingPO filterBuildingPO()
+   {
+      return new BuildingPO(this.toArray(new Building[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "de.kassel.test.roombook.Building";
+   }
+
+   /**
+    * Loop through the current set of Building objects and collect those Building objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Building objects that match the parameter
+    */
+   public BuildingSet filterName(String value)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Building objects and collect those Building objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Building objects that match the parameter
+    */
+   public BuildingSet filterName(String lower, String upper)
    {
       BuildingSet result = new BuildingSet();
       

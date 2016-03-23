@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class AssignmentCreator extends EntityFactory
 {
@@ -87,7 +87,7 @@ public class AssignmentCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -110,7 +110,7 @@ public class AssignmentCreator extends EntityFactory
          return true;
       }
       
-      if ((Assignment.PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Assignment.PROPERTY_ASSIGNMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Assignment) target).removeFromAssignments((Room) value);
          return true;
@@ -124,7 +124,7 @@ public class AssignmentCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

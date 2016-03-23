@@ -1,13 +1,13 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
 import org.sdmlib.test.examples.annotations.model.simple.util.DoorPO;
-import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.util.HousePO;
+import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowPO;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
 
 public class HousePO extends PatternObject<HousePO, House>
@@ -31,14 +31,14 @@ public class HousePO extends PatternObject<HousePO, House>
 
 
    public HousePO(){
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public HousePO(House... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    
    //==========================================================================
@@ -51,7 +51,7 @@ public class HousePO extends PatternObject<HousePO, House>
       }
    }
 
-   public DoorPO hasDoors()
+   public DoorPO filterDoors()
    {
       DoorPO result = new DoorPO(new Door[]{});
       
@@ -63,17 +63,17 @@ public class HousePO extends PatternObject<HousePO, House>
 
    public DoorPO createDoors()
    {
-      return this.startCreate().hasDoors().endCreate();
+      return this.startCreate().filterDoors().endCreate();
    }
 
-   public HousePO hasDoors(DoorPO tgt)
+   public HousePO filterDoors(DoorPO tgt)
    {
       return hasLinkConstraint(tgt, House.PROPERTY_DOORS);
    }
 
    public HousePO createDoors(DoorPO tgt)
    {
-      return this.startCreate().hasDoors(tgt).endCreate();
+      return this.startCreate().filterDoors(tgt).endCreate();
    }
 
    public DoorSet getDoors()
@@ -85,7 +85,7 @@ public class HousePO extends PatternObject<HousePO, House>
       return null;
    }
 
-   public WindowPO hasWindows()
+   public WindowPO filterWindows()
    {
       WindowPO result = new WindowPO(new Window[]{});
       
@@ -97,17 +97,17 @@ public class HousePO extends PatternObject<HousePO, House>
 
    public WindowPO createWindows()
    {
-      return this.startCreate().hasWindows().endCreate();
+      return this.startCreate().filterWindows().endCreate();
    }
 
-   public HousePO hasWindows(WindowPO tgt)
+   public HousePO filterWindows(WindowPO tgt)
    {
       return hasLinkConstraint(tgt, House.PROPERTY_WINDOWS);
    }
 
    public HousePO createWindows(WindowPO tgt)
    {
-      return this.startCreate().hasWindows(tgt).endCreate();
+      return this.startCreate().filterWindows(tgt).endCreate();
    }
 
    public WindowSet getWindows()

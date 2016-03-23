@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatMsgPO;
 
 public class ChatChannelPO extends PatternObject<ChatChannelPO, ChatChannel>
 {
@@ -101,6 +104,36 @@ public class ChatChannelPO extends PatternObject<ChatChannelPO, ChatChannel>
          return ((ChatChannel) this.getCurrentMatch()).getMsgs();
       }
       return null;
+   }
+
+   public ChatUserPO filterUsers()
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatChannel.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO filterUsers(ChatUserPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_USERS);
+   }
+
+   public ChatMsgPO filterMsgs()
+   {
+      ChatMsgPO result = new ChatMsgPO(new ChatMsg[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO filterMsgs(ChatMsgPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_MSGS);
    }
 
 }

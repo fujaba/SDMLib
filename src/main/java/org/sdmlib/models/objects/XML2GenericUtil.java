@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.storyboards.Storyboard;
 import org.w3c.dom.Document;
@@ -18,7 +19,7 @@ public class XML2GenericUtil
 {
    public static void xml2GenericGraph(Storyboard story, String... caseNames)
    {
-      GenClassModel learnedModel = new ClassModel().getGenerator();
+      ClassModelAdapter learnedModel = new ClassModel().getGenerator();
 
       for (String caseName : caseNames)
       {

@@ -57,7 +57,7 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -95,7 +95,7 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -394,6 +394,154 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
          return ((MauMau) this.getCurrentMatch()).getOpenStack();
       }
       return null;
+   }
+
+   public MauMauPO filterCurrentPlayer(Player value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTPLAYER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO filterCurrentSuit(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTSUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO filterCards()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterCards(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_CARDS);
+   }
+
+   public HolderPO filterDeck()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_DECK, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterDeck(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DECK);
+   }
+
+   public HolderPO filterStack()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_STACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterStack(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_STACK);
+   }
+
+   public PlayerPO filterPlayers()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterPlayers(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_PLAYERS);
+   }
+
+   public PlayerPO filterWinner()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_WINNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterWinner(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_WINNER);
+   }
+
+   public PlayerPO filterLosers()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_LOSERS, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterLosers(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_LOSERS);
+   }
+
+   public DrawingStackPO filterDrawingStack()
+   {
+      DrawingStackPO result = new DrawingStackPO(new DrawingStack[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_DRAWINGSTACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterDrawingStack(DrawingStackPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DRAWINGSTACK);
+   }
+
+   public OpenStackPO filterOpenStack()
+   {
+      OpenStackPO result = new OpenStackPO(new OpenStack[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_OPENSTACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO filterOpenStack(OpenStackPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_OPENSTACK);
    }
 
 }

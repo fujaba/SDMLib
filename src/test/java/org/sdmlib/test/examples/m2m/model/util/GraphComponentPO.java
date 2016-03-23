@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
 
 public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {
@@ -120,6 +122,50 @@ public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphCompo
          return ((GraphComponent) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public GraphComponentPO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphComponentPO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO filterParent()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public GraphComponentPO filterParent(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
    }
 
 }

@@ -29,12 +29,16 @@ import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.ludo.model.Player;
+import org.sdmlib.test.examples.ludo.model.Dice;
+import org.sdmlib.test.examples.ludo.model.Field;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoModel.java'>LudoModel.java</a>
 */
-   public class Ludo implements PropertyChangeInterface
+   public class Ludo implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -48,11 +52,21 @@ import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
 
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
    
    //==========================================================================
    

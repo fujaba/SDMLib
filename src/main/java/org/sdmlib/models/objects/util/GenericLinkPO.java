@@ -250,5 +250,63 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
       return this.startCreate().hasGraph(tgt).endCreate();
    }
 
+   public GenericLinkPO filterTgtLabel(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO filterTgtLabel(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO filterSrcLabel(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO filterSrcLabel(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 

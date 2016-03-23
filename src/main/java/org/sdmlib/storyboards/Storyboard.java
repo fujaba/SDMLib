@@ -21,6 +21,7 @@
 
 package org.sdmlib.storyboards;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -33,14 +34,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -55,8 +54,7 @@ import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.logic.GenClass;
+import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
@@ -68,13 +66,16 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleList;
-import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.ValuesMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.storyboards.StoryboardWall;
+import org.sdmlib.storyboards.StoryboardStep;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -86,7 +87,7 @@ import de.uniks.networkparser.logic.ValuesMap;
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
 */
-public class Storyboard implements PropertyChangeInterface
+public class Storyboard implements PropertyChangeInterface, SendableEntity
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
    public static final String PROPERTY_STEPCOUNTER = "stepCounter";
@@ -114,7 +115,7 @@ public class Storyboard implements PropertyChangeInterface
    private StoryboardStepSet storyboardSteps = null;
    private int codeStartLineNumber = -1;
    private ByteArrayOutputStream systemOutRecorder;
-   private JsonIdMap jsonIdMap = null;
+   private IdMap jsonIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
    
    public String getJavaTestFileName()
@@ -127,7 +128,7 @@ public class Storyboard implements PropertyChangeInterface
       this.javaTestFileName = javaTestFileName;
    }
 
-   public Storyboard withJsonIdMap(JsonIdMap jsonIdMap)
+   public Storyboard withJsonIdMap(IdMap jsonIdMap)
    {
       this.jsonIdMap = jsonIdMap;
       return this;
@@ -241,14 +242,22 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
 
+      String testClassName = null;
       if (callEntry.getClassName().equals(StoryPage.class.getName())) {
     	  callEntry = stackTrace[2];
     	  testMethodName = stackTrace[2].getMethodName();
+    	  testClassName = CGUtil.shortClassName(stackTrace[2].getClassName());
       } else {
     	  testMethodName = stackTrace[1].getMethodName();
+        testClassName = CGUtil.shortClassName(stackTrace[1].getClassName());
       }
       
       String storyName = testMethodName;
+      
+      if ("main".equals(storyName))
+      {
+         storyName = testClassName;
+      }
       
       if (storyName.startsWith("test"))
       {
@@ -270,7 +279,7 @@ public class Storyboard implements PropertyChangeInterface
 
    /**
     * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. Thus use the version without parameters. 
-    * @param rootDir
+    * @param rootDir The RootDir of Sources
     */
    @Deprecated 
    public Storyboard(String rootDir)
@@ -308,7 +317,7 @@ public class Storyboard implements PropertyChangeInterface
     *             Similarly, Storyboards get their name from the method they are used in. Name that method appropriately. 
     *             Use the version without parameters.
     *              
-    * @param rootDir
+    * @param rootDir The RootDir of Sources
     * @param name Name of the html file and page title to be generated. 
     */
    @Deprecated 
@@ -415,7 +424,7 @@ public class Storyboard implements PropertyChangeInterface
       this.add(string);
    }
 
-   public Storyboard withMap(JsonIdMap map)
+   public Storyboard withMap(IdMap map)
    {
       this.jsonIdMap = map;
       return this;
@@ -440,10 +449,10 @@ public class Storyboard implements PropertyChangeInterface
          {
             Class<?> creatorClass = Class.forName(className);
             Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-
+            method.setAccessible(true);   
             idMap = method.invoke(null, "debug");
 
-            jsonIdMap = (JsonIdMap) idMap;
+            jsonIdMap = (IdMap) idMap;
          }
 
          if (largestJsonArray == null)
@@ -451,7 +460,7 @@ public class Storyboard implements PropertyChangeInterface
             largestJsonArray = jsonIdMap.toJsonArray(root);
          }
 
-         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap);
+         IdMap copyMap = (IdMap) new IdMap().with(jsonIdMap);
 
          copyMap.decode(largestJsonArray);
 
@@ -463,17 +472,17 @@ public class Storyboard implements PropertyChangeInterface
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
-         e.printStackTrace();
+         // e.printStackTrace();
       }
    }
 
-   public void coverSeldomModelMethods(JsonIdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
+   public void coverSeldomModelMethods(IdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
          InvocationTargetException
    {
       LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
 
       LinkedHashSet<String> keySet = new LinkedHashSet<String>();
-      keySet.addAll(copyMap.keySet());
+      keySet.addAll(copyMap.getCreators().keySet());
       // loop through objects
       for (String key : keySet)
       {
@@ -548,12 +557,12 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   public void coverSetAndPOClasses(JsonIdMap copyMap)
+   public void coverSetAndPOClasses(IdMap copyMap) throws NoSuchMethodException, SecurityException
    {
-      // loop through objects in jsonIdMap, pack them into set, read and write
+      // loop through objects in idMap, pack them into set, read and write
       // all attributes
       LinkedHashSet<String> keySet = new LinkedHashSet<String>();
-      keySet.addAll(copyMap.keySet());
+      keySet.addAll(copyMap.getKeyValue().keySet());
       for (String key : keySet)
       {
          Object object = copyMap.getObject(key);
@@ -605,6 +614,26 @@ public class Storyboard implements PropertyChangeInterface
                // e.printStackTrace();
             }
 
+            try
+            {
+               hasPOMethod = setClass.getMethod("filter" + CGUtil.shortClassName(className) + "PO");
+               patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+               patternObjectClass = patternObject.getClass();
+
+               // call allMatches
+               Method allMatchesMethod = patternObjectClass.getMethod("allMatches");
+               allMatchesMethod.invoke(patternObject);
+
+               // Method poConstructor =
+               // patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
+               // poConstructor.invoke(null);
+
+            }
+            catch (Exception e)
+            {
+               // e.printStackTrace();
+            }
             // toString
             String text = setObject.toString();
 
@@ -686,9 +715,34 @@ public class Storyboard implements PropertyChangeInterface
                   {
                   }
 
+                  try
+                  {
+                     Method hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), valueClass);
+                     hasMethod.invoke(setObject, value);
+
+                     hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                     hasMethod.invoke(setObject, value, value);
+                  }
+                  catch (Exception e)
+                  {
+                  }
+
+                  try
+                  {
+                     Method hasMethod = setClass.getMethod("filter" + StrUtil.upFirstChar(attrName), Object.class);
+                     hasMethod.invoke(setObject, value);
+                     if (setValue != null)
+                     {
+                        hasMethod.invoke(setObject, setValue);
+                     }
+                  }
+                  catch (Exception e)
+                  {
+                  }
+
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
-                  creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
+                  creatorClass.setValue(object, attrName, value, IdMap.REMOVE);
 
                   patternObject = (PatternObject) hasPOMethod.invoke(setObject);
 
@@ -734,6 +788,15 @@ public class Storyboard implements PropertyChangeInterface
                      }
                      try
                      {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
+                           valueClass);
+                        hasMethod.invoke(patternObject, value);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
                            valueClass, valueClass);
                         hasMethod.invoke(patternObject, value, value);
@@ -743,7 +806,24 @@ public class Storyboard implements PropertyChangeInterface
                      }
                      try
                      {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
+                           valueClass, valueClass);
+                        hasMethod.invoke(patternObject, value, value);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
+                        hasMethod.invoke(patternObject);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
+                        Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName));
                         hasMethod.invoke(patternObject);
                      }
                      catch (Exception e)
@@ -765,6 +845,15 @@ public class Storyboard implements PropertyChangeInterface
                         try
                         {
                            Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
+                           method.invoke(patternObject, po);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
                               po.getClass());
                            method.invoke(patternObject, po);
                         }
@@ -818,7 +907,9 @@ public class Storyboard implements PropertyChangeInterface
 
             creatorClass.getValue(object, "foo.bar");
 
-            ((EntityFactory) creatorClass).removeObject(object);
+            // creatorClass.removeObject(object);
+            Method removeMethod = creatorClass.getClass().getMethod("removeObject", Object.class);
+            removeMethod.invoke(creatorClass, object);
          }
          catch (Exception e)
          {
@@ -826,12 +917,25 @@ public class Storyboard implements PropertyChangeInterface
             // e.printStackTrace();
          }
       }
+      
+      // go through all creator classes and call createIdMap
+      for ( SendableEntityCreator creator : copyMap.getCreators().values())
+      {
+         try
+         {
+            Method createIdMapMethod = creator.getClass().getMethod("createIdMap", String.class);
+            createIdMapMethod.invoke(creator, "t");
+         }
+         catch (Exception e)
+         {
+         }
+      }
 
    }
 
    /**
     * Add a class diagram to the generated html page.
-    * @param model
+    * @param model The ClassModel for drawing
     */
    public void addClassDiagram(ClassModel model)
    {
@@ -860,8 +964,8 @@ public class Storyboard implements PropertyChangeInterface
       // do we have a JsonIdMap?
       if (jsonIdMap == null)
       {
-         jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
-         jsonIdMap.getLogger().withError(false);
+         jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
+//FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
       }
 
 
@@ -969,22 +1073,19 @@ public class Storyboard implements PropertyChangeInterface
       }
       else
       {
-         ConditionMap conditionMap = new AlwaysTrueCondition();
-         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
+    	  AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
+//FIXME Stackoverflow please show Albert         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
       }
    }
 
-   private class AlwaysTrueCondition extends ConditionMap
+   private class AlwaysTrueCondition implements UpdateListener
    {
-      @Override
-      public boolean check(ValuesMap values)
-      {
-         // TODO Auto-generated method stub
-         return true;
-      }
+	public boolean update(Object value) {
+		return true;
+	}
    }
 
-   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, UpdateListener filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -1122,8 +1223,8 @@ public class Storyboard implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz clazz = model.createClazz(className);
-
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
+      ClassModel clazzModel = (ClassModel) clazz.getClassModel();
+      GenClazzEntity generator = clazzModel.getGenerator().getOrCreate(clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 
@@ -1439,10 +1540,22 @@ public class Storyboard implements PropertyChangeInterface
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    // ==========================================================================
 
@@ -1735,7 +1848,7 @@ public class Storyboard implements PropertyChangeInterface
       add(po.getPattern().dumpDiagram(name));
    }
 
-   public static class RestrictToFilter extends ConditionMap
+   public static class RestrictToFilter implements UpdateListener
    {
       private LinkedHashSet<Object> explicitElems;
 
@@ -1745,16 +1858,16 @@ public class Storyboard implements PropertyChangeInterface
 
       }
 
-      @Override
-      public boolean check(ValuesMap values)
+      public boolean update(Object values)
       {
-         if (values.value != null
+    	  PropertyChangeEvent evt = (PropertyChangeEvent) values;
+         if (evt.getNewValue() != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0))
+               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(values.value);
+         return explicitElems.contains(evt.getNewValue());
       }
    }
 
@@ -1817,12 +1930,23 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
       
+      // find first method outside Storyboard and StoryPage
       int i = 1;
-      
-      while (callEntry.getMethodName().startsWith("dumpHTML"))
+
+      while (true)
       {
-    	  i++;
          callEntry = stackTrace[i];
+
+         if (callEntry.getClassName().equals(Storyboard.class.getName()) 
+               || callEntry.getClassName().equals(StoryPage.class.getName()))
+         {
+            i++;
+            continue;
+         }
+         else
+         {
+            break;
+         }
       }
       
       String methodName = callEntry.getMethodName();
@@ -1971,7 +2095,7 @@ public class Storyboard implements PropertyChangeInterface
             if (insertPos < 0) continue; // <================ sudden death
                
             javaDocText = javaDocText.substring(0, insertPos) 
-                  + hrefText + "/n "+ javaDocText.substring(insertPos);
+                  + hrefText + "\n "+ javaDocText.substring(insertPos);
          
             // write new javadoc
             parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);

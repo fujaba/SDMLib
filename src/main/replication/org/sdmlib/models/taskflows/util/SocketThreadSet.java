@@ -24,14 +24,14 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import java.lang.Object;
 
-public class SocketThreadSet extends SDMSet<SocketThread>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SocketThreadSet extends SimpleSet<SocketThread>
 {
 
 
@@ -39,14 +39,6 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    {
       return new SocketThreadPO(this.toArray(new SocketThread[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.SocketThread";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SocketThreadSet with(Object value)
@@ -248,5 +240,157 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    }
 
 
-   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withReadOnly(true);
+   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withFlag(SocketThreadSet.READONLY);
+
+
+   public SocketThreadPO filterSocketThreadPO()
+   {
+      return new SocketThreadPO(this.toArray(new SocketThread[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.SocketThread";
+   }
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the ip attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterIp(String value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value.equals(obj.getIp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the ip attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterIp(String lower, String upper)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (lower.compareTo(obj.getIp()) <= 0 && obj.getIp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterPort(int value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterPort(int lower, int upper)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterIdMap(SDMLibJsonIdMap value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the defaultTargetThread attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet filterDefaultTargetThread(Object value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getDefaultTargetThread())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

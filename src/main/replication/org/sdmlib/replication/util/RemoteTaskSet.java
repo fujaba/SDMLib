@@ -25,28 +25,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.LogEntrySet;
 
-public class RemoteTaskSet extends SDMSet<RemoteTask>
+public class RemoteTaskSet extends SimpleSet<RemoteTask>
 {
-
-
 //   public RemoteTaskPO hasRemoteTaskPO()
 //   {
 //      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
 //   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.RemoteTask";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RemoteTaskSet with(Object value)
@@ -172,5 +163,40 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
    }
 
 
-   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withReadOnly(true);
+   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withFlag(RemoteTaskSet.READONLY);
+
+
+   public RemoteTaskPO filterRemoteTaskPO()
+   {
+      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.RemoteTask";
+   }
+
+   /**
+    * Loop through the current set of RemoteTask objects and collect those RemoteTask objects where the boardTask attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of RemoteTask objects that match the parameter
+    */
+   public RemoteTaskSet filterBoardTask(BoardTask value)
+   {
+      RemoteTaskSet result = new RemoteTaskSet();
+      
+      for (RemoteTask obj : this)
+      {
+         if (value == obj.getBoardTask())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

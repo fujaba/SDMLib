@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,13 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
-public class HouseCreator extends EntityFactory
+public class HouseCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -75,7 +74,7 @@ public class HouseCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -86,7 +85,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutDoors((Door) value);
          return true;
@@ -98,7 +97,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_WINDOWS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_WINDOWS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutWindows((Window) value);
          return true;
@@ -106,15 +105,13 @@ public class HouseCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((House) entity).removeYou();
    }

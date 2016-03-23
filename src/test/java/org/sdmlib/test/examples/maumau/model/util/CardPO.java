@@ -50,7 +50,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -88,7 +88,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -183,6 +183,64 @@ public class CardPO extends PatternObject<CardPO, Card>
          return ((Card) this.getCurrentMatch()).getHolder();
       }
       return null;
+   }
+
+   public CardPO filterSuit(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_SUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO filterValue(Value value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO filterGame()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Card.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public CardPO filterGame(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_GAME);
+   }
+
+   public HolderPO filterHolder()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Card.PROPERTY_HOLDER, result);
+      
+      return result;
+   }
+
+   public CardPO filterHolder(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_HOLDER);
    }
 
 }

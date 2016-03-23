@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
+import org.sdmlib.storyboards.util.StoryboardWallPO;
+import org.sdmlib.storyboards.util.StoryboardPO;
+import org.sdmlib.storyboards.util.StoryboardStepPO;
 
 public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 {
@@ -268,6 +271,123 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
          return ((Storyboard) this.getCurrentMatch()).getWall();
       }
       return null;
+   }
+
+   public StoryboardPO filterRootDir(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_ROOTDIR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterRootDir(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_ROOTDIR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterStepCounter(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_STEPCOUNTER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterStepCounter(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_STEPCOUNTER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterStepDoneCounter(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_STEPDONECOUNTER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardPO filterStepDoneCounter(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_STEPDONECOUNTER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StoryboardWallPO filterWall()
+   {
+      StoryboardWallPO result = new StoryboardWallPO(new StoryboardWall[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Storyboard.PROPERTY_WALL, result);
+      
+      return result;
+   }
+
+   public StoryboardPO filterWall(StoryboardWallPO tgt)
+   {
+      return hasLinkConstraint(tgt, Storyboard.PROPERTY_WALL);
+   }
+
+   public StoryboardStepPO filterStoryboardSteps()
+   {
+      StoryboardStepPO result = new StoryboardStepPO(new StoryboardStep[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Storyboard.PROPERTY_STORYBOARDSTEPS, result);
+      
+      return result;
+   }
+
+   public StoryboardPO filterStoryboardSteps(StoryboardStepPO tgt)
+   {
+      return hasLinkConstraint(tgt, Storyboard.PROPERTY_STORYBOARDSTEPS);
    }
 
 }

@@ -23,10 +23,11 @@ package org.sdmlib.test.examples.mancala.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.mancala.model.Stone;
 
-public class StoneSet extends SDMSet<Stone>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StoneSet extends SimpleSet<Stone>
 {
 
 
@@ -34,14 +35,6 @@ public class StoneSet extends SDMSet<Stone>
    {
       return new StonePO(this.toArray(new Stone[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.mancala.model.Stone";
-   }
-
 
    @SuppressWarnings("unchecked")
    public StoneSet with(Object value)
@@ -65,5 +58,17 @@ public class StoneSet extends SDMSet<Stone>
    }
 
 
-   public static final StoneSet EMPTY_SET = new StoneSet().withReadOnly(true);
+   public static final StoneSet EMPTY_SET = new StoneSet().withFlag(StoneSet.READONLY);
+
+
+   public StonePO filterStonePO()
+   {
+      return new StonePO(this.toArray(new Stone[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Stone";
+   }
 }

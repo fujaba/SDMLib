@@ -13,16 +13,49 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
-         "id":"Ludo"
+         "id":"Ludo",
+         "attributes":[
+            "location : String"
+         ],
+         "methods":[
+            "init(String p)"
+         ]
       },
       {
          "typ":"node",
          "id":"Player"
       }
    ],
-   "edges":[]
+   "edges":[
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         },
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         }
+      }
+   ]
 }   ;
    new Graph(json, {"canvasid":"canvasRemoveAttributeClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>

@@ -21,19 +21,21 @@
    
 package org.sdmlib.test.examples.modelspace.chat.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
-import org.sdmlib.models.modelsets.StringList;
 
-public class MSChatChannelSet extends SDMSet<MSChatChannel>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
+import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
+
+public class MSChatChannelSet extends SimpleSet<MSChatChannel>
 {
 
-   public static final MSChatChannelSet EMPTY_SET = new MSChatChannelSet().withReadOnly(true);
+   public static final MSChatChannelSet EMPTY_SET = new MSChatChannelSet().withFlag(MSChatChannelSet.READONLY);
 
 
    public MSChatChannelPO hasMSChatChannelPO()
@@ -177,6 +179,59 @@ public class MSChatChannelSet extends SDMSet<MSChatChannel>
       }
       
       return this;
+   }
+
+
+
+   public MSChatChannelPO filterMSChatChannelPO()
+   {
+      return new MSChatChannelPO(this.toArray(new MSChatChannel[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MSChatChannel objects and collect those MSChatChannel objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatChannel objects that match the parameter
+    */
+   public MSChatChannelSet filterTask(String value)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatChannel objects and collect those MSChatChannel objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatChannel objects that match the parameter
+    */
+   public MSChatChannelSet filterTask(String lower, String upper)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

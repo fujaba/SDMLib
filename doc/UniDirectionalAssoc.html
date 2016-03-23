@@ -13,7 +13,7 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"BigBrother"
       },
@@ -21,17 +21,17 @@
          "typ":"node",
          "id":"Person",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"BigBrother",
-            "cardinality":"many",
-            "property":""
+            "cardinality":"one",
+            "property":"bigbrother"
          },
          "target":{
             "id":"Person",
@@ -43,13 +43,39 @@
          "typ":"edge",
          "source":{
             "id":"BigBrother",
-            "cardinality":"many",
-            "property":""
+            "cardinality":"one",
+            "property":"bigbrother"
          },
          "target":{
             "id":"Person",
             "cardinality":"many",
             "property":"suspects"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"noOne"
+         },
+         "target":{
+            "id":"BigBrother",
+            "cardinality":"one",
+            "property":"bigbrother"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"suspects"
+         },
+         "target":{
+            "id":"BigBrother",
+            "cardinality":"one",
+            "property":"bigbrother"
          }
       }
    ]

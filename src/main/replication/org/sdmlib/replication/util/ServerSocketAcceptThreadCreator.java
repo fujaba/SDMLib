@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ServerSocketAcceptThreadCreator extends EntityFactory
 {
@@ -73,7 +73,7 @@ public class ServerSocketAcceptThreadCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -92,7 +92,7 @@ public class ServerSocketAcceptThreadCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

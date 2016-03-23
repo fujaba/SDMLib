@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,19 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Value;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Value;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.graph.DataType;
 
 public class ValueSet extends SDMSet<Value>
 {
-   @Override
+
+   public static final ValueSet EMPTY_SET = new ValueSet().withFlag(ValueSet.READONLY);
+
+
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Value";
@@ -40,7 +43,11 @@ public class ValueSet extends SDMSet<Value>
    @SuppressWarnings("unchecked")
    public ValueSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Value>)value);
       }
@@ -58,6 +65,18 @@ public class ValueSet extends SDMSet<Value>
       return this;
    }
 
+   @Override
+   public ValueSet filter(Condition<Value> newValue) {
+      ValueSet filterList = new ValueSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Value objects and collect a list of the initialization attribute values. 
+    * 
+    * @return List of String objects reachable via initialization attribute
+    */
    public StringList getInitialization()
    {
       StringList result = new StringList();
@@ -70,7 +89,15 @@ public class ValueSet extends SDMSet<Value>
       return result;
    }
 
-   public ValueSet hasInitialization(String value)
+
+   /**
+    * Loop through the current set of Value objects and collect those Value objects where the initialization attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Value objects that match the parameter
+    */
+   public ValueSet filterInitialization(String value)
    {
       ValueSet result = new ValueSet();
       
@@ -85,92 +112,16 @@ public class ValueSet extends SDMSet<Value>
       return result;
    }
 
-   public ValueSet withInitialization(String value)
-   {
-      for (Value obj : this)
-      {
-         obj.setInitialization(value);
-      }
-      
-      return this;
-   }
 
-   public DataTypeSet getType()
-   {
-      DataTypeSet result = new DataTypeSet();
-      
-      for (Value obj : this)
-      {
-         result.add(obj.getType());
-      }
-      
-      return result;
-   }
-
-   public ValueSet hasType(DataType value)
-   {
-      ValueSet result = new ValueSet();
-      
-      for (Value obj : this)
-      {
-         if (value == obj.getType())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ValueSet withType(DataType value)
-   {
-      for (Value obj : this)
-      {
-         obj.setType(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Value obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public ValueSet hasName(String value)
-   {
-      ValueSet result = new ValueSet();
-      
-      for (Value obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ValueSet withName(String value)
-   {
-      for (Value obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public static final ValueSet EMPTY_SET = new ValueSet().withReadOnly(true);
-   public ValueSet hasInitialization(String lower, String upper)
+   /**
+    * Loop through the current set of Value objects and collect those Value objects where the initialization attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Value objects that match the parameter
+    */
+   public ValueSet filterInitialization(String lower, String upper)
    {
       ValueSet result = new ValueSet();
       
@@ -185,7 +136,134 @@ public class ValueSet extends SDMSet<Value>
       return result;
    }
 
-   public ValueSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Value objects and assign value to the initialization attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Value objects now with new attribute values.
+    */
+   public ValueSet withInitialization(String value)
+   {
+      for (Value obj : this)
+      {
+         obj.setInitialization(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and collect a list of the type attribute values. 
+    * 
+    * @return List of de.uniks.networkparser.graph.DataType objects reachable via type attribute
+    */
+   public DataTypeSet getType()
+   {
+      DataTypeSet result = new DataTypeSet();
+      
+      for (Value obj : this)
+      {
+         result.add(obj.getType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and collect those Value objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Value objects that match the parameter
+    */
+   public ValueSet filterType(DataType value)
+   {
+      ValueSet result = new ValueSet();
+      
+      for (Value obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and assign value to the type attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Value objects now with new attribute values.
+    */
+   public ValueSet withType(DataType value)
+   {
+      for (Value obj : this)
+      {
+         obj.setType(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Value obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and collect those Value objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Value objects that match the parameter
+    */
+   public ValueSet filterName(String value)
+   {
+      ValueSet result = new ValueSet();
+      
+      for (Value obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and collect those Value objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Value objects that match the parameter
+    */
+   public ValueSet filterName(String lower, String upper)
    {
       ValueSet result = new ValueSet();
       
@@ -198,6 +276,24 @@ public class ValueSet extends SDMSet<Value>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of Value objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Value objects now with new attribute values.
+    */
+   public ValueSet withName(String value)
+   {
+      for (Value obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
    }
 
 }

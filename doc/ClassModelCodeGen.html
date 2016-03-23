@@ -14,11 +14,11 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"SDMLibClass",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
@@ -29,7 +29,7 @@
          "typ":"node",
          "id":"Clazz",
          "attributes":[
-         "interfaze : boolean",
+            "interfaze : boolean",
             "external : boolean"
          ]
       },
@@ -37,7 +37,7 @@
          "typ":"node",
          "id":"Value",
          "attributes":[
-         "initialization : String",
+            "initialization : String",
             "type : DataType"
          ]
       },
@@ -49,7 +49,7 @@
          "typ":"node",
          "id":"Method",
          "attributes":[
-         "returnType : DataType",
+            "returnType : DataType",
             "body : String"
          ]
       },
@@ -57,16 +57,16 @@
          "typ":"node",
          "id":"Annotation",
          "attributes":[
-         "DEPRECATED : String",
+            "DEPRECATED : String",
             "OVERRIDE : String",
             "SAFE_VARGARGS : String",
             "SUPPRESS_WARNINGS : String"
          ],
          "methods":[
-         "createOverrideAnnotation() Annotation",
-            "createDeprecatedAnnotation() Annotation",
-            "createSuppressWarningsAnnotation(String... values) Annotation",
-            "createSafeVarargsAnnotation() Annotation"
+            "createSuppressWarningsAnnotation(String... values) org.sdmlib.models.classes.Annotation",
+            "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
+            "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
+            "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation"
          ]
       },
       {
@@ -85,7 +85,7 @@
          "typ":"node",
          "id":"Role",
          "attributes":[
-         "card : String",
+            "card : String",
             "kind : String"
          ]
       },
@@ -93,7 +93,7 @@
          "typ":"node",
          "id":"SymTabEntry",
          "attributes":[
-         "kind : String",
+            "kind : String",
             "memberName : String",
             "type : String",
             "startPos : int",
@@ -110,7 +110,7 @@
          "typ":"node",
          "id":"LocalVarTableEntry",
          "attributes":[
-         "name : String",
+            "name : String",
             "type : String",
             "startPos : int",
             "endPos : int"
@@ -120,7 +120,7 @@
          "typ":"node",
          "id":"StatementEntry",
          "attributes":[
-         "kind : String",
+            "kind : String",
             "tokenList : ArrayList<String>",
             "assignTargetVarName : String",
             "startPos : int",
@@ -129,69 +129,121 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         },
+         "target":{
             "id":"ClassModel",
             "cardinality":"one",
-            "property":"classModel"
-         },
-         "target":{
-            "id":"Clazz",
-            "cardinality":"many",
-            "property":"classes"
+            "property":"classmodel"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"ClassModel",
+            "id":"SDMLibClass",
             "cardinality":"one",
-            "property":"classModel"
+            "property":"sdmlibclass"
          },
          "target":{
-            "id":"Enumeration",
-            "cardinality":"many",
-            "property":"enumerations"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Clazz",
-            "cardinality":"many",
-            "property":"superClazzes"
-         },
-         "target":{
-            "id":"Clazz",
-            "cardinality":"many",
-            "property":"kidClazzes"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
             "id":"Clazz",
             "cardinality":"one",
             "property":"clazz"
-         },
-         "target":{
-            "id":"Attribute",
-            "cardinality":"many",
-            "property":"attributes"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"Clazz",
+            "id":"SDMLibClass",
             "cardinality":"one",
-            "property":"clazz"
+            "property":"sdmlibclass"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
          },
          "target":{
             "id":"Method",
-            "cardinality":"many",
-            "property":"methods"
+            "cardinality":"one",
+            "property":"method"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         },
+         "target":{
+            "id":"Annotation",
+            "cardinality":"one",
+            "property":"annotation"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         },
+         "target":{
+            "id":"Enumeration",
+            "cardinality":"one",
+            "property":"enumeration"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         },
+         "target":{
+            "id":"Association",
+            "cardinality":"one",
+            "property":"association"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         },
+         "target":{
+            "id":"Role",
+            "cardinality":"one",
+            "property":"role"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
          }
       },
       {
@@ -202,9 +254,87 @@
             "property":"clazz"
          },
          "target":{
-            "id":"Role",
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         },
+         "target":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         },
+         "target":{
+            "id":"Parameter",
+            "cardinality":"one",
+            "property":"parameter"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
+            "id":"Parameter",
             "cardinality":"many",
-            "property":"roles"
+            "property":"parameter"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Annotation",
+            "cardinality":"one",
+            "property":"annotation"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Enumeration",
+            "cardinality":"one",
+            "property":"enumeration"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
          }
       },
       {
@@ -225,38 +355,25 @@
          "source":{
             "id":"Association",
             "cardinality":"one",
-            "property":"assoc"
+            "property":"association"
          },
          "target":{
-            "id":"Role",
+            "id":"SDMLibClass",
             "cardinality":"one",
-            "property":"source"
+            "property":"sdmlibclass"
          }
       },
       {
          "typ":"edge",
          "source":{
-            "id":"Association",
-            "cardinality":"one",
-            "property":"assoc"
-         },
-         "target":{
             "id":"Role",
             "cardinality":"one",
-            "property":"target"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"StatementEntry",
-            "cardinality":"one",
-            "property":"parent"
+            "property":"role"
          },
          "target":{
-            "id":"StatementEntry",
-            "cardinality":"many",
-            "property":"bodyStats"
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
          }
       },
       {

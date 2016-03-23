@@ -6,6 +6,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -251,6 +255,109 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) this.getCurrentMatch()).getCargos();
       }
       return null;
+   }
+
+   public BankPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO filterAge(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO filterAge(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoatPO filterBoat()
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public BankPO filterBoat(BoatPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_BOAT);
+   }
+
+   public RiverPO filterRiver()
+   {
+      RiverPO result = new RiverPO(new River[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_RIVER, result);
+      
+      return result;
+   }
+
+   public BankPO filterRiver(RiverPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_RIVER);
+   }
+
+   public CargoPO filterCargos()
+   {
+      CargoPO result = new CargoPO(new Cargo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_CARGOS, result);
+      
+      return result;
+   }
+
+   public BankPO filterCargos(CargoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS);
    }
 
 }

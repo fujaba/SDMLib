@@ -21,22 +21,24 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.TaskLane;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.TaskBoardSet;
-import org.sdmlib.modelspace.TaskBoard;
-import java.util.Collections;
-import org.sdmlib.modelspace.util.TaskSet;
 import org.sdmlib.modelspace.Task;
+import org.sdmlib.modelspace.TaskBoard;
+import org.sdmlib.modelspace.TaskLane;
 
-public class TaskLaneSet extends SDMSet<TaskLane>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.TaskBoardSet;
+import org.sdmlib.modelspace.util.TaskSet;
+
+public class TaskLaneSet extends SimpleSet<TaskLane>
 {
 
-   public static final TaskLaneSet EMPTY_SET = new TaskLaneSet().withReadOnly(true);
+   public static final TaskLaneSet EMPTY_SET = new TaskLaneSet().withFlag(TaskLaneSet.READONLY);
 
 
    public TaskLanePO hasTaskLanePO()
@@ -338,6 +340,106 @@ public class TaskLaneSet extends SDMSet<TaskLane>
       }
       
       return this;
+   }
+
+
+
+   public TaskLanePO filterTaskLanePO()
+   {
+      return new TaskLanePO(this.toArray(new TaskLane[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the hostName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet filterHostName(String value)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the hostName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet filterHostName(String lower, String upper)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the portNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet filterPortNo(long value)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (value == obj.getPortNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the portNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet filterPortNo(long lower, long upper)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (lower <= obj.getPortNo() && obj.getPortNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

@@ -21,19 +21,21 @@
    
 package org.sdmlib.modelspace;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.modelspace.util.CloudModelFileSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.modelspace.CloudModelFile;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
-*/
-   public  class CloudModelDirectory implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+ */
+   public  class CloudModelDirectory implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -46,9 +48,20 @@ import de.uniks.networkparser.json.JsonIdMap;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -134,7 +147,7 @@ import de.uniks.networkparser.json.JsonIdMap;
       return value;
    }
 
-   public CloudModelFile getOrCreateFiles(JsonIdMap fileDataIdMap, String fileName)
+   public CloudModelFile getOrCreateFiles(IdMap fileDataIdMap, String fileName)
    {
       for (CloudModelFile file : this.getFiles())
       {

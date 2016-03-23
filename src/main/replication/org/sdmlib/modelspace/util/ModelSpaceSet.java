@@ -21,14 +21,16 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.ModelSpace;
 import java.util.Collection;
 
-public class ModelSpaceSet extends SDMSet<ModelSpace>
+import org.sdmlib.modelspace.ModelSpace;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ModelSpaceSet extends SimpleSet<ModelSpace>
 {
 
-   public static final ModelSpaceSet EMPTY_SET = new ModelSpaceSet().withReadOnly(true);
+   public static final ModelSpaceSet EMPTY_SET = new ModelSpaceSet().withFlag(ModelSpaceSet.READONLY);
 
 
    public ModelSpacePO hasModelSpacePO()
@@ -64,4 +66,10 @@ public class ModelSpaceSet extends SDMSet<ModelSpace>
       return this;
    }
 
+
+
+   public ModelSpacePO filterModelSpacePO()
+   {
+      return new ModelSpacePO(this.toArray(new ModelSpace[this.size()]));
+   }
 }

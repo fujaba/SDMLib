@@ -23,17 +23,15 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -203,7 +201,7 @@ public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmli
       return new UnifyGraphsOpPO(this.toArray(new UnifyGraphsOp[this.size()]));
    }
 
-   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadOnly(true);
+   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withFlag(UnifyGraphsOpSet.READONLY);
    public UnifyGraphsOpSet hasModifier(String value)
    {
       UnifyGraphsOpSet result = new UnifyGraphsOpSet();
@@ -280,6 +278,152 @@ public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmli
    }
 
    public UnifyGraphsOpSet hasDoAllMatches(boolean value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public UnifyGraphsOpPO filterUnifyGraphsOpPO()
+   {
+      return new UnifyGraphsOpPO(this.toArray(new UnifyGraphsOp[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterModifier(String value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterModifier(String lower, String upper)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterHasMatch(boolean value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterPatternObjectName(String value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterPatternObjectName(String lower, String upper)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UnifyGraphsOp objects and collect those UnifyGraphsOp objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of UnifyGraphsOp objects that match the parameter
+    */
+   public UnifyGraphsOpSet filterDoAllMatches(boolean value)
    {
       UnifyGraphsOpSet result = new UnifyGraphsOpSet();
       

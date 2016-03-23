@@ -1,17 +1,36 @@
+/*
+   Copyright (c) 2016 zuendorf
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.SDMLibClass;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class AssociationCreator extends SDMLibClassCreator
+public class AssociationCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Association.PROPERTY_SOURCE,
-      Association.PROPERTY_TARGET,
       SDMLibClass.PROPERTY_NAME,
    };
    
@@ -21,11 +40,6 @@ public class AssociationCreator extends SDMLibClassCreator
       return properties;
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getSendableInstance(boolean reference)
    {
@@ -37,58 +51,43 @@ public class AssociationCreator extends SDMLibClassCreator
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
-      }
-
-      if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attribute))
-      {
-         return ((Association) target).getSource();
-      }
-
-      if (Association.PROPERTY_TARGET.equalsIgnoreCase(attribute))
-      {
-         return ((Association) target).getTarget();
       }
 
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
       }
-      return super.getValue(target, attrName);
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
-      if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attrName))
-      {
-         ((Association) target).withSource((Role) value);
-         return true;
-      }
-
-      if (Association.PROPERTY_TARGET.equalsIgnoreCase(attrName))
-      {
-         ((Association) target).setTarget((Role) value);
-         return true;
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+
+      if (IdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      
+      return false;
+   }
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
-   @Override
-   public void removeObject(Object entity)
+   //==========================================================================
+      public void removeObject(Object entity)
    {
       ((Association) entity).removeYou();
    }

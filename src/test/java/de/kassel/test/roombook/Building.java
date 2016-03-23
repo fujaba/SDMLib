@@ -29,11 +29,13 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.kassel.test.roombook.util.FloorSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import de.kassel.test.roombook.Floor;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
 */
-   public class Building implements PropertyChangeInterface
+   public class Building implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -47,12 +49,22 @@ import de.kassel.test.roombook.util.FloorSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
-   
    //==========================================================================
    
    public void removeYou()

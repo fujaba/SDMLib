@@ -24,15 +24,16 @@ package org.sdmlib.test.examples.m2m.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.m2m.model.util.GraphSet;
 import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
-public class RelationSet extends SDMSet<Relation>
+public class RelationSet extends SimpleSet<Relation>
 {
 
 
@@ -40,14 +41,6 @@ public class RelationSet extends SDMSet<Relation>
    {
       return new RelationPO(this.toArray(new Relation[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.Relation";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RelationSet with(Object value)
@@ -337,7 +330,7 @@ public class RelationSet extends SDMSet<Relation>
    }
 
 
-   public static final RelationSet EMPTY_SET = new RelationSet().withReadOnly(true);
+   public static final RelationSet EMPTY_SET = new RelationSet().withFlag(RelationSet.READONLY);
    public RelationSet hasKind(String lower, String upper)
    {
       RelationSet result = new RelationSet();
@@ -354,6 +347,112 @@ public class RelationSet extends SDMSet<Relation>
    }
 
    public RelationSet hasText(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public RelationPO filterRelationPO()
+   {
+      return new RelationPO(this.toArray(new Relation[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.m2m.model.Relation";
+   }
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet filterKind(String value)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet filterKind(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet filterText(String value)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet filterText(String lower, String upper)
    {
       RelationSet result = new RelationSet();
       

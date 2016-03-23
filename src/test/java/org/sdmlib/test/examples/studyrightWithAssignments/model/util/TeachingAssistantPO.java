@@ -9,20 +9,16 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, TeachingAssistant>
 {
 
-   /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-    */
-   public TeachingAssistantSet allMatches()
+    public TeachingAssistantSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -40,16 +36,16 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
 
    public TeachingAssistantPO(){
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public TeachingAssistantPO(TeachingAssistant... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
-   public TeachingAssistantPO hasCertified(boolean value)
+   public TeachingAssistantPO filterCertified(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_CERTIFIED)
@@ -58,14 +54,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createCertified(boolean value)
    {
-      this.startCreate().hasCertified(value).endCreate();
+      this.startCreate().filterCertified(value).endCreate();
       return this;
    }
    
@@ -87,7 +83,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO hasName(String value)
+   public TeachingAssistantPO filterName(String value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_NAME)
@@ -96,12 +92,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public TeachingAssistantPO hasName(String lower, String upper)
+   public TeachingAssistantPO filterName(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_NAME)
@@ -111,14 +107,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createName(String value)
    {
-      this.startCreate().hasName(value).endCreate();
+      this.startCreate().filterName(value).endCreate();
       return this;
    }
    
@@ -140,7 +136,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO hasId(String value)
+   public TeachingAssistantPO filterId(String value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_ID)
@@ -149,12 +145,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public TeachingAssistantPO hasId(String lower, String upper)
+   public TeachingAssistantPO filterId(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_ID)
@@ -164,14 +160,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createId(String value)
    {
-      this.startCreate().hasId(value).endCreate();
+      this.startCreate().filterId(value).endCreate();
       return this;
    }
    
@@ -193,7 +189,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO hasAssignmentPoints(int value)
+   public TeachingAssistantPO filterAssignmentPoints(int value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_ASSIGNMENTPOINTS)
@@ -202,12 +198,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public TeachingAssistantPO hasAssignmentPoints(int lower, int upper)
+   public TeachingAssistantPO filterAssignmentPoints(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_ASSIGNMENTPOINTS)
@@ -217,14 +213,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createAssignmentPoints(int value)
    {
-      this.startCreate().hasAssignmentPoints(value).endCreate();
+      this.startCreate().filterAssignmentPoints(value).endCreate();
       return this;
    }
    
@@ -246,7 +242,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO hasMotivation(int value)
+   public TeachingAssistantPO filterMotivation(int value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
@@ -255,12 +251,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public TeachingAssistantPO hasMotivation(int lower, int upper)
+   public TeachingAssistantPO filterMotivation(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
@@ -270,14 +266,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createMotivation(int value)
    {
-      this.startCreate().hasMotivation(value).endCreate();
+      this.startCreate().filterMotivation(value).endCreate();
       return this;
    }
    
@@ -299,7 +295,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO hasCredits(int value)
+   public TeachingAssistantPO filterCredits(int value)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_CREDITS)
@@ -308,12 +304,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
-   public TeachingAssistantPO hasCredits(int lower, int upper)
+   public TeachingAssistantPO filterCredits(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(TeachingAssistant.PROPERTY_CREDITS)
@@ -323,14 +319,14 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
    
    public TeachingAssistantPO createCredits(int value)
    {
-      this.startCreate().hasCredits(value).endCreate();
+      this.startCreate().filterCredits(value).endCreate();
       return this;
    }
    
@@ -352,7 +348,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public UniversityPO hasUniversity()
+   public UniversityPO filterUniversity()
    {
       UniversityPO result = new UniversityPO(new University[]{});
       
@@ -364,17 +360,17 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    public UniversityPO createUniversity()
    {
-      return this.startCreate().hasUniversity().endCreate();
+      return this.startCreate().filterUniversity().endCreate();
    }
 
-   public TeachingAssistantPO hasUniversity(UniversityPO tgt)
+   public TeachingAssistantPO filterUniversity(UniversityPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
    }
 
    public TeachingAssistantPO createUniversity(UniversityPO tgt)
    {
-      return this.startCreate().hasUniversity(tgt).endCreate();
+      return this.startCreate().filterUniversity(tgt).endCreate();
    }
 
    public University getUniversity()
@@ -386,7 +382,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return null;
    }
 
-   public RoomPO hasIn()
+   public RoomPO filterIn()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -398,17 +394,17 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    public RoomPO createIn()
    {
-      return this.startCreate().hasIn().endCreate();
+      return this.startCreate().filterIn().endCreate();
    }
 
-   public TeachingAssistantPO hasIn(RoomPO tgt)
+   public TeachingAssistantPO filterIn(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_IN);
    }
 
    public TeachingAssistantPO createIn(RoomPO tgt)
    {
-      return this.startCreate().hasIn(tgt).endCreate();
+      return this.startCreate().filterIn(tgt).endCreate();
    }
 
    public Room getIn()
@@ -420,41 +416,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return null;
    }
 
-   public AssignmentPO hasDone()
-   {
-      AssignmentPO result = new AssignmentPO(new Assignment[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_DONE, result);
-      
-      return result;
-   }
-
-   public AssignmentPO createDone()
-   {
-      return this.startCreate().hasDone().endCreate();
-   }
-
-   public TeachingAssistantPO hasDone(AssignmentPO tgt)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
-   }
-
-   public TeachingAssistantPO createDone(AssignmentPO tgt)
-   {
-      return this.startCreate().hasDone(tgt).endCreate();
-   }
-
-   public AssignmentSet getDone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) this.getCurrentMatch()).getDone();
-      }
-      return null;
-   }
-
-   public StudentPO hasFriends()
+   public StudentPO filterFriends()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -466,17 +428,17 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    public StudentPO createFriends()
    {
-      return this.startCreate().hasFriends().endCreate();
+      return this.startCreate().filterFriends().endCreate();
    }
 
-   public TeachingAssistantPO hasFriends(StudentPO tgt)
+   public TeachingAssistantPO filterFriends(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
    }
 
    public TeachingAssistantPO createFriends(StudentPO tgt)
    {
-      return this.startCreate().hasFriends(tgt).endCreate();
+      return this.startCreate().filterFriends(tgt).endCreate();
    }
 
    public StudentSet getFriends()
@@ -488,7 +450,41 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return null;
    }
 
-   public RoomPO hasRoom()
+   public AssignmentPO filterDone()
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Student.PROPERTY_DONE, result);
+      
+      return result;
+   }
+
+   public AssignmentPO createDone()
+   {
+      return this.startCreate().filterDone().endCreate();
+   }
+
+   public TeachingAssistantPO filterDone(AssignmentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
+   }
+
+   public TeachingAssistantPO createDone(AssignmentPO tgt)
+   {
+      return this.startCreate().filterDone(tgt).endCreate();
+   }
+
+   public AssignmentSet getDone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) this.getCurrentMatch()).getDone();
+      }
+      return null;
+   }
+
+   public RoomPO filterRoom()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -500,17 +496,17 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    public RoomPO createRoom()
    {
-      return this.startCreate().hasRoom().endCreate();
+      return this.startCreate().filterRoom().endCreate();
    }
 
-   public TeachingAssistantPO hasRoom(RoomPO tgt)
+   public TeachingAssistantPO filterRoom(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, TeachingAssistant.PROPERTY_ROOM);
    }
 
    public TeachingAssistantPO createRoom(RoomPO tgt)
    {
-      return this.startCreate().hasRoom(tgt).endCreate();
+      return this.startCreate().filterRoom(tgt).endCreate();
    }
 
    public Room getRoom()

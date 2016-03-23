@@ -8,12 +8,12 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/main/replication/org/sdmlib/replication/ReplicationModel.java' type='text/x-java'>SeppelModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>SeppelModel</a></p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Thread"
       },
@@ -21,7 +21,7 @@
          "typ":"node",
          "id":"SeppelSpace",
          "attributes":[
-         "spaceId : String",
+            "spaceId : String",
             "history : ChangeEventList",
             "lastChangeId : long",
             "javaFXApplication : boolean"
@@ -31,7 +31,7 @@
          "typ":"node",
          "id":"SeppelSpaceProxy",
          "attributes":[
-         "spaceId : String",
+            "spaceId : String",
             "acceptsConnectionRequests : boolean",
             "hostName : String",
             "portNo : int",
@@ -43,7 +43,7 @@
          "typ":"node",
          "id":"SeppelScope",
          "attributes":[
-         "scopeName : String"
+            "scopeName : String"
          ]
       },
       {
@@ -54,7 +54,7 @@
          "typ":"node",
          "id":"SeppelChannel",
          "attributes":[
-         "socket : Socket",
+            "socket : Socket",
             "loginValidated : boolean"
          ]
       },
@@ -72,7 +72,46 @@
       }
    ],
    "edges":[
-   {
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         },
+         "target":{
+            "id":"SeppelSpace",
+            "cardinality":"one",
+            "property":"seppelspace"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         },
+         "target":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"seppelchannel"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SeppelSpace",
+            "cardinality":"one",
+            "property":"seppelspace"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
          "typ":"edge",
          "source":{
             "id":"SeppelSpaceProxy",
@@ -129,12 +168,12 @@
          "source":{
             "id":"SeppelScope",
             "cardinality":"many",
-            "property":"superScopes"
+            "property":"subScopes"
          },
          "target":{
             "id":"SeppelScope",
             "cardinality":"many",
-            "property":"subScopes"
+            "property":"superScopes"
          }
       },
       {
@@ -142,12 +181,64 @@
          "source":{
             "id":"SeppelScope",
             "cardinality":"many",
-            "property":""
+            "property":"scopes"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"many",
+            "property":"spaces"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SeppelScope",
+            "cardinality":"one",
+            "property":"seppelscope"
          },
          "target":{
             "id":"Object",
             "cardinality":"many",
             "property":"observedObjects"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Object",
+            "cardinality":"many",
+            "property":"observedObjects"
+         },
+         "target":{
+            "id":"SeppelScope",
+            "cardinality":"one",
+            "property":"seppelscope"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"channel"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"one",
+            "property":"seppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"one",
+            "property":"proxy"
          }
       },
       {

@@ -18,12 +18,12 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GroupAccountAppSimpleTest
 {
    LinkedBlockingQueue<Object> testResults = new LinkedBlockingQueue<>();
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private GroupAccount dataRoot;
    private ModelSpace space;
    
@@ -80,7 +80,7 @@ public class GroupAccountAppSimpleTest
          
          if (buf == null) 
          {
-            System.out.println("time out waiting for change: ");
+//            System.out.println("time out waiting for change: ");
             story.add("time out waiting for change: ");
             Assert.fail();
             break;
@@ -116,7 +116,7 @@ public class GroupAccountAppSimpleTest
       
       story.dumpHTML();
       
-      System.out.println("done");
+//      System.out.println("done");
       
    }
 
@@ -147,7 +147,7 @@ public class GroupAccountAppSimpleTest
       catch (Exception e1)
       {
          // TODO Auto-generated catch block
-         System.out.println("Starting via main. ");
+//         System.out.println("Starting via main. ");
          // start grouptaccount app for albert
          Thread firstClient = new Thread()
          {

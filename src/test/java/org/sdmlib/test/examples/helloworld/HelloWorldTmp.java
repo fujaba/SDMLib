@@ -1,9 +1,10 @@
 package org.sdmlib.test.examples.helloworld;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
 
 public class HelloWorldTmp
 {
@@ -14,7 +15,7 @@ public class HelloWorldTmp
 
       Clazz nodeClazz = model.createClazz("Node");
 
-      nodeClazz.withAssoc(nodeClazz, "copy", Card.ONE, "orig", Card.ONE);
+      nodeClazz.withBidirectional(nodeClazz, "copy", Cardinality.ONE, "orig", Cardinality.ONE);
 
       model.generate("src/test/java");
 

@@ -24,26 +24,18 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class ArrayListSet extends SDMSet<ArrayList<?>>
+public class ArrayListSet extends SimpleSet<ArrayList<?>>
 {
 
-   public static final ArrayListSet EMPTY_SET = new ArrayListSet().withReadOnly(true);
+   public static final ArrayListSet EMPTY_SET = new ArrayListSet().withFlag(ArrayListSet.READONLY);
 
 
    public ArrayListPO hasArrayListPO()
    {
       return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.util.ArrayList";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ArrayListSet with(Object value)
@@ -66,4 +58,16 @@ public class ArrayListSet extends SDMSet<ArrayList<?>>
       return this;
    }
 
+
+
+   public ArrayListPO filterArrayListPO()
+   {
+      return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.util.ArrayList";
+   }
 }

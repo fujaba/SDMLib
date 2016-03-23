@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationRoot;
 import java.lang.Object;
+import org.sdmlib.replication.util.ReplicationRootPO;
 
 public class ReplicationRootPO extends PatternObject<ReplicationRootPO, ReplicationRoot>
 {
@@ -192,6 +193,64 @@ public class ReplicationRootPO extends PatternObject<ReplicationRootPO, Replicat
          return ((ReplicationRoot) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public ReplicationRootPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO filterApplicationObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_APPLICATIONOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO filterParent()
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationRoot.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO filterParent(ReplicationRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_PARENT);
    }
 
 }

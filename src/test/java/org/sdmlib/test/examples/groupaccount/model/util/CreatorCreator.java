@@ -2,20 +2,20 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new GroupAccountCreator());
-      jsonIdMap.withCreator(new GroupAccountPOCreator());
-      jsonIdMap.withCreator(new PersonCreator());
-      jsonIdMap.withCreator(new PersonPOCreator());
-      jsonIdMap.withCreator(new ItemCreator());
-      jsonIdMap.withCreator(new ItemPOCreator());
+      jsonIdMap.with(new GroupAccountCreator());
+      jsonIdMap.with(new GroupAccountPOCreator());
+      jsonIdMap.with(new PersonCreator());
+      jsonIdMap.with(new PersonPOCreator());
+      jsonIdMap.with(new ItemCreator());
+      jsonIdMap.with(new ItemPOCreator());
       
       return jsonIdMap;
    }

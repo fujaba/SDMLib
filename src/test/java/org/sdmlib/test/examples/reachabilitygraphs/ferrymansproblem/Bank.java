@@ -28,11 +28,15 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
 */
-   public class Bank implements PropertyChangeInterface
+   public class Bank implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -46,9 +50,20 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -191,7 +206,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
    } 
 
    
-   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
+   public static final BankSet EMPTY_SET = new BankSet().withFlag(BankSet.READONLY);
 
    
    /********************************************************************

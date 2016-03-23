@@ -38,22 +38,9 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.LinkConstraint;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.ReachabilityGraph;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -64,7 +51,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
    public static final String DESTROY = "destroy";
    public static final String BOUND = "bound";
 
-   private JsonIdMap jsonIdMap;
+   private IdMap idMap;
    private GuiAdapter adapter;
 
    public GuiAdapter getAdapter()
@@ -77,14 +64,14 @@ import org.sdmlib.models.pattern.LinkConstraint;
       return adapter;
    }
 
-   public JsonIdMap getJsonIdMap()
+   public IdMap getIdMap()
    {
-      return jsonIdMap;
+      return idMap;
    }
 
-   public void setJsonIdMap(JsonIdMap jsonIdMap)
+   public void setIdMap(IdMap idMap)
    {
-      this.jsonIdMap = jsonIdMap;
+      this.idMap = idMap;
    }
 
    public void clone(ReachabilityGraph rgraph)
@@ -107,9 +94,9 @@ import org.sdmlib.models.pattern.LinkConstraint;
 
    // ==========================================================================
 
-   public Pattern(JsonIdMap createIdMap)
+   public Pattern(IdMap createIdMap)
    {
-      jsonIdMap = createIdMap;
+      idMap = createIdMap;
       setHasMatch(true);
    }
 
@@ -316,7 +303,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
 
                if (value instanceof PatternObject || value instanceof Pattern)
-               {
+               {  
                   getTopPattern().incrementPatternObjectCount();
                }
             }
@@ -324,7 +311,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
             if (value instanceof Pattern)
             {
                this.setCurrentSubPattern((Pattern) value);
-               ((Pattern) value).setJsonIdMap(this.getJsonIdMap());
+               ((Pattern) value).setIdMap(this.getIdMap());
             }
          }
       }
@@ -381,7 +368,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 
    public PatternObject bind(Object hostGraphObject)
    {
-      SendableEntityCreator creatorClass = getJsonIdMap().getCreator(
+      SendableEntityCreator creatorClass = getIdMap().getCreator(
          getPOClassName(hostGraphObject.getClass().getName()), true);
 
       PatternObject po = (PatternObject) creatorClass.getSendableInstance(false);
@@ -632,7 +619,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
       // hostgraph
       if (showMatch && !matchedObjects.isEmpty())
       {
-         JsonArray jsonArray = getJsonIdMap().toJsonArray(matchedObjects.iterator().next());
+         JsonArray jsonArray = getIdMap().toJsonArray(matchedObjects.iterator().next());
 
          getAdapter().fillNodeAndEdgeBuilders(diagramName, jsonArray, nodeBuilder, edgeBuilder, false);
       }
@@ -990,7 +977,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
             return patObj.getPatternObjectName();
          }
       }
-      return getJsonIdMap().getId(patElem).split("\\.")[1].toLowerCase();
+      return getIdMap().getId(patElem).split("\\.")[1].toLowerCase();
    }
 
    private void dumpDiagram(String diagramName, String fileText)
@@ -1066,6 +1053,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
    {
       StringBuilder s = new StringBuilder();
 
+      s.append(" ").append("Pattern");
       s.append(" ").append(this.getDebugMode());
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
@@ -1322,7 +1310,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
    public PatternObject has(PatternObject po)
    {
       po.withModifier(this.getModifier());
-      this.setJsonIdMap(po.getPattern().getJsonIdMap());
+      this.setIdMap(po.getPattern().getIdMap());
       this.addToElements(po);
       this.findMatch();
       return (PatternObject) po;

@@ -10,7 +10,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReachbilityGraphSimpleExamples
 {
@@ -36,8 +36,8 @@ public class ReachbilityGraphSimpleExamples
       Node n22 = s21.createNodes().withPrev(n21);
       Node n23 = s21.createNodes().withPrev(n22).withNext(n21);
       
-      JsonIdMap map = SimpleStateCreator.createIdMap("s");
-      JsonIdMap map2 = SimpleStateCreator.createIdMap("s");
+      IdMap map = SimpleStateCreator.createIdMap("s");
+      IdMap map2 = SimpleStateCreator.createIdMap("s");
       
       // mark them at different places
       n21.withNum(42);
@@ -122,8 +122,8 @@ public class ReachbilityGraphSimpleExamples
       Node n23 = s21.createNodes().withPrev(n22);
       Node n24 = s21.createNodes().withPrev(n23).withNext(n21);
       
-      JsonIdMap map = SimpleStateCreator.createIdMap("s");
-      JsonIdMap map2 = SimpleStateCreator.createIdMap("t");
+      IdMap map = SimpleStateCreator.createIdMap("s");
+      IdMap map2 = SimpleStateCreator.createIdMap("t");
       
       storyboard.addObjectDiagram(s11);
       

@@ -29,27 +29,19 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
-import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
 import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
 
 public class ChatChannelSet extends SDMSet<ChatChannel>
 {
 
-   public static final ChatChannelSet EMPTY_SET = new ChatChannelSet().withReadOnly(true);
+   public static final ChatChannelSet EMPTY_SET = new ChatChannelSet().withFlag(ChatChannelSet.READONLY);
 
 
    public ChatChannelPO hasChatChannelPO()
    {
       return new ChatChannelPO(this.toArray(new ChatChannel[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.replication.chat.ChatChannel";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ChatChannelSet with(Object value)
@@ -188,4 +180,16 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
       return this;
    }
 
+
+
+   public ChatChannelPO filterChatChannelPO()
+   {
+      return new ChatChannelPO(this.toArray(new ChatChannel[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.replication.chat.ChatChannel";
+   }
 }

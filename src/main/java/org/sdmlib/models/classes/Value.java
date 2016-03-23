@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,75 +18,58 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
 package org.sdmlib.models.classes;
 
+import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.DataType;
+import de.uniks.networkparser.graph.DataType;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
-   public abstract class Value extends SDMLibClass
+ */
+   public  class Value extends SDMLibClass
 {
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeYou()
+   {
+   
+      super.removeYou();
+
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   //==========================================================================
+   
    public static final String PROPERTY_INITIALIZATION = "initialization";
-   public static final String PROPERTY_TYPE = "type";
    
-   protected String initialization = null;
-
-   protected DataType type = null;
-   
-   public boolean setType(DataType value)
-   {
-      if (( this.type==null && value!=null) || (this.type!=null && this.type!=value))
-      {
-         DataType oldValue = this.type;
-         this.type = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
-         return true;
-      }
-      return false;
-   }
-   
-   public Value with(DataType value)
-   {
-      setType(value);
-      return this;
-   } 
-   
-   public Value withInitialization(String value)
-   {
-      setInitialization(value);
-      return this;
-   }
-
-   public DataType getType()
-   {
-      return type;
-   }
+   private String initialization;
 
    public String getInitialization()
    {
       return this.initialization;
    }
-
-   public boolean setInitialization(String value)
+   
+   public void setInitialization(String value)
    {
-      if ( ! StrUtil.stringEquals(this.initialization, value))
-      {
+      if ( ! StrUtil.stringEquals(this.initialization, value)) {
+      
          String oldValue = this.initialization;
          this.initialization = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_INITIALIZATION, oldValue, value);
-         return true;
       }
-      return false;
    }
-
-   @Override
-   public void removeYou()
+   
+   public Value withInitialization(String value)
    {
-      super.removeYou();
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
+      setInitialization(value);
+      return this;
+   } 
 
 
    @Override
@@ -99,8 +82,28 @@ import org.sdmlib.models.classes.DataType;
       return result.substring(1);
    }
 
+
    
    //==========================================================================
+   
+   public static final String PROPERTY_TYPE = "type";
+   
+   private DataType type;
+
+   public DataType getType()
+   {
+      return this.type;
+   }
+   
+   public void setType(DataType value)
+   {
+      if (this.type != value) {
+      
+         DataType oldValue = this.type;
+         this.type = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
+      }
+   }
    
    public Value withType(DataType value)
    {

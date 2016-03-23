@@ -81,7 +81,7 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -96,7 +96,7 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -125,4 +125,48 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       return this;
    }
    
+   public MSChatChannelPO filterTask(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO filterTask(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO filterMsgs()
+   {
+      MSChatMsgPO result = new MSChatMsgPO(new MSChatMsg[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public MSChatChannelPO filterMsgs(MSChatMsgPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatChannel.PROPERTY_MSGS);
+   }
+
 }

@@ -141,4 +141,49 @@ public class HolderPO extends PatternObject<HolderPO, Holder>
       return null;
    }
 
+   public CardPO filterCards()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public HolderPO filterCards(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_CARDS);
+   }
+
+   public MauMauPO filterDeckOwner()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public HolderPO filterDeckOwner(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_DECKOWNER);
+   }
+
+   public MauMauPO filterStackOwner()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public HolderPO filterStackOwner(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_STACKOWNER);
+   }
+
 }

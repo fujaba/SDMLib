@@ -29,13 +29,17 @@ import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.replication.BoardTask;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class Lane implements PropertyChangeInterface
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class Lane implements PropertyChangeInterface, SendableEntity
 {
 
    // ==========================================================================
@@ -82,7 +86,7 @@ import java.beans.PropertyChangeListener;
          return true;
       }
 
-      if ((PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTasks((BoardTask) value);
          return true;
@@ -99,6 +103,23 @@ import java.beans.PropertyChangeListener;
    {
       return listeners;
    }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    // ==========================================================================
 
@@ -297,7 +318,7 @@ import java.beans.PropertyChangeListener;
 
 
    /**
-    * 
+    * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
     */
    public BoardTask createTasks()
@@ -308,7 +329,9 @@ import java.beans.PropertyChangeListener;
    }
 
    /**
-    * 
+    * Create a new BoardTask
+    * @param taskName The Name of BoardTask
+    * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
     */
    public BoardTask createTask(String taskName)

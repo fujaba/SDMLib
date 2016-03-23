@@ -5,6 +5,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
 
 public class ItemPO extends PatternObject<ItemPO, Item>
 {
@@ -174,6 +176,79 @@ public class ItemPO extends PatternObject<ItemPO, Item>
          return ((Item) this.getCurrentMatch()).getBuyer();
       }
       return null;
+   }
+
+   public ItemPO filterDescription(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO filterDescription(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO filterValue(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO filterValue(double lower, double upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterBuyer()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Item.PROPERTY_BUYER, result);
+      
+      return result;
+   }
+
+   public ItemPO filterBuyer(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Item.PROPERTY_BUYER);
    }
 
 }

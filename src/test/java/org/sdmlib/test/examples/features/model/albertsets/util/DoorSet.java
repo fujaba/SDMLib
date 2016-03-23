@@ -21,32 +21,25 @@
    
 package org.sdmlib.test.examples.features.model.albertsets.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-
-public class DoorSet extends SDMSet<Door>
+public class DoorSet extends SimpleSet<Door>
 {
 
-   public static final DoorSet EMPTY_SET = new DoorSet().withReadOnly(true);
+   public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
 
 
    public DoorPO hasDoorPO()
    {
       return new DoorPO(this.toArray(new Door[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.features.model.albertsets.Door";
-   }
-
 
    @SuppressWarnings("unchecked")
    public DoorSet with(Object value)
@@ -117,4 +110,16 @@ public class DoorSet extends SDMSet<Door>
       return this;
    }
 
+
+
+   public DoorPO filterDoorPO()
+   {
+      return new DoorPO(this.toArray(new Door[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.features.model.albertsets.Door";
+   }
 }

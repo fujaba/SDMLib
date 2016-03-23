@@ -21,27 +21,29 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.MauMau;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
 import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.util.HolderSet;
-import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
 
-public class MauMauSet extends SDMSet<MauMau>
+public class MauMauSet extends SimpleSet<MauMau>
 {
 
-   public static final MauMauSet EMPTY_SET = new MauMauSet().withReadOnly(true);
+   public static final MauMauSet EMPTY_SET = new MauMauSet().withFlag(MauMauSet.READONLY);
 
 
    public MauMauPO hasMauMauPO()
@@ -563,6 +565,58 @@ public class MauMauSet extends SDMSet<MauMau>
       }
       
       return this;
+   }
+
+
+
+   public MauMauPO filterMauMauPO()
+   {
+      return new MauMauPO(this.toArray(new MauMau[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MauMau objects and collect those MauMau objects where the currentPlayer attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MauMau objects that match the parameter
+    */
+   public MauMauSet filterCurrentPlayer(Player value)
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (MauMau obj : this)
+      {
+         if (value == obj.getCurrentPlayer())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MauMau objects and collect those MauMau objects where the currentSuit attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MauMau objects that match the parameter
+    */
+   public MauMauSet filterCurrentSuit(Suit value)
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (MauMau obj : this)
+      {
+         if (value == obj.getCurrentSuit())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

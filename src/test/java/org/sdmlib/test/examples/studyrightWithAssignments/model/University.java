@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,21 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-
-/**
- *  
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
-*/
-public  class University implements PropertyChangeInterface
+ */
+   public  class University implements SendableEntity
 {
 
    
@@ -47,9 +48,20 @@ public  class University implements PropertyChangeInterface
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -116,10 +128,10 @@ public  class University implements PropertyChangeInterface
 
    private StudentSet students = null;
    
-   /**
+     /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-    */
+ */
    public StudentSet getStudents()
    {
       if (this.students == null)
@@ -133,7 +145,7 @@ public  class University implements PropertyChangeInterface
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
+ */
    public University withStudents(Student... value)
    {
       if(value==null){
@@ -179,7 +191,7 @@ public  class University implements PropertyChangeInterface
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
+ */
    public Student createStudents()
    {
       Student value = new Student();
@@ -190,7 +202,7 @@ public  class University implements PropertyChangeInterface
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
+ */
    public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
@@ -211,10 +223,10 @@ public  class University implements PropertyChangeInterface
 
    private RoomSet rooms = null;
    
-   /**
+     /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-    */
+ */
    public RoomSet getRooms()
    {
       if (this.rooms == null)
@@ -270,7 +282,7 @@ public  class University implements PropertyChangeInterface
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
+ */
    public Room createRooms()
    {
       Room value = new Room();

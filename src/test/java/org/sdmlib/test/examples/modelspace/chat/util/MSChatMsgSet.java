@@ -21,19 +21,21 @@
    
 package org.sdmlib.test.examples.modelspace.chat.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelSet;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
+import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 
-public class MSChatMsgSet extends SDMSet<MSChatMsg>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelSet;
+
+public class MSChatMsgSet extends SimpleSet<MSChatMsg>
 {
 
-   public static final MSChatMsgSet EMPTY_SET = new MSChatMsgSet().withReadOnly(true);
+   public static final MSChatMsgSet EMPTY_SET = new MSChatMsgSet().withFlag(MSChatMsgSet.READONLY);
 
 
    public MSChatMsgPO hasMSChatMsgPO()
@@ -271,6 +273,153 @@ public class MSChatMsgSet extends SDMSet<MSChatMsg>
       }
       
       return this;
+   }
+
+
+
+   public MSChatMsgPO filterMSChatMsgPO()
+   {
+      return new MSChatMsgPO(this.toArray(new MSChatMsg[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterText(String value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterText(String lower, String upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the time attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterTime(long value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value == obj.getTime())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the time attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterTime(long lower, long upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower <= obj.getTime() && obj.getTime() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the sender attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterSender(String value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value.equals(obj.getSender()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the sender attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet filterSender(String lower, String upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getSender()) <= 0 && obj.getSender().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

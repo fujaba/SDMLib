@@ -24,6 +24,6 @@ public class SimpleListTest {
 		}
 		
 		Assert.assertEquals(len, list.size() );
-		System.out.println("FINISH");
+//		System.out.println("FINISH");
 	}
 }

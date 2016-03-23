@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,97 +21,32 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Association;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.RoleSet;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class AssociationSet extends SDMSet<Association> implements org.sdmlib.models.modelsets.ModelSet
+public class AssociationSet extends SDMSet<Association>
 {
-   public RoleSet getSource()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getSource());
-      }
-      
-      return result;
-   }
-   public AssociationSet withSource(Role value)
-   {
-      for (Association obj : this)
-      {
-         obj.withSource(value);
-      }
-      
-      return this;
-   }
 
-   public RoleSet getTarget()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getTarget());
-      }
-      
-      return result;
-   }
-   public AssociationSet withTarget(Role value)
-   {
-      for (Association obj : this)
-      {
-         obj.withTarget(value);
-      }
-      
-      return this;
-   }
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Association elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
+   public static final AssociationSet EMPTY_SET = new AssociationSet().withFlag(AssociationSet.READONLY);
 
 
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Association";
    }
 
 
-   public AssociationSet with(Association value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public AssociationSet without(Association value)
-   {
-      this.remove(value);
-      return this;
-   }
-
    @SuppressWarnings("unchecked")
    public AssociationSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Association>)value);
       }
@@ -122,7 +57,25 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       
       return this;
    }
+   
+   public AssociationSet without(Association value)
+   {
+      this.remove(value);
+      return this;
+   }
 
+   @Override
+   public AssociationSet filter(Condition<Association> newValue) {
+      AssociationSet filterList = new AssociationSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Association objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -135,7 +88,15 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return result;
    }
 
-   public AssociationSet hasName(String value)
+
+   /**
+    * Loop through the current set of Association objects and collect those Association objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Association objects that match the parameter
+    */
+   public AssociationSet filterName(String value)
    {
       AssociationSet result = new AssociationSet();
       
@@ -150,18 +111,16 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return result;
    }
 
-   public AssociationSet withName(String value)
-   {
-      for (Association obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-   
-   public static final AssociationSet EMPTY_SET = new AssociationSet().withReadOnly(true);
-   public AssociationSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Association objects and collect those Association objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Association objects that match the parameter
+    */
+   public AssociationSet filterName(String lower, String upper)
    {
       AssociationSet result = new AssociationSet();
       
@@ -175,17 +134,23 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       
       return result;
    }
-   
-   public void removeFromModelAndCode(String rootDir) {
 
-	   SimpleSet<Association> clone = this.clone();
-	   
-	   for (Association association : clone) {
-		
-		   association.removeFromModelAndCode(rootDir);
-		   
-	   }
-	   
+
+   /**
+    * Loop through the current set of Association objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Association objects now with new attribute values.
+    */
+   public AssociationSet withName(String value)
+   {
+      for (Association obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
    }
 
 }

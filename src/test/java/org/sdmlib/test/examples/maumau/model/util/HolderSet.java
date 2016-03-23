@@ -21,31 +21,27 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.Holder;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 
-public class HolderSet extends SDMSet<Holder>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+
+public class HolderSet extends SimpleSet<Holder>
 {
 
-   public static final HolderSet EMPTY_SET = new HolderSet().withReadOnly(true);
+   public static final HolderSet EMPTY_SET = new HolderSet().withFlag(HolderSet.READONLY);
 
 
    public HolderPO hasHolderPO()
    {
       return new HolderPO(this.toArray(new Holder[this.size()]));
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.maumau.model.Holder";
    }
 
 
@@ -224,4 +220,16 @@ public class HolderSet extends SDMSet<Holder>
       return this;
    }
 
+
+
+   public HolderPO filterHolderPO()
+   {
+      return new HolderPO(this.toArray(new Holder[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.maumau.model.Holder";
+   }
 }

@@ -25,16 +25,17 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.SharedSpaceSet;
 
-public class ReplicationServerSet extends SDMSet<ReplicationServer>
+public class ReplicationServerSet extends SimpleSet<ReplicationServer>
 {
 
 
@@ -42,14 +43,6 @@ public class ReplicationServerSet extends SDMSet<ReplicationServer>
    {
       return new ReplicationServerPO(this.toArray(new ReplicationServer[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationServer";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationServerSet with(Object value)
@@ -361,5 +354,17 @@ public class ReplicationServerSet extends SDMSet<ReplicationServer>
    }
 
 
-   public static final ReplicationServerSet EMPTY_SET = new ReplicationServerSet().withReadOnly(true);
+   public static final ReplicationServerSet EMPTY_SET = new ReplicationServerSet().withFlag(ReplicationServerSet.READONLY);
+
+
+   public ReplicationServerPO filterReplicationServerPO()
+   {
+      return new ReplicationServerPO(this.toArray(new ReplicationServer[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ReplicationServer";
+   }
 }

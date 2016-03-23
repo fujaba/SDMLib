@@ -2,11 +2,12 @@ package org.sdmlib.test.examples.groupaccount;
 
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class GroupAccountClassModel
 {
@@ -33,13 +34,13 @@ public class GroupAccountClassModel
             .withAttribute("balance", DataType.DOUBLE);
 
       
-      groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+      groupAccountClass.withBidirectional(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
       
       Clazz itemClass = model.createClazz("Item") 
             .withAttribute("description", DataType.STRING)
             .withAttribute("value", DataType.DOUBLE);
       
-      personClass.withAssoc(itemClass, "item", Card.MANY, "buyer", Card.ONE);
+      personClass.withBidirectional(itemClass, "item", Cardinality.MANY, "buyer", Cardinality.ONE);
 
       // model.updateFromCode("examples", "examples", "org.sdmlib.test.examples.groupAccount");
       

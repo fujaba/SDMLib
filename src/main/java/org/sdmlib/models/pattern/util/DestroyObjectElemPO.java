@@ -297,6 +297,92 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this.startCreate().hasPatternObject(tgt).endCreate();
    }
 
+   public DestroyObjectElemPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

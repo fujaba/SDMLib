@@ -15,7 +15,7 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Greeting"
       },
@@ -23,19 +23,19 @@
          "typ":"node",
          "id":"GreetingMessage",
          "attributes":[
-         "text : String"
+            "text : String"
          ]
       },
       {
          "typ":"node",
          "id":"Person",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"Greeting",
@@ -60,6 +60,32 @@
             "cardinality":"one",
             "property":"person"
          }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"GreetingMessage",
+            "cardinality":"one",
+            "property":"greetingMessage"
+         },
+         "target":{
+            "id":"Greeting",
+            "cardinality":"one",
+            "property":"greeting"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Greeting",
+            "cardinality":"one",
+            "property":"greeting"
+         }
       }
    ]
 }   ;
@@ -79,11 +105,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GreetingPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< create>>"
          ]
       },
@@ -91,7 +117,7 @@
          "typ":"patternObject",
          "id":"g2 : GreetingMessagePO",
          "attributes":[
-         "<< create>>",
+            "<< create>>",
             "text == Hello"
          ]
       },
@@ -99,13 +125,13 @@
          "typ":"patternObject",
          "id":"p3 : PersonPO",
          "attributes":[
-         "<< create>>",
+            "<< create>>",
             "name == TTC Participants"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -138,11 +164,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"g1 : GreetingPO",
          "attributes":[
-         "<< start >>",
+            "<< start >>",
             "<< create>>"
          ]
       },
@@ -150,7 +176,7 @@
          "typ":"patternObject",
          "id":"g2 : GreetingMessagePO",
          "attributes":[
-         "<< create>>",
+            "<< create>>",
             "text == Hello"
          ]
       },
@@ -158,13 +184,13 @@
          "typ":"patternObject",
          "id":"p3 : PersonPO",
          "attributes":[
-         "<< create>>",
+            "<< create>>",
             "name == TTC Participants"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -192,62 +218,6 @@
    g.layout(100,100);
 </script>
 <p>For completeness just the host graph:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"G1 : Greeting"
-      },
-      {
-         "typ":"node",
-         "id":"G2 : GreetingMessage",
-         "attributes":[
-         "text=Hello"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P3 : Person",
-         "attributes":[
-         "name=TTC Participants"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"greeting",
-            "id":"G1 : Greeting"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"greetingMessage",
-            "id":"G2 : GreetingMessage"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"greeting",
-            "id":"G1 : Greeting"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferences11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting();
 

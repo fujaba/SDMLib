@@ -8,6 +8,11 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
+import org.sdmlib.models.pattern.util.CardinalityConstraintPO;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.util.PatternObjectPO;
+import org.sdmlib.models.pattern.util.MatchOtherThenPO;
+import org.sdmlib.models.pattern.MatchOtherThen;
 
 
 public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>
@@ -668,6 +673,165 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
    public PatternObjectPO createExcluders(MatchOtherThenPO tgt)
    {
       return this.startCreate().hasExcluders(tgt).endCreate();
+   }
+
+   public PatternObjectPO filterCurrentMatch(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_CURRENTMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterCandidates(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_CANDIDATES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardinalityConstraintPO filterCardConstraints()
+   {
+      CardinalityConstraintPO result = new CardinalityConstraintPO(new CardinalityConstraint[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PatternObject.PROPERTY_CARDCONSTRAINTS, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO filterCardConstraints(CardinalityConstraintPO tgt)
+   {
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_CARDCONSTRAINTS);
+   }
+
+   public MatchOtherThenPO filterMatchOtherThen()
+   {
+      MatchOtherThenPO result = new MatchOtherThenPO(new MatchOtherThen[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHEN, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO filterMatchOtherThen(MatchOtherThenPO tgt)
+   {
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHEN);
+   }
+
+   public MatchOtherThenPO filterExcluders()
+   {
+      MatchOtherThenPO result = new MatchOtherThenPO(new MatchOtherThen[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PatternObject.PROPERTY_EXCLUDERS, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO filterExcluders(MatchOtherThenPO tgt)
+   {
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_EXCLUDERS);
    }
 
 }

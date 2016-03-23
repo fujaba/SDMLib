@@ -26,18 +26,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
-import org.sdmlib.test.examples.ludo.model.util.PawnSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
-public class FieldSet extends SDMSet<Field>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.ludo.model.util.LudoSet;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+
+public class FieldSet extends SimpleSet<Field>
 {
 
 
@@ -45,14 +46,6 @@ public class FieldSet extends SDMSet<Field>
    {
       return new FieldPO(this.toArray(new Field[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.model.Field";
-   }
-
 
    @SuppressWarnings("unchecked")
    public FieldSet with(Object value)
@@ -796,7 +789,7 @@ public class FieldSet extends SDMSet<Field>
    }
 
 
-   public static final FieldSet EMPTY_SET = new FieldSet().withReadOnly(true);
+   public static final FieldSet EMPTY_SET = new FieldSet().withFlag(FieldSet.READONLY);
    public FieldSet hasColor(String lower, String upper)
    {
       FieldSet result = new FieldSet();
@@ -858,6 +851,229 @@ public class FieldSet extends SDMSet<Field>
    }
 
    public FieldSet hasPoint(Point value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getPoint())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public FieldPO filterFieldPO()
+   {
+      return new FieldPO(this.toArray(new Field[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.ludo.model.Field";
+   }
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the color attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterColor(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the color attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterColor(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterKind(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterKind(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the x attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterX(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the x attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterX(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the y attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterY(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the y attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterY(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the point attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet filterPoint(Point value)
    {
       FieldSet result = new FieldSet();
       

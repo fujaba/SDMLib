@@ -23,7 +23,6 @@ package org.sdmlib.test.examples.ludo;
    
 import org.junit.Test;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
@@ -37,7 +36,7 @@ import org.sdmlib.test.examples.ludo.model.util.PawnPO;
 import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
 
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
    
 public class LudoStoryboard
 {
@@ -56,7 +55,7 @@ public class LudoStoryboard
       
       storyboard.add("Start situation: ");
       
-      JsonIdMap jsonIdMap = LudoCreator.createIdMap("l1");
+      IdMap jsonIdMap = LudoCreator.createIdMap("l1");
       
       // create a simple ludo storyboard
       
@@ -71,7 +70,7 @@ public class LudoStoryboard
       
       Player sabine = ludo.createPlayers().withName("Sabine").withColor(RED).withEnumColor(LudoColor.red);
       
-      JsonIdMap jsonIdMapClone = LudoCreator.createIdMap("l2");
+      IdMap jsonIdMapClone = LudoCreator.createIdMap("l2");
 
       Object clone = jsonIdMap.decode(jsonArray);
       
@@ -174,7 +173,7 @@ public class LudoStoryboard
             .withPlayer(sabine)
             .withPos(tomStartField);
       
-      JsonIdMap jsonIdMap = LudoCreator.createIdMap("l1");
+      IdMap jsonIdMap = LudoCreator.createIdMap("l1");
       
       storyboard.addObjectDiagram(tom);
       

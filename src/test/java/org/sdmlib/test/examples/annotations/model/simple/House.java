@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,18 +23,19 @@ package org.sdmlib.test.examples.annotations.model.simple;
 
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
 import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>
-*/
-   public class House extends Cube
+ */
+   public  class House extends Cube
 {
 
    
    //==========================================================================
-   @Override
-public void init(  )
+   public void init(  )
    {
       
    }
@@ -45,6 +46,7 @@ public void init(  )
    @Override
    public void removeYou()
    {
+   
       super.removeYou();
 
       withoutDoors(this.getDoors().toArray(new Door[this.getDoors().size()]));

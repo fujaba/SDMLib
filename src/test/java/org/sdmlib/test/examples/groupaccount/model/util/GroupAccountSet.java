@@ -25,16 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
-import org.sdmlib.test.examples.groupaccount.model.Item;
-import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 
-public class GroupAccountSet extends SDMSet<GroupAccount>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+
+public class GroupAccountSet extends SimpleSet<GroupAccount>
 {
 
 
@@ -42,14 +40,6 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
    {
       return new GroupAccountPO(this.toArray(new GroupAccount[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.groupAccount.model.GroupAccount";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GroupAccountSet with(Object value)
@@ -147,7 +137,7 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
-   public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadOnly(true);
+   public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withFlag(GroupAccountSet.READONLY);
 
 
    /**
@@ -230,6 +220,65 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       }
       
       return this;
+   }
+
+
+
+   public GroupAccountPO filterGroupAccountPO()
+   {
+      return new GroupAccountPO(this.toArray(new GroupAccount[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.groupaccount.model.GroupAccount";
+   }
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet filterTask(String value)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet filterTask(String lower, String upper)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

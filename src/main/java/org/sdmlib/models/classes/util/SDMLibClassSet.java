@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,18 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.SDMLibClass;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 
 public class SDMLibClassSet extends SDMSet<SDMLibClass>
 {
-   @Override
+
+   public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withFlag(SDMLibClassSet.READONLY);
+
+
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.SDMLibClass";
@@ -39,7 +42,11 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
    @SuppressWarnings("unchecked")
    public SDMLibClassSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<SDMLibClass>)value);
       }
@@ -57,6 +64,18 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       return this;
    }
 
+   @Override
+   public SDMLibClassSet filter(Condition<SDMLibClass> newValue) {
+      SDMLibClassSet filterList = new SDMLibClassSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of SDMLibClass objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -69,7 +88,15 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       return result;
    }
 
-   public SDMLibClassSet hasName(String value)
+
+   /**
+    * Loop through the current set of SDMLibClass objects and collect those SDMLibClass objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SDMLibClass objects that match the parameter
+    */
+   public SDMLibClassSet filterName(String value)
    {
       SDMLibClassSet result = new SDMLibClassSet();
       
@@ -84,18 +111,16 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       return result;
    }
 
-   public SDMLibClassSet withName(String value)
-   {
-      for (SDMLibClass obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
 
-   public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withReadOnly(true);
-   public SDMLibClassSet hasName(String lower, String upper)
+   /**
+    * Loop through the current set of SDMLibClass objects and collect those SDMLibClass objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SDMLibClass objects that match the parameter
+    */
+   public SDMLibClassSet filterName(String lower, String upper)
    {
       SDMLibClassSet result = new SDMLibClassSet();
       
@@ -108,6 +133,24 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of SDMLibClass objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of SDMLibClass objects now with new attribute values.
+    */
+   public SDMLibClassSet withName(String value)
+   {
+      for (SDMLibClass obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
    }
 
 }

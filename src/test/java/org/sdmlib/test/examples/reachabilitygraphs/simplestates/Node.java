@@ -26,11 +26,13 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
 */
-   public class Node implements PropertyChangeInterface
+   public class Node implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -44,10 +46,22 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================
@@ -101,7 +115,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
 
    
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
 
    
    /********************************************************************

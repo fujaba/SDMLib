@@ -183,5 +183,63 @@ public class GenericAttributePO extends PatternObject
    {
       return (GenericAttributePO) this.startCreate().hasOwner(tgt).endCreate();
    }
+   public GenericAttributePO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO filterValue(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO filterValue(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 

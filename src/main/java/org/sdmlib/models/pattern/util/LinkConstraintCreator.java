@@ -4,7 +4,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class LinkConstraintCreator extends PatternLinkCreator
 {
@@ -34,7 +34,7 @@ public class LinkConstraintCreator extends PatternLinkCreator
       return new LinkConstraint();
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

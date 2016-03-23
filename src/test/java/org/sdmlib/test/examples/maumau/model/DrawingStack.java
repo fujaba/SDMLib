@@ -22,6 +22,8 @@
 package org.sdmlib.test.examples.maumau.model;
 
 import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.Card;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>

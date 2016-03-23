@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,29 +22,28 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
-import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
-import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
-
 import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
+import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
 
 public class HouseSet extends SDMSet<House>
 {
 
-   public static final HouseSet EMPTY_SET = new HouseSet().withReadOnly(true);
+   public static final HouseSet EMPTY_SET = new HouseSet().withFlag(HouseSet.READONLY);
 
 
-   public HousePO hasHousePO()
+   public HousePO filterHousePO()
    {
       return new HousePO(this.toArray(new House[this.size()]));
    }
 
 
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.annotations.model.simple.House";
@@ -54,7 +53,11 @@ public class HouseSet extends SDMSet<House>
    @SuppressWarnings("unchecked")
    public HouseSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<House>)value);
       }
@@ -72,6 +75,12 @@ public class HouseSet extends SDMSet<House>
       return this;
    }
 
+   @Override
+   public HouseSet filter(Condition<House> newValue) {
+      HouseSet filterList = new HouseSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
    
    //==========================================================================
    
@@ -84,19 +93,31 @@ public class HouseSet extends SDMSet<House>
       return this;
    }
 
+   /**
+    * Loop through the current set of House objects and collect a set of the Door objects reached via doors. 
+    * 
+    * @return Set of Door objects reachable via doors
+    */
    public DoorSet getDoors()
    {
       DoorSet result = new DoorSet();
       
       for (House obj : this)
       {
-         result.addAll(obj.getDoors());
+         result.with(obj.getDoors());
       }
       
       return result;
    }
 
-   public HouseSet hasDoors(Object value)
+   /**
+    * Loop through the current set of House objects and collect all contained objects with reference doors pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as doors neighbor of the collected results. 
+    * 
+    * @return Set of Door objects referring to value via doors
+    */
+   public HouseSet filterDoors(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -122,6 +143,11 @@ public class HouseSet extends SDMSet<House>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the House object passed as parameter to the Doors attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
+    */
    public HouseSet withDoors(Door value)
    {
       for (House obj : this)
@@ -132,6 +158,11 @@ public class HouseSet extends SDMSet<House>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the House object passed as parameter from the Doors attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public HouseSet withoutDoors(Door value)
    {
       for (House obj : this)
@@ -142,19 +173,31 @@ public class HouseSet extends SDMSet<House>
       return this;
    }
 
+   /**
+    * Loop through the current set of House objects and collect a set of the Window objects reached via windows. 
+    * 
+    * @return Set of Window objects reachable via windows
+    */
    public WindowSet getWindows()
    {
       WindowSet result = new WindowSet();
       
       for (House obj : this)
       {
-         result.addAll(obj.getWindows());
+         result.with(obj.getWindows());
       }
       
       return result;
    }
 
-   public HouseSet hasWindows(Object value)
+   /**
+    * Loop through the current set of House objects and collect all contained objects with reference windows pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as windows neighbor of the collected results. 
+    * 
+    * @return Set of Window objects referring to value via windows
+    */
+   public HouseSet filterWindows(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -180,6 +223,11 @@ public class HouseSet extends SDMSet<House>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the House object passed as parameter to the Windows attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Windows attributes.
+    */
    public HouseSet withWindows(Window value)
    {
       for (House obj : this)
@@ -190,6 +238,11 @@ public class HouseSet extends SDMSet<House>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the House object passed as parameter from the Windows attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public HouseSet withoutWindows(Window value)
    {
       for (House obj : this)

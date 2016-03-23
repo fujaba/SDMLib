@@ -3,6 +3,8 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
+import org.sdmlib.replication.util.ReplicationChangePO;
+import org.sdmlib.replication.util.ChangeHistoryPO;
 
 public class ChangeHistoryPO extends PatternObject<ChangeHistoryPO, ChangeHistory>
 {
@@ -66,6 +68,21 @@ public class ChangeHistoryPO extends PatternObject<ChangeHistoryPO, ChangeHistor
          return ((ChangeHistory) this.getCurrentMatch()).getChanges();
       }
       return null;
+   }
+
+   public ReplicationChangePO filterChanges()
+   {
+      ReplicationChangePO result = new ReplicationChangePO(new ReplicationChange[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChangeHistory.PROPERTY_CHANGES, result);
+      
+      return result;
+   }
+
+   public ChangeHistoryPO filterChanges(ReplicationChangePO tgt)
+   {
+      return hasLinkConstraint(tgt, ChangeHistory.PROPERTY_CHANGES);
    }
 
 }

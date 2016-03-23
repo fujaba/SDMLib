@@ -85,7 +85,7 @@ import java.lang.Object;
                {
                   if (creatorClass == null)
                   {
-                     creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(src);
+                     creatorClass = this.getPattern().getIdMap().getCreatorClass(src);
                   }
 
                   Object tgt = creatorClass.getValue(src, tgtRoleName);
@@ -104,7 +104,7 @@ import java.lang.Object;
             }
             else
             {
-               SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+               SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(hostGraphSrcObject);
                value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
                if (value != null && value instanceof Collection && ! this.getTopPattern().getRiskConcurrentModification())
                {
@@ -150,7 +150,7 @@ import java.lang.Object;
                   }
                   
                   getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
-                     + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + getTopPattern().getJsonIdMap().getId(value) + " " + value);
+                     + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + getTopPattern().getIdMap().getId(value) + " " + value);
                }
                
 

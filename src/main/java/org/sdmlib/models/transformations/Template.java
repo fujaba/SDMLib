@@ -40,13 +40,18 @@ import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import java.lang.Object;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
-*/
-   public class Template implements PropertyChangeInterface
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.Match;
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+ */
+public class Template implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
 
@@ -58,9 +63,20 @@ import java.lang.Object;
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================
@@ -218,7 +234,7 @@ import java.lang.Object;
 
    private String expandedText;
 
-   protected JsonIdMap idMap;
+   protected IdMap idMap;
 
    public String getExpandedText()
    {
@@ -478,8 +494,7 @@ import java.lang.Object;
                      .withStartPos(currentPosInExpandedText)
                      .withEndPos(subTemplate.getValueStartPos() - 1)
                      .withParentMatch(templateMatch)
-                     .withSubMatches(subMatches.toArray(new Match[]
-                     {}));
+                     .withSubMatches(subMatches.toArray(new Match[subMatches.size()]));
 
                }
 
@@ -673,7 +688,7 @@ import java.lang.Object;
       return !"".equals(this.getListStart() + this.getListSeparator() + this.getListEnd());
    }
 
-   protected Template withIdMap(JsonIdMap idMap2)
+   protected Template withIdMap(IdMap idMap2)
    {
       this.idMap = idMap2;
 
@@ -857,9 +872,9 @@ import java.lang.Object;
             Class<?> creatorClass = Class.forName(className);
             Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
 
-            JsonIdMap newIdMap = (JsonIdMap) method.invoke(null, "debug");
+            IdMap newIdMap = (IdMap) method.invoke(null, "debug");
 
-            idMap.withCreator(newIdMap);
+            idMap.with(newIdMap);
          }
       }
       catch (Exception e)

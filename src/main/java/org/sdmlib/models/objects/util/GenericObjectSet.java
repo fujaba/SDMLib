@@ -23,17 +23,15 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericGraphSet;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
-public class GenericObjectSet extends SDMSet<GenericObject>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericObjectSet extends SimpleSet<GenericObject>
 {
    public StringList getName()
    {
@@ -228,16 +226,6 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return "(" + stringList.concat(", ") + ")";
    }
 
-
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.objects.GenericObject";
-   }
-
-
    public GenericObjectPO startModelPattern()
    {
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
@@ -248,7 +236,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericObject>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -271,7 +259,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
 
-   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withReadOnly(true);
+   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withFlag(GenericObjectSet.READONLY);
    public GenericObjectSet hasName(String value)
    {
       GenericObjectSet result = new GenericObjectSet();
@@ -348,6 +336,159 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    }
 
    public GenericObjectSet hasIcon(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getIcon()) <= 0 && obj.getIcon().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public GenericObjectPO filterGenericObjectPO()
+   {
+      return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericObject";
+   }
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterName(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterName(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterType(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterType(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterIcon(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getIcon()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet filterIcon(String lower, String upper)
    {
       GenericObjectSet result = new GenericObjectSet();
       

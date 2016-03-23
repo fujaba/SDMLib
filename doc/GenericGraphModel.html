@@ -13,7 +13,7 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"GenericGraph"
       },
@@ -21,7 +21,7 @@
          "typ":"node",
          "id":"GenericObject",
          "attributes":[
-         "name : String",
+            "name : String",
             "type : String",
             "icon : String"
          ]
@@ -30,7 +30,7 @@
          "typ":"node",
          "id":"GenericAttribute",
          "attributes":[
-         "name : String",
+            "name : String",
             "value : String"
          ]
       },
@@ -38,78 +38,12 @@
          "typ":"node",
          "id":"GenericLink",
          "attributes":[
-         "tgtLabel : String",
+            "tgtLabel : String",
             "srcLabel : String"
          ]
       }
    ],
-   "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"GenericGraph",
-            "cardinality":"one",
-            "property":"graph"
-         },
-         "target":{
-            "id":"GenericObject",
-            "cardinality":"many",
-            "property":"objects"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"GenericGraph",
-            "cardinality":"one",
-            "property":"graph"
-         },
-         "target":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"links"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"owner"
-         },
-         "target":{
-            "id":"GenericAttribute",
-            "cardinality":"many",
-            "property":"attrs"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"src"
-         },
-         "target":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"outgoingLinks"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"tgt"
-         },
-         "target":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"incommingLinks"
-         }
-      }
-   ]
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasGenericGraphModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>

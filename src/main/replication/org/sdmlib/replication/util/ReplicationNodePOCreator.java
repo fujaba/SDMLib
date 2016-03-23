@@ -3,7 +3,7 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.replication.ReplicationNode;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReplicationNodePOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class ReplicationNodePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return CreatorCreator.createIdMap(sessionID);
    }
 }

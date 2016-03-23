@@ -21,14 +21,15 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 
-public class PropertyChangeEventSet extends SDMSet<PropertyChangeEvent>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PropertyChangeEventSet extends SimpleSet<PropertyChangeEvent>
 {
 
-   public static final PropertyChangeEventSet EMPTY_SET = new PropertyChangeEventSet().withReadOnly(true);
+   public static final PropertyChangeEventSet EMPTY_SET = new PropertyChangeEventSet().withFlag(PropertyChangeEventSet.READONLY);
 
 
    public PropertyChangeEventPO hasPropertyChangeEventPO()
@@ -64,4 +65,10 @@ public class PropertyChangeEventSet extends SDMSet<PropertyChangeEvent>
       return this;
    }
 
+
+
+   public PropertyChangeEventPO filterPropertyChangeEventPO()
+   {
+      return new PropertyChangeEventPO(this.toArray(new PropertyChangeEvent[this.size()]));
+   }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 christian 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,23 +21,17 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Set;
-
 import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.AnnotationOwner;
 import org.sdmlib.models.classes.SDMLibClass;
-import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class AnnotationCreator extends EntityFactory
+public class AnnotationCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Annotation.PROPERTY_VALUES,
       SDMLibClass.PROPERTY_NAME,
-      Annotation.PROPERTY_VALUES,
-      Annotation.PROPERTY_OWNER,
    };
    
    @Override
@@ -63,60 +57,37 @@ public class AnnotationCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Annotation.PROPERTY_VALUES.equalsIgnoreCase(attribute))
-      {
-         return ((Annotation) target).getValues();
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
       }
-
-      if (Annotation.PROPERTY_OWNER.equalsIgnoreCase(attribute))
-      {
-         return ((Annotation) target).getOwner();
-      }
+      
       return null;
    }
    
-   @SuppressWarnings("unchecked")
-@Override
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
-      if (Annotation.PROPERTY_VALUES.equalsIgnoreCase(attrName))
-      {
-         ((Annotation) target).setValues((Set<String>) value);
-         return true;
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
-      if (Annotation.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
-         ((Annotation) target).setOwner((AnnotationOwner) value);
-         return true;
+         attrName = attrName + type;
       }
+      
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Annotation) entity).removeYou();
    }

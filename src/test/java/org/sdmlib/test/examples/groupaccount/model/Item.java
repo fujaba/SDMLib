@@ -27,12 +27,14 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
  */
-public class Item implements PropertyChangeInterface
+public class Item implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -46,9 +48,20 @@ public class Item implements PropertyChangeInterface
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -130,7 +143,7 @@ public class Item implements PropertyChangeInterface
    } 
 
    
-   public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
+   public static final ItemSet EMPTY_SET = new ItemSet().withFlag(ItemSet.READONLY);
 
    
    /********************************************************************

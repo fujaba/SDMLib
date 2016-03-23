@@ -1,21 +1,39 @@
+/*
+   Copyright (c) 2016 zuendorf
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Card;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.SDMLibClass;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class RoleCreator extends SDMLibClassCreator
+public class RoleCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Role.PROPERTY_NAME,
       Role.PROPERTY_CARD,
       Role.PROPERTY_KIND,
-      Role.PROPERTY_CLAZZ,
-      Role.PROPERTY_ASSOC,
+      SDMLibClass.PROPERTY_NAME,
    };
    
    @Override
@@ -27,87 +45,74 @@ public class RoleCreator extends SDMLibClassCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Role(null, null, Card.MANY);
+      return new Role();
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Role.PROPERTY_CARD.equalsIgnoreCase(attrName))
+      if (Role.PROPERTY_CARD.equalsIgnoreCase(attribute))
       {
          return ((Role) target).getCard();
       }
 
-      if (Role.PROPERTY_KIND.equalsIgnoreCase(attrName))
+      if (Role.PROPERTY_KIND.equalsIgnoreCase(attribute))
       {
          return ((Role) target).getKind();
       }
 
-      if (Role.PROPERTY_ASSOC.equalsIgnoreCase(attribute))
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Role) target).getAssoc();
+         return ((SDMLibClass) target).getName();
       }
-
-      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
-      {
-         return ((Role) target).getClazz();
-      }
-      return super.getValue(target, attrName);
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
-      }
-
-      if (Role.PROPERTY_CARD.equalsIgnoreCase(attrName))
-      {
-         ((Role) target).setCard((String) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
       if (Role.PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
-         ((Role) target).setKind((String) value);
+         ((Role) target).withKind((String) value);
          return true;
       }
 
-      if (Role.PROPERTY_ASSOC.equalsIgnoreCase(attrName))
+      if (Role.PROPERTY_CARD.equalsIgnoreCase(attrName))
       {
-         ((Role) target).setAssoc((Association) value);
+         ((Role) target).withCard((String) value);
          return true;
       }
 
-      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
-         ((Role) target).setClazz((Clazz) value);
-         return true;
+         attrName = attrName + type;
       }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
+   }
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Role) entity).removeYou();
    }
 }
-
-
-

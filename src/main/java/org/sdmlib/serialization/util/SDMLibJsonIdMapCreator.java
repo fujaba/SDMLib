@@ -3,7 +3,7 @@ package org.sdmlib.serialization.util;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SDMLibJsonIdMapCreator extends EntityFactory
 {
@@ -31,7 +31,7 @@ public class SDMLibJsonIdMapCreator extends EntityFactory
       return false;
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.pattern.util.PatternCreator.createIdMap(sessionID);
    }

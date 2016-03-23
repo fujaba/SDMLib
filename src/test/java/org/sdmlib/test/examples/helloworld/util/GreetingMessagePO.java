@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
+import org.sdmlib.test.examples.helloworld.util.GreetingPO;
+import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
 
 public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
 {
@@ -124,6 +126,50 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
          return ((GreetingMessage) this.getCurrentMatch()).getGreeting();
       }
       return null;
+   }
+
+   public GreetingMessagePO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GreetingMessage.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingMessagePO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GreetingMessage.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO filterGreeting()
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GreetingMessage.PROPERTY_GREETING, result);
+      
+      return result;
+   }
+
+   public GreetingMessagePO filterGreeting(GreetingPO tgt)
+   {
+      return hasLinkConstraint(tgt, GreetingMessage.PROPERTY_GREETING);
    }
 
 }

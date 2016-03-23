@@ -25,15 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
-public class UniversitySet extends SDMSet<University>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class UniversitySet extends SimpleSet<University>
 {
 
 
@@ -41,14 +40,6 @@ public class UniversitySet extends SDMSet<University>
    {
       return new UniversityPO(this.toArray(new University[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.University";
-   }
-
 
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
@@ -225,8 +216,67 @@ public class UniversitySet extends SDMSet<University>
    }
 
 
-   public static final UniversitySet EMPTY_SET = new UniversitySet().withReadOnly(true);
+   public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
    public UniversitySet hasName(String lower, String upper)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public UniversityPO filterUniversityPO()
+   {
+      return new UniversityPO(this.toArray(new University[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.University";
+   }
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet filterName(String value)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet filterName(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();
       

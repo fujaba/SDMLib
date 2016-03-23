@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class StatementEntryCreator extends EntityFactory
 {
@@ -103,7 +103,7 @@ public class StatementEntryCreator extends EntityFactory
          return true;
       }
       
-      if ((StatementEntry.PROPERTY_BODYSTATS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((StatementEntry.PROPERTY_BODYSTATS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((StatementEntry)target).removeFromBodyStats((StatementEntry) value);
          return true;

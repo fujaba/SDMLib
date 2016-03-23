@@ -5,7 +5,7 @@ import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class StoryboardCreator extends EntityFactory
 {
@@ -69,7 +69,7 @@ public class StoryboardCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -104,7 +104,7 @@ public class StoryboardCreator extends EntityFactory
          return true;
       }
       
-      if ((Storyboard.PROPERTY_STORYBOARDSTEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Storyboard.PROPERTY_STORYBOARDSTEPS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Storyboard) target).removeFromStoryboardSteps((StoryboardStep) value);
          return true;
@@ -118,7 +118,7 @@ public class StoryboardCreator extends EntityFactory
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

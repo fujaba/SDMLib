@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,225 +21,34 @@
    
 package org.sdmlib.models.classes;
 
-import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.logic.GenAssociation;
-import org.sdmlib.models.classes.logic.GenAttribute;
-import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.classes.logic.GenRole;
-
-/**
- * 
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
- */
-public class Association extends SDMLibClass
-{
+import org.sdmlib.models.classes.SDMLibClass;
    /**
-    * @deprecated use Clazz.withAssoc(...) to construct associations. 
-    */
-   @Deprecated
-   public Association()
-   {
-      
-      // Auto-generated constructor stub
-   }
-   
-   // ADDED NAME TO Assoc
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Association ----------------------------------- Role
-    *              assoc                   source
-    * </pre>
-    */
-   public static final String PROPERTY_SOURCE = "source";
-   public static final String PROPERTY_TARGET = "target";
-      
-   private Role source = null;
-   private Role target;
-   
-   @Override
-   public String toString()
-   {
-      String text = "role is missing";
-      try
-      {
-         text = CGUtil.shortClassName(source.getClazz().getName()) + "|" + source.getName() + " -- " + target.getName() + "|" + CGUtil.shortClassName(target.getClazz().getName());
-      }
-      catch (Exception e)
-      {
-         // intentionally empty
-      }
-      return  text;
-   }
-   
-   public Association withSource(Clazz sourceClass, String roleName, Card card)
-   {
-	   Role role = new Role()
-	      .withName(roleName)
-	      .with(sourceClass);
-	   if(card != null) {
-		   role.withCard(card.toString());
-	   }
-      setSource(role);
-      if (sourceClass.getClassModel() != null && sourceClass.getClassModel().getGenerator() != null)
-      {
-         sourceClass.getClassModel().getGenerator().addToAssociations(this);
-      }
-      
-      return this;
-   }
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+ */
+   public  class Association extends SDMLibClass
+{
 
-   public Association withTarget(Clazz targetClass, String roleName, Card card)
-   {
-      setTarget(new Role()
-      .withName(roleName)
-      .with(targetClass)
-      .withCard(card.toString()));
-      
-      if (targetClass.getClassModel() != null && targetClass.getClassModel().getGenerator() != null)
-      {
-         targetClass.getClassModel().getGenerator().addToAssociations(this);
-      }
-      
-      return this;
-   }
-
- 
-   public Role getTarget()
-   {
-      return this.target;
-   }
-   
-   public boolean setTarget(Role value)
-   {
-      boolean changed = false;
-      
-      if (this.target != value)
-      {
-         Role oldValue = this.target;
-         
-         if (this.target != null)
-         {
-            this.target = null;
-            oldValue.setAssoc(null);
-         }
-         
-         this.target = value;
-         
-         if (value != null)
-         {
-            value.with(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGET, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Association withTarget(Role value)
-   {
-      setTarget(value);
-      return this;
-   } 
-   
-   public Role getSource()
-   {
-      return this.source;
-   }
-   
-   public boolean setSource(Role value)
-   {
-      boolean changed = false;
-      
-      if (this.source != value)
-      {
-         Role oldValue = this.source;
-         
-         if (this.source != null)
-         {
-            this.source = null;
-            oldValue.setAssoc(null);
-         }
-         
-         this.source = value;
-         
-         if (value != null)
-         {
-            value.with(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Association withSource(Role value)
-   {
-      setSource(value);
-      return this;
-   } 
    
    //==========================================================================
    
    @Override
    public void removeYou()
    {
-      Clazz targetClazz=null;
-      if(getSource()!=null){
-         targetClazz = getSource().getClazz();
-      }else if(getTarget()!=null){
-         targetClazz = getTarget().getClazz();
-      }
-      if(targetClazz!=null){
-         targetClazz.getClassModel().getGenerator().removeFromAssociations(this);
-      }
-      getSource().removeYou();
-//      setSource(null);
-//      setTarget(null);
-      getTarget().removeYou();
+   
+      super.removeYou();
+
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+
    @Override
-   public Association withName(String value)
+   public String toString()
    {
-      setName(value);
-      return this;
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
-   Role createSource()
-   {
-      Role value = new Role();
-      withSource(value);
-      return value;
-   } 
-
-   Role createTarget()
-   {
-      Role value = new Role();
-      withTarget(value);
-      return value;
-   }
-
-   public void removeFromModelAndCode(String rootDir) {
-	   
-	   GenClassModel genModel = this.getSource().getClazz().getClassModel().getGenerator();
-	   
-	   GenRole sourceGenRole = genModel.getOrCreate(this.getSource());
-	   
-	   GenRole targetGenRole = genModel.getOrCreate(this.getTarget());
-	   
-	   sourceGenRole.removeGeneratedCode(rootDir);
-	   
-	   targetGenRole.removeGeneratedCode(rootDir);
-	   
-	   this.removeYou();
-	   
-   } 
 }
-

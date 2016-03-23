@@ -25,30 +25,23 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class SeppelScopeSet extends SDMSet<SeppelScope>
+public class SeppelScopeSet extends SimpleSet<SeppelScope>
 {
 
-   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withReadOnly(true);
+   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withFlag(SeppelScopeSet.READONLY);
 
 
    public SeppelScopePO hasSeppelScopePO()
    {
       return new SeppelScopePO(this.toArray(new SeppelScope[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelScope";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelScopeSet with(Object value)
@@ -415,6 +408,65 @@ public class SeppelScopeSet extends SDMSet<SeppelScope>
       }
       
       return false;
+   }
+
+
+
+   public SeppelScopePO filterSeppelScopePO()
+   {
+      return new SeppelScopePO(this.toArray(new SeppelScope[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.SeppelScope";
+   }
+
+   /**
+    * Loop through the current set of SeppelScope objects and collect those SeppelScope objects where the scopeName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelScope objects that match the parameter
+    */
+   public SeppelScopeSet filterScopeName(String value)
+   {
+      SeppelScopeSet result = new SeppelScopeSet();
+      
+      for (SeppelScope obj : this)
+      {
+         if (value.equals(obj.getScopeName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelScope objects and collect those SeppelScope objects where the scopeName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelScope objects that match the parameter
+    */
+   public SeppelScopeSet filterScopeName(String lower, String upper)
+   {
+      SeppelScopeSet result = new SeppelScopeSet();
+      
+      for (SeppelScope obj : this)
+      {
+         if (lower.compareTo(obj.getScopeName()) <= 0 && obj.getScopeName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

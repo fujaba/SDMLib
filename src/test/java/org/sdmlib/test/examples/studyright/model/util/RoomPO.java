@@ -6,6 +6,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentPO;
+import org.sdmlib.test.examples.studyright.model.util.RoomPO;
 
 public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -334,6 +336,79 @@ public class RoomPO extends PatternObject<RoomPO, Room>
          return ((Room) this.getCurrentMatch()).getRoom();
       }
       return null;
+   }
+
+   public RoomPO filterRoomNo(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_ROOMNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO filterRoomNo(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_ROOMNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO filterCredits(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO filterCredits(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO filterRoom()
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Room.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public RoomPO filterRoom(AssignmentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_ROOM);
    }
 
 }

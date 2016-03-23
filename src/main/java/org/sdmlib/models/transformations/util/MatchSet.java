@@ -25,34 +25,26 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 
-public class MatchSet extends SDMSet<Match>
+public class MatchSet extends SimpleSet<Match>
 {
 
-   public static final MatchSet EMPTY_SET = new MatchSet().withReadOnly(true);
+   public static final MatchSet EMPTY_SET = new MatchSet().withFlag(MatchSet.READONLY);
 
 
    public MatchPO hasMatchPO()
    {
       return new MatchPO(this.toArray(new Match[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.transformations.Match";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MatchSet with(Object value)
@@ -571,6 +563,229 @@ public class MatchSet extends SDMSet<Match>
       }
       
       return this;
+   }
+
+
+
+   public MatchPO filterMatchPO()
+   {
+      return new MatchPO(this.toArray(new Match[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.transformations.Match";
+   }
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterStartPos(int value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterStartPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterEndPos(int value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterEndPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the fullText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterFullText(String value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value.equals(obj.getFullText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the fullText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterFullText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getFullText()) <= 0 && obj.getFullText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the matchText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterMatchText(String value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value.equals(obj.getMatchText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the matchText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterMatchText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getMatchText()) <= 0 && obj.getMatchText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the modelObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet filterModelObject(Object value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getModelObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

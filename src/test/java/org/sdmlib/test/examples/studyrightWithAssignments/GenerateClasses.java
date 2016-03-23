@@ -23,17 +23,20 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
 
-public class GenerateClasses {
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Parameter;
+
+public class GenerateClasses 
+{
 
 	/**
-	 * 
-	 * @see <a href='../../../../../../../../doc/main.html'>main.html</a>/n * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsClassGeneration.html'>StudyRightWithAssignmentsClassGeneration.html</a>/n */
+	 * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsClassGeneration.html'>StudyRightWithAssignmentsClassGeneration.html</a>
+	 */
 	@Test
 	public void testStudyRightWithAssignmentsClassGeneration()
 	{
@@ -41,111 +44,111 @@ public class GenerateClasses {
 	   * StudyRight with Assignments example in the Story Driven Modeling book
 	   */
 
-	  // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
-
-	  StoryPage storyboard = new StoryPage();
+	   StoryPage story = new StoryPage();
 
 	  //============================================================
-	  storyboard.add("1. generate class University");
+	  story.add("1. generate class University");
 
-	  storyboard.markCodeStart();
+	  story.markCodeStart();
 	  ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
             .withAttribute("name", DataType.STRING);
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
       //============================================================
-      storyboard.add("2. generate class Student");
+      story.add("2. generate class Student");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz studentClass = model.createClazz("Student")
             .withAttribute("name", DataType.STRING)
             .withAttribute("id", DataType.STRING)
             .withAttribute("assignmentPoints", DataType.INT)
             .withAttribute("motivation", DataType.INT) 
             .withAttribute("credits", DataType.INT);
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
 
       //============================================================
-      storyboard.add("3. add University --> Student association");
+      story.add("3. add University --> Student association");
 
       // Association universityToStudent = 
-      storyboard.markCodeStart();
-      universityClass.withAssoc(studentClass, "students", Card.MANY, "university", Card.ONE);
-      storyboard.addCode();
+      story.markCodeStart();
+      universityClass.withBidirectional(studentClass, "students", Cardinality.MANY, "university", Cardinality.ONE);
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
 
       //============================================================
-      storyboard.add("4. add University --> Room association");
+      story.add("4. add University --> Room association");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz roomClass = model.createClazz("Room")
             .withAttribute("name", DataType.STRING)
             .withAttribute("topic", DataType.STRING)
             .withAttribute("credits", DataType.INT);
 
-      roomClass.createMethod("findPath").withParameter("String", DataType.INT);
+      roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
 
       //Association universityToRoom = 
-      universityClass.withAssoc(roomClass, "rooms", Card.MANY, "university", Card.ONE);
+      universityClass.withBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE);
       
       // Association doors = 
-      roomClass.withAssoc(roomClass, "doors", Card.MANY, "doors", Card.MANY);
+      roomClass.withBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
 
       // Association studentsInRoom = 
-      studentClass.withAssoc(roomClass, "in", Card.ONE, "students", Card.MANY);
-      storyboard.addCode();
+      studentClass.withBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
+      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
       
       
       //============================================================
-      storyboard.add("5. add assignments:");
+      story.add("5. add assignments:");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz assignmentClass = model.createClazz("Assignment")
                .withAttribute("content", DataType.STRING)
                .withAttribute("points", DataType.INT)
-               .withAssoc(roomClass, "room", Card.ONE, "assignments", Card.MANY);
+               .withBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
       
-      studentClass.withAssoc(assignmentClass, "done", Card.MANY, "students", Card.MANY);
-      storyboard.addCode();
+      studentClass.withBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
+      story.addCode();
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
-      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
+      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       
       // some more classes for model navigation tests
-      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
+      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       model.createClazz("TeachingAssistant")
       .withSuperClazz(studentClass)
-      .withAssoc(roomClass, "room", Card.ONE, "tas", Card.MANY)
+      .withBidirectional(roomClass, "room", Cardinality.ONE, "tas", Cardinality.MANY)
       .withAttribute("certified", DataType.BOOLEAN);
       
 
       //============================================================
-      storyboard.add("6. generate class source files.");
+      story.add("6. generate class source files.");
 
       // model.removeAllGeneratedCode("src/test/java");
       
       model.withAuthorName("zuendorf");
-      storyboard.markCodeStart();
+      story.markCodeStart();
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
-      storyboard.addCode();
+      story.addCode();
       
 
-      storyboard.dumpHTML();
+      story.dumpHTML();
    }
 
 }

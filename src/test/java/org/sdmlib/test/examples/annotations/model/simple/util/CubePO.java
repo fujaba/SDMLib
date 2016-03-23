@@ -24,14 +24,14 @@ public class CubePO extends PatternObject<CubePO, Cube>
 
 
    public CubePO(){
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public CubePO(Cube... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
    }
    
    //==========================================================================

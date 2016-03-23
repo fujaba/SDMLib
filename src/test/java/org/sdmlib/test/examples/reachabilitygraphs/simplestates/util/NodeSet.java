@@ -25,13 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
-public class NodeSet extends SDMSet<Node>
+public class NodeSet extends SimpleSet<Node>
 {
 
 
@@ -39,14 +40,6 @@ public class NodeSet extends SDMSet<Node>
    {
       return new NodePO(this.toArray(new Node[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
-   }
-
 
    @SuppressWarnings("unchecked")
    public NodeSet with(Object value)
@@ -334,5 +327,64 @@ public class NodeSet extends SDMSet<Node>
    }
 
 
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
+
+
+   public NodePO filterNodePO()
+   {
+      return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
+   }
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterNum(int value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value == obj.getNum())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet filterNum(int lower, int upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower <= obj.getNum() && obj.getNum() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

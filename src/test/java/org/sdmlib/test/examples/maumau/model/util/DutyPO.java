@@ -47,7 +47,7 @@ public class DutyPO extends PatternObject<DutyPO, Duty>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -85,7 +85,7 @@ public class DutyPO extends PatternObject<DutyPO, Duty>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -100,7 +100,7 @@ public class DutyPO extends PatternObject<DutyPO, Duty>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -161,6 +161,64 @@ public class DutyPO extends PatternObject<DutyPO, Duty>
          return ((Duty) this.getCurrentMatch()).getPlayer();
       }
       return null;
+   }
+
+   public DutyPO filterType(DutyType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO filterNumber(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_NUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO filterNumber(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_NUMBER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterPlayer()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Duty.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public DutyPO filterPlayer(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Duty.PROPERTY_PLAYER);
    }
 
 }

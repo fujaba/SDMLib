@@ -24,14 +24,15 @@ package org.sdmlib.test.examples.ludoreverse.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludoreverse.model.util.PlayerSet;
 
-public class LudoSet extends SDMSet<Ludo>
+public class LudoSet extends SimpleSet<Ludo>
 {
 
 
@@ -39,14 +40,6 @@ public class LudoSet extends SDMSet<Ludo>
    {
       return new LudoPO(this.toArray(new Ludo[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludoreverse.model.Ludo";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LudoSet with(Object value)
@@ -192,7 +185,7 @@ public class LudoSet extends SDMSet<Ludo>
    }
 
 
-   public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public static final LudoSet EMPTY_SET = new LudoSet().withFlag(LudoSet.READONLY);
    public LudoSet hasStyle(String lower, String upper)
    {
       LudoSet result = new LudoSet();
@@ -209,6 +202,112 @@ public class LudoSet extends SDMSet<Ludo>
    }
 
    public LudoSet hasAge(int lower, int upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower <= obj.getAge() && obj.getAge() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public LudoPO filterLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.ludoreverse.model.Ludo";
+   }
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the style attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterStyle(String value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value.equals(obj.getStyle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the style attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterStyle(String lower, String upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.compareTo(obj.getStyle()) <= 0 && obj.getStyle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the age attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterAge(int value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getAge())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the age attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterAge(int lower, int upper)
    {
       LudoSet result = new LudoSet();
       

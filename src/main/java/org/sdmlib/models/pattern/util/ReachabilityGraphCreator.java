@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReachabilityGraphCreator extends EntityFactory
 {
@@ -57,7 +57,7 @@ public class ReachabilityGraphCreator extends EntityFactory
          return true;
       }
 
-      if ((ReachabilityGraph.PROPERTY_STATES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReachabilityGraph.PROPERTY_STATES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReachabilityGraph)target).removeFromStates((ReachableState) value);
          return true;
@@ -69,7 +69,7 @@ public class ReachabilityGraphCreator extends EntityFactory
          return true;
       }
 
-      if ((ReachabilityGraph.PROPERTY_TODO + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReachabilityGraph.PROPERTY_TODO + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReachabilityGraph)target).removeFromTodo((ReachableState) value);
          return true;
@@ -81,7 +81,7 @@ public class ReachabilityGraphCreator extends EntityFactory
          return true;
       }
 
-      if ((ReachabilityGraph.PROPERTY_RULES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReachabilityGraph.PROPERTY_RULES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReachabilityGraph)target).removeFromRules((Pattern<?>) value);
          return true;
@@ -89,7 +89,7 @@ public class ReachabilityGraphCreator extends EntityFactory
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

@@ -25,17 +25,15 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 {
    public StringList getAttrName()
    {
@@ -325,7 +323,7 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<AttributeConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -380,7 +378,7 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
       return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
 
-   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadOnly(true);
+   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withFlag(AttributeConstraintSet.READONLY);
    public AttributeConstraintSet hasAttrName(String lower, String upper)
    {
       AttributeConstraintSet result = new AttributeConstraintSet();
@@ -532,6 +530,315 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
    }
 
    public AttributeConstraintSet hasDoAllMatches(boolean value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public AttributeConstraintPO filterAttributeConstraintPO()
+   {
+      return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the attrName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterAttrName(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getAttrName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the attrName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterAttrName(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getAttrName()) <= 0 && obj.getAttrName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the tgtValue attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterTgtValue(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getTgtValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the upperTgtValue attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterUpperTgtValue(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getUpperTgtValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the cmpOp attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterCmpOp(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getCmpOp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the cmpOp attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterCmpOp(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getCmpOp()) <= 0 && obj.getCmpOp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the hostGraphSrcObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterHostGraphSrcObject(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterModifier(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterModifier(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterHasMatch(boolean value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterPatternObjectName(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterPatternObjectName(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of AttributeConstraint objects and collect those AttributeConstraint objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of AttributeConstraint objects that match the parameter
+    */
+   public AttributeConstraintSet filterDoAllMatches(boolean value)
    {
       AttributeConstraintSet result = new AttributeConstraintSet();
       

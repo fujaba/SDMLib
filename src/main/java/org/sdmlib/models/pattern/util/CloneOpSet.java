@@ -23,17 +23,15 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CloneOpSet extends SimpleSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -177,7 +175,7 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CloneOp>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -200,7 +198,7 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
       return new CloneOpPO(this.toArray(new CloneOp[this.size()]));
    }
 
-   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadOnly(true);
+   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withFlag(CloneOpSet.READONLY);
    public CloneOpSet hasModifier(String value)
    {
       CloneOpSet result = new CloneOpSet();
@@ -277,6 +275,152 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
    }
 
    public CloneOpSet hasDoAllMatches(boolean value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public CloneOpPO filterCloneOpPO()
+   {
+      return new CloneOpPO(this.toArray(new CloneOp[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterModifier(String value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterModifier(String lower, String upper)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterHasMatch(boolean value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterPatternObjectName(String value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterPatternObjectName(String lower, String upper)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloneOp objects and collect those CloneOp objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloneOp objects that match the parameter
+    */
+   public CloneOpSet filterDoAllMatches(boolean value)
    {
       CloneOpSet result = new CloneOpSet();
       

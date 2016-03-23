@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
@@ -34,10 +35,12 @@ import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.storyboards.Kanban;
 
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.logic.Condition;
-import java.lang.Object;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
+
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -65,13 +68,13 @@ import java.lang.Object;
 
    private AttributeConstraintSet attrConstraints = null;
 
-   protected void newInstance(JsonIdMap map){
-      Pattern<Object> pattern = new Pattern<Object>(map);
+   protected void newInstance(IdMap map){
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
    }
    
-   protected void newInstance(JsonIdMap map, Object[] hostGraphObject){
-      Pattern<Object> pattern = new Pattern<Object>(map);
+   protected void newInstance(IdMap map, Object[] hostGraphObject){
+      Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
          this.withCandidates(Arrays.asList(hostGraphObject));
@@ -140,11 +143,11 @@ import java.lang.Object;
             String className = this.getClass().getName();
             className = className.replace(".util.", ".");
             className = className.substring(0, className.length() - 2);
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreator(className, true);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreator(className, true);
             if (creatorClass == null)
             {
                className = CGUtil.packageName(className) + ".impl." + CGUtil.shortClassName(className) + "Impl";
-               creatorClass = this.getPattern().getJsonIdMap().getCreator(className, true);
+               creatorClass = this.getPattern().getIdMap().getCreator(className, true);
             }
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);
@@ -156,7 +159,7 @@ import java.lang.Object;
 
                this.getTopPattern().addLogMsg(
                   "" + getLHSPatternObjectName() + " = new " + shortClassName + "(); // "
-                     + getPattern().getJsonIdMap().getId(sendableInstance));
+                     + getPattern().getIdMap().getId(sendableInstance));
             }
 
             return true;
@@ -218,7 +221,7 @@ import java.lang.Object;
                String tgtVar = getLHSPatternObjectName();
                getTopPattern().addLogMsg(
                   tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
-                     + getTopPattern().getJsonIdMap().getId(obj) + " " + obj + " <- "
+                     + getTopPattern().getIdMap().getId(obj) + " " + obj + " <- "
                      + valueSetString(this.getCandidates()));
             }
          }
@@ -243,7 +246,7 @@ import java.lang.Object;
       {
          Object currentMatch = this.getCurrentMatch();
 
-         EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
+         EntityFactory creatorClass = (EntityFactory) this.getPattern().getIdMap().getCreatorClass(currentMatch);
 
          creatorClass.removeObject(currentMatch);
       }
@@ -752,7 +755,7 @@ public PatternLinkSet getIncomming()
       }
    }
 
-   protected void hasAttr() {
+   protected void filterAttr() {
       if(!this.getPattern().findMatch()) 
       {
          setCurrentMatch(null);
@@ -773,6 +776,12 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
+   /**
+    * Depricated. Use filter() instead.
+    * @param condition
+    * @return
+    */
+   @Deprecated
    public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
@@ -786,6 +795,18 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
+   public POC filter(Condition<Object> condition)
+   {
+      GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
+         .withCondition(condition)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
+      this.getPattern().findMatch();
+
+      return (POC) this;
+   }
    /********************************************************************
     * <pre>
     *              one                       one
@@ -844,6 +865,7 @@ public PatternLinkSet getIncomming()
    {
       StringBuilder s = new StringBuilder();
 
+      s.append(" ").append(CGUtil.shortClassName(this.getClass().getName()));
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);

@@ -21,17 +21,18 @@
    
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.storyboards.LogEntryStoryBoard;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.storyboards.util.KanbanEntrySet;
-import org.sdmlib.storyboards.KanbanEntry;
 
-public class LogEntryStoryBoardSet extends SDMSet<LogEntryStoryBoard>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.storyboards.KanbanEntry;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LogEntryStoryBoardSet extends SimpleSet<LogEntryStoryBoard>
 {
 
-   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet().withReadOnly(true);
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet().withFlag(LogEntryStoryBoardSet.READONLY);
 
 
    public LogEntryStoryBoardPO hasLogEntryStoryBoardPO()
@@ -115,4 +116,10 @@ public class LogEntryStoryBoardSet extends SDMSet<LogEntryStoryBoard>
       return this;
    }
 
+
+
+   public LogEntryStoryBoardPO filterLogEntryStoryBoardPO()
+   {
+      return new LogEntryStoryBoardPO(this.toArray(new LogEntryStoryBoard[this.size()]));
+   }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,11 +23,12 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.Value;
-import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class ValueCreator extends EntityFactory
+public class ValueCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -45,7 +46,7 @@ public class ValueCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new Value();
    }
    
    @Override
@@ -80,40 +81,38 @@ public class ValueCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
-      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         ((Value) target).setInitialization((String) value);
-         return true;
-      }
-
-      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         ((Value) target).setType((org.sdmlib.models.classes.DataType) value);
-         return true;
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).withType((DataType) value);
+         return true;
+      }
+
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).withInitialization((String) value);
+         return true;
+      }
+
+      if (IdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Value) entity).removeYou();
    }

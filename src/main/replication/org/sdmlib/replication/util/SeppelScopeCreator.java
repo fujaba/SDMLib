@@ -25,7 +25,7 @@ import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SeppelScopeCreator extends EntityFactory
 {
@@ -92,7 +92,7 @@ public class SeppelScopeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -109,7 +109,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SUBSCOPES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SUBSCOPES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSubScopes((SeppelScope) value);
          return true;
@@ -121,7 +121,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SUPERSCOPES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SUPERSCOPES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSuperScopes((SeppelScope) value);
          return true;
@@ -133,7 +133,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSpaces((SeppelSpaceProxy) value);
          return true;
@@ -145,7 +145,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_OBSERVEDOBJECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_OBSERVEDOBJECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutObservedObjects((Object) value);
          return true;
@@ -153,7 +153,7 @@ public class SeppelScopeCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.replication.util.CreatorCreator.createIdMap(sessionID);
    }

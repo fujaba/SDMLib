@@ -6,7 +6,10 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.util.TemplatePO;
+import org.sdmlib.models.transformations.util.ChoiceTemplatePO;
+import org.sdmlib.models.transformations.util.MatchPO;
 
 public class TemplatePO extends PatternObject<TemplatePO, Template>
 {
@@ -50,7 +53,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -65,7 +68,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -103,7 +106,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -118,7 +121,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -156,7 +159,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -194,7 +197,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -209,7 +212,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -247,7 +250,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -262,7 +265,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -300,7 +303,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -315,7 +318,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -353,7 +356,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -368,7 +371,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -406,7 +409,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -444,7 +447,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -459,7 +462,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttr();
+      super.filterAttr();
 
       return this;
    }
@@ -626,6 +629,297 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
          return ((Template) this.getCurrentMatch()).getParents();
       }
       return null;
+   }
+
+   public TemplatePO filterTemplateText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_TEMPLATETEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterTemplateText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_TEMPLATETEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterExpandedText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterExpandedText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterModelObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_MODELOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterModelClassName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_MODELCLASSNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterModelClassName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_MODELCLASSNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListStart(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTSTART)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListStart(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTSTART)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListSeparator(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTSEPARATOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListSeparator(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTSEPARATOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListEnd(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTEND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterListEnd(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_LISTEND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterReferenceLookup(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_REFERENCELOOKUP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TemplatePO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO filterPlaceholders()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_PLACEHOLDERS, result);
+      
+      return result;
+   }
+
+   public TemplatePO filterPlaceholders(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_PLACEHOLDERS);
+   }
+
+   public ChoiceTemplatePO filterChooser()
+   {
+      ChoiceTemplatePO result = new ChoiceTemplatePO(new ChoiceTemplate[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_CHOOSER, result);
+      
+      return result;
+   }
+
+   public TemplatePO filterChooser(ChoiceTemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_CHOOSER);
+   }
+
+   public MatchPO filterMatches()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public TemplatePO filterMatches(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_MATCHES);
+   }
+
+   public PlaceHolderDescriptionPO filterParents()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_PARENTS, result);
+      
+      return result;
+   }
+
+   public TemplatePO filterParents(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_PARENTS);
    }
 
 }

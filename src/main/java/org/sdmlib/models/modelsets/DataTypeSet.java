@@ -21,7 +21,7 @@
    
 package org.sdmlib.models.modelsets;
 
-import org.sdmlib.models.classes.DataType;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.list.SimpleList;
 
 public class DataTypeSet extends SimpleList<DataType>

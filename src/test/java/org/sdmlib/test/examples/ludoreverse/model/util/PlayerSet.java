@@ -25,26 +25,20 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
 
-public class PlayerSet extends SDMSet<Player>
+public class PlayerSet extends SimpleSet<Player>
 {
 
 
    public PlayerPO hasPlayerPO()
    {
       return new PlayerPO(this.toArray(new Player[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludoreverse.model.Player";
    }
 
 
@@ -202,7 +196,7 @@ public class PlayerSet extends SDMSet<Player>
    }
 
 
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withFlag(PlayerSet.READONLY);
    public PlayerSet hasName(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();
@@ -219,6 +213,112 @@ public class PlayerSet extends SDMSet<Player>
    }
 
    public PlayerSet hasColor(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public PlayerPO filterPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.ludoreverse.model.Player";
+   }
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet filterName(String value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet filterName(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the color attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet filterColor(String value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the color attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet filterColor(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();
       

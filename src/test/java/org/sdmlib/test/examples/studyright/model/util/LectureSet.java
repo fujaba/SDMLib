@@ -24,17 +24,15 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
-import org.sdmlib.test.examples.studyright.model.util.ProfessorSet;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
-public class LectureSet extends SDMSet<Lecture>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LectureSet extends SimpleSet<Lecture>
 {
 
 
@@ -42,14 +40,6 @@ public class LectureSet extends SDMSet<Lecture>
    {
       return new LecturePO(this.toArray(new Lecture[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Lecture";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LectureSet with(Object value)
@@ -254,8 +244,67 @@ public class LectureSet extends SDMSet<Lecture>
    }
 
 
-   public static final LectureSet EMPTY_SET = new LectureSet().withReadOnly(true);
+   public static final LectureSet EMPTY_SET = new LectureSet().withFlag(LectureSet.READONLY);
    public LectureSet hasTitle(String lower, String upper)
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Lecture obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public LecturePO filterLecturePO()
+   {
+      return new LecturePO(this.toArray(new Lecture[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Lecture";
+   }
+
+   /**
+    * Loop through the current set of Lecture objects and collect those Lecture objects where the Title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Lecture objects that match the parameter
+    */
+   public LectureSet filterTitle(String value)
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Lecture obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Lecture objects and collect those Lecture objects where the Title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Lecture objects that match the parameter
+    */
+   public LectureSet filterTitle(String lower, String upper)
    {
       LectureSet result = new LectureSet();
       

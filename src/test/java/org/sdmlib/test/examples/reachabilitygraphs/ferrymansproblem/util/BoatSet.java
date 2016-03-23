@@ -24,16 +24,17 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
-public class BoatSet extends SDMSet<Boat>
+public class BoatSet extends SimpleSet<Boat>
 {
 
 
@@ -41,14 +42,6 @@ public class BoatSet extends SDMSet<Boat>
    {
       return new BoatPO(this.toArray(new Boat[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BoatSet with(Object value)
@@ -216,5 +209,17 @@ public class BoatSet extends SDMSet<Boat>
    }
 
 
-   public static final BoatSet EMPTY_SET = new BoatSet().withReadOnly(true);
+   public static final BoatSet EMPTY_SET = new BoatSet().withFlag(BoatSet.READONLY);
+
+
+   public BoatPO filterBoatPO()
+   {
+      return new BoatPO(this.toArray(new Boat[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
+   }
 }

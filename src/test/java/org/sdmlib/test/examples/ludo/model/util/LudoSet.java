@@ -21,24 +21,26 @@
    
 package org.sdmlib.test.examples.ludo.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.ludo.model.Ludo;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.DateList;
-import java.util.Date;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.DiceSet;
-import org.sdmlib.test.examples.ludo.model.Dice;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
-import org.sdmlib.test.examples.ludo.model.Field;
+import java.util.Date;
 
-public class LudoSet extends SDMSet<Ludo>
+import org.sdmlib.models.modelsets.DateList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.ludo.model.Dice;
+import org.sdmlib.test.examples.ludo.model.Field;
+import org.sdmlib.test.examples.ludo.model.Ludo;
+import org.sdmlib.test.examples.ludo.model.Player;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.test.examples.ludo.model.util.DiceSet;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+
+public class LudoSet extends SimpleSet<Ludo>
 {
 
-   public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public static final LudoSet EMPTY_SET = new LudoSet().withFlag(LudoSet.READONLY);
 
 
    public LudoPO hasLudoPO()
@@ -273,6 +275,35 @@ public class LudoSet extends SDMSet<Ludo>
       }
       
       return this;
+   }
+
+
+
+   public LudoPO filterLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the date attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet filterDate(Date value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getDate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

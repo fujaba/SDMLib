@@ -27,7 +27,7 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class SharedSpaceCreator extends EntityFactory
 {
@@ -118,7 +118,7 @@ public class SharedSpaceCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -147,7 +147,7 @@ public class SharedSpaceCreator extends EntityFactory
          return true;
       }
       
-      if ((SharedSpace.PROPERTY_CHANNELS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SharedSpace.PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SharedSpace) target).withoutChannels((ReplicationChannel) value);
          return true;
@@ -185,7 +185,7 @@ public class SharedSpaceCreator extends EntityFactory
 
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

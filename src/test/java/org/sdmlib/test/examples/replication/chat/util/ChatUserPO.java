@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
 
 public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
 {
@@ -157,4 +160,63 @@ public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
       return this;
    }
    
+   public ChatUserPO filterUserName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatUser.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatUserPO filterUserName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatUser.PROPERTY_USERNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatRootPO filterChatRoot()
+   {
+      ChatRootPO result = new ChatRootPO(new ChatRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatUser.PROPERTY_CHATROOT, result);
+      
+      return result;
+   }
+
+   public ChatUserPO filterChatRoot(ChatRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHATROOT);
+   }
+
+   public ChatChannelPO filterChannels()
+   {
+      ChatChannelPO result = new ChatChannelPO(new ChatChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatUser.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public ChatUserPO filterChannels(ChatChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHANNELS);
+   }
+
 }

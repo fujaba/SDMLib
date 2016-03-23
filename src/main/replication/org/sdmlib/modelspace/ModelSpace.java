@@ -26,20 +26,17 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -52,29 +49,26 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.application.Platform;
-
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-
-
-
-
-import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
+import de.uniks.networkparser.logic.SimpleMapEvent;
+import javafx.application.Platform;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
-*/
-   public  class ModelSpace implements PropertyChangeInterface, UpdateListener
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+ */
+   public  class ModelSpace implements PropertyChangeInterface, UpdateListener, SendableEntity
 {
    public static final String JSONCHGS = ".jsonchgs";
 
@@ -82,7 +76,7 @@ import de.uniks.networkparser.list.AbstractList;
    //==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private String userName;
    private File modelDir;
    private WatchService watcher;
@@ -109,19 +103,19 @@ import de.uniks.networkparser.list.AbstractList;
       return this.history;
    }
 
-   public ModelSpace(JsonIdMap idMap, String userName)
+   public ModelSpace(IdMap idMap, String userName)
    {
       this (idMap, userName, ApplicationType.StandAlone);
    }
 
-   public ModelSpace(JsonIdMap idMap, String userName, ApplicationType appType)
+   public ModelSpace(IdMap idMap, String userName, ApplicationType appType)
    {
       this.idMap = idMap;
       this.appType = appType;   
 
       this.userName = userName;
 
-      idMap.withUpdateListenerSend(this);
+      idMap.with(this);
    }
 
    public PropertyChangeSupport getPropertyChangeSupport()
@@ -129,10 +123,22 @@ import de.uniks.networkparser.list.AbstractList;
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
 
    //==========================================================================
@@ -341,7 +347,7 @@ import de.uniks.networkparser.list.AbstractList;
             String fileContent = new String(byteBuf.array());
             String[] lines = fileContent.split("\n");
             
-            System.out.println("Read from " + canonicalPath + "\n" + fileContent);
+//            System.out.println("Read from " + canonicalPath + "\n" + fileContent);
             
             for (String line : lines)
             {
@@ -444,7 +450,7 @@ import de.uniks.networkparser.list.AbstractList;
 
             if (targetObject != null)
             {
-               creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+               creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
             }
          }
          else
@@ -547,17 +553,17 @@ import de.uniks.networkparser.list.AbstractList;
       return result;
    }
 
-
    @Override
-   public boolean update(String typ, BaseItem source, Object target, String property, Object oldValue, Object newValue)
-   {
+	public boolean update(Object event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
+      
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
 
-      JsonObject jsonObject = (JsonObject) source;
+      JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
       // {"id":"testerProxy",
       //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
@@ -566,19 +572,19 @@ import de.uniks.networkparser.list.AbstractList;
       //                   "prop":{"scopeName":"commands",
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
-      String opCode = JsonIdMap.UPDATE;
+      String opCode = IdMap.UPDATE;
 
-      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+      Object attributes = jsonObject.get(IdMap.UPDATE);
 
       if (attributes == null)
       {
-         attributes = jsonObject.get(JsonIdMap.REMOVE);
-         opCode = JsonIdMap.REMOVE;
+         attributes = jsonObject.get(IdMap.REMOVE);
+         opCode = IdMap.REMOVE;
 
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
-            opCode = JsonIdMap.UPDATE;
+            opCode = IdMap.UPDATE;
          }
       }
 
@@ -598,8 +604,8 @@ import de.uniks.networkparser.list.AbstractList;
             ChangeEvent change = new ChangeEvent()
             .withSessionId(userName)
             .withChangeNo("" + getNewHistoryIdNumber())
-            .withObjectId(jsonObject.getString(JsonIdMap.ID))
-            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+            .withObjectId(jsonObject.getString(IdMap.ID))
+            .withObjectType(jsonObject.getString(IdMap.CLASS))
             .withProperty(prop);
 
             Object attrValue = attributesJson.get(prop);
@@ -619,9 +625,9 @@ import de.uniks.networkparser.list.AbstractList;
                {
                   valueJsonObject = (JsonObject) arrayElem;
 
-                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+                  String valueObjectId = (String) valueJsonObject.get(IdMap.ID);
 
-                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+                  String valueObjectType = (String) valueJsonObject.get(IdMap.CLASS);
 
                   Object valueObject = idMap.getObject(valueObjectId);
 
@@ -648,7 +654,7 @@ import de.uniks.networkparser.list.AbstractList;
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(JsonIdMap.REMOVE))
+                  if (opCode.equals(IdMap.REMOVE))
                   {
                      change.withOldValue(valueObjectId);
                   }
@@ -665,14 +671,17 @@ import de.uniks.networkparser.list.AbstractList;
                   if (valueJsonObject.get("prop") != null)
                   {
                      // call recursive
-                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                	  simpleEvent.with(valueJsonObject);
+                	  this.update(simpleEvent);
                   }
                }
             }
             else
             {
-               String oldValueString = "" + oldValue;
-               if (oldValue == null)
+            	PropertyChangeEvent evt = (PropertyChangeEvent) event;
+               String oldValueString = "" + evt.getOldValue();
+               if (evt.getOldValue() == null)
                {
                   oldValueString = null;
                }

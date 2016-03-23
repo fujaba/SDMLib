@@ -25,7 +25,7 @@ import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class BigBrotherCreator extends EntityFactory
 {
@@ -80,7 +80,7 @@ public class BigBrotherCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -91,7 +91,7 @@ public class BigBrotherCreator extends EntityFactory
          return true;
       }
       
-      if ((BigBrother.PROPERTY_KIDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BigBrother.PROPERTY_KIDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withoutKids((Object) value);
          return true;
@@ -109,7 +109,7 @@ public class BigBrotherCreator extends EntityFactory
          return true;
       }
       
-      if ((BigBrother.PROPERTY_SUSPECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BigBrother.PROPERTY_SUSPECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withoutSuspects((Person) value);
          return true;
@@ -117,7 +117,7 @@ public class BigBrotherCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
    }

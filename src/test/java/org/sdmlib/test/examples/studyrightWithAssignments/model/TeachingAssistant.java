@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,14 +22,15 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-
-/**
- * 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
-public  class TeachingAssistant extends Student
+ */
+   public  class TeachingAssistant extends Student
 {
 
    
@@ -43,8 +44,8 @@ public  class TeachingAssistant extends Student
 
       setUniversity(null);
       setIn(null);
-      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       setRoom(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

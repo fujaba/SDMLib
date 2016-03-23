@@ -9,6 +9,8 @@ import org.sdmlib.replication.util.BoardTaskPO;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.replication.util.SeppelScopePO;
+import org.sdmlib.replication.util.SeppelChannelPO;
 
 public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, SeppelSpaceProxy>
 {
@@ -477,6 +479,225 @@ public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, Seppel
          return ((SeppelSpaceProxy) this.getCurrentMatch()).getTasks();
       }
       return null;
+   }
+
+   public SeppelSpaceProxyPO filterSpaceId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_SPACEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterSpaceId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_SPACEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterAcceptsConnectionRequests(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_ACCEPTSCONNECTIONREQUESTS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterPortNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterPortNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PORTNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterLoginName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_LOGINNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterLoginName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_LOGINNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterPassword(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PASSWORD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterPassword(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PASSWORD)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO filterPartners()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelSpaceProxy.PROPERTY_PARTNERS, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO filterPartners(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_PARTNERS);
+   }
+
+   public SeppelScopePO filterScopes()
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelSpaceProxy.PROPERTY_SCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO filterScopes(SeppelScopePO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_SCOPES);
+   }
+
+   public SeppelChannelPO filterChannel()
+   {
+      SeppelChannelPO result = new SeppelChannelPO(new SeppelChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelSpaceProxy.PROPERTY_CHANNEL, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO filterChannel(SeppelChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_CHANNEL);
+   }
+
+   public BoardTaskPO filterTasks()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelSpaceProxy.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO filterTasks(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_TASKS);
    }
 
 }

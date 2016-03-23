@@ -27,7 +27,7 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class TemplateCreator extends EntityFactory
 {
@@ -142,7 +142,7 @@ public class TemplateCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -207,7 +207,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_PLACEHOLDERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutPlaceholders((PlaceHolderDescription) value);
          return true;
@@ -225,7 +225,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_MATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutMatches((Match) value);
          return true;
@@ -237,7 +237,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_PARENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutParents((PlaceHolderDescription) value);
          return true;
@@ -246,7 +246,7 @@ public class TemplateCreator extends EntityFactory
       return false;
    }
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }

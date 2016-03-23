@@ -26,7 +26,9 @@ import java.util.Collection;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-public class charList extends SDMSet<Character> implements PropertyChangeInterface, Collection<Character>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class charList extends SimpleSet<Character> implements PropertyChangeInterface, Collection<Character>
 {
 	public charList(){
 		withAllowDuplicate(true);
@@ -73,10 +75,5 @@ public class charList extends SDMSet<Character> implements PropertyChangeInterfa
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-	@Override
-	public String getEntryType() {
-		return charList.class.getName();
-	}
 }
 

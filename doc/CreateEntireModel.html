@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/simple/TestModelCreation.java' type='text/x-java'>CreateEntireModel</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+            "name : String",
+            "age : int"
+         ],
+         "methods":[
+            "think()",
+            "dontThink(boolean p0)"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Pupil",
+         "attributes":[
+            "credits : int"
+         ],
+         "methods":[
+            "read() String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Teacher",
+         "attributes":[
+            "rank : String"
+         ],
+         "methods":[
+            "teach() String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room"
+      },
+      {
+         "typ":"node",
+         "id":"StudentEnum",
+         "attributes":[
+            "value0 : Integer"
+         ],
+         "methods":[
+            "StudentEnum(java.lang.Integer value0) "
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"roomInterface",
+         "attributes":[
+            "number : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Integer"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Pupil",
+            "cardinality":"one",
+            "property":"pupil"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"teacher"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"currentPupils"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"pupils"
+         },
+         "target":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"teacher"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"currentTeacher"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"teacher"
+         },
+         "target":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"pupils"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         },
+         "target":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"currentPupils"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         },
+         "target":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"currentTeacher"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"roomInterface",
+            "cardinality":"one",
+            "property":"roominterface"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Pupil"},
+         "target":{"id":"Person"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Teacher"},
+         "target":{"id":"Person"}
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasCreateEntireModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

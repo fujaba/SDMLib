@@ -21,18 +21,21 @@
    
 package org.sdmlib.test.examples.modelspace.chat;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/MSChatClientTest.java'>MSChatClientTest.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
 */
-public  class MSChatChannel implements PropertyChangeInterface
+public  class MSChatChannel implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +48,20 @@ public  class MSChatChannel implements PropertyChangeInterface
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

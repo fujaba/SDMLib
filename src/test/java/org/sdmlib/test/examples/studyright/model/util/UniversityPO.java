@@ -156,4 +156,33 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return null;
    }
 
+   public UniversityPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UniversityPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

@@ -31,11 +31,14 @@ import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.models.transformations.ChoiceTemplate;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.Match;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
 */
-   public class PlaceHolderDescription implements PropertyChangeInterface
+   public class PlaceHolderDescription implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
 
@@ -47,9 +50,20 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

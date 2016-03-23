@@ -270,4 +270,33 @@ public class PitPO extends PatternObject<PitPO, Pit>
       return null;
    }
 
+   public PitPO filterNr(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pit.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PitPO filterNr(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pit.PROPERTY_NR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

@@ -25,28 +25,18 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
-public class SignalFlagSet extends SDMSet<SignalFlag>
+public class SignalFlagSet extends SimpleSet<SignalFlag>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public SignalFlagPO hasSignalFlagPO()
    {
       return new SignalFlagPO (this.toArray(new SignalFlag[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
-   }
-
 
    public SignalFlagSet with(Object value)
    {
@@ -130,6 +120,18 @@ public class SignalFlagSet extends SDMSet<SignalFlag>
    }
 
 
-   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withReadOnly(true);
+   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withFlag(SignalFlagSet.READONLY);
+
+
+   public SignalFlagPO filterSignalFlagPO()
+   {
+      return new SignalFlagPO(this.toArray(new SignalFlag[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
+   }
 }
 

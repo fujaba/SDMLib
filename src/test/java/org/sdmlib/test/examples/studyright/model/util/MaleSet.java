@@ -23,25 +23,16 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyright.model.Male;
 
-public class MaleSet extends SDMSet<Male>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MaleSet extends SimpleSet<Male>
 {
-
-
    public MalePO hasMalePO()
    {
       return new MalePO(this.toArray(new Male[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Male";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MaleSet with(Object value)
@@ -101,5 +92,17 @@ public class MaleSet extends SDMSet<Male>
    }
 
 
-   public static final MaleSet EMPTY_SET = new MaleSet().withReadOnly(true);
+   public static final MaleSet EMPTY_SET = new MaleSet().withFlag(MaleSet.READONLY);
+
+
+   public MalePO filterMalePO()
+   {
+      return new MalePO(this.toArray(new Male[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Male";
+   }
 }

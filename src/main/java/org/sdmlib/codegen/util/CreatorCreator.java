@@ -2,19 +2,19 @@ package org.sdmlib.codegen.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      jsonIdMap.withCreator(new LocalVarTableEntryCreator());
-      jsonIdMap.withCreator(new LocalVarTableEntryPOCreator());
-      jsonIdMap.withCreator(new StatementEntryCreator());
-      jsonIdMap.withCreator(new StatementEntryPOCreator());
-      jsonIdMap.withCreator(new SymTabEntryCreator());
-      jsonIdMap.withCreator(new SymTabEntryPOCreator());
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      jsonIdMap.with(new LocalVarTableEntryCreator());
+      jsonIdMap.with(new LocalVarTableEntryPOCreator());
+      jsonIdMap.with(new StatementEntryCreator());
+      jsonIdMap.with(new StatementEntryPOCreator());
+      jsonIdMap.with(new SymTabEntryCreator());
+      jsonIdMap.with(new SymTabEntryPOCreator());
       return jsonIdMap;
    }
 }

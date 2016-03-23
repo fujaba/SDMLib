@@ -25,12 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.LaneSet;
 
-public class RemoteTaskBoardSet extends SDMSet<RemoteTaskBoard>
+public class RemoteTaskBoardSet extends SimpleSet<RemoteTaskBoard>
 {
 
 
@@ -38,14 +39,6 @@ public class RemoteTaskBoardSet extends SDMSet<RemoteTaskBoard>
    {
       return new RemoteTaskBoardPO(this.toArray(new RemoteTaskBoard[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.RemoteTaskBoard";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RemoteTaskBoardSet with(Object value)
@@ -127,5 +120,17 @@ public class RemoteTaskBoardSet extends SDMSet<RemoteTaskBoard>
    }
 
 
-   public static final RemoteTaskBoardSet EMPTY_SET = new RemoteTaskBoardSet().withReadOnly(true);
+   public static final RemoteTaskBoardSet EMPTY_SET = new RemoteTaskBoardSet().withFlag(RemoteTaskBoardSet.READONLY);
+
+
+   public RemoteTaskBoardPO filterRemoteTaskBoardPO()
+   {
+      return new RemoteTaskBoardPO(this.toArray(new RemoteTaskBoard[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.RemoteTaskBoard";
+   }
 }

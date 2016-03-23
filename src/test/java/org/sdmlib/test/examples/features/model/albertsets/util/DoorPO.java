@@ -70,4 +70,19 @@ public class DoorPO extends PatternObject<DoorPO, Door>
       return null;
    }
 
+   public HousePO filterHouse()
+   {
+      HousePO result = new HousePO(new House[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Door.PROPERTY_HOUSE, result);
+      
+      return result;
+   }
+
+   public DoorPO filterHouse(HousePO tgt)
+   {
+      return hasLinkConstraint(tgt, Door.PROPERTY_HOUSE);
+   }
+
 }

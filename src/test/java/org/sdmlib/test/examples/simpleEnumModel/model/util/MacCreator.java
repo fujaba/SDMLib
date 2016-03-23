@@ -24,13 +24,17 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 public class MacCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
       Mac.PROPERTY_NAME,
+      Mac.PROPERTY_TYPE,
+      Mac.PROPERTY_OWNER,
    };
    
    @Override
@@ -60,6 +64,16 @@ public class MacCreator extends EntityFactory
       {
          return ((Mac) target).getName();
       }
+
+      if (Mac.PROPERTY_TYPE.equalsIgnoreCase(attribute))
+      {
+         return ((Mac) target).getType();
+      }
+
+      if (Mac.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Mac) target).getOwner();
+      }
       
       return null;
    }
@@ -67,7 +81,7 @@ public class MacCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -77,10 +91,22 @@ public class MacCreator extends EntityFactory
          ((Mac) target).withName((String) value);
          return true;
       }
+
+      if (Mac.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Mac) target).withType(TEnum.valueOf((String) value));
+         return true;
+      }
+
+      if (Mac.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      {
+         ((Mac) target).withOwner((Alex) value);
+         return true;
+      }
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.simpleEnumModel.model.util.CreatorCreator.createIdMap(sessionID);
    }

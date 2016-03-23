@@ -23,12 +23,13 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 
-public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThread>
 {
 
 
@@ -36,14 +37,6 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
    {
       return new ServerSocketAcceptThreadPO(this.toArray(new ServerSocketAcceptThread[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ServerSocketAcceptThread";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ServerSocketAcceptThreadSet with(Object value)
@@ -156,5 +149,87 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
    }
 
 
-   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withReadOnly(true);
+   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withFlag(ServerSocketAcceptThreadSet.READONLY);
+
+
+   public ServerSocketAcceptThreadPO filterServerSocketAcceptThreadPO()
+   {
+      return new ServerSocketAcceptThreadPO(this.toArray(new ServerSocketAcceptThread[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ServerSocketAcceptThread";
+   }
+
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet filterPort(int value)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet filterPort(int lower, int upper)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the replicationNode attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet filterReplicationNode(ReplicationNode value)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (value == obj.getReplicationNode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

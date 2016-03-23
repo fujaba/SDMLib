@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,174 +21,32 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Role;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.AssociationSet;
 
-public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets.ModelSet
+public class RoleSet extends SDMSet<Role>
 {
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Role obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
 
-   public RoleSet withName(String value)
-   {
-      for (Role obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getCard()
-   {
-      StringList result = new StringList();
-      
-      for (Role obj : this)
-      {
-         result.add(obj.getCard());
-      }
-      
-      return result;
-   }
-
-   public RoleSet withCard(String value)
-   {
-      for (Role obj : this)
-      {
-         obj.setCard(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getKind()
-   {
-      StringList result = new StringList();
-      
-      for (Role obj : this)
-      {
-         result.add(obj.getKind());
-      }
-      
-      return result;
-   }
-
-   public RoleSet withKind(String value)
-   {
-      for (Role obj : this)
-      {
-         obj.setKind(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getClazz()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Role obj : this)
-      {
-         result.add(obj.getClazz());
-      }
-      
-      return result;
-   }
-   public RoleSet withClazz(Clazz value)
-   {
-      for (Role obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public AssociationSet getAssoc()
-   {
-      AssociationSet result = new AssociationSet();
-      
-      for (Role obj : this)
-      {
-         result.add(obj.getAssoc());
-      }
-      
-      return result;
-   }
-   public RoleSet withAssoc(Association value)
-   {
-      for (Role obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
+   public static final RoleSet EMPTY_SET = new RoleSet().withFlag(RoleSet.READONLY);
 
 
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Role elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Role";
    }
 
 
-   public RoleSet getOtherRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Role role : this)
-      {
-         Association assoc = role.getAssoc();
-         
-         if (assoc.getSource() == role)
-         {
-            result.add(assoc.getTarget());
-         }
-         else
-         {
-            result.add(assoc.getSource());
-         }
-      }
-      
-      return result;
-   }
-
    @SuppressWarnings("unchecked")
    public RoleSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Role>)value);
       }
@@ -205,8 +63,40 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       this.remove(value);
       return this;
    }
-   public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
-   public RoleSet hasCard(String value)
+
+   @Override
+   public RoleSet filter(Condition<Role> newValue) {
+      RoleSet filterList = new RoleSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Role objects and collect a list of the card attribute values. 
+    * 
+    * @return List of String objects reachable via card attribute
+    */
+   public StringList getCard()
+   {
+      StringList result = new StringList();
+      
+      for (Role obj : this)
+      {
+         result.add(obj.getCard());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the card attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterCard(String value)
    {
       RoleSet result = new RoleSet();
       
@@ -221,7 +111,16 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-   public RoleSet hasCard(String lower, String upper)
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the card attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterCard(String lower, String upper)
    {
       RoleSet result = new RoleSet();
       
@@ -236,7 +135,51 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-   public RoleSet hasKind(String value)
+
+   /**
+    * Loop through the current set of Role objects and assign value to the card attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Role objects now with new attribute values.
+    */
+   public RoleSet withCard(String value)
+   {
+      for (Role obj : this)
+      {
+         obj.setCard(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and collect a list of the kind attribute values. 
+    * 
+    * @return List of String objects reachable via kind attribute
+    */
+   public StringList getKind()
+   {
+      StringList result = new StringList();
+      
+      for (Role obj : this)
+      {
+         result.add(obj.getKind());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterKind(String value)
    {
       RoleSet result = new RoleSet();
       
@@ -251,7 +194,16 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-   public RoleSet hasKind(String lower, String upper)
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterKind(String lower, String upper)
    {
       RoleSet result = new RoleSet();
       
@@ -266,7 +218,51 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-   public RoleSet hasName(String value)
+
+   /**
+    * Loop through the current set of Role objects and assign value to the kind attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Role objects now with new attribute values.
+    */
+   public RoleSet withKind(String value)
+   {
+      for (Role obj : this)
+      {
+         obj.setKind(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Role obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterName(String value)
    {
       RoleSet result = new RoleSet();
       
@@ -281,7 +277,16 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-   public RoleSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Role objects and collect those Role objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Role objects that match the parameter
+    */
+   public RoleSet filterName(String lower, String upper)
    {
       RoleSet result = new RoleSet();
       
@@ -294,6 +299,24 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of Role objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Role objects now with new attribute values.
+    */
+   public RoleSet withName(String value)
+   {
+      for (Role obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
    }
 
 }

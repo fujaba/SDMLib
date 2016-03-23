@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,127 +21,37 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.modelsets.DataTypeSet;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Method;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.graph.DataType;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.Parameter;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
+public class MethodSet extends SDMSet<Method>
 {
-   public MethodSet withParameter(Parameter value)
-   {
-      for (Method obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
 
-   public DataTypeSet getReturnType()
-   {
-      DataTypeSet result = new DataTypeSet();
-      
-      for (Method obj : this)
-      {
-         result.add(obj.getReturnType());
-      }
-      
-      return result;
-   }
-
-   public MethodSet withReturnType(DataType value)
-   {
-      for (Method obj : this)
-      {
-         obj.setReturnType(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getClazz()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Method obj : this)
-      {
-         result.add(obj.getClazz());
-      }
-      
-      return result;
-   }
-   public MethodSet withClazz(Clazz value)
-   {
-      for (Method obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
+   public static final MethodSet EMPTY_SET = new MethodSet().withFlag(MethodSet.READONLY);
 
 
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Method elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Method";
    }
 
 
-   public StringList getBody()
-   {
-      StringList result = new StringList();
-      
-      for (Method obj : this)
-      {
-         result.add(obj.getBody());
-      }
-      
-      return result;
-   }
-
-   public MethodSet withBody(String value)
-   {
-      for (Method obj : this)
-      {
-         obj.setBody(value);
-      }
-      
-      return this;
-   }
-
    @SuppressWarnings("unchecked")
    public MethodSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Method>)value);
       }
@@ -159,6 +69,160 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
+   @Override
+   public MethodSet filter(Condition<Method> newValue) {
+      MethodSet filterList = new MethodSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Method objects and collect a list of the returnType attribute values. 
+    * 
+    * @return List of de.uniks.networkparser.graph.DataType objects reachable via returnType attribute
+    */
+   public DataTypeSet getReturnType()
+   {
+      DataTypeSet result = new DataTypeSet();
+      
+      for (Method obj : this)
+      {
+         result.add(obj.getReturnType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and collect those Method objects where the returnType attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Method objects that match the parameter
+    */
+   public MethodSet filterReturnType(DataType value)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (value == obj.getReturnType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and assign value to the returnType attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Method objects now with new attribute values.
+    */
+   public MethodSet withReturnType(DataType value)
+   {
+      for (Method obj : this)
+      {
+         obj.setReturnType(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and collect a list of the body attribute values. 
+    * 
+    * @return List of String objects reachable via body attribute
+    */
+   public StringList getBody()
+   {
+      StringList result = new StringList();
+      
+      for (Method obj : this)
+      {
+         result.add(obj.getBody());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and collect those Method objects where the body attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Method objects that match the parameter
+    */
+   public MethodSet filterBody(String value)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (value.equals(obj.getBody()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and collect those Method objects where the body attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Method objects that match the parameter
+    */
+   public MethodSet filterBody(String lower, String upper)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (lower.compareTo(obj.getBody()) <= 0 && obj.getBody().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and assign value to the body attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Method objects now with new attribute values.
+    */
+   public MethodSet withBody(String value)
+   {
+      for (Method obj : this)
+      {
+         obj.setBody(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
    public StringList getName()
    {
       StringList result = new StringList();
@@ -171,7 +235,15 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return result;
    }
 
-   public MethodSet hasName(String value)
+
+   /**
+    * Loop through the current set of Method objects and collect those Method objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Method objects that match the parameter
+    */
+   public MethodSet filterName(String value)
    {
       MethodSet result = new MethodSet();
       
@@ -186,29 +258,73 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Method objects and collect those Method objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Method objects that match the parameter
+    */
+   public MethodSet filterName(String lower, String upper)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Method objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Method objects now with new attribute values.
+    */
    public MethodSet withName(String value)
    {
       for (Method obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
    }
 
+   /**
+    * Loop through the current set of Method objects and collect a set of the Parameter objects reached via parameter. 
+    * 
+    * @return Set of Parameter objects reachable via parameter
+    */
    public ParameterSet getParameter()
    {
       ParameterSet result = new ParameterSet();
       
       for (Method obj : this)
       {
-         result.addAll(obj.getParameter());
+         result.with(obj.getParameter());
       }
       
       return result;
    }
 
-   public MethodSet hasParameter(Object value)
+   /**
+    * Loop through the current set of Method objects and collect all contained objects with reference parameter pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as parameter neighbor of the collected results. 
+    * 
+    * @return Set of Parameter objects referring to value via parameter
+    */
+   public MethodSet filterParameter(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -234,145 +350,34 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Method object passed as parameter to the Parameter attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Parameter attributes.
+    */
+   public MethodSet withParameter(Parameter value)
+   {
+      for (Method obj : this)
+      {
+         obj.withParameter(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Method object passed as parameter from the Parameter attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public MethodSet withoutParameter(Parameter value)
    {
       for (Method obj : this)
       {
-         obj.without(value);
+         obj.withoutParameter(value);
       }
       
       return this;
-   }
-
-   public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
-   public AnnotationSet getAnnotations()
-   {
-      AnnotationSet result = new AnnotationSet();
-      
-      for (Method obj : this)
-      {
-         result.addAll(obj.getAnnotations());
-      }
-      
-      return result;
-   }
-
-   public MethodSet hasAnnotations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MethodSet answer = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public MethodSet withAnnotations(Annotation value)
-   {
-      for (Method obj : this)
-      {
-         obj.withAnnotation(value);
-      }
-      
-      return this;
-   }
-
-   public MethodSet withoutAnnotations(Annotation value)
-   {
-      for (Method obj : this)
-      {
-         obj.withoutAnnotation(value);
-      }
-      
-      return this;
-   }
-
-   public MethodSet hasReturnType(DataType value)
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (value == obj.getReturnType())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MethodSet hasBody(String value)
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (value.equals(obj.getBody()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MethodSet hasBody(String lower, String upper)
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (lower.compareTo(obj.getBody()) <= 0 && obj.getBody().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MethodSet hasName(String lower, String upper)
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public void removeFromModelAndCode(String rootDir) {
-	   
-	   SimpleSet<Method> clone = this.clone();
-	   
-	   for (Method method : clone) {
-		
-		   method.removeFromModelAndCode(rootDir);
-		   
-	   }
-	   
    }
 
 }

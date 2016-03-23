@@ -1,11 +1,12 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ReachabilityGraphExampleModels
 {
@@ -25,9 +26,9 @@ public class ReachabilityGraphExampleModels
       Clazz node = model.createClazz("Node")
             .withAttribute("num", DataType.INT);
             
-      state.withAssoc(node, "nodes", Card.MANY, "graph", Card.ONE);
+      state.withBidirectional(node, "nodes", Cardinality.MANY, "graph", Cardinality.ONE);
       
-      node.withAssoc(node, "next", Card.MANY, "prev", Card.MANY);
+      node.withBidirectional(node, "next", Cardinality.MANY, "prev", Cardinality.MANY);
       
       storyboard.addClassDiagram(model);
 
@@ -51,24 +52,24 @@ public class ReachabilityGraphExampleModels
       
       Clazz boat = model.createClazz("Boat");
             
-      river.withAssoc(boat, "boat", Card.ONE, "river", Card.ONE);
+      river.withBidirectional(boat, "boat", Cardinality.ONE, "river", Cardinality.ONE);
       
       Clazz bank = model.createClazz("Bank")
             .withAttribute("name", DataType.STRING)
             .withAttribute("age", DataType.INT);
             
-      boat.withAssoc(bank, "bank", Card.ONE, "boat", Card.ONE);
+      boat.withBidirectional(bank, "bank", Cardinality.ONE, "boat", Cardinality.ONE);
       
-      river.withAssoc(bank, "banks", Card.MANY, "river", Card.ONE);
+      river.withBidirectional(bank, "banks", Cardinality.MANY, "river", Cardinality.ONE);
       
       Clazz cargo = model.createClazz("Cargo")
             .withAttribute("name", DataType.STRING); 
             
-      bank.withAssoc(cargo, "cargos", Card.MANY, "bank", Card.ONE);
+      bank.withBidirectional(cargo, "cargos", Cardinality.MANY, "bank", Cardinality.ONE);
       
-      // cargo.withAttribute("name", Card.STRING);
+      // cargo.withAttribute("name", Cardinality.STRING);
       
-      cargo.withAssoc(boat, "boat", Card.ONE, "cargo", Card.ONE);
+      cargo.withBidirectional(boat, "boat", Cardinality.ONE, "cargo", Cardinality.ONE);
       
       storyboard.addClassDiagram(model);
       

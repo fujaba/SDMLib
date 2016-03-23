@@ -23,7 +23,6 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
@@ -31,11 +30,11 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
+public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 {
    public StringList getModifier()
    {
@@ -344,7 +343,7 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<OptionalSubPattern>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -367,7 +366,7 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
       return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
 
-   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadOnly(true);
+   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withFlag(OptionalSubPatternSet.READONLY);
    public OptionalSubPatternSet hasMatchForward(boolean value)
    {
       OptionalSubPatternSet result = new OptionalSubPatternSet();
@@ -534,6 +533,269 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
    }
 
    public OptionalSubPatternSet hasDoAllMatches(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public OptionalSubPatternPO filterOptionalSubPatternPO()
+   {
+      return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the matchForward attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterMatchForward(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isMatchForward())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the debugMode attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterDebugMode(int value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.getDebugMode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the debugMode attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterDebugMode(int lower, int upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower <= obj.getDebugMode() && obj.getDebugMode() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterName(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterName(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the modifier attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterModifier(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the modifier attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterModifier(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the hasMatch attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterHasMatch(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the patternObjectName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterPatternObjectName(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the patternObjectName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterPatternObjectName(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of OptionalSubPattern objects and collect those OptionalSubPattern objects where the doAllMatches attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of OptionalSubPattern objects that match the parameter
+    */
+   public OptionalSubPatternSet filterDoAllMatches(boolean value)
    {
       OptionalSubPatternSet result = new OptionalSubPatternSet();
       

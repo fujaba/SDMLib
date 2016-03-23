@@ -30,12 +30,14 @@ import org.sdmlib.models.taskflows.util.PeerProxySet;
 import org.sdmlib.models.taskflows.util.TaskFlowSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
-   public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
+   public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SendableEntity
 {
 	public abstract Object[] getTaskNames();
 	
@@ -127,6 +129,24 @@ import java.beans.PropertyChangeListener;
    {
       return listeners;
    }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
 
    
    //==========================================================================

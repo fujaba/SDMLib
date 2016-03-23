@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,329 +21,33 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.Clazz;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.classes.util.ClassModelSet;
-import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.modelsets.StringList;
 
-public class ClazzSet extends SDMSet<Clazz> 
+public class ClazzSet extends SDMSet<Clazz>
 {
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
 
-   public ClazzSet withName(String value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-   
-   public ClazzSet hasName(String value)
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if (value.indexOf(obj.getName()) >= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public booleanSet isInterface()
-   {
-      booleanSet result = new booleanSet();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.isInterface());
-      }
-      
-      return result;
-   }
-
-   public ClassModelSet getClassModel()
-   {
-      ClassModelSet result = new ClassModelSet();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.getClassModel());
-      }
-      
-      return result;
-   }
-   public ClazzSet withClassModel(ClassModel value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getSuperClass()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.getSuperClass());
-      }
-      
-      return result;
-   }
-   
-   public ClazzSet withSuperClass(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withSuperClazz(value);
-      }
-      
-      return this;
-   }
-   
-   public ClazzSet getKidClazzesTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getKidClazzes().minus(result));
-         }
-      }
-      
-      return result;
-
-   }
-
-   public ClazzSet getInterfaces()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getInterfaces());
-      }
-      
-      return result;
-   }
-   
-   
-   public AttributeSet getAttributes()
-   {
-      AttributeSet result = new AttributeSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getAttributes());
-      }
-      
-      return result;
-   }
-   public ClazzSet withAttributes(Attribute value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutAttributes(Attribute value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
-   public MethodSet getMethods()
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getMethods());
-      }
-      
-      return result;
-   }
-   public ClazzSet withMethods(Method value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutMethods(Method value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
-   public RoleSet getSourceRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getRoles());
-      }
-      
-      return result;
-   }
-   public ClazzSet withSourceRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutSourceRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
-   public booleanSet isExternal()
-   {
-      booleanSet result = new booleanSet();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.isExternal());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withInterfaze(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withInterface(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withExternal(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.setExternal(value);
-      }
-      
-      return this;
-   }
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Clazz elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withFlag(ClazzSet.READONLY);
 
 
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Clazz";
    }
 
 
-   public booleanList getWrapped()
-   {
-      booleanList result = new booleanList();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.isExternal());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withWrapped(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withExternal(value);
-      }
-      
-      return this;
-   }
-
    @SuppressWarnings("unchecked")
    public ClazzSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Clazz>)value);
       }
@@ -361,298 +65,45 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public ClazzSet getInterfacesTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getInterfaces().minus(result));
-         }
-      }
-      
-      return result;
+   @Override
+   public ClazzSet filter(Condition<Clazz> newValue) {
+      ClazzSet filterList = new ClazzSet();
+      filterItems(filterList, newValue);
+      return filterList;
    }
 
-
-   public ClazzSet getSuperClassTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            if ( ! result.contains(current.getSuperClass()))
-            {
-               todo.with(current.getSuperClass());
-            }
-         }
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasInterface(boolean value)
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if (value == obj.isInterface())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withInterface(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.setInterface(value);
-      }
-      
-      return this;
-   }
-
-   public RoleSet getRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getRoles());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasRoles(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getRoles()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ClazzSet withRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getKidClazzes()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getKidClazzes());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasKidClazzes(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getKidClazzes()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ClazzSet withKidClazzes(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withKidClazzes(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutKidClazzes(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutKidClazz(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getSuperClazzes()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getSuperClazzes());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasSuperClazzes(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getSuperClazzes()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-
-   public ClazzSet getSuperClazzesTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getSuperClazzes().minus(result));
-         }
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withSuperClazzes(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withSuperClazz(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutSuperClazzes(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutSuperClazz(value);
-      }
-      
-      return this;
-   }
-
+   /**
+    * Loop through the current set of Clazz objects and collect a list of the interfaze attribute values. 
+    * 
+    * @return List of boolean objects reachable via interfaze attribute
+    */
    public booleanList getInterfaze()
    {
       booleanList result = new booleanList();
       
       for (Clazz obj : this)
       {
-         result.add(obj.isInterface());
+         result.add(obj.isInterfaze());
       }
       
       return result;
    }
 
-   public ClazzSet hasInterfaze(boolean value)
+
+   /**
+    * Loop through the current set of Clazz objects and collect those Clazz objects where the interfaze attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Clazz objects that match the parameter
+    */
+   public ClazzSet filterInterfaze(boolean value)
    {
       ClazzSet result = new ClazzSet();
       
       for (Clazz obj : this)
       {
-         if (value == obj.isInterface())
+         if (value == obj.isInterfaze())
          {
             result.add(obj);
          }
@@ -661,6 +112,30 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Clazz objects and assign value to the interfaze attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Clazz objects now with new attribute values.
+    */
+   public ClazzSet withInterfaze(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.setInterfaze(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Clazz objects and collect a list of the external attribute values. 
+    * 
+    * @return List of boolean objects reachable via external attribute
+    */
    public booleanList getExternal()
    {
       booleanList result = new booleanList();
@@ -673,7 +148,15 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   public ClazzSet hasExternal(boolean value)
+
+   /**
+    * Loop through the current set of Clazz objects and collect those Clazz objects where the external attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Clazz objects that match the parameter
+    */
+   public ClazzSet filterExternal(boolean value)
    {
       ClazzSet result = new ClazzSet();
       
@@ -688,65 +171,75 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
-   public AnnotationSet getAnnotations()
+
+   /**
+    * Loop through the current set of Clazz objects and assign value to the external attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Clazz objects now with new attribute values.
+    */
+   public ClazzSet withExternal(boolean value)
    {
-      AnnotationSet result = new AnnotationSet();
+      for (Clazz obj : this)
+      {
+         obj.setExternal(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Clazz objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
+   {
+      StringList result = new StringList();
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getAnnotations());
+         result.add(obj.getName());
       }
       
       return result;
    }
 
-   public ClazzSet hasAnnotations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
 
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
+   /**
+    * Loop through the current set of Clazz objects and collect those Clazz objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Clazz objects that match the parameter
+    */
+   public ClazzSet filterName(String value)
+   {
+      ClazzSet result = new ClazzSet();
       
       for (Clazz obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
+         if (value.equals(obj.getName()))
          {
-            answer.add(obj);
+            result.add(obj);
          }
       }
       
-      return answer;
+      return result;
    }
 
-   public ClazzSet withAnnotations(Annotation value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withAnnotation(value);
-      }
-      
-      return this;
-   }
 
-   public ClazzSet withoutAnnotations(Annotation value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutAnnotation(value);
-      }
-      
-      return this;
-   }
-   public ClazzSet hasName(String lower, String upper)
+   /**
+    * Loop through the current set of Clazz objects and collect those Clazz objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Clazz objects that match the parameter
+    */
+   public ClazzSet filterName(String lower, String upper)
    {
       ClazzSet result = new ClazzSet();
       
@@ -759,6 +252,24 @@ public class ClazzSet extends SDMSet<Clazz>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of Clazz objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Clazz objects now with new attribute values.
+    */
+   public ClazzSet withName(String value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
    }
 
 }

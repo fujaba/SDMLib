@@ -2,13 +2,13 @@ package org.sdmlib.models.objects;
 
 import java.util.LinkedHashMap;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class Generic2Specific
 {
 
-   public Object convert(JsonIdMap jsonIdMap, String packageName, GenericGraph graph)
+   public Object convert(IdMap idMap, String packageName, GenericGraph graph)
    {
       Object result = null; 
       
@@ -26,7 +26,7 @@ public class Generic2Specific
                type = packageName + "." + type;
             }
             
-            SendableEntityCreator creatorClass = jsonIdMap.getCreator(type, true);
+            SendableEntityCreator creatorClass = idMap.getCreator(type, true);
             
             if (creatorClass != null)
             {
@@ -64,13 +64,13 @@ public class Generic2Specific
          if (genericLink.getTgtLabel() != null)
          {
             // use set at source object
-            SendableEntityCreator srcCreatorClass = jsonIdMap.getCreatorClass(specSrc);
+            SendableEntityCreator srcCreatorClass = idMap.getCreatorClass(specSrc);
             srcCreatorClass.setValue(specSrc, genericLink.getTgtLabel(), specTgt, "");
          }
          else if (genericLink.getSrcLabel() != null)
          {
             // use set at target object
-            SendableEntityCreator tgtCreatorClass = jsonIdMap.getCreatorClass(specTgt);
+            SendableEntityCreator tgtCreatorClass = idMap.getCreatorClass(specTgt);
             tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(), specSrc, "");
          }
       }

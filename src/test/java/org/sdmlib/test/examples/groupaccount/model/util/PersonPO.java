@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountPO;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -208,6 +211,94 @@ public class PersonPO extends PatternObject<PersonPO, Person>
          return ((Person) this.getCurrentMatch()).getItem();
       }
       return null;
+   }
+
+   public PersonPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterBalance(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_BALANCE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterBalance(double lower, double upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_BALANCE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GroupAccountPO filterParent()
+   {
+      GroupAccountPO result = new GroupAccountPO(new GroupAccount[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public PersonPO filterParent(GroupAccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_PARENT);
+   }
+
+   public ItemPO filterItem()
+   {
+      ItemPO result = new ItemPO(new Item[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_ITEM, result);
+      
+      return result;
+   }
+
+   public PersonPO filterItem(ItemPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_ITEM);
    }
 
 }

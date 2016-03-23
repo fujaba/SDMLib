@@ -21,6 +21,7 @@
    
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -29,44 +30,37 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ObjectSet;
-import org.sdmlib.replication.util.ChangeEventSet;
-import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.Filter;
-import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.Deep;
-import de.uniks.networkparser.logic.ValuesMap;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.ChangeEventList;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-*/
-   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
+   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener, SendableEntity
 {
    //==========================================================================
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
@@ -280,7 +274,7 @@ import org.sdmlib.replication.ChangeEventList;
             
             if (targetObject != null)
             {
-               creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+               creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
             }
          }
          else
@@ -325,8 +319,7 @@ import org.sdmlib.replication.ChangeEventList;
       }
    }
 
-   public static class RestrictToFilter extends ConditionMap
-   {
+   public static class RestrictToFilter implements UpdateListener {
       private ObjectSet explicitElems;
 
       public RestrictToFilter(ObjectSet explicitElems2)
@@ -336,37 +329,37 @@ import org.sdmlib.replication.ChangeEventList;
       }
 
       @Override
-      public boolean check(ValuesMap values)
-      {
-         if (values.value != null)
+      public boolean update(Object event) {
+    	  SimpleMapEvent evt=(SimpleMapEvent) event;
+         if (evt.getNewValue() != null)
          {
-            if (values.deep >= 3)
+            if (evt.getDeep() >= 3)
             {
                return false;
             }
             else if ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0)
+               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0)
             {
                return true;
             }
          }
          
-         return explicitElems.contains(values.value);
+         return explicitElems.contains(evt.getNewValue());
       }
    }
 
 
    //==============================================================================
    @Override
-   public boolean update(String typ, BaseItem item, Object target, String property, Object oldValue, Object newValue) {
+   public boolean update(Object event) {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
-      
-      JsonObject jsonObject = (JsonObject) item;
-      
+      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
+
       // {"id":"testerProxy",
       //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
       //  "upd":{"scopes":{"class":"org.sdmlib.replication.SeppelScope",
@@ -374,19 +367,19 @@ import org.sdmlib.replication.ChangeEventList;
       //                   "prop":{"scopeName":"commands",
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
-      String opCode = JsonIdMap.UPDATE;
+      String opCode = IdMap.UPDATE;
       
-      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+      Object attributes = jsonObject.get(IdMap.UPDATE);
       
       if (attributes == null)
       {
-         attributes = jsonObject.get(JsonIdMap.REMOVE);
-         opCode = JsonIdMap.REMOVE;
+         attributes = jsonObject.get(IdMap.REMOVE);
+         opCode = IdMap.REMOVE;
          
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
-            opCode = JsonIdMap.UPDATE;
+            opCode = IdMap.UPDATE;
          }
       }
 
@@ -406,8 +399,8 @@ import org.sdmlib.replication.ChangeEventList;
             ChangeEvent change = new ChangeEvent()
             .withSessionId(spaceId)
             .withChangeNo("" + getNewHistoryIdNumber())
-            .withObjectId(jsonObject.getString(JsonIdMap.ID))
-            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+            .withObjectId(jsonObject.getString(IdMap.ID))
+            .withObjectType(jsonObject.getString(IdMap.CLASS))
             .withProperty(prop);
             
             Object attrValue = attributesJson.get(prop);
@@ -427,9 +420,9 @@ import org.sdmlib.replication.ChangeEventList;
                {
                   valueJsonObject = (JsonObject) arrayElem;
 
-                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+                  String valueObjectId = (String) valueJsonObject.get(IdMap.ID);
                
-                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+                  String valueObjectType = (String) valueJsonObject.get(IdMap.CLASS);
 
                   Object valueObject = map.getObject(valueObjectId);
 
@@ -456,7 +449,7 @@ import org.sdmlib.replication.ChangeEventList;
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(JsonIdMap.REMOVE))
+                  if (opCode.equals(IdMap.REMOVE))
                   {
                      change.withOldValue(valueObjectId);
                   }
@@ -474,14 +467,17 @@ import org.sdmlib.replication.ChangeEventList;
                   if (valueJsonObject.get("prop") != null)
                   {
                      // call recursive
-                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                	  simpleEvent.with(valueJsonObject);
+                	  this.update(simpleEvent);
                   }
                }
             }
             else
             {
-               String oldValueString = "" + oldValue;
-               if (oldValue == null)
+            	PropertyChangeEvent evt = (PropertyChangeEvent) event;
+               String oldValueString = "" + evt.getOldValue();
+               if (evt.getOldValue() == null)
                {
                   oldValueString = null;
                }
@@ -508,10 +504,10 @@ import org.sdmlib.replication.ChangeEventList;
 //      {
 //         // some new object has been added to a scope, 
 //         // provide all details of that object as it will now be send to new partner spaces
-//         if (valueJsonObject.get(JsonIdMap.ID) != null && valueJsonObject.size() == 1)
+//         if (valueJsonObject.get(IdMap.ID) != null && valueJsonObject.size() == 1)
 //         {
 //            // it contains only the object id, no properties of the object, just add those
-//            String valueObjectId = valueJsonObject.getString(JsonIdMap.ID);
+//            String valueObjectId = valueJsonObject.getString(IdMap.ID);
 //            Object valueObject = map.getObject(valueObjectId);
 //            ObjectSet explicitElems = ((SeppelScope) target).getObservedObjects();
 //            JsonObject newValueJsonObject = map.toJsonObject(valueObject, 
@@ -534,7 +530,7 @@ import org.sdmlib.replication.ChangeEventList;
 //         JsonArray spaceArray = new JsonArray();
 //         spaceArray.add(valueJsonObject);
 //         JsonObject selfProxyId = new JsonObject();
-//         selfProxyId.put(JsonIdMap.ID, map.getKey(selfProxy));
+//         selfProxyId.put(IdMap.ID, map.getKey(selfProxy));
 //         spaceArray.add(selfProxyId);
 //         jsonUpdate.put(SeppelScope.PROPERTY_SCOPENAME, ((SeppelScope) target).getScopeName());
 //         jsonUpdate.put(SeppelScope.PROPERTY_SPACES, spaceArray);
@@ -564,10 +560,22 @@ import org.sdmlib.replication.ChangeEventList;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
 
    
    //==========================================================================
@@ -714,22 +722,22 @@ import org.sdmlib.replication.ChangeEventList;
    
  
    //==============================================================================
-   private JsonIdMap map;
+   private IdMap map;
 
-   public JsonIdMap getMap()
+   public IdMap getMap()
    {
       return map;
    }
 
-   public void setMap(JsonIdMap map)
+   public void setMap(IdMap map)
    {
       this.map = map;
    }
 
-   public void withMap(JsonIdMap map)
+   public void withMap(IdMap map)
    {
       this.map = map;
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
    }
    
    public void put(String string, Object object)
@@ -745,7 +753,7 @@ import org.sdmlib.replication.ChangeEventList;
 
    
    //==============================================================================
-   public SeppelSpace init(JsonIdMap userModelIdMap, boolean javaFXApplication, String hostName, int portNo)
+   public SeppelSpace init(IdMap userModelIdMap, boolean javaFXApplication, String hostName, int portNo)
    {
       String userName = userModelIdMap.getCounter().getPrefixId();
       
@@ -755,7 +763,7 @@ import org.sdmlib.replication.ChangeEventList;
       .withJavaFXApplication(javaFXApplication);
       
       this.withMap(userModelIdMap);
-      userModelIdMap.withCreator(SeppelSpaceCreator.createIdMap(null));
+      userModelIdMap.with(SeppelSpaceCreator.createIdMap(null));
       
       this.selfProxy = new SeppelSpaceProxy()
       .withSpaceId(this.getSpaceId())
@@ -1113,7 +1121,7 @@ import org.sdmlib.replication.ChangeEventList;
          {
             jsonObject = new JsonObject();
             jsonObject.withValue(changeMsg);
-            jsonObject = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+            jsonObject = (JsonObject) jsonObject.get(JsonTokener.PROPS);
          }
          
          Object valueObject = null; 

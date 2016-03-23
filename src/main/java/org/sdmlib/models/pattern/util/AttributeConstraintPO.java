@@ -558,6 +558,192 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       return this.startCreate().hasSrc(tgt).endCreate();
    }
 
+   public AttributeConstraintPO filterAttrName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterAttrName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterTgtValue(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterUpperTgtValue(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterCmpOp(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterCmpOp(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterHostGraphSrcObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AttributeConstraintPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

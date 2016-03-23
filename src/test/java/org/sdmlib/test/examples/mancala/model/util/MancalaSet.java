@@ -25,12 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 
-public class MancalaSet extends SDMSet<Mancala>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MancalaSet extends SimpleSet<Mancala>
 {
 
 
@@ -38,14 +39,6 @@ public class MancalaSet extends SDMSet<Mancala>
    {
       return new MancalaPO(this.toArray(new Mancala[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.mancala.model.Mancala";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MancalaSet with(Object value)
@@ -257,5 +250,17 @@ public class MancalaSet extends SDMSet<Mancala>
    }
 
 
-   public static final MancalaSet EMPTY_SET = new MancalaSet().withReadOnly(true);
+   public static final MancalaSet EMPTY_SET = new MancalaSet().withFlag(MancalaSet.READONLY);
+
+
+   public MancalaPO filterMancalaPO()
+   {
+      return new MancalaPO(this.toArray(new Mancala[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.mancala.model.Mancala";
+   }
 }

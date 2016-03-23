@@ -25,30 +25,23 @@ import java.net.Socket;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.SharedSpaceSet;
 
-public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
+public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
 {
 
-   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withReadOnly(true);
+   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withFlag(ReplicationChannelSet.READONLY);
 
 
    public ReplicationChannelPO hasReplicationChannelPO()
    {
       return new ReplicationChannelPO(this.toArray(new ReplicationChannel[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationChannel";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationChannelSet with(Object value)
@@ -206,6 +199,88 @@ public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
       }
       
       return this;
+   }
+
+
+
+   public ReplicationChannelPO filterReplicationChannelPO()
+   {
+      return new ReplicationChannelPO(this.toArray(new ReplicationChannel[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ReplicationChannel";
+   }
+
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the socket attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet filterSocket(Socket value)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (value == obj.getSocket())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the targetNodeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet filterTargetNodeId(String value)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (value.equals(obj.getTargetNodeId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the targetNodeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet filterTargetNodeId(String lower, String upper)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTargetNodeId()) <= 0 && obj.getTargetNodeId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

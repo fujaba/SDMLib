@@ -25,13 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.taskflows.util.LoggerSet;
 
-public class LogEntrySet extends SDMSet<LogEntry>
+public class LogEntrySet extends SimpleSet<LogEntry>
 {
 
 
@@ -39,14 +40,6 @@ public class LogEntrySet extends SDMSet<LogEntry>
    {
       return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.LogEntry";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LogEntrySet with(Object value)
@@ -379,5 +372,111 @@ public class LogEntrySet extends SDMSet<LogEntry>
    }
 
 
-   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withReadOnly(true);
+   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withFlag(LogEntrySet.READONLY);
+
+
+   public LogEntryPO filterLogEntryPO()
+   {
+      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.LogEntry";
+   }
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the nodeName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterNodeName(String value)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (value.equals(obj.getNodeName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the nodeName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterNodeName(String lower, String upper)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (lower.compareTo(obj.getNodeName()) <= 0 && obj.getNodeName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the taskName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterTaskName(String value)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (value.equals(obj.getTaskName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LogEntry objects and collect those LogEntry objects where the taskName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LogEntry objects that match the parameter
+    */
+   public LogEntrySet filterTaskName(String lower, String upper)
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         if (lower.compareTo(obj.getTaskName()) <= 0 && obj.getTaskName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

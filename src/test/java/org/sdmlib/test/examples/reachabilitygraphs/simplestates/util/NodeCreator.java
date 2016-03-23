@@ -25,7 +25,7 @@ import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class NodeCreator extends EntityFactory
 {
@@ -86,7 +86,7 @@ public class NodeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -109,7 +109,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_NEXT + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_NEXT + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).withoutNext((Node) value);
          return true;
@@ -121,7 +121,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_PREV + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).withoutPrev((Node) value);
          return true;
@@ -129,7 +129,7 @@ public class NodeCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.CreatorCreator.createIdMap(sessionID);
    }

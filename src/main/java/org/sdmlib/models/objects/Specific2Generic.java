@@ -1,15 +1,16 @@
 package org.sdmlib.models.objects;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 
 public class Specific2Generic
 {
@@ -19,10 +20,9 @@ public class Specific2Generic
       
       public String secondPropName = null;
 
-	@Override
-	public boolean update(String typ, BaseItem jsonObject, Object target, String property,
-			Object oldValue, Object newValue) {
-		Object tmp = jsonObject.getValueItem(JsonIdMap.REMOVE);
+  	public boolean update(Object event) {
+    	  SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+  			Object tmp = simpleEvent.getEntity().getValue(IdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
@@ -38,15 +38,15 @@ public class Specific2Generic
 	}
    }
 
-   public GenericGraph convert(JsonIdMap idMap, Object root)
+   public GenericGraph convert(IdMap idMap, Object root)
    {
       GenericGraph graph = new GenericGraph();
       
       LinkedHashMap<String, GenericObject> genObjMap = new LinkedHashMap<String, GenericObject>();
-      LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
+//      LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
       
       MyUpdateListener changeListener = new MyUpdateListener();
-      idMap.withUpdateListenerSend(changeListener);
+      idMap.with(changeListener);
       
       // we go via a json array
       JsonArray jsonArray = idMap.toJsonArray(root);
@@ -55,14 +55,14 @@ public class Specific2Generic
       {
          JsonObject jsonObj = jsonArray.getJSONObject(i);
          
-         String currentJsonId = jsonObj.getString(JsonIdMap.ID);
+         String currentJsonId = jsonObj.getString(IdMap.ID);
          GenericObject genObj = graph.createObjects()
                .withName(currentJsonId)
-               .withType(jsonObj.getString(JsonIdMap.CLASS));
+               .withType(jsonObj.getString(IdMap.CLASS));
          
          genObjMap.put(genObj.getName(), genObj);
          
-         JsonObject jsonProps = (JsonObject) jsonObj.get(JsonIdMap.JSON_PROPS);
+         JsonObject jsonProps = (JsonObject) jsonObj.get(JsonTokener.PROPS);
          
          if (jsonProps != null)
          {
@@ -103,12 +103,12 @@ public class Specific2Generic
       return graph;
    }
 
-   private void addOneGenericLink(JsonIdMap idMap, GenericGraph graph,
+   private void addOneGenericLink(IdMap idMap, GenericGraph graph,
          LinkedHashMap<String, GenericObject> genObjMap,
          MyUpdateListener changeListener, String currentJsonId,
          GenericObject genObj, String attrName, Object value, boolean multi)
    {
-      String tgtJsonId = ((JsonObject) value).getString(JsonIdMap.ID);
+      String tgtJsonId = ((JsonObject) value).getString(IdMap.ID);
 
       GenericObject genTgtObj = genObjMap.get(tgtJsonId);
 
@@ -125,7 +125,7 @@ public class Specific2Generic
 
          if (multi)
          {
-            creatorClass.setValue(specObj, attrName + JsonIdMap.REMOVE, specTgtObject, "");
+            creatorClass.setValue(specObj, attrName + IdMap.REMOVE, specTgtObject, "");
             creatorClass.setValue(specObj, attrName, specTgtObject, "");
          }
          else

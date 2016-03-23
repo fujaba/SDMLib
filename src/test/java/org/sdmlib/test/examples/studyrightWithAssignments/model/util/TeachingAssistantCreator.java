@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,15 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
-public class TeachingAssistantCreator extends EntityFactory
+public class TeachingAssistantCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -41,8 +41,8 @@ public class TeachingAssistantCreator extends EntityFactory
       Student.PROPERTY_CREDITS,
       Student.PROPERTY_UNIVERSITY,
       Student.PROPERTY_IN,
-      Student.PROPERTY_DONE,
       Student.PROPERTY_FRIENDS,
+      Student.PROPERTY_DONE,
       TeachingAssistant.PROPERTY_ROOM,
    };
    
@@ -109,14 +109,14 @@ public class TeachingAssistantCreator extends EntityFactory
          return ((TeachingAssistant) target).getIn();
       }
 
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attribute))
-      {
-         return ((TeachingAssistant) target).getDone();
-      }
-
       if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attribute))
       {
          return ((TeachingAssistant) target).getFriends();
+      }
+
+      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attribute))
+      {
+         return ((TeachingAssistant) target).getDone();
       }
 
       if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attribute))
@@ -130,32 +130,9 @@ public class TeachingAssistantCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
-      }
-
-      if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withCertified((Boolean) value);
-         return true;
-      }
-
-      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).withName((String) value);
-         return true;
-      }
-
-      if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).withId((String) value);
-         return true;
-      }
-
-      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).withAssignmentPoints(Integer.parseInt(value.toString()));
+         ((Student) target).withCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -165,10 +142,33 @@ public class TeachingAssistantCreator extends EntityFactory
          return true;
       }
 
-      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withCredits(Integer.parseInt(value.toString()));
+         ((Student) target).withAssignmentPoints(Integer.parseInt(value.toString()));
          return true;
+      }
+
+      if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
+      {
+         ((Student) target).withId((String) value);
+         return true;
+      }
+
+      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Student) target).withName((String) value);
+         return true;
+      }
+
+      if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
+      {
+         ((TeachingAssistant) target).withCertified((Boolean) value);
+         return true;
+      }
+
+      if (IdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (TeachingAssistant.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
@@ -183,27 +183,27 @@ public class TeachingAssistantCreator extends EntityFactory
          return true;
       }
 
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withDone((Assignment) value);
-         return true;
-      }
-      
-      if ((TeachingAssistant.PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withoutDone((Assignment) value);
-         return true;
-      }
-
       if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withFriends((Student) value);
          return true;
       }
       
-      if ((TeachingAssistant.PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TeachingAssistant.PROPERTY_FRIENDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withoutFriends((Student) value);
+         return true;
+      }
+
+      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         ((TeachingAssistant) target).withDone((Assignment) value);
+         return true;
+      }
+      
+      if ((TeachingAssistant.PROPERTY_DONE + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((TeachingAssistant) target).withoutDone((Assignment) value);
          return true;
       }
 
@@ -215,15 +215,13 @@ public class TeachingAssistantCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((TeachingAssistant) entity).removeYou();
    }

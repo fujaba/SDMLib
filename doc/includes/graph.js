@@ -19,7 +19,7 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-// VERSION: 2015.09.15 10:40
+// VERSION: 2015.11.09 20:21
 
 //var uniId = 0;
 //function generateId() { return uniId++; };
@@ -339,6 +339,7 @@ GraphNode.prototype = ObjectCreate(GraphUtil.prototype);
 GraphNode.prototype.getX = function () {if (this.$parent) {return this.$parent.getX() + this.x; } return this.x; };
 GraphNode.prototype.getY = function () {if (this.$parent) {return this.$parent.getY() + this.y; } return this.y; };
 GraphNode.prototype.getEdges = function () {return this.$edges; };
+GraphNode.prototype.clear = function () {this.$RIGHT = this.$LEFT = this.$UP = this.$DOWN = 0; };
 GraphNode.prototype.removeFromBoard = function (board) {if (this.$gui) {board.removeChild(this.$gui); this.$gui = null; } };
 GraphNode.prototype.isClosed = function () {
 	if (this.status === "close") {
@@ -391,6 +392,16 @@ var GraphModel = function (json, options) {
 	}
 };
 GraphModel.prototype = ObjectCreate(GraphNode.prototype);
+GraphModel.prototype.clear = function () {
+	var i;
+	GraphNode.prototype.clear.call(this);
+	for (i in this.nodes) {
+		if (!this.nodes.hasOwnProperty(i)) {
+			continue;
+		}
+		this.nodes[i].clear();
+	}
+};
 GraphModel.prototype.addEdgeModel = function (e) {
 	var edge, typ = e.typ || "edge";
 	typ = typ.charAt(0).toUpperCase() + typ.substring(1).toLowerCase();
@@ -515,8 +526,7 @@ GraphModel.prototype.calcLines = function (drawer) {
 		if (!this.nodes.hasOwnProperty(i) || typeof (this.nodes[i]) === "function") {
 			continue;
 		}
-		n = this.nodes[i];
-		n.$RIGHT = n.$LEFT = n.$UP = n.$DOWN = 0;
+		this.nodes[i].clear();
 	}
 	for (i = 0; i < this.edges.length; i += 1) {
 		e = this.edges[i];
@@ -1059,7 +1069,7 @@ Graph.prototype.utf8$to$b64 = function (str) {
 	return window.btoa(unescape(encodeURIComponent(str)));
 };
 Graph.prototype.ExportPDF = function () {
-	var converter, pdf = new jsPDF('l', 'px', 'a4');
+	var converter, pdf = new jsPDF('l','px',[this.model.width, this.model.height]);
 	converter = new svgConverter(this.board, pdf, {removeInvalid: false});
 	pdf.save('Download.pdf');
 };
@@ -1208,8 +1218,7 @@ GraphUtil.Loader.prototype.add = function (img) {
 	this.execute();
 };
 //				######################################################### LINES #########################################################
-var Edge = function () {this.init(); this.typ = "EDGE"; };
-Edge.prototype.init = function () {
+var Edge = function () {
 	this.$path = [];
 	this.$sNode = null;
 	this.$tNode = null;
@@ -1217,6 +1226,7 @@ Edge.prototype.init = function () {
 	this.$m = 0;
 	this.$n = 0;
 	this.$lineStyle = GraphUtil.Line.Format.SOLID;
+	this.typ = "EDGE";
 };
 Edge.Layout = { DIAG : 1, RECT : 0 };
 Edge.Position = {UP: "UP", LEFT: "LEFT", RIGHT: "RIGHT", DOWN: "DOWN"};
@@ -1696,7 +1706,7 @@ Edge.prototype.calcMoveLine = function (size, angle, move) {
 		this.endPos().target = new Pos((this.$top.x + this.$bot.x) / 2, (this.$top.y + this.$bot.y) / 2);
 	}
 };
-var Generalisation = function () { this.init(); this.typ = "Generalisation"; };
+var Generalisation = function () { Edge.call(this); this.typ = "Generalisation"; };
 Generalisation.prototype = ObjectCreate(Edge.prototype);
 Generalisation.prototype.calculateEdge = Generalisation.prototype.calculate;
 Generalisation.prototype.calculate = function (board, drawer) {
@@ -1706,9 +1716,8 @@ Generalisation.prototype.calculate = function (board, drawer) {
 	this.calcMoveLine(16, 50, true);
 	return true;
 };
-Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
 Generalisation.prototype.draw = function (board, drawer) {
-	this.drawSuper(board, drawer);
+	Edge.prototype.draw.call(this, board, drawer);
 	if (this.$path.length > 0) {
 		this.addElement(board, drawer.getLine(this.$top.x, this.$top.y, this.$end.x, this.$end.y, this.$lineStyle));
 		this.addElement(board, drawer.getLine(this.$bot.x, this.$bot.y, this.$end.x, this.$end.y, this.$lineStyle));
@@ -1718,10 +1727,10 @@ Generalisation.prototype.draw = function (board, drawer) {
 Generalisation.prototype.drawSourceText = function (board, drawer, style) {};
 Generalisation.prototype.drawTargetText = function (board, drawer, style) {};
 
-var Implements = function () { this.init(); this.typ = "Implements"; this.$lineStyle = GraphUtil.Line.Format.DOTTED; };
+var Implements = function () { Edge.call(this); this.typ = "Implements"; this.$lineStyle = GraphUtil.Line.Format.DOTTED; };
 Implements.prototype = ObjectCreate(Generalisation.prototype);
 
-var Unidirectional = function () { this.init(); this.typ = "Unidirectional"; };
+var Unidirectional = function () { Edge.call(this); this.typ = "Unidirectional"; };
 Unidirectional.prototype = ObjectCreate(Generalisation.prototype);
 Unidirectional.prototype.calculate = function (board, drawer) {
 	if (!this.calculateEdge(board, drawer)) {
@@ -1731,11 +1740,11 @@ Unidirectional.prototype.calculate = function (board, drawer) {
 	return true;
 };
 Unidirectional.prototype.draw = function (board, drawer) {
-	this.drawSuper(board, drawer);
+	Edge.prototype.draw.call(this, board, drawer);
 	this.addElement(board, drawer.getLine(this.$top.x, this.$top.y, this.$end.x, this.$end.y, this.$lineStyle));
 	this.addElement(board, drawer.getLine(this.$bot.x, this.$bot.y, this.$end.x, this.$end.y, this.$lineStyle));
 };
-var Aggregation = function () { this.init(); this.typ = "Aggregation"; };
+var Aggregation = function () { Edge.call(this); this.typ = "Aggregation"; };
 Aggregation.prototype = ObjectCreate(Generalisation.prototype);
 Aggregation.prototype.calculate = function (board, drawer) {
 	if (!this.calculateEdge(board, drawer)) {
@@ -1745,13 +1754,13 @@ Aggregation.prototype.calculate = function (board, drawer) {
 	return true;
 };
 Aggregation.prototype.draw = function (board, drawer) {
-	this.drawSuper(board, drawer);
+	Edge.prototype.draw.call(this, board, drawer);
 	this.addElement(board, drawer.createPath(true, "none", [this.endPos().target, this.$topCenter, this.$end, this.$botCenter]));
 };
-var Composition = function () { this.init(); this.typ = "Composition"; };
+var Composition = function () { Edge.call(this); this.typ = "Composition"; };
 Composition.prototype = ObjectCreate(Aggregation.prototype);
 Composition.prototype.draw = function (board, drawer) {
-	this.drawSuper(board, drawer);
+	Edge.prototype.draw.call(this, board, drawer);
 	var lineangle, start = this.$path[0].source;
 	lineangle = Math.atan2(this.$end.y - start.y, this.$end.x - start.x);
 	this.addElement(board, drawer.createPath(true, "#000", [this.endPos().target, this.$topCenter, this.$end, this.$botCenter], lineangle));
@@ -2639,13 +2648,9 @@ ClassEditor.EditNode = function (graph) {this.graph = graph; };
 ClassEditor.EditNode.prototype = ObjectCreate(GraphUtil.prototype);
 ClassEditor.EditNode.prototype.addElement = function (element, typ) {
 	var that = this;
-	this.bind(element, "mouseup", function (e) {that.click(e, element, typ); });
+	this.bind(element, "dblclick", function (e) {that.click(e, element, typ); });
 };
 ClassEditor.EditNode.prototype.click = function (e, control, typ) {
-	if (!control.lastClick || control.lastClick < new Date().getTime() - 1000 || control.oldValue) {
-		control.lastClick = new Date().getTime();
-		return;
-	}
 	var that = this;
 	control.oldValue = control.innerHTML;
 	control.contentEditable = true;
@@ -2653,6 +2658,13 @@ ClassEditor.EditNode.prototype.click = function (e, control, typ) {
 	this.graph.inputEvent = false;
 	this.selectText(control);
 	control.onkeydown = function (e) {that.change(e, control); };
+	control.onblur = function (e) {that.cancel(e, control); };
+};
+ClassEditor.EditNode.prototype.cancel = function (e, control) {
+	if (control.oldValue) {
+		control.oldValue = null;
+	}
+	control.contentEditable = false;
 };
 ClassEditor.EditNode.prototype.change = function (e, control) {
 	if (e.keyCode !== 27 && e.keyCode !== 13) {

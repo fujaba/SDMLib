@@ -27,11 +27,14 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
 */
-   public class Cargo implements PropertyChangeInterface
+   public class Cargo implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +48,20 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -101,7 +115,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
 
 
    
-   public static final CargoSet EMPTY_SET = new CargoSet().withReadOnly(true);
+   public static final CargoSet EMPTY_SET = new CargoSet().withFlag(CargoSet.READONLY);
 
    
    /********************************************************************

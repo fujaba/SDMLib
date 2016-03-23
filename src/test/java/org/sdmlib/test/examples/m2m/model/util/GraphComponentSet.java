@@ -24,13 +24,14 @@ package org.sdmlib.test.examples.m2m.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.m2m.model.util.GraphSet;
 
-public class GraphComponentSet extends SDMSet<GraphComponent>
+public class GraphComponentSet extends SimpleSet<GraphComponent>
 {
 
 
@@ -38,14 +39,6 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    {
       return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.GraphComponent";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GraphComponentSet with(Object value)
@@ -154,8 +147,67 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    }
 
 
-   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withReadOnly(true);
+   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withFlag(GraphComponentSet.READONLY);
    public GraphComponentSet hasText(String lower, String upper)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public GraphComponentPO filterGraphComponentPO()
+   {
+      return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.m2m.model.GraphComponent";
+   }
+
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet filterText(String value)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet filterText(String lower, String upper)
    {
       GraphComponentSet result = new GraphComponentSet();
       

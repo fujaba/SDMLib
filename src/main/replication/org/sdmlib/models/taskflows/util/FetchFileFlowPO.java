@@ -6,6 +6,8 @@ import org.sdmlib.models.taskflows.FetchFileFlow;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
+import org.sdmlib.models.taskflows.util.FetchFileFlowPO;
 
 public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlow>
 {
@@ -296,6 +298,122 @@ public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlo
          return ((TaskFlow) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public FetchFileFlowPO filterFileServer(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILESERVER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO filterFileName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO filterFileName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO filterTaskNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO filterTaskNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO filterIdMap(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO filterParent()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public FetchFileFlowPO filterParent(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT);
+   }
+
+   public TaskFlowPO filterSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public FetchFileFlowPO filterSubFlow(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
    }
 
 }

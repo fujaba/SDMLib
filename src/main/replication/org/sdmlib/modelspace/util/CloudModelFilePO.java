@@ -46,7 +46,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -61,7 +61,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -99,7 +99,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -114,7 +114,7 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -175,6 +175,79 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
          return ((CloudModelFile) this.getCurrentMatch()).getDir();
       }
       return null;
+   }
+
+   public CloudModelFilePO filterFileName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO filterFileName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO filterLastModifiedTime(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_LASTMODIFIEDTIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO filterLastModifiedTime(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_LASTMODIFIEDTIME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelDirectoryPO filterDir()
+   {
+      CloudModelDirectoryPO result = new CloudModelDirectoryPO(new CloudModelDirectory[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(CloudModelFile.PROPERTY_DIR, result);
+      
+      return result;
+   }
+
+   public CloudModelFilePO filterDir(CloudModelDirectoryPO tgt)
+   {
+      return hasLinkConstraint(tgt, CloudModelFile.PROPERTY_DIR);
    }
 
 }

@@ -62,7 +62,8 @@ public class AddTemplate extends TemplateItem {
 		}
 		if(max<0) {
 			this.offset = methodEnd;
+			return true;
 		}
-		return this.offset>=0;
+		return false;
 	}
 }

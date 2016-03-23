@@ -31,6 +31,7 @@ import java.util.Set;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class Parser
@@ -459,25 +460,21 @@ public class Parser
 
    private String parseClassType()
    {
-
-      if ("class".equals(currentRealWord()))
+	   classType ="";
+      if (CLASS.equals(currentRealWord()))
       {
-         skip("class");
          classType = "class";
-      }
-
-      else if ("interface".equals(currentRealWord()))
+      }else if (INTERFACE.equals(currentRealWord()))
       {
-         skip("interface");
-         classType = "interface";
+         classType = INTERFACE;
       }
-
-      else if ("enum".equals(currentRealWord()))
+      else if (ENUM.equals(currentRealWord()))
       {
-         skip("enum");
-         classType = "enum";
+         classType = ENUM;
       }
-
+      if(classType.isEmpty() == false) {
+    	  skip(classType);
+      }
       return classType;
    }
 
@@ -586,7 +583,7 @@ public class Parser
          {
             skipTo('{');
          }
-
+         methodBodyStartPos = currentRealToken.startPos;
          parseBlock();
 
          String constructorSignature = Parser.CONSTRUCTOR + ":" + className + params;
@@ -615,7 +612,7 @@ public class Parser
          verbose("parsing member: " + memberName);
 
          nextRealToken();
-
+         // Switch between Enum Value and Attributes
          if (currentRealKindEquals('='))
          {
             // field declaration with initialisation
@@ -642,8 +639,7 @@ public class Parser
                );
 
             checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
-         }
-         else if (currentRealKindEquals(';') && !",".equals(memberName))
+         } else if (currentRealKindEquals(';') && !",".equals(memberName))
          {
             // field declaration
             checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
@@ -713,14 +709,12 @@ public class Parser
 
             checkSearchStringFound(methodSignature, startPos);
             // System.out.println(className + " :  " + methodSignature);
-         }
+         } 
          else if (ENUM.equals(classType))
          {
-
             if (",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || !";".equals(type)
                && currentRealKindEquals(EOF))
             {
-
                String enumSignature = Parser.ENUMVALUE + ":" + type;
                symTab.put(enumSignature,
                   new SymTabEntry()
@@ -735,7 +729,23 @@ public class Parser
                      .withPreCommentEndPos(preCommentEndPos)
                      .withAnnotationsStartPos(annotationsStartPos)
                   );
-
+            } else {  String enumSignature = Parser.ENUMVALUE + ":" + type;
+            	symTab.put(enumSignature,
+                    new SymTabEntry()
+                       .withMemberName(type)
+                       .withKind(ENUMVALUE)
+                       .withType(enumSignature + ":" + className)
+                       .withStartPos(startPos)
+                       .withEndPos(previousRealToken.startPos)
+                       .withBodyStartPos(methodBodyStartPos)
+                       .withModifiers(modifiers)               
+                       .withPreCommentStartPos(preCommentStartPos)
+                       .withPreCommentEndPos(preCommentEndPos)
+                       .withAnnotationsStartPos(annotationsStartPos)
+                    );
+            	
+                 skipTo(';');
+                 skip(";");
             }
          }
       }
@@ -1022,13 +1032,14 @@ public class Parser
       // nextRealToken();
       // }
 
+      skip(";");
+      
       symTab.put(IMPORT + ":" + importName,
          new SymTabEntry().withMemberName(importName)
             .withModifiers(modifier)
             .withStartPos(startPos)
             .withEndPos(previousRealToken.endPos));
 
-      skip(";");
    }
 
    private void parsePackageDecl()
@@ -2072,11 +2083,6 @@ public class Parser
       return this;
    }
 
-   public boolean exists()
-   {
-      return new File(fileName).exists();
-   }
-
    public boolean loadFile()
    {
       File file = new File(fileName);
@@ -2294,27 +2300,35 @@ public class Parser
 
    public void insertImport(String className)
    {
-      if (className.indexOf("<") > 0)
+	   int genericType = className.indexOf("<");
+	   String[] strings;
+      if (genericType > 0)
       {
-         className = className.substring(0, className.indexOf("<"));
+    	  // Try to rekursiv add
+    	  insertImport(className.substring(genericType+1, className.lastIndexOf(">")));
+    	  strings = new String[]{className.substring(0, genericType)}; 
+      } else {
+    	  strings = className.split(",");
       }
-      if ("String int double float boolean void".indexOf(className) >= 0)
-      {
-         return;
-      }
-
       int pos = indexOf(Parser.IMPORT);
-
       String prefix = "";
       if (search(Parser.IMPORT, pos) < 0)
       {
          prefix = "\n";
       }
-
-      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + className);
-      if (symTabEntry == null)
-      {
-         insert(getEndOfImports() + 1, prefix + "\nimport " + className + ";");
+      for (String string : strings) {
+    	  if (EntityUtil.isPrimitiveType(string) )
+          {
+             continue;
+          }
+    	  while(string.endsWith(".")) {
+    		  string = string.substring(0, string.length() - 1); 
+    	  }
+	      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + string);
+	      if (symTabEntry == null)
+	      {
+	         insert(getEndOfImports() + 1, prefix + "\nimport " + string + ";");
+	      }
       }
    }
 }

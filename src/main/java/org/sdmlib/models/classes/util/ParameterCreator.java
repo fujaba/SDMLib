@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,25 +18,26 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.Value;
-import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class ParameterCreator extends EntityFactory
+public class ParameterCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-         Parameter.PROPERTY_INITIALIZATION,
-         Parameter.PROPERTY_METHOD,
-         Parameter.PROPERTY_TYPE,
-         Parameter.PROPERTY_NAME
+      Value.PROPERTY_INITIALIZATION,
+      Value.PROPERTY_TYPE,
+      SDMLibClass.PROPERTY_NAME,
+      Parameter.PROPERTY_METHOD,
    };
    
    @Override
@@ -45,14 +46,10 @@ public class ParameterCreator extends EntityFactory
       return properties;
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Parameter(null);
+      return new Parameter();
    }
    
    @Override
@@ -92,27 +89,27 @@ public class ParameterCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
-      }
-
-      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         ((Value) target).setInitialization((String) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
       if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
-         ((Value) target).setType((org.sdmlib.models.classes.DataType) value);
+         ((Value) target).withType((DataType) value);
          return true;
       }
 
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).withName((String) value);
+         ((Value) target).withInitialization((String) value);
          return true;
+      }
+
+      if (IdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (Parameter.PROPERTY_METHOD.equalsIgnoreCase(attrName))
@@ -123,11 +120,13 @@ public class ParameterCreator extends EntityFactory
       
       return false;
    }
-     
-   //==========================================================================
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
+   }
    
-   @Override
-   public void removeObject(Object entity)
+   //==========================================================================
+      public void removeObject(Object entity)
    {
       ((Parameter) entity).removeYou();
    }

@@ -25,29 +25,22 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
-public class BigBrotherSet extends SDMSet<BigBrother>
+public class BigBrotherSet extends SimpleSet<BigBrother>
 {
 
-   public static final BigBrotherSet EMPTY_SET = new BigBrotherSet().withReadOnly(true);
+   public static final BigBrotherSet EMPTY_SET = new BigBrotherSet().withFlag(BigBrotherSet.READONLY);
 
 
    public BigBrotherPO hasBigBrotherPO()
    {
       return new BigBrotherPO(this.toArray(new BigBrother[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BigBrotherSet with(Object value)
@@ -234,4 +227,16 @@ public class BigBrotherSet extends SDMSet<BigBrother>
       return this;
    }
 
+
+
+   public BigBrotherPO filterBigBrotherPO()
+   {
+      return new BigBrotherPO(this.toArray(new BigBrother[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
+   }
 }

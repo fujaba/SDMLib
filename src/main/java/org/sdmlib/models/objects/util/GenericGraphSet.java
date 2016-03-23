@@ -23,15 +23,14 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
-public class GenericGraphSet extends SDMSet<GenericGraph>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericGraphSet extends SimpleSet<GenericGraph>
 {
    public GenericObjectSet getObjects()
    {
@@ -126,7 +125,7 @@ public class GenericGraphSet extends SDMSet<GenericGraph>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericGraph>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -149,6 +148,12 @@ public class GenericGraphSet extends SDMSet<GenericGraph>
       return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
 
-   public static final GenericGraphSet EMPTY_SET = new GenericGraphSet().withReadOnly(true);
+   public static final GenericGraphSet EMPTY_SET = new GenericGraphSet().withFlag(GenericGraphSet.READONLY);
+
+
+   public GenericGraphPO filterGenericGraphPO()
+   {
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
+   }
 }
 

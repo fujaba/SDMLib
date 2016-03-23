@@ -26,9 +26,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.debug.FlipBook;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.json.JsonIdMap;
 
-public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
+public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
 	/** The Constant JSON_PROPS. */
 	public static final String JSON_HYPERREF = "hyperref";
 
@@ -40,11 +39,11 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
 		}
 		if (object instanceof PropertyChangeSupport) {
 			((PropertyChangeSupport) object).addPropertyChangeListener(
-					IdMap.UPDATE, getUpdateListener());
+					IdMap.UPDATE, getUpdateExecuter());
 			return true;
 		} else if (object instanceof PropertyChangeInterface)
 		{
-		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateListener());
+		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateExecuter());
 		   return true;
 		}
 		return false;
@@ -73,7 +72,7 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
    {
       FlipBook flipBook = new FlipBook().init(this);
       
-      this.withUpdateListenerSend(flipBook);
+      this.with(flipBook);
 
       return flipBook;
    }

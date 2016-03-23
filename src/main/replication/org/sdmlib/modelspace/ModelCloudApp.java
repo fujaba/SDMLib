@@ -5,6 +5,12 @@ import java.beans.PropertyChangeListener;
 import java.net.InetAddress;
 import java.util.List;
 
+import org.sdmlib.javafx.FX;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.modelspace.util.ModelCloudCreator;
+import org.sdmlib.modelspace.util.TaskBoardCreator;
+
+import de.uniks.networkparser.IdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,13 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import org.sdmlib.javafx.FX;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.modelspace.util.ModelCloudCreator;
-import org.sdmlib.modelspace.util.TaskBoardCreator;
-
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class ModelCloudApp extends Application
 {
    public static void main(String... args)
@@ -38,7 +37,7 @@ public class ModelCloudApp extends Application
    private VBox root;
    private String userName;
    private String sessionId;
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private ModelCloud modelCloud;
    private ModelSpace space;
    private TextField acceptPortField;
@@ -143,7 +142,7 @@ public class ModelCloudApp extends Application
       
       String taskSessionId = laneName + "_" + System.currentTimeMillis();
 
-      JsonIdMap taskIdMap = TaskBoardCreator.createIdMap(taskSessionId);
+      IdMap taskIdMap = TaskBoardCreator.createIdMap(taskSessionId);
       
       taskBoard = new TaskBoard(modelCloud, taskIdMap);
       modelCloud.setTaskBoard(taskBoard);

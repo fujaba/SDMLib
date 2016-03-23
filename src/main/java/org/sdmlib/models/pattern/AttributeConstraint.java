@@ -56,7 +56,7 @@ import java.lang.Object;
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
             creatorClass.setValue(srcObj, this.getAttrName(), this.getTgtValue(), "");
             this.setHasMatch(true);
             return true;
@@ -71,7 +71,7 @@ import java.lang.Object;
          
          if (hostGraphSrcObject != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+            SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, attrName);
             
             boolean itWorks = (value == null && tgtValue == null || value != null && value.equals(tgtValue));
@@ -93,7 +93,7 @@ import java.lang.Object;
                {  
                   String msg = "// attribute a1 of node x has required value y";
                   msg = msg.replaceFirst("y", "" + value);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   msg = msg.replaceFirst("a1", "" + attrName);
                   getTopPattern().addLogMsg(msg);
                }
@@ -107,7 +107,7 @@ import java.lang.Object;
                   String msg = "// attribute a1 of node x has value actual and not required value y, backtrack!";
                   msg = msg.replaceFirst("y", "" + tgtValue);
                   msg = msg.replaceFirst("actual", "" + value);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   msg = msg.replaceFirst("a1", "" + attrName);
                   getTopPattern().addLogMsg(msg);
                }

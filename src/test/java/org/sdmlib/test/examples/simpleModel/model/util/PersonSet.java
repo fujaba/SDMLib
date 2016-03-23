@@ -23,26 +23,20 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
-public class PersonSet extends SDMSet<Person>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
    public PersonPO hasPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleModel.model.Person";
    }
 
 
@@ -117,6 +111,65 @@ public class PersonSet extends SDMSet<Person>
       }
       
       return this;
+   }
+
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.simpleModel.model.Person";
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterName(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet filterName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

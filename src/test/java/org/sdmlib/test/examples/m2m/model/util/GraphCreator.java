@@ -27,7 +27,7 @@ import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class GraphCreator extends EntityFactory
 {
@@ -82,7 +82,7 @@ public class GraphCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -93,7 +93,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_GCS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_GCS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromGcs((GraphComponent) value);
          return true;
@@ -105,7 +105,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromPersons((Person) value);
          return true;
@@ -117,7 +117,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_RELATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_RELATIONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromRelations((Relation) value);
          return true;
@@ -125,7 +125,7 @@ public class GraphCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

@@ -27,7 +27,7 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class LudoCreator extends EntityFactory
 {
@@ -88,7 +88,7 @@ public class LudoCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -105,7 +105,7 @@ public class LudoCreator extends EntityFactory
          return true;
       }
       
-      if ((Ludo.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Ludo.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Ludo) target).removeFromPlayers((Player) value);
          return true;
@@ -123,7 +123,7 @@ public class LudoCreator extends EntityFactory
          return true;
       }
       
-      if ((Ludo.PROPERTY_FIELDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Ludo.PROPERTY_FIELDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Ludo) target).removeFromFields((Field) value);
          return true;
@@ -131,7 +131,7 @@ public class LudoCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

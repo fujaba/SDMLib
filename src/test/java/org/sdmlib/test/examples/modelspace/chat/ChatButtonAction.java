@@ -29,7 +29,7 @@ public class ChatButtonAction implements EventHandler<ActionEvent>
       
       currentChannel.withMsgs(msg);
       
-      System.out.println("new message: " + text);
+//      System.out.println("new message: " + text);
    }
 
 }

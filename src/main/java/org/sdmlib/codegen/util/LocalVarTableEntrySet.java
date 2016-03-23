@@ -25,11 +25,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.LocalVarTableEntry;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LocalVarTableEntrySet extends SimpleSet<LocalVarTableEntry>
 {
    public StringList getName()
    {
@@ -176,7 +177,7 @@ public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
 
    }
 
-   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadOnly(true);
+   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withFlag(LocalVarTableEntrySet.READONLY);
    public LocalVarTableEntrySet hasName(String value)
    {
       LocalVarTableEntrySet result = new LocalVarTableEntrySet();
@@ -283,6 +284,194 @@ public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
    }
 
    public LocalVarTableEntrySet hasEndPos(int lower, int upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterName(String value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterName(String lower, String upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterType(String value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the type attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterType(String lower, String upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterStartPos(int value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterStartPos(int lower, int upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterEndPos(int value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of LocalVarTableEntry objects and collect those LocalVarTableEntry objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of LocalVarTableEntry objects that match the parameter
+    */
+   public LocalVarTableEntrySet filterEndPos(int lower, int upper)
    {
       LocalVarTableEntrySet result = new LocalVarTableEntrySet();
       

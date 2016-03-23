@@ -4,6 +4,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.sdmlib.modelspace.ModelSpace;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
+
+import de.uniks.networkparser.IdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -21,12 +26,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class MSChatClient  extends Application
 {
@@ -52,7 +51,7 @@ public class MSChatClient  extends Application
    private Button chatButton;
    private Text chatText;
    private String channelName = null;
-   private JsonIdMap idMap;
+   private IdMap idMap;
    private MSChatChannel channel;
    private ModelSpace space;
    private String sessionId;

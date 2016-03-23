@@ -22,12 +22,14 @@
 package org.sdmlib.test.examples.SDMLib;
    
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
    
 public class PatternModelCodeGen 
 {
@@ -46,19 +48,17 @@ public class PatternModelCodeGen
       
       Clazz patternElement = model.createClazz("PatternElement")
       .withAttribute("modifier", DataType.STRING)
-      .withAttribute("hasMatch", DataType.BOOLEAN, "false")
+      .with(new Attribute("hasMatch", DataType.BOOLEAN).withValue("false"))
       .withAttribute("patternObjectName", DataType.STRING)
       .withAttribute("doAllMatches", DataType.BOOLEAN);
       
       Clazz pattern = model.createClazz("Pattern")
-         .withAttribute("currentSubPattern", DataType.ref("Pattern"))
          .withAttribute("debugMode", DataType.INT) 
-         // .withAttribute("trace", DataType.ref("StringBuilder"))
          .withAttribute("name", DataType.STRING)
          .withSuperClazz(patternElement);
       
-      // model.createClazz(StringBuilder.class.getName());
-      
+      pattern.withUniDirectional(pattern, "currentSubPattern", Cardinality.ONE);
+            
       model.createClazz("NegativeApplicationCondition")
       .withSuperClazz(pattern);
       
@@ -66,9 +66,8 @@ public class PatternModelCodeGen
       .withSuperClazz(pattern)
       .withAttribute("matchForward", DataType.BOOLEAN);
 
-      new Association()
-      .withTarget(patternElement, "elements", Card.MANY)
-      .withSource(pattern, "pattern", Card.ONE);
+      new Association(patternElement).with("elements").with(Cardinality.MANY)
+      	.with(new Association(pattern).with("pattern").with(Cardinality.ONE));
       
       Clazz patternObject = model.createClazz("PatternObject")
       .withSuperClazz(patternElement)
@@ -96,9 +95,8 @@ public class PatternModelCodeGen
       .withAttribute("cmpOp", DataType.STRING)
       .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
-      new Association()
-      .withTarget(patternObject, "src", Card.ONE)
-      .withSource(attrConstraint, "attrConstraints", Card.MANY);
+      new Association(patternObject).with("src").with(Cardinality.ONE)
+      	.with(new Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
       
       model.createClazz("LinkConstraint")
       .withSuperClazz(patternLink);
@@ -115,9 +113,8 @@ public class PatternModelCodeGen
       Clazz destroyObjectClazz = model.createClazz("DestroyObjectElem")
       .withSuperClazz(patternElement);
       
-      new Association()
-      .withTarget(patternObject, "patternObject", Card.ONE)
-      .withSource(destroyObjectClazz, "destroyElem", Card.ONE);
+      new Association(patternObject).with("patternObject").with(Cardinality.ONE)
+      	.with(new Association(destroyObjectClazz).with("destroyElem").with(Cardinality.ONE));
       
       model.createClazz("CardinalityConstraint")
       .withSuperClazz(patternElement)
@@ -125,13 +122,13 @@ public class PatternModelCodeGen
          .withAttribute("hostGraphSrcObject", DataType.OBJECT)
          .withAttribute("minCard", DataType.LONG)
          .withAttribute("maxCard", DataType.LONG)
-      .withAssoc(patternObject, "src", Card.ONE, "cardConstraints", Card.MANY);
+      .withBidirectional(patternObject, "src", Cardinality.ONE, "cardConstraints", Cardinality.MANY);
       
       model.createClazz("MatchOtherThen")
          .withSuperClazz(patternElement)
          .withAttribute("hostGraphSrcObject", DataType.OBJECT)
-         .withAssoc(patternObject, "src", Card.ONE, "matchOtherThen", Card.MANY)
-         .withAssoc(patternObject, "forbidden", Card.ONE, "excluders", Card.MANY);
+         .withBidirectional(patternObject, "src", Cardinality.ONE, "matchOtherThen", Cardinality.MANY)
+         .withBidirectional(patternObject, "forbidden", Cardinality.ONE, "excluders", Cardinality.MANY);
       
       model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)
             .withSuperClazz(patternElement);
@@ -142,18 +139,18 @@ public class PatternModelCodeGen
             .withAttribute("number", DataType.LONG)
             .withAttribute("graphRoot", DataType.OBJECT);
       
-      reachabilityGraph.withAssoc(rState, "states", Card.MANY, "parent", Card.ONE);
+      reachabilityGraph.withBidirectional(rState, "states", Cardinality.MANY, "parent", Cardinality.ONE);
       
       Clazz ruleApplication = model.createClazz("RuleApplication")
             .withAttribute("description", DataType.STRING);
       
-      ruleApplication.withAssoc(rState, "src", Card.ONE, "ruleapplications", Card.MANY);
+      ruleApplication.withBidirectional(rState, "src", Cardinality.ONE, "ruleapplications", Cardinality.MANY);
       
-      ruleApplication.withAssoc(rState, "tgt", Card.ONE, "resultOf", Card.MANY);
+      ruleApplication.withBidirectional(rState, "tgt", Cardinality.ONE, "resultOf", Cardinality.MANY);
       
-      reachabilityGraph.withAssoc(rState, "todo", Card.MANY, "master", Card.ONE);
+      reachabilityGraph.withBidirectional(rState, "todo", Cardinality.MANY, "master", Cardinality.ONE);
       
-      reachabilityGraph.withAssoc(pattern, "rules", Card.MANY, "rgraph", Card.ONE);
+      reachabilityGraph.withBidirectional(pattern, "rules", Cardinality.MANY, "rgraph", Cardinality.ONE);
       
       // model.getGenerator().withShowDiff(DIFF.FULL);
       

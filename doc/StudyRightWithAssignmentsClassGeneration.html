@@ -18,11 +18,11 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
@@ -41,18 +41,18 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -65,23 +65,23 @@
    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>3. add University --> Student association</p>
-<pre>      universityClass.withAssoc(studentClass, &quot;students&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+<pre>      universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
 </pre><script>
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -90,7 +90,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -101,6 +101,19 @@
             "id":"Student",
             "cardinality":"many",
             "property":"students"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
          }
       }
    ]
@@ -113,32 +126,34 @@
             .withAttribute(&quot;topic&quot;, DataType.STRING)
             .withAttribute(&quot;credits&quot;, DataType.INT);
 
-      roomClass.createMethod(&quot;findPath&quot;).withParameter(&quot;String&quot;, DataType.INT);
+      roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
 
       &#x2F;&#x2F;Association universityToRoom = 
-      universityClass.withAssoc(roomClass, &quot;rooms&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+      universityClass.withBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
       
       &#x2F;&#x2F; Association doors = 
-      roomClass.withAssoc(roomClass, &quot;doors&quot;, Card.MANY, &quot;doors&quot;, Card.MANY);
+      roomClass.withBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
 
       &#x2F;&#x2F; Association studentsInRoom = 
-      studentClass.withAssoc(roomClass, &quot;in&quot;, Card.ONE, &quot;students&quot;, Card.MANY);
+      studentClass.withBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+      studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+      
 </pre><script>
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -149,17 +164,17 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "name : String",
+            "name : String",
             "topic : String",
             "credits : int"
          ],
          "methods":[
-         "findPath(int String)"
+            "findPath(int motivation) String"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -193,9 +208,48 @@
             "property":"students"
          },
          "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
             "id":"Room",
             "cardinality":"one",
             "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
          }
       },
       {
@@ -209,6 +263,19 @@
             "id":"Room",
             "cardinality":"many",
             "property":"doors"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
          }
       }
    ]
@@ -219,25 +286,25 @@
 <pre>      Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
                .withAttribute(&quot;content&quot;, DataType.STRING)
                .withAttribute(&quot;points&quot;, DataType.INT)
-               .withAssoc(roomClass, &quot;room&quot;, Card.ONE, &quot;assignments&quot;, Card.MANY);
+               .withBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
       
-      studentClass.withAssoc(assignmentClass, &quot;done&quot;, Card.MANY, &quot;students&quot;, Card.MANY);
+      studentClass.withBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
 </pre><script>
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "id : String",
             "assignmentPoints : int",
             "motivation : int",
@@ -248,25 +315,25 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "name : String",
+            "name : String",
             "topic : String",
             "credits : int"
          ],
          "methods":[
-         "findPath(int String)"
+            "findPath(int motivation) String"
          ]
       },
       {
          "typ":"node",
          "id":"Assignment",
          "attributes":[
-         "content : String",
+            "content : String",
             "points : int"
          ]
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"University",
@@ -300,9 +367,35 @@
             "property":"students"
          },
          "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
             "id":"Room",
             "cardinality":"one",
             "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
          }
       },
       {
@@ -323,12 +416,51 @@
          "source":{
             "id":"Room",
             "cardinality":"many",
+            "property":"rooms"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"many",
             "property":"doors"
          },
          "target":{
             "id":"Room",
             "cardinality":"many",
             "property":"doors"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"assignments"
          }
       },
       {
@@ -342,6 +474,19 @@
             "id":"Room",
             "cardinality":"one",
             "property":"room"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"done"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
          }
       }
    ]

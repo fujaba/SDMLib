@@ -25,13 +25,15 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.replication.SharedSpace;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface
 {
@@ -71,7 +73,7 @@ import de.uniks.networkparser.json.JsonIdMap;
          return true;
       }
 
-      if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_SHAREDSPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromSharedSpaces((SharedSpace) value);
          return true;

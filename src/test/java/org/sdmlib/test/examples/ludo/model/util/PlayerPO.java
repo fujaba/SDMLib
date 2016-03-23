@@ -8,6 +8,11 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
+import org.sdmlib.test.examples.ludo.model.util.LudoPO;
+import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
+import org.sdmlib.test.examples.ludo.model.util.DicePO;
+import org.sdmlib.test.examples.ludo.model.util.FieldPO;
+import org.sdmlib.test.examples.ludo.model.util.PawnPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -567,6 +572,241 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
          return ((Player) this.getCurrentMatch()).getPawns();
       }
       return null;
+   }
+
+   public PlayerPO filterColor(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterColor(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterEnumColor(LudoColor value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_ENUMCOLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterX(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_X)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterX(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_X)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterY(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_Y)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO filterY(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_Y)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO filterGame()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterGame(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_GAME);
+   }
+
+   public PlayerPO filterPrev()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterPrev(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PREV);
+   }
+
+   public DicePO filterDice()
+   {
+      DicePO result = new DicePO(new Dice[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_DICE, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterDice(DicePO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_DICE);
+   }
+
+   public FieldPO filterStart()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_START, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterStart(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_START);
+   }
+
+   public FieldPO filterBase()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_BASE, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterBase(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_BASE);
+   }
+
+   public FieldPO filterLanding()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_LANDING, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterLanding(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_LANDING);
+   }
+
+   public PawnPO filterPawns()
+   {
+      PawnPO result = new PawnPO(new Pawn[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_PAWNS, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterPawns(PawnPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PAWNS);
    }
 
 }

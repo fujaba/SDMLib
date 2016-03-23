@@ -3,10 +3,7 @@ package org.sdmlib.models.classes.logic;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -19,44 +16,43 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
-import org.sdmlib.models.classes.util.ClazzSet;
 
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzImport;
+import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.SDMSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 /**
  * @author Stefan
  *
  */
-public class GenClass extends Generator<Clazz>
+public class GenClass extends GenClazzEntity
 {
    public static final String PROPERTY_FILEPATH = "filePath";
 
    private String filePath;
 
    private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
-   private Parser creatorParser = null;
-   private Parser modelSetParser = null;
-   private Parser patternObjectParser = null;
-   private Parser patternObjectCreatorParser = null;
-   private Parser parser = null;
 
-   public GenClass generate(String rootDir, String helpersDir)
+
+   private Parser patternObjectCreatorParser = null;
+ 
+
+   public void generate(String rootDir, String helpersDir)
    {
       // first generate the class itself
+	  ClassModel classModel = (ClassModel) model.getClassModel();
       if (!model.isExternal())
       {
          getOrCreateParser(rootDir);
@@ -71,15 +67,15 @@ public class GenClass extends Generator<Clazz>
 
          insertMethods(rootDir, helpersDir);
 
-         if (!model.isInterface())
+         if (GraphUtil.isInterface(model) == false)
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD))
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
 
-            if (model.hasFeature(Feature.Serialization))
+            if (classModel.hasFeature(Feature.Serialization, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -92,8 +88,8 @@ public class GenClass extends Generator<Clazz>
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if (!model.isEnumeration() && !model.isInterface() && model.hasFeature(Feature.Serialization))
-      {
+      if (classModel.hasFeature(Feature.Serialization, model))
+      { 
          // now generate the corresponding creator class
          if (getRepairClassModel().hasFeature(Feature.Serialization))
          {
@@ -101,7 +97,7 @@ public class GenClass extends Generator<Clazz>
 
             insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
 
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD)) {
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model)) {
             	insertRemoveObjectInCreatorClass();
             }
             printFile(creatorParser);
@@ -109,7 +105,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (model.hasFeature(Feature.Serialization))
+      if (classModel.hasFeature(Feature.Serialization, model))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
@@ -127,7 +123,6 @@ public class GenClass extends Generator<Clazz>
          }
 
       }
-      return this;
    }
 
    private void insertMethods(String rootDir, String helpersDir)
@@ -136,7 +131,7 @@ public class GenClass extends Generator<Clazz>
       {
          getGenerator(method).generate(rootDir, helpersDir);
 
-         String signature = method.getSignature(false);
+         String signature = method.getName(false); // TODO: this signature contains parameter name, the parser signature not.
          parser.parse();
          ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
 
@@ -154,12 +149,12 @@ public class GenClass extends Generator<Clazz>
                   continue;
                }
                String type = localVarTableEntry.getType();
-               ClazzSet classes = this.getModel().getClassModel().getClasses();
+               SimpleSet<Clazz> classes = this.getModel().getClassModel().getClazzes();
                for (Clazz clazz : classes)
                {
                   if (clazz.getName().equals(type) || clazz.getName().endsWith("." + type))
                   {
-                     insertImport(clazz.getFullName());
+                     insertImport(clazz.getName(false));
                   }
                }
             }
@@ -169,7 +164,7 @@ public class GenClass extends Generator<Clazz>
 
    private void generateAnnotations(String rootDir, String helpersDir)
    {
-      for (Annotation annotation : model.getAnnotations())
+      for (Annotation annotation : GraphUtil.getAnnotations(model))
       {
          getGenerator(annotation).generate(rootDir, helpersDir);
       }
@@ -177,9 +172,9 @@ public class GenClass extends Generator<Clazz>
 
    private void insertImports()
    {
-      for (String importClazz : model.getImports())
+      for (ClazzImport importClazz : model.getImports())
       {
-         insertImport(importClazz);
+         insertImport(importClazz.getName());
       }
    }
 
@@ -203,66 +198,7 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   private boolean repairThis = false;
 
-   public ClassModel getRepairClassModel()
-   {
-      if (model.getClassModel() != null)
-      {
-         return model.getClassModel();
-      }
-      if (repairThis)
-      {
-         return null;
-      }
-      this.repairThis = true;
-      for (Iterator<Clazz> i = model.getSuperClazzes().iterator(); i.hasNext();)
-      {
-         Clazz item = i.next();
-
-         if (item.getClassModel() != null)
-         {
-            model.with(item.getClassModel());
-            System.err.println("Classmodel try to repair automaticly from Superclass ("
-               + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
-            this.repairThis = false;
-            return getRepairClassModel();
-         }
-      }
-
-      for (Iterator<Clazz> i = model.getKidClazzes().iterator(); i.hasNext();)
-      {
-         Clazz item = i.next();
-
-         if (item.getClassModel() != null)
-         {
-            model.with(item.getClassModel());
-            System.err.println("Classmodel try to repair automaticly from Kindclass (" + getRepairClassModel()
-               + "). Please add Classmodel to Clazz: " + model.getName());
-            this.repairThis = false;
-            return getRepairClassModel();
-         }
-      }
-      for (Iterator<Role> i = model.getRoles().iterator(); i.hasNext();)
-      {
-         Role item = i.next();
-         Clazz otherClazz = item.getPartnerRole().getClazz();
-         if (otherClazz != model)
-         {
-            if (otherClazz.getClassModel() != null)
-            {
-               model.with(otherClazz.getClassModel());
-               System.err.println("Classmodel try to repair automaticly from Assoc (" + getRepairClassModel().getName()
-                  + "). Please add Classmodel to Clazz: " + model.getName());
-               this.repairThis = false;
-               return getRepairClassModel();
-            }
-         }
-      }
-      System.err.println("Classmodel try to repair automaticly. Please add Classmodel to Clazz: " + model.getName());
-      this.repairThis = false;
-      return getRepairClassModel();
-   }
 
    private void generateAttributes(String rootDir, String helpersDir, boolean fromSuperClass)
    {
@@ -279,7 +215,7 @@ public class GenClass extends Generator<Clazz>
          gernerateSuperAttributes(model.getSuperClass(), rootDir, helpersDir);
       }
 
-      for (Clazz interfaze : model.getInterfaces())
+      for (Clazz interfaze : model.getInterfaces(false))
       {
          gernerateSuperAttributes(interfaze, rootDir, helpersDir);
       }
@@ -303,7 +239,7 @@ public class GenClass extends Generator<Clazz>
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
       }
 
-      for (Clazz interfaze : superClazz.getInterfaces())
+      for (Clazz interfaze : superClazz.getInterfaces(false))
       {
          gernerateSuperAttributes(interfaze, rootDir, helpersDir);
       }
@@ -311,14 +247,14 @@ public class GenClass extends Generator<Clazz>
 
    private void insertInterfaceAttributesInCreatorClass(Clazz clazz, String rootDir, String helpersDir)
    {
-      for (Clazz interfaze : clazz.getInterfaces())
+      for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze.isInterface())
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
                Parser creatorParser = this.getOrCreateParserForCreatorClass(helpersDir);
-               getGenerator(attr).insertPropertyInCreatorClass(interfaze.getFullName(), creatorParser, helpersDir,
+               getGenerator(attr).insertPropertyInCreatorClass(interfaze.getName(false), creatorParser, helpersDir,
                   false);
             }
 
@@ -330,13 +266,14 @@ public class GenClass extends Generator<Clazz>
    }
 
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
-		if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization)) {
+//		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+		if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
-				GenClassModel generator = clazz.getClassModel().getGenerator();
+				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
-						+ CGUtil.shortClassName(clazz.getFullName());
-				GenClass genClass = generator.getOrCreate(clazz);
+						+ CGUtil.shortClassName(clazz.getName(false));
+				GenClazzEntity genClass = generator.getOrCreate(clazz);
 				Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
 				String string = creatorClassParser.getFileName();
 				String alternativeFilePath = string
@@ -347,8 +284,8 @@ public class GenClass extends Generator<Clazz>
 					creatorName = alternativeFilePath;
 
 			} else {
-				creatorName = CGUtil.packageName(clazz.getFullName()) + GenClassModel.UTILPATH + "."
-						+ CGUtil.shortClassName(clazz.getFullName());
+				creatorName = CGUtil.packageName(clazz.getName(false)) + GenClassModel.UTILPATH + "."
+						+ CGUtil.shortClassName(clazz.getName(false));
 			}
 
 			Parser creatorcreator = getOrCreateCreatorCreator(clazz, rootDir);
@@ -362,9 +299,9 @@ public class GenClass extends Generator<Clazz>
 				creatorName = CGUtil.shortClassName(creatorName);
 			}
 			StringBuilder creators=new StringBuilder();
-			creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
-			if (clazz.hasFeature(Feature.PatternObject)) {
-				creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
+			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject)) {
+				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
 			if(symTabEntriesFor.size()>0) {
@@ -408,12 +345,12 @@ public class GenClass extends Generator<Clazz>
 	}
    
 	private Parser getOrCreateCreatorCreator(Clazz clazz, String rootDir) {
-		ClassModel classModel = clazz.getClassModel();
+		ClassModel classModel = (ClassModel) clazz.getClassModel();
 		String packageName = classModel.getName();
 		// BOAH check DEFAULT PACKAGE
 		if (ClassModel.DEFAULTPACKAGE.equals(packageName)) {
 			// Get Package from clazz
-			packageName = CGUtil.packageName(clazz.getFullName());
+			packageName = CGUtil.packageName(clazz.getName(false));
 			if(packageName.length() < 1) {
 				packageName = ClassModel.DEFAULTPACKAGE; 
 			}
@@ -429,15 +366,15 @@ public class GenClass extends Generator<Clazz>
 	    	  creatorCreator.withFileBody(
 	               new StringBuilder(
 	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
-	                           + "import " + JsonIdMap.class.getName() + ";\n"
+	                           + "import " + IdMap.class.getName() + ";\n"
 	                           +
 	                           "\n"
 	                           +
 	                           "class CreatorCreator{\n" +
 	                           "\n" +
-	                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
+	                           "   public static IdMap createIdMap(String sessionID)\n" +
 	                           "   {\n" +
-	                           "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" +
+	                           "      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);\n" +
 	                           "      return jsonIdMap;\n" +
 	                           "   }\n" +
 	                           "}\n")
@@ -449,10 +386,9 @@ public class GenClass extends Generator<Clazz>
 	
    private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
    {
-
-      for (Clazz interfaze : clazz.getInterfaces())
+      for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze.isInterface())
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
@@ -461,8 +397,8 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               method.withAnnotation(new Annotation().withName("Override"));
-               getGenerator(method).generate(model, rootDir, helpersDir);
+               method.with(new Annotation("Override"));
+               getGenerator(method).generateClazz(model, rootDir, helpersDir);
             }
 
          }
@@ -476,10 +412,10 @@ public class GenClass extends Generator<Clazz>
    {
 
       String string = Parser.IMPLEMENTS;
-      if (model.isInterface())
+      if (GraphUtil.isInterface(model))
          string = Parser.EXTENDS;
 
-      for (Clazz interfaze : model.getInterfaces())
+      for (Clazz interfaze : model.getInterfaces(false))
       {
          int extendsPos = parser.indexOf(string);
 
@@ -488,13 +424,13 @@ public class GenClass extends Generator<Clazz>
             extendsPos = parser.getEndOfClassName();
 
             parser.insert(extendsPos + 1,
-               " " + string + " " + CGUtil.shortClassName(interfaze.getFullName()));
+               " " + string + " " + CGUtil.shortClassName(interfaze.getName(false)));
 
-            insertImport(interfaze.getFullName());
+            insertImport(interfaze.getName(false));
          }
          else
          {
-            String shortClassName = CGUtil.shortClassName(interfaze.getFullName());
+            String shortClassName = CGUtil.shortClassName(interfaze.getName(false));
 
             String key = string + ":" + shortClassName;
 
@@ -503,10 +439,10 @@ public class GenClass extends Generator<Clazz>
             if (symTabEntry == null)
             {
                parser.insert(parser.getEndOfImplementsClause() + 1, ", " + shortClassName);
-               insertImport(interfaze.getFullName());
+               insertImport(interfaze.getName(false));
             }
          }
-      }
+      }      
    }
 
    private void insertSuperClass()
@@ -524,15 +460,16 @@ public class GenClass extends Generator<Clazz>
          extendsPos = parser.getEndOfClassName();
 
          parser.insert(extendsPos + 1,
-            " extends " + CGUtil.shortClassName(model.getSuperClass().getFullName()));
+            " extends " + CGUtil.shortClassName(model.getSuperClass().getName(false)));
 
-         insertImport(model.getSuperClass().getFullName());
+         insertImport(model.getSuperClass().getName(false));
       }
    }
 
    private void insertRemoveObjectInCreatorClass()
    {
-      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
+	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) 
+//      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
       {
          return;
       }
@@ -548,7 +485,7 @@ public class GenClass extends Generator<Clazz>
               "   }" +
               "\n");
         template.withVariable(new ReplaceText("Body", model.isExternal(), "// wrapped object has no removeYou method", "(({{ModelClass}}) entity).removeYou();"));
-    	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getFullName()));
+    	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getName(false)));
    }
 
    private void insertRemoveYouMethod(String rootDir)
@@ -562,8 +499,8 @@ public class GenClass extends Generator<Clazz>
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) {
-			if (clazz.isInterface()) {
+		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
+			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
 			if (!clazz.isExternal()) {
@@ -600,9 +537,9 @@ public class GenClass extends Generator<Clazz>
 
       String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzesTransitive().minus(model))
+      for (Clazz clazz : model.getSuperClazzes(true).without(model))
       {
-         if (clazz.isInterface())
+         if (GraphUtil.isInterface(clazz))
          {
             continue;
          }
@@ -678,7 +615,7 @@ public class GenClass extends Generator<Clazz>
          }
 
          String string = " implements ";
-         if (model.isInterface())
+         if (GraphUtil.isInterface(model))
             string = " extends ";
          parser.insert(implementsPos + 1, string + propertyChangeInterface);
          insertImport(SendableEntity.class.getName());
@@ -700,30 +637,6 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   public void insertImport(String className)
-   {
-	   parser.insertImport(className);
-   }
-
-   public void printFile()
-   {
-      if (model.getClassModel() == null || model.getClassModel().getGenerator().getShowDiff() == DIFF.NONE)
-      {
-         CGUtil.printFile(parser);
-      }
-   }
-
-   // if (really || parser.isFileBodyChanged())
-   // {
-   // StringBuilder fileBody = parser.getText();
-   // while (fileBody.charAt(fileBody.length() - 1) == '\n')
-   // {
-   // fileBody.replace(fileBody.length() - 1 , fileBody.length(), "");
-   // }
-   // fileBody.append('\n');
-   // }
-   // }
-
    public void printFile(Parser parser)
    {
       if (parser == null)
@@ -736,70 +649,13 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   private void insertLicense(Parser parser)
-   {
-      // file should start with head comment
-      int pos = parser.search("/*");
-      if (pos < 0 || pos > 20)
-      {
-         // insert MIT License otherwise.
-         String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
-         String developer = model.getClassModel().getAuthorName();
-         if(pos>0) {
-        	 int existingIndex = parser.indexOf("Copyright (c) ");
-        	 String lineForPos = parser.getLineForPos(existingIndex);
-        	 String[] items = lineForPos.split(" ");
-        	 if(!items[items.length-1].trim().isEmpty()) {
-        		 developer = items[items.length-1].trim();
-        	 }
-         }
-         parser
-         .replaceAll(0,
-            "/*\n" +
-                  "   Copyright (c) <year> <developer>\r\n" +
-                  "   \r\n" +
-                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
-                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
-                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
-                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
-                  "   furnished to do so, subject to the following conditions: \n" +
-                  "   \n" +
-                  "   The above copyright notice and this permission notice shall be included in all copies or \n" +
-                  "   substantial portions of the Software. \n" +
-                  "   \n" +
-                  "   The Software shall be used for Good, not Evil. \n" +
-                  "   \n" +
-                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
-                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
-                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
-                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
-                  "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
-                  " */\n" +
-                  "   \n", 
-                  "<year>", year,
-                  "<developer>", developer
-               );
-      }
-
-   }
-
-   public void setParser(Parser parser)
-   {
-      this.parser = parser;
-   }
-
-   public Parser getParser()
-   {
-      return parser;
-   }
-
    public Parser getOrCreateParser(String rootDir)
    {
       if (parser == null)
       {
     	
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          
          int pos = name.lastIndexOf('.');
 
@@ -813,7 +669,7 @@ public class GenClass extends Generator<Clazz>
          String className = name.substring(pos + 1);
 
          String abztract = "";
-         if(model.hasModifier(Modifier.ABSTRACT)) {
+         if(model.getModifier().has(Modifier.ABSTRACT)) {
             abztract = "abstract";
          }
          
@@ -840,598 +696,13 @@ public class GenClass extends Generator<Clazz>
                "abztract", abztract,
                "className", className,
                "packageName", packageName,
-               "clazz", (model.isInterface() ? "interface" : "class")
+               "clazz", (GraphUtil.isInterface(model) ? "interface" : "class")
                );
             parser.withFileChanged(true);
          }
       }
 
       return parser;
-   }
-
-   public boolean isShowDiff()
-   {
-      ClassModel model = getModel().getClassModel();
-      if (model != null)
-      {
-         return model.getGenerator().getShowDiff() != DIFF.NONE;
-      }
-      return false;
-   }
-
-   public Parser getOrCreateParserForCreatorClass(String rootDir)
-   {
-      if (creatorParser == null)
-      {
-         // try to find existing file
-         String name = model.getFullName();
-         int pos = name.lastIndexOf('.');
-
-         String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
-
-         if (model.isExternal())
-         {
-            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
-         }
-
-         String fullEntityClassName = name;
-
-         String entitiyClassName = name.substring(pos + 1);
-
-         String creatorClassName = entitiyClassName + "Creator";
-
-         String fileName = packageName + "." + creatorClassName;
-
-         fileName = fileName.replaceAll("\\.", "/");
-
-         fileName = rootDir + "/" + fileName + ".java";
-
-         File creatorJavaFile = new File(fileName);
-
-         if (!creatorJavaFile.exists() && model.hasFeature(Feature.Serialization))
-         {
-            HashSet<String> featureSet = Feature.Serialization.getPath();
-            for (String featureValue : featureSet)
-            {
-               String alternativePackageName = featureValue;
-               String alternativeFileName = alternativePackageName + "." + creatorClassName;
-               alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
-               alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
-               File alternativeJavaFile = new File(alternativeFileName);
-
-               if (alternativeJavaFile.exists())
-               {
-                  fileName = alternativeFileName;
-                  creatorJavaFile = alternativeJavaFile;
-                  break;
-               }
-            }
-         }
-
-         creatorParser = new Parser()
-            .withFileName(fileName);
-
-         // found old one?
-         if (creatorJavaFile.exists() && !isShowDiff())
-         {
-            creatorParser.withFileBody(CGUtil.readFile(creatorJavaFile));
-         }
-         else
-         {
-            StringBuilder text = new StringBuilder(
-                  "package packageName;\n" +
-                     "\n" +
-                     "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
-                     "import " + JsonIdMap.class.getName() + ";\n" +
-                     "fullEntityClassName" +
-                     "\n" +
-                     "public class creatorClassName implements SendableEntityCreator\n" +
-                     "{\n" +
-                     "   private final String[] properties = new String[]\n" +
-                     "   {\n" +
-                     "   };\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public String[] getProperties()\n" +
-                     "   {\n" +
-                     "      return properties;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public Object getSendableInstance(boolean reference)\n" +
-                     "   {\n" +
-                     "      return instanceCreationClause;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public Object getValue(Object target, String attrName)\n" +
-                     "   {\n" +
-                     "      int pos = attrName.indexOf('.');\n" +
-                     "      String attribute = attrName;\n" +
-                     "      \n" +
-                     "      if (pos > 0)\n" +
-                     "      {\n" +
-                     "         attribute = attrName.substring(0, pos);\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return null;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
-                     "   {\n" +
-                     "      if (JsonIdMap.REMOVE.equals(type) && value != null)\n" +
-                     "      {\n" +
-                     "         attrName = attrName + type;\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return false;\n" +
-                     "   }\n" +
-                     "   public static JsonIdMap createIdMap(String sessionID)\n" +
-                     "   {\n" +
-                     "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
-                     "   }" +
-                     "}\n");
-
-            if (model.isExternal())
-            {
-               // check if it has a constructor
-               ClassLoader classLoader = this.getClass().getClassLoader();
-               boolean hasConstructor = false;
-               try
-               {
-                  Class<?> loadClass = classLoader.loadClass(model.getFullName());
-
-                  if (loadClass != null)
-                  {
-                     Constructor<?> constructor = loadClass.getConstructor(loadClass);
-                     hasConstructor = constructor != null;
-                  }
-               }
-               catch (Exception e)
-               {
-               }
-
-               if (!hasConstructor)
-               {
-                  CGUtil.replaceAll(text,
-                     "instanceCreationClause", "null", "fullEntityClassName", "");
-               }
-            }
-
-            String instanceCreationClause = "new " + entitiyClassName + "()";
-
-            String modelPackage = CGUtil.packageName(model.getFullName());
-
-            if (model.getFullName().endsWith("Impl") && modelPackage.endsWith(".impl"))
-            {
-               // emf style get package and name prefix
-               modelPackage = CGUtil.packageName(modelPackage);
-               String modelName = CGUtil.shortClassName(modelPackage);
-
-               String basicClassName = entitiyClassName.substring(0, entitiyClassName.length() - 4);
-
-               instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName
-                  + "()";
-            }
-            
-            if (model.hasModifier(Modifier.ABSTRACT))
-            {
-               instanceCreationClause = "null";
-            }
-
-            String classModelPackage = model.getClassModel().getName() + ".util.";
-
-            CGUtil.replaceAll(text,
-               "creatorClassName", creatorClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", "import " + fullEntityClassName + ";\n",
-               "packageName", packageName,
-               "instanceCreationClause", instanceCreationClause,
-               "ClassModelPackage", classModelPackage);
-
-            creatorParser.withFileBody(text).withFileChanged(true);
-
-            insertLicense(creatorParser);
-         }
-      }
-      return creatorParser;
-   }
-
-   public String getModelSetClassName()
-   {
-      String name = model.getFullName();
-      int pos = name.lastIndexOf('.');
-      String entitiyClassName = model.getFullName().substring(pos + 1);
-
-      if (!getModel().hasFeature(Feature.ALBERTsSets))
-      {
-         return "java.util.LinkedHashSet<" + entitiyClassName + ">";
-      }
-
-      String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
-
-      if (model.isExternal())
-      {
-         packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
-      }
-
-      String modelSetClassName = entitiyClassName + "Set";
-
-      String fullModelSetClassName = packageName + "." + modelSetClassName;
-
-      return fullModelSetClassName;
-   }
-
-   public String getModelSetClassNameShort()
-   {
-      String result = getModelSetClassName();
-      int pos = result.lastIndexOf(".");
-      if (pos > 0)
-      {
-         result = result.substring(pos + 1);
-      }
-      // pos = result.lastIndexOf("<");
-      // if(pos>0) {
-      // result = result.substring(0, pos);
-      // }
-      return result;
-   }
-
-   public Parser getOrCreateParserForModelSetFile(String rootDir)
-   {
-      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets) && !getRepairClassModel().hasFeature(Feature.Serialization))
-      {
-         return null;
-      }
-
-      if (modelSetParser == null)
-      {
-         if (model.getFullName().equals("java.util.Date"))
-         {
-            System.out.println("ups");
-         }
-         // try to find existing file
-         String name = model.getFullName();
-         int pos = name.lastIndexOf('.');
-
-         String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
-
-         if (model.isExternal())
-         {
-            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
-         }
-
-         String fullEntityClassName = name;
-
-         String entitiyClassName = name.substring(pos + 1);
-
-         String modelSetClassName = entitiyClassName + "Set";
-
-         String fileName = packageName + "." + modelSetClassName;
-
-         fileName = fileName.replaceAll("\\.", "/");
-
-         fileName = rootDir + "/" + fileName + ".java";
-
-         File modelSetJavaFile = new File(fileName);
-
-         if (!modelSetJavaFile.exists() && model.hasFeature(Feature.Serialization))
-         {
-            HashSet<String> featureSet = Feature.Serialization.getPath();
-
-            for (String featureValue : featureSet)
-            {
-               String alternativePackageName = featureValue;
-               String alternativeFileName = alternativePackageName + "." + modelSetClassName;
-               alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
-               alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
-               File alternativeJavaFile = new File(alternativeFileName);
-
-               if (alternativeJavaFile.exists())
-               {
-                  fileName = alternativeFileName;
-                  modelSetJavaFile = alternativeJavaFile;
-                  break;
-               }
-            }
-         }
-
-         modelSetParser = new Parser()
-            .withFileName(fileName);
-
-         // found old one?
-         if (modelSetJavaFile.exists() && !isShowDiff())
-         {
-            modelSetParser.withFileBody(CGUtil.readFile(modelSetJavaFile));
-         }
-         else
-         {
-            StringBuilder text = new StringBuilder("" +
-               "package packageName;\n" +
-               "\n" +
-               "import "+SDMSet.class.getName()+";\n" +
-               "import fullEntityClassName;\n" +
-               "\n" +
-               "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
-               "{\n" +
-               "}\n");
-
-            CGUtil.replaceAll(text,
-               "modelSetClassName", modelSetClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", fullEntityClassName,
-               "packageName", packageName,
-               "Item", entitiyClassName
-               );
-            modelSetParser.withFileBody(text).withFileChanged(true);
-         }
-         insertLicense(modelSetParser);
-         insertEmptySetDecl(modelSetParser, modelSetClassName);
-         if(model.hasFeature(Feature.PatternObject)) {
-        	 insertSetStartModelPattern(modelSetParser);
-         }
-         insertSetEntryType(modelSetParser);
-         insertSetWithWithout(modelSetParser);
-      }
-
-      return modelSetParser;
-   }
-
-   private void insertEmptySetDecl(Parser parser, String modelSetClassName)
-   {
-      int partnerPos = parser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
-
-      if (partnerPos < 0)
-      {
-         // add attribute declaration in class file
-         partnerPos = parser.indexOf(Parser.CLASS_END);
-
-         StringBuilder partnerText = new StringBuilder
-               ("\n   public static final type EMPTY_SET = new type()READONLY;" +
-                  "\n"
-               );
-
-         String replaceReadOnly = ".withReadOnly()";
-
-         CGUtil.replaceAll(partnerText,
-            "type", modelSetClassName,
-            "READONLY", replaceReadOnly
-            );
-
-         parser.insert(partnerPos, partnerText.toString());
-      }
-   }
-
-   private void insertSetWithWithout(Parser parser)
-   {
-      String searchString = Parser.METHOD + ":with(Object)";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-               "\n\n"
-                  + "   @SuppressWarnings(\"unchecked\")\n"
-                  + "   public ModelTypeSet with(Object value)\n"
-                  + "   {\n"
-                  + "      if (value == null)\n" 
-                  + "      {\n" 
-                  + "         return this;\n"  
-                  + "      }\n"  
-                  + "      else if (value instanceof java.util.Collection)\n"
-                  + "      {\n"
-                  + "         this.addAll((Collection<ModelType>)value);\n"
-                  + "      }\n"
-                  + "      else if (value != null)\n"
-                  + "      {\n"
-                  + "         this.add((ModelType) value);\n"
-                  + "      }\n"
-                  + "      \n"
-                  + "      return this;\n" +
-                  "   }\n" +
-                  "   \n" +
-                  "   public ModelTypeSet without(ModelType value)\n" +
-                  "   {\n" +
-                  "      this.remove(value);\n" +
-                  "      return this;\n" +
-                  "   }\n"
-                  + "\n"
-               );
-
-         CGUtil.replaceAll(text,
-            "ModelType", CGUtil.shortClassName(model.getFullName()));
-
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-
-         parser.insertImport("java.util.Collection");
-      }
-   }
-
-   private void insertSetEntryType(Parser parser)
-   {
-      String searchString = Parser.METHOD + ":getEntryType()";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-               "\n\n" +
-                  "   public String getEntryType()\n" +
-                  "   {\n" +
-                  "      return \"ModelType\";\n" +
-                  "   }\n"
-               );
-
-         CGUtil.replaceAll(text, "ModelType", model.getFullName());
-
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-      }
-   }
-
-   public Parser getOrCreateParserForPatternObjectFile(String rootDir)
-   {
-      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets))
-      {
-         return null;
-      }
-      
-      if (patternObjectParser == null)
-      {
-         // try to find existing file
-         String name = model.getFullName();
-         int pos = name.lastIndexOf('.');
-
-         String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
-
-         if (model.isExternal())
-         {
-            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
-         }
-
-         String fullEntityClassName = name;
-
-         String entitiyClassName = name.substring(pos + 1);
-
-         String patternObjectClassName = entitiyClassName + "PO";
-
-         String fileName = packageName + "." + patternObjectClassName;
-
-         fileName = fileName.replaceAll("\\.", "/");
-
-         fileName = rootDir + "/" + fileName + ".java";
-
-         File patternObjectJavaFile = new File(fileName);
-
-         if (!patternObjectJavaFile.exists() && model.hasFeature(Feature.Serialization))
-         {
-            HashSet<String> featureSet = Feature.Serialization.getPath();
-
-            for (String featureValue : featureSet)
-            {
-               String alternativePackageName = featureValue;
-               String alternativeFileName = alternativePackageName + "." + patternObjectClassName;
-               alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
-               alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
-               File alternativeJavaFile = new File(alternativeFileName);
-
-               if (alternativeJavaFile.exists())
-               {
-                  fileName = alternativeFileName;
-                  patternObjectJavaFile = alternativeJavaFile;
-                  break;
-               }
-            }
-         }
-
-         patternObjectParser = new Parser()
-            .withFileName(fileName);
-         // found old one?
-         if (patternObjectJavaFile.exists() && !isShowDiff())
-         {
-            patternObjectParser.withFileBody(CGUtil.readFile(patternObjectJavaFile));
-         }
-         else
-         {
-            StringBuilder text = new StringBuilder(
-                  ""
-                     + "package packageName;\n\n"
-                     + "import org.sdmlib.models.pattern.PatternObject;\n"
-                     + "import fullEntityClassName;\n\n"
-                     + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
-                     + "{\nALLMATCHES\n\n"
-                     + "   public patternObjectClassName(){\n"
-                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"));\n"
-                     + "   }\n\n"
-                     + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
-                     + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
-                     + "         return ;\n"
-                     + "      }\n"
-                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
-                     + "   }\n"
-                     + "}\n");
-
-            if (getRepairClassModel().hasFeature(Feature.ALBERTsSets))
-            {
-               CGUtil.replaceAll(text,
-                  "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" +
-                     "   {\n" +
-                     "      this.setDoAllMatches(true);\n" +
-                     "      \n" +
-                     "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" +
-                     "\n" +
-                     "      while (this.getPattern().getHasMatch())\n" +
-                     "      {\n" +
-                     "         matches.add((entitiyClassName) this.getCurrentMatch());\n" +
-                     "         \n" +
-                     "         this.getPattern().findMatch();\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return matches;\n" +
-                     "   }\n");
-            }
-            else
-            {
-               CGUtil.replaceAll(text,
-                  "ALLMATCHES", "");
-            }
-            CGUtil.replaceAll(text,
-               "patternObjectClassName", patternObjectClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", fullEntityClassName,
-               "ModelClass", entitiyClassName,
-               "packageName", packageName,
-               "ClassModelPackage", model.getClassModel().getName() + ".util.");
-
-            patternObjectParser.withFileBody(text).withFileChanged(true);
-         }
-
-         // FIXME STEFAN
-         // if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
-         // this.insertImport(patternObjectParser, packageName + "." +
-         // entitiyClassName + "Set");
-         // }
-      }
-      return patternObjectParser;
-   }
-
-   private void insertSetStartModelPattern(Parser parser)
-   {
-      String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getName()) + "PO()";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-               "\n\n" +
-                  "   public ModelPO hasModelPO()\n" +
-                  "   {\n" +
-                  "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
-                  "   }\n"
-               );
-
-         String packageName = CGUtil.packageName(model.getName());
-
-         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
-         {
-            packageName = packageName.substring(0, packageName.length() - 5);
-         }
-
-         CGUtil.replaceAll(text,
-            "ModelPO", CGUtil.shortClassName(model.getName()) + "PO",
-            "ModelPatternClass", packageName + ".creators.ModelPattern",
-            "ModelItem", CGUtil.shortClassName(model.getName())
-            );
-
-         // insertImport(parser, StringList.class.getName());
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-      }
    }
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
@@ -1444,7 +715,7 @@ public class GenClass extends Generator<Clazz>
       if (patternObjectCreatorParser == null)
       {
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -1466,7 +737,7 @@ public class GenClass extends Generator<Clazz>
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         if (!patternObjectCreatorJavaFile.exists() && model.hasFeature(Feature.Serialization))
+         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
          {
             HashSet<String> featureSet = Feature.Serialization.getPath();
 
@@ -1501,7 +772,7 @@ public class GenClass extends Generator<Clazz>
                   "package packageName;\n" +
                      "\n" +
                      "import org.sdmlib.models.pattern.util.PatternObjectCreator;\n" +
-                     "import " + JsonIdMap.class.getName() + ";\n" +
+                     "import " + IdMap.class.getName() + ";\n" +
                      "\n" +
                      "public class patternObjectCreatorClassName extends PatternObjectCreator\n" +
                      "{\n" +
@@ -1515,7 +786,7 @@ public class GenClass extends Generator<Clazz>
                      "      }\n" +
                      "   }\n" +
                      "   \n" +
-                     "   public static JsonIdMap createIdMap(String sessionID) {\n" +
+                     "   public static IdMap createIdMap(String sessionID) {\n" +
                      "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                      "   }\n" +
                      "}\n");
@@ -1544,7 +815,7 @@ public class GenClass extends Generator<Clazz>
    {
       int pos = ccParser.indexOf(Parser.METHOD + ":getCreatorSet()");
 
-      String name = model.getFullName();
+      String name = model.getName(false);
 
       if (pos < 0)
       {
@@ -1593,28 +864,6 @@ public class GenClass extends Generator<Clazz>
          // getClassModel().getGenerator().setFileHasChanged(true);
       }
 
-   }
-
-   public String shortNameAndImport(String typeName, Parser parser)
-   {
-      // no dot no import
-      if (typeName.indexOf('.') < 0)
-      {
-         return typeName;
-      }
-
-      String baseName = CGUtil.shortClassName(typeName);
-
-      // generic type?
-      int pos = typeName.indexOf('<');
-      if (pos >= 0)
-      {
-         typeName = typeName.substring(0, pos);
-      }
-
-      parser.insertImport(typeName);
-
-      return baseName;
    }
 
    public void removeAllGeneratedCode(String testDir, String srcDir,
@@ -1711,7 +960,7 @@ public class GenClass extends Generator<Clazz>
          // Diff Methods
          Map<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
 
-         String packageName = CGUtil.packageName(this.model.getFullName());
+         String packageName = CGUtil.packageName(this.model.getName(false));
          String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
          shortName = shortName.substring(shortName.indexOf(packageName));
 
@@ -1819,117 +1068,9 @@ public class GenClass extends Generator<Clazz>
 	   this.removeAllGeneratedCode(rootDir, rootDir, rootDir);
 	   
    }
-   
-   /**
-    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
-    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
-    * 
-    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
-    * @param symbName name of the symbol, as it would be contained in the symbol table of the corresponding parser
-    */
-   public void removeFragment(Parser parser, String symbName) {
 
-	   parser.indexOf(Parser.CLASS_END);
-	   
-	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-	   
-	   SymTabEntry symTabEntry = symTab.get(symbName);
-	   
-	   if (symTabEntry != null) {
-		   StringBuilder fileBody = parser.getFileBody();
-
-		   int startPos = symTabEntry.getStartPos();
-		   
-		   if (symTabEntry.getPreCommentStartPos() > 0) {
-			   
-			   startPos = symTabEntry.getPreCommentStartPos();
-			   
-		   }
-		   
-		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
-
-		   parser.withFileChanged(true);
-	   }
-	   
-   }
-   
-   /**
-    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
-    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
-    * On finding a matching code fragment, the lines of code, that are supposed to be deleted from the fragment, are determined
-    * by searching for a matching start and end line, within the fragment.
-    * 
-    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
-    * @param symTabKey name of the symbol, as it would be contained in the symbol table of the corresponding parser
-    * @param startLineContent portion of the first line of code, that is supposed to be removed
-    * @param endLineContent portion of the last line of code, that is supposed to be removed
-    * 
-    */
-   public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
-	   
-	   parser.indexOf(Parser.CLASS_END);
-	   
-	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-	   
-	   SymTabEntry symTabEntry = symTab.get(symTabKey);
-	   
-	   if (symTabEntry != null) {
-	   
-		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
-	  
-		   int indexOf = substring.indexOf(startLineContent);
-		   
-		   if (indexOf >= 0) {
-			   
-			   String[] split = substring.split("\n");
-			   
-			   for (int i = 0; i < split.length; i++) {
-
-				   if (split[i].indexOf(startLineContent) >= 0) {
-					   
-					   if (split[i].indexOf(endLineContent) < 0) {
-
-						   while(i < split.length) {
-
-							   if (split[i].indexOf(endLineContent) >= 0) {
-								   
-								   split[i] = "";
-								   
-								   break;
-								   
-							   }
-							   
-							   split[i] = "";
-
-							   i++;
-
-						   }
-
-					   } else {
-
-						   split[i] = "";
-
-					   }
-
-					   break;
-					   
-				   }
-
-			   }
-
-			   StringBuilder builder = new StringBuilder();
-			   
-			   for (int i = 0; i < split.length; i++) {
-				   
-				   builder.append(split[i]).append("\n");
-				   
-			   }
-			   
-			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
-
-			   parser.withFileChanged(true);
-			   
-		   }
-	   }
-   }
+	@Override
+	ClassModel getClazz() {
+		return (ClassModel) getModel().getClassModel();
+	}
 }

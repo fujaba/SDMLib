@@ -24,16 +24,16 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
    public class CloneOp extends PatternElement implements PropertyChangeInterface
 {
-   private JsonIdMap origMap;
+   private IdMap origMap;
 
-   private JsonIdMap cloneMap;
+   private IdMap cloneMap;
 
    private PatternObject firstPO;
    
@@ -51,9 +51,9 @@ import de.uniks.networkparser.json.JsonIdMap;
          {
             this.setHasMatch(true);
             
-            origMap = this.getPattern().getJsonIdMap();
-            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
-            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
+            origMap = this.getPattern().getIdMap();
+            origMap = (IdMap) new IdMap().with(origMap);
+            cloneMap = (IdMap) new IdMap().with(origMap);
             
             firstPO = (PatternObject) this.getPattern().getElements().first();
             

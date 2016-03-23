@@ -1,29 +1,39 @@
+/*
+   Copyright (c) 2016 zuendorf
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.classes.SDMLibClass;
 
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Annotation;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class ClazzCreator extends EntityFactory
+public class ClazzCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Clazz.PROPERTY_NAME,
-      Clazz.PROPERTY_EXTERNAL,
-      Clazz.PROPERTY_CLASSMODEL,
-      Clazz.PROPERTY_SUPERCLAZZES,
-      Clazz.PROPERTY_ATTRIBUTES,
-      Clazz.PROPERTY_METHODS,
-      Clazz.PROPERTY_ROLES,
-      Clazz.PROPERTY_KIDCLAZZES,
       Clazz.PROPERTY_INTERFAZE,
-      Clazz.PROPERTY_ANNOTATIONS,
+      Clazz.PROPERTY_EXTERNAL,
+      SDMLibClass.PROPERTY_NAME,
    };
    
    @Override
@@ -35,47 +45,23 @@ public class ClazzCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ClassModel().createClazz(null);
+      return new Clazz();
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Clazz.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
       {
-         return ((Clazz) target).getClassModel();
-      }
-
-      if (Clazz.PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getAttributes();
-      }
-
-      if (Clazz.PROPERTY_METHODS.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getMethods();
-      }
-
-      if (Clazz.PROPERTY_ROLES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getRoles();
-      }
-
-      if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getSuperClass();
+         return ((Clazz) target).isInterfaze();
       }
 
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
@@ -83,127 +69,49 @@ public class ClazzCreator extends EntityFactory
          return ((Clazz) target).isExternal();
       }
 
-      if (Clazz.PROPERTY_KIDCLAZZES.equalsIgnoreCase(attribute))
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Clazz) target).getKidClazzes();
+         return ((SDMLibClass) target).getName();
       }
-
-      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
-      {
-         return ((Clazz) target).isInterface();
-      }
-
-      if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((Clazz) target).getAnnotations();
-      }
-      return super.getValue(target, attrName);
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
-      }
-      
-      if (Clazz.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).with((ClassModel) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).with((Attribute) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).without((Attribute) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_METHODS.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).with((Method) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_METHODS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).without((Method) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_ROLES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).with((Role) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_ROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).without((Role) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).withSuperClazz((Clazz) value);
-         return true;
-      }
-      
-      if ((Clazz.PROPERTY_SUPERCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).setInterface((Boolean) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).setExternal((Boolean) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_KIDCLAZZES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz) target).withKidClazzes((Clazz) value);
-         return true;
-      }
-      
-      if ((Clazz.PROPERTY_KIDCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz) target).withoutKidClazz((Clazz) value);
+         ((Clazz) target).withExternal((Boolean) value);
          return true;
       }
 
       if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).setInterface((Boolean) value);
+         ((Clazz) target).withInterfaze((Boolean) value);
          return true;
       }
 
-      if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
-         ((Clazz) target).withAnnotation((Annotation) value);
-         return true;
+         attrName = attrName + type;
       }
       
-      if ((Clazz.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz) target).withoutAnnotation((Annotation) value);
-         return true;
-      }
-      return super.setValue(target, attrName, value, type);
+      return false;
+   }
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Clazz) entity).removeYou();
    }

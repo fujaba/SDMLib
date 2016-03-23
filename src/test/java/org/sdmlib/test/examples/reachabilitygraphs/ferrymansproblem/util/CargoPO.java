@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
 
 public class CargoPO extends PatternObject<CargoPO, Cargo>
 {
@@ -155,6 +158,65 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
          return ((Cargo) this.getCurrentMatch()).getBoat();
       }
       return null;
+   }
+
+   public CargoPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Cargo.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CargoPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Cargo.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO filterBank()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Cargo.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public CargoPO filterBank(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Cargo.PROPERTY_BANK);
+   }
+
+   public BoatPO filterBoat()
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Cargo.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public CargoPO filterBoat(BoatPO tgt)
+   {
+      return hasLinkConstraint(tgt, Cargo.PROPERTY_BOAT);
    }
 
 }

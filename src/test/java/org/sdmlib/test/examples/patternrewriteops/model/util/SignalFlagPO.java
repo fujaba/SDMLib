@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 {
@@ -75,6 +77,21 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
          return ((SignalFlag) this.getCurrentMatch()).getStation();
       }
       return null;
+   }
+
+   public StationPO filterStation()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SignalFlag.PROPERTY_STATION, result);
+      
+      return result;
+   }
+
+   public SignalFlagPO filterStation(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, SignalFlag.PROPERTY_STATION);
    }
 
 }

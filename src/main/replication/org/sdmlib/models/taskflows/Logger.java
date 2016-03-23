@@ -26,18 +26,20 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
 import org.sdmlib.models.taskflows.PeerProxy;
+import org.sdmlib.models.taskflows.TaskFlow;
+import org.sdmlib.models.taskflows.LogEntry;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-*/
+* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ */
    public class Logger extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames 
@@ -102,7 +104,7 @@ import org.sdmlib.models.taskflows.PeerProxy;
 
    private void dumpDiagram() 
    {
-	   GraphFactory.getAdapter().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
+	   //GraphFactory.getAdapter().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
    }
 
    //==========================================================================
@@ -204,11 +206,15 @@ import org.sdmlib.models.taskflows.PeerProxy;
       }
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public LogEntry createEntries()
+	/**
+	 * 
+	 * @see <a href=
+	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+	 *      TaskFlowObjectScenarioForCoverage.java</a>
+	 * @return the LogEntry
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ */
+	public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();
       withEntries(value);

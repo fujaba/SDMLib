@@ -27,7 +27,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class BankCreator extends EntityFactory
 {
@@ -94,7 +94,7 @@ public class BankCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -129,7 +129,7 @@ public class BankCreator extends EntityFactory
          return true;
       }
       
-      if ((Bank.PROPERTY_CARGOS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Bank.PROPERTY_CARGOS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Bank) target).withoutCargos((Cargo) value);
          return true;
@@ -137,7 +137,7 @@ public class BankCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
    }

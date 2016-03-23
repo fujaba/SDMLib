@@ -9,29 +9,27 @@ import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.graph.GraphConverter;
-import de.uniks.networkparser.graph.GraphIdMapDiff;
+import de.uniks.networkparser.converter.GraphConverter;
 import de.uniks.networkparser.graph.GraphList;
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class DiffCreater {
 	public static final String CRLF = "\r\n";
 
-	public static void create(JsonIdMap map, ClassModel model, Object object) {
-		GraphIdMapDiff diff = new GraphIdMapDiff(map);
-
-		GraphList clazzModel = new Javascript().convertModelToGraphList(model);
-
-		GraphList highlightModel = diff.highlightModel(clazzModel,
-				diff.parsingObject(object));
-
-		GraphConverter converter = new GraphConverter();
-		try {
-			writeJson("se.html", converter.convert(highlightModel, true));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void create(IdMap map, ClassModel model, Object object) {
+//		IdMap diff = new IdMap(map);
+//
+//		GraphList clazzModel = new Javascript().convertModelToGraphList(model);
+//
+//		GraphList highlightModel = diff.highlightModel(clazzModel,
+//				diff.parsingObject(object));
+//
+//		GraphConverter converter = new GraphConverter();
+//		try {
+//			writeJson("se.html", converter.convert(highlightModel, true));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	private static void writeJson(String fileName, String item) throws IOException {
 		StringBuilder sb = new StringBuilder();

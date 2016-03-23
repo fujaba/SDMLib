@@ -43,7 +43,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -58,7 +58,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -96,7 +96,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -111,7 +111,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -149,7 +149,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -164,7 +164,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -202,7 +202,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -217,7 +217,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -255,7 +255,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -270,7 +270,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -308,7 +308,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -323,7 +323,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -361,7 +361,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -376,7 +376,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -414,7 +414,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -429,7 +429,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -467,7 +467,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -482,7 +482,7 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -508,6 +508,267 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       {
          ((ChangeEvent) getCurrentMatch()).setPropertyKind(value);
       }
+      return this;
+   }
+   
+   public ChangeEventPO filterObjectId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterObjectId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterObjectType(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterObjectType(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTTYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterProperty(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterProperty(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterNewValue(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_NEWVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterNewValue(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_NEWVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterOldValue(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OLDVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterOldValue(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OLDVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterValueType(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_VALUETYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterValueType(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_VALUETYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterPropertyKind(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterPropertyKind(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterChangeNo(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_CHANGENO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterChangeNo(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_CHANGENO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterSessionId(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_SESSIONID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO filterSessionId(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_SESSIONID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

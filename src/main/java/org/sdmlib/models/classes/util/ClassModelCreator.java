@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,24 +18,20 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.SDMLibClass;
-import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class ClassModelCreator extends EntityFactory
+public class ClassModelCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      ClassModel.PROPERTY_CLASSES,
-      ClassModel.PROPERTY_NAME,
-      ClassModel.PROPERTY_ENUMERATIONS,
+      SDMLibClass.PROPERTY_NAME,
    };
    
    @Override
@@ -44,10 +40,6 @@ public class ClassModelCreator extends EntityFactory
       return properties;
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getSendableInstance(boolean reference)
    {
@@ -69,16 +61,6 @@ public class ClassModelCreator extends EntityFactory
       {
          return ((SDMLibClass) target).getName();
       }
-
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getClasses();
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getEnumerations();
-      }
       
       return null;
    }
@@ -86,48 +68,26 @@ public class ClassModelCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
-         ((ClassModel) target).with((Clazz) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).without((Clazz) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withEnumerations((Enumeration) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_ENUMERATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withoutEnumerations((Enumeration) value);
-         return true;
+         attrName = attrName + type;
       }
       
       return false;
    }
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
+   }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((ClassModel) entity).removeYou();
    }

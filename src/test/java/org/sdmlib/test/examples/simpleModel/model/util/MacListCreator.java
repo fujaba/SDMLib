@@ -24,13 +24,14 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class MacListCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
       MacList.PROPERTY_NAME,
+      MacList.PROPERTY_SERIALVERSIONUID,
    };
    
    @Override
@@ -60,6 +61,11 @@ public class MacListCreator extends EntityFactory
       {
          return ((MacList) target).getName();
       }
+
+      if (MacList.PROPERTY_SERIALVERSIONUID.equalsIgnoreCase(attribute))
+      {
+         return ((MacList) target).getSerialVersionUID();
+      }
       
       return null;
    }
@@ -67,7 +73,13 @@ public class MacListCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (MacList.PROPERTY_SERIALVERSIONUID.equalsIgnoreCase(attrName))
+      {
+         ((MacList) target).withSerialVersionUID(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -80,7 +92,7 @@ public class MacListCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
    }

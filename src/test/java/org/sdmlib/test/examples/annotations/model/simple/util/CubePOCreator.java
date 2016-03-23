@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class CubePOCreator extends PatternObjectCreator
 {
@@ -17,7 +16,7 @@ public class CubePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.test.examples.annotations.model.simple.util.CreatorCreator.createIdMap(sessionID);
    }
 }

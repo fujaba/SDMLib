@@ -23,15 +23,14 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.objects.util.GenericGraphSet;
 
-public class GenericLinkSet extends SDMSet<GenericLink>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericLinkSet extends SimpleSet<GenericLink>
 {
    public StringList getTgtLabel()
    {
@@ -173,7 +172,7 @@ public class GenericLinkSet extends SDMSet<GenericLink>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericLink>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -196,7 +195,7 @@ public class GenericLinkSet extends SDMSet<GenericLink>
       return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
    }
 
-   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withReadOnly(true);
+   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withFlag(GenericLinkSet.READONLY);
    public GenericLinkSet hasTgtLabel(String value)
    {
       GenericLinkSet result = new GenericLinkSet();
@@ -243,6 +242,106 @@ public class GenericLinkSet extends SDMSet<GenericLink>
    }
 
    public GenericLinkSet hasSrcLabel(String lower, String upper)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (lower.compareTo(obj.getSrcLabel()) <= 0 && obj.getSrcLabel().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public GenericLinkPO filterGenericLinkPO()
+   {
+      return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of GenericLink objects and collect those GenericLink objects where the tgtLabel attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericLink objects that match the parameter
+    */
+   public GenericLinkSet filterTgtLabel(String value)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (value.equals(obj.getTgtLabel()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericLink objects and collect those GenericLink objects where the tgtLabel attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericLink objects that match the parameter
+    */
+   public GenericLinkSet filterTgtLabel(String lower, String upper)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (lower.compareTo(obj.getTgtLabel()) <= 0 && obj.getTgtLabel().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericLink objects and collect those GenericLink objects where the srcLabel attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericLink objects that match the parameter
+    */
+   public GenericLinkSet filterSrcLabel(String value)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (value.equals(obj.getSrcLabel()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericLink objects and collect those GenericLink objects where the srcLabel attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericLink objects that match the parameter
+    */
+   public GenericLinkSet filterSrcLabel(String lower, String upper)
    {
       GenericLinkSet result = new GenericLinkSet();
       

@@ -25,33 +25,27 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
 import org.sdmlib.models.transformations.util.MatchSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
 
-public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
+public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
 {
 
-   public static final ChoiceTemplateSet EMPTY_SET = new ChoiceTemplateSet().withReadOnly(true);
+   public static final ChoiceTemplateSet EMPTY_SET = new ChoiceTemplateSet().withFlag(ChoiceTemplateSet.READONLY);
 
    public ChoiceTemplatePO hasChoiceTemplatePO()
    {
       return new ChoiceTemplatePO(this.toArray(new ChoiceTemplate[this.size()]));
-   }
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.transformations.ChoiceTemplate";
    }
 
    @SuppressWarnings("unchecked")
@@ -791,6 +785,393 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       }
 
       return this;
+   }
+
+
+
+   public ChoiceTemplatePO filterChoiceTemplatePO()
+   {
+      return new ChoiceTemplatePO(this.toArray(new ChoiceTemplate[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.transformations.ChoiceTemplate";
+   }
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the templateText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterTemplateText(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getTemplateText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the templateText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterTemplateText(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the expandedText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterExpandedText(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getExpandedText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the expandedText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterExpandedText(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the modelObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterModelObject(Object value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value == obj.getModelObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the modelClassName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterModelClassName(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getModelClassName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the modelClassName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterModelClassName(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listStart attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListStart(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getListStart()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listStart attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListStart(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listSeparator attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListSeparator(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getListSeparator()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listSeparator attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListSeparator(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listEnd attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListEnd(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getListEnd()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the listEnd attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterListEnd(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the referenceLookup attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterReferenceLookup(boolean value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value == obj.isReferenceLookup())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterName(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChoiceTemplate objects that match the parameter
+    */
+   public ChoiceTemplateSet filterName(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

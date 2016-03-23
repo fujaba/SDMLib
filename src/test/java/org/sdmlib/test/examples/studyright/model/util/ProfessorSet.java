@@ -25,16 +25,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
-import org.sdmlib.test.examples.studyright.model.util.LectureSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyright.model.util.TopicSet;
 
-public class ProfessorSet extends SDMSet<Professor>
+public class ProfessorSet extends SimpleSet<Professor>
 {
 
 
@@ -42,14 +42,6 @@ public class ProfessorSet extends SDMSet<Professor>
    {
       return new ProfessorPO(this.toArray(new Professor[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Professor";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ProfessorSet with(Object value)
@@ -253,7 +245,7 @@ public class ProfessorSet extends SDMSet<Professor>
    }
 
 
-   public static final ProfessorSet EMPTY_SET = new ProfessorSet().withReadOnly(true);
+   public static final ProfessorSet EMPTY_SET = new ProfessorSet().withFlag(ProfessorSet.READONLY);
    public ProfessorSet hasPersNr(int lower, int upper)
    {
       ProfessorSet result = new ProfessorSet();
@@ -270,6 +262,112 @@ public class ProfessorSet extends SDMSet<Professor>
    }
 
    public ProfessorSet hasName(String lower, String upper)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public ProfessorPO filterProfessorPO()
+   {
+      return new ProfessorPO(this.toArray(new Professor[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Professor";
+   }
+
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the PersNr attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet filterPersNr(int value)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (value == obj.getPersNr())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the PersNr attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet filterPersNr(int lower, int upper)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (lower <= obj.getPersNr() && obj.getPersNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet filterName(String value)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet filterName(String lower, String upper)
    {
       ProfessorSet result = new ProfessorSet();
       

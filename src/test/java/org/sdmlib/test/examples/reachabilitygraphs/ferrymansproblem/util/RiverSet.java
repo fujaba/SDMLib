@@ -25,18 +25,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
 * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
 */
-   public class RiverSet extends SDMSet<River>
+   public class RiverSet extends SimpleSet<River>
 {
 
 
@@ -44,14 +45,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet
    {
       return new RiverPO(this.toArray(new River[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RiverSet with(Object value)
@@ -186,5 +179,17 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet
    }
 
 
-   public static final RiverSet EMPTY_SET = new RiverSet().withReadOnly(true);
+   public static final RiverSet EMPTY_SET = new RiverSet().withFlag(RiverSet.READONLY);
+
+
+   public RiverPO filterRiverPO()
+   {
+      return new RiverPO(this.toArray(new River[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
+   }
 }

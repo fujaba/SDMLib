@@ -25,15 +25,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.RemoteTaskBoardSet;
 import org.sdmlib.replication.util.BoardTaskSet;
 
-public class LaneSet extends SDMSet<Lane>
+public class LaneSet extends SimpleSet<Lane>
 {
 
 
@@ -41,14 +42,6 @@ public class LaneSet extends SDMSet<Lane>
    {
       return new LanePO(this.toArray(new Lane[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.Lane";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LaneSet with(Object value)
@@ -230,5 +223,64 @@ public class LaneSet extends SDMSet<Lane>
    }
 
 
-   public static final LaneSet EMPTY_SET = new LaneSet().withReadOnly(true);
+   public static final LaneSet EMPTY_SET = new LaneSet().withFlag(LaneSet.READONLY);
+
+
+   public LanePO filterLanePO()
+   {
+      return new LanePO(this.toArray(new Lane[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.Lane";
+   }
+
+   /**
+    * Loop through the current set of Lane objects and collect those Lane objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Lane objects that match the parameter
+    */
+   public LaneSet filterName(String value)
+   {
+      LaneSet result = new LaneSet();
+      
+      for (Lane obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Lane objects and collect those Lane objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Lane objects that match the parameter
+    */
+   public LaneSet filterName(String lower, String upper)
+   {
+      LaneSet result = new LaneSet();
+      
+      for (Lane obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

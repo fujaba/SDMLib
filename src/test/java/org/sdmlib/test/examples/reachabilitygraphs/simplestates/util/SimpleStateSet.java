@@ -25,12 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
-public class SimpleStateSet extends SDMSet<SimpleState>
+public class SimpleStateSet extends SimpleSet<SimpleState>
 {
 
 
@@ -38,14 +39,6 @@ public class SimpleStateSet extends SDMSet<SimpleState>
    {
       return new SimpleStatePO(this.toArray(new SimpleState[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SimpleStateSet with(Object value)
@@ -127,5 +120,17 @@ public class SimpleStateSet extends SDMSet<SimpleState>
    }
 
 
-   public static final SimpleStateSet EMPTY_SET = new SimpleStateSet().withReadOnly(true);
+   public static final SimpleStateSet EMPTY_SET = new SimpleStateSet().withFlag(SimpleStateSet.READONLY);
+
+
+   public SimpleStatePO filterSimpleStatePO()
+   {
+      return new SimpleStatePO(this.toArray(new SimpleState[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
+   }
 }

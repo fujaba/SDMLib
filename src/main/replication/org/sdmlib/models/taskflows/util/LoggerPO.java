@@ -7,6 +7,9 @@ import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
+import org.sdmlib.models.taskflows.util.LoggerPO;
+import org.sdmlib.models.taskflows.util.LogEntryPO;
 
 public class LoggerPO extends PatternObject<LoggerPO, Logger>
 {
@@ -267,6 +270,108 @@ public class LoggerPO extends PatternObject<LoggerPO, Logger>
          return ((Logger) this.getCurrentMatch()).getEntries();
       }
       return null;
+   }
+
+   public LoggerPO filterStartPeer(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_STARTPEER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO filterTaskNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO filterTaskNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO filterIdMap(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO filterParent()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public LoggerPO filterParent(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT);
+   }
+
+   public TaskFlowPO filterSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public LoggerPO filterSubFlow(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
+   }
+
+   public LogEntryPO filterEntries()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Logger.PROPERTY_ENTRIES, result);
+      
+      return result;
+   }
+
+   public LoggerPO filterEntries(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_ENTRIES);
    }
 
 }

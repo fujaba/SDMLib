@@ -10,179 +10,31 @@
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java' type='text/x-java'>FerrymansProblemExample</a></p>
 <p>initial situation:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"R1 : River"
-      },
-      {
-         "typ":"node",
-         "id":"B2 : Boat"
-      },
-      {
-         "typ":"node",
-         "id":"B3 : Bank",
-         "attributes":[
-         "name=left",
-            "age=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"B7 : Bank",
-         "attributes":[
-         "name=right",
-            "age=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"C4 : Cargo",
-         "attributes":[
-         "name=cabbage"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"C5 : Cargo",
-         "attributes":[
-         "name=goat"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"C6 : Cargo",
-         "attributes":[
-         "name=wolf"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"B2 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"B7 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"B2 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"C4 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"C5 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"C6 : Cargo"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExample2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p>compute certificates</p>
 <p>{
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
   "prop":{
     "name":"left",
     "boat":{
-      "id":"#3",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
+      "id":"#3"
     },
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     },
     "cargos":[
-    {
-        "id":"#4",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+      {
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#4"
       },
       {
-        "id":"#5",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#5"
       },
       {
-        "id":"#6",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo",
+        "id":"#6"
       }
     ]
   }
@@ -192,8 +44,8 @@
   "prop":{
     "name":"right",
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     }
   }
 }*1
@@ -201,12 +53,12 @@
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
   "prop":{
     "river":{
-      "id":"#7",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
+      "id":"#7"
     },
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -215,8 +67,8 @@
   "prop":{
     "name":"cabbage",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -225,8 +77,8 @@
   "prop":{
     "name":"goat",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -235,8 +87,8 @@
   "prop":{
     "name":"wolf",
     "bank":{
-      "id":"#1",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+      "id":"#1"
     }
   }
 }*1
@@ -244,17 +96,17 @@
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River",
   "prop":{
     "boat":{
-      "id":"#3",
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat"
+      "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat",
+      "id":"#3"
     },
     "banks":[
-    {
-        "id":"#1",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      {
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+        "id":"#1"
       },
       {
-        "id":"#2",
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank"
+        "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
+        "id":"#2"
       }
     ]
   }
@@ -264,11 +116,11 @@
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"r1 : RiverPO",
          "attributes":[
-         "<< start >>"
+            "<< start >>"
          ]
       },
       {
@@ -281,7 +133,7 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"c3 : CargoPO",
                "attributes":[]
@@ -303,11 +155,11 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"c6 : CargoPO",
                "attributes":[
-               "name == goat"
+                  "name == goat"
                ]
             },
             {
@@ -324,7 +176,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -414,18 +266,18 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
    var json = {
    "typ":"object",
    "nodes":[
-   {
+      {
          "typ":"patternObject",
          "id":"r1 : RiverPO",
          "attributes":[
-         "<< start >>"
+            "<< start >>"
          ]
       },
       {
@@ -448,11 +300,11 @@
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"c5 : CargoPO",
                "attributes":[
-               "name == goat"
+                  "name == goat"
                ]
             },
             {
@@ -467,7 +319,7 @@
          "style":"nac",
          "info":"OptionalSubPattern",
          "nodes":[
-         {
+            {
                "typ":"patternObject",
                "id":"c7 : CargoPO",
                "attributes":[]
@@ -481,7 +333,7 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"EDGE",
          "source":{
             "property":" ",
@@ -593,7 +445,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Number of States: 2</p>
@@ -603,179 +455,179 @@
    "typ":"objectdiagram",
    "style":null,
    "nodes":[
-   {
-         "typ":"node",
+      {
+         "typ":"clazz",
          "id":"s.R32 : ReachabilityGraph"
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.R33 : ReachableState",
          "attributes":[
-         "number=1"
+            "number=1"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.R1 : River"
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.B2 : Boat"
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.B3 : Bank",
          "attributes":[
-         "name=left",
+            "name=left",
             "age=0"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.B7 : Bank",
          "attributes":[
-         "name=right",
+            "name=right",
             "age=0"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.C4 : Cargo",
          "attributes":[
-         "name=cabbage"
+            "name=cabbage"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.C5 : Cargo",
          "attributes":[
-         "name=goat"
+            "name=goat"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"s.C6 : Cargo",
          "attributes":[
-         "name=wolf"
+            "name=wolf"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"EDGE",
+      {
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"one",
-            "property":"reachabilitygraph",
-            "id":"s.R32 : ReachabilityGraph"
-         },
-         "target":{
             "cardinality":"many",
             "property":"states",
             "id":"s.R33 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R32 : ReachabilityGraph"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R33 : ReachableState"
-         },
-         "target":{
             "cardinality":"one",
             "property":"graphRoot",
             "id":"s.R1 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R33 : ReachableState"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R1 : River"
-         },
-         "target":{
             "cardinality":"one",
             "property":"boat",
             "id":"s.B2 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"river",
             "id":"s.R1 : River"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"s.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"river",
             "id":"s.R1 : River"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"s.B7 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R1 : River"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B3 : Bank"
+         },
+         "target":{
             "cardinality":"one",
             "property":"boat",
             "id":"s.B2 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
          }
       },
       {
-         "typ":"EDGE",
+         "typ":"ASSOCIATION",
          "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C4 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"bank",
             "id":"s.B3 : Bank"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C5 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"bank",
             "id":"s.B3 : Bank"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C6 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B3 : Bank"
          }
       }
    ]
@@ -788,18 +640,9 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"S8 : SDMLibJsonIdMap"
-      },
-      {
-         "typ":"node",
-         "id":"R9 : ReachabilityGraph"
-      }
-   ]
+   "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExample11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExample10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

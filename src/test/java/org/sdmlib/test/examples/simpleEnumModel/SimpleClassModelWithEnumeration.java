@@ -1,32 +1,55 @@
 package org.sdmlib.test.examples.simpleEnumModel;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
+import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Literal;
+import de.uniks.networkparser.graph.Parameter;
 
 public class SimpleClassModelWithEnumeration
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/SimpleModel.html'>SimpleModel.html</a>
+ * @see <a href='../../../../../../../../doc/EnumerationInSimpleClassModel.html'>EnumerationInSimpleClassModel.html</a>
+ */
    @Test
-   public void testSimpleModel(){
+   public void testEnumerationInSimpleClassModel()
+   {
+      StoryPage story = new StoryPage();
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleEnumModel.model");
       
-      Enumeration enumeration = model.createEnumeration("TEnum");
-      enumeration.withValueNames("T1", "T2", "12", "T1000");
+      Clazz enumeration = model.createClazz("TEnum").enableEnumeration();
+//      GraphLiteral valueNames : model.getValues()) {
+      enumeration.with(new Literal("T1"),
+    		  new Literal("T2"),
+    		  new Literal("12"),
+    		  new Literal("T1000"));
       enumeration.withMethod("toString", DataType.STRING);
      
-      Clazz createClazz = model.createClazz("Alex");
-      createClazz.withAttribute("Name", DataType.STRING);
+      Clazz alexClazz = model.createClazz("Alex");
+      alexClazz.withAttribute("Name", DataType.STRING);
           
       Clazz macClazz = model.createClazz("Mac");
-      macClazz.withAttribute("Name", DataType.STRING);
+      macClazz.withAttribute("Name", DataType.STRING)
+      .withAttribute("type", DataType.create(enumeration))
+      .withAttribute("owner", DataType.create(alexClazz));
+      
+      macClazz.withMethod("concat", DataType.STRING, new Parameter(DataType.INT));
+      macClazz.withMethod("select", DataType.create(enumeration), new Parameter(DataType.INT));
       
 //      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");
       
-      Assert.assertEquals(1, model.getEnumerations().size());      
+      story.addClassDiagram(model);
+      
+      story.assertEquals("Number of Enumeration types in the model: " , 1, model.getEnumerations().size());
+      
+      story.dumpHTML();
+      
    }
 }

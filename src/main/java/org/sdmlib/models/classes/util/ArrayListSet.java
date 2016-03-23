@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,41 +21,52 @@
    
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import java.util.ArrayList;
 import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 
-import org.sdmlib.models.modelsets.SDMSet;
-
-public class ArrayListSet extends SDMSet<ArrayList<?>>
+public class ArrayListSet extends SDMSet<ArrayList>
 {
-   @Override
+
+   public static final ArrayListSet EMPTY_SET = new ArrayListSet().withFlag(ArrayListSet.READONLY);
+
+
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.ArrayList";
+      return "java.util.ArrayList";
    }
 
 
    @SuppressWarnings("unchecked")
    public ArrayListSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.addAll((Collection<ArrayList<?>>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ArrayList>)value);
       }
       else if (value != null)
       {
-         this.add((ArrayList<?>) value);
+         this.add((ArrayList) value);
       }
       
       return this;
    }
    
-   public ArrayListSet without(ArrayList<?> value)
+   public ArrayListSet without(ArrayList value)
    {
       this.remove(value);
       return this;
    }
 
-
-   public static final ArrayListSet EMPTY_SET = new ArrayListSet().withReadOnly(true);
+   @Override
+   public ArrayListSet filter(Condition<ArrayList> newValue) {
+      ArrayListSet filterList = new ArrayListSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
 }

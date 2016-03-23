@@ -5,6 +5,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpacePO;
+import org.sdmlib.replication.util.ReplicationNodePO;
 
 public class ReplicationNodePO extends PatternObject<ReplicationNodePO, ReplicationNode>
 {
@@ -303,6 +305,21 @@ public class ReplicationNodePO extends PatternObject<ReplicationNodePO, Replicat
          return ((ReplicationNode) this.getCurrentMatch()).getSharedSpaces();
       }
       return null;
+   }
+
+   public SharedSpacePO filterSharedSpaces()
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationNode.PROPERTY_SHAREDSPACES, result);
+      
+      return result;
+   }
+
+   public ReplicationNodePO filterSharedSpaces(SharedSpacePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationNode.PROPERTY_SHAREDSPACES);
    }
 
 }

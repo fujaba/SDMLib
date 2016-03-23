@@ -294,4 +294,33 @@ public class KalahPO extends PatternObject<KalahPO, Kalah>
       return null;
    }
 
+   public KalahPO filterNr(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Kalah.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KalahPO filterNr(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Kalah.PROPERTY_NR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

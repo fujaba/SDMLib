@@ -25,32 +25,22 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
-public class StationSet extends SDMSet<Station>
+public class StationSet extends SimpleSet<Station>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public StationPO hasStationPO()
    {
       return new StationPO (this.toArray(new Station[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.Station";
-   }
-
 
    public StationSet with(Object value)
    {
@@ -390,6 +380,18 @@ public class StationSet extends SDMSet<Station>
    }
 
 
-   public static final StationSet EMPTY_SET = new StationSet().withReadOnly(true);
+   public static final StationSet EMPTY_SET = new StationSet().withFlag(StationSet.READONLY);
+
+
+   public StationPO filterStationPO()
+   {
+      return new StationPO(this.toArray(new Station[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Station";
+   }
 }
 

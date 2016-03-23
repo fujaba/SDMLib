@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class LinkedHashSetPOCreator extends PatternObjectCreator
 {
@@ -18,7 +18,7 @@ public class LinkedHashSetPOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.replication.util.CreatorCreator.createIdMap(sessionID);
    }
 }

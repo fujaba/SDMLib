@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,56 +18,83 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.classes;
 
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
-   public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
+ */
+   public  class SDMLibClass implements SendableEntity
+{
 
-   protected String name = "";
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   @Override
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
    
-   
-   boolean setName(String value)
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      if ( ! StrUtil.stringEquals(this.name, value) && value!=null && value.length()>0)
-      {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+   
+   //==========================================================================
+   
+   
+   public void removeYou()
+   {
+   
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-         return true;
       }
-      return false;
-   }
-  
-   public String getName()
-   {
-      return name;
    }
    
-   public abstract SDMLibClass withName(String value);
-
-
-   public void removeYou()
+   public SDMLibClass withName(String value)
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
+      setName(value);
+      return this;
+   } 
 
 
    @Override
@@ -78,4 +105,5 @@ import java.beans.PropertyChangeListener;
       result.append(" ").append(this.getName());
       return result.substring(1);
    }
+
 }

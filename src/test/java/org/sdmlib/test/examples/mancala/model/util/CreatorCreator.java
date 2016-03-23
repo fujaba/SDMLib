@@ -1,50 +1,31 @@
 package org.sdmlib.test.examples.mancala.model.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.test.examples.mancala.referencemodel.util.ColorCreator;
+import org.sdmlib.test.examples.mancala.referencemodel.util.ColorPOCreator;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.MancalaCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.MancalaPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PlayerCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PlayerPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PointCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PointPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PitCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.PitPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.KalahCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.KalahPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorPOCreator());
-
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.StoneCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
-      jsonIdMap.withCreator(new StoneCreator());
-      jsonIdMap.withCreator(new StonePOCreator());
+      jsonIdMap.with(new MancalaCreator());
+      jsonIdMap.with(new MancalaPOCreator());
+      jsonIdMap.with(new PlayerCreator());
+      jsonIdMap.with(new PlayerPOCreator());
+      jsonIdMap.with(new PointCreator());
+      jsonIdMap.with(new PointPOCreator());
+      jsonIdMap.with(new PitCreator());
+      jsonIdMap.with(new PitPOCreator());
+      jsonIdMap.with(new KalahCreator());
+      jsonIdMap.with(new KalahPOCreator());
+      jsonIdMap.with(new ColorCreator());
+      jsonIdMap.with(new ColorPOCreator());
+      jsonIdMap.with(new StoneCreator());
+      jsonIdMap.with(new StonePOCreator());
       return jsonIdMap;
    }
 }

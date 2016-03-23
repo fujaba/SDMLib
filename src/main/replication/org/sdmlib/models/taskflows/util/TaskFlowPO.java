@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {
@@ -192,6 +193,64 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
          return ((TaskFlow) this.getCurrentMatch()).getParent();
       }
       return null;
+   }
+
+   public TaskFlowPO filterTaskNo(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO filterTaskNo(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO filterIdMap(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO filterParent()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO filterParent(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT);
    }
 
 }

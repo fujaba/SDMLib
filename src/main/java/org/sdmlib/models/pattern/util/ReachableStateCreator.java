@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ReachableStateCreator extends EntityFactory
 {
@@ -99,7 +99,7 @@ public class ReachableStateCreator extends EntityFactory
          return true;
       }
       
-      if ((ReachableState.PROPERTY_RULEAPPLICATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReachableState.PROPERTY_RULEAPPLICATIONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReachableState)target).removeFromRuleapplications((RuleApplication) value);
          return true;
@@ -111,7 +111,7 @@ public class ReachableStateCreator extends EntityFactory
          return true;
       }
       
-      if ((ReachableState.PROPERTY_RESULTOF + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReachableState.PROPERTY_RESULTOF + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReachableState)target).removeFromResultOf((RuleApplication) value);
          return true;
@@ -119,7 +119,7 @@ public class ReachableStateCreator extends EntityFactory
       return super.setValue(target, attrName, value, type);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }

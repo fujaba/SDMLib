@@ -21,16 +21,17 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
-public class BombermanStrategySet extends SDMSet<BombermanStrategy>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
 {
 
-   public static final BombermanStrategySet EMPTY_SET = new BombermanStrategySet().withReadOnly(true);
+   public static final BombermanStrategySet EMPTY_SET = new BombermanStrategySet().withFlag(BombermanStrategySet.READONLY);
 
 
    public BombermanStrategyPO hasBombermanStrategyPO()
@@ -153,4 +154,10 @@ public class BombermanStrategySet extends SDMSet<BombermanStrategy>
       return this;
    }
 
+
+
+   public BombermanStrategyPO filterBombermanStrategyPO()
+   {
+      return new BombermanStrategyPO(this.toArray(new BombermanStrategy[this.size()]));
+   }
 }

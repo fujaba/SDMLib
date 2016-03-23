@@ -71,4 +71,19 @@ public class CloudModelDirectoryPO extends PatternObject<CloudModelDirectoryPO, 
       return null;
    }
 
+   public CloudModelFilePO filterFiles()
+   {
+      CloudModelFilePO result = new CloudModelFilePO(new CloudModelFile[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(CloudModelDirectory.PROPERTY_FILES, result);
+      
+      return result;
+   }
+
+   public CloudModelDirectoryPO filterFiles(CloudModelFilePO tgt)
+   {
+      return hasLinkConstraint(tgt, CloudModelDirectory.PROPERTY_FILES);
+   }
+
 }

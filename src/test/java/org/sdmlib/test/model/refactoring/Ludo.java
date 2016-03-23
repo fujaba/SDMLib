@@ -26,10 +26,12 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.test.model.refactoring.util.PlayerSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.model.refactoring.Player;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
-   public  class Ludo implements PropertyChangeInterface
+   public  class Ludo implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -45,9 +47,20 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -57,10 +70,9 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
    public void removeYou()
    {
    
-
+      withoutPlayers(this.getPlayers().toArray(new Player[this.getPlayers().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 
    
    
@@ -80,21 +92,116 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
       StringBuilder result = new StringBuilder();
       
 
+      result.append(" ").append(this.getLocation());
       return result.substring(1);
    }
 
 
 
    
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Ludo ----------------------------------- Player
+    *              game                   players
+    * </pre>
+    */
    
+   public static final String PROPERTY_PLAYERS = "players";
+
+   private PlayerSet players = null;
+   
+   public PlayerSet getPlayers()
+   {
+      if (this.players == null)
+      {
+         return PlayerSet.EMPTY_SET;
+      }
+   
+      return this.players;
+   }
+
+   public Ludo withPlayers(Player... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Player item : value)
+      {
+         if (item != null)
+         {
+            if (this.players == null)
+            {
+               this.players = new PlayerSet();
+            }
+            
+            boolean changed = this.players.add (item);
+
+            if (changed)
+            {
+               item.withGame(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Ludo withoutPlayers(Player... value)
+   {
+      for (Player item : value)
+      {
+         if ((this.players != null) && (item != null))
+         {
+            if (this.players.remove(item))
+            {
+               item.setGame(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Player createPlayers()
+   {
+      Player value = new Player();
+      withPlayers(value);
+      return value;
+   } 
 
    
-   
-   
+   //==========================================================================
+   public void init( String p )
+   {
+     System.out.println("Hallo");
+   }
 
-    
-
    
+   //==========================================================================
+   
+   public static final String PROPERTY_LOCATION = "location";
+   
+   private String location;
 
-    
+   public String getLocation()
+   {
+      return this.location;
+   }
+   
+   public void setLocation(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.location, value)) {
+      
+         String oldValue = this.location;
+         this.location = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LOCATION, oldValue, value);
+      }
+   }
+   
+   public Ludo withLocation(String value)
+   {
+      setLocation(value);
+      return this;
+   } 
 }

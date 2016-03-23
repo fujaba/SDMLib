@@ -30,6 +30,7 @@ public class StoryPage {
 	 * stepcount + "." + txt, for every following step.
 	 * 
 	 * @param txt text, that is added to the new step
+	 * @return return the Storyboard
 	*/
 	public Storyboard addStep(String txt) {
 		return storyboard.addStep(txt);
@@ -97,7 +98,7 @@ public class StoryPage {
 	 * @param b flag, that specifies, if the matches of the pattern will be shown
 	 * 
 	*/
-	public void addPattern(PatternObject pattern, boolean b) {
+	public void addPattern(PatternObject<?,?> pattern, boolean b) {
 		storyboard.addPattern(pattern, b);
 	}
 	

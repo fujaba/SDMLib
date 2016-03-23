@@ -26,4 +26,10 @@ public enum DutyType
 		PlayCard,
 		TakeOne,
 		TakeTwo;
+
+   
+   //==========================================================================
+     DutyType(  )
+   {
+   }
 }

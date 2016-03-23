@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,65 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Parameter;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.graph.DataType;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.Method;
 
-public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
+public class ParameterSet extends SDMSet<Parameter>
 {
+
+   public static final ParameterSet EMPTY_SET = new ParameterSet().withFlag(ParameterSet.READONLY);
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Parameter";
+   }
+
+
+   @SuppressWarnings("unchecked")
+   public ParameterSet with(Object value)
+   {
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Parameter>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Parameter) value);
+      }
+      
+      return this;
+   }
+   
+   public ParameterSet without(Parameter value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+   @Override
+   public ParameterSet filter(Condition<Parameter> newValue) {
+      ParameterSet filterList = new ParameterSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Parameter objects and collect a list of the initialization attribute values. 
+    * 
+    * @return List of String objects reachable via initialization attribute
+    */
    public StringList getInitialization()
    {
       StringList result = new StringList();
@@ -45,134 +92,15 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       return result;
    }
 
-   public ParameterSet withInitialization(String value)
-   {
-      for (Parameter obj : this)
-      {
-         obj.setInitialization(value);
-      }
-      
-      return this;
-   }
 
-   public MethodSet getMethod()
-   {
-      MethodSet result = new MethodSet();
-      
-      for (Parameter obj : this)
-      {
-         result.add(obj.getMethod());
-      }
-      
-      return result;
-   }
-   
-   public ParameterSet withMethod(Method value)
-   {
-      for (Parameter obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Parameter elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.classes.Parameter";
-   }
-
-
-   public ParameterSet with(Parameter value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ParameterSet without(Parameter value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
-   public DataTypeSet getType()
-   {
-      DataTypeSet result = new DataTypeSet();
-      
-      for (Parameter obj : this)
-      {
-         result.add(obj.getType());
-      }
-      
-      return result;
-   }
-
-   public ParameterSet withType(DataType value)
-   {
-      for (Parameter obj : this)
-      {
-         obj.setType(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Parameter obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public ParameterSet withName(String value)
-   {
-      for (Parameter obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   @SuppressWarnings("unchecked")
-   public ParameterSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Parameter>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Parameter) value);
-      }
-      
-      return this;
-   }
-
-   public static final ParameterSet EMPTY_SET = new ParameterSet().withReadOnly(true);
-   public ParameterSet hasInitialization(String value)
+   /**
+    * Loop through the current set of Parameter objects and collect those Parameter objects where the initialization attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Parameter objects that match the parameter
+    */
+   public ParameterSet filterInitialization(String value)
    {
       ParameterSet result = new ParameterSet();
       
@@ -187,7 +115,16 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       return result;
    }
 
-   public ParameterSet hasInitialization(String lower, String upper)
+
+   /**
+    * Loop through the current set of Parameter objects and collect those Parameter objects where the initialization attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Parameter objects that match the parameter
+    */
+   public ParameterSet filterInitialization(String lower, String upper)
    {
       ParameterSet result = new ParameterSet();
       
@@ -202,7 +139,51 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       return result;
    }
 
-   public ParameterSet hasType(DataType value)
+
+   /**
+    * Loop through the current set of Parameter objects and assign value to the initialization attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Parameter objects now with new attribute values.
+    */
+   public ParameterSet withInitialization(String value)
+   {
+      for (Parameter obj : this)
+      {
+         obj.setInitialization(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Parameter objects and collect a list of the type attribute values. 
+    * 
+    * @return List of de.uniks.networkparser.graph.DataType objects reachable via type attribute
+    */
+   public DataTypeSet getType()
+   {
+      DataTypeSet result = new DataTypeSet();
+      
+      for (Parameter obj : this)
+      {
+         result.add(obj.getType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Parameter objects and collect those Parameter objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Parameter objects that match the parameter
+    */
+   public ParameterSet filterType(DataType value)
    {
       ParameterSet result = new ParameterSet();
       
@@ -217,7 +198,51 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       return result;
    }
 
-   public ParameterSet hasName(String value)
+
+   /**
+    * Loop through the current set of Parameter objects and assign value to the type attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Parameter objects now with new attribute values.
+    */
+   public ParameterSet withType(DataType value)
+   {
+      for (Parameter obj : this)
+      {
+         obj.setType(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Parameter objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Parameter obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Parameter objects and collect those Parameter objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Parameter objects that match the parameter
+    */
+   public ParameterSet filterName(String value)
    {
       ParameterSet result = new ParameterSet();
       
@@ -232,7 +257,16 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       return result;
    }
 
-   public ParameterSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of Parameter objects and collect those Parameter objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Parameter objects that match the parameter
+    */
+   public ParameterSet filterName(String lower, String upper)
    {
       ParameterSet result = new ParameterSet();
       
@@ -245,6 +279,89 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of Parameter objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Parameter objects now with new attribute values.
+    */
+   public ParameterSet withName(String value)
+   {
+      for (Parameter obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Parameter objects and collect a set of the Method objects reached via method. 
+    * 
+    * @return Set of Method objects reachable via method
+    */
+   public MethodSet getMethod()
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Parameter obj : this)
+      {
+         result.with(obj.getMethod());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Parameter objects and collect all contained objects with reference method pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as method neighbor of the collected results. 
+    * 
+    * @return Set of Method objects referring to value via method
+    */
+   public ParameterSet filterMethod(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ParameterSet answer = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (neighbors.contains(obj.getMethod()) || (neighbors.isEmpty() && obj.getMethod() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Parameter object passed as parameter to the Method attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Method attributes.
+    */
+   public ParameterSet withMethod(Method value)
+   {
+      for (Parameter obj : this)
+      {
+         obj.withMethod(value);
+      }
+      
+      return this;
    }
 
 }

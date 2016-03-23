@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,24 +21,31 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.graph.DataType;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class DataTypeSet extends SDMSet<DataType>
 {
-   @Override
+
+   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withFlag(DataTypeSet.READONLY);
+
+
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.DataType";
+      return "de.uniks.networkparser.graph.DataType";
    }
 
 
    @SuppressWarnings("unchecked")
    public DataTypeSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<DataType>)value);
       }
@@ -56,5 +63,10 @@ public class DataTypeSet extends SDMSet<DataType>
       return this;
    }
 
-   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withReadOnly(true);
+   @Override
+   public DataTypeSet filter(Condition<DataType> newValue) {
+      DataTypeSet filterList = new DataTypeSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
 }

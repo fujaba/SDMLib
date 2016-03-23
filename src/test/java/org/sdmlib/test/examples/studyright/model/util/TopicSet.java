@@ -24,13 +24,14 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyright.model.util.ProfessorSet;
 
-public class TopicSet extends SDMSet<Topic>
+public class TopicSet extends SimpleSet<Topic>
 {
 
 
@@ -38,14 +39,6 @@ public class TopicSet extends SDMSet<Topic>
    {
       return new TopicPO(this.toArray(new Topic[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Topic";
-   }
-
 
    @SuppressWarnings("unchecked")
    public TopicSet with(Object value)
@@ -154,8 +147,67 @@ public class TopicSet extends SDMSet<Topic>
    }
 
 
-   public static final TopicSet EMPTY_SET = new TopicSet().withReadOnly(true);
+   public static final TopicSet EMPTY_SET = new TopicSet().withFlag(TopicSet.READONLY);
    public TopicSet hasTitle(String lower, String upper)
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Topic obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public TopicPO filterTopicPO()
+   {
+      return new TopicPO(this.toArray(new Topic[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Topic";
+   }
+
+   /**
+    * Loop through the current set of Topic objects and collect those Topic objects where the title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Topic objects that match the parameter
+    */
+   public TopicSet filterTitle(String value)
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Topic obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Topic objects and collect those Topic objects where the title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Topic objects that match the parameter
+    */
+   public TopicSet filterTitle(String lower, String upper)
    {
       TopicSet result = new TopicSet();
       

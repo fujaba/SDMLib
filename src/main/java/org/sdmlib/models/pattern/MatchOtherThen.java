@@ -25,6 +25,7 @@ import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import java.lang.Object;
+import org.sdmlib.models.pattern.PatternObject;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -58,8 +59,8 @@ import java.lang.Object;
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x differs from node y";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", "" + getTopPattern().getIdMap().getId(forbidden) + " " + forbidden);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
@@ -70,8 +71,8 @@ import java.lang.Object;
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x equals forbidden node y, backtrack!";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", "" + getTopPattern().getIdMap().getId(forbidden) + " " + forbidden);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 

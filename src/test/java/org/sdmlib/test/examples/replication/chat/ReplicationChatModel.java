@@ -1,11 +1,12 @@
 package org.sdmlib.test.examples.replication.chat;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ReplicationChatModel
 {
@@ -26,18 +27,18 @@ public class ReplicationChatModel
       Clazz chatUser = model.createClazz("ChatUser")
             .withAttribute("userName", DataType.STRING);
       
-      chatRoot.withAssoc(chatUser, "users", Card.MANY, "chatRoot", Card.ONE);
+      chatRoot.withBidirectional(chatUser, "users", Cardinality.MANY, "chatRoot", Cardinality.ONE);
       
       Clazz chatChannel = model.createClazz("ChatChannel");
       
-      chatUser.withAssoc(chatChannel, "channels", Card.MANY, "users", Card.MANY);
+      chatUser.withBidirectional(chatChannel, "channels", Cardinality.MANY, "users", Cardinality.MANY);
       
       Clazz chatMsg = model.createClazz("ChatMsg") 
             .withAttribute("text", DataType.STRING) 
             .withAttribute("time", DataType.LONG)
             .withAttribute("sender", DataType.STRING);
             
-      chatChannel.withAssoc(chatMsg, "msgs", Card.MANY, "channel", Card.ONE);
+      chatChannel.withBidirectional(chatMsg, "msgs", Cardinality.MANY, "channel", Cardinality.ONE);
             
       
       model.generate("src/test/java");

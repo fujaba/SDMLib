@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,111 +21,47 @@
    
 package org.sdmlib.models.classes;
 
+import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.util.RoleSet;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
-   public class Role extends SDMLibClass
+ */
+   public  class Role extends SDMLibClass
 {
-   public static final String VANILLA = "vanilla";
-   public static final String AGGREGATION = "aggregation";
 
-   public static final String PROPERTY_CARD = "card";
-   public static final String PROPERTY_CLAZZ = "clazz";
-   public static final String PROPERTY_KIND = "kind";
-  
-   private String kind= VANILLA;
-   private Clazz clazz= null;
-   private String card= Card.MANY.toString();
-
-   protected Role(){
-      
-   }
    
-   public Role(Clazz clazz, String roleName, Card card){
-      setName(roleName);
-      setClazz(clazz);
-      setCard(card.toString());
-   }
+   //==========================================================================
    
    @Override
-   public String toString()
+   public void removeYou()
    {
-      StringBuilder result = new StringBuilder();
-      result.append(" ").append(this.getCard());
-      result.append(" ").append(this.getKind());
-      result.append(" ").append(this.getName());
-      return result.substring(1);
-   }
- 
-   public String labelForRole()
-   {
-      String result = getName();
+   
+      super.removeYou();
 
-      if (getCard().equals(Card.MANY.toString()))
-      {
-         result = result + " *";
-      }
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 
-      return result;
-   }
-      
-   public Clazz getClazz()
-   {
-      return this.clazz;
-   }
    
-   public boolean setClazz(Clazz value)
-   {
-      boolean changed = false;
-      
-      if (this.clazz != value)
-      {
-         Clazz oldValue = this.clazz;
-         
-         if (this.clazz != null)
-         {
-            this.clazz = null;
-            oldValue.without(this);
-         }
-         
-         this.clazz = value;
-         
-         if (value != null)
-         {
-            value.with(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
+   //==========================================================================
    
-   public Role with(Clazz value)
-   {
-      setClazz(value);
-      return this;
-   } 
+   public static final String PROPERTY_CARD = "card";
    
+   private String card = "MANY";
+
    public String getCard()
    {
       return this.card;
    }
    
-   public boolean setCard(String value)
+   public void setCard(String value)
    {
-      if ( ! StrUtil.stringEquals(this.card, value))
-      {
+      if ( ! StrUtil.stringEquals(this.card, value)) {
+      
          String oldValue = this.card;
          this.card = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CARD, oldValue, value);
-         return true;
       }
-      return false;
    }
    
    public Role withCard(String value)
@@ -133,129 +69,45 @@ import org.sdmlib.models.classes.util.RoleSet;
       setCard(value);
       return this;
    } 
-  
+
+
    @Override
-   public Role withName(String value)
+   public String toString()
    {
-      setName(value);
-      return this;
-   } 
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getCard());
+      result.append(" ").append(this.getKind());
+      result.append(" ").append(this.getName());
+      return result.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_KIND = "kind";
+   
+   private String kind = "VANILLA";
 
    public String getKind()
    {
       return this.kind;
    }
    
-   public boolean setKind(String value)
+   public void setKind(String value)
    {
-      if ( ! StrUtil.stringEquals(this.kind, value))
-      {
+      if ( ! StrUtil.stringEquals(this.kind, value)) {
+      
          String oldValue = this.kind;
          this.kind = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_KIND, oldValue, value);
-         return true;
       }
-      return false;
    }
    
    public Role withKind(String value)
    {
       setKind(value);
       return this;
-   }
-   
-   public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Role ----------------------------------- Association
-    *              source                   assoc
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ASSOC = "assoc";
-   
-   private Association assoc = null;
-   
-   public Association getAssoc()
-   {
-      return this.assoc;
-   }
-   
-   public boolean setAssoc(Association value)
-   {
-      boolean changed = false;
-      
-      if (this.assoc != value)
-      {
-         Association oldValue = this.assoc;
-         
-         this.assoc = value;
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOC, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Role with(Association value)
-   {
-      setAssoc(value);
-      return this;
    } 
-   
-   @Override
-   public void removeYou()
-   {
-      super.removeYou();
-      setAssoc(null);
-      setClazz(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-   public Role getPartnerRole()
-   {
-      if (this.getAssoc() == null)
-      {
-         return null;
-      }
-      
-      if (this == this.getAssoc().getSource())
-      {
-         return this.getAssoc().getTarget();
-      }
-      else 
-      {
-         return this.getAssoc().getSource();
-      }
-   }
-
-   protected Clazz createClazz()
-   {
-      Clazz value = new Clazz(null);
-      with(value);
-      return value;
-   } 
-
-   protected Association createAssoc()
-   {
-      Association value = new Association();
-      with(value);
-      return value;
-   } 
-
-   Role withClazz(Clazz value)
-   {
-      setClazz(value);
-      return this;
-   } 
-
-   Role withAssoc(Association value)
-   {
-      setAssoc(value);
-      return this;
-   }
 }

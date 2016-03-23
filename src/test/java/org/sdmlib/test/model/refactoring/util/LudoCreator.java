@@ -22,7 +22,7 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
@@ -31,9 +31,9 @@ public class LudoCreator extends EntityFactory
    private final String[] properties = new String[]
    {
 
-
+      Ludo.PROPERTY_PLAYERS,
+      Ludo.PROPERTY_LOCATION,
    };
-
 
    
    @Override
@@ -64,20 +64,24 @@ public class LudoCreator extends EntityFactory
 
 
 
+      if (Ludo.PROPERTY_PLAYERS.equalsIgnoreCase(attribute))
+      {
+         return ((Ludo) target).getPlayers();
+      }
 
-
-
-
+      if (Ludo.PROPERTY_LOCATION.equalsIgnoreCase(attribute))
+      {
+         return ((Ludo) target).getLocation();
+      }
       
       return null;
    }
-
 
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -88,24 +92,28 @@ public class LudoCreator extends EntityFactory
 
 
 
-
-
-
-
-
+      if (Ludo.PROPERTY_PLAYERS.equalsIgnoreCase(attrName))
+      {
+         ((Ludo) target).withPlayers((Player) value);
+         return true;
+      }
       
+      if ((Ludo.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Ludo) target).withoutPlayers((Player) value);
+         return true;
+      }
 
-
-
-
-
+      if (Ludo.PROPERTY_LOCATION.equalsIgnoreCase(attrName))
+      {
+         ((Ludo) target).withLocation((String) value);
+         return true;
+      }
       
       return false;
    }
 
-
-
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap(sessionID);
    }

@@ -14,11 +14,11 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       }
    ],
@@ -31,18 +31,18 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int"
          ]
       }
@@ -56,37 +56,23 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int"
          ]
       }
    ],
-   "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         }
-      }
-   ]
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
@@ -95,18 +81,18 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int"
          ]
       },
@@ -114,68 +100,12 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "roomNo : String",
+            "roomNo : String",
             "credits : int"
-         ],
-         "methods":[
-         "findPath(String p0, int p1)"
          ]
       }
    ],
-   "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"rooms"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"in"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
-         }
-      }
-   ]
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram7", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
@@ -184,18 +114,18 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"University",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-         "name : String",
+            "name : String",
             "matrNo : int",
             "credits : int",
             "motivation : int"
@@ -205,62 +135,20 @@
          "typ":"node",
          "id":"Room",
          "attributes":[
-         "roomNo : String",
+            "roomNo : String",
             "credits : int"
-         ],
-         "methods":[
-         "findPath(String p0, int p1)"
          ]
       },
       {
          "typ":"node",
          "id":"Assignment",
          "attributes":[
-         "name : String",
+            "name : String",
             "points : int"
          ]
       }
    ],
    "edges":[
-   {
-         "typ":"edge",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"uni"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"rooms"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"in"
-         }
-      },
       {
          "typ":"edge",
          "source":{
@@ -279,12 +167,12 @@
          "source":{
             "id":"Room",
             "cardinality":"many",
-            "property":"neighbors"
+            "property":"assignments"
          },
          "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"neighbors"
+            "id":"Assignment",
+            "cardinality":"one",
+            "property":"room"
          }
       },
       {
@@ -298,6 +186,19 @@
             "id":"Room",
             "cardinality":"many",
             "property":"assignments"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"done"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"students"
          }
       }
    ]
@@ -317,7 +218,9 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;</p>
+import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyright.model.Assignment;</p>
 <p>9. generate property change support</p>
 <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
 <p>10. generate removeYou method</p>

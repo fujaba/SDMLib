@@ -27,14 +27,17 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.Lane;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-public class RemoteTaskBoard implements PropertyChangeInterface
+public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
 {
 
    // ==========================================================================
@@ -59,7 +62,7 @@ public class RemoteTaskBoard implements PropertyChangeInterface
          return true;
       }
 
-      if ((PROPERTY_LANES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LANES + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLanes((Lane) value);
          return true;
@@ -75,6 +78,22 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================
@@ -174,9 +193,9 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    }
 
      /**
-    * 
+      * Create a new Lane
+    * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public Lane createLanes()
    {
@@ -214,9 +233,10 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    }
 
      /**
-    * 
+      * Create a new Lane
+      * @param name The name of new Lane
+    * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public Lane createLanes(String name)
    {

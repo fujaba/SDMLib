@@ -334,6 +334,93 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return this.startCreate().hasIncommingLinks(tgt).endCreate();
    }
 
+   public GenericObjectPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO filterType(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO filterType(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO filterIcon(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO filterIcon(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

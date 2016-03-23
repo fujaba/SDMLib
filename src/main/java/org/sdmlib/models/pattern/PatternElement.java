@@ -28,11 +28,12 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
-   public class PatternElement<PEC> implements PropertyChangeInterface
+   public class PatternElement<PEC> implements PropertyChangeInterface, SendableEntity
 {
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    public static final PatternElementSet EMPTY_SET = new PatternElementSet();
@@ -52,6 +53,22 @@ import java.beans.PropertyChangeListener;
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    //==========================================================================
@@ -240,7 +257,7 @@ import java.beans.PropertyChangeListener;
 
    public String dumpHostGraphObject(Object hostGraphObject)
    {
-      return getTopPattern().getJsonIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
+      return getTopPattern().getIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
    }
 
 

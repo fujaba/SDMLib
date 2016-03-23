@@ -21,14 +21,14 @@
    
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.lang.Object;
 import java.util.Collection;
 
-public class ObjectSet extends SDMSet<Object>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ObjectSet extends SimpleSet<Object>
 {
 
-   public static final ObjectSet EMPTY_SET = new ObjectSet().withReadOnly(true);
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
 
 
    public ObjectPO hasObjectPO()

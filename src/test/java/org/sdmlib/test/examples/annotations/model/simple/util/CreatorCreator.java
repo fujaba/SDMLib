@@ -1,95 +1,20 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.CubeCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.CubePOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.HouseCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.HousePOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.DoorCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.DoorPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.WindowCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.WindowPOCreator());
-
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
-      jsonIdMap.withCreator(new CubeCreator());
-      jsonIdMap.withCreator(new CubePOCreator());
-      jsonIdMap.withCreator(new HouseCreator());
-      jsonIdMap.withCreator(new HousePOCreator());
-      jsonIdMap.withCreator(new DoorCreator());
-      jsonIdMap.withCreator(new DoorPOCreator());
-      jsonIdMap.withCreator(new WindowCreator());
-      jsonIdMap.withCreator(new WindowPOCreator());
+      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
+      jsonIdMap.with(new CubeCreator());
+      jsonIdMap.with(new CubePOCreator());
+      jsonIdMap.with(new HouseCreator());
+      jsonIdMap.with(new HousePOCreator());
+      jsonIdMap.with(new DoorCreator());
+      jsonIdMap.with(new DoorPOCreator());
+      jsonIdMap.with(new WindowCreator());
+      jsonIdMap.with(new WindowPOCreator());
       return jsonIdMap;
    }
 }

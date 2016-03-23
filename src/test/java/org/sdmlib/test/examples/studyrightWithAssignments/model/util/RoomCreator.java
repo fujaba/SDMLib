@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,15 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 
-public class RoomCreator extends EntityFactory
+public class RoomCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -112,14 +112,9 @@ public class RoomCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
-      }
-
-      if (Room.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Room) target).withName((String) value);
+         ((Room) target).withCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -129,10 +124,15 @@ public class RoomCreator extends EntityFactory
          return true;
       }
 
-      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Room) target).withCredits(Integer.parseInt(value.toString()));
+         ((Room) target).withName((String) value);
          return true;
+      }
+
+      if (IdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
@@ -147,7 +147,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutDoors((Room) value);
          return true;
@@ -159,7 +159,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutStudents((Student) value);
          return true;
@@ -171,7 +171,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_ASSIGNMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutAssignments((Assignment) value);
          return true;
@@ -183,7 +183,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_TAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_TAS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutTas((TeachingAssistant) value);
          return true;
@@ -191,15 +191,13 @@ public class RoomCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Room) entity).removeYou();
    }

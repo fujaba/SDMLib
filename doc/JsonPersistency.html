@@ -11,333 +11,8 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>JsonPersistency</a></p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"studyRight : University",
-         "attributes":[
-         "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"artsRoom : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"examRoom : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"placeToBe : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A1 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A2 : Assignment",
-         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A3 : Assignment",
-         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
-         "attributes":[
-         "content=Integrals",
-            "points=8"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasJsonPersistency3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
-      JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
+      IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       JsonArray jsonArray = idMap.toJsonArray(university);
       
@@ -346,561 +21,252 @@
       &#x2F;&#x2F; you might write jsonText into a file
       
 </pre><p>Results in:</p>
-<pre>[{
-   "id":"demo.U1",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-   "prop":{
-      "name":"StudyRight",
-      "students":[
-      {
-            "id":"demo.S2",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student"
+<pre>[
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+      "id":"demo.U1",
+      "prop":{
+         "name":"StudyRight",
+         "students":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+               "id":"demo.S2"
+            }
+         ],
+         "rooms":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+      "id":"demo.S2",
+      "prop":{
+         "name":"Karli",
+         "id":"4242",
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
+         },
+         "in":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
-      ],
-      "rooms":[
-      {
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R3",
+      "prop":{
+         "name":"senate",
+         "topic":"math",
+         "credits":17,
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
-         {
-            "id":"demo.R4",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+         "doors":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
+            }
+         ],
+         "students":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+               "id":"demo.S2"
+            }
+         ],
+         "assignments":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A8"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A9"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+               "id":"demo.A10"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R4",
+      "prop":{
+         "name":"7522",
+         "topic":"arts",
+         "credits":16,
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
-         {
-            "id":"demo.R5",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+         "doors":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R5",
+      "prop":{
+         "name":"gymnasium",
+         "topic":"sports",
+         "credits":25,
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
-         {
-            "id":"demo.R6",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+         "doors":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R3"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R6",
+      "prop":{
+         "name":"The End",
+         "topic":"exam",
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
          },
-         {
-            "id":"demo.R7",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+         "doors":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R5"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R7"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+      "id":"demo.R7",
+      "prop":{
+         "name":"7422",
+         "topic":"Software Engineering",
+         "credits":42,
+         "university":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+            "id":"demo.U1"
+         },
+         "doors":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R4"
+            },
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+               "id":"demo.R6"
+            }
+         ]
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A8",
+      "prop":{
+         "content":"Matrix Multiplication",
+         "points":5,
+         "room":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
          }
-      ]
-   }
-},   {
-   "id":"demo.S2",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-   "prop":{
-      "name":"Karli",
-      "id":"4242",
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "in":{
-         "id":"demo.R3",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A9",
+      "prop":{
+         "content":"Series",
+         "points":6,
+         "room":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
+         }
+      }
+   },
+   {
+      "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
+      "id":"demo.A10",
+      "prop":{
+         "content":"Integrals",
+         "points":8,
+         "room":{
+            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
+            "id":"demo.R3"
+         }
       }
    }
-},   {
-   "id":"demo.R3",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
-   "prop":{
-      "name":"senate",
-      "topic":"math",
-      "credits":17,
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "doors":[
-      {
-            "id":"demo.R4",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R5",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         }
-      ],
-      "students":[
-      {
-            "id":"demo.S2",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student"
-         }
-      ],
-      "assignments":[
-      {
-            "id":"demo.A8",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
-         },
-         {
-            "id":"demo.A9",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
-         },
-         {
-            "id":"demo.A10",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment"
-         }
-      ]
-   }
-},   {
-   "id":"demo.R4",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
-   "prop":{
-      "name":"7522",
-      "topic":"arts",
-      "credits":16,
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "doors":[
-      {
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R5",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R6",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R7",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         }
-      ]
-   }
-},   {
-   "id":"demo.R5",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
-   "prop":{
-      "name":"gymnasium",
-      "topic":"sports",
-      "credits":25,
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "doors":[
-      {
-            "id":"demo.R3",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R4",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R6",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         }
-      ]
-   }
-},   {
-   "id":"demo.R6",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
-   "prop":{
-      "name":"The End",
-      "topic":"exam",
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "doors":[
-      {
-            "id":"demo.R5",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R4",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R7",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         }
-      ]
-   }
-},   {
-   "id":"demo.R7",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
-   "prop":{
-      "name":"7422",
-      "topic":"Software Engineering",
-      "credits":42,
-      "university":{
-         "id":"demo.U1",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University"
-      },
-      "doors":[
-      {
-            "id":"demo.R4",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         },
-         {
-            "id":"demo.R6",
-            "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-         }
-      ]
-   }
-},   {
-   "id":"demo.A8",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
-   "prop":{
-      "content":"Matrix Multiplication",
-      "points":5,
-      "room":{
-         "id":"demo.R3",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-      }
-   }
-},   {
-   "id":"demo.A9",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
-   "prop":{
-      "content":"Series",
-      "points":6,
-      "room":{
-         "id":"demo.R3",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-      }
-   }
-},   {
-   "id":"demo.A10",
-   "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment",
-   "prop":{
-      "content":"Integrals",
-      "points":8,
-      "room":{
-         "id":"demo.R3",
-         "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room"
-      }
-   }
-}]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
+]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
       &#x2F;&#x2F; read jsonText from file
       JsonArray readJsonArray = new JsonArray().withValue(jsonText);
       
-      JsonIdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
+      IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       Object rootObject = readerMap.decode(readJsonArray);
       
-</pre><script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"clazz",
-         "id":"U4 : University",
-         "attributes":[
-         "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S5 : Student",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R8 : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R10 : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A11 : Assignment",
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A12 : Assignment",
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"A13 : Assignment",
-         "attributes":[
-         "content=Integrals",
-            "points=8"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S5 : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U4 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R10 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S5 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A11 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A12 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A13 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R10 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R10 : Room"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasJsonPersistency10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-
+</pre>
 </body>
 </html>

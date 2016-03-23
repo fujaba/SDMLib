@@ -24,10 +24,11 @@ package org.sdmlib.test.examples.ludoreverse.model.util;
 import java.awt.Point;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 
-public class PointSet extends SDMSet<Point>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PointSet extends SimpleSet<Point>
 {
 
 
@@ -35,14 +36,6 @@ public class PointSet extends SDMSet<Point>
    {
       return new PointPO(this.toArray(new Point[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.awt.Point";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PointSet with(Object value)
@@ -140,5 +133,17 @@ public class PointSet extends SDMSet<Point>
    }
 
 
-   public static final PointSet EMPTY_SET = new PointSet().withReadOnly(true);
+   public static final PointSet EMPTY_SET = new PointSet().withFlag(PointSet.READONLY);
+
+
+   public PointPO filterPointPO()
+   {
+      return new PointPO(this.toArray(new Point[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "java.awt.Point";
+   }
 }

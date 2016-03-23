@@ -23,16 +23,15 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.storyboards.util.StoryboardSet;
 
-public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
+public class StoryboardStepSet extends SimpleSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -143,7 +142,7 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StoryboardStep>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -161,7 +160,7 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
       return new StoryboardStepPO (this.toArray(new StoryboardStep[this.size()]));
    }
 
-   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withReadOnly(true);
+   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withFlag(StoryboardStepSet.READONLY);
    public StoryboardStepSet hasText(String value)
    {
       StoryboardStepSet result = new StoryboardStepSet();
@@ -178,6 +177,59 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
    }
 
    public StoryboardStepSet hasText(String lower, String upper)
+   {
+      StoryboardStepSet result = new StoryboardStepSet();
+      
+      for (StoryboardStep obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public StoryboardStepPO filterStoryboardStepPO()
+   {
+      return new StoryboardStepPO(this.toArray(new StoryboardStep[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of StoryboardStep objects and collect those StoryboardStep objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StoryboardStep objects that match the parameter
+    */
+   public StoryboardStepSet filterText(String value)
+   {
+      StoryboardStepSet result = new StoryboardStepSet();
+      
+      for (StoryboardStep obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StoryboardStep objects and collect those StoryboardStep objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StoryboardStep objects that match the parameter
+    */
+   public StoryboardStepSet filterText(String lower, String upper)
    {
       StoryboardStepSet result = new StoryboardStepSet();
       

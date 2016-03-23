@@ -1,25 +1,27 @@
 package org.sdmlib.models.classes.logic;
 
 import java.util.ArrayList;
-import java.util.Set;
-
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.ClassModel;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphMember;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.list.SimpleList;
 
 public class GenAnnotation extends Generator<Annotation>
 {
    public GenAnnotation generate(String rootDir, String helperDir)
    {
-      if (model.getOwner() instanceof Clazz)
-         return generate((Clazz)model.getOwner(), rootDir, helperDir);
-      if (model.getOwner() instanceof Method)
-         return generate((Method)model.getOwner(), rootDir, helperDir);
-      if (model.getOwner() instanceof Attribute)
-         return generate((Attribute)model.getOwner(), rootDir, helperDir);
+      if (model.getParent() instanceof Clazz)
+         return generate((Clazz)model.getParent(), rootDir, helperDir);
+      if (model.getParent() instanceof Method)
+         return generate((Method)model.getParent(), rootDir, helperDir);
+      if (model.getParent() instanceof Attribute)
+         return generate((Attribute)model.getParent(), rootDir, helperDir);
       return this;
    }
 
@@ -35,7 +37,7 @@ public class GenAnnotation extends Generator<Annotation>
 
    private int getStartPos(Parser parser)
    {
-      return parser.indexOf(Parser.ATTRIBUTE + ":" + model.getOwner().getName());
+      return parser.indexOf(Parser.ATTRIBUTE + ":" + model.getParent().getName());
    }
 
    private GenAnnotation generate(Method method, String rootDir, String helperDir)
@@ -43,7 +45,7 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(method.getClazz()).getOrCreateParser(rootDir);
       parser.parse();
 
-      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getSignature(false));
+      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getName(false));
       return generate(parser, getStartPos(tabEntries));
    }
 
@@ -77,9 +79,9 @@ public class GenAnnotation extends Generator<Annotation>
       if (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName()))
       {
          inserted = true;
-         for (String value : model.getValues())
+         for (Annotation value : model.getValue())
          {
-            if (!symTabEntry.getAnnotations().contains(value))
+            if (!symTabEntry.getAnnotations().contains(value.toString()))
             {
                inserted = false;
                break;
@@ -104,20 +106,22 @@ public class GenAnnotation extends Generator<Annotation>
       }
       sb.append(model.getName());
 
-      Set<String> values = model.getValues();
-      if (values.size() == 1)
+      SimpleList<Annotation> values = model.getValue();
+      if(values == null) {
+    	  
+      }else if (values.size() == 1)
       {
          sb.append("(");
-         sb.append(values.toArray(new String[values.size()])[0]);
+         sb.append(values.toArray(new Annotation[values.size()])[0]);
          sb.append(")");
       }
       else if (values.size() > 1)
       {
          sb.append("({");
-         for (String value : values)
+         for (Annotation value : values)
          {
             sb.append("\"");
-            sb.append(value);
+            sb.append(value.toString());
             sb.append("\", ");
          }
          sb.replace(sb.length() - 2, sb.length(), "");
@@ -137,5 +141,17 @@ public class GenAnnotation extends Generator<Annotation>
 
       return this;
    }
+
+	@Override
+	ClassModel getClazz() {
+		GraphMember owner = getModel().getParent();
+		if (owner instanceof Clazz)
+	         return (ClassModel)((Clazz)owner).getClassModel();
+	      if (owner instanceof Method)
+	         return (ClassModel)((Method)owner).getClazz().getClassModel();
+	      if (owner instanceof Attribute)
+	    	  return (ClassModel)((Attribute)owner).getClazz().getClassModel();
+	      return null;
+	}
 
 }

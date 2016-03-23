@@ -14,7 +14,7 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Train"
       },
@@ -32,17 +32,17 @@
       }
    ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
-            "id":"Station",
-            "cardinality":"one",
-            "property":"station"
-         },
-         "target":{
             "id":"Train",
             "cardinality":"many",
             "property":"trains"
+         },
+         "target":{
+            "id":"Station",
+            "cardinality":"one",
+            "property":"station"
          }
       },
       {
@@ -63,12 +63,51 @@
          "source":{
             "id":"Station",
             "cardinality":"one",
-            "property":"prev"
+            "property":"station"
+         },
+         "target":{
+            "id":"Train",
+            "cardinality":"many",
+            "property":"trains"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Station",
+            "cardinality":"one",
+            "property":"next"
          },
          "target":{
             "id":"Station",
             "cardinality":"one",
-            "property":"next"
+            "property":"prev"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Station",
+            "cardinality":"one",
+            "property":"station"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"people"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Station",
+            "cardinality":"many",
+            "property":"station"
+         },
+         "target":{
+            "id":"SignalFlag",
+            "cardinality":"one",
+            "property":"flag"
          }
       },
       {
@@ -82,6 +121,19 @@
             "id":"Station",
             "cardinality":"one",
             "property":"station"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"passengers"
+         },
+         "target":{
+            "id":"Train",
+            "cardinality":"one",
+            "property":"train"
          }
       },
       {

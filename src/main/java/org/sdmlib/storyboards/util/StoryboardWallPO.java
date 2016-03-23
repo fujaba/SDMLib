@@ -3,6 +3,8 @@ package org.sdmlib.storyboards.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
+import org.sdmlib.storyboards.util.StoryboardPO;
+import org.sdmlib.storyboards.util.StoryboardWallPO;
 
 public class StoryboardWallPO extends PatternObject<StoryboardWallPO, StoryboardWall>
 {
@@ -66,6 +68,21 @@ public class StoryboardWallPO extends PatternObject<StoryboardWallPO, Storyboard
          return ((StoryboardWall) this.getCurrentMatch()).getStoryboard();
       }
       return null;
+   }
+
+   public StoryboardPO filterStoryboard()
+   {
+      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.Storyboard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(StoryboardWall.PROPERTY_STORYBOARD, result);
+      
+      return result;
+   }
+
+   public StoryboardWallPO filterStoryboard(StoryboardPO tgt)
+   {
+      return hasLinkConstraint(tgt, StoryboardWall.PROPERTY_STORYBOARD);
    }
 
 }

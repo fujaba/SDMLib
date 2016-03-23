@@ -27,11 +27,12 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>
 */
-   public class GenericAttribute implements PropertyChangeInterface
+   public class GenericAttribute implements PropertyChangeInterface, SendableEntity
 {
    //==========================================================================
    
@@ -43,7 +44,21 @@ import java.beans.PropertyChangeListener;
       return listeners;
    }
 
-   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }   
    //==========================================================================
    
    public void removeYou()

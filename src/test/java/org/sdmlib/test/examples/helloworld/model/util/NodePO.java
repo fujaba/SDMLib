@@ -7,6 +7,8 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
+import org.sdmlib.test.examples.helloworld.model.util.NodePO;
+import org.sdmlib.test.examples.helloworld.model.util.GraphPO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {
@@ -423,6 +425,109 @@ public class NodePO extends PatternObject<NodePO, Node>
          return ((Node) this.getCurrentMatch()).getLinksFrom();
       }
       return null;
+   }
+
+   public NodePO filterOrig()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_ORIG, result);
+      
+      return result;
+   }
+
+   public NodePO filterOrig(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_ORIG);
+   }
+
+   public NodePO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO filterText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO filterText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO filterGraph()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public NodePO filterGraph(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_GRAPH);
+   }
+
+   public NodePO filterLinksFrom()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSFROM, result);
+      
+      return result;
+   }
+
+   public NodePO filterLinksFrom(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSFROM);
    }
 
 }

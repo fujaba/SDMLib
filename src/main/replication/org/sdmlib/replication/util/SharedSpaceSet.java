@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
@@ -34,10 +33,13 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
+
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.replication.util.ChangeHistorySet;
 import org.sdmlib.replication.util.ReplicationNodeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
 
-public class SharedSpaceSet extends SDMSet<SharedSpace>
+public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {
 
 
@@ -45,14 +47,6 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
    {
       return new SharedSpacePO(this.toArray(new SharedSpace[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SharedSpace";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SharedSpaceSet with(Object value)
@@ -500,5 +494,204 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
    }
 
 
-   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withReadOnly(true);
+   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withFlag(SharedSpaceSet.READONLY);
+
+
+   public SharedSpacePO filterSharedSpacePO()
+   {
+      return new SharedSpacePO(this.toArray(new SharedSpace[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.SharedSpace";
+   }
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the spaceId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterSpaceId(String value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value.equals(obj.getSpaceId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the spaceId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterSpaceId(String lower, String upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceId()) <= 0 && obj.getSpaceId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the history attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterHistory(ChangeHistory value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value == obj.getHistory())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the lastChangeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterLastChangeId(long value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value == obj.getLastChangeId())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the lastChangeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterLastChangeId(long lower, long upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower <= obj.getLastChangeId() && obj.getLastChangeId() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the nodeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterNodeId(String value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value.equals(obj.getNodeId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the nodeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterNodeId(String lower, String upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower.compareTo(obj.getNodeId()) <= 0 && obj.getNodeId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the javaFXApplication attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet filterJavaFXApplication(boolean value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value == obj.isJavaFXApplication())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

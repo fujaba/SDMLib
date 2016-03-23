@@ -5,6 +5,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.Person;
+import org.sdmlib.test.examples.helloworld.util.GreetingPO;
+import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -130,6 +132,50 @@ public class PersonPO extends PatternObject<PersonPO, Person>
          return ((Person) this.getCurrentMatch()).getGreeting();
       }
       return null;
+   }
+
+   public PersonPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO filterGreeting()
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_GREETING, result);
+      
+      return result;
+   }
+
+   public PersonPO filterGreeting(GreetingPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_GREETING);
    }
 
 }

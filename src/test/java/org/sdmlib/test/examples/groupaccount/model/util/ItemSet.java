@@ -24,16 +24,15 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
-public class ItemSet extends SDMSet<Item>
+public class ItemSet extends SimpleSet<Item>
 {
 
 
@@ -41,14 +40,6 @@ public class ItemSet extends SDMSet<Item>
    {
       return new ItemPO(this.toArray(new Item[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.groupAccount.model.Item";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ItemSet with(Object value)
@@ -228,5 +219,111 @@ public class ItemSet extends SDMSet<Item>
    }
 
 
-   public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
+   public static final ItemSet EMPTY_SET = new ItemSet().withFlag(ItemSet.READONLY);
+
+
+   public ItemPO filterItemPO()
+   {
+      return new ItemPO(this.toArray(new Item[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.groupaccount.model.Item";
+   }
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the description attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet filterDescription(String value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value.equals(obj.getDescription()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the description attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet filterDescription(String lower, String upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet filterValue(double value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet filterValue(double lower, double upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

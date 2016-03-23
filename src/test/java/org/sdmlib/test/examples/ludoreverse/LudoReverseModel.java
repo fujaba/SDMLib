@@ -3,12 +3,13 @@ package org.sdmlib.test.examples.ludoreverse;
 import java.awt.Point;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Modifier;
+
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
 
 public class LudoReverseModel
 {  
@@ -30,7 +31,7 @@ public class LudoReverseModel
       Clazz player = model.createClazz("Player")
             .withAttribute("name", DataType.STRING)
             .withAttribute("color", DataType.STRING)
-            .withAssoc(ludo, "players", Card.MANY, "game", Card.ONE);
+            .withBidirectional(ludo, "players", Cardinality.MANY, "game", Cardinality.ONE);
 
       model.generate("src/test/java");
    }
@@ -41,14 +42,14 @@ public class LudoReverseModel
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludoreverse.model");
 
       Clazz ludoClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Ludo")
-      .with(new Attribute("style", DataType.ref("String")) )
-      .with(new Attribute("age", DataType.ref("int")) );
+      .with(new Attribute("style", DataType.create("String")) )
+      .with(new Attribute("age", DataType.create("int")) );
 
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Player")
-      .with(new Attribute("name", DataType.ref("String")) )
-      .with(new Attribute("color", DataType.ref("String")) );
+      .with(new Attribute("name", DataType.create("String")) )
+      .with(new Attribute("color", DataType.create("String")) );
 
-      ludoClass.withAssoc(playerClass, "game", Card.ONE, "players", Card.MANY);
+      ludoClass.withBidirectional(playerClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 
 
       model.getGenerator().updateFromCode("examples", "org.sdmlib.test.examples.ludoreverse.model");

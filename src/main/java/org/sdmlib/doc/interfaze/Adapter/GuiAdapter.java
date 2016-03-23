@@ -6,7 +6,6 @@ import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 import de.uniks.networkparser.json.JsonArray;
 
@@ -23,8 +22,6 @@ public interface GuiAdapter
    public String toImg(String imgName, JsonArray objects);
 
    public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects);
-
-   public String dumpSwimlanes(String name, LogEntrySet entries);
 
    public void fillNodeAndEdgeBuilders(String imgName, JsonArray objects,
          StringBuilder nodeBuilder, StringBuilder edgeBuilder,

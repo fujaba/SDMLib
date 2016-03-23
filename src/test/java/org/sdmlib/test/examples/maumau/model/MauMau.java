@@ -28,13 +28,18 @@ import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.util.CardSet;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
 
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
  */
 @org.sdmlib.replication.ApplicationObject
-public class MauMau implements PropertyChangeInterface
+public class MauMau implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -47,9 +52,20 @@ public class MauMau implements PropertyChangeInterface
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    

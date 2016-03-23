@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java' type='text/x-java'>SimpleModel</a></p>
+<script>
+   var json = {
+   "typ":"classdiagram",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Alex",
+         "attributes":[
+         "Name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Mac",
+         "attributes":[
+         "Name : String",
+            "type : TEnum"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TEnum"
+      }
+   ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasSimpleModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>Check: Number of Enumeration types in the model:  1 actual 1</p>
+
+</body>
+</html>

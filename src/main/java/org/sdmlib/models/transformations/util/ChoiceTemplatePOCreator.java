@@ -3,7 +3,7 @@ package org.sdmlib.models.transformations.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ChoiceTemplatePOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class ChoiceTemplatePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }
 }

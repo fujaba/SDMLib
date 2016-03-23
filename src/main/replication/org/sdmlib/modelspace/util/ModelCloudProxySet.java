@@ -21,22 +21,24 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.ModelCloudProxy;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.ModelCloudSet;
 import org.sdmlib.modelspace.ModelCloud;
-import java.util.Collections;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
 
-public class ModelCloudProxySet extends SDMSet<ModelCloudProxy>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.ModelCloudSet;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+
+public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
 {
 
-   public static final ModelCloudProxySet EMPTY_SET = new ModelCloudProxySet().withReadOnly(true);
+   public static final ModelCloudProxySet EMPTY_SET = new ModelCloudProxySet().withFlag(ModelCloudProxySet.READONLY);
 
 
    public ModelCloudProxyPO hasModelCloudProxyPO()
@@ -280,6 +282,106 @@ public class ModelCloudProxySet extends SDMSet<ModelCloudProxy>
       }
       
       return this;
+   }
+
+
+
+   public ModelCloudProxyPO filterModelCloudProxyPO()
+   {
+      return new ModelCloudProxyPO(this.toArray(new ModelCloudProxy[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of ModelCloudProxy objects and collect those ModelCloudProxy objects where the hostName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ModelCloudProxy objects that match the parameter
+    */
+   public ModelCloudProxySet filterHostName(String value)
+   {
+      ModelCloudProxySet result = new ModelCloudProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloudProxy objects and collect those ModelCloudProxy objects where the hostName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ModelCloudProxy objects that match the parameter
+    */
+   public ModelCloudProxySet filterHostName(String lower, String upper)
+   {
+      ModelCloudProxySet result = new ModelCloudProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloudProxy objects and collect those ModelCloudProxy objects where the portNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ModelCloudProxy objects that match the parameter
+    */
+   public ModelCloudProxySet filterPortNo(int value)
+   {
+      ModelCloudProxySet result = new ModelCloudProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         if (value == obj.getPortNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ModelCloudProxy objects and collect those ModelCloudProxy objects where the portNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ModelCloudProxy objects that match the parameter
+    */
+   public ModelCloudProxySet filterPortNo(int lower, int upper)
+   {
+      ModelCloudProxySet result = new ModelCloudProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         if (lower <= obj.getPortNo() && obj.getPortNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

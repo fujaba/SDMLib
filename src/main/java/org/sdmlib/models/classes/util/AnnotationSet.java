@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 christian 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,21 +21,19 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.Annotation;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
 
-   public static final AnnotationSet EMPTY_SET = new AnnotationSet().withReadOnly(true);
+   public static final AnnotationSet EMPTY_SET = new AnnotationSet().withFlag(AnnotationSet.READONLY);
 
-   @Override
+
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Annotation";
@@ -45,7 +43,11 @@ public class AnnotationSet extends SDMSet<Annotation>
    @SuppressWarnings("unchecked")
    public AnnotationSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Annotation>)value);
       }
@@ -63,93 +65,11 @@ public class AnnotationSet extends SDMSet<Annotation>
       return this;
    }
 
-   public Set<String> getValues()
-   {
-      Set<String> result = new HashSet<String>();
-      
-      for (Annotation obj : this)
-      {
-         result.addAll(obj.getValues());
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet hasValues(Set<String> value)
-   {
-      AnnotationSet result = new AnnotationSet();
-      
-      for (Annotation obj : this)
-      {
-         if (value == obj.getValues())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet withValues(Set<String> value)
-   {
-      for (Annotation obj : this)
-      {
-         obj.setValues(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Annotation obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet hasName(String value)
-   {
-      AnnotationSet result = new AnnotationSet();
-      
-      for (Annotation obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet hasName(String lower, String upper)
-   {
-      AnnotationSet result = new AnnotationSet();
-      
-      for (Annotation obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet withName(String value)
-   {
-      for (Annotation obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
+   @Override
+   public AnnotationSet filter(Condition<Annotation> newValue) {
+      AnnotationSet filterList = new AnnotationSet();
+      filterItems(filterList, newValue);
+      return filterList;
    }
    
    //==========================================================================
@@ -180,7 +100,7 @@ public class AnnotationSet extends SDMSet<Annotation>
    
    //==========================================================================
    
-   public AnnotationSet createSuppressWarningsAnnotation(String... values)
+   public AnnotationSet createSuppressWarningsAnnotation(Object... values)
    {
       AnnotationSet result = new AnnotationSet();
       for (Annotation obj : this)
@@ -199,6 +119,102 @@ public class AnnotationSet extends SDMSet<Annotation>
       for (Annotation obj : this)
       {
          result.add(obj.createSafeVarargsAnnotation());
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Annotation objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Annotation obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Annotation objects and collect those Annotation objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Annotation objects that match the parameter
+    */
+   public AnnotationSet filterName(String value)
+   {
+      AnnotationSet result = new AnnotationSet();
+      
+      for (Annotation obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Annotation objects and collect those Annotation objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Annotation objects that match the parameter
+    */
+   public AnnotationSet filterName(String lower, String upper)
+   {
+      AnnotationSet result = new AnnotationSet();
+      
+      for (Annotation obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Annotation objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Annotation objects now with new attribute values.
+    */
+   public AnnotationSet withName(String value)
+   {
+      for (Annotation obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSuppressWarningsAnnotation(String... values)
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSuppressWarningsAnnotation(values));
       }
       return result;
    }

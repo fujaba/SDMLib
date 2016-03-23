@@ -24,10 +24,12 @@ package org.sdmlib.test.model.refactoring;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.model.refactoring.Ludo;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
-   public  class Player implements PropertyChangeInterface
+   public  class Player implements PropertyChangeInterface, SendableEntity
 {
 
    
@@ -40,9 +42,20 @@ import java.beans.PropertyChangeListener;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -52,21 +65,66 @@ import java.beans.PropertyChangeListener;
    public void removeYou()
    {
    
-
+      setGame(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
    
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Player ----------------------------------- Ludo
+    *              players                   game
+    * </pre>
+    */
    
+   public static final String PROPERTY_GAME = "game";
 
-   
+   private Ludo game = null;
 
-   
+   public Ludo getGame()
+   {
+      return this.game;
+   }
 
-   
+   public boolean setGame(Ludo value)
+   {
+      boolean changed = false;
+      
+      if (this.game != value)
+      {
+         Ludo oldValue = this.game;
+         
+         if (this.game != null)
+         {
+            this.game = null;
+            oldValue.withoutPlayers(this);
+         }
+         
+         this.game = value;
+         
+         if (value != null)
+         {
+            value.withPlayers(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
 
-    
+   public Player withGame(Ludo value)
+   {
+      setGame(value);
+      return this;
+   } 
 
-    
+   public Ludo createGame()
+   {
+      Ludo value = new Ludo();
+      withGame(value);
+      return value;
+   } 
 }

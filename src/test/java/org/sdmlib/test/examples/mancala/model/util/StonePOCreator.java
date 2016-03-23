@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.mancala.model.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.test.examples.mancala.model.Stone;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class StonePOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class StonePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return org.sdmlib.test.examples.mancala.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }

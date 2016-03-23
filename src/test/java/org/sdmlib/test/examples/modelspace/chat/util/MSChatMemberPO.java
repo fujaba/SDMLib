@@ -49,7 +49,7 @@ public class MSChatMemberPO extends PatternObject<MSChatMemberPO, MSChatMember>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -64,7 +64,7 @@ public class MSChatMemberPO extends PatternObject<MSChatMemberPO, MSChatMember>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttr();
+      super.filterAttr();
       
       return this;
    }
@@ -159,6 +159,65 @@ public class MSChatMemberPO extends PatternObject<MSChatMemberPO, MSChatMember>
          return ((MSChatMember) this.getCurrentMatch()).getChannels();
       }
       return null;
+   }
+
+   public MSChatMemberPO filterName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMember.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMemberPO filterName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatMember.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatGroupPO filterGroup()
+   {
+      MSChatGroupPO result = new MSChatGroupPO(new MSChatGroup[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatMember.PROPERTY_GROUP, result);
+      
+      return result;
+   }
+
+   public MSChatMemberPO filterGroup(MSChatGroupPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatMember.PROPERTY_GROUP);
+   }
+
+   public MSChatChannelDescriptionPO filterChannels()
+   {
+      MSChatChannelDescriptionPO result = new MSChatChannelDescriptionPO(new MSChatChannelDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatMember.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public MSChatMemberPO filterChannels(MSChatChannelDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatMember.PROPERTY_CHANNELS);
    }
 
 }

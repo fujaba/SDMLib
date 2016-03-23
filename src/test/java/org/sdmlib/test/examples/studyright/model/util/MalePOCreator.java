@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.studyright.model.util;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.test.examples.studyright.model.Male;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class MalePOCreator extends PatternObjectCreator
 {
@@ -17,7 +17,7 @@ public class MalePOCreator extends PatternObjectCreator
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static IdMap createIdMap(String sessionID) {
       return CreatorCreator.createIdMap(sessionID);
    }
 }

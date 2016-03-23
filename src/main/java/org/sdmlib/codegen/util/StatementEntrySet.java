@@ -26,11 +26,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class StatementEntrySet extends SDMSet<StatementEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StatementEntrySet extends SimpleSet<StatementEntry>
 {
    public StringList getKind()
    {
@@ -164,14 +165,6 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.codegen.StatementEntry";
-   }
-
 
    public StatementEntrySet with(StatementEntry value)
    {
@@ -311,7 +304,7 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    }
 
 
-   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadOnly(true);
+   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withFlag(StatementEntrySet.READONLY);
    public StatementEntrySet hasKind(String value)
    {
       StatementEntrySet result = new StatementEntrySet();
@@ -433,6 +426,223 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    }
 
    public StatementEntrySet hasEndPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.codegen.StatementEntry";
+   }
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterKind(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterKind(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the tokenList attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterTokenList(ArrayList<String> value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getTokenList())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the assignTargetVarName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterAssignTargetVarName(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getAssignTargetVarName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the assignTargetVarName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterAssignTargetVarName(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getAssignTargetVarName()) <= 0 && obj.getAssignTargetVarName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterStartPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterStartPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterEndPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of StatementEntry objects and collect those StatementEntry objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of StatementEntry objects that match the parameter
+    */
+   public StatementEntrySet filterEndPos(int lower, int upper)
    {
       StatementEntrySet result = new StatementEntrySet();
       

@@ -27,16 +27,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.ReplicationNode;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ */
    public class ServerSocketAcceptThread extends Thread implements
-      PropertyChangeInterface
+      PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
 
@@ -45,9 +45,10 @@ import org.sdmlib.replication.ReplicationNode;
    private SharedSpace sharedSpace;
 
      /**
-    * 
+    * Constructor
+    * @param replicationNode The ReplicationNode
+    * @param replicationServerPort The PortNumber
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
@@ -59,7 +60,6 @@ import org.sdmlib.replication.ReplicationNode;
      /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public ServerSocketAcceptThread()
    {
@@ -67,10 +67,10 @@ import org.sdmlib.replication.ReplicationNode;
    }
 
      /**
-    * 
+    * @param sharedSpace The SharedSpace
+    * @param port The Portnumber 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
    {
       this.sharedSpace = sharedSpace;
@@ -161,6 +161,22 @@ import org.sdmlib.replication.ReplicationNode;
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    // ==========================================================================

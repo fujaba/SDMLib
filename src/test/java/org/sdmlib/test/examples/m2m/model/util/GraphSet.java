@@ -25,16 +25,17 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.m2m.model.util.GraphComponentSet;
 import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
-public class GraphSet extends SDMSet<Graph>
+public class GraphSet extends SimpleSet<Graph>
 {
 
 
@@ -42,14 +43,6 @@ public class GraphSet extends SDMSet<Graph>
    {
       return new GraphPO(this.toArray(new Graph[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.Graph";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GraphSet with(Object value)
@@ -247,5 +240,17 @@ public class GraphSet extends SDMSet<Graph>
    }
 
 
-   public static final GraphSet EMPTY_SET = new GraphSet().withReadOnly(true);
+   public static final GraphSet EMPTY_SET = new GraphSet().withFlag(GraphSet.READONLY);
+
+
+   public GraphPO filterGraphPO()
+   {
+      return new GraphPO(this.toArray(new Graph[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.m2m.model.Graph";
+   }
 }

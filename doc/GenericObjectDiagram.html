@@ -12,303 +12,6 @@
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
 <embed type="image/svg+xml" src='GenericGraphModelClassDiagram1.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"G1 : GenericGraph"
-      },
-      {
-         "typ":"node",
-         "id":"G2 : GenericObject",
-         "attributes":[
-         "name=WilliAllee",
-            "type=Building"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G5 : GenericObject",
-         "attributes":[
-         "name=seFloor",
-            "type=Floor"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G9 : GenericObject",
-         "attributes":[
-         "name=digitalFloor",
-            "type=Floor"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G4 : GenericLink",
-         "attributes":[
-         "tgtLabel=has"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G8 : GenericLink",
-         "attributes":[
-         "tgtLabel=has"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G3 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA73"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G6 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA13"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G7 : GenericAttribute",
-         "attributes":[
-         "name=level",
-            "value=1"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G10 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA03"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G11 : GenericAttribute",
-         "attributes":[
-         "name=level",
-            "value=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G12 : GenericAttribute",
-         "attributes":[
-         "name=guest",
-            "value=Ulrich"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G2 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G5 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G9 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"links",
-            "id":"G4 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"links",
-            "id":"G8 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G2 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G3 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G2 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outgoingLinks",
-            "id":"G4 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G2 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outgoingLinks",
-            "id":"G8 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"G4 : GenericLink"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G5 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G5 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G6 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G5 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G7 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"G8 : GenericLink"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G9 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G9 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G10 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G9 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G11 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G9 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G12 : GenericAttribute"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 <p>Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: </p>
 <p></p>
 <p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
@@ -316,25 +19,67 @@
    var json = {
    "typ":"class",
    "nodes":[
-   {
+      {
          "typ":"node",
          "id":"Building",
          "attributes":[
-         "name : String"
+            "name : String"
          ]
       },
       {
          "typ":"node",
          "id":"Floor",
          "attributes":[
-         "name : String",
+            "name : String",
             "level : int",
             "guest : String"
          ]
       }
    ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram7", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
+<pre>      ClassModel model = new ClassModel(&quot;de.kassel.test.roombook&quot;);
+
+      Clazz buildingClass = model.createClazz(&quot;de.kassel.test.roombook.Building&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING);
+
+      Clazz floorClass = model.createClazz(&quot;de.kassel.test.roombook.Floor&quot;)
+            .withAttribute(&quot;level&quot;, DataType.INT)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            &#x2F;*add attribut*&#x2F;
+            .withAttribute(&quot;guest&quot;, DataType.STRING);    
+      
+      &#x2F;* add assoc *&#x2F;
+      buildingClass.withBidirectional(floorClass, &quot;has&quot;, Cardinality.MANY, &quot;buildings&quot;, Cardinality.ONE);
+
+      &#x2F;&#x2F; FIXME: Alex
+      &#x2F;&#x2F; learnedModel.getGenerator().insertModelCreationCodeHere(&quot;examples&quot;);
+</pre><script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Building",
+         "attributes":[
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Floor",
+         "attributes":[
+            "level : int",
+            "name : String",
+            "guest : String"
+         ]
+      }
+   ],
    "edges":[
-   {
+      {
          "typ":"edge",
          "source":{
             "id":"Building",
@@ -346,45 +91,18 @@
             "cardinality":"many",
             "property":"has"
          }
-      }
-   ]
-}   ;
-   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
-</script>
-<p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<script>
-   var json = {
-   "typ":"class",
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"Building",
-         "attributes":[
-         "name : String"
-         ]
       },
       {
-         "typ":"node",
-         "id":"Floor",
-         "attributes":[
-         "level : int",
-            "name : String",
-            "guest : String"
-         ]
-      }
-   ],
-   "edges":[
-   {
          "typ":"edge",
          "source":{
-            "id":"Building",
-            "cardinality":"one",
-            "property":"buildings"
-         },
-         "target":{
             "id":"Floor",
             "cardinality":"many",
             "property":"has"
+         },
+         "target":{
+            "id":"Building",
+            "cardinality":"one",
+            "property":"buildings"
          }
       }
    ]
@@ -393,346 +111,6 @@
 </script>
 <p>Step 6: generate code from the learned class diagram </p>
 <p>Step 7: derive non-generic objects from the generic objects </p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"B13 : Building",
-         "attributes":[
-         "name=WA73"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"F14 : Floor",
-         "attributes":[
-         "level=1",
-            "name=WA13"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"F15 : Floor",
-         "attributes":[
-         "level=0",
-            "name=WA03",
-            "guest=Ulrich"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"buildings",
-            "id":"B13 : Building"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"has",
-            "id":"F14 : Floor"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"buildings",
-            "id":"B13 : Building"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"has",
-            "id":"F15 : Floor"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagram14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"G16 : GenericGraph"
-      },
-      {
-         "typ":"node",
-         "id":"G17 : GenericObject",
-         "attributes":[
-         "name=spec2gen.B1",
-            "type=de.kassel.test.roombook.Building"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G20 : GenericObject",
-         "attributes":[
-         "name=spec2gen.F2",
-            "type=de.kassel.test.roombook.Floor"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G24 : GenericObject",
-         "attributes":[
-         "name=spec2gen.F3",
-            "type=de.kassel.test.roombook.Floor"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G19 : GenericLink",
-         "attributes":[
-         "tgtLabel=has",
-            "srcLabel=buildings"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G23 : GenericLink",
-         "attributes":[
-         "tgtLabel=has",
-            "srcLabel=buildings"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G18 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA73"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G21 : GenericAttribute",
-         "attributes":[
-         "name=level",
-            "value=1"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G22 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA13"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G25 : GenericAttribute",
-         "attributes":[
-         "name=name",
-            "value=WA03"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G26 : GenericAttribute",
-         "attributes":[
-         "name=guest",
-            "value=Ulrich"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G16 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G17 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G16 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G20 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G16 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"objects",
-            "id":"G24 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G16 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"links",
-            "id":"G19 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G16 : GenericGraph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"links",
-            "id":"G23 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G18 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outgoingLinks",
-            "id":"G19 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outgoingLinks",
-            "id":"G23 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"G19 : GenericLink"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G20 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G21 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G22 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"G23 : GenericLink"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G24 : GenericObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G24 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G25 : GenericAttribute"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G24 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"attrs",
-            "id":"G26 : GenericAttribute"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
 
 </body>
 </html>

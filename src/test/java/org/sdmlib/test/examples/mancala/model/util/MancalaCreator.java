@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class MancalaCreator extends EntityFactory
 {
@@ -81,7 +81,7 @@ public class MancalaCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class MancalaCreator extends EntityFactory
          return true;
       }
       
-      if ((Mancala.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Mancala.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Mancala) target).withoutPlayers((Player) value);
          return true;
@@ -110,7 +110,7 @@ public class MancalaCreator extends EntityFactory
          return true;
       }
       
-      if ((Mancala.PROPERTY_PITS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Mancala.PROPERTY_PITS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Mancala) target).withoutPits((Pit) value);
          return true;
@@ -118,7 +118,7 @@ public class MancalaCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.mancala.model.util.CreatorCreator.createIdMap(sessionID);
    }

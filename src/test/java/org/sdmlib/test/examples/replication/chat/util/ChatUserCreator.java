@@ -26,7 +26,7 @@ import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
 public class ChatUserCreator extends EntityFactory
 {
@@ -81,7 +81,7 @@ public class ChatUserCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class ChatUserCreator extends EntityFactory
          return true;
       }
       
-      if ((ChatUser.PROPERTY_CHANNELS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChatUser.PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChatUser) target).withoutChannels((ChatChannel) value);
          return true;
@@ -112,7 +112,7 @@ public class ChatUserCreator extends EntityFactory
       
       return false;
    }
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.replication.chat.util.CreatorCreator.createIdMap(sessionID);
    }

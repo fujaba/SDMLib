@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.Annotation;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+
+import de.uniks.networkparser.graph.Clazz;
 
 public class GenModel {
 

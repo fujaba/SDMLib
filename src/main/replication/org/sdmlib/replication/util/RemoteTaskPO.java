@@ -6,6 +6,8 @@ import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.util.LogEntryPO;
+import org.sdmlib.replication.util.RemoteTaskPO;
 
 public class RemoteTaskPO extends PatternObject<RemoteTaskPO, RemoteTask>
 {
@@ -107,6 +109,35 @@ public class RemoteTaskPO extends PatternObject<RemoteTaskPO, RemoteTask>
          return ((Task) this.getCurrentMatch()).getLogEntries();
       }
       return null;
+   }
+
+   public RemoteTaskPO filterBoardTask(BoardTask value)
+   {
+      new AttributeConstraint()
+      .withAttrName(RemoteTask.PROPERTY_BOARDTASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO filterLogEntries()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LOGENTRIES, result);
+      
+      return result;
+   }
+
+   public RemoteTaskPO filterLogEntries(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES);
    }
 
 }

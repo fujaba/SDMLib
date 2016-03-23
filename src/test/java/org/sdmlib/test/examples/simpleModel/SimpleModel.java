@@ -2,10 +2,12 @@ package org.sdmlib.test.examples.simpleModel;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzImport;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
 
 public class SimpleModel
 {
@@ -29,7 +31,8 @@ public class SimpleModel
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       Clazz helperClazz = model.createClazz("Item");
       helperClazz.createMethod("init").withBody("System.out.println(new Date());").with(Modifier.STATIC);
-      helperClazz.withImport("java.util.Date");
+//      model.getGenerator().getOrCreateClazz(helperClazz).insertImport("java.util.Date");
+      helperClazz.with(ClazzImport.create("java.util.Date"));
       
       model.generate("src/test/java");
    }

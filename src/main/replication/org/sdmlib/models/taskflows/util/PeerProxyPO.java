@@ -179,4 +179,76 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       return this;
    }
    
+   public PeerProxyPO filterIp(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO filterIp(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO filterPort(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO filterPort(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO filterIdMap(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,99 +21,32 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.ClassModel;
+import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.EnumerationSet;
 
-public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
+public class ClassModelSet extends SDMSet<ClassModel>
 {
-   public ClazzSet getClasses()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (ClassModel obj : this)
-      {
-         result.addAll(obj.getClasses());
-      }
-      
-      return result;
-   }
-   public ClassModelSet withClasses(Clazz value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
 
-   public ClassModelSet withoutClasses(Clazz value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (ClassModel obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public ClassModelSet withName(String value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
+   public static final ClassModelSet EMPTY_SET = new ClassModelSet().withFlag(ClassModelSet.READONLY);
 
 
-
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (ClassModel elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.ClassModel";
    }
 
+
    @SuppressWarnings("unchecked")
    public ClassModelSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<ClassModel>)value);
       }
@@ -131,67 +64,39 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       return this;
    }
 
-   public EnumerationSet getEnumerations()
+   @Override
+   public ClassModelSet filter(Condition<ClassModel> newValue) {
+      ClassModelSet filterList = new ClassModelSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of ClassModel objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public StringList getName()
    {
-      EnumerationSet result = new EnumerationSet();
+      StringList result = new StringList();
       
       for (ClassModel obj : this)
       {
-         result.addAll(obj.getEnumerations());
+         result.add(obj.getName());
       }
       
       return result;
    }
 
-   public ClassModelSet hasEnumerations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
 
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClassModelSet answer = new ClassModelSet();
-      
-      for (ClassModel obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getEnumerations()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ClassModelSet withEnumerations(Enumeration value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.withEnumerations(value);
-      }
-      
-      return this;
-   }
-
-   public ClassModelSet withoutEnumerations(Enumeration value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.withoutEnumerations(value);
-      }
-      
-      return this;
-   }
-
-
-   public static final ClassModelSet EMPTY_SET = new ClassModelSet().withReadOnly(true);
-   public ClassModelSet hasName(String value)
+   /**
+    * Loop through the current set of ClassModel objects and collect those ClassModel objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ClassModel objects that match the parameter
+    */
+   public ClassModelSet filterName(String value)
    {
       ClassModelSet result = new ClassModelSet();
       
@@ -206,7 +111,16 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       return result;
    }
 
-   public ClassModelSet hasName(String lower, String upper)
+
+   /**
+    * Loop through the current set of ClassModel objects and collect those ClassModel objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ClassModel objects that match the parameter
+    */
+   public ClassModelSet filterName(String lower, String upper)
    {
       ClassModelSet result = new ClassModelSet();
       
@@ -219,6 +133,24 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of ClassModel objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ClassModel objects now with new attribute values.
+    */
+   public ClassModelSet withName(String value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.with(value);
+      }
+      
+      return this;
    }
 
 }

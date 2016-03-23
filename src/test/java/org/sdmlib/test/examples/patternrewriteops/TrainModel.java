@@ -1,10 +1,11 @@
 package org.sdmlib.test.examples.patternrewriteops;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
 
 public class TrainModel
 {
@@ -22,17 +23,18 @@ public class TrainModel
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.patternrewriteops.model");
             
-      Clazz trainClass = model.createClazz("Train").with(model);
+      Clazz trainClass = model.createClazz("Train");
+      trainClass.setClassModel(model);
       
-      Clazz stationClass = model.createClazz("Station").withAssoc(trainClass, "trains", Card.MANY, "station", Card.ONE);
+      Clazz stationClass = model.createClazz("Station").withBidirectional(trainClass, "trains", Cardinality.MANY, "station", Cardinality.ONE);
 
-      stationClass.withAssoc(stationClass, "next", Card.ONE, "prev", Card.ONE);
+      stationClass.withBidirectional(stationClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
       
-      Clazz personClass = model.createClazz("Person").withAssoc(stationClass, "station", Card.ONE, "people", Card.MANY);
+      Clazz personClass = model.createClazz("Person").withBidirectional(stationClass, "station", Cardinality.ONE, "people", Cardinality.MANY);
       
-      trainClass.withAssoc(personClass, "passengers", Card.MANY, "train", Card.ONE);
+      trainClass.withBidirectional(personClass, "passengers", Cardinality.MANY, "train", Cardinality.ONE);
       
-      model.createClazz("SignalFlag").withAssoc(stationClass, "station", Card.MANY, "flag", Card.ONE);
+      model.createClazz("SignalFlag").withBidirectional(stationClass, "station", Cardinality.MANY, "flag", Cardinality.ONE);
       
       storyboard.addClassDiagram(model);
       

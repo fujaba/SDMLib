@@ -21,18 +21,18 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class MoveUpSet extends SDMSet<MoveUp>
+public class MoveUpSet extends SimpleSet<MoveUp>
 {
 
-   public static final MoveUpSet EMPTY_SET = new MoveUpSet().withReadOnly(true);
+   public static final MoveUpSet EMPTY_SET = new MoveUpSet().withFlag(MoveUpSet.READONLY);
 
 
    public MoveUpPO hasMoveUpPO()
@@ -143,4 +143,10 @@ public class MoveUpSet extends SDMSet<MoveUp>
       return this;
    }
 
+
+
+   public MoveUpPO filterMoveUpPO()
+   {
+      return new MoveUpPO(this.toArray(new MoveUp[this.size()]));
+   }
 }

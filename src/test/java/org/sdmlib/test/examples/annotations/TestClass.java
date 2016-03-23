@@ -3,7 +3,9 @@ package org.sdmlib.test.examples.annotations;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 public class TestClass {
 
@@ -12,13 +14,13 @@ public class TestClass {
 		ClassModel model = new ClassModel();
 		model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.test.examples.annotations");
 		
-		for(Clazz clazz : model.getClasses()) {
+		for(Clazz clazz : model.getClazzes()) {
 			if(clazz.getName().equals("org.sdmlib.test.examples.annotations.TestClass")) {
+				Method test = clazz.getMethods().first();
 				String name = clazz
 				      .getMethods()
 				      .first()
-				      .getAnnotations()
-				      .first()
+				      .getAnnotation()
 				      .getName();
 				Assert.assertEquals("@Test(timeout=200000)", name);
 			}

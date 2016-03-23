@@ -2,15 +2,15 @@ package org.sdmlib.serialization.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 
-public class JsonIdMapPO extends PatternObject<JsonIdMapPO, JsonIdMap>
+public class JsonIdMapPO extends PatternObject<JsonIdMapPO, IdMap>
 {
    public JsonIdMapPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public JsonIdMapPO(JsonIdMap... hostGraphObject) {
+   public JsonIdMapPO(IdMap... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
@@ -24,7 +24,7 @@ public class JsonIdMapPO extends PatternObject<JsonIdMapPO, JsonIdMap>
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((JsonIdMap) this.getCurrentMatch());
+         matches.add((IdMap) this.getCurrentMatch());
 
          this.getPattern().findMatch();
       }

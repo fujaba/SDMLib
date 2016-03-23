@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -36,10 +37,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 public class AssignmentSet extends SDMSet<Assignment>
 {
 
-   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
 
 
-   public AssignmentPO hasAssignmentPO()
+   public AssignmentPO filterAssignmentPO()
    {
       return new AssignmentPO(this.toArray(new Assignment[this.size()]));
    }
@@ -54,7 +55,11 @@ public class AssignmentSet extends SDMSet<Assignment>
    @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Assignment>)value);
       }
@@ -72,6 +77,18 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+   @Override
+   public AssignmentSet filter(Condition<Assignment> newValue) {
+      AssignmentSet filterList = new AssignmentSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+
+   /**
+    * Loop through the current set of Assignment objects and collect a list of the content attribute values. 
+    * 
+    * @return List of String objects reachable via content attribute
+    */
    public StringList getContent()
    {
       StringList result = new StringList();
@@ -84,7 +101,15 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
-   public AssignmentSet hasContent(String value)
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterContent(String value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -99,7 +124,16 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
-   public AssignmentSet hasContent(String lower, String upper)
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterContent(String lower, String upper)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -114,6 +148,14 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Assignment objects and assign value to the content attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Assignment objects now with new attribute values.
+    */
    public AssignmentSet withContent(String value)
    {
       for (Assignment obj : this)
@@ -124,6 +166,12 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Assignment objects and collect a list of the points attribute values. 
+    * 
+    * @return List of int objects reachable via points attribute
+    */
    public intList getPoints()
    {
       intList result = new intList();
@@ -136,7 +184,15 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
-   public AssignmentSet hasPoints(int value)
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterPoints(int value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -151,7 +207,16 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
-   public AssignmentSet hasPoints(int lower, int upper)
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet filterPoints(int lower, int upper)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -166,6 +231,14 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Assignment objects and assign value to the points attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Assignment objects now with new attribute values.
+    */
    public AssignmentSet withPoints(int value)
    {
       for (Assignment obj : this)
@@ -177,7 +250,9 @@ public class AssignmentSet extends SDMSet<Assignment>
    }
 
    /**
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    * Loop through the current set of Assignment objects and collect a set of the Room objects reached via room. 
+    * 
+    * @return Set of Room objects reachable via room
     */
    public RoomSet getRoom()
    {
@@ -185,13 +260,20 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.add(obj.getRoom());
+         result.with(obj.getRoom());
       }
       
       return result;
    }
 
-   public AssignmentSet hasRoom(Object value)
+   /**
+    * Loop through the current set of Assignment objects and collect all contained objects with reference room pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as room neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via room
+    */
+   public AssignmentSet filterRoom(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -208,7 +290,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         if (neighbors.contains(obj.getRoom()))
+         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
          {
             answer.add(obj);
          }
@@ -217,6 +299,11 @@ public class AssignmentSet extends SDMSet<Assignment>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Room attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    */
    public AssignmentSet withRoom(Room value)
    {
       for (Assignment obj : this)
@@ -227,19 +314,31 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+   /**
+    * Loop through the current set of Assignment objects and collect a set of the Student objects reached via students. 
+    * 
+    * @return Set of Student objects reachable via students
+    */
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
       
       for (Assignment obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;
    }
 
-   public AssignmentSet hasStudents(Object value)
+   /**
+    * Loop through the current set of Assignment objects and collect all contained objects with reference students pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as students neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via students
+    */
+   public AssignmentSet filterStudents(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -265,6 +364,11 @@ public class AssignmentSet extends SDMSet<Assignment>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    */
    public AssignmentSet withStudents(Student value)
    {
       for (Assignment obj : this)
@@ -275,6 +379,11 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the Assignment object passed as parameter from the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public AssignmentSet withoutStudents(Student value)
    {
       for (Assignment obj : this)

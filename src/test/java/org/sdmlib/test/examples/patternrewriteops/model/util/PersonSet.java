@@ -24,30 +24,20 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
-public class PersonSet extends SDMSet<Person>
+public class PersonSet extends SimpleSet<Person>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public PersonPO hasPersonPO()
    {
       return new PersonPO (this.toArray(new Person[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.Person";
-   }
-
 
    public PersonSet with(Object value)
    {
@@ -169,6 +159,18 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+
+
+   public PersonPO filterPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Person";
+   }
 }
 

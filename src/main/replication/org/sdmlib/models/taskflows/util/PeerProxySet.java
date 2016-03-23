@@ -23,13 +23,14 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class PeerProxySet extends SDMSet<PeerProxy>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PeerProxySet extends SimpleSet<PeerProxy>
 {
 
 
@@ -37,14 +38,6 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    {
       return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.PeerProxy";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PeerProxySet with(Object value)
@@ -209,5 +202,134 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    }
 
 
-   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withReadOnly(true);
+   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withFlag(PeerProxySet.READONLY);
+
+
+   public PeerProxyPO filterPeerProxyPO()
+   {
+      return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.taskflows.PeerProxy";
+   }
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the ip attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet filterIp(String value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value.equals(obj.getIp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the ip attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet filterIp(String lower, String upper)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (lower.compareTo(obj.getIp()) <= 0 && obj.getIp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet filterPort(int value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet filterPort(int lower, int upper)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet filterIdMap(SDMLibJsonIdMap value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -21,32 +21,25 @@
    
 package org.sdmlib.test.examples.features.model.albertsets.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-
-public class WindowSet extends SDMSet<Window>
+public class WindowSet extends SimpleSet<Window>
 {
 
-   public static final WindowSet EMPTY_SET = new WindowSet().withReadOnly(true);
+   public static final WindowSet EMPTY_SET = new WindowSet().withFlag(WindowSet.READONLY);
 
 
    public WindowPO hasWindowPO()
    {
       return new WindowPO(this.toArray(new Window[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.features.model.albertsets.Window";
-   }
-
 
    @SuppressWarnings("unchecked")
    public WindowSet with(Object value)
@@ -117,4 +110,16 @@ public class WindowSet extends SDMSet<Window>
       return this;
    }
 
+
+
+   public WindowPO filterWindowPO()
+   {
+      return new WindowPO(this.toArray(new Window[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.features.model.albertsets.Window";
+   }
 }

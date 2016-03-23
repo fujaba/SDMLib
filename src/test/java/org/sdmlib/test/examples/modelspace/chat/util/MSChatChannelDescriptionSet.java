@@ -21,21 +21,23 @@
    
 package org.sdmlib.test.examples.modelspace.chat.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import java.util.Collections;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
+import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 
-public class MSChatChannelDescriptionSet extends SDMSet<MSChatChannelDescription>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
+
+public class MSChatChannelDescriptionSet extends SimpleSet<MSChatChannelDescription>
 {
 
-   public static final MSChatChannelDescriptionSet EMPTY_SET = new MSChatChannelDescriptionSet().withReadOnly(true);
+   public static final MSChatChannelDescriptionSet EMPTY_SET = new MSChatChannelDescriptionSet().withFlag(MSChatChannelDescriptionSet.READONLY);
 
 
    public MSChatChannelDescriptionPO hasMSChatChannelDescriptionPO()
@@ -279,6 +281,106 @@ public class MSChatChannelDescriptionSet extends SDMSet<MSChatChannelDescription
       }
       
       return this;
+   }
+
+
+
+   public MSChatChannelDescriptionPO filterMSChatChannelDescriptionPO()
+   {
+      return new MSChatChannelDescriptionPO(this.toArray(new MSChatChannelDescription[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of MSChatChannelDescription objects and collect those MSChatChannelDescription objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatChannelDescription objects that match the parameter
+    */
+   public MSChatChannelDescriptionSet filterName(String value)
+   {
+      MSChatChannelDescriptionSet result = new MSChatChannelDescriptionSet();
+      
+      for (MSChatChannelDescription obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatChannelDescription objects and collect those MSChatChannelDescription objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatChannelDescription objects that match the parameter
+    */
+   public MSChatChannelDescriptionSet filterName(String lower, String upper)
+   {
+      MSChatChannelDescriptionSet result = new MSChatChannelDescriptionSet();
+      
+      for (MSChatChannelDescription obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatChannelDescription objects and collect those MSChatChannelDescription objects where the location attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatChannelDescription objects that match the parameter
+    */
+   public MSChatChannelDescriptionSet filterLocation(String value)
+   {
+      MSChatChannelDescriptionSet result = new MSChatChannelDescriptionSet();
+      
+      for (MSChatChannelDescription obj : this)
+      {
+         if (value.equals(obj.getLocation()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatChannelDescription objects and collect those MSChatChannelDescription objects where the location attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatChannelDescription objects that match the parameter
+    */
+   public MSChatChannelDescriptionSet filterLocation(String lower, String upper)
+   {
+      MSChatChannelDescriptionSet result = new MSChatChannelDescriptionSet();
+      
+      for (MSChatChannelDescription obj : this)
+      {
+         if (lower.compareTo(obj.getLocation()) <= 0 && obj.getLocation().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

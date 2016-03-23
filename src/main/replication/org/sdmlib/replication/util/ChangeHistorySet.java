@@ -25,12 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
+
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 
-public class ChangeHistorySet extends SDMSet<ChangeHistory>
+public class ChangeHistorySet extends SimpleSet<ChangeHistory>
 {
 
 
@@ -38,14 +39,6 @@ public class ChangeHistorySet extends SDMSet<ChangeHistory>
    {
       return new ChangeHistoryPO(this.toArray(new ChangeHistory[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ChangeHistory";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ChangeHistorySet with(Object value)
@@ -127,5 +120,17 @@ public class ChangeHistorySet extends SDMSet<ChangeHistory>
    }
 
 
-   public static final ChangeHistorySet EMPTY_SET = new ChangeHistorySet().withReadOnly(true);
+   public static final ChangeHistorySet EMPTY_SET = new ChangeHistorySet().withFlag(ChangeHistorySet.READONLY);
+
+
+   public ChangeHistoryPO filterChangeHistoryPO()
+   {
+      return new ChangeHistoryPO(this.toArray(new ChangeHistory[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.replication.ChangeHistory";
+   }
 }

@@ -22,7 +22,7 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.model.refactoring.Player;
 import org.sdmlib.test.model.refactoring.Ludo;
 
@@ -30,9 +30,8 @@ public class PlayerCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-
+      Player.PROPERTY_GAME,
    };
-
    
    @Override
    public String[] getProperties()
@@ -57,33 +56,31 @@ public class PlayerCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-
-
-
-
+      if (Player.PROPERTY_GAME.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getGame();
+      }
       
       return null;
    }
-
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-
-
-
-
-
+      if (Player.PROPERTY_GAME.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).setGame((Ludo) value);
+         return true;
+      }
       
       return false;
    }
-
-   public static JsonIdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap(sessionID);
    }

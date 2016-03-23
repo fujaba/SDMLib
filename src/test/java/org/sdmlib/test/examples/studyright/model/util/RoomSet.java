@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
@@ -33,12 +32,11 @@ import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
-import org.sdmlib.test.examples.studyright.model.util.UniversitySet;
 
-public class RoomSet extends SDMSet<Room>
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
+
+public class RoomSet extends SimpleSet<Room>
 {
 
 
@@ -46,14 +44,6 @@ public class RoomSet extends SDMSet<Room>
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Room";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
@@ -470,7 +460,7 @@ public class RoomSet extends SDMSet<Room>
    }
 
 
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadOnly(true);
+   public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
    public RoomSet hasRoomNo(String lower, String upper)
    {
       RoomSet result = new RoomSet();
@@ -487,6 +477,112 @@ public class RoomSet extends SDMSet<Room>
    }
 
    public RoomSet hasCredits(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public RoomPO filterRoomPO()
+   {
+      return new RoomPO(this.toArray(new Room[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.studyright.model.Room";
+   }
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the roomNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet filterRoomNo(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getRoomNo()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the roomNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet filterRoomNo(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getRoomNo()) <= 0 && obj.getRoomNo().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet filterCredits(int value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet filterCredits(int lower, int upper)
    {
       RoomSet result = new RoomSet();
       

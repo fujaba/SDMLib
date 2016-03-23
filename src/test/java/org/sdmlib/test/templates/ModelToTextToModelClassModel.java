@@ -21,11 +21,13 @@
 package org.sdmlib.test.templates;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ModelToTextToModelClassModel
 {
@@ -41,9 +43,9 @@ public class ModelToTextToModelClassModel
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
 
       Clazz template = model.createClazz("Template")
+         .withAttribute("modelObject", DataType.OBJECT)
          .withAttribute("templateText", DataType.STRING)
          .withAttribute("expandedText", DataType.STRING)
-         .withAttribute("modelObject", DataType.OBJECT)
          .withAttribute("modelClassName", DataType.STRING)
          .withAttribute("listStart", DataType.STRING)
          .withAttribute("listSeparator", DataType.STRING)
@@ -52,7 +54,7 @@ public class ModelToTextToModelClassModel
          .withAttribute("name", DataType.STRING);
 
       Clazz placeholderDescription = model.createClazz("PlaceHolderDescription")
-         .withAssoc(template, "owners", Card.MANY, "placeholders", Card.MANY)
+         .withBidirectional(template, "owners", Cardinality.MANY, "placeholders", Cardinality.MANY)
          .withAttribute("textFragment", DataType.STRING)
          .withAttribute("value", DataType.STRING)
          .withAttribute("attrName", DataType.STRING)
@@ -61,7 +63,7 @@ public class ModelToTextToModelClassModel
 
       model.createClazz("ChoiceTemplate")
          .withSuperClazz(template)
-         .withAssoc(template, "choices", Card.MANY, "chooser", Card.ONE);
+         .withBidirectional(template, "choices", Cardinality.MANY, "chooser", Cardinality.ONE);
 
       Clazz matchClazz = model.createClazz("Match")
          .withAttribute("startPos", DataType.INT)
@@ -69,12 +71,12 @@ public class ModelToTextToModelClassModel
          .withAttribute("fullText", DataType.STRING)
          .withAttribute("matchText", DataType.STRING);
 
-      matchClazz.withAssoc(template, "template", Card.ONE, "matches", Card.MANY);
-      matchClazz.withAssoc(placeholderDescription, "placeholder", Card.ONE, "matches", Card.MANY);
+      matchClazz.withBidirectional(template, "template", Cardinality.ONE, "matches", Cardinality.MANY);
+      matchClazz.withBidirectional(placeholderDescription, "placeholder", Cardinality.ONE, "matches", Cardinality.MANY);
       matchClazz.withAttribute("modelObject", DataType.OBJECT);
-      matchClazz.withAssoc(matchClazz, "subMatches", Card.MANY, "parentMatch", Card.ONE);
+      matchClazz.withBidirectional(matchClazz, "subMatches", Cardinality.MANY, "parentMatch", Cardinality.ONE);
 
-      placeholderDescription.withAssoc(template, "subTemplate", Card.ONE, "parents", Card.MANY);
+      placeholderDescription.withBidirectional(template, "subTemplate", Cardinality.ONE, "parents", Cardinality.MANY);
 
       story.addClassDiagram(model);
 

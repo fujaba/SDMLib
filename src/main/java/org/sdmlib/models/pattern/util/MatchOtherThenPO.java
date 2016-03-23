@@ -6,6 +6,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
+import org.sdmlib.models.pattern.util.PatternObjectPO;
+import org.sdmlib.models.pattern.util.MatchOtherThenPO;
 
 public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOtherThen>
 {
@@ -401,6 +403,136 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    public MatchOtherThenPO createForbidden(PatternObjectPO tgt)
    {
       return this.startCreate().hasForbidden(tgt).endCreate();
+   }
+
+   public MatchOtherThenPO filterHostGraphSrcObject(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterModifier(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterModifier(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterHasMatch(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterPatternObjectName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterPatternObjectName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchOtherThenPO filterDoAllMatches(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternObjectPO filterSrc()
+   {
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MatchOtherThen.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public MatchOtherThenPO filterSrc(PatternObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_SRC);
+   }
+
+   public PatternObjectPO filterForbidden()
+   {
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MatchOtherThen.PROPERTY_FORBIDDEN, result);
+      
+      return result;
+   }
+
+   public MatchOtherThenPO filterForbidden(PatternObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_FORBIDDEN);
    }
 
 }
