@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,23 +19,19 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package de.kassel.test.roombook;
+package org.sdmlib.test.examples.roombook;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import de.kassel.test.roombook.util.FloorSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.kassel.test.roombook.Floor;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
+import org.sdmlib.test.examples.roombook.util.FloorSet;
+import org.sdmlib.test.examples.roombook.Floor;
    /**
     * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
-*/
-   public class Building implements PropertyChangeInterface, SendableEntity
+    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
+ */
+   public  class Building implements SendableEntity
 {
 
    
@@ -43,7 +39,6 @@ import de.kassel.test.roombook.Floor;
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
-   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -65,11 +60,13 @@ import de.kassel.test.roombook.Floor;
       return true;
    }
 
+   
    //==========================================================================
+   
    
    public void removeYou()
    {
-      removeAllFromHas();
+   
       withoutHas(this.getHas().toArray(new Floor[this.getHas().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -81,14 +78,35 @@ import de.kassel.test.roombook.Floor;
    
    private String name;
 
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Building withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
 
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
 
@@ -109,51 +127,10 @@ import de.kassel.test.roombook.Floor;
    {
       if (this.has == null)
       {
-         return Floor.EMPTY_SET;
+         return FloorSet.EMPTY_SET;
       }
    
       return this.has;
-   }
-
-   public boolean addToHas(Floor value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.has == null)
-         {
-            this.has = new FloorSet();
-         }
-         
-         changed = this.has.add (value);
-         
-         if (changed)
-         {
-            value.withBuildings(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public boolean removeFromHas(Floor value)
-   {
-      boolean changed = false;
-      
-      if ((this.has != null) && (value != null))
-      {
-         changed = this.has.remove(value);
-         
-         if (changed)
-         {
-            value.setBuildings(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, value, null);
-         }
-      }
-         
-      return changed;   
    }
 
    public Building withHas(Floor... value)
@@ -163,7 +140,21 @@ import de.kassel.test.roombook.Floor;
       }
       for (Floor item : value)
       {
-         addToHas(item);
+         if (item != null)
+         {
+            if (this.has == null)
+            {
+               this.has = new FloorSet();
+            }
+            
+            boolean changed = this.has.add (item);
+
+            if (changed)
+            {
+               item.withBuildings(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, null, item);
+            }
+         }
       }
       return this;
    } 
@@ -172,19 +163,16 @@ import de.kassel.test.roombook.Floor;
    {
       for (Floor item : value)
       {
-         removeFromHas(item);
+         if ((this.has != null) && (item != null))
+         {
+            if (this.has.remove(item))
+            {
+               item.setBuildings(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, item, null);
+            }
+         }
       }
       return this;
-   }
-
-   public void removeAllFromHas()
-   {
-      LinkedHashSet<Floor> tmpSet = new LinkedHashSet<Floor>(this.getHas());
-   
-      for (Floor value : tmpSet)
-      {
-         this.removeFromHas(value);
-      }
    }
 
    public Floor createHas()
@@ -193,29 +181,4 @@ import de.kassel.test.roombook.Floor;
       withHas(value);
       return value;
    } 
-
-   
-   //==========================================================================
-   
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-   
-   public Building withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
 }
-

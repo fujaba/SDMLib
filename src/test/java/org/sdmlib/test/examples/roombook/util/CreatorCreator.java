@@ -1,6 +1,4 @@
-package de.kassel.test.roombook.util;
-
-import org.sdmlib.serialization.SDMLibJsonIdMap;
+package org.sdmlib.test.examples.roombook.util;
 
 import de.uniks.networkparser.IdMap;
 
@@ -8,8 +6,7 @@ class CreatorCreator{
 
    public static IdMap createIdMap(String sessionID)
    {
-      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      
+      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
       jsonIdMap.with(new BuildingCreator());
       jsonIdMap.with(new BuildingPOCreator());
       jsonIdMap.with(new FloorCreator());

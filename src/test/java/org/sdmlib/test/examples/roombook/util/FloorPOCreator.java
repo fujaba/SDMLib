@@ -1,9 +1,8 @@
-package de.kassel.test.roombook.util;
+package org.sdmlib.test.examples.roombook.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
-import de.kassel.test.roombook.Floor;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.roombook.Floor;
 
 public class FloorPOCreator extends PatternObjectCreator
 {
@@ -18,6 +17,6 @@ public class FloorPOCreator extends PatternObjectCreator
    }
    
    public static IdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.roombook.util.CreatorCreator.createIdMap(sessionID);
    }
 }

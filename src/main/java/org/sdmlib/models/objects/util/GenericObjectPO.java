@@ -5,6 +5,12 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.util.GenericGraphPO;
+import org.sdmlib.models.objects.util.GenericObjectPO;
+import org.sdmlib.models.objects.util.GenericAttributePO;
+import org.sdmlib.models.objects.GenericAttribute;
+import org.sdmlib.models.objects.util.GenericLinkPO;
+import org.sdmlib.models.objects.GenericLink;
 
 public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
@@ -421,6 +427,66 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return this;
    }
    
+   public GenericGraphPO filterGraph()
+   {
+      GenericGraphPO result = new GenericGraphPO(new GenericGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO filterGraph(GenericGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_GRAPH);
+   }
+
+   public GenericAttributePO filterAttrs()
+   {
+      GenericAttributePO result = new GenericAttributePO(new GenericAttribute[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_ATTRS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO filterAttrs(GenericAttributePO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_ATTRS);
+   }
+
+   public GenericLinkPO filterOutgoingLinks()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_OUTGOINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO filterOutgoingLinks(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_OUTGOINGLINKS);
+   }
+
+   public GenericLinkPO filterIncommingLinks()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_INCOMMINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO filterIncommingLinks(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMMINGLINKS);
+   }
+
 }
 
 

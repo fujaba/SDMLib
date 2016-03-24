@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,22 +19,19 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package de.kassel.test.roombook.util;
+package org.sdmlib.test.examples.roombook.util;
 
-import org.sdmlib.serialization.EntityFactory;
-
-import de.kassel.test.roombook.Building;
-import de.kassel.test.roombook.Floor;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.roombook.Building;
+import org.sdmlib.test.examples.roombook.Floor;
 
-public class FloorCreator extends EntityFactory
+public class BuildingCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Floor.PROPERTY_LEVEL,
-      Floor.PROPERTY_NAME,
-      Floor.PROPERTY_GUEST,
-      Floor.PROPERTY_BUILDINGS,
+      Building.PROPERTY_NAME,
+      Building.PROPERTY_HAS,
    };
    
    @Override
@@ -46,7 +43,7 @@ public class FloorCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Floor();
+      return new Building();
    }
    
    @Override
@@ -60,24 +57,14 @@ public class FloorCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Floor.PROPERTY_LEVEL.equalsIgnoreCase(attribute))
+      if (Building.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Floor) target).getLevel();
+         return ((Building) target).getName();
       }
 
-      if (Floor.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Building.PROPERTY_HAS.equalsIgnoreCase(attribute))
       {
-         return ((Floor) target).getName();
-      }
-
-      if (Floor.PROPERTY_GUEST.equalsIgnoreCase(attribute))
-      {
-         return ((Floor) target).getGuest();
-      }
-
-      if (Floor.PROPERTY_BUILDINGS.equalsIgnoreCase(attribute))
-      {
-         return ((Floor) target).getBuildings();
+         return ((Building) target).getHas();
       }
       
       return null;
@@ -86,32 +73,26 @@ public class FloorCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Building.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Building) target).withName((String) value);
+         return true;
+      }
+
       if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-      if (Floor.PROPERTY_LEVEL.equalsIgnoreCase(attrName))
+      if (Building.PROPERTY_HAS.equalsIgnoreCase(attrName))
       {
-         ((Floor) target).setLevel(Integer.parseInt(value.toString()));
+         ((Building) target).withHas((Floor) value);
          return true;
       }
-
-      if (Floor.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      
+      if ((Building.PROPERTY_HAS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Floor) target).setName((String) value);
-         return true;
-      }
-
-      if (Floor.PROPERTY_GUEST.equalsIgnoreCase(attrName))
-      {
-         ((Floor) target).setGuest((String) value);
-         return true;
-      }
-
-      if (Floor.PROPERTY_BUILDINGS.equalsIgnoreCase(attrName))
-      {
-         ((Floor) target).setBuildings((Building) value);
+         ((Building) target).withoutHas((Floor) value);
          return true;
       }
       
@@ -119,14 +100,12 @@ public class FloorCreator extends EntityFactory
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.roombook.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
-      ((Floor) entity).removeYou();
+      ((Building) entity).removeYou();
    }
 }

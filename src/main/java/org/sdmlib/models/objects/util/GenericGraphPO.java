@@ -3,6 +3,11 @@ package org.sdmlib.models.objects.util;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.util.GenericObjectPO;
+import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.util.GenericGraphPO;
+import org.sdmlib.models.objects.util.GenericLinkPO;
+import org.sdmlib.models.objects.GenericLink;
 
 public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
 {
@@ -114,6 +119,36 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
    public GenericGraphPO createLinks(GenericLinkPO tgt)
    {
       return this.startCreate().hasLinks(tgt).endCreate();
+   }
+
+   public GenericObjectPO filterObjects()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericGraph.PROPERTY_OBJECTS, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO filterObjects(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_OBJECTS);
+   }
+
+   public GenericLinkPO filterLinks()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericGraph.PROPERTY_LINKS, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO filterLinks(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_LINKS);
    }
 
 }

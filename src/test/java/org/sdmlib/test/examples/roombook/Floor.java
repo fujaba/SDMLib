@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,22 +19,18 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package de.kassel.test.roombook;
+package org.sdmlib.test.examples.roombook;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import de.kassel.test.roombook.util.FloorSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.kassel.test.roombook.Building;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
+import org.sdmlib.test.examples.roombook.Building;
    /**
     * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
-*/
-   public class Floor implements PropertyChangeInterface, SendableEntity
+    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
+ */
+   public  class Floor implements SendableEntity
 {
 
    
@@ -42,7 +38,6 @@ import de.kassel.test.roombook.Building;
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
-   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -53,21 +48,24 @@ import de.kassel.test.roombook.Building;
       getPropertyChangeSupport().addPropertyChangeListener(listener);
       return true;
    }
-
+   
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
-
+   
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
       getPropertyChangeSupport().removePropertyChangeListener(listener);
       return true;
    }
+
    
    //==========================================================================
    
+   
    public void removeYou()
    {
+   
       setBuildings(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -79,16 +77,37 @@ import de.kassel.test.roombook.Building;
    
    private int level;
 
+   public int getLevel()
+   {
+      return this.level;
+   }
+   
+   public void setLevel(int value)
+   {
+      if (this.level != value) {
+      
+         int oldValue = this.level;
+         this.level = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LEVEL, oldValue, value);
+      }
+   }
+   
+   public Floor withLevel(int value)
+   {
+      setLevel(value);
+      return this;
+   } 
+
 
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getLevel());
-      s.append(" ").append(this.getName());
-      s.append(" ").append(this.getGuest());
-      return s.substring(1);
+      result.append(" ").append(this.getLevel());
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getGuest());
+      return result.substring(1);
    }
 
 
@@ -99,6 +118,27 @@ import de.kassel.test.roombook.Building;
    
    private String name;
 
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Floor withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
    
    //==========================================================================
    
@@ -106,8 +146,26 @@ import de.kassel.test.roombook.Building;
    
    private String guest;
 
+   public String getGuest()
+   {
+      return this.guest;
+   }
    
-   public static final FloorSet EMPTY_SET = new FloorSet();
+   public void setGuest(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.guest, value)) {
+      
+         String oldValue = this.guest;
+         this.guest = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GUEST, oldValue, value);
+      }
+   }
+   
+   public Floor withGuest(String value)
+   {
+      setGuest(value);
+      return this;
+   } 
 
    
    /********************************************************************
@@ -166,77 +224,5 @@ import de.kassel.test.roombook.Building;
       Building value = new Building();
       withBuildings(value);
       return value;
-   } 
-
-   
-   //==========================================================================
-   
-   public int getLevel()
-   {
-      return this.level;
-   }
-   
-   public void setLevel(int value)
-   {
-      if (this.level != value)
-      {
-         int oldValue = this.level;
-         this.level = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LEVEL, oldValue, value);
-      }
-   }
-   
-   public Floor withLevel(int value)
-   {
-      setLevel(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-   
-   public Floor withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public String getGuest()
-   {
-      return this.guest;
-   }
-   
-   public void setGuest(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.guest, value))
-      {
-         String oldValue = this.guest;
-         this.guest = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GUEST, oldValue, value);
-      }
-   }
-   
-   public Floor withGuest(String value)
-   {
-      setGuest(value);
-      return this;
    } 
 }
