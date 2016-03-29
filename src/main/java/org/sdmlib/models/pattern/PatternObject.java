@@ -778,8 +778,8 @@ public PatternLinkSet getIncomming()
 
    /**
     * Depricated. Use filter() instead.
-    * @param condition
-    * @return
+    * @param condition The condition used for filtering
+    * @return this
     */
    @Deprecated
    public POC has(Condition<Object> condition)
