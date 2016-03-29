@@ -353,6 +353,7 @@ public class MethodSet extends SDMSet<Method>
    /**
     * Loop through current set of ModelType objects and attach the Method object passed as parameter to the Parameter attribute of each of it. 
     * 
+    * @param value parameter
     * @return The original set of ModelType objects now with the new neighbor attached to their Parameter attributes.
     */
    public MethodSet withParameter(Parameter value)
@@ -368,6 +369,7 @@ public class MethodSet extends SDMSet<Method>
    /**
     * Loop through current set of ModelType objects and remove the Method object passed as parameter from the Parameter attribute of each of it. 
     * 
+    * @param value parameter
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public MethodSet withoutParameter(Parameter value)

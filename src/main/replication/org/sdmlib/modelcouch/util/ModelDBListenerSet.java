@@ -126,6 +126,7 @@ public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
    /**
     * Loop through current set of ModelType objects and attach the ModelDBListener object passed as parameter to the Couch attribute of each of it. 
     * 
+    * @param value the couch
     * @return The original set of ModelType objects now with the new neighbor attached to their Couch attributes.
     */
    public ModelDBListenerSet withCouch(ModelCouch value)

@@ -352,6 +352,7 @@ public class ParameterSet extends SDMSet<Parameter>
    /**
     * Loop through current set of ModelType objects and attach the Parameter object passed as parameter to the Method attribute of each of it. 
     * 
+    * @param value method
     * @return The original set of ModelType objects now with the new neighbor attached to their Method attributes.
     */
    public ParameterSet withMethod(Method value)
