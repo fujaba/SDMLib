@@ -55,7 +55,7 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
 
-public class StoryboardTests {
+public class StudyRightWithAssignmentsStoryboards {
    /**
     *
     * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryPage.html'>StudyRightWithAssignmentsStoryPage.html</a>

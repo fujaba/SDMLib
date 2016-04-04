@@ -31,7 +31,7 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Parameter;
 
-public class GenerateClasses 
+public class StudyRightWithAssignmentsModel 
 {
 
 	/**
