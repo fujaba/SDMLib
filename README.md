@@ -11,7 +11,7 @@ develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop
 
 Welcome to SDMLib
 
-SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. 
+SDMLib is a leight weight modeling library. SDMLib intentionally comes without any tool or editor. 
 
 The idea is that you _code_ your model: 
 
