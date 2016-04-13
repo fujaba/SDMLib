@@ -18,7 +18,6 @@ public interface Authenticator {
 	 * Called in every request
 	 * 
 	 * @param connection
-	 * @return void
 	 */
 	public void authenticate(HttpURLConnection connection);
 }
