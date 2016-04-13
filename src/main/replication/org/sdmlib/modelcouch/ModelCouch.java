@@ -626,7 +626,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return this.authenticator.login(getUserName(), password, getHostName(), getPort());
 	}
 	
-	private void authenticate(HttpURLConnection connection) {
+	protected void authenticate(HttpURLConnection connection) {
 		if(authenticator != null){
 			authenticator.authenticate(connection);
 		}

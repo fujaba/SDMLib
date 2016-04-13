@@ -10,7 +10,10 @@ import de.uniks.networkparser.IdMap;
 
 public class ModelCouchTasksTest
 {
-   /**
+   private static final String DB_USERNAME = "docker.cs.uni-kassel.de";
+   private static final String DB_HOST = "couchdb";
+
+/**
     * 
     * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>BasicModelOnTheCouch.html</a>
  */
@@ -31,9 +34,9 @@ public class ModelCouchTasksTest
 		IdMap idMap = PersonCreator.createIdMap(sessionid);
 		
 		ModelCouch couch = new ModelCouch()
-				.withHostName("docker.cs.uni-kassel.de")
+				.withHostName(DB_HOST)
 				.withPort(5984)
-				.withUserName("couchdb")
+				.withUserName(DB_USERNAME)
 				.withApplicationType(ApplicationType.StandAlone)
 				.withIdMap(idMap)
 				.registerAtIdMap()
@@ -89,9 +92,9 @@ public class ModelCouchTasksTest
 		IdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
 		
 		couch = new ModelCouch()
-				.withHostName("docker.cs.uni-kassel.de")
+				.withHostName(DB_HOST)
 				.withPort(5984)
-				.withUserName("couchdb")
+				.withUserName(DB_USERNAME)
 				.withApplicationType(ApplicationType.StandAlone)
 				.withIdMap(idMap)
 				.registerAtIdMap()
