@@ -49,12 +49,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.concurrent.Task;
 
 import org.sdmlib.modelcouch.ModelDBListener;
+import org.sdmlib.modelcouch.authentication.Authenticator;
+import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
 
 /**
  * 
@@ -113,7 +114,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				con.setDoInput(true);
 				con.setDoOutput(true);
 
-				con.setRequestProperty("Content-Type", "application/json");
+				con.addRequestProperty("Content-Type", "application/json");
+
+				authenticate(con);
 
 				responseCode = con.getResponseCode();
 				con.disconnect();
@@ -179,7 +182,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					con.setRequestMethod("POST");	
 					con.setDoOutput(true);
 					con.setDoInput(true);
-					con.setRequestProperty("Content-Type", "application/json");
+					authenticate(con);
+					con.addRequestProperty("Content-Type", "application/json");
 					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 					wr.writeBytes(urlParameters);
 					wr.flush();
@@ -194,6 +198,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				return responsecode;
 			}
+			
 		});
 		if(isContinuous()){
 			try {
@@ -230,7 +235,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 					con.setRequestMethod("DELETE");	
-					con.setRequestProperty("Content-Type", "application/json");
+					con.addRequestProperty("Content-Type", "application/json");
+					authenticate(con);
 
 					responsecode = con.getResponseCode();
 					con.disconnect();
@@ -274,7 +280,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			//try to delete database
 			con.setRequestMethod("DELETE");
 			con.setDoInput(true);
-			con.setRequestProperty("Content-Type", "application/json");
+			con.addRequestProperty("Content-Type", "application/json");
+			authenticate(con);
 
 			responsecode = con.getResponseCode();
 			con.disconnect();
@@ -595,7 +602,35 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		setUserName(userName);
 		return this;
 	}
-
+	
+	private Authenticator authenticator;
+	
+	public ModelCouch withAuthenticator(Authenticator autheticator) {
+		this.authenticator = autheticator;
+		return this;
+	}
+	
+	public Authenticator getAutheticator() {
+		return authenticator;
+	}
+	
+	/**
+	 * Must be called after setting credentials (and authenticator)
+	 * @param password
+	 * @return
+	 */
+	public boolean login(String password){
+		if(this.authenticator == null){
+			this.authenticator = new BasicAuthenticator();
+		}
+		return this.authenticator.login(getUserName(), password, getHostName(), getPort());
+	}
+	
+	private void authenticate(HttpURLConnection connection) {
+		if(authenticator != null){
+			authenticator.authenticate(connection);
+		}
+	}
 
 	/********************************************************************
 	 * <pre>
