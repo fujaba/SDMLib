@@ -335,7 +335,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
    private StudentSet students = null;
    
-   public StudentSet getStudents()
+   public StudentSet<Student> getStudents()
    {
       if (this.students == null)
       {
@@ -469,6 +469,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Assignment createAssignments()
    {

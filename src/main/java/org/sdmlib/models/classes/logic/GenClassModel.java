@@ -2737,6 +2737,12 @@ public class GenClassModel implements ClassModelAdapter
    {
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
 
+      if (memberClass == null)
+      {
+         // probably an internal class
+         return;
+      }
+      
       // ignore helperclasses
       if (isSDMLibClass(memberClass))
       {

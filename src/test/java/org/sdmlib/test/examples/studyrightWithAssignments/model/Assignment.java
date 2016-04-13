@@ -33,6 +33,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public  class Assignment implements SendableEntity
 {
@@ -215,7 +216,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
    private StudentSet students = null;
    
-   public StudentSet getStudents()
+   public StudentSet<Student> getStudents()
    {
       if (this.students == null)
       {

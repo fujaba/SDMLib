@@ -164,6 +164,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public void setAssignmentPoints(int value)
    {
@@ -224,6 +225,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public void setCredits(int value)
    {
@@ -238,6 +240,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Student withCredits(int value)
    {
@@ -376,7 +379,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
    private StudentSet friends = null;
    
-   public StudentSet getFriends()
+   public StudentSet<Student> getFriends()
    {
       if (this.friends == null)
       {
@@ -395,6 +398,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Student withFriends(Student... value)
    {
@@ -478,6 +482,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Student withDone(Assignment... value)
    {
