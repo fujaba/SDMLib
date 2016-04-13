@@ -7,10 +7,10 @@ public interface Authenticator {
 	 * Mainly to Store Username and Password, but also to get cookie or so
 	 * 
 	 * @param username
-	 * @param Password
+	 * @param password
 	 * @param hostName
 	 * @param port
-	 * @return
+	 * @return result
 	 */
 	public boolean login(String username, String password, String hostName, int port);
 
@@ -18,7 +18,7 @@ public interface Authenticator {
 	 * Called in every request
 	 * 
 	 * @param connection
-	 * @return
+	 * @return void
 	 */
 	public void authenticate(HttpURLConnection connection);
 }
