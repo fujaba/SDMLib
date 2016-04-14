@@ -333,4 +333,19 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       return hasLinkConstraint(tgt, LogEntry.PROPERTY_PARENT);
    }
 
+   public LogEntryPO filterChildren()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntry.PROPERTY_CHILDREN, result);
+      
+      return result;
+   }
+
+   public LogEntryPO filterChildren(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_CHILDREN);
+   }
+
 }

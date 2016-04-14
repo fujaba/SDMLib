@@ -136,6 +136,19 @@
             "property":"logger"
          },
          "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         },
+         "target":{
             "id":"LogEntry",
             "cardinality":"many",
             "property":"entries"
@@ -210,7 +223,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvastaskFlowModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvastaskFlowModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

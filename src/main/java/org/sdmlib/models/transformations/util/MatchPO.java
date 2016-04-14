@@ -600,4 +600,19 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       return hasLinkConstraint(tgt, Match.PROPERTY_PARENTMATCH);
    }
 
+   public MatchPO filterSubMatches()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Match.PROPERTY_SUBMATCHES, result);
+      
+      return result;
+   }
+
+   public MatchPO filterSubMatches(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_SUBMATCHES);
+   }
+
 }

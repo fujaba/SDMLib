@@ -36,6 +36,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  */
    public  class Room implements SendableEntity
 {

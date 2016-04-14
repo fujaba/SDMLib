@@ -253,4 +253,19 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
       return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT);
    }
 
+   public TaskFlowPO filterSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO filterSubFlow(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
+   }
+
 }

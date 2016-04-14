@@ -300,4 +300,19 @@ public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
       return hasLinkConstraint(tgt, SeppelScope.PROPERTY_OBSERVEDOBJECTS);
    }
 
+   public SeppelScopePO filterSubScopes()
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelScope.PROPERTY_SUBSCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO filterSubScopes(SeppelScopePO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUBSCOPES);
+   }
+
 }

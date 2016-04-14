@@ -283,6 +283,19 @@
          "source":{
             "id":"Pattern",
             "cardinality":"one",
+            "property":"pattern"
+         },
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"one",
+            "property":"patternelement"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Pattern",
+            "cardinality":"one",
             "property":"currentSubPattern"
          },
          "target":{
@@ -361,6 +374,19 @@
          "source":{
             "id":"PatternObject",
             "cardinality":"one",
+            "property":"patternobject"
+         },
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"one",
+            "property":"patternelement"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"PatternObject",
+            "cardinality":"one",
             "property":"src"
          },
          "target":{
@@ -393,6 +419,19 @@
             "id":"MatchOtherThen",
             "cardinality":"many",
             "property":"excluders"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"PatternLink",
+            "cardinality":"one",
+            "property":"patternlink"
+         },
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"one",
+            "property":"patternelement"
          }
       },
       {
@@ -490,6 +529,19 @@
          "typ":"edge",
          "source":{
             "id":"CardinalityConstraint",
+            "cardinality":"one",
+            "property":"cardinalityconstraint"
+         },
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"one",
+            "property":"patternelement"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"CardinalityConstraint",
             "cardinality":"many",
             "property":"cardConstraints"
          },
@@ -497,6 +549,19 @@
             "id":"PatternObject",
             "cardinality":"one",
             "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MatchOtherThen",
+            "cardinality":"one",
+            "property":"matchotherthen"
+         },
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"one",
+            "property":"patternelement"
          }
       },
       {
@@ -727,7 +792,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasPatternModelCodegenClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasPatternModelCodegenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

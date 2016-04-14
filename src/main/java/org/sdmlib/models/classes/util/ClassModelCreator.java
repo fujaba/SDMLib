@@ -22,16 +22,16 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.SDMLibClass;
-
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.GraphMember;
+import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ClassModelCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      SDMLibClass.PROPERTY_NAME,
+      GraphMember.PROPERTY_NAME  
    };
    
    @Override
@@ -57,9 +57,9 @@ public class ClassModelCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (GraphMember.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((SDMLibClass) target).getName();
+         return ((GraphMember) target).getName();
       }
       
       return null;
@@ -68,9 +68,9 @@ public class ClassModelCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (GraphMember.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).withName((String) value);
+         ((GraphMember) target).with((String) value);
          return true;
       }
 

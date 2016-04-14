@@ -220,6 +220,19 @@
          "source":{
             "id":"SeppelChannel",
             "cardinality":"one",
+            "property":"seppelchannel"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
             "property":"channel"
          },
          "target":{
@@ -253,7 +266,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasSeppelModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasSeppelModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>
