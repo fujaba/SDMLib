@@ -1,0 +1,56 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="includes/diagramstyle.css">
+<script src="includes/dagre.min.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/drawer.js"></script>
+</head>
+<body>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Game"
+      },
+      {
+         "typ":"node",
+         "id":"Player"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Game",
+            "cardinality":"one",
+            "property":"winGame"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"won"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Game",
+            "cardinality":"one",
+            "property":"currentGame"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"currentPlayer"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasgame", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>
+

@@ -21,6 +21,7 @@ import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.graph.GraphTokener;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.util.AssociationSet;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
@@ -107,11 +108,11 @@ public class Javascript implements GuiAdapter
    }
    
    private SimpleSet<Association> getAllAssoc(ClassModel model) {
-	   SimpleSet<Association> colleciton = new SimpleSet<Association>();
+	   AssociationSet collection = new AssociationSet();
 	   for(Clazz clazz : model.getClazzes()) {
-		   colleciton.addAll(clazz.getAssociations());
+		   collection.addAll(clazz.getAssociations());
 	   }
-	   return colleciton;
+	   return collection;
    }
    
    public GraphList convertModelToGraphList(ClassModel model) {
