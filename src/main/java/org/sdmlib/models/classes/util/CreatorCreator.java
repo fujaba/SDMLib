@@ -11,22 +11,11 @@ class CreatorCreator{
    public static IdMap createIdMap(String sessionID)
    {
       IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
-      jsonIdMap.with(new SDMLibClassCreator());
       jsonIdMap.with(new ClassModelCreator());
-      jsonIdMap.with(new ClazzCreator());
-      jsonIdMap.with(new ValueCreator());
-      jsonIdMap.with(new AttributeCreator());
-      jsonIdMap.with(new MethodCreator());
-      jsonIdMap.with(new AnnotationCreator());
-      jsonIdMap.with(new EnumerationCreator());
-      jsonIdMap.with(new ParameterCreator());
-      jsonIdMap.with(new AssociationCreator());
-      jsonIdMap.with(new RoleCreator());
       jsonIdMap.with(new SymTabEntryCreator());
       jsonIdMap.with(new LocalVarTableEntryCreator());
       jsonIdMap.with(new StatementEntryCreator());
-      jsonIdMap.with(new DataTypeCreator());
-      jsonIdMap.with(new ArrayListCreator());
+
       return jsonIdMap;
    }
 }

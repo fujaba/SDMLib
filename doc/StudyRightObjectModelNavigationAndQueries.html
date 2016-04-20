@@ -247,6 +247,19 @@
          "typ":"edge",
          "source":{
             "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
             "cardinality":"many",
             "property":"students"
          },
@@ -299,6 +312,19 @@
          "typ":"edge",
          "source":{
             "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
             "cardinality":"many",
             "property":"rooms"
          },
@@ -325,6 +351,19 @@
          "typ":"edge",
          "source":{
             "id":"Assignment",
+            "cardinality":"one",
+            "property":"assignment"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Assignment",
             "cardinality":"many",
             "property":"assignments"
          },
@@ -332,6 +371,19 @@
             "id":"Room",
             "cardinality":"one",
             "property":"room"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TeachingAssistant",
+            "cardinality":"one",
+            "property":"teachingassistant"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
          }
       },
       {

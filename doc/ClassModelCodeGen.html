@@ -267,6 +267,19 @@
             "property":"value"
          },
          "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         },
+         "target":{
             "id":"Attribute",
             "cardinality":"one",
             "property":"attribute"
@@ -306,6 +319,19 @@
             "property":"method"
          },
          "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
             "id":"Parameter",
             "cardinality":"many",
             "property":"parameter"
@@ -335,6 +361,19 @@
             "id":"SDMLibClass",
             "cardinality":"one",
             "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Parameter",
+            "cardinality":"one",
+            "property":"parameter"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
          }
       },
       {
@@ -428,7 +467,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasClassModelCodeGenClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasClassModelCodeGenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

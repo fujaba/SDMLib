@@ -4,7 +4,8 @@ Bundle-Name: SDMLib
 Bundle-SymbolicName: SDMLib;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Main-Class: org.sdmlib.models.classes.gui.SDMDiagramEditor
-Require-Bundle: NetworkParser;bundle-version="1.0.0";visibility:=reexport
+Require-Bundle: NetworkParser;bundle-version="1.0.0";visibility:=reexport,
+ SDMLib
 Export-Package: org.sdmlib,
  org.sdmlib.codegen,
  org.sdmlib.codegen.util,
@@ -14,6 +15,7 @@ Export-Package: org.sdmlib,
  org.sdmlib.doc.interfaze.Adapter,
  org.sdmlib.doc.interfaze.Drawer,
  org.sdmlib.kanban,
+ org.sdmlib.models,
  org.sdmlib.models.classes,
  org.sdmlib.models.classes.logic,
  org.sdmlib.models.classes.util,
@@ -34,3 +36,4 @@ Export-Package: org.sdmlib,
  org.sdmlib.storyboards,
  org.sdmlib.storyboards.util,
  org.sdmlib.templates
+Import-Package: org.sdmlib.models.pattern

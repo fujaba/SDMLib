@@ -261,12 +261,11 @@
    }
 ]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
       &#x2F;&#x2F; read jsonText from file
-      JsonArray readJsonArray = new JsonArray().withValue(jsonText);
-      
       IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
-      Object rootObject = readerMap.decode(readJsonArray);
-      
+      Object rootObject = readerMap.decode(jsonText);
+
+      University readUniversity = (University) rootObject;
 </pre>
 </body>
 </html>

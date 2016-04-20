@@ -165,6 +165,19 @@
          "source":{
             "id":"ChoiceTemplate",
             "cardinality":"one",
+            "property":"choicetemplate"
+         },
+         "target":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"template"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ChoiceTemplate",
+            "cardinality":"one",
             "property":"chooser"
          },
          "target":{
@@ -219,7 +232,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasmodelToTextToModelClassModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasmodelToTextToModelClassModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

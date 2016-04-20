@@ -552,4 +552,19 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return hasLinkConstraint(tgt, BoardTask.PROPERTY_PROXY);
    }
 
+   public BoardTaskPO filterNext()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BoardTask.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO filterNext(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_NEXT);
+   }
+
 }

@@ -965,7 +965,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       if (jsonIdMap == null)
       {
          jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
-//FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
+         //FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
       }
 
 

@@ -115,6 +115,19 @@
          "typ":"edge",
          "source":{
             "id":"Pupil",
+            "cardinality":"one",
+            "property":"pupil"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Pupil",
             "cardinality":"many",
             "property":"currentPupils"
          },
@@ -142,6 +155,19 @@
          "source":{
             "id":"Teacher",
             "cardinality":"one",
+            "property":"teacher"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Teacher",
+            "cardinality":"one",
             "property":"currentTeacher"
          },
          "target":{
@@ -161,6 +187,19 @@
             "id":"Pupil",
             "cardinality":"many",
             "property":"pupils"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"roomInterface",
+            "cardinality":"one",
+            "property":"roominterface"
          }
       },
       {
@@ -227,7 +266,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasCreateEntireModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasCreateEntireModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

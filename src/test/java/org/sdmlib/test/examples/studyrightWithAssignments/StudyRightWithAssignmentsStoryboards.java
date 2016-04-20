@@ -299,12 +299,11 @@ public class StudyRightWithAssignmentsStoryboards {
       storyboard.markCodeStart();
       
       // read jsonText from file
-      JsonArray readJsonArray = new JsonArray().withValue(jsonText);
-      
       IdMap readerMap = UniversityCreator.createIdMap("demo");
       
-      Object rootObject = readerMap.decode(readJsonArray);
-      
+      Object rootObject = readerMap.decode(jsonText);
+
+      University readUniversity = (University) rootObject;
       storyboard.addCode();
       
       storyboard.addObjectDiagram(rootObject);

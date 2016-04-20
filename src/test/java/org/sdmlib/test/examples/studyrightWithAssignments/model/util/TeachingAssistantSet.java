@@ -35,6 +35,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
 {

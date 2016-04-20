@@ -102,9 +102,35 @@
             "property":"female"
          },
          "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
+         },
+         "target":{
             "id":"Professor",
             "cardinality":"one",
             "property":"professor"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Male",
+            "cardinality":"one",
+            "property":"male"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
          }
       },
       {
@@ -163,7 +189,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightExtendsReverseClassModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightExtendsReverseClassModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

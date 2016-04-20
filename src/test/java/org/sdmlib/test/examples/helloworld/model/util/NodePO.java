@@ -530,6 +530,36 @@ public class NodePO extends PatternObject<NodePO, Node>
       return hasLinkConstraint(tgt, Node.PROPERTY_LINKSFROM);
    }
 
+   public NodePO filterCopy()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_COPY, result);
+      
+      return result;
+   }
+
+   public NodePO filterCopy(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_COPY);
+   }
+
+   public NodePO filterLinksTo()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSTO, result);
+      
+      return result;
+   }
+
+   public NodePO filterLinksTo(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSTO);
+   }
+
 }
 
 
