@@ -206,11 +206,17 @@ public class Javascript implements GuiAdapter
 	      }
 	      
 	      json.put("nodes", jsonNodes);
-
-	      for (Association assoc : getAllAssoc(model))
+	      SimpleSet<Association> allAssoc = getAllAssoc(model);
+	      for (Association child : allAssoc)
 	      {
+	    	  Association assoc;
+	    	  if(child.getType().equals(AssociationTypes.EDGE) && child.getOther() != null) {
+	    		  assoc = child.getOther();
+	   		  } else {
+	   			  assoc = child;
+	   		  }
 	         JsonObject jsonAssoc = new JsonObject();
-	         jsonAssoc.put("typ","edge");
+	         jsonAssoc.put("typ", assoc.getType().toString());
 	         
 	         JsonObject jsonRole = new JsonObject();
 	         
@@ -234,32 +240,11 @@ public class Javascript implements GuiAdapter
 	         
 	         jsonEdges.add(jsonAssoc);
 	      }
-	      
-	      for (Clazz kidClazz : model.getClazzes())
-	      {
-	         for (Clazz superClazz : kidClazz.getSuperClazzes(false))
-	         {
-	            JsonObject jsonAssoc = new JsonObject();
-	            jsonAssoc.put("typ","generalisation");
-	            
-	            JsonObject jsonRole = new JsonObject();
-	            jsonRole.put("id",CGUtil.shortClassName(kidClazz.getName()));
-	            jsonAssoc.put("source", jsonRole);
-	            
-	            jsonRole = new JsonObject();
-	            jsonRole.put("id",CGUtil.shortClassName(superClazz.getName()));
-	            jsonAssoc.put("target", jsonRole);
-
-	            jsonEdges.add(jsonAssoc);
-	         }
-	      }
-	      
-	      
 	      json.put("edges", jsonEdges);
 
 	      return json;
    }
-
+   
    @Override
    public String dumpClassDiagram(String diagName, ClassModel model)
    {
