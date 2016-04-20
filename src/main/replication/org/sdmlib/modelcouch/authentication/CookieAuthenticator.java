@@ -28,7 +28,8 @@ public class CookieAuthenticator implements Authenticator {
 		this.username = username;
 		this.password = password;
 		// CookieHandler will save the Cookies
-		CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+		if (CookieHandler.getDefault() == null)
+			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 		int responsecode = getCookie(hostName, port);
 		return responsecode == 200;
 	}
@@ -56,14 +57,15 @@ public class CookieAuthenticator implements Authenticator {
 			output.close();
 
 			responsecode = con.getResponseCode();
-//			if (responsecode >= 400) {
-//				BufferedReader reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-//				System.err.println("Error: " + responsecode);
-//				while (reader.ready()) {
-//					System.err.println(reader.readLine());
-//				}
-//				System.err.println();
-//			}
+			// if (responsecode >= 400) {
+			// BufferedReader reader = new BufferedReader(new
+			// InputStreamReader(con.getErrorStream()));
+			// System.err.println("Error: " + responsecode);
+			// while (reader.ready()) {
+			// System.err.println(reader.readLine());
+			// }
+			// System.err.println();
+			// }
 			con.disconnect();
 
 		} catch (MalformedURLException e) {
