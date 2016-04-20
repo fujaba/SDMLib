@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
 <p>1. generate class University</p>
 <pre>	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
 
@@ -28,7 +28,7 @@
    ],
    "edges":[]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>2. generate class Student</p>
 <pre>      Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -62,7 +62,7 @@
    ],
    "edges":[]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>3. add University --> Student association</p>
 <pre>      universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
@@ -118,7 +118,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram8", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>4. add University --> Room association</p>
 <pre>      Clazz roomClass = model.createClazz(&quot;Room&quot;)
@@ -280,7 +280,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram11", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram11", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>5. add assignments:</p>
 <pre>      Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
@@ -491,7 +491,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram14", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram14", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>6. generate class source files.</p>
 <pre>      model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src

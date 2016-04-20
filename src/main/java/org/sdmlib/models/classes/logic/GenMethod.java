@@ -391,24 +391,25 @@ public class GenMethod extends Generator<Method>
    private void calculateParameters(Parser parser, StringBuilder formalParameter, StringBuilder actualParameter) {
        int i=0;
        SimpleSet<Parameter> parameters = model.getParameter();
-       for(Parameter param : parameters) {
-      	 formalParameter.append(param.getType(true)).append(" ");
-      	 String name = "";
-      	 if (param.getName() != null) {
-      		 name = param.getName().trim();
-      	 }
-      	 if (name == "") {
-      		 name = "p" + (i++);
-      	 }
-      	 formalParameter.append(name);
-      	 parser.insertImport(param.getType(false)); 
-           actualParameter.append(name);
-           if (i + 1 < parameters.size()) {
-          	 formalParameter.append(", ");
-               actualParameter.append(", ");
-           }
-       }
-   }
+		for (int p = 0; p < parameters.size(); p++) {
+			Parameter param = parameters.get(p);
+			formalParameter.append(param.getType(true)).append(" ");
+			String name = "";
+			if (param.getName() != null) {
+				name = param.getName().trim();
+			}
+			if (name == "") {
+				name = "p" + (i++);
+			}
+			formalParameter.append(name);
+			parser.insertImport(param.getType(false));
+			actualParameter.append(name);
+			if (p + 1 < parameters.size()) {
+				formalParameter.append(", ");
+				actualParameter.append(", ");
+			}
+		}
+	}
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
    {

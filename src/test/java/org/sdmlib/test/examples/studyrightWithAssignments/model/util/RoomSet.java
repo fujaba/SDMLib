@@ -528,7 +528,7 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return Set of Student objects reachable via students
     */
-   public StudentSet getStudents()
+   public StudentSet<Student> getStudents()
    {
       StudentSet result = new StudentSet();
       

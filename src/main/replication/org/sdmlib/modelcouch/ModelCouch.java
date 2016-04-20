@@ -24,11 +24,21 @@ package org.sdmlib.modelcouch;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -49,12 +59,14 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.concurrent.Task;
+import sun.net.www.content.text.PlainTextInputStream;
 
 import org.sdmlib.modelcouch.ModelDBListener;
+import org.sdmlib.modelcouch.authentication.Authenticator;
+import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
 
 /**
  * 
@@ -82,6 +94,17 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		idMap.with(this);
 		return this;
 	}
+	
+	public URL getURL(){
+		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
+		try {
+			return new URL(urlString);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	//try to open connection to an existing database
 	//create new if database was not existing
@@ -108,15 +131,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			{
 				con.disconnect();
 				//create
-				con = (HttpURLConnection) urlObj.openConnection();
-				con.setRequestMethod("PUT");
-				con.setDoInput(true);
-				con.setDoOutput(true);
-
-				con.setRequestProperty("Content-Type", "application/json");
-
-				responseCode = con.getResponseCode();
-				con.disconnect();
+				createDB(databaseName);
 			}
 
 			mdbListener = createModelDBListener();
@@ -132,6 +147,13 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		}
 
 		return this;
+	}
+	
+	public ReturnObject createDB(String dbName){
+		RequestObject create = createRequestObject();
+		create.setRequestType(RequestType.PUT);
+		create.setPath(dbName);
+		return send(create);
 	}
 	
 	private Future<?> started = null;
@@ -179,7 +201,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					con.setRequestMethod("POST");	
 					con.setDoOutput(true);
 					con.setDoInput(true);
-					con.setRequestProperty("Content-Type", "application/json");
+					authenticate(con);
+					con.addRequestProperty("Content-Type", "application/json");
 					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 					wr.writeBytes(urlParameters);
 					wr.flush();
@@ -194,6 +217,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				return responsecode;
 			}
+			
 		});
 		if(isContinuous()){
 			try {
@@ -230,7 +254,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 					con.setRequestMethod("DELETE");	
-					con.setRequestProperty("Content-Type", "application/json");
+					con.addRequestProperty("Content-Type", "application/json");
+					authenticate(con);
 
 					responsecode = con.getResponseCode();
 					con.disconnect();
@@ -262,28 +287,12 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		this.removeYou();
 	}
 
-	public int deleteDatabase(String databaseName)
+	public ReturnObject deleteDatabase(String databaseName)
 	{
-		int responsecode = -1;
-
-		String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-			//try to delete database
-			con.setRequestMethod("DELETE");
-			con.setDoInput(true);
-			con.setRequestProperty("Content-Type", "application/json");
-
-			responsecode = con.getResponseCode();
-			con.disconnect();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return responsecode;
+		RequestObject delete = createRequestObject();
+		delete.setPath(databaseName);
+		delete.setRequestType(RequestType.DELETE);
+		return send(delete);
 	}
 
 	public String getDatabaseName()
@@ -595,7 +604,40 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		setUserName(userName);
 		return this;
 	}
-
+	
+	private Authenticator authenticator;
+	
+	public ModelCouch withAuthenticator(Authenticator autheticator) {
+		this.authenticator = autheticator;
+		return this;
+	}
+	
+	public Authenticator getAutheticator() {
+		return authenticator;
+	}
+	
+	/**
+	 * Must be called after setting credentials (and authenticator)
+	 * @param password
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelCouch login(String password) throws Exception{
+		if(this.authenticator == null){
+			this.authenticator = new BasicAuthenticator();
+		}
+		if(this.authenticator.login(getUserName(), password , getHostName(), getPort())){
+			return this;
+		}else{
+			throw new Exception("Couldn't log in...");
+		}
+	}
+	
+	protected void authenticate(HttpURLConnection connection) {
+		if(authenticator != null){
+			authenticator.authenticate(connection);
+		}
+	}
 
 	/********************************************************************
 	 * <pre>
@@ -672,4 +714,134 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	public boolean isContinuous() {
 		return continuous;
 	}
+
+	public ReturnObject replicate(ModelCouch modelCouch, String source, String target) {
+		RequestObject request = createRequestObject();
+		request.setPath("_replicate");
+		request.setRequestType(RequestType.POST);
+		
+		/*
+		 * {"source":"http://example.org/example-database","target":"http://admin:password@127.0.0.1:5984/example-database"}
+		 */
+		
+		JsonObject replicateObject = new JsonObject();
+		replicateObject.add("create_target", true);
+		replicateObject.add("source", source);
+		replicateObject.add("target", target);
+		replicateObject.add("retries_per_request", 2);
+		
+		request.setOutput(replicateObject.toString().getBytes());
+		
+		return send(request);
+	}
+	
+	public ReturnObject setUserPrivileges(String database, Collection<String> adminNames, Collection<String> adminRoles, 
+			Collection<String> memberNames, Collection<String> memberRoles) {
+		RequestObject request = createRequestObject();
+		request.setPath(database + "/_security");
+		request.setRequestType(RequestType.PUT);
+		request.setShouldHandleInput(true);
+		
+		JsonObject json = new JsonObject();
+		JsonObject admins = new JsonObject();
+		JsonArray adminNamesJson = new JsonArray();
+		adminNamesJson.addAll(adminNames);
+		admins.add("names", adminNamesJson);
+		JsonArray adminRolesJson = new JsonArray();
+		adminRolesJson.addAll(adminRoles);
+		admins.add("roles", adminRolesJson);
+		json.put("admins", admins);
+		JsonObject members = new JsonObject();
+		JsonArray memberNamesJson = new JsonArray();
+		memberNamesJson.addAll(memberNames);
+		members.add("names", memberNamesJson);
+		JsonArray memberRolesJson = new JsonArray();
+		memberRolesJson.addAll(memberRoles);
+		members.add("roles", memberRolesJson);
+		json.put("members", members);
+		
+		request.setOutput(json.toString().getBytes(Charset.forName("UTF-8")));
+		
+		return send(request);
+	}
+	
+	public RequestObject createRequestObject(){
+		return new RequestObject(this);
+	}
+	
+	public ReturnObject send(RequestObject request){
+		ReturnObject res = new ReturnObject();
+		try{
+			URL obj = new URL(request.getServer() + request.getPath());
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			//try to delete database
+			con.setRequestMethod(request.getRequestType().toString());
+			con.setDoInput(true);
+			con.addRequestProperty("Content-Type", "application/json");
+			authenticate(con);
+			if ((request.getOutput() != null && request.getOutput().length > 0)) {
+				con.setDoOutput(true);
+				con.getOutputStream().write(request.getOutput());
+			}
+			res.responseCode = con.getResponseCode();
+
+			if (res.responseCode >= 400 && con.getErrorStream() != null) {
+				InputStream errorStream = (InputStream) con.getErrorStream();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
+				try {
+					LinkedList<String> lines = new LinkedList<>();
+					String readLine = null;
+					do {
+						readLine = reader.readLine();
+						if (readLine == null) {
+							break;
+						}
+						lines.add(readLine);
+					} while (readLine != null);
+					res.error = lines;
+				} catch (IOException e) {
+					// e.printStackTrace();
+				}
+			} else {
+				if (request.isShouldHandleInput()) {
+					InputStream content = (InputStream) con.getContent();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+					try {
+						LinkedList<String> lines = new LinkedList<>();
+						String readLine = null;
+						do {
+							readLine = reader.readLine();
+							if (readLine == null) {
+								break;
+							}
+							lines.add(readLine);
+						} while (readLine != null);
+						res.setContent(lines);
+					} catch (IOException e) {
+						// e.printStackTrace();
+					}
+				}
+			}
+			
+			con.disconnect();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	public boolean testConnection(){
+		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
+		try {
+			URL urlObj = new URL(urlString);
+			URLConnection openConnection = urlObj.openConnection();
+			openConnection.connect();
+		} catch (IOException e) {
+//			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 }

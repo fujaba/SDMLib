@@ -253,4 +253,19 @@ public class ReplicationRootPO extends PatternObject<ReplicationRootPO, Replicat
       return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_PARENT);
    }
 
+   public ReplicationRootPO filterKids()
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationRoot.PROPERTY_KIDS, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO filterKids(ReplicationRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_KIDS);
+   }
+
 }

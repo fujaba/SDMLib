@@ -35,7 +35,7 @@
    ],
    "edges":[]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Target model:</p>
 <script>
@@ -127,7 +127,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Migration extension:</p>
 <script>
@@ -141,7 +141,7 @@
    ],
    "edges":[]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram8", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Create example source graph: </p>
 <hr/><h2>Migrate per pattern: </h2><pre>   private Graph simpleMigrationPerPattern(Graph graph, StoryPage storyboard)
@@ -1141,7 +1141,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration21", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration21", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Number of migrated nodes: 8
@@ -1798,7 +1798,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration27", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration27", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Number of migrated nodes: 8</p>
@@ -2430,7 +2430,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration33", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration33", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate using JSON Array representation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
@@ -3102,7 +3102,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration38", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration38", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
@@ -4864,7 +4864,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration42", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration42", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -5005,7 +5005,7 @@ Number of migrated Edges: 10</p>
    "style":null,
    "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration46", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Result graph: </p>
@@ -5616,7 +5616,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration48", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration48", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Even more evolved graph model : </h2><script>
@@ -5677,7 +5677,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram50", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram50", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
    {

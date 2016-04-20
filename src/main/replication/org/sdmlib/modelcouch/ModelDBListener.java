@@ -72,7 +72,9 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
 			con.setUseCaches(false);
-			con.setRequestProperty("Connection", "Keep-Alive"); 
+			con.addRequestProperty("Connection", "Keep-Alive"); 
+
+			couch.authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -139,7 +141,9 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
 			con.setUseCaches(false);
-			con.setRequestProperty("Content-Type", "application/json"); 
+			con.addRequestProperty("Content-Type", "application/json"); 
+			
+			couch.authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)

@@ -251,4 +251,19 @@ public class NodePO extends PatternObject<NodePO, Node>
       return hasLinkConstraint(tgt, Node.PROPERTY_PREV);
    }
 
+   public NodePO filterNext()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public NodePO filterNext(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_NEXT);
+   }
+
 }

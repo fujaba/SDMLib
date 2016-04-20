@@ -41,11 +41,11 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.MatchOtherThen;
 
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class PatternObject<POC, MC> extends PatternElement<POC>
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class PatternObject<POC, MC> extends PatternElement<POC>
 {
    public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
    public static final String PROPERTY_CANDIDATES = "candidates";
@@ -72,7 +72,7 @@ import org.sdmlib.models.pattern.MatchOtherThen;
       Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
    }
-   
+
    protected void newInstance(IdMap map, Object[] hostGraphObject){
       Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
@@ -84,8 +84,8 @@ import org.sdmlib.models.pattern.MatchOtherThen;
       }
       pattern.findMatch();
    }
-   
-   
+
+
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
       // add a pattern link that checks the type of the source object and the
@@ -93,7 +93,7 @@ import org.sdmlib.models.pattern.MatchOtherThen;
       this.hasLink("instanceof", subclassPO);
       return subclassPO;
    }
-   
+
    public boolean rebind(MC o)
    {
       return this.getPattern().rebind(this, o);
@@ -159,7 +159,7 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 
                this.getTopPattern().addLogMsg(
                   "" + getLHSPatternObjectName() + " = new " + shortClassName + "(); // "
-                     + getPattern().getIdMap().getId(sendableInstance));
+                        + getPattern().getIdMap().getId(sendableInstance));
             }
 
             return true;
@@ -192,7 +192,7 @@ import org.sdmlib.models.pattern.MatchOtherThen;
       }
 
       if (this.getCandidates() == null
-         || this.getCandidates() instanceof Collection && ((Collection<?>) this.getCandidates()).isEmpty())
+            || this.getCandidates() instanceof Collection && ((Collection<?>) this.getCandidates()).isEmpty())
       {
          this.setHasMatch(false);
          return false;
@@ -221,8 +221,8 @@ import org.sdmlib.models.pattern.MatchOtherThen;
                String tgtVar = getLHSPatternObjectName();
                getTopPattern().addLogMsg(
                   tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
-                     + getTopPattern().getIdMap().getId(obj) + " " + obj + " <- "
-                     + valueSetString(this.getCandidates()));
+                        + getTopPattern().getIdMap().getId(obj) + " " + obj + " <- "
+                        + valueSetString(this.getCandidates()));
             }
          }
          else
@@ -402,11 +402,11 @@ import org.sdmlib.models.pattern.MatchOtherThen;
    public POC destroy()
    {
       DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
-         .withPatternObject(this)
-         .withPattern(this.getPattern());
+            .withPatternObject(this)
+            .withPattern(this.getPattern());
 
       this.getPattern()
-         .findMatch();
+      .findMatch();
 
       return (POC) this;
    }
@@ -461,9 +461,9 @@ import org.sdmlib.models.pattern.MatchOtherThen;
     * PatternObject ----------------------------------- PatternLink
     *              tgt                   incomming
     * </pre>
-   	* @return The PatternObject
-   	*/
-public PatternLinkSet getIncomming()
+    * @return The PatternObject
+    */
+   public PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
       {
@@ -731,9 +731,9 @@ public PatternLinkSet getIncomming()
          this.getPattern().findMatch();
 
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-            .withTgt(result).withTgtRoleName(roleName)
-            .withSrc(this)
-            .withModifier(this.getPattern().getModifier());
+               .withTgt(result).withTgtRoleName(roleName)
+               .withSrc(this)
+               .withModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
 
@@ -742,8 +742,8 @@ public PatternLinkSet getIncomming()
       else
       {
          PatternLink patternLink = new PatternLink()
-            .withTgt(result).withTgtRoleName(roleName)
-            .withSrc(this);
+               .withTgt(result).withTgtRoleName(roleName)
+               .withSrc(this);
          patternLink.setModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
@@ -751,7 +751,7 @@ public PatternLinkSet getIncomming()
          this.getPattern().addToElements(result);
 
          result.getPattern()
-            .findMatch();
+         .findMatch();
       }
    }
 
@@ -761,15 +761,15 @@ public PatternLinkSet getIncomming()
          setCurrentMatch(null);
       }
    }
-   
+
    public POC has(Condition<Object> condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-         .withText(text)
-         .withSrc(this)
-         .withCondition(condition)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
+            .withText(text)
+            .withSrc(this)
+            .withCondition(condition)
+            .withModifier(this.getPattern().getModifier())
+            .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
@@ -778,30 +778,30 @@ public PatternLinkSet getIncomming()
 
    /**
     * Depricated. Use filter() instead.
-    * @param condition
-    * @return
+    * @param condition The condition used for filtering
+    * @return this
     */
    @Deprecated
    public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-         .withCondition(condition)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
+            .withCondition(condition)
+            .withSrc(this)
+            .withModifier(this.getPattern().getModifier())
+            .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
       return (POC) this;
    }
 
-   public POC filter(Condition<Object> condition)
+   public POC filter(Condition<MC> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-         .withCondition(condition)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
+            .withCondition((Condition<Object>) condition)
+            .withSrc(this)
+            .withModifier(this.getPattern().getModifier())
+            .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
@@ -976,9 +976,9 @@ public PatternLinkSet getIncomming()
       else
       {
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-            .withTgt(tgt).withTgtRoleName(roleName)
-            .withSrc(this)
-            .withModifier(this.getPattern().getModifier());
+               .withTgt(tgt).withTgtRoleName(roleName)
+               .withSrc(this)
+               .withModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
 
@@ -1079,8 +1079,8 @@ public PatternLinkSet getIncomming()
    public POC hasMatchOtherThen(PatternObject forbidden)
    {
       MatchOtherThen otherThen = createMatchOtherThen()
-         .withForbidden(forbidden)
-         .withPattern(getPattern());
+            .withForbidden(forbidden)
+            .withPattern(getPattern());
 
       getPattern().findMatch();
 

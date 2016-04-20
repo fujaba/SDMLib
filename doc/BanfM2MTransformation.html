@@ -187,7 +187,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Class diagram for target model:</p>
 <script>
@@ -272,6 +272,19 @@
          "source":{
             "id":"Person",
             "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"GraphComponent",
+            "cardinality":"one",
+            "property":"graphcomponent"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
             "property":"src"
          },
          "target":{
@@ -291,6 +304,19 @@
             "id":"Relation",
             "cardinality":"many",
             "property":"inEdges"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Relation",
+            "cardinality":"one",
+            "property":"relation"
+         },
+         "target":{
+            "id":"GraphComponent",
+            "cardinality":"one",
+            "property":"graphcomponent"
          }
       },
       {
@@ -331,7 +357,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram4", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram4", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Create example source graph: </p>
 <script>
@@ -510,7 +536,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
@@ -1508,7 +1534,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1703,7 +1729,7 @@
    "style":null,
    "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation17", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Result graph: </p>
@@ -1916,7 +1942,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation19", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Even more evolved class diagram : </h2><script>
@@ -1977,7 +2003,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram21", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasBanfM2MTransformationClassDiagram21", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>Again the input graph:</p>
 <script>
@@ -2156,7 +2182,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation25", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation25", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>The transformation code:</p>
@@ -2461,7 +2487,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation32", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation32", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><p>Let us derive the reverse transformation for the first model evolution:</p>
@@ -3806,7 +3832,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation52", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation52", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><script>
@@ -3815,7 +3841,7 @@
    "style":null,
    "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation54", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><script>
@@ -3824,7 +3850,7 @@
    "style":null,
    "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasBanfM2MTransformation56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBanfM2MTransformation56", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

@@ -205,7 +205,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this.startCreate().filterStudents(tgt).endCreate();
    }
 
-   public StudentSet getStudents()
+   public StudentSet<Student> getStudents()
    {
       if (this.getPattern().getHasMatch())
       {

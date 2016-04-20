@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,7 +28,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.simple.model.association_k.util.TaskSet;
    /**
     * 
-    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestNewTest.java'>TestNewTest.java</a>
+    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>
  */
    public  class Task implements SendableEntity
 {
@@ -193,7 +193,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
     * <pre>
     *              many                       many
     * Task ----------------------------------- Task
-    *              subTasks                   subTasks
+    *              parentTasks                   subTasks
     * </pre>
     */
    
@@ -235,7 +235,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
 
             if (changed)
             {
-               item.withSubTasks(this);
+               item.withParentTasks(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTASKS, null, item);
             }
          }

@@ -31,19 +31,20 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.Specific2Generic;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.test.examples.roombook.Building;
+import org.sdmlib.test.examples.roombook.util.BuildingCreator;
 
-import de.kassel.test.roombook.Building;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.IdMap;
 
 public class GenericObjectsTest implements PropertyChangeInterface 
 {
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../doc/GenericObjectDiagram.html'>GenericObjectDiagram.html</a>
-*/
+    */
    @Test
    public void testGenericObjectDiagram()
    {
@@ -55,7 +56,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       storyboard.add("Step 1: We build a generic class model for object structures: ");
 
-      storyboard.add("<embed type=\"image/svg+xml\" src='GenericGraphModelClassDiagram1.svg'>");
+      new GenericGraphModel().testGenericGraphModel();
+      storyboard.addClassDiagram(GenericGraphModel.genericModel);
 
       //====================================================================================================
       storyboard.add("Step 2: We just build our example object structure with generic objects: ");
@@ -106,7 +108,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
 
       ClassModel learnedModel = new ClassModel().getGenerator()
-            .learnFromGenericObjects("de.kassel.test.roombook", building);
+            .learnFromGenericObjects("org.sdmlib.test.examples.roombook", building);
 
       storyboard.addClassDiagram(learnedModel);
 
@@ -114,17 +116,17 @@ public class GenericObjectsTest implements PropertyChangeInterface
       storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ");
 
       storyboard.markCodeStart();
-      ClassModel model = new ClassModel("de.kassel.test.roombook");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.roombook");
 
-      Clazz buildingClass = model.createClazz("de.kassel.test.roombook.Building")
+      Clazz buildingClass = model.createClazz("org.sdmlib.test.examples.roombook.Building")
             .withAttribute("name", DataType.STRING);
 
-      Clazz floorClass = model.createClazz("de.kassel.test.roombook.Floor")
+      Clazz floorClass = model.createClazz("org.sdmlib.test.examples.roombook.Floor")
             .withAttribute("level", DataType.INT)
             .withAttribute("name", DataType.STRING)
             /*add attribut*/
             .withAttribute("guest", DataType.STRING);    
-      
+
       /* add assoc */
       buildingClass.withBidirectional(floorClass, "has", Cardinality.MANY, "buildings", Cardinality.ONE);
 
@@ -141,50 +143,18 @@ public class GenericObjectsTest implements PropertyChangeInterface
       //====================================================================================================
       storyboard.add("Step 7: derive non-generic objects from the generic objects ");
 
-      IdMap createIdMap = de.kassel.test.roombook.util.BuildingCreator.createIdMap("gen2spec");
+      IdMap createIdMap = BuildingCreator.createIdMap("gen2spec");
 
-      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.test.roombook", graph);
+      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "org.sdmlib.test.examples.roombook", graph);
 
       storyboard.addObjectDiagram(specificBuilding);
 
       GenericGraph gengraph = new Specific2Generic()
-      .convert(de.kassel.test.roombook.util.BuildingCreator.createIdMap("spec2gen"), specificBuilding);
+            .convert(BuildingCreator.createIdMap("spec2gen"), specificBuilding);
 
       storyboard.addObjectDiagram(gengraph);
 
       storyboard.dumpHTML();
-   }
-
-
-   private static final String MODELING = "modeling";
-   private static final String ACTIVE = "active";
-   private static final String DONE = "done";
-   private static final String IMPLEMENTATION = "implementation";
-   private static final String BACKLOG = "backlog";
-   private static final String BUG = "bug";
-
-
-   //==========================================================================
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      return false;
    }
 
 
@@ -198,11 +168,5 @@ public class GenericObjectsTest implements PropertyChangeInterface
    }
 
 
-   //==========================================================================
-
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
 }
 

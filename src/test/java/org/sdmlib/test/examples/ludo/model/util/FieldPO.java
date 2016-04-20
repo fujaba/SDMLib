@@ -834,4 +834,34 @@ public class FieldPO extends PatternObject<FieldPO, Field>
       return hasLinkConstraint(tgt, Field.PROPERTY_PAWNS);
    }
 
+   public FieldPO filterNext()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public FieldPO filterNext(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_NEXT);
+   }
+
+   public FieldPO filterLanding()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_LANDING, result);
+      
+      return result;
+   }
+
+   public FieldPO filterLanding(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_LANDING);
+   }
+
 }

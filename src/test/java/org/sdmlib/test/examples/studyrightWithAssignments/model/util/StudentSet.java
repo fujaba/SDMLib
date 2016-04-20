@@ -37,10 +37,20 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
-public class StudentSet extends SDMSet<Student>
+public class StudentSet<T extends Student> extends SDMSet<T>
 {
+   public StudentSet()
+   {
+      // empty
+   }
 
-   public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
+   public StudentSet(Object value)
+   {
+      this();
+      this.with(value);
+   }
+
+   public static final StudentSet EMPTY_SET = new StudentSet<Student>().withFlag(StudentSet.READONLY);
 
 
    public StudentPO filterStudentPO()
@@ -64,11 +74,11 @@ public class StudentSet extends SDMSet<Student>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Student>)value);
+         this.addAll((Collection<T>)value);
       }
       else if (value != null)
       {
-         this.add((Student) value);
+         this.add((T) value);
       }
       
       return this;
@@ -81,7 +91,7 @@ public class StudentSet extends SDMSet<Student>
    }
 
    @Override
-   public StudentSet filter(Condition<Student> newValue) {
+   public StudentSet filter(Condition<T> newValue) {
       StudentSet filterList = new StudentSet();
       filterItems(filterList, newValue);
       return filterList;
@@ -688,7 +698,7 @@ public class StudentSet extends SDMSet<Student>
     */
    public StudentSet getFriendsTransitive()
    {
-      StudentSet todo = new StudentSet().with(this);
+      StudentSet<T> todo = new StudentSet<T>().with(this);
       
       StudentSet result = new StudentSet();
       

@@ -30,6 +30,9 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.objects.util.GenericGraphSet;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericObjectSet extends SimpleSet<GenericObject>
 {

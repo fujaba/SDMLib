@@ -35,7 +35,7 @@
    ],
    "edges":[]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <hr/><p>create example graph: </p>
 <script>
@@ -44,7 +44,7 @@
    "style":null,
    "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodes6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodes6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Count nodes in graph direct: </h2><pre>   public void countNodesInJava(Graph graph)

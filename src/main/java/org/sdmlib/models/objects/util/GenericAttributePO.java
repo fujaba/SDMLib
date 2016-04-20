@@ -5,8 +5,10 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.util.GenericObjectPO;
+import org.sdmlib.models.objects.util.GenericAttributePO;
 
-public class GenericAttributePO extends PatternObject
+public class GenericAttributePO extends PatternObject<GenericAttributePO, GenericAttribute>
 {
    public GenericAttributePO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
@@ -241,5 +243,20 @@ public class GenericAttributePO extends PatternObject
       return this;
    }
    
+   public GenericObjectPO filterOwner()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericAttribute.PROPERTY_OWNER, result);
+      
+      return result;
+   }
+
+   public GenericAttributePO filterOwner(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericAttribute.PROPERTY_OWNER);
+   }
+
 }
 

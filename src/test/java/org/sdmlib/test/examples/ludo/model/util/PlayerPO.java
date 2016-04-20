@@ -809,4 +809,19 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return hasLinkConstraint(tgt, Player.PROPERTY_PAWNS);
    }
 
+   public PlayerPO filterNext()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public PlayerPO filterNext(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_NEXT);
+   }
+
 }

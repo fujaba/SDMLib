@@ -299,5 +299,20 @@ public class StationPO extends PatternObject<StationPO, Station>
       return hasLinkConstraint(tgt, Station.PROPERTY_FLAG);
    }
 
+   public StationPO filterNext()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public StationPO filterNext(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_NEXT);
+   }
+
 }
 
