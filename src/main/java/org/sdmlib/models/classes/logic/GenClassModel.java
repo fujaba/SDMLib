@@ -223,7 +223,7 @@ public class GenClassModel implements ClassModelAdapter
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
-         // getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
+         getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
       }
 
       Exception e = new RuntimeException();
