@@ -43,6 +43,7 @@ import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
@@ -514,7 +515,7 @@ import org.sdmlib.models.pattern.Pattern;
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               IdMap newJsonIdMap = (IdMap) new IdMap().with(rule.getIdMap());
+               IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("r").with(rule.getIdMap());
                newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
@@ -539,6 +540,11 @@ import org.sdmlib.models.pattern.Pattern;
                   // no isomorphic old state, add new state
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate, newReachableState);
                   first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  int size = this.getStates().size();
+                  if (size % 50 == 0)
+                  {
+                     System.out.println(size);
+                  }
                }
                
             }

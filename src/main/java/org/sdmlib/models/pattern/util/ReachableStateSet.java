@@ -22,6 +22,7 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
@@ -34,7 +35,7 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
-public class ReachableStateSet extends SimpleSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
    @Override
    public String toString()
@@ -257,7 +258,7 @@ public class ReachableStateSet extends SimpleSet<ReachableState> implements org.
    {
       if (value instanceof java.util.Collection)
       {
-         this.withList((Collection<?>)value);
+         this.addAll((Collection<? extends ReachableState>)value);
       }
       else if (value != null)
       {
@@ -280,7 +281,7 @@ public class ReachableStateSet extends SimpleSet<ReachableState> implements org.
       return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 
-   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withFlag(ReachableStateSet.READONLY);
+   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet(); // .withFlag(ReachableStateSet.READONLY);
    public ReachableStateSet hasNumber(long value)
    {
       ReachableStateSet result = new ReachableStateSet();
