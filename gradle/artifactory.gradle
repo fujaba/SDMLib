@@ -45,7 +45,7 @@ if(project.hasProperty("artifactory_user")) {
 	}
 
 	artifacts { 
-		archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion, androidJar
+		archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion, androidJar, replicationJar
 	}
 } else {
 	task artifactoryPublish(type: Jar) {

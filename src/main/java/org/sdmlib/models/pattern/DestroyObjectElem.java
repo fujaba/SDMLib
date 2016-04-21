@@ -57,8 +57,9 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
             Object currentMatch = this.getPatternObject().getCurrentMatch();
             
             SendableEntityCreator creatorClass = (SendableEntityCreator) this.getPattern().getIdMap().getCreatorClass(currentMatch);
-            
-            creatorClass.removeObject(currentMatch);
+            if(creatorClass instanceof EntityFactory) {
+            	((EntityFactory)creatorClass).removeObject(currentMatch);
+            }
             
             if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
             {
