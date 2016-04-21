@@ -62,7 +62,6 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.concurrent.Task;
-import sun.net.www.content.text.PlainTextInputStream;
 
 import org.sdmlib.modelcouch.ModelDBListener;
 import org.sdmlib.modelcouch.authentication.Authenticator;
@@ -826,7 +825,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			con.disconnect();
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			res.responseCode = 400;
+//			e.printStackTrace();
 		}
 		return res;
 	}
@@ -838,7 +838,30 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			URLConnection openConnection = urlObj.openConnection();
 			openConnection.connect();
 		} catch (IOException e) {
-//			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean testConnection(String databaseName){
+		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
+		try {
+			// first check, if host is available..
+			URL urlObj = new URL(urlString);
+			URLConnection openConnection = urlObj.openConnection();
+			openConnection.connect();
+			
+			// now check for existence of DataBase
+			RequestObject check = createRequestObject();
+			check.setRequestType(RequestType.GET);
+			check.setPath(databaseName);
+			check.setShouldHandleInput(true);
+			
+			ReturnObject send = send(check);
+			if(send.getResponseCode() >= 400){
+				return false;
+			}
+		} catch (IOException e) {
 			return false;
 		}
 		return true;

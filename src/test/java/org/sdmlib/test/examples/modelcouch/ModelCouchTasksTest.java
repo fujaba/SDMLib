@@ -110,8 +110,8 @@ public class ModelCouchTasksTest {
 		couch.open(databaseName);
 
 		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 5000) {
-			// wait 5 seconds
+		while (System.currentTimeMillis() < startMillis + 3000) {
+			// wait 3 seconds
 		}
 
 		Person resultSeGroup = (Person) resultiIdMap.getObject("root");
@@ -173,7 +173,7 @@ public class ModelCouchTasksTest {
 		try {
 			couch.open(DB_NAME);
 		} catch (Exception e) {
-			assumeTrue("Couldn't stablish Connection to DB", False());
+			assumeTrue("Couldn't establish Connection to DB", False());
 		}
 
 		if (couch.getModelDBListener() == null) {
@@ -184,6 +184,8 @@ public class ModelCouchTasksTest {
 			assumeTrue(False());
 			return;
 		}
+		couch.close();
+		couch.deleteDatabase(DB_NAME);
 	}
 
 	@Test
@@ -253,8 +255,8 @@ public class ModelCouchTasksTest {
 
 		couch.close();
 		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 5000) {
-			// wait 5 seconds
+		while (System.currentTimeMillis() < startMillis + 3000) {
+			// wait 3 seconds
 		}
 
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
@@ -286,6 +288,14 @@ public class ModelCouchTasksTest {
 		ReturnObject send = couch.send(request);
 		JsonObject returnValue = new JsonObject().withValue(send.getContent().getFirst());
 		assertEquals("Welcome", returnValue.get("couchdb"));
+	}
+	
+	@Test
+	public void testDatabaseReachable(){
+		ModelCouch couch = createCouch();
+		assertFalse(couch.testConnection(DB_NAME));
+		couch.createDB(DB_NAME);
+		assertTrue(couch.testConnection(DB_NAME));
 	}
 
 	private static boolean False() {
