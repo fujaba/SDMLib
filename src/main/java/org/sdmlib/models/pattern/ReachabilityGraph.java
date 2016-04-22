@@ -488,7 +488,15 @@ import org.sdmlib.models.pattern.Pattern;
       // take a todo state and apply all rules at all places until maxNoOfNewStates 
       // is reached
       noOfNewStates = 0;
-
+      
+      //more info for ttc2016
+      int totalNumOfHomoStates = 0;
+      int totalNumOfRuleApplications = 0;
+      int totalNumOfMatches = 0;
+      int numOfDuplicateStates = 0;
+      
+      System.out.println("Calculating reachabilty graph by applying " + getRules().size() + " rules.");
+      
       while (!getTodo().isEmpty() && noOfNewStates < maxNoOfNewStates)
       {
          ReachableState first = getTodo().first();
@@ -501,6 +509,8 @@ import org.sdmlib.models.pattern.Pattern;
 
          for (Pattern rule : getRules())
          {
+        	 totalNumOfRuleApplications++;
+        	 
             PatternObject firstPO = (PatternObject) rule.getElements().first();
 
             rule.resetSearch();
@@ -509,6 +519,7 @@ import org.sdmlib.models.pattern.Pattern;
 
             while (rule.findMatch())
             {
+				totalNumOfMatches ++;
                // for each match get the new reachable state and add it to the reachability graph
                Object newGraphRoot = firstPO.getCurrentMatch();
                
@@ -529,7 +540,8 @@ import org.sdmlib.models.pattern.Pattern;
                   
                   if (match != null)
                   {
-                     // newReachableState is isomorphic to oldState. Just add a link from first to oldState
+					// newReachableState is isomorphic to oldState. Just add a link from first to oldState
+                	  numOfDuplicateStates ++;
                      first.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
                      break;
                   }
@@ -538,18 +550,31 @@ import org.sdmlib.models.pattern.Pattern;
                if (match == null)
                {
                   // no isomorphic old state, add new state
+            	   totalNumOfHomoStates++;
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate, newReachableState);
                   first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
-                  if (size % 50 == 0)
+                  if (size % 100 == 0)
                   {
-                     System.out.println(size);
+                     System.out.println("Calculated: " +
+                    		 			 totalNumOfMatches + 
+                    		 			 " Homo: " + 
+                    		 			 size + 
+                    		 			 " Iso: " + 
+                    		 			 numOfDuplicateStates);
                   }
                }
                
             }
          }
       }
+      
+      System.out.println("Calculated: " +
+			 			 totalNumOfMatches + 
+			 			 " Homo: " + 
+			 			 this.getStates().size() + 
+			 			 " Iso: " + 
+			 			 numOfDuplicateStates);
       
       return currentStateNum;
    }
