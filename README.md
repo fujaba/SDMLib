@@ -89,6 +89,8 @@ In addition to class models, SDMLib will also support object diagrams, storyboar
    
 SDMLib comes with [MIT licence]
 
+[![JProfiler](https://www.ej-technologies.com/images/product_banners/jprofiler_small.png)](http://www.ej-technologies.com/products/jprofiler/overview.html) optimized
+
 Have fun 
 
 The [SDMLib team]
