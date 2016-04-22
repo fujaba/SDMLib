@@ -39,6 +39,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -617,6 +618,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	
 	/**
 	 * Must be called after setting credentials (and authenticator)
+	 * 
+	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
+	 * 
 	 * @param password
 	 * @return
 	 * @throws Exception 
@@ -625,7 +629,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		if(this.authenticator == null){
 			this.authenticator = new BasicAuthenticator();
 		}
-		if(this.authenticator.login(getUserName(), password , getHostName(), getPort())){
+		if(this.authenticator.login(getUserName(), password , this)){
 			return this;
 		}else{
 			throw new Exception("Couldn't log in...");
@@ -776,7 +780,13 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			//try to delete database
 			con.setRequestMethod(request.getRequestType().toString());
 			con.setDoInput(true);
-			con.addRequestProperty("Content-Type", "application/json");
+			if(request.getRequestProperties() == null){
+				con.addRequestProperty("Content-Type", "application/json");
+			}else{
+				for (Entry<String, String> entry : request.getRequestProperties().entrySet()) {
+					con.addRequestProperty(entry.getKey(), entry.getValue());
+				}
+			}
 			authenticate(con);
 			if ((request.getOutput() != null && request.getOutput().length > 0)) {
 				con.setDoOutput(true);

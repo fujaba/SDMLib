@@ -2,6 +2,8 @@ package org.sdmlib.modelcouch.authentication;
 
 import java.net.HttpURLConnection;
 
+import org.sdmlib.modelcouch.ModelCouch;
+
 public interface Authenticator {
 	/**
 	 * Mainly to Store Username and Password, but also to get cookie or so
@@ -12,7 +14,7 @@ public interface Authenticator {
 	 * @param port
 	 * @return result
 	 */
-	public boolean login(String username, String password, String hostName, int port);
+	public boolean login(String username, String password, ModelCouch couch);
 
 	/**
 	 * Called in every request

@@ -107,12 +107,12 @@ public class ModelCouchTasksTest {
 
 		couch = createCouch().withApplicationType(ApplicationType.StandAlone).withIdMap(resultiIdMap).registerAtIdMap();
 
+//		long startMillis = System.currentTimeMillis();
+//		while (System.currentTimeMillis() < startMillis + 5000) {
+//			// wait 3 seconds
+//		}
 		couch.open(databaseName);
 
-		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 3000) {
-			// wait 3 seconds
-		}
 
 		Person resultSeGroup = (Person) resultiIdMap.getObject("root");
 
@@ -254,10 +254,10 @@ public class ModelCouchTasksTest {
 		}
 
 		couch.close();
-		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 3000) {
-			// wait 3 seconds
-		}
+//		long startMillis = System.currentTimeMillis();
+//		while (System.currentTimeMillis() < startMillis + 5000) {
+//			// wait 3 seconds
+//		}
 
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
 		IdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
