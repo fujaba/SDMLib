@@ -466,10 +466,11 @@ import org.sdmlib.models.pattern.RuleApplication;
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getNumber());
-      return s.substring(1);
+      result.append(" ").append(this.getNumber());
+      result.append(" ").append(this.getMetricValue());
+      return result.substring(1);
    }
 
 
@@ -700,5 +701,33 @@ import org.sdmlib.models.pattern.RuleApplication;
       }
       return this;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_METRICVALUE = "metricValue";
+   
+   private double metricValue;
+
+   public double getMetricValue()
+   {
+      return this.metricValue;
+   }
+   
+   public void setMetricValue(double value)
+   {
+      if (this.metricValue != value) {
+      
+         double oldValue = this.metricValue;
+         this.metricValue = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_METRICVALUE, oldValue, value);
+      }
+   }
+   
+   public ReachableState withMetricValue(double value)
+   {
+      setMetricValue(value);
+      return this;
+   } 
 }
 

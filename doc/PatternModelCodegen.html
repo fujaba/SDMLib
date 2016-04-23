@@ -123,6 +123,7 @@
          "id":"ReachableState",
          "attributes":[
             "number : long",
+            "metricValue : double",
             "graphRoot : Object"
          ]
       },
@@ -136,154 +137,141 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         },
-         "target":{
             "id":"Pattern",
             "cardinality":"one",
             "property":"pattern"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"PatternObject",
             "cardinality":"one",
             "property":"patternobject"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"PatternLink",
             "cardinality":"one",
             "property":"patternlink"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"AttributeConstraint",
             "cardinality":"one",
             "property":"attributeconstraint"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"MatchIsomorphicConstraint",
             "cardinality":"one",
             "property":"matchisomorphicconstraint"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"CloneOp",
             "cardinality":"one",
             "property":"cloneop"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"UnifyGraphsOp",
             "cardinality":"one",
             "property":"unifygraphsop"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"DestroyObjectElem",
             "cardinality":"one",
             "property":"destroyobjectelem"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"CardinalityConstraint",
             "cardinality":"one",
             "property":"cardinalityconstraint"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"MatchOtherThen",
             "cardinality":"one",
             "property":"matchotherthen"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"PatternElement",
             "cardinality":"one",
             "property":"patternelement"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"GenericConstraint",
             "cardinality":"one",
             "property":"genericconstraint"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Pattern",
-            "cardinality":"one",
-            "property":"pattern"
          },
          "target":{
             "id":"PatternElement",
@@ -292,7 +280,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Pattern",
             "cardinality":"one",
@@ -305,46 +293,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Pattern",
-            "cardinality":"one",
-            "property":"pattern"
-         },
-         "target":{
-            "id":"NegativeApplicationCondition",
-            "cardinality":"one",
-            "property":"negativeapplicationcondition"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Pattern",
-            "cardinality":"one",
-            "property":"pattern"
-         },
-         "target":{
-            "id":"OptionalSubPattern",
-            "cardinality":"one",
-            "property":"optionalsubpattern"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Pattern",
-            "cardinality":"many",
-            "property":"rules"
-         },
-         "target":{
-            "id":"ReachabilityGraph",
-            "cardinality":"one",
-            "property":"rgraph"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"NegativeApplicationCondition",
             "cardinality":"one",
@@ -357,7 +306,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"OptionalSubPattern",
             "cardinality":"one",
@@ -370,425 +319,121 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"patternobject"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"src"
-         },
-         "target":{
-            "id":"CardinalityConstraint",
-            "cardinality":"many",
-            "property":"cardConstraints"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"src"
-         },
-         "target":{
-            "id":"MatchOtherThen",
-            "cardinality":"many",
-            "property":"matchOtherThen"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"forbidden"
-         },
-         "target":{
-            "id":"MatchOtherThen",
-            "cardinality":"many",
-            "property":"excluders"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"PatternLink",
-            "cardinality":"one",
-            "property":"patternlink"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"PatternLink",
-            "cardinality":"one",
-            "property":"patternlink"
-         },
-         "target":{
-            "id":"LinkConstraint",
-            "cardinality":"one",
-            "property":"linkconstraint"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"AttributeConstraint",
-            "cardinality":"one",
-            "property":"attributeconstraint"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"LinkConstraint",
-            "cardinality":"one",
-            "property":"linkconstraint"
-         },
-         "target":{
-            "id":"PatternLink",
-            "cardinality":"one",
-            "property":"patternlink"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"MatchIsomorphicConstraint",
-            "cardinality":"one",
-            "property":"matchisomorphicconstraint"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"CloneOp",
-            "cardinality":"one",
-            "property":"cloneop"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"UnifyGraphsOp",
-            "cardinality":"one",
-            "property":"unifygraphsop"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"DestroyObjectElem",
-            "cardinality":"one",
-            "property":"destroyobjectelem"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"CardinalityConstraint",
-            "cardinality":"one",
-            "property":"cardinalityconstraint"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"CardinalityConstraint",
-            "cardinality":"many",
-            "property":"cardConstraints"
-         },
-         "target":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"src"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"MatchOtherThen",
-            "cardinality":"one",
-            "property":"matchotherthen"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"MatchOtherThen",
-            "cardinality":"many",
-            "property":"matchOtherThen"
-         },
-         "target":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"src"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"MatchOtherThen",
-            "cardinality":"many",
-            "property":"excluders"
-         },
-         "target":{
-            "id":"PatternObject",
-            "cardinality":"one",
-            "property":"forbidden"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"GenericConstraint",
-            "cardinality":"one",
-            "property":"genericconstraint"
-         },
-         "target":{
-            "id":"PatternElement",
-            "cardinality":"one",
-            "property":"patternelement"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ReachabilityGraph",
-            "cardinality":"one",
-            "property":"parent"
-         },
-         "target":{
-            "id":"ReachableState",
-            "cardinality":"many",
-            "property":"states"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ReachabilityGraph",
-            "cardinality":"one",
-            "property":"master"
-         },
-         "target":{
-            "id":"ReachableState",
-            "cardinality":"many",
-            "property":"todo"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ReachabilityGraph",
-            "cardinality":"one",
-            "property":"rgraph"
-         },
-         "target":{
             "id":"Pattern",
             "cardinality":"many",
             "property":"rules"
+         },
+         "target":{
+            "id":"ReachabilityGraph",
+            "cardinality":"one",
+            "property":"rgraph"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"ReachableState",
-            "cardinality":"many",
-            "property":"states"
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"src"
          },
          "target":{
+            "id":"CardinalityConstraint",
+            "cardinality":"many",
+            "property":"cardConstraints"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"src"
+         },
+         "target":{
+            "id":"MatchOtherThen",
+            "cardinality":"many",
+            "property":"matchOtherThen"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"forbidden"
+         },
+         "target":{
+            "id":"MatchOtherThen",
+            "cardinality":"many",
+            "property":"excluders"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"LinkConstraint",
+            "cardinality":"one",
+            "property":"linkconstraint"
+         },
+         "target":{
+            "id":"PatternLink",
+            "cardinality":"one",
+            "property":"patternlink"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
             "id":"ReachabilityGraph",
             "cardinality":"one",
             "property":"parent"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"many",
+            "property":"states"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"ReachableState",
-            "cardinality":"one",
-            "property":"src"
-         },
-         "target":{
-            "id":"RuleApplication",
-            "cardinality":"many",
-            "property":"ruleapplications"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ReachableState",
-            "cardinality":"one",
-            "property":"tgt"
-         },
-         "target":{
-            "id":"RuleApplication",
-            "cardinality":"many",
-            "property":"resultOf"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ReachableState",
-            "cardinality":"many",
-            "property":"todo"
-         },
-         "target":{
             "id":"ReachabilityGraph",
             "cardinality":"one",
             "property":"master"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"many",
+            "property":"todo"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"RuleApplication",
-            "cardinality":"many",
-            "property":"ruleapplications"
-         },
-         "target":{
             "id":"ReachableState",
             "cardinality":"one",
             "property":"src"
+         },
+         "target":{
+            "id":"RuleApplication",
+            "cardinality":"many",
+            "property":"ruleapplications"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"RuleApplication",
-            "cardinality":"many",
-            "property":"resultOf"
-         },
-         "target":{
             "id":"ReachableState",
             "cardinality":"one",
             "property":"tgt"
+         },
+         "target":{
+            "id":"RuleApplication",
+            "cardinality":"many",
+            "property":"resultOf"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Pattern"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"NegativeApplicationCondition"},
-         "target":{"id":"Pattern"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"OptionalSubPattern"},
-         "target":{"id":"Pattern"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"PatternObject"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"PatternLink"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"AttributeConstraint"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"LinkConstraint"},
-         "target":{"id":"PatternLink"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MatchIsomorphicConstraint"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"CloneOp"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"UnifyGraphsOp"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"DestroyObjectElem"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"CardinalityConstraint"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MatchOtherThen"},
-         "target":{"id":"PatternElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"GenericConstraint"},
-         "target":{"id":"PatternElement"}
       }
    ]
 }   ;

@@ -395,6 +395,59 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
    }
 
+   public ReachableStatePO filterMetricValue(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_METRICVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachableStatePO filterMetricValue(double lower, double upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_METRICVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReachableStatePO createMetricValue(double value)
+   {
+      this.startCreate().filterMetricValue(value).endCreate();
+      return this;
+   }
+   
+   public double getMetricValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReachableState) getCurrentMatch()).getMetricValue();
+      }
+      return 0;
+   }
+   
+   public ReachableStatePO withMetricValue(double value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ReachableState) getCurrentMatch()).setMetricValue(value);
+      }
+      return this;
+   }
+   
 }
 
 

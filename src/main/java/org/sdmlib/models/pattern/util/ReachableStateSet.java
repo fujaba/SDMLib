@@ -34,6 +34,7 @@ import org.sdmlib.models.pattern.RuleApplication;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
+import org.sdmlib.models.modelsets.doubleList;
 
 public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -401,6 +402,89 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the metricValue attribute values. 
+    * 
+    * @return List of double objects reachable via metricValue attribute
+    */
+   public doubleList getMetricValue()
+   {
+      doubleList result = new doubleList();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.getMetricValue());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the metricValue attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet filterMetricValue(double value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getMetricValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the metricValue attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet filterMetricValue(double lower, double upper)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (lower <= obj.getMetricValue() && obj.getMetricValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and assign value to the metricValue attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ReachableState objects now with new attribute values.
+    */
+   public ReachableStateSet withMetricValue(double value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setMetricValue(value);
+      }
+      
+      return this;
    }
 
 }

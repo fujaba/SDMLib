@@ -66,6 +66,11 @@ public class OptionalSubPatternCreator extends PatternCreator
       {
          return ((OptionalSubPattern) target).getPattern();
       }
+
+      if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getCurrentSubPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -98,6 +103,12 @@ public class OptionalSubPatternCreator extends PatternCreator
       if (OptionalSubPattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
          ((OptionalSubPattern) target).setPattern((Pattern) value);
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).setCurrentSubPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

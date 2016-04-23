@@ -53,6 +53,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.models.modelsets.ModelSet;
@@ -964,7 +965,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       // do we have a JsonIdMap?
       if (jsonIdMap == null)
       {
-         jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
+         // jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
+         jsonIdMap = (IdMap) new SDMLibIdMap("s").withSessionId(null);
          //FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
       }
 
@@ -1069,7 +1071,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       if (restrictToExplicitElems)
       {
          RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
-         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
+         IdMap localIdMap = new SDMLibIdMap("s2").withSessionId(null);
+         addObjectDiagram(localIdMap, explicitElems, jsonFilter);
       }
       else
       {

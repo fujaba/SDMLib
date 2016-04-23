@@ -28,7 +28,7 @@ public class doubleList extends ArrayList<Double>
     */
    public double max()
    {
-      double max = Double.MIN_VALUE;
+      double max = Double.NEGATIVE_INFINITY;
 
       for (double x : this)
       {

@@ -137,6 +137,7 @@ public class PatternModelCodeGen
       
       Clazz rState = model.createClazz("ReachableState")
             .withAttribute("number", DataType.LONG)
+            .withAttribute("metricValue", DataType.DOUBLE)
             .withAttribute("graphRoot", DataType.OBJECT);
       
       reachabilityGraph.withBidirectional(rState, "states", Cardinality.MANY, "parent", Cardinality.ONE);

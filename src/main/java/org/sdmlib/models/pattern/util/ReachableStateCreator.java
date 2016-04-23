@@ -17,6 +17,7 @@ public class ReachableStateCreator extends EntityFactory
       ReachableState.PROPERTY_NUMBER,
       ReachableState.PROPERTY_RULEAPPLICATIONS,
       ReachableState.PROPERTY_RESULTOF,
+      ReachableState.PROPERTY_METRICVALUE,
    };
    
    @Override
@@ -32,43 +33,54 @@ public class ReachableStateCreator extends EntityFactory
    }
    
    @Override
-   public Object getValue(Object target, String attrName)
+   public Object getValue(Object target, String attribute)
    {
-      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getParent();
       }
 
-      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getMaster();
       }
 
-      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getGraphRoot();
       }
 
-      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getNumber();
       }
 
-      if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getRuleapplications();
       }
 
-      if (ReachableState.PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
+      if (ReachableState.PROPERTY_RESULTOF.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getResultOf();
       }
-      return super.getValue(target, attrName);
+
+      if (ReachableState.PROPERTY_METRICVALUE.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).getMetricValue();
+      }
+      return super.getValue(target, attribute);
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (ReachableState.PROPERTY_METRICVALUE.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).withMetricValue(Double.parseDouble(value.toString()));
+         return true;
+      }
+
       if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          ((ReachableState)target).setParent((ReachabilityGraph) value);

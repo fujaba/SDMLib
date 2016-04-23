@@ -1,6 +1,7 @@
 package org.sdmlib.models;
 
 import org.sdmlib.serialization.NullCreator;
+import org.sdmlib.storyboards.GenericCreator;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
