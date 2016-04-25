@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.models.modelsets.doubleList;
 
-public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachableStateSet extends SimpleSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
    @Override
    public String toString()
