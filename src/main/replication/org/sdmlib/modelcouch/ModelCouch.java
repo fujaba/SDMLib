@@ -621,9 +621,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	 * 
 	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
 	 * 
-	 * @param password
-	 * @return
-	 * @throws Exception 
+	 * @param password The Password as String
+	 * @return ThisComponent
+	 * @throws Exception Any Exception of Error 
 	 */
 	public ModelCouch login(String password) throws Exception{
 		if(this.authenticator == null){
