@@ -66,8 +66,9 @@ public class PatternModelCodeGen
       .withSuperClazz(pattern)
       .withAttribute("matchForward", DataType.BOOLEAN);
 
-      new Association(patternElement).with("elements").with(Cardinality.MANY)
-      	.with(new Association(pattern).with("pattern").with(Cardinality.ONE));
+      pattern.withBidirectional(patternElement, "elements", Cardinality.MANY, "pattern", Cardinality.ONE);
+//      new Association(patternElement).with("elements").with(Cardinality.MANY)
+//      	.with(new Association(pattern).with("pattern").with(Cardinality.ONE));
       
       Clazz patternObject = model.createClazz("PatternObject")
       .withSuperClazz(patternElement)
@@ -95,8 +96,9 @@ public class PatternModelCodeGen
       .withAttribute("cmpOp", DataType.STRING)
       .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
-      new Association(patternObject).with("src").with(Cardinality.ONE)
-      	.with(new Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
+      patternObject.withBidirectional(attrConstraint, "attrConstraints", Cardinality.MANY, "src", Cardinality.ONE);
+//      new Association(patternObject).with("src").with(Cardinality.ONE)
+//      	.with(new Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
       
       model.createClazz("LinkConstraint")
       .withSuperClazz(patternLink);
@@ -113,8 +115,9 @@ public class PatternModelCodeGen
       Clazz destroyObjectClazz = model.createClazz("DestroyObjectElem")
       .withSuperClazz(patternElement);
       
-      new Association(patternObject).with("patternObject").with(Cardinality.ONE)
-      	.with(new Association(destroyObjectClazz).with("destroyElem").with(Cardinality.ONE));
+      patternObject.withBidirectional(destroyObjectClazz, "destroyElem", Cardinality.ONE, "patternObject", Cardinality.ONE);
+//      new Association(patternObject).with("patternObject").with(Cardinality.ONE)
+//      	.with(new Association(destroyObjectClazz).with("destroyElem").with(Cardinality.ONE));
       
       model.createClazz("CardinalityConstraint")
       .withSuperClazz(patternElement)
