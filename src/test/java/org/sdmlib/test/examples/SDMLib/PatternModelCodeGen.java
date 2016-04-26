@@ -30,6 +30,7 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphList;
    
 public class PatternModelCodeGen 
 {
@@ -157,7 +158,8 @@ public class PatternModelCodeGen
       reachabilityGraph.withBidirectional(pattern, "rules", Cardinality.MANY, "rgraph", Cardinality.ONE);
       
       // model.getGenerator().withShowDiff(DIFF.FULL);
-      
+      GraphList list=new GraphList();
+      list.with(model.getClazzes().toArray());
       model.generate("src/main/java");
       
       storyboard.addClassDiagram(model);
