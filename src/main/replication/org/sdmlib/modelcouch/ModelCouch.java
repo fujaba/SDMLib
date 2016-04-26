@@ -70,13 +70,19 @@ import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
 
 /**
  * 
- * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
+ * @see <a href=
+ *      '../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>
+ *      ModelCouchModel.java</a>
+ * @see <a href=
+ *      '../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>
+ *      ModelCouchModel.java</a>
  */
-public  class ModelCouch implements SendableEntity, PropertyChangeInterface, UpdateListener
-{
-	public enum ApplicationType {StandAlone, JavaFX};
-	private  ApplicationType applicationType;
+public class ModelCouch implements SendableEntity, PropertyChangeInterface, UpdateListener {
+	public enum ApplicationType {
+		StandAlone, JavaFX
+	};
+
+	private ApplicationType applicationType;
 
 	private final int RESPONSE_CODE_DB_MISSING = 404;
 
@@ -89,14 +95,27 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	private ConcurrentLinkedQueue<Task<Boolean>> queue = new ConcurrentLinkedQueue<>();
 
-	public ModelCouch registerAtIdMap()
-	{
+	private CouchDBAdapter couchDBAdapter;
+	
+	public CouchDBAdapter getCouchDBAdapter() {
+		return couchDBAdapter;
+	}
+	
+	public void setCouchDBAdapter(CouchDBAdapter couchAdapter) {
+		this.couchDBAdapter = couchAdapter;
+	}
+
+	public ModelCouch(CouchDBAdapter couchAdapter) {
+		this.couchDBAdapter = couchAdapter;
+	}
+
+	public ModelCouch registerAtIdMap() {
 		idMap.with(this);
 		return this;
 	}
-	
-	public URL getURL(){
-		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
+
+	public URL getURL() {
+		String urlString = "http://" + hostName + ":" + port + "/" + databaseName + "/";
 		try {
 			return new URL(urlString);
 		} catch (MalformedURLException e) {
@@ -106,18 +125,17 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return null;
 	}
 
-	//try to open connection to an existing database
-	//create new if database was not existing
-	public ModelCouch open(String databaseName)
-	{
+	// try to open connection to an existing database
+	// create new if database was not existing
+	public ModelCouch open(String databaseName) {
 		this.databaseName = databaseName;
 
-		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-		try{
+		String urlString = "http://" + hostName + ":" + port + "/" + databaseName + "/";
+		try {
 			URL urlObj = new URL(urlString);
 			HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
 
-			//is database existing?
+			// is database existing?
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
 			con.setDoOutput(true);
@@ -127,49 +145,41 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 			con.disconnect();
 
-			if(responseCode == RESPONSE_CODE_DB_MISSING)
-			{
+			if (responseCode == RESPONSE_CODE_DB_MISSING) {
 				con.disconnect();
-				//create
-				createDB(databaseName);
+				// create
+				this.couchDBAdapter.createDB(databaseName);
 			}
 
 			mdbListener = createModelDBListener();
-			
+
 			mdbListener.loadOldChanges();
-			
-			if(isContinuous()){
+
+			if (isContinuous()) {
 				start();
 			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return this;
 	}
-	
-	public ReturnObject createDB(String dbName){
-		RequestObject create = createRequestObject();
-		create.setRequestType(RequestType.PUT);
-		create.setPath(dbName);
-		return send(create);
-	}
-	
+
 	private Future<?> started = null;
-	public Future<?> start(){
-		if(!isContinuous() || isContinuous() && (started == null || started != null && started.isDone())){
-			mdbListener.setContinuous(isContinuous());			
-			started = executor.submit(mdbListener,true);
+
+	public Future<?> start() {
+		if (!isContinuous() || isContinuous() && (started == null || started != null && started.isDone())) {
+			mdbListener.setContinuous(isContinuous());
+			started = executor.submit(mdbListener, true);
 		}
 		return started;
 	}
-	
-	public void start(boolean wait, long timeout){
+
+	public void start(boolean wait, long timeout) {
 		Future<?> start = start();
-		if(start == null)
+		if (start == null)
 			return;
-		if(wait){
+		if (wait) {
 			try {
 				start.get(timeout, TimeUnit.MILLISECONDS);
 			} catch (InterruptedException | ExecutionException | TimeoutException e) {
@@ -181,8 +191,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	EntityUtil entityUtil = new EntityUtil();
 
-	public int send(ChangeEvent change)
-	{
+	public int send(ChangeEvent change) {
 		FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>() {
 			@Override
 			public Integer call() throws Exception {
@@ -190,18 +199,18 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 				JsonObject jsonObject = change.toJson();
 
-				String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-				try{
+				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/";
+				try {
 					URL obj = new URL(url);
 					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 					String urlParameters = jsonObject.toString();
 
 					urlParameters = entityUtil.encode(urlParameters);
 
-					con.setRequestMethod("POST");	
+					con.setRequestMethod("POST");
 					con.setDoOutput(true);
 					con.setDoInput(true);
-					authenticate(con);
+					couchDBAdapter.authenticate(con);
 					con.addRequestProperty("Content-Type", "application/json");
 					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 					wr.writeBytes(urlParameters);
@@ -210,16 +219,15 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 					responsecode = con.getResponseCode();
 					con.disconnect();
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 				return responsecode;
 			}
-			
+
 		});
-		if(isContinuous()){
+		if (isContinuous()) {
 			try {
 				executor.submit(task);
 				return task.get();
@@ -227,18 +235,18 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			executor.submit(task);
 		}
 		return 0;
 	}
-	
-	public int delete(JsonObject change){
+
+	public int delete(JsonObject change) {
 		/**
 		 * url for delete should look like
 		 * "http://localhost:5989/dss/7264fb7568709355423ca63ee1c97b94/001?rev=1-6c8068c8e999096447efef68d4e76c53"
 		 */
-		FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>(){
+		FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>() {
 			@Override
 			public Integer call() throws Exception {
 				int responsecode = -1;
@@ -246,28 +254,28 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				JsonObject jsonObject = change;
 				String objId = jsonObject.getValue("id").toString();
 				JsonArray changeRev = (JsonArray) jsonObject.getValue("changes");
-				JsonObject rev = ((JsonObject)changeRev.get(0));
-				
-				String url = "http://" + hostName + ":" + port +"/" + databaseName + "/" + objId + "?" + rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
-				try{
+				JsonObject rev = ((JsonObject) changeRev.get(0));
+
+				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/" + objId + "?"
+						+ rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
+				try {
 					URL obj = new URL(url);
 					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-					con.setRequestMethod("DELETE");	
+					con.setRequestMethod("DELETE");
 					con.addRequestProperty("Content-Type", "application/json");
-					authenticate(con);
+					couchDBAdapter.authenticate(con);
 
 					responsecode = con.getResponseCode();
 					con.disconnect();
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 				return responsecode;
 			}
 		});
-		if(isContinuous()){
+		if (isContinuous()) {
 			try {
 				executor.submit(task);
 				return task.get();
@@ -275,39 +283,26 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			executor.submit(task);
 		}
 		return 0;
 	}
 
-	public void close()
-	{
+	public void close() {
 		executor.shutdownNow();
 		this.removeYou();
 	}
 
-	public ReturnObject deleteDatabase(String databaseName)
-	{
-		RequestObject delete = createRequestObject();
-		delete.setPath(databaseName);
-		delete.setRequestType(RequestType.DELETE);
-		return send(delete);
-	}
-
-	public String getDatabaseName()
-	{
+	public String getDatabaseName() {
 		return databaseName;
 	}
 
-
-	//==============================================================================
-	public long getNewHistoryIdNumber()
-	{
+	// ==============================================================================
+	public long getNewHistoryIdNumber() {
 		long result = System.currentTimeMillis();
 
-		if (result <= lastChangeId )
-		{
+		if (result <= lastChangeId) {
 			result = lastChangeId + 1;
 		}
 
@@ -316,11 +311,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return result;
 	}
 
-
 	@Override
 	public boolean update(Object event) {
-		if (mdbListener.isApplyingChangeMsg())
-		{
+		if (mdbListener.isApplyingChangeMsg()) {
 			// ignore
 			return true;
 		}
@@ -331,13 +324,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 		Object attributes = jsonObject.get(IdMap.UPDATE);
 
-		if (attributes == null)
-		{
+		if (attributes == null) {
 			attributes = jsonObject.get(IdMap.REMOVE);
 			opCode = IdMap.REMOVE;
 
-			if (attributes == null)
-			{
+			if (attributes == null) {
 				attributes = jsonObject.get("prop");
 				opCode = IdMap.UPDATE;
 			}
@@ -347,37 +338,29 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		JsonObject attributesJson = null;
 		String prop = null;
 
-		if (attributes != null)
-		{
+		if (attributes != null) {
 			attributesJson = (JsonObject) attributes;
 
 			Iterator<String> iter = attributesJson.keyIterator();
-			while ( iter.hasNext())
-			{
+			while (iter.hasNext()) {
 				prop = iter.next();
 
-				ChangeEvent change = new ChangeEvent()
-						.withSessionId(((IdMap)idMap).getCounter().getPrefixId())
-						.withObjectId(jsonObject.getString(IdMap.ID))
-						.withChangeNo("" + getNewHistoryIdNumber())
-						.withObjectType(jsonObject.getString(IdMap.CLASS))
-						.withProperty(prop);
+				ChangeEvent change = new ChangeEvent().withSessionId(((IdMap) idMap).getCounter().getPrefixId())
+						.withObjectId(jsonObject.getString(IdMap.ID)).withChangeNo("" + getNewHistoryIdNumber())
+						.withObjectType(jsonObject.getString(IdMap.CLASS)).withProperty(prop);
 
 				Object attrValue = attributesJson.get(prop);
 
-				if (attrValue instanceof JsonObject)
-				{
+				if (attrValue instanceof JsonObject) {
 					JsonArray valueJsonArray = new JsonArray();
 					valueJsonArray.add(attrValue);
 					attrValue = valueJsonArray;
 				}
 
-				if (attrValue instanceof JsonArray)
-				{
+				if (attrValue instanceof JsonArray) {
 					JsonArray valueJsonArray = (JsonArray) attrValue;
 
-					for (Object arrayElem : valueJsonArray)
-					{
+					for (Object arrayElem : valueJsonArray) {
 						valueJsonObject = (JsonObject) arrayElem;
 
 						String valueObjectId = (String) valueJsonObject.get(IdMap.ID);
@@ -386,8 +369,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 						Object valueObject = idMap.getObject(valueObjectId);
 
-						if (valueObjectType == null)
-						{
+						if (valueObjectType == null) {
 							// get object and ask it
 							valueObjectType = valueObject.getClass().getName();
 						}
@@ -403,18 +385,14 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 						Object value = creator.getValue(targetObject, change.getProperty());
 
-						if (value != null && value instanceof Collection)
-						{
+						if (value != null && value instanceof Collection) {
 							change.setPropertyKind(ChangeEvent.TO_MANY);
 						}
 
 						// newValue or oldValue?
-						if (opCode.equals(IdMap.REMOVE))
-						{
+						if (opCode.equals(IdMap.REMOVE)) {
 							change.withOldValue(valueObjectId);
-						}
-						else
-						{
+						} else {
 							change.withNewValue(valueObjectId);
 						}
 
@@ -422,50 +400,43 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 						send(change);
 
 						// does the value have properties?
-						if (valueJsonObject.get("prop") != null)
-						{
+						if (valueJsonObject.get("prop") != null) {
 							// call recursive
-							//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+							// this.update(typ, valueJsonObject, valueObject,
+							// prop, null, null);
 							simpleEvent.with(valueJsonObject);
 							this.update(simpleEvent);
 						}
 					}
-				}
-				else
-				{
+				} else {
 					PropertyChangeEvent evt = (PropertyChangeEvent) event;
 					String oldValueString = "" + evt.getOldValue();
-					if (evt.getOldValue() == null)
-					{
+					if (evt.getOldValue() == null) {
 						oldValueString = null;
 					}
 
 					// plain attribute
-					change.withPropertyKind(ChangeEvent.PLAIN)
-					.withNewValue("" + attrValue)
-					.withOldValue(oldValueString);
+					change.withPropertyKind(ChangeEvent.PLAIN).withNewValue("" + attrValue)
+							.withOldValue(oldValueString);
 
-					//send it
+					// send it
 					send(change);
 				}
 			}
 		}
 
-
 		return true;
 	}
 
-	//==========================================================================
+	// ==========================================================================
 
 	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
-	public PropertyChangeSupport getPropertyChangeSupport()
-	{
+	public PropertyChangeSupport getPropertyChangeSupport() {
 		return listeners;
 	}
 
-	public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-	{
+	public boolean addPropertyChangeListener(PropertyChangeListener listener) {
 		getPropertyChangeSupport().addPropertyChangeListener(listener);
 		return true;
 	}
@@ -480,31 +451,25 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return true;
 	}
 
+	// ==========================================================================
 
-	//==========================================================================
-
-
-	public void removeYou()
-	{
+	public void removeYou() {
 		setModelDBListener(null);
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 	}
 
-
-	//==========================================================================
+	// ==========================================================================
 
 	public static final String PROPERTY_HOSTNAME = "hostName";
 
 	private String hostName = "localhost";
 
-	public String getHostName()
-	{
+	public String getHostName() {
 		return this.hostName;
 	}
 
-	public void setHostName(String value)
-	{
-		if ( ! StrUtil.stringEquals(this.hostName, value)) {
+	public void setHostName(String value) {
+		if (!StrUtil.stringEquals(this.hostName, value)) {
 
 			String oldValue = this.hostName;
 			this.hostName = value;
@@ -512,16 +477,13 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		}
 	}
 
-	public ModelCouch withHostName(String value)
-	{
+	public ModelCouch withHostName(String value) {
 		setHostName(value);
 		return this;
-	} 
-
+	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		StringBuilder result = new StringBuilder();
 
 		result.append(" ").append(this.getHostName());
@@ -529,21 +491,17 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return result.substring(1);
 	}
 
-
-
-	//==========================================================================
+	// ==========================================================================
 
 	public static final String PROPERTY_PORT = "port";
 
 	private int port = 5984;
 
-	public int getPort()
-	{
+	public int getPort() {
 		return this.port;
 	}
 
-	public void setPort(int value)
-	{
+	public void setPort(int value) {
 		if (this.port != value) {
 
 			int oldValue = this.port;
@@ -552,94 +510,48 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		}
 	}
 
-	public ModelCouch withPort(int value)
-	{
+	public ModelCouch withPort(int value) {
 		setPort(value);
 		return this;
 	}
-	public IdMap getIdMap()
-	{
+
+	public IdMap getIdMap() {
 		return idMap;
 	}
 
-	public ApplicationType getApplicationType()
-	{
+	public ApplicationType getApplicationType() {
 		return applicationType;
 	}
 
-	public void setApplicationType(ApplicationType applicationType)
-	{
+	public void setApplicationType(ApplicationType applicationType) {
 		this.applicationType = applicationType;
 	}
-	
-	public ModelCouch withApplicationType(ApplicationType applicationType)
-	{
+
+	public ModelCouch withApplicationType(ApplicationType applicationType) {
 		setApplicationType(applicationType);
 		return this;
 	}
 
-	public void setIdMap(IdMap idMap)
-	{
+	public void setIdMap(IdMap idMap) {
 		this.idMap = idMap;
 	}
 
-	public ModelCouch withIdMap(IdMap idMap)
-	{
+	public ModelCouch withIdMap(IdMap idMap) {
 		setIdMap(idMap);
 		return this;
 	}
 
-	public String getUserName()
-	{
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName)
-	{
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public ModelCouch withUserName(String userName)
-	{
+	public ModelCouch withUserName(String userName) {
 		setUserName(userName);
 		return this;
-	}
-	
-	private Authenticator authenticator;
-	
-	public ModelCouch withAuthenticator(Authenticator autheticator) {
-		this.authenticator = autheticator;
-		return this;
-	}
-	
-	public Authenticator getAutheticator() {
-		return authenticator;
-	}
-	
-	/**
-	 * Must be called after setting credentials (and authenticator)
-	 * 
-	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
-	 * 
-	 * @param password The Password as String
-	 * @return ThisComponent
-	 * @throws Exception Any Exception of Error 
-	 */
-	public ModelCouch login(String password) throws Exception{
-		if(this.authenticator == null){
-			this.authenticator = new BasicAuthenticator();
-		}
-		if(this.authenticator.login(getUserName(), password , this)){
-			return this;
-		}else{
-			throw new Exception("Couldn't log in...");
-		}
-	}
-	
-	protected void authenticate(HttpURLConnection connection) {
-		if(authenticator != null){
-			authenticator.authenticate(connection);
-		}
 	}
 
 	/********************************************************************
@@ -655,29 +567,24 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	private ModelDBListener modelDBListener = null;
 	private ModelDBListener mdbListener;
 
-	public ModelDBListener getModelDBListener()
-	{
+	public ModelDBListener getModelDBListener() {
 		return this.modelDBListener;
 	}
 
-	public boolean setModelDBListener(ModelDBListener value)
-	{
+	public boolean setModelDBListener(ModelDBListener value) {
 		boolean changed = false;
 
-		if (this.modelDBListener != value)
-		{
+		if (this.modelDBListener != value) {
 			ModelDBListener oldValue = this.modelDBListener;
 
-			if (this.modelDBListener != null)
-			{
+			if (this.modelDBListener != null) {
 				this.modelDBListener = null;
 				oldValue.setCouch(null);
 			}
 
 			this.modelDBListener = value;
 
-			if (value != null)
-			{
+			if (value != null) {
 				value.withCouch(this);
 			}
 
@@ -688,193 +595,32 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		return changed;
 	}
 
-	public ModelCouch withModelDBListener(ModelDBListener value)
-	{
+	public ModelCouch withModelDBListener(ModelDBListener value) {
 		setModelDBListener(value);
 		return this;
-	} 
+	}
 
-	public ModelDBListener createModelDBListener()
-	{
+	public ModelDBListener createModelDBListener() {
 		ModelDBListener value = new ModelDBListener();
 		withModelDBListener(value);
 		return value;
-	} 
-	
+	}
+
 	private boolean continuous = false;
-	
+
 	public void setContinuous(boolean continuous) {
-		if(this.continuous != continuous){
+		if (this.continuous != continuous) {
 			this.continuous = continuous;
 		}
 	}
-	
-	public ModelCouch withContinuous(boolean continous){
+
+	public ModelCouch withContinuous(boolean continous) {
 		setContinuous(continous);
 		return this;
 	}
-	
+
 	public boolean isContinuous() {
 		return continuous;
-	}
-
-	public ReturnObject replicate(ModelCouch modelCouch, String source, String target) {
-		RequestObject request = createRequestObject();
-		request.setPath("_replicate");
-		request.setRequestType(RequestType.POST);
-		
-		/*
-		 * {"source":"http://example.org/example-database","target":"http://admin:password@127.0.0.1:5984/example-database"}
-		 */
-		
-		JsonObject replicateObject = new JsonObject();
-		replicateObject.add("create_target", true);
-		replicateObject.add("source", source);
-		replicateObject.add("target", target);
-		replicateObject.add("retries_per_request", 2);
-		
-		request.setOutput(replicateObject.toString().getBytes());
-		
-		return send(request);
-	}
-	
-	public ReturnObject setUserPrivileges(String database, Collection<String> adminNames, Collection<String> adminRoles, 
-			Collection<String> memberNames, Collection<String> memberRoles) {
-		RequestObject request = createRequestObject();
-		request.setPath(database + "/_security");
-		request.setRequestType(RequestType.PUT);
-		request.setShouldHandleInput(true);
-		
-		JsonObject json = new JsonObject();
-		JsonObject admins = new JsonObject();
-		JsonArray adminNamesJson = new JsonArray();
-		adminNamesJson.addAll(adminNames);
-		admins.add("names", adminNamesJson);
-		JsonArray adminRolesJson = new JsonArray();
-		adminRolesJson.addAll(adminRoles);
-		admins.add("roles", adminRolesJson);
-		json.put("admins", admins);
-		JsonObject members = new JsonObject();
-		JsonArray memberNamesJson = new JsonArray();
-		memberNamesJson.addAll(memberNames);
-		members.add("names", memberNamesJson);
-		JsonArray memberRolesJson = new JsonArray();
-		memberRolesJson.addAll(memberRoles);
-		members.add("roles", memberRolesJson);
-		json.put("members", members);
-		
-		request.setOutput(json.toString().getBytes(Charset.forName("UTF-8")));
-		
-		return send(request);
-	}
-	
-	public RequestObject createRequestObject(){
-		return new RequestObject(this);
-	}
-	
-	public ReturnObject send(RequestObject request){
-		ReturnObject res = new ReturnObject();
-		try{
-			URL obj = new URL(request.getServer() + request.getPath());
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			//try to delete database
-			con.setRequestMethod(request.getRequestType().toString());
-			con.setDoInput(true);
-			if(request.getRequestProperties() == null){
-				con.addRequestProperty("Content-Type", "application/json");
-			}else{
-				for (Entry<String, String> entry : request.getRequestProperties().entrySet()) {
-					con.addRequestProperty(entry.getKey(), entry.getValue());
-				}
-			}
-			authenticate(con);
-			if ((request.getOutput() != null && request.getOutput().length > 0)) {
-				con.setDoOutput(true);
-				con.getOutputStream().write(request.getOutput());
-			}
-			res.responseCode = con.getResponseCode();
-
-			if (res.responseCode >= 400 && con.getErrorStream() != null) {
-				InputStream errorStream = (InputStream) con.getErrorStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
-				try {
-					LinkedList<String> lines = new LinkedList<>();
-					String readLine = null;
-					do {
-						readLine = reader.readLine();
-						if (readLine == null) {
-							break;
-						}
-						lines.add(readLine);
-					} while (readLine != null);
-					res.error = lines;
-				} catch (IOException e) {
-					// e.printStackTrace();
-				}
-			} else {
-				if (request.isShouldHandleInput()) {
-					InputStream content = (InputStream) con.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-					try {
-						LinkedList<String> lines = new LinkedList<>();
-						String readLine = null;
-						do {
-							readLine = reader.readLine();
-							if (readLine == null) {
-								break;
-							}
-							lines.add(readLine);
-						} while (readLine != null);
-						res.setContent(lines);
-					} catch (IOException e) {
-						// e.printStackTrace();
-					}
-				}
-			}
-			
-			con.disconnect();
-		} catch (Exception e)
-		{
-			res.responseCode = 400;
-//			e.printStackTrace();
-		}
-		return res;
-	}
-	
-	public boolean testConnection(){
-		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-		try {
-			URL urlObj = new URL(urlString);
-			URLConnection openConnection = urlObj.openConnection();
-			openConnection.connect();
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean testConnection(String databaseName){
-		String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
-		try {
-			// first check, if host is available..
-			URL urlObj = new URL(urlString);
-			URLConnection openConnection = urlObj.openConnection();
-			openConnection.connect();
-			
-			// now check for existence of DataBase
-			RequestObject check = createRequestObject();
-			check.setRequestType(RequestType.GET);
-			check.setPath(databaseName);
-			check.setShouldHandleInput(true);
-			
-			ReturnObject send = send(check);
-			if(send.getResponseCode() >= 400){
-				return false;
-			}
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
 	}
 
 }

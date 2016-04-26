@@ -2,6 +2,7 @@ package org.sdmlib.modelcouch.authentication;
 
 import java.net.HttpURLConnection;
 
+import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 
 public interface Authenticator {
@@ -10,10 +11,10 @@ public interface Authenticator {
 	 * 
 	 * @param username The User
 	 * @param password The Password
-	 * @param couch The Database
+	 * @param couchDBAdapter The Database
 	 * @return result success if login
 	 */
-	public boolean login(String username, String password, ModelCouch couch);
+	public boolean login(String username, String password, CouchDBAdapter couchDBAdapter);
 
 	/**
 	 * Called in every request

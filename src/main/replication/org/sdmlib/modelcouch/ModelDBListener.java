@@ -74,7 +74,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Connection", "Keep-Alive"); 
 
-			couch.authenticate(con);
+			couch.getCouchDBAdapter().authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -143,7 +143,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Content-Type", "application/json"); 
 			
-			couch.authenticate(con);
+			couch.getCouchDBAdapter().authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -417,7 +417,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 	public ModelCouch createCouch()
 	{
-		ModelCouch value = new ModelCouch();
+		ModelCouch value = new ModelCouch(new CouchDBAdapter());
 		withCouch(value);
 		return value;
 	}

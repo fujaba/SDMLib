@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.RequestObject;
 import org.sdmlib.modelcouch.RequestType;
@@ -28,11 +29,11 @@ public class CookieAuthenticator implements Authenticator {
 
 	private String username;
 	private String password;
-	private ModelCouch couch;
+	private CouchDBAdapter couch;
 	private ReturnObject loginResponse;
 
 	@Override
-	public boolean login(String username, String password, ModelCouch couch) {
+	public boolean login(String username, String password, CouchDBAdapter couch) {
 		this.username = username;
 		this.password = password;
 		this.couch = couch;
@@ -43,7 +44,7 @@ public class CookieAuthenticator implements Authenticator {
 		return loginResponse.getResponseCode() == 200;
 	}
 
-	private ReturnObject getCookie(ModelCouch couch) {
+	private ReturnObject getCookie(CouchDBAdapter couch) {
 		RequestObject login = couch.createRequestObject();
 		login.setPath("_session");
 		login.setShouldHandleInput(true);
@@ -51,11 +52,11 @@ public class CookieAuthenticator implements Authenticator {
 		login.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		try {
 			login.setOutput(("name=" + URLEncoder.encode(username, "UTF-8") + "&password="
-						+ URLEncoder.encode(password, "UTF-8")).getBytes());
-			
+					+ URLEncoder.encode(password, "UTF-8")).getBytes());
+
 			return couch.send(login);
 		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return new ReturnObject();
 	}

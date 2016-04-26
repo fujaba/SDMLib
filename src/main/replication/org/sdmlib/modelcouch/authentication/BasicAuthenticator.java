@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
+import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 
 /**
@@ -17,7 +18,7 @@ public class BasicAuthenticator implements Authenticator {
 	private String encoding;
 
 	@Override
-	public boolean login(String username, String password, ModelCouch couch) {
+	public boolean login(String username, String password, CouchDBAdapter couch) {
 		String authenticationData = username + ":" + password.toString();
 		encoding = Base64.getEncoder().encodeToString(authenticationData.getBytes(Charset.forName("utf-8")));
 		return false;

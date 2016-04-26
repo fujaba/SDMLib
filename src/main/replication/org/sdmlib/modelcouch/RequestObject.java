@@ -15,8 +15,8 @@ public class RequestObject {
 	private boolean shouldHandleInput = false;
 	private LinkedHashMap<String, String> requestProperties = null;
 
-	public RequestObject(ModelCouch couch) {
-		server = "http://" + couch.getHostName() + ":" + couch.getPort() + "/";
+	public RequestObject(CouchDBAdapter couchDBAdapter) {
+		server = "http://" + couchDBAdapter.getHostName() + ":" + couchDBAdapter.getPort() + "/";
 	}
 
 	/**

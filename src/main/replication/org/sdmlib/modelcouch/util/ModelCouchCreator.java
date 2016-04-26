@@ -23,6 +23,8 @@ package org.sdmlib.modelcouch.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+
+import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
 
@@ -44,7 +46,7 @@ public class ModelCouchCreator implements SendableEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ModelCouch();
+      return new ModelCouch(new CouchDBAdapter());
    }
    
    @Override
