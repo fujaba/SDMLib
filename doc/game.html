@@ -16,34 +16,64 @@
       },
       {
          "typ":"node",
+         "id":"GameEntity"
+      },
+      {
+         "typ":"node",
          "id":"Player"
       }
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Game",
             "cardinality":"one",
-            "property":"winGame"
+            "property":"game"
          },
          "target":{
-            "id":"Player",
+            "id":"GameEntity",
             "cardinality":"one",
-            "property":"won"
+            "property":"gameentity"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Game",
             "cardinality":"one",
-            "property":"currentGame"
+            "property":"game"
          },
          "target":{
+            "id":"GameEntity",
+            "cardinality":"one",
+            "property":"gameentity"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"Player",
             "cardinality":"one",
-            "property":"currentPlayer"
+            "property":"player"
+         },
+         "target":{
+            "id":"GameEntity",
+            "cardinality":"one",
+            "property":"gameentity"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         },
+         "target":{
+            "id":"GameEntity",
+            "cardinality":"one",
+            "property":"gameentity"
          }
       }
    ]

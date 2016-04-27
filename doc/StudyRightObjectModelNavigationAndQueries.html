@@ -29,7 +29,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Student",
             "cardinality":"many",
@@ -42,7 +42,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -55,7 +55,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"TeachingAssistant",
             "cardinality":"many",
@@ -231,7 +231,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Student",
             "cardinality":"many",
@@ -244,20 +244,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Student",
             "cardinality":"many",
@@ -270,7 +257,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Student",
             "cardinality":"many",
@@ -283,20 +270,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         },
-         "target":{
             "id":"TeachingAssistant",
             "cardinality":"one",
             "property":"teachingassistant"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -309,20 +296,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"many",
@@ -335,7 +309,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"TeachingAssistant",
             "cardinality":"many",
@@ -348,20 +322,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Assignment",
-            "cardinality":"one",
-            "property":"assignment"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Assignment",
             "cardinality":"many",
@@ -374,20 +335,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"TeachingAssistant",
-            "cardinality":"one",
-            "property":"teachingassistant"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"TeachingAssistant",
             "cardinality":"many",
@@ -400,7 +348,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"University",
             "cardinality":"one",
@@ -413,7 +361,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"AssignmentCreator",
             "cardinality":"one",
@@ -426,7 +374,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"RoomCreator",
             "cardinality":"one",
@@ -439,7 +387,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"StudentCreator",
             "cardinality":"one",
@@ -452,7 +400,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"TeachingAssistantCreator",
             "cardinality":"one",
@@ -465,7 +413,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"UniversityCreator",
             "cardinality":"one",
@@ -478,171 +426,121 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         },
-         "target":{
             "id":"Student",
             "cardinality":"one",
             "property":"student"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntity",
             "cardinality":"one",
             "property":"sendableentity"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"Room",
             "cardinality":"one",
             "property":"room"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntity",
             "cardinality":"one",
             "property":"sendableentity"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"Assignment",
             "cardinality":"one",
             "property":"assignment"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntity",
             "cardinality":"one",
             "property":"sendableentity"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"University",
             "cardinality":"one",
             "property":"university"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         },
-         "target":{
             "id":"AssignmentCreator",
             "cardinality":"one",
             "property":"assignmentcreator"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"RoomCreator",
             "cardinality":"one",
             "property":"roomcreator"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"StudentCreator",
             "cardinality":"one",
             "property":"studentcreator"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"TeachingAssistantCreator",
             "cardinality":"one",
             "property":"teachingassistantcreator"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
-         },
-         "target":{
-            "id":"UniversityCreator",
-            "cardinality":"one",
-            "property":"universitycreator"
          }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Student"},
-         "target":{"id":"SendableEntity"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Room"},
-         "target":{"id":"SendableEntity"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Assignment"},
-         "target":{"id":"SendableEntity"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"TeachingAssistant"},
-         "target":{"id":"Student"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"University"},
-         "target":{"id":"SendableEntity"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"AssignmentCreator"},
-         "target":{"id":"SendableEntityCreator"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"RoomCreator"},
-         "target":{"id":"SendableEntityCreator"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"StudentCreator"},
-         "target":{"id":"SendableEntityCreator"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"TeachingAssistantCreator"},
-         "target":{"id":"SendableEntityCreator"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"UniversityCreator"},
-         "target":{"id":"SendableEntityCreator"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"UniversityCreator",
+            "cardinality":"one",
+            "property":"universitycreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
       }
    ]
 }   ;
@@ -692,7 +590,18 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T2 : TeachingAssistant",
          "attributes":[
             "certified=true",
             "name=Karli",
@@ -704,7 +613,7 @@
       },
       {
          "typ":"clazz",
-         "id":"S4 : Student",
+         "id":"S3 : Student",
          "attributes":[
             "name=Alice",
             "id=2323",
@@ -1007,7 +916,90 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R1 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S3 : Student",
+         "attributes":[
+            "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : TeachingAssistant",
+         "attributes":[
+            "certified=false",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R1 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R1 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S3 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R1 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T4 : TeachingAssistant"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries46", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1075,7 +1067,20 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"T1 : TeachingAssistant",
+         "attributes":[
+            "certified=true",
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=42",
+            "credits=0"
+         ]
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries51", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1157,12 +1162,96 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"R7 : Room",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "certified=true",
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : Room",
          "attributes":[
             "name=senate",
             "topic=math",
             "credits=17"
          ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S5 : Student",
+         "attributes":[
+            "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S1 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S5 : Student"
+         }
       }
    ]
 }   ;

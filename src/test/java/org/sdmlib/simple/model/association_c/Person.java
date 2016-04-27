@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.simple.model.association_c.Room;
+import org.sdmlib.simple.model.association_c.util.PersonSet;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>
@@ -66,6 +67,9 @@ import org.sdmlib.simple.model.association_c.Room;
    {
    
       setRoom(null);
+      setPrevPerson(null);
+      setPerson(null);
+      setNextPerson(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -116,6 +120,174 @@ import org.sdmlib.simple.model.association_c.Room;
    {
       Room value = new Room();
       withRoom(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Person ----------------------------------- Person
+    *              person                   prevPerson
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PREVPERSON = "prevPerson";
+
+   private Person prevPerson = null;
+
+   public Person getPrevPerson()
+   {
+      return this.prevPerson;
+   }
+   public PersonSet getPrevPersonTransitive()
+   {
+      PersonSet result = new PersonSet().with(this);
+      return result.getPrevPersonTransitive();
+   }
+
+
+   public boolean setPrevPerson(Person value)
+   {
+      boolean changed = false;
+      
+      if (this.prevPerson != value)
+      {
+         Person oldValue = this.prevPerson;
+         
+         
+         this.prevPerson = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREVPERSON, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withPrevPerson(Person value)
+   {
+      setPrevPerson(value);
+      return this;
+   } 
+
+   public Person createPrevPerson()
+   {
+      Person value = new Person();
+      withPrevPerson(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Person ----------------------------------- Person
+    *              person                   person
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PERSON = "person";
+
+   private Person person = null;
+
+   public Person getPerson()
+   {
+      return this.person;
+   }
+   public PersonSet getPersonTransitive()
+   {
+      PersonSet result = new PersonSet().with(this);
+      return result.getPersonTransitive();
+   }
+
+
+   public boolean setPerson(Person value)
+   {
+      boolean changed = false;
+      
+      if (this.person != value)
+      {
+         Person oldValue = this.person;
+         
+         
+         this.person = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSON, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withPerson(Person value)
+   {
+      setPerson(value);
+      return this;
+   } 
+
+   public Person createPerson()
+   {
+      Person value = new Person();
+      withPerson(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Person ----------------------------------- Person
+    *              person                   nextPerson
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXTPERSON = "nextPerson";
+
+   private Person nextPerson = null;
+
+   public Person getNextPerson()
+   {
+      return this.nextPerson;
+   }
+   public PersonSet getNextPersonTransitive()
+   {
+      PersonSet result = new PersonSet().with(this);
+      return result.getNextPersonTransitive();
+   }
+
+
+   public boolean setNextPerson(Person value)
+   {
+      boolean changed = false;
+      
+      if (this.nextPerson != value)
+      {
+         Person oldValue = this.nextPerson;
+         
+         
+         this.nextPerson = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXTPERSON, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withNextPerson(Person value)
+   {
+      setNextPerson(value);
+      return this;
+   } 
+
+   public Person createNextPerson()
+   {
+      Person value = new Person();
+      withNextPerson(value);
       return value;
    } 
 }

@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.helloworld.Person;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.util.GreetingMessageSet;
 import org.sdmlib.test.examples.helloworld.util.PersonSet;
+import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
 public class GreetingSet extends SimpleSet<Greeting>
 {
@@ -352,6 +353,102 @@ public class GreetingSet extends SimpleSet<Greeting>
       }
       
       return result;
+   }
+
+   /**
+    * Loop through the current set of Greeting objects and collect a set of the Greeting objects reached via greeting. 
+    * 
+    * @return Set of Greeting objects reachable via greeting
+    */
+   public GreetingSet getGreeting()
+   {
+      GreetingSet result = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         result.with(obj.getGreeting());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Greeting objects and collect all contained objects with reference greeting pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as greeting neighbor of the collected results. 
+    * 
+    * @return Set of Greeting objects referring to value via greeting
+    */
+   public GreetingSet filterGreeting(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GreetingSet answer = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         if (neighbors.contains(obj.getGreeting()) || (neighbors.isEmpty() && obj.getGreeting() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow greeting reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Greeting objects reachable via greeting transitively (including the start set)
+    */
+   public GreetingSet getGreetingTransitive()
+   {
+      GreetingSet todo = new GreetingSet().with(this);
+      
+      GreetingSet result = new GreetingSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Greeting current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getGreeting()))
+            {
+               todo.with(current.getGreeting());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Greeting object passed as parameter to the Greeting attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Greeting attributes.
+    */
+   public GreetingSet withGreeting(Greeting value)
+   {
+      for (Greeting obj : this)
+      {
+         obj.withGreeting(value);
+      }
+      
+      return this;
    }
 
 }

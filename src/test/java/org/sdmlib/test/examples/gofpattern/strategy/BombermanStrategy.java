@@ -73,6 +73,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
    
       setSuccessor(null);
+      setBombermanstrategy(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -122,6 +123,55 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public BombermanStrategy withSuccessor(BombermanStrategy value)
    {
       setSuccessor(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * BombermanStrategy ----------------------------------- BombermanStrategy
+    *              bombermanstrategy                   bombermanstrategy
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BOMBERMANSTRATEGY = "bombermanstrategy";
+
+   private BombermanStrategy bombermanstrategy = null;
+
+   public BombermanStrategy getBombermanstrategy()
+   {
+      return this.bombermanstrategy;
+   }
+   public BombermanStrategySet getBombermanstrategyTransitive()
+   {
+      BombermanStrategySet result = new BombermanStrategySet().with(this);
+      return result.getBombermanstrategyTransitive();
+   }
+
+
+   public boolean setBombermanstrategy(BombermanStrategy value)
+   {
+      boolean changed = false;
+      
+      if (this.bombermanstrategy != value)
+      {
+         BombermanStrategy oldValue = this.bombermanstrategy;
+         
+         
+         this.bombermanstrategy = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BOMBERMANSTRATEGY, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public BombermanStrategy withBombermanstrategy(BombermanStrategy value)
+   {
+      setBombermanstrategy(value);
       return this;
    } 
 }

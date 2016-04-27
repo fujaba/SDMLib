@@ -72,7 +72,107 @@ Karli's motivation is reduced by 5 points to now 209.
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=5",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A3 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A4 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : Assignment",
+         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S1 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A5 : Assignment"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -86,7 +186,107 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=11",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A3 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A4 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : Assignment",
+         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S1 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A5 : Assignment"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -100,7 +300,107 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=19",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A3 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A4 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : Assignment",
+         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S1 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A5 : Assignment"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -119,7 +419,107 @@ the credit points, the credit points will be awarded to the student.)</p>
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A3 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A4 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : Assignment",
+         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S1 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A5 : Assignment"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

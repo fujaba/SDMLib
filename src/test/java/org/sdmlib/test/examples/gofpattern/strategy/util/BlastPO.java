@@ -70,4 +70,19 @@ public class BlastPO extends PatternObject<BlastPO, Blast>
       return null;
    }
 
+   public BombermanStrategyPO filterSuccessor()
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BombermanStrategy.PROPERTY_SUCCESSOR, result);
+      
+      return result;
+   }
+
+   public BlastPO filterSuccessor(BombermanStrategyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BombermanStrategy.PROPERTY_SUCCESSOR);
+   }
+
 }

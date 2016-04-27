@@ -70,4 +70,19 @@ public class MoveLeftPO extends PatternObject<MoveLeftPO, MoveLeft>
       return null;
    }
 
+   public BombermanStrategyPO filterSuccessor()
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BombermanStrategy.PROPERTY_SUCCESSOR, result);
+      
+      return result;
+   }
+
+   public MoveLeftPO filterSuccessor(BombermanStrategyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BombermanStrategy.PROPERTY_SUCCESSOR);
+   }
+
 }
