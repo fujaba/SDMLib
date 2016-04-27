@@ -251,9 +251,9 @@ public class CouchDBAdapter {
 	 * 
 	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
 	 * 
-	 * @param password
-	 * @return
-	 * @throws Exception 
+	 * @param password The Password
+	 * @return ThisComponent
+	 * @throws Exception any Errors for login
 	 */
 	public CouchDBAdapter login(String password) throws Exception{
 		if(this.authenticator == null){

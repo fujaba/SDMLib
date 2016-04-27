@@ -24,6 +24,5 @@ public class testGen {
 		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
 		
 //		model.generate("gen");
-//		System.out.println("Generation complete");
 	}
 }

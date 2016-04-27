@@ -2,40 +2,25 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.IdMap;
-
 class CreatorCreator{
 
-   public static IdMap createIdMap(String sessionID)
+   public static SDMLibJsonIdMap createIdMap(String sessionID)
    {
-      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+	   SDMLibJsonIdMap map = new SDMLibJsonIdMap();
+	   map.withSessionId(sessionID);
       
-      jsonIdMap.with(new ItemCreator());
-      jsonIdMap.with(new ItemPOCreator());
-      jsonIdMap.with(new ArrayListCreator());
-      jsonIdMap.with(new ArrayListPOCreator());
-      jsonIdMap.with(new MacListCreator());
-      jsonIdMap.with(new MacListPOCreator());
-      jsonIdMap.with(new BigBrotherCreator());
-      jsonIdMap.with(new BigBrotherPOCreator());
-      jsonIdMap.with(new PersonCreator());
-      jsonIdMap.with(new PersonPOCreator());
-      jsonIdMap.with(new BigBrotherCreator());
-      jsonIdMap.with(new BigBrotherPOCreator());
-      jsonIdMap.with(new ObjectCreator());
-      jsonIdMap.with(new ObjectPOCreator());
-      jsonIdMap.with(new ArrayListCreator());
-      jsonIdMap.with(new ArrayListPOCreator());
-      jsonIdMap.with(new MacListCreator());
-      jsonIdMap.with(new MacListPOCreator());
-      jsonIdMap.with(new BigBrotherCreator());
-      jsonIdMap.with(new BigBrotherPOCreator());
-      jsonIdMap.with(new PersonCreator());
-      jsonIdMap.with(new PersonPOCreator());
-      jsonIdMap.with(new BigBrotherCreator());
-      jsonIdMap.with(new BigBrotherPOCreator());
-      jsonIdMap.with(new ObjectCreator());
-      jsonIdMap.with(new ObjectPOCreator());
-      return jsonIdMap;
+	   map.with(new ItemCreator());
+	   map.with(new ItemPOCreator());
+	   map.with(new ArrayListCreator());
+	   map.with(new ArrayListPOCreator());
+	   map.with(new MacListCreator());
+	   map.with(new MacListPOCreator());
+       map.with(new BigBrotherCreator());
+       map.with(new BigBrotherPOCreator());
+       map.with(new PersonCreator());
+       map.with(new PersonPOCreator());
+       map.with(new ObjectCreator());
+       map.with(new ObjectPOCreator());
+       return map;
    }
 }
