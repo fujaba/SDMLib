@@ -478,8 +478,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return explore(Long.MAX_VALUE);
    }
 
-   private long noOfNewStates;
-
    public long explore(long maxNoOfNewStates)
    {
       long currentStateNum = 1;
@@ -500,9 +498,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       
       // take a todo state and apply all rules at all places until maxNoOfNewStates 
       // is reached
-      noOfNewStates = 0;
-
-      while (!getTodo().isEmpty() && noOfNewStates < maxNoOfNewStates)
+      while (!getTodo().isEmpty() && this.getStates().size() <= maxNoOfNewStates)
       {
          if (metric != null)
          {
