@@ -74,10 +74,10 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
 
    public ReachableStateSet getTodo()
    {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReachabilityGraph) this.getCurrentMatch()).getTodo();
-      }
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((ReachabilityGraph) this.getCurrentMatch()).getTodo();
+//      }
       return null;
    }
 

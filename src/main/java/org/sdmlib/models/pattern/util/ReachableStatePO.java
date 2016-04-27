@@ -62,31 +62,6 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return null;
    }
 
-   public ReachabilityGraphPO hasMaster()
-   {
-      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachableState.PROPERTY_MASTER, result);
-      
-      return result;
-   }
-
-   public ReachableStatePO hasMaster(ReachabilityGraphPO tgt)
-   {
-      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
-   }
-
-   public ReachabilityGraph getMaster()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReachableState) this.getCurrentMatch()).getMaster();
-      }
-      return null;
-   }
-
-
    public ObjectPO filterGraphRoot()
    {
       ObjectPO result = new ObjectPO(new Object[]{});
@@ -282,16 +257,6 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return this.startCreate().hasResultOf(tgt).endCreate();
    }
 
-   public ReachabilityGraphPO createMaster()
-   {
-      return this.startCreate().hasMaster().endCreate();
-   }
-
-   public ReachableStatePO createMaster(ReachabilityGraphPO tgt)
-   {
-      return this.startCreate().hasMaster(tgt).endCreate();
-   }
-
    public ReachableStatePO filterNumber(long value)
    {
       new AttributeConstraint()
@@ -378,21 +343,6 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    public ReachableStatePO filterResultOf(RuleApplicationPO tgt)
    {
       return hasLinkConstraint(tgt, ReachableState.PROPERTY_RESULTOF);
-   }
-
-   public ReachabilityGraphPO filterMaster()
-   {
-      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachableState.PROPERTY_MASTER, result);
-      
-      return result;
-   }
-
-   public ReachableStatePO filterMaster(ReachabilityGraphPO tgt)
-   {
-      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
    }
 
    public ReachableStatePO filterMetricValue(double value)

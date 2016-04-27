@@ -269,7 +269,6 @@ import org.sdmlib.models.pattern.RuleApplication;
       setParent(null);
       removeAllFromRuleapplications();
       removeAllFromResultOf();
-      setMaster(null);
       withoutRuleapplications(this.getRuleapplications().toArray(new RuleApplication[this.getRuleapplications().size()]));
       withoutResultOf(this.getResultOf().toArray(new RuleApplication[this.getResultOf().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -338,19 +337,6 @@ import org.sdmlib.models.pattern.RuleApplication;
    } 
 
 
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * ReachableState ----------------------------------- ReachabilityGraph
-    *              todo                   master
-    * </pre>
-    */
-
-   public static final String PROPERTY_MASTER = "master";
-
-   private ReachabilityGraph master = null;
-
-
    private TreeMap<String, String> certificates2nodes;
 
 
@@ -361,55 +347,8 @@ import org.sdmlib.models.pattern.RuleApplication;
       return node2certificates;
    }
 
-   public ReachabilityGraph getMaster()
-   {
-      return this.master;
-   }
 
-   public boolean setMaster(ReachabilityGraph value)
-   {
-      boolean changed = false;
-
-      if (this.master != value)
-      {
-         ReachabilityGraph oldValue = this.master;
-
-         if (this.master != null)
-         {
-            this.master = null;
-            oldValue.withoutTodo(this);
-         }
-
-         this.master = value;
-
-         if (value != null)
-         {
-            value.withTodo(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MASTER, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public ReachableState withMaster(ReachabilityGraph value)
-   {
-      setMaster(value);
-      return this;
-   } 
-
-   public ReachabilityGraph createMaster()
-   {
-      ReachabilityGraph value = new ReachabilityGraph();
-      withMaster(value);
-      return value;
-   } 
-
-   
    //==========================================================================
-   
    public static final String PROPERTY_GRAPHROOT = "graphRoot";
    
    private Object graphRoot;

@@ -81,29 +81,6 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       return this;
    }
 
-   public ReachabilityGraphSet getMaster()
-   {
-      ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.add(obj.getMaster());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withMaster(ReachabilityGraph value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withMaster(value);
-      }
-      
-      return this;
-   }
-
-
    public ReachableState first()
    {
       for (ReachableState s : this)

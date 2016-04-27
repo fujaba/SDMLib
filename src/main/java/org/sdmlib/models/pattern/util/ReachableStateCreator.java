@@ -12,7 +12,6 @@ public class ReachableStateCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       ReachableState.PROPERTY_PARENT,
-      ReachableState.PROPERTY_MASTER,
       ReachableState.PROPERTY_GRAPHROOT,
       ReachableState.PROPERTY_NUMBER,
       ReachableState.PROPERTY_RULEAPPLICATIONS,
@@ -38,11 +37,6 @@ public class ReachableStateCreator extends EntityFactory
       if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attribute))
       {
          return ((ReachableState)target).getParent();
-      }
-
-      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attribute))
-      {
-         return ((ReachableState)target).getMaster();
       }
 
       if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attribute))
@@ -84,12 +78,6 @@ public class ReachableStateCreator extends EntityFactory
       if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          ((ReachableState)target).setParent((ReachabilityGraph) value);
-         return true;
-      }
-
-      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attrName))
-      {
-         ((ReachableState)target).setMaster((ReachabilityGraph) value);
          return true;
       }
 

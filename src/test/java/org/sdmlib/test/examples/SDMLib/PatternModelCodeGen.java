@@ -153,14 +153,14 @@ public class PatternModelCodeGen
       
       ruleApplication.withBidirectional(rState, "tgt", Cardinality.ONE, "resultOf", Cardinality.MANY);
       
-      reachabilityGraph.withBidirectional(rState, "todo", Cardinality.MANY, "master", Cardinality.ONE);
+      reachabilityGraph.withUniDirectional(rState, "todo", Cardinality.MANY);
       
       reachabilityGraph.withBidirectional(pattern, "rules", Cardinality.MANY, "rgraph", Cardinality.ONE);
       
       // model.getGenerator().withShowDiff(DIFF.FULL);
       GraphList list=new GraphList();
       list.with(model.getClazzes().toArray());
-      model.generate("src/main/java");
+      // model.generate("src/main/java");
       
       storyboard.addClassDiagram(model);
            
