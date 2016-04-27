@@ -33,7 +33,7 @@ public class GroupAccountAppSimpleTest
     * 
     * @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
     */
-   @Test
+//   @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
       StoryPage story = new StoryPage();
