@@ -9,6 +9,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.util.NegativeApplicationConditionPO;
+import org.sdmlib.models.pattern.util.PatternPO;
 
 public class NegativeApplicationConditionPO extends PatternObject<NegativeApplicationConditionPO, NegativeApplicationCondition>
 {
@@ -695,6 +696,31 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    public NegativeApplicationConditionPO filterRgraph(ReachabilityGraphPO tgt)
    {
       return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
+   }
+
+   public PatternPO filterCurrentSubPattern()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pattern.PROPERTY_CURRENTSUBPATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO createCurrentSubPattern()
+   {
+      return this.startCreate().filterCurrentSubPattern().endCreate();
+   }
+
+   public NegativeApplicationConditionPO filterCurrentSubPattern(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_CURRENTSUBPATTERN);
+   }
+
+   public NegativeApplicationConditionPO createCurrentSubPattern(PatternPO tgt)
+   {
+      return this.startCreate().filterCurrentSubPattern(tgt).endCreate();
    }
 
 }

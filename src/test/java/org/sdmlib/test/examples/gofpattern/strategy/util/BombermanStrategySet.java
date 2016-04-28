@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
 public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
 {
@@ -160,4 +161,100 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
    {
       return new BombermanStrategyPO(this.toArray(new BombermanStrategy[this.size()]));
    }
+   /**
+    * Loop through the current set of BombermanStrategy objects and collect a set of the BombermanStrategy objects reached via bombermanstrategy. 
+    * 
+    * @return Set of BombermanStrategy objects reachable via bombermanstrategy
+    */
+   public BombermanStrategySet getBombermanstrategy()
+   {
+      BombermanStrategySet result = new BombermanStrategySet();
+      
+      for (BombermanStrategy obj : this)
+      {
+         result.with(obj.getBombermanstrategy());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of BombermanStrategy objects and collect all contained objects with reference bombermanstrategy pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bombermanstrategy neighbor of the collected results. 
+    * 
+    * @return Set of BombermanStrategy objects referring to value via bombermanstrategy
+    */
+   public BombermanStrategySet filterBombermanstrategy(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BombermanStrategySet answer = new BombermanStrategySet();
+      
+      for (BombermanStrategy obj : this)
+      {
+         if (neighbors.contains(obj.getBombermanstrategy()) || (neighbors.isEmpty() && obj.getBombermanstrategy() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow bombermanstrategy reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of BombermanStrategy objects reachable via bombermanstrategy transitively (including the start set)
+    */
+   public BombermanStrategySet getBombermanstrategyTransitive()
+   {
+      BombermanStrategySet todo = new BombermanStrategySet().with(this);
+      
+      BombermanStrategySet result = new BombermanStrategySet();
+      
+      while ( ! todo.isEmpty())
+      {
+         BombermanStrategy current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getBombermanstrategy()))
+            {
+               todo.with(current.getBombermanstrategy());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the BombermanStrategy object passed as parameter to the Bombermanstrategy attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bombermanstrategy attributes.
+    */
+   public BombermanStrategySet withBombermanstrategy(BombermanStrategy value)
+   {
+      for (BombermanStrategy obj : this)
+      {
+         obj.withBombermanstrategy(value);
+      }
+      
+      return this;
+   }
+
 }

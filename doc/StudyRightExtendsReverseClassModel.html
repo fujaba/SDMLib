@@ -69,33 +69,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
-         "source":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         },
-         "target":{
-            "id":"Female",
-            "cardinality":"one",
-            "property":"female"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         },
-         "target":{
-            "id":"Male",
-            "cardinality":"one",
-            "property":"male"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"IMPLEMENTS",
          "source":{
             "id":"Female",
             "cardinality":"one",
@@ -108,20 +82,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Female",
-            "cardinality":"one",
-            "property":"female"
-         },
-         "target":{
-            "id":"Professor",
-            "cardinality":"one",
-            "property":"professor"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Male",
             "cardinality":"one",
@@ -134,20 +95,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Female",
-            "cardinality":"one",
-            "property":"female"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Professor",
             "cardinality":"one",
@@ -160,7 +108,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Student",
             "cardinality":"one",
@@ -173,19 +121,30 @@
          }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Male"},
-         "target":{"id":"Person"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Professor",
+            "cardinality":"one",
+            "property":"professor"
+         },
+         "target":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Professor"},
-         "target":{"id":"Female"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Student"},
-         "target":{"id":"Female"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"Female",
+            "cardinality":"one",
+            "property":"female"
+         }
       }
    ]
 }   ;

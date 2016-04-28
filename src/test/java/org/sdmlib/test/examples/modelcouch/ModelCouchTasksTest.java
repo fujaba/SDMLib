@@ -19,6 +19,8 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assume.*;
+
+import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.modelcouch.RequestObject;
@@ -46,10 +48,13 @@ public class ModelCouchTasksTest {
 	 *      BasicModelOnTheCouch.html</a>
 	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>
 	 *      BasicModelOnTheCouch.html</a>
+	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>
+	 *      BasicModelOnTheCouch.html</a>
 	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>BasicModelOnTheCouch.html</a>
  */
 	@Test
 	public void testBasicModelOnTheCouch() {
+		CouchDBAdapter adapter = createAdapter();
 		StoryPage story = new StoryPage();
 
 		story.add(""
@@ -62,7 +67,7 @@ public class ModelCouchTasksTest {
 
 		IdMap idMap = PersonCreator.createIdMap(sessionid);
 
-		ModelCouch couch = createCouch();
+		ModelCouch couch = createCouch(adapter);
 		couch.withApplicationType(ApplicationType.StandAlone).withIdMap(idMap).registerAtIdMap();
 
 		couch.open(databaseName);
@@ -105,75 +110,81 @@ public class ModelCouchTasksTest {
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
 		IdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
 
-		couch = createCouch().withApplicationType(ApplicationType.StandAlone).withIdMap(resultiIdMap).registerAtIdMap();
+		couch = createCouch(adapter).withIdMap(resultiIdMap).registerAtIdMap();
 
+		// long startMillis = System.currentTimeMillis();
+		// while (System.currentTimeMillis() < startMillis + 5000) {
+		// // wait 3 seconds
+		// }
 		couch.open(databaseName);
-
-		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 5000) {
-			// wait 5 seconds
-		}
 
 		Person resultSeGroup = (Person) resultiIdMap.getObject("root");
 
 		story.addObjectDiagram(resultSeGroup);
-		
+
 		assertEquals("person", resultSeGroup.getMembers().first().getPersonData().first().getType());
 		assertEquals("tobi", resultSeGroup.getMembers().first().getPersonData().first().getValue());
 
 		story.add("" + "Finally the database is deleted.");
 
-		couch.deleteDatabase(databaseName);
+		couch.getCouchDBAdapter().deleteDatabase(databaseName);
 
 		story.dumpHTML();
 	}
 
-	public ModelCouch createCouch() {
-		ModelCouch couch = new ModelCouch().withHostName(DB_HOST).withPort(DB_PORT).withUserName(DB_USERNAME)
-				.withApplicationType(ApplicationType.StandAlone).withContinuous(true);
-
-		if (DB_PASSWORD != null && !DB_PASSWORD.equals("")) {
-			try {
-				couch.withAuthenticator(new CookieAuthenticator()).login(DB_PASSWORD);
-			} catch (Exception e) {
-				assumeTrue("Couldn't login into DB", False());
-			}
-		}
+	public ModelCouch createCouch(CouchDBAdapter couchDBAdapter) {
+		ModelCouch couch = new ModelCouch(couchDBAdapter).withApplicationType(ApplicationType.StandAlone)
+				.withContinuous(true);
 
 		return couch;
 	}
 
+	public CouchDBAdapter createAdapter() {
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withHostName(DB_HOST).withPort(DB_PORT)
+				.withUserName(DB_USERNAME);
+		if (DB_PASSWORD != null && !DB_PASSWORD.equals("")) {
+			try {
+				couchDBAdapter.withAuthenticator(new CookieAuthenticator()).login(DB_PASSWORD);
+			} catch (Exception e) {
+				assumeTrue("Couldn't login into DB", False());
+			}
+		}
+		return couchDBAdapter;
+	}
+
 	@After
 	public void cleanup() {
-		ModelCouch couch = createCouch();
+		CouchDBAdapter adapter = createAdapter();
 
-		RequestObject delete = couch.createRequestObject();
+		RequestObject delete = adapter.createRequestObject();
 		delete.setRequestType(RequestType.DELETE);
 		delete.setPath(DB_NAME);
-		couch.send(delete);
+		adapter.send(delete);
 		delete.setPath(DB_NAME + "-replicate");
-		couch.send(delete);
+		adapter.send(delete);
 	}
 
 	@BeforeClass
 	public static void testForConnection() {
-		ModelCouch couch = new ModelCouch().withHostName(DB_HOST).withPort(DB_PORT).withUserName(DB_USERNAME)
-				.withApplicationType(ApplicationType.StandAlone);
-		assumeTrue("Couch is not Reachable", couch.testConnection());
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withUserName(DB_USERNAME);
+		assumeTrue("Couch is not Reachable", couchDBAdapter.testConnection());
 
 		if (DB_PASSWORD != null && !DB_PASSWORD.equals("")) {
 			try {
-				if (couch.withAuthenticator(new CookieAuthenticator()).login(DB_PASSWORD) == null) {
+				if (couchDBAdapter.withAuthenticator(new CookieAuthenticator()).login(DB_PASSWORD) == null) {
 					assumeTrue("Couldn't login into DB", False());
 				}
 			} catch (Exception e) {
 				assumeTrue("Couldn't login into DB", False());
 			}
 		}
+
+		ModelCouch couch = new ModelCouch(couchDBAdapter).withHostName(DB_HOST).withPort(DB_PORT)
+				.withUserName(DB_USERNAME).withApplicationType(ApplicationType.StandAlone);
 		try {
 			couch.open(DB_NAME);
 		} catch (Exception e) {
-			assumeTrue("Couldn't stablish Connection to DB", False());
+			assumeTrue("Couldn't establish Connection to DB", False());
 		}
 
 		if (couch.getModelDBListener() == null) {
@@ -184,17 +195,19 @@ public class ModelCouchTasksTest {
 			assumeTrue(False());
 			return;
 		}
+		couch.close();
+		couchDBAdapter.deleteDatabase(DB_NAME);
 	}
 
 	@Test
 	public void testUserPrivileges() {
-		ModelCouch couch = createCouch();
+		CouchDBAdapter adapter = createAdapter();
 
 		// first create temporary DB
-		couch.createDB(DB_NAME);
+		adapter.createDB(DB_NAME);
 
-		ReturnObject setUserPrivileges = couch.setUserPrivileges(DB_NAME, null, Arrays.asList("admin"), null,
-				Arrays.asList("user"));
+		ReturnObject setUserPrivileges = adapter.setUserPrivileges(DB_NAME, null,
+				Arrays.asList("admin"), null, Arrays.asList("user"));
 		assertEquals(200, setUserPrivileges.getResponseCode());
 		LinkedList<String> content = setUserPrivileges.getContent();
 		if (content == null || content.size() == 0) {
@@ -207,12 +220,13 @@ public class ModelCouchTasksTest {
 
 	@Test
 	public void testReplication() {
+		CouchDBAdapter adapter = createAdapter();
 		String databaseName = DB_NAME;
 
 		String sessionid = "testReplication" + System.currentTimeMillis();
 		IdMap idMap = PersonCreator.createIdMap(sessionid);
 
-		ModelCouch couch = createCouch();
+		ModelCouch couch = createCouch(adapter);
 		couch.withApplicationType(ApplicationType.StandAlone).withIdMap(idMap).registerAtIdMap();
 
 		couch.open(databaseName);
@@ -245,22 +259,23 @@ public class ModelCouchTasksTest {
 		DocumentData tobiTaskData = tobiTask.createTaskData().withTag("test model replication on CouchDB")
 				.withType("task").withPersons((Person) tobi);
 
-		ReturnObject replicate = couch.replicate(couch, couch.getURL().toString(), DB_NAME + "-replicate");
+		ReturnObject replicate = couch.getCouchDBAdapter().replicate(couch, couch.getURL().toString(),
+				DB_NAME + "-replicate");
 
 		if (replicate.getError() != null && replicate.getError().size() > 0) {
 			System.out.println(replicate.getError().toString());
 		}
 
 		couch.close();
-		long startMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < startMillis + 5000) {
-			// wait 5 seconds
-		}
+		// long startMillis = System.currentTimeMillis();
+		// while (System.currentTimeMillis() < startMillis + 5000) {
+		// // wait 3 seconds
+		// }
 
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
 		IdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
 
-		couch = createCouch().withIdMap(resultiIdMap).registerAtIdMap();
+		couch = createCouch(adapter).withIdMap(resultiIdMap).registerAtIdMap();
 
 		couch.open(databaseName + "-replicate");
 
@@ -268,7 +283,7 @@ public class ModelCouchTasksTest {
 		assertEquals("person", resultSeGroup.getMembers().first().getPersonData().first().getType());
 		assertEquals("tobi", resultSeGroup.getMembers().first().getPersonData().first().getValue());
 
-		couch.deleteDatabase(databaseName);
+		couch.getCouchDBAdapter().deleteDatabase(databaseName);
 	}
 
 	@Test
@@ -278,14 +293,23 @@ public class ModelCouchTasksTest {
 		 * "version":"1.6.1","vendor":{"version":"1.6.1","name":
 		 * "The Apache Software Foundation"}}
 		 */
-		ModelCouch couch = createCouch();
-		RequestObject request = couch.createRequestObject();
+		CouchDBAdapter adapter = createAdapter();
+		RequestObject request = adapter.createRequestObject();
 		request.setRequestType(RequestType.GET);
 		request.setShouldHandleInput(true);
 
-		ReturnObject send = couch.send(request);
+		ReturnObject send = adapter.send(request);
 		JsonObject returnValue = new JsonObject().withValue(send.getContent().getFirst());
 		assertEquals("Welcome", returnValue.get("couchdb"));
+	}
+
+	@Test
+	public void testDatabaseReachable() {
+		// ModelCouch couch = createCouch();
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter();
+		assertFalse(couchDBAdapter.testConnection(DB_NAME));
+		couchDBAdapter.createDB(DB_NAME);
+		assertTrue(couchDBAdapter.testConnection(DB_NAME));
 	}
 
 	private static boolean False() {

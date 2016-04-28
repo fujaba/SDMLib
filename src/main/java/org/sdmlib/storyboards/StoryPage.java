@@ -13,6 +13,11 @@ public class StoryPage {
 
 	private Storyboard storyboard;
 	
+	public Storyboard getStoryboard()
+   {
+      return storyboard;
+   }
+	
 	/**
 	 * Constructor for StoryPage, that creates a Storyboard by calling its
 	 * standard constructor, in order to use the necessary functionalities 

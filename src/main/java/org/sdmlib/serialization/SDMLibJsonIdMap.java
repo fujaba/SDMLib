@@ -21,6 +21,7 @@
    
 package org.sdmlib.serialization;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.debug.FlipBook;
@@ -39,11 +40,11 @@ public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
 		}
 		if (object instanceof PropertyChangeSupport) {
 			((PropertyChangeSupport) object).addPropertyChangeListener(
-					IdMap.UPDATE, getUpdateExecuter());
+					IdMap.UPDATE, (PropertyChangeListener)this.listener);
 			return true;
 		} else if (object instanceof PropertyChangeInterface)
 		{
-		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateExecuter());
+		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener((PropertyChangeListener)this.listener);
 		   return true;
 		}
 		return false;

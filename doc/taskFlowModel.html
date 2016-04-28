@@ -77,7 +77,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"TaskFlow",
             "cardinality":"one",
@@ -90,33 +90,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskflow"
-         },
-         "target":{
-            "id":"FetchFileFlow",
-            "cardinality":"one",
-            "property":"fetchfileflow"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskflow"
-         },
-         "target":{
-            "id":"Logger",
-            "cardinality":"one",
-            "property":"logger"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"FetchFileFlow",
             "cardinality":"one",
@@ -129,7 +103,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Logger",
             "cardinality":"one",
@@ -142,7 +116,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"FetchFileFlow",
+            "cardinality":"one",
+            "property":"fetchfileflow"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Logger",
             "cardinality":"one",
@@ -155,7 +142,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"LogEntry",
             "cardinality":"many",
@@ -168,7 +155,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"LogEntry",
             "cardinality":"many",
@@ -181,20 +168,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Timer",
-            "cardinality":"one",
-            "property":"timer"
-         },
-         "target":{
-            "id":"SDMTimer",
-            "cardinality":"one",
-            "property":"sdmtimer"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"SDMTimer",
             "cardinality":"one",
@@ -207,19 +181,17 @@
          }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"FetchFileFlow"},
-         "target":{"id":"TaskFlow"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Logger"},
-         "target":{"id":"TaskFlow"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"SDMTimer"},
-         "target":{"id":"Timer"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"SDMTimer",
+            "cardinality":"one",
+            "property":"sdmtimer"
+         },
+         "target":{
+            "id":"Timer",
+            "cardinality":"one",
+            "property":"timer"
+         }
       }
    ]
 }   ;

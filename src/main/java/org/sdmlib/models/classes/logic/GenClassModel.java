@@ -223,7 +223,7 @@ public class GenClassModel implements ClassModelAdapter
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
-         // getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
+         getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
       }
 
       Exception e = new RuntimeException();
@@ -1058,7 +1058,7 @@ public class GenClassModel implements ClassModelAdapter
             currentInsertPos = insertCreationCode(text.toString(), currentInsertPos, modelCreationClass);
 
             GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
-            addImportForClazz("org.sdmlib.models.classes.Attribute", genCreationClass);
+            addImportForClazz(Attribute.class.getName(), genCreationClass);
             currentInsertPos++;
          }
 
@@ -1834,7 +1834,7 @@ public class GenClassModel implements ClassModelAdapter
       CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
             "className", modelClassName);
 
-      currentInsertPos = checkImport("Clazz", currentInsertPos, modelCreationClass, symTabEntry);
+      currentInsertPos = checkImport(Clazz.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
       return insertCreationCode(text, currentInsertPos, modelCreationClass);
    }
 
@@ -1885,7 +1885,7 @@ public class GenClassModel implements ClassModelAdapter
             "attributeName", attribute.getName(),
             "attributeInit", initialization);
 
-      addImportForClazz("org.sdmlib.models.classes.Attribute", genCreationClass);
+      addImportForClazz(Attribute.class.getName(), genCreationClass);
       return currentInsertPos + result.length();
    }
 
@@ -1929,12 +1929,12 @@ public class GenClassModel implements ClassModelAdapter
             "Return_Type", method.getReturnType().toString(),
             "PARAMETERS", paString.toString(),
             "METHODNAME", methodName);
-      currentInsertPos = checkImport("Method", currentInsertPos, modelCreationClass, symTabEntry);
+      currentInsertPos = checkImport(Method.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
 
       currentInsertPos += result.length();
       if (paString.length() > 0)
       {
-         currentInsertPos = checkImport("Parameter", currentInsertPos, modelCreationClass, symTabEntry);
+         currentInsertPos = checkImport(Parameter.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
       }
       return currentInsertPos;
    }
@@ -1957,11 +1957,16 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      if (!result.containsKey(newImport) && result.containsKey("ClassModel"))
+      if (!result.containsKey(newImport) && result.containsKey("ClassModel") )
       {
          String symTabEntryName = result.get("ClassModel");
          int endOfImports = getOrCreateClazz(modelCreationClass).getParser().getEndOfImports() + 1;
-         String importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + newImport + ";";
+         String importString;
+         if(newImport.indexOf(".") < 1) {
+        	 importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + newImport + ";";
+         } else {
+        	 importString = "\n" + Parser.IMPORT + " " + newImport + ";";
+         }
          insertCreationCode(importString, endOfImports, modelCreationClass);
          currentInsertPos += importString.length();
       }
@@ -2001,10 +2006,10 @@ public class GenClassModel implements ClassModelAdapter
             "targetClazz", targetClazz,
             "targetCard", targetCard);
 
-      currentInsertPos = checkImport("Association", currentInsertPos, modelCreationClass, symTabEntry);
+      currentInsertPos = checkImport(Association.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
 
       GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
-      addImportForClazz("org.sdmlib.models.classes.Card", genCreationClass);
+      addImportForClazz(Cardinality.class.getName(), genCreationClass);
 
       return insertCreationCode(text, currentInsertPos, modelCreationClass);
    }

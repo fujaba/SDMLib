@@ -47,7 +47,6 @@ public class DiffCreater {
 		sb.append("\tnew Graph(json).layout();" + CRLF);
 		sb.append("</script></body></html>");
 
-		System.out.println(new File("build/").mkdir());
 		FileWriter fstream = new FileWriter("build/" + fileName);
 		BufferedWriter out = new BufferedWriter(fstream);
 		out.write(sb.toString());

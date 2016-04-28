@@ -173,7 +173,7 @@ public class ClassModelTest
       // .withShowDiff(DIFF.DIFF);
 
       model.withoutFeature(Feature.PatternObject);
-      model.generate("src/main/java");
+      // model.generate("src/main/java");
 
       storyboard.dumpHTML();
    }

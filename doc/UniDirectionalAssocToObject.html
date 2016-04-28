@@ -24,20 +24,20 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "id":"BigBrother",
-            "cardinality":"one",
-            "property":"bigbrother"
-         },
-         "target":{
             "id":"Object",
             "cardinality":"many",
             "property":"kids"
+         },
+         "target":{
+            "id":"BigBrother",
+            "cardinality":"one",
+            "property":"bigbrother"
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Object",
             "cardinality":"many",

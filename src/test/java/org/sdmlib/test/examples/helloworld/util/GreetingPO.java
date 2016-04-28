@@ -277,6 +277,55 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this;
    }
    
+   public GreetingPO filterTgt()
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public GreetingPO filterTgt(GreetingPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_TGT);
+   }
+
+   public GreetingPO filterGreeting()
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_GREETING, result);
+      
+      return result;
+   }
+
+   public GreetingPO createGreeting()
+   {
+      return this.startCreate().filterGreeting().endCreate();
+   }
+
+   public GreetingPO filterGreeting(GreetingPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETING);
+   }
+
+   public GreetingPO createGreeting(GreetingPO tgt)
+   {
+      return this.startCreate().filterGreeting(tgt).endCreate();
+   }
+
+   public Greeting getGreeting()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Greeting) this.getCurrentMatch()).getGreeting();
+      }
+      return null;
+   }
+
 }
 
 

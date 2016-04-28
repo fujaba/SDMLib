@@ -15,6 +15,7 @@ public class GreetingCreator extends EntityFactory
       Greeting.PROPERTY_GREETINGMESSAGE,
       Greeting.PROPERTY_PERSON,
       Greeting.PROPERTY_TGT,
+      Greeting.PROPERTY_GREETING,
    };
    
    @Override
@@ -30,26 +31,31 @@ public class GreetingCreator extends EntityFactory
    }
    
    @Override
-   public Object getValue(Object target, String attrName)
+   public Object getValue(Object target, String attribute)
    {
-      if (Greeting.PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      if (Greeting.PROPERTY_TEXT.equalsIgnoreCase(attribute))
       {
          return ((Greeting) target).getText();
       }
 
-      if (Greeting.PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attrName))
+      if (Greeting.PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attribute))
       {
          return ((Greeting) target).getGreetingMessage();
       }
 
-      if (Greeting.PROPERTY_PERSON.equalsIgnoreCase(attrName))
+      if (Greeting.PROPERTY_PERSON.equalsIgnoreCase(attribute))
       {
          return ((Greeting) target).getPerson();
       }
 
-      if (Greeting.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      if (Greeting.PROPERTY_TGT.equalsIgnoreCase(attribute))
       {
          return ((Greeting) target).getTgt();
+      }
+
+      if (Greeting.PROPERTY_GREETING.equalsIgnoreCase(attribute))
+      {
+         return ((Greeting) target).getGreeting();
       }
 
       return null;
@@ -84,6 +90,12 @@ public class GreetingCreator extends EntityFactory
       if (Greeting.PROPERTY_TGT.equalsIgnoreCase(attrName))
       {
          ((Greeting) target).setTgt((Greeting) value);
+         return true;
+      }
+
+      if (Greeting.PROPERTY_GREETING.equalsIgnoreCase(attrName))
+      {
+         ((Greeting) target).setGreeting((Greeting) value);
          return true;
       }
 

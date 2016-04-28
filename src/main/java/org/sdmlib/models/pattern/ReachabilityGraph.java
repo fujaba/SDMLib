@@ -23,6 +23,8 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -43,14 +45,16 @@ import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
    //==========================================================================
    private final class OmitRootCondition implements UpdateListener
@@ -93,6 +97,14 @@ import org.sdmlib.models.pattern.Pattern;
               
       return imgLink;
    }
+   
+   private Metric metric = null;
+   
+   public void setMetric(Metric metric)
+   {
+      this.metric = metric;
+   }
+   
    private GuiAdapter adapter;
    
    public GuiAdapter getAdapter(){
@@ -293,13 +305,13 @@ import org.sdmlib.models.pattern.Pattern;
 
    public static final String PROPERTY_TODO = "todo";
 
-   private ReachableStateSet todo = null;
+   private ArrayList<ReachableState> todo = null;
 
-   public ReachableStateSet getTodo()
+   public ArrayList<ReachableState> getTodo()
    {
       if (this.todo == null)
       {
-         return ReachableState.EMPTY_SET;
+         this.todo = new ArrayList<ReachableState>();
       }
 
       return this.todo;
@@ -313,16 +325,12 @@ import org.sdmlib.models.pattern.Pattern;
       {
          if (this.todo == null)
          {
-            this.todo = new ReachableStateSet();
+            this.todo = new ArrayList<ReachableState>();
          }
 
          changed = this.todo.add (value);
 
-         if (changed)
-         {
-            value.withMaster(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null, value);
-         }
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null, value);
       }
 
       return changed;   
@@ -336,11 +344,7 @@ import org.sdmlib.models.pattern.Pattern;
       {
          changed = this.todo.remove(value);
          
-         if (changed)
-         {
-            value.setMaster(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, value, null);
-         }
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, value, null);
       }
          
       return changed;   
@@ -474,23 +478,35 @@ import org.sdmlib.models.pattern.Pattern;
       return explore(Long.MAX_VALUE);
    }
 
-   private long noOfNewStates;
-
    public long explore(long maxNoOfNewStates)
    {
       long currentStateNum = 1;
+
+      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
       
-      // add cloneOps to rules, where missing
-      
-      // all states without successors become todo states
+      // inital states get certificates
+      for (ReachableState s : this.getStates())
+      {
+         String newCertificate = s.computeCertificate(newJsonIdMap);
+         this.withStateMap(newCertificate, s);
+         
+         if (metric != null)
+         {
+            s.setMetricValue(metric.compute(s.getGraphRoot()));
+         }
+      }
       
       // take a todo state and apply all rules at all places until maxNoOfNewStates 
       // is reached
-      noOfNewStates = 0;
-
-      while (!getTodo().isEmpty() && noOfNewStates < maxNoOfNewStates)
+      while (!getTodo().isEmpty() && this.getStates().size() <= maxNoOfNewStates)
       {
-         ReachableState first = getTodo().first();
+         if (metric != null)
+         {
+            // sort todo list
+            Collections.sort(getTodo(), (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+         }
+         
+         ReachableState first = getTodo().get(0);
          
          first.withNumber((int) currentStateNum);
          
@@ -514,7 +530,7 @@ import org.sdmlib.models.pattern.Pattern;
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               IdMap newJsonIdMap = (IdMap) new IdMap().with(rule.getIdMap());
+               newJsonIdMap = (IdMap) new SDMLibIdMap("r").with(rule.getIdMap());
                newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
@@ -537,8 +553,18 @@ import org.sdmlib.models.pattern.Pattern;
                if (match == null)
                {
                   // no isomorphic old state, add new state
+                  if (metric != null)
+                  {
+                     double newMetricValue = metric.compute(newReachableState.getGraphRoot());
+                     newReachableState.setMetricValue(newMetricValue);
+                  }
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate, newReachableState);
                   first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  int size = this.getStates().size();
+                  if (size % 50 == 0)
+                  {
+                     System.out.println(size);
+                  }
                }
                
             }

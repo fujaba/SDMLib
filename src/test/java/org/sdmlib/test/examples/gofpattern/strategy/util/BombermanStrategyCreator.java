@@ -30,6 +30,7 @@ public class BombermanStrategyCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       BombermanStrategy.PROPERTY_SUCCESSOR,
+      BombermanStrategy.PROPERTY_BOMBERMANSTRATEGY,
    };
    
    @Override
@@ -59,6 +60,11 @@ public class BombermanStrategyCreator extends EntityFactory
       {
          return ((BombermanStrategy) target).getSuccessor();
       }
+
+      if (BombermanStrategy.PROPERTY_BOMBERMANSTRATEGY.equalsIgnoreCase(attribute))
+      {
+         return ((BombermanStrategy) target).getBombermanstrategy();
+      }
       
       return null;
    }
@@ -74,6 +80,12 @@ public class BombermanStrategyCreator extends EntityFactory
       if (BombermanStrategy.PROPERTY_SUCCESSOR.equalsIgnoreCase(attrName))
       {
          ((BombermanStrategy) target).setSuccessor((BombermanStrategy) value);
+         return true;
+      }
+
+      if (BombermanStrategy.PROPERTY_BOMBERMANSTRATEGY.equalsIgnoreCase(attrName))
+      {
+         ((BombermanStrategy) target).setBombermanstrategy((BombermanStrategy) value);
          return true;
       }
       

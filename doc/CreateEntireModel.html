@@ -73,46 +73,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
-         "source":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         },
-         "target":{
-            "id":"Pupil",
-            "cardinality":"one",
-            "property":"pupil"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         },
-         "target":{
-            "id":"Teacher",
-            "cardinality":"one",
-            "property":"teacher"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"persons"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Pupil",
             "cardinality":"one",
@@ -125,33 +86,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Pupil",
-            "cardinality":"many",
-            "property":"currentPupils"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"currentRoom"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Pupil",
-            "cardinality":"many",
-            "property":"pupils"
-         },
-         "target":{
-            "id":"Teacher",
-            "cardinality":"one",
-            "property":"teacher"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Teacher",
             "cardinality":"one",
@@ -164,7 +99,46 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"currentPupils"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"pupils"
+         },
+         "target":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"teacher"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Teacher",
             "cardinality":"one",
@@ -177,7 +151,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Teacher",
             "cardinality":"one",
@@ -190,20 +164,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
-            "id":"roomInterface",
-            "cardinality":"one",
-            "property":"roominterface"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -216,7 +177,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -229,7 +190,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -242,27 +203,17 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"IMPLEMENTS",
          "source":{
-            "id":"roomInterface",
-            "cardinality":"one",
-            "property":"roominterface"
-         },
-         "target":{
             "id":"Room",
             "cardinality":"one",
             "property":"room"
+         },
+         "target":{
+            "id":"roomInterface",
+            "cardinality":"one",
+            "property":"roominterface"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Pupil"},
-         "target":{"id":"Person"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Teacher"},
-         "target":{"id":"Person"}
       }
    ]
 }   ;

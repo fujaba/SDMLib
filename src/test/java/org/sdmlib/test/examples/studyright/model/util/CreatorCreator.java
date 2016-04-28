@@ -2,43 +2,36 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-import de.uniks.networkparser.IdMap;
-
 class CreatorCreator{
 
-   public static IdMap createIdMap(String sessionID)
+   public static SDMLibJsonIdMap createIdMap(String sessionID)
    {
-      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+	   SDMLibJsonIdMap map = new SDMLibJsonIdMap();
+      map.withSessionId(sessionID);
       
-      jsonIdMap.with(new LectureCreator());
-      jsonIdMap.with(new LecturePOCreator());
-      jsonIdMap.with(new RoomCreator());
-      jsonIdMap.with(new RoomPOCreator());
-      jsonIdMap.with(new UniversityCreator());
-      jsonIdMap.with(new UniversityPOCreator());
-      jsonIdMap.with(new FemaleCreator());
-      jsonIdMap.with(new FemalePOCreator());
-      jsonIdMap.with(new ProfessorCreator());
-      jsonIdMap.with(new ProfessorPOCreator());
-      jsonIdMap.with(new StudentCreator());
-      jsonIdMap.with(new StudentPOCreator());
-      jsonIdMap.with(new ProfessorCreator());
-      jsonIdMap.with(new ProfessorPOCreator());
-      jsonIdMap.with(new TopicCreator());
-      jsonIdMap.with(new TopicPOCreator());
-      jsonIdMap.with(new UniversityCreator());
-      jsonIdMap.with(new UniversityPOCreator());
-      jsonIdMap.with(new StudentCreator());
-      jsonIdMap.with(new StudentPOCreator());
-      jsonIdMap.with(new RoomCreator());
-      jsonIdMap.with(new RoomPOCreator());
-      jsonIdMap.with(new AssignmentCreator());
-      jsonIdMap.with(new AssignmentPOCreator());
+      map.with(new LectureCreator());
+      map.with(new LecturePOCreator());
+      map.with(new RoomCreator());
+      map.with(new RoomPOCreator());
+      map.with(new UniversityCreator());
+      map.with(new UniversityPOCreator());
+      map.with(new FemaleCreator());
+      map.with(new FemalePOCreator());
+      map.with(new ProfessorCreator());
+      map.with(new ProfessorPOCreator());
+      map.with(new StudentCreator());
+      map.with(new StudentPOCreator());
+      map.with(new ProfessorCreator());
+      map.with(new ProfessorPOCreator());
+      map.with(new TopicCreator());
+      map.with(new TopicPOCreator());
+      map.with(new AssignmentCreator());
+      map.with(new AssignmentPOCreator());
       
-      jsonIdMap.with(new PersonCreator());
-      jsonIdMap.with(new PersonPOCreator());
-      jsonIdMap.with(new MaleCreator());
-      jsonIdMap.with(new MalePOCreator());
-      return jsonIdMap;
+      map.with(new PersonCreator());
+      map.with(new PersonPOCreator());
+      map.with(new MaleCreator());
+      map.with(new MalePOCreator());
+      return map;
    }
 }

@@ -33,7 +33,7 @@ public class GroupAccountAppSimpleTest
     * 
     * @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
     */
-   @Test
+//   @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
       StoryPage story = new StoryPage();
@@ -80,7 +80,6 @@ public class GroupAccountAppSimpleTest
          
          if (buf == null) 
          {
-//            System.out.println("time out waiting for change: ");
             story.add("time out waiting for change: ");
             Assert.fail();
             break;
@@ -116,8 +115,6 @@ public class GroupAccountAppSimpleTest
       
       story.dumpHTML();
       
-//      System.out.println("done");
-      
    }
 
    private void startClient(final String location, final String userName)
@@ -147,7 +144,6 @@ public class GroupAccountAppSimpleTest
       catch (Exception e1)
       {
          // TODO Auto-generated catch block
-//         System.out.println("Starting via main. ");
          // start grouptaccount app for albert
          Thread firstClient = new Thread()
          {

@@ -73,33 +73,33 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         },
-         "target":{
             "id":"SeppelSpace",
             "cardinality":"one",
             "property":"seppelspace"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"Thread",
             "cardinality":"one",
             "property":"thread"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"SeppelChannel",
             "cardinality":"one",
             "property":"seppelchannel"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"SeppelSpace",
             "cardinality":"one",
@@ -112,7 +112,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelSpaceProxy",
             "cardinality":"many",
@@ -125,7 +125,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelSpaceProxy",
             "cardinality":"many",
@@ -138,7 +138,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelSpaceProxy",
             "cardinality":"one",
@@ -151,7 +151,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelSpaceProxy",
             "cardinality":"one",
@@ -164,7 +164,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelScope",
             "cardinality":"many",
@@ -177,7 +177,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelScope",
             "cardinality":"many",
@@ -190,20 +190,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"SeppelScope",
-            "cardinality":"one",
-            "property":"seppelscope"
-         },
-         "target":{
-            "id":"Object",
-            "cardinality":"many",
-            "property":"observedObjects"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Object",
             "cardinality":"many",
@@ -216,20 +203,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "id":"SeppelChannel",
-            "cardinality":"one",
-            "property":"seppelchannel"
+            "id":"Object",
+            "cardinality":"many",
+            "property":"observedObjects"
          },
          "target":{
-            "id":"Thread",
+            "id":"SeppelScope",
             "cardinality":"one",
-            "property":"thread"
+            "property":"seppelscope"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelChannel",
             "cardinality":"one",
@@ -242,7 +229,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"BoardTask",
             "cardinality":"many",
@@ -253,16 +240,6 @@
             "cardinality":"one",
             "property":"proxy"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"SeppelSpace"},
-         "target":{"id":"Thread"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"SeppelChannel"},
-         "target":{"id":"Thread"}
       }
    ]
 }   ;

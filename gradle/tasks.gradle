@@ -84,6 +84,15 @@ task pmJar(type: Jar) {
 
 	classifier = 'pm'
 }
+task replicationJar(type: Jar) {
+	group "Jar"
+	exclude '**/test/**'
+	from sourceSets.main.output
+	manifest = project.manifest {from sharedManifest}
+	from {(sourceSets.main.output + sourceSets.main.allSource)}
+	exclude('META-INF/MANIFEST.MF')
+	classifier = 'replication'
+}
 task pmCoreJar(type: Jar) {
 	from {(
 		sourceSets.main.output + 

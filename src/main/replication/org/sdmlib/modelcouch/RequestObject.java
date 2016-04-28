@@ -2,6 +2,8 @@ package org.sdmlib.modelcouch;
 
 import java.net.ContentHandler;
 import java.net.ContentHandlerFactory;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 public class RequestObject {
 	private RequestType requestType = RequestType.GET;
@@ -11,9 +13,10 @@ public class RequestObject {
 	private ContentHandler contentHandler = null;
 	// TODO - set to false for Speed Improvement!
 	private boolean shouldHandleInput = false;
+	private LinkedHashMap<String, String> requestProperties = null;
 
-	public RequestObject(ModelCouch couch) {
-		server = "http://" + couch.getHostName() + ":" + couch.getPort() + "/";
+	public RequestObject(CouchDBAdapter couchDBAdapter) {
+		server = "http://" + couchDBAdapter.getHostName() + ":" + couchDBAdapter.getPort() + "/";
 	}
 
 	/**
@@ -97,5 +100,20 @@ public class RequestObject {
 	public boolean isShouldHandleInput() {
 		return this.shouldHandleInput ;
 	}
- 
+	
+	public void addRequestProperty(String key, String value) {
+		if(this.requestProperties == null)
+			this.requestProperties = new LinkedHashMap<>();
+		this.requestProperties.put(key, value);
+	}
+	
+	public String removeRequestProperty(String key) {
+		if(this.requestProperties != null)
+			return this.requestProperties.remove(key);
+		return null;
+	}
+	
+	public LinkedHashMap<String, String> getRequestProperties() {
+		return requestProperties;
+	}
 }

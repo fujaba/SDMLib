@@ -79,4 +79,53 @@ public class BombermanStrategyPO extends PatternObject<BombermanStrategyPO, Bomb
       return null;
    }
 
+   public BombermanStrategyPO filterSuccessor()
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BombermanStrategy.PROPERTY_SUCCESSOR, result);
+      
+      return result;
+   }
+
+   public BombermanStrategyPO filterSuccessor(BombermanStrategyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BombermanStrategy.PROPERTY_SUCCESSOR);
+   }
+
+   public BombermanStrategyPO filterBombermanstrategy()
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BombermanStrategy.PROPERTY_BOMBERMANSTRATEGY, result);
+      
+      return result;
+   }
+
+   public BombermanStrategyPO createBombermanstrategy()
+   {
+      return this.startCreate().filterBombermanstrategy().endCreate();
+   }
+
+   public BombermanStrategyPO filterBombermanstrategy(BombermanStrategyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BombermanStrategy.PROPERTY_BOMBERMANSTRATEGY);
+   }
+
+   public BombermanStrategyPO createBombermanstrategy(BombermanStrategyPO tgt)
+   {
+      return this.startCreate().filterBombermanstrategy(tgt).endCreate();
+   }
+
+   public BombermanStrategy getBombermanstrategy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BombermanStrategy) this.getCurrentMatch()).getBombermanstrategy();
+      }
+      return null;
+   }
+
 }

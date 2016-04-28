@@ -71,6 +71,7 @@ public class Greeting implements PropertyChangeInterface, SendableEntity
       setGreetingMessage(null);
       setPerson(null);
       setTgt(null);
+      setGreeting(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -295,6 +296,62 @@ public class Greeting implements PropertyChangeInterface, SendableEntity
    {
       Greeting value = new Greeting();
       withTgt(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Greeting ----------------------------------- Greeting
+    *              greeting                   greeting
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GREETING = "greeting";
+
+   private Greeting greeting = null;
+
+   public Greeting getGreeting()
+   {
+      return this.greeting;
+   }
+   public GreetingSet getGreetingTransitive()
+   {
+      GreetingSet result = new GreetingSet().with(this);
+      return result.getGreetingTransitive();
+   }
+
+
+   public boolean setGreeting(Greeting value)
+   {
+      boolean changed = false;
+      
+      if (this.greeting != value)
+      {
+         Greeting oldValue = this.greeting;
+         
+         
+         this.greeting = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GREETING, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Greeting withGreeting(Greeting value)
+   {
+      setGreeting(value);
+      return this;
+   } 
+
+   public Greeting createGreeting()
+   {
+      Greeting value = new Greeting();
+      withGreeting(value);
       return value;
    } 
 }

@@ -9,6 +9,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.util.OptionalSubPatternPO;
+import org.sdmlib.models.pattern.util.PatternPO;
 
 public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, OptionalSubPattern>
 {
@@ -744,6 +745,31 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
    public OptionalSubPatternPO filterRgraph(ReachabilityGraphPO tgt)
    {
       return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
+   }
+
+   public PatternPO filterCurrentSubPattern()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pattern.PROPERTY_CURRENTSUBPATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO createCurrentSubPattern()
+   {
+      return this.startCreate().filterCurrentSubPattern().endCreate();
+   }
+
+   public OptionalSubPatternPO filterCurrentSubPattern(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_CURRENTSUBPATTERN);
+   }
+
+   public OptionalSubPatternPO createCurrentSubPattern(PatternPO tgt)
+   {
+      return this.startCreate().filterCurrentSubPattern(tgt).endCreate();
    }
 
 }

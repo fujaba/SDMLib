@@ -134,46 +134,46 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         },
-         "target":{
             "id":"SharedSpace",
             "cardinality":"one",
             "property":"sharedspace"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"Thread",
             "cardinality":"one",
             "property":"thread"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"ReplicationChannel",
             "cardinality":"one",
             "property":"replicationchannel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"Thread",
             "cardinality":"one",
             "property":"thread"
-         },
-         "target":{
-            "id":"ServerSocketAcceptThread",
-            "cardinality":"one",
-            "property":"serversocketacceptthread"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"ServerSocketAcceptThread",
+            "cardinality":"one",
+            "property":"serversocketacceptthread"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ReplicationNode",
             "cardinality":"one",
@@ -186,20 +186,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"ReplicationNode",
-            "cardinality":"one",
-            "property":"replicationnode"
-         },
-         "target":{
             "id":"ReplicationServer",
             "cardinality":"one",
             "property":"replicationserver"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"replicationnode"
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"ChangeHistory",
             "cardinality":"one",
@@ -212,7 +212,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ChangeHistory",
             "cardinality":"one",
@@ -225,33 +225,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "id":"SharedSpace",
-            "cardinality":"one",
-            "property":"sharedspace"
-         },
-         "target":{
             "id":"ChangeHistory",
             "cardinality":"one",
             "property":"history"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"SharedSpace",
             "cardinality":"one",
             "property":"sharedspace"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SharedSpace",
             "cardinality":"many",
@@ -264,7 +251,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"SharedSpace",
             "cardinality":"one",
@@ -277,20 +264,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"ReplicationChannel",
-            "cardinality":"one",
-            "property":"replicationchannel"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ReplicationChannel",
             "cardinality":"many",
@@ -303,7 +277,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"ReplicationServer",
             "cardinality":"one",
@@ -316,7 +290,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"ServerSocketAcceptThread",
             "cardinality":"one",
@@ -329,7 +303,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Task",
             "cardinality":"one",
@@ -342,46 +316,46 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         },
-         "target":{
             "id":"ReplicationChange",
             "cardinality":"one",
             "property":"replicationchange"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"Task",
             "cardinality":"one",
             "property":"task"
-         },
-         "target":{
-            "id":"BoardTask",
-            "cardinality":"one",
-            "property":"boardtask"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Runnable",
+            "id":"BoardTask",
             "cardinality":"one",
-            "property":"runnable"
+            "property":"boardtask"
          },
          "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"RemoteTask",
             "cardinality":"one",
             "property":"remotetask"
+         },
+         "target":{
+            "id":"Runnable",
+            "cardinality":"one",
+            "property":"runnable"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"LogEntry",
             "cardinality":"many",
@@ -394,20 +368,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"ReplicationChange",
-            "cardinality":"one",
-            "property":"replicationchange"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ReplicationChange",
             "cardinality":"many",
@@ -420,7 +381,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"RemoteTaskBoard",
             "cardinality":"one",
@@ -433,7 +394,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Lane",
             "cardinality":"many",
@@ -446,7 +407,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Lane",
             "cardinality":"one",
@@ -459,20 +420,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"BoardTask",
-            "cardinality":"one",
-            "property":"boardtask"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"BoardTask",
             "cardinality":"many",
@@ -485,7 +433,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"BoardTask",
             "cardinality":"many",
@@ -498,7 +446,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"RemoteTask",
             "cardinality":"one",
@@ -511,7 +459,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ReplicationRoot",
             "cardinality":"many",
@@ -522,41 +470,6 @@
             "cardinality":"one",
             "property":"parent"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"SharedSpace"},
-         "target":{"id":"Thread"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ReplicationChannel"},
-         "target":{"id":"Thread"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ReplicationServer"},
-         "target":{"id":"ReplicationNode"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ServerSocketAcceptThread"},
-         "target":{"id":"Thread"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ReplicationChange"},
-         "target":{"id":"Task"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"BoardTask"},
-         "target":{"id":"Task"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"RemoteTask"},
-         "target":{"id":"Runnable"}
       }
    ]
 }   ;

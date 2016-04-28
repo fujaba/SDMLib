@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
@@ -52,8 +53,8 @@ import de.uniks.networkparser.IdMap;
             this.setHasMatch(true);
             
             origMap = this.getPattern().getIdMap();
-            origMap = (IdMap) new IdMap().with(origMap);
-            cloneMap = (IdMap) new IdMap().with(origMap);
+            origMap = (IdMap) new SDMLibIdMap("om").with(origMap);
+            cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap);
             
             firstPO = (PatternObject) this.getPattern().getElements().first();
             

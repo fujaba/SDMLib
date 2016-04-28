@@ -31,6 +31,9 @@ public class PersonCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Person.PROPERTY_ROOM,
+      Person.PROPERTY_PREVPERSON,
+      Person.PROPERTY_PERSON,
+      Person.PROPERTY_NEXTPERSON,
    };
    
    @Override
@@ -60,6 +63,21 @@ public class PersonCreator implements SendableEntityCreator
       {
          return ((Person) target).getRoom();
       }
+
+      if (Person.PROPERTY_PREVPERSON.equalsIgnoreCase(attribute))
+      {
+         return ((Person) target).getPrevPerson();
+      }
+
+      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attribute))
+      {
+         return ((Person) target).getPerson();
+      }
+
+      if (Person.PROPERTY_NEXTPERSON.equalsIgnoreCase(attribute))
+      {
+         return ((Person) target).getNextPerson();
+      }
       
       return null;
    }
@@ -75,6 +93,24 @@ public class PersonCreator implements SendableEntityCreator
       if (Person.PROPERTY_ROOM.equalsIgnoreCase(attrName))
       {
          ((Person) target).setRoom((Room) value);
+         return true;
+      }
+
+      if (Person.PROPERTY_PREVPERSON.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).setPrevPerson((Person) value);
+         return true;
+      }
+
+      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).setPerson((Person) value);
+         return true;
+      }
+
+      if (Person.PROPERTY_NEXTPERSON.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).setNextPerson((Person) value);
          return true;
       }
       

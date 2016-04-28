@@ -34,6 +34,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {
@@ -755,6 +756,37 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
          if (value == obj.isDoAllMatches())
          {
             result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Follow currentSubPattern reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Pattern objects reachable via currentSubPattern transitively (including the start set)
+    */
+   public PatternSet getCurrentSubPatternTransitive()
+   {
+      PatternSet todo = new PatternSet().with(this);
+      
+      PatternSet result = new PatternSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Pattern current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getCurrentSubPattern()))
+            {
+               todo.with(current.getCurrentSubPattern());
+            }
          }
       }
       

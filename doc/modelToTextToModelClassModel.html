@@ -57,7 +57,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Template",
             "cardinality":"many",
@@ -70,20 +70,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"Template",
-            "cardinality":"one",
-            "property":"template"
-         },
-         "target":{
             "id":"ChoiceTemplate",
             "cardinality":"one",
             "property":"choicetemplate"
+         },
+         "target":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"template"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Template",
             "cardinality":"many",
@@ -96,7 +96,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Template",
             "cardinality":"one",
@@ -109,7 +109,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Template",
             "cardinality":"one",
@@ -122,7 +122,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"PlaceHolderDescription",
             "cardinality":"many",
@@ -135,7 +135,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"PlaceHolderDescription",
             "cardinality":"one",
@@ -148,7 +148,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"PlaceHolderDescription",
             "cardinality":"many",
@@ -161,20 +161,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"ChoiceTemplate",
-            "cardinality":"one",
-            "property":"choicetemplate"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"one",
-            "property":"template"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"ChoiceTemplate",
             "cardinality":"one",
@@ -187,7 +174,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Match",
             "cardinality":"many",
@@ -200,7 +187,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Match",
             "cardinality":"many",
@@ -213,7 +200,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Match",
             "cardinality":"many",
@@ -224,11 +211,6 @@
             "cardinality":"one",
             "property":"parentMatch"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ChoiceTemplate"},
-         "target":{"id":"Template"}
       }
    ]
 }   ;

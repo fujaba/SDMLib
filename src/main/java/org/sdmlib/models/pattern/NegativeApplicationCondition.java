@@ -25,6 +25,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -109,6 +110,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
       setPattern(null);
       setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
+      setCurrentSubPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

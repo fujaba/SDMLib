@@ -61,85 +61,85 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"BombermanStrategy",
-            "cardinality":"one",
-            "property":"bombermanstrategy"
-         },
-         "target":{
             "id":"MoveUp",
             "cardinality":"one",
             "property":"moveup"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
             "property":"bombermanstrategy"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"MoveDown",
             "cardinality":"one",
             "property":"movedown"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
             "property":"bombermanstrategy"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"MoveLeft",
             "cardinality":"one",
             "property":"moveleft"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
             "property":"bombermanstrategy"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"MoveRight",
             "cardinality":"one",
             "property":"moveright"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
             "property":"bombermanstrategy"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"Blast",
             "cardinality":"one",
             "property":"blast"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
             "property":"bombermanstrategy"
-         },
-         "target":{
-            "id":"Stay",
-            "cardinality":"one",
-            "property":"stay"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Stay",
+            "cardinality":"one",
+            "property":"stay"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"BombermanStrategy",
             "cardinality":"one",
@@ -152,7 +152,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"MoveUp",
             "cardinality":"one",
@@ -165,7 +165,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"MoveDown",
             "cardinality":"one",
@@ -178,7 +178,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"MoveLeft",
             "cardinality":"one",
@@ -191,7 +191,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"MoveRight",
             "cardinality":"one",
@@ -204,7 +204,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Blast",
             "cardinality":"one",
@@ -217,7 +217,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Stay",
             "cardinality":"one",
@@ -228,36 +228,6 @@
             "cardinality":"one",
             "property":"bombermanstrategy"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MoveUp"},
-         "target":{"id":"BombermanStrategy"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MoveDown"},
-         "target":{"id":"BombermanStrategy"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MoveLeft"},
-         "target":{"id":"BombermanStrategy"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"MoveRight"},
-         "target":{"id":"BombermanStrategy"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Blast"},
-         "target":{"id":"BombermanStrategy"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Stay"},
-         "target":{"id":"BombermanStrategy"}
       }
    ]
 }   ;

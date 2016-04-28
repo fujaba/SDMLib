@@ -463,7 +463,8 @@
          "typ":"clazz",
          "id":"s.R33 : ReachableState",
          "attributes":[
-            "number=1"
+            "number=1",
+            "metricValue=0.0"
          ]
       },
       {
@@ -640,7 +641,16 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : SDMLibJsonIdMap"
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : ReachabilityGraph"
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasFerrymansProblemExample10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

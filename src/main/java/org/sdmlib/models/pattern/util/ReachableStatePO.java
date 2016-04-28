@@ -62,31 +62,6 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return null;
    }
 
-   public ReachabilityGraphPO hasMaster()
-   {
-      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachableState.PROPERTY_MASTER, result);
-      
-      return result;
-   }
-
-   public ReachableStatePO hasMaster(ReachabilityGraphPO tgt)
-   {
-      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
-   }
-
-   public ReachabilityGraph getMaster()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReachableState) this.getCurrentMatch()).getMaster();
-      }
-      return null;
-   }
-
-
    public ObjectPO filterGraphRoot()
    {
       ObjectPO result = new ObjectPO(new Object[]{});
@@ -282,16 +257,6 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return this.startCreate().hasResultOf(tgt).endCreate();
    }
 
-   public ReachabilityGraphPO createMaster()
-   {
-      return this.startCreate().hasMaster().endCreate();
-   }
-
-   public ReachableStatePO createMaster(ReachabilityGraphPO tgt)
-   {
-      return this.startCreate().hasMaster(tgt).endCreate();
-   }
-
    public ReachableStatePO filterNumber(long value)
    {
       new AttributeConstraint()
@@ -380,21 +345,59 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return hasLinkConstraint(tgt, ReachableState.PROPERTY_RESULTOF);
    }
 
-   public ReachabilityGraphPO filterMaster()
+   public ReachableStatePO filterMetricValue(double value)
    {
-      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_METRICVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachableState.PROPERTY_MASTER, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public ReachableStatePO filterMaster(ReachabilityGraphPO tgt)
+   
+   public ReachableStatePO filterMetricValue(double lower, double upper)
    {
-      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
+      new AttributeConstraint()
+      .withAttrName(ReachableState.PROPERTY_METRICVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
    }
-
+   
+   public ReachableStatePO createMetricValue(double value)
+   {
+      this.startCreate().filterMetricValue(value).endCreate();
+      return this;
+   }
+   
+   public double getMetricValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReachableState) getCurrentMatch()).getMetricValue();
+      }
+      return 0;
+   }
+   
+   public ReachableStatePO withMetricValue(double value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ReachableState) getCurrentMatch()).setMetricValue(value);
+      }
+      return this;
+   }
+   
 }
 
 

@@ -130,111 +130,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Clazz",
-            "cardinality":"one",
-            "property":"clazz"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Value",
-            "cardinality":"one",
-            "property":"value"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Annotation",
-            "cardinality":"one",
-            "property":"annotation"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Enumeration",
-            "cardinality":"one",
-            "property":"enumeration"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Association",
-            "cardinality":"one",
-            "property":"association"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"SDMLibClass",
-            "cardinality":"one",
-            "property":"sdmlibclass"
-         },
-         "target":{
-            "id":"Role",
-            "cardinality":"one",
-            "property":"role"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"ClassModel",
             "cardinality":"one",
@@ -247,7 +143,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Clazz",
             "cardinality":"one",
@@ -260,7 +156,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Value",
             "cardinality":"one",
@@ -273,46 +169,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Value",
-            "cardinality":"one",
-            "property":"value"
-         },
-         "target":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Value",
-            "cardinality":"one",
-            "property":"value"
-         },
-         "target":{
-            "id":"Parameter",
-            "cardinality":"one",
-            "property":"parameter"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         },
-         "target":{
-            "id":"Value",
-            "cardinality":"one",
-            "property":"value"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Method",
             "cardinality":"one",
@@ -325,20 +182,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         },
-         "target":{
-            "id":"Parameter",
-            "cardinality":"many",
-            "property":"parameter"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Annotation",
             "cardinality":"one",
@@ -351,7 +195,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Enumeration",
             "cardinality":"one",
@@ -364,33 +208,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Parameter",
-            "cardinality":"one",
-            "property":"parameter"
-         },
-         "target":{
-            "id":"Value",
-            "cardinality":"one",
-            "property":"value"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Parameter",
-            "cardinality":"many",
-            "property":"parameter"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Association",
             "cardinality":"one",
@@ -403,7 +221,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Role",
             "cardinality":"one",
@@ -416,54 +234,147 @@
          }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"ClassModel"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Clazz"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Clazz",
+            "cardinality":"one",
+            "property":"clazz"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Value"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Attribute"},
-         "target":{"id":"Value"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Parameter",
+            "cardinality":"one",
+            "property":"parameter"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Method"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Value",
+            "cardinality":"one",
+            "property":"value"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Annotation"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
+            "id":"Parameter",
+            "cardinality":"many",
+            "property":"parameter"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Enumeration"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Annotation",
+            "cardinality":"one",
+            "property":"annotation"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Parameter"},
-         "target":{"id":"Value"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Enumeration",
+            "cardinality":"one",
+            "property":"enumeration"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Association"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Parameter",
+            "cardinality":"many",
+            "property":"parameter"
+         },
+         "target":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         }
       },
       {
-         "typ":"generalisation",
-         "source":{"id":"Role"},
-         "target":{"id":"SDMLibClass"}
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Association",
+            "cardinality":"one",
+            "property":"association"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Role",
+            "cardinality":"one",
+            "property":"role"
+         },
+         "target":{
+            "id":"SDMLibClass",
+            "cardinality":"one",
+            "property":"sdmlibclass"
+         }
       }
    ]
 }   ;
