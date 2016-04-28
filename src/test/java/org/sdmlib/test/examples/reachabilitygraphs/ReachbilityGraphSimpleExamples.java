@@ -94,12 +94,11 @@ public class ReachbilityGraphSimpleExamples
       storyboard.dumpHTML();
    }
 
-     /**
+    /**
     * 
     * @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
-* @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
-*/
-//FIXME ALBERT PLEASE   @Test
+    */
+   @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()
    {
       StoryPage storyboard = new StoryPage();
