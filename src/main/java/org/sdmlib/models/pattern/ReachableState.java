@@ -60,6 +60,8 @@ import org.sdmlib.models.pattern.RuleApplication;
          return jo1.getString(IdMap.ID).compareTo(jo2.getString(IdMap.ID));
       }
    }
+   
+   public long noOfRuleMatchesDone = 0;
 
    private String certificate = null;
    

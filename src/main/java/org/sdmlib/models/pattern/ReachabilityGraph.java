@@ -502,7 +502,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       // take a todo state and apply all rules at all places until
       // maxNoOfNewStates
       // is reached
-      while (!getTodo().isEmpty() && this.getStates().size() + ignoredStates <= maxNoOfNewStates)
+      doToDo: while (!getTodo().isEmpty() && this.getStates().size() + ignoredStates <= maxNoOfNewStates)
       {
          if (metric != null)
          {
@@ -512,9 +512,15 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          ReachableState first = getTodo().get(0);
 
-         first.withNumber((int) currentStateNum);
+         if (first.getNumber() == 0)
+         {
+            first.withNumber((int) currentStateNum);
+         }
 
          currentStateNum++;
+         
+         long alreadyKnownMatches = first.noOfRuleMatchesDone;
+         first.noOfRuleMatchesDone = 0;
 
          this.withoutTodo(first);
 
@@ -528,6 +534,18 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
             while (rule.findMatch())
             {
+               // count matches found on this graph
+               first.noOfRuleMatchesDone++;
+               
+               if (first.noOfRuleMatchesDone <= alreadyKnownMatches)
+               {
+                  // has been considered in previous expansions of this state. 
+                  // Those previous expansions have been aborted in order to expand more promising state. 
+                  // Now it is reconsidered. But we do not need to go through the already done expansions. 
+                  
+                  continue;
+               }
+               
                // for each match get the new reachable state and add it to the
                // reachability graph
                Object newGraphRoot = firstPO.getCurrentMatch();
@@ -570,7 +588,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                            System.out.print("*");
                         }
                         // ignore rules with a bad metric
-                        continue;
+                        // continue;
                      }
                      else
                      {
@@ -585,6 +603,15 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   if (size % 50 == 0)
                   {
                      System.out.print(".");
+                  }
+                  
+                  if (newReachableState.getMetricValue() > first.getMetricValue())
+                  {
+                     // new state is more interesting than current state, 
+                     // abort current state and continue with new state
+                     this.withTodo(first);
+
+                     continue doToDo;
                   }
                }
             }
