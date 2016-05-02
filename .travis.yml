@@ -5,3 +5,13 @@ before_install:
  - "export DISPLAY=:99.0"
  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -extension RANDR -screen 0 1280x1024x16"
  - chmod +x gradlew
+ 
+addons:
+  coverity_scan:
+    project:
+      name: "fujaba/SDMLib"
+      description: "Build submitted via Travis CI"
+    notification_email: Stefan.Lindel@cs.uni-kassel.de
+    build_command_prepend: "gradle clean"
+    build_command:   "gradle -xTest -xJavadoc"
+    branch_pattern: coverity_scan
