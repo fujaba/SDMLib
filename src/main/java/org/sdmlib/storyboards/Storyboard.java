@@ -365,6 +365,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                line = in.readLine();
             }
 
+            in.close();
+            
             String oldFileString = oldFileText.toString().trim();
 
             fileText = fileText.replaceAll("\\r", "");
