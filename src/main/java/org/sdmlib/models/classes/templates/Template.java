@@ -5,8 +5,8 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
 public class Template extends TemplateItem {
-	private String searchString;
-	private Feature condition;
+	private String searchString = null;
+	private Feature condition = null;
 	private boolean active=true;
 	
 	public Template() {

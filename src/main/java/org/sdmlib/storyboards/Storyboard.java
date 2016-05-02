@@ -415,9 +415,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    public void add(String string)
    {
-      this.addToSteps(string);
       synchronized (this)
       {
+         this.addToSteps(string);
          this.notifyAll();
       }
    }
