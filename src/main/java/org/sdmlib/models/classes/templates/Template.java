@@ -2,11 +2,9 @@ package org.sdmlib.models.classes.templates;
 
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
 
 public class Template extends TemplateItem {
 	private String searchString = null;
-	private Feature condition = null;
 	private boolean active=true;
 	
 	public Template() {
@@ -28,9 +26,6 @@ public class Template extends TemplateItem {
 	@Override
 	public boolean validate(Parser parser, ClassModel model, String... values) {
 		if(!active) {
-			return false;
-		}
-		if(condition != null && !model.hasFeature(condition)) {
 			return false;
 		}
 		for(int i = 0; i < variables.size(); i++) {
