@@ -474,10 +474,15 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public long explore()
    {
-      return explore(Long.MAX_VALUE);
+      return explore(Long.MAX_VALUE, Searchmode.DEFAULT);
    }
 
-   public long explore(long maxNoOfNewStates)
+   public enum Searchmode
+   {
+      DEFAULT, DEPTH, IGNORE
+   }
+
+   public long explore(long maxNoOfNewStates, Searchmode mode)
    {
       long currentStateNum = 1;
       long bestMetricYet = Long.MIN_VALUE;
@@ -518,7 +523,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
 
          currentStateNum++;
-         
+
          long alreadyKnownMatches = first.noOfRuleMatchesDone;
          first.noOfRuleMatchesDone = 0;
 
@@ -536,16 +541,18 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             {
                // count matches found on this graph
                first.noOfRuleMatchesDone++;
-               
+
                if (first.noOfRuleMatchesDone <= alreadyKnownMatches)
                {
-                  // has been considered in previous expansions of this state. 
-                  // Those previous expansions have been aborted in order to expand more promising state. 
-                  // Now it is reconsidered. But we do not need to go through the already done expansions. 
-                  
+                  // has been considered in previous expansions of this state.
+                  // Those previous expansions have been aborted in order to
+                  // expand more promising state.
+                  // Now it is reconsidered. But we do not need to go through
+                  // the already done expansions.
+
                   continue;
                }
-               
+
                // for each match get the new reachable state and add it to the
                // reachability graph
                Object newGraphRoot = firstPO.getCurrentMatch();
@@ -581,7 +588,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      double newMetricValue = metric.compute(newReachableState.getGraphRoot());
                      newReachableState.setMetricValue(newMetricValue);
-                     if (newMetricValue < bestMetricYet)
+                     if (mode == Searchmode.IGNORE && newMetricValue < bestMetricYet)
                      {
                         if (++ignoredStates % 500 == 0)
                         {
@@ -604,10 +611,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      System.out.print(".");
                   }
-                  
-                  if (newReachableState.getMetricValue() > first.getMetricValue())
+
+                  if (mode == Searchmode.DEPTH && newReachableState.getMetricValue() > first.getMetricValue())
                   {
-                     // new state is more interesting than current state, 
+                     // new state is more interesting than current state,
                      // abort current state and continue with new state
                      this.withTodo(first);
 
