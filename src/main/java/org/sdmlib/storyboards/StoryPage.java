@@ -100,11 +100,11 @@ public class StoryPage {
 	 * Adds a pattern to the storyboard.
 	 * 
 	 * @param pattern the pattern, that will be added storyboard
-	 * @param b flag, that specifies, if the matches of the pattern will be shown
+	 * @param showMatch flag, that specifies, if the matches of the pattern will be shown
 	 * 
 	*/
-	public void addPattern(PatternObject<?,?> pattern, boolean b) {
-		storyboard.addPattern(pattern, b);
+	public void addPattern(PatternObject<?,?> pattern, boolean showMatch) {
+		storyboard.addPattern(pattern, showMatch);
 	}
 	
 	/**

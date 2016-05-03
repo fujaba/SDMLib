@@ -1835,16 +1835,16 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    }
 
-   public void addPattern(PatternObject patternObject, boolean b)
+   public void addPattern(PatternObject patternObject, boolean showMatch)
    {
-      addPattern(patternObject.getPattern(), b);
+      addPattern(patternObject.getPattern(), showMatch);
    }
 
-   public void addPattern(Pattern pattern, boolean b)
+   public void addPattern(Pattern pattern, boolean showMatch)
    {
       String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();
 
-      String link = pattern.dumpDiagram(diagName, b);
+      String link = pattern.dumpDiagram(diagName, showMatch);
       this.add(link);
    }
 
