@@ -47,7 +47,7 @@ task fatJar(type: Jar) {
 }
 
 compileJava {
-	source = fileTree(dir: 'src/main/java')     // .matching { exclude '**/test/**' }
+	source =  fileTree(dir: 'src/main/replication')+fileTree(dir: 'src/main/java')     // .matching { exclude '**/test/**' }
 }
 compileTestJava {
 	source = fileTree(dir: 'src/main/replication')+fileTree(dir: 'src/main/java')+fileTree(dir: 'src/test/java')
