@@ -2032,82 +2032,91 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
    {
-      // parse the class under test
-      Parser parser = new Parser().withFileName(classUnderTestName);
-      
-      File javaFile = new File(classUnderTestName);
-      
-      if ( ! javaFile.exists() ) return; // <=================== sudden death
-      
-      parser.withFileBody(CGUtil.readFile(javaFile));
-      
-      parser.parse();
-      
-      ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
-      
-      for (int k = symTabEntries.size()-1; k >= 0; k--)
+      try
       {
-         SymTabEntry symTabEntry = symTabEntries.get(k);
+         // parse the class under test
+         Parser parser = new Parser().withFileName(classUnderTestName);
          
-         int javaDocStartPos = symTabEntry.getPreCommentStartPos();
-         int javaDocEndPos = symTabEntry.getPreCommentEndPos();
-         String javaDocText = null; 
-         if (javaDocStartPos == 0)
-         {
-            // no javadoc yet
-            javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos()-1;
-            javaDocText = "   /**\n"
-               + "    * \n"
-               + "    */\n"
-               + "   ";
-         }
-         else
-         {
-            javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos+1);
-         }
+         File javaFile = new File(classUnderTestName);
          
-         // compute reference
-         while (testFileName.startsWith("./"))
-         {
-            testFileName = testFileName.substring(2);
-         }
-
-         while (classUnderTestName.startsWith("./"))
-         {
-            classUnderTestName = classUnderTestName.substring(2);
-         }
-
-         String[] split = classUnderTestName.split("/");
+         if ( ! javaFile.exists() ) return; // <=================== sudden death
          
-         String href = "";
-         for (int i = 0; i < split.length-1; i++)
-         {
-            href += "../";
-         }
+         parser.withFileBody(CGUtil.readFile(javaFile));
          
-         href += testFileName;
+         parser.parse();
          
-         String[] testFileSplit = testFileName.split("/");
-
-         String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>";
-
-         if (javaDocText.indexOf(hrefText) < 0)
+         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
+         
+         for (int k = symTabEntries.size()-1; k >= 0; k--)
          {
-            // add reference
+            SymTabEntry symTabEntry = symTabEntries.get(k);
             
-            int insertPos = javaDocText.indexOf("*/");
+            int javaDocStartPos = symTabEntry.getPreCommentStartPos();
+            int javaDocEndPos = symTabEntry.getPreCommentEndPos();
+            String javaDocText = null; 
+            if (javaDocStartPos == 0)
+            {
+               // no javadoc yet
+               javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos()-1;
+               javaDocText = "   /**\n"
+                  + "    * \n"
+                  + "    */\n"
+                  + "   ";
+            }
+            else
+            {
+               javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos+1);
+            }
             
-            if (insertPos < 0) continue; // <================ sudden death
+            // compute reference
+            while (testFileName.startsWith("./"))
+            {
+               testFileName = testFileName.substring(2);
+            }
+
+            while (classUnderTestName.startsWith("./"))
+            {
+               classUnderTestName = classUnderTestName.substring(2);
+            }
+
+            String[] split = classUnderTestName.split("/");
+            
+            String href = "";
+            for (int i = 0; i < split.length-1; i++)
+            {
+               href += "../";
+            }
+            
+            href += testFileName;
+            
+            String[] testFileSplit = testFileName.split("/");
+
+            String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>";
+
+            if (javaDocText.indexOf(hrefText) < 0)
+            {
+               // add reference
                
-            javaDocText = javaDocText.substring(0, insertPos) 
-                  + hrefText + "\n "+ javaDocText.substring(insertPos);
-         
-            // write new javadoc
-            parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);
-            parser.withFileChanged(true);
-            CGUtil.printFile(parser);
+               int insertPos = javaDocText.indexOf("*/");
+               
+               if (insertPos < 0) continue; // <================ sudden death
+                  
+               javaDocText = javaDocText.substring(0, insertPos) 
+                     + hrefText + "\n "+ javaDocText.substring(insertPos);
             
+               // write new javadoc
+               parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);
+               parser.withFileChanged(true);
+               CGUtil.printFile(parser);
+               
+            }
          }
+      }
+      catch (Exception e)
+      {
+         // This may fail if the java source is not available, e.g. if run from a jar file
+         // No problem, just ignore it. 
+         // e.printStackTrace();
       }
    }
 
