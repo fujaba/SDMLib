@@ -595,7 +595,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                            System.out.print("*");
                         }
                         // ignore rules with a bad metric
-                        // continue;
+                        continue;
                      }
                      else
                      {
