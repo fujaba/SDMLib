@@ -30,7 +30,9 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+import org.sdmlib.models.modelsets.SDMSet;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
@@ -41,7 +43,6 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class GenEnumeration extends GenClazzEntity{
 	public void generate(String rootDir, String helpersDir) {
-
 		if (!model.isExternal()) {
 			getOrCreateParser(rootDir);
 			insertLicense(parser);
@@ -49,6 +50,12 @@ public class GenEnumeration extends GenClazzEntity{
 			insertValues();
 			insertMethods(rootDir, helpersDir);
 			printFile(parser);
+			ClassModel classModel = (ClassModel) model.getClassModel();
+			if (classModel.hasFeature(Feature.Serialization, model))
+		    {
+		         getOrCreateParserForModelSetFile(helpersDir);
+		         printFile(modelSetParser);
+		    }
 		}
 	}
 
@@ -89,6 +96,139 @@ public class GenEnumeration extends GenClazzEntity{
 					}
 				}
 			}
+		}
+	}
+	
+	public Parser getOrCreateParserForModelSetFile(String rootDir)
+	   {
+			if (getRepairClassModel().hasFeature(Feature.ALBERTsSets) == false
+					&& getRepairClassModel().hasFeature(Feature.Serialization) == false) {
+				return null;
+			}
+			if (((ClassModel) model.getClassModel()).hasFeature(Feature.ALBERTsSets) == false) {
+				return null;
+			}
+
+	      if (modelSetParser == null)
+	      {
+	         if (model.getName(false).equals("java.util.Date"))
+	         {
+	            System.out.println("ups");
+	         }
+	         // try to find existing file
+	         String name = model.getName(false);
+	         int pos = name.lastIndexOf('.');
+
+	         String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
+
+	         if (model.isExternal())
+	         {
+	            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
+	         }
+
+	         String fullEntityClassName = name;
+
+	         String entitiyClassName = name.substring(pos + 1);
+
+	         String modelSetClassName = entitiyClassName + "Set";
+
+	         String fileName = packageName + "." + modelSetClassName;
+
+	         fileName = fileName.replaceAll("\\.", "/");
+
+	         fileName = rootDir + "/" + fileName + ".java";
+
+	         File modelSetJavaFile = new File(fileName);
+
+	         if (!modelSetJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
+	         {
+	            HashSet<String> featureSet = Feature.Serialization.getPath();
+
+	            for (String featureValue : featureSet)
+	            {
+	               String alternativePackageName = featureValue;
+	               String alternativeFileName = alternativePackageName + "." + modelSetClassName;
+	               alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
+	               alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
+	               File alternativeJavaFile = new File(alternativeFileName);
+
+	               if (alternativeJavaFile.exists())
+	               {
+	                  fileName = alternativeFileName;
+	                  modelSetJavaFile = alternativeJavaFile;
+	                  break;
+	               }
+	            }
+	         }
+
+	         modelSetParser = new Parser()
+	            .withFileName(fileName);
+
+	         // found old one?
+	         if (modelSetJavaFile.exists() && !isShowDiff())
+	         {
+	            modelSetParser.withFileBody(CGUtil.readFile(modelSetJavaFile));
+	         }
+	         else
+	         {
+	            StringBuilder text = new StringBuilder("" +
+	               "package packageName;\n" +
+	               "\n" +
+	               "import sdmsetimport;\n" +
+	               "import fullEntityClassName;\n" +
+	               "\n" +
+	               "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
+	               "{\n" +
+	               "}\n");
+
+	            CGUtil.replaceAll(text,
+	               "modelSetClassName", modelSetClassName,
+	               "entitiyClassName", entitiyClassName,
+	               "fullEntityClassName", fullEntityClassName,
+	               "packageName", packageName,
+	               "sdmsetimport", SDMSet.class.getName(),
+	               "Item", entitiyClassName
+	               );
+	            modelSetParser.withFileBody(text).withFileChanged(true);
+	         }
+	         insertLicense(modelSetParser);
+	         insertEmptySetDecl(modelSetParser, modelSetClassName);
+	         insertSetEntryType(modelSetParser);
+//	         insertSetWithWithout(modelSetParser);
+	      }
+
+	      return modelSetParser;
+	   }
+	
+	private void insertEmptySetDecl(Parser parser, String modelSetClassName) {
+		int partnerPos = parser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
+
+		if (partnerPos < 0) {
+			// add attribute declaration in class file
+			partnerPos = parser.indexOf(Parser.CLASS_END);
+
+			StringBuilder partnerText = new StringBuilder(
+					"\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);" + "\n");
+
+			CGUtil.replaceAll(partnerText, "type", modelSetClassName);
+
+			parser.insert(partnerPos, partnerText.toString());
+		}
+	}
+
+	private void insertSetEntryType(Parser parser) {
+		String searchString = Parser.METHOD + ":getEntryType()";
+		int pos = parser.indexOf(searchString);
+
+		if (pos < 0) {
+			StringBuilder text = new StringBuilder("\n\n" + "   public String getEntryType()\n" + "   {\n"
+					+ "      return \"ModelType\";\n" + "   }\n");
+
+			CGUtil.replaceAll(text, "ModelType", model.getName(false));
+
+			pos = parser.indexOf(Parser.CLASS_END);
+
+			parser.insert(pos, text.toString());
 		}
 	}
 
