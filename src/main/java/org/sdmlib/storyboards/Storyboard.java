@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -62,32 +61,31 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.StoryboardStep;
 
 /**
- * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
- * This html page will be named like the story, i.e. like the method that created the Storyboard. 
- * It will be added to the refs.html and thus become part of the index.html.
- * All these html files are stored in an directory "doc" located in the project root directory. 
+ * A Storyboard collects entries for the generation of an html page from e.g. a
+ * JUnit test. This html page will be named like the story, i.e. like the method
+ * that created the Storyboard. It will be added to the refs.html and thus
+ * become part of the index.html. All these html files are stored in an
+ * directory "doc" located in the project root directory.
  * 
  * @see #dumpHTML()
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
-*/
+ * @see <a href=
+ *      '../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>
+ *      ProjectBoard.java</a>
+ */
 public class Storyboard implements PropertyChangeInterface, SendableEntity
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
@@ -112,18 +110,18 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    private int stepCounter;
    private String modelRootDir = null;
    private String rootDir = null;
-//   private StoryboardWall wall = null;
+   // private StoryboardWall wall = null;
    private StoryboardStepSet storyboardSteps = null;
    private int codeStartLineNumber = -1;
    private ByteArrayOutputStream systemOutRecorder;
    private IdMap jsonIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
-   
+
    public String getJavaTestFileName()
    {
       return javaTestFileName;
    }
-   
+
    public void setJavaTestFileName(String javaTestFileName)
    {
       this.javaTestFileName = javaTestFileName;
@@ -184,8 +182,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             callEntry = stackTrace[i];
 
-            if (callEntry.getClassName().equals(Storyboard.class.getName()) 
-            		|| callEntry.getClassName().equals(StoryPage.class.getName()))
+            if (callEntry.getClassName().equals(Storyboard.class.getName())
+               || callEntry.getClassName().equals(StoryPage.class.getName()))
             {
                i++;
                continue;
@@ -244,22 +242,25 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       StackTraceElement callEntry = stackTrace[1];
 
       String testClassName = null;
-      if (callEntry.getClassName().equals(StoryPage.class.getName())) {
-    	  callEntry = stackTrace[2];
-    	  testMethodName = stackTrace[2].getMethodName();
-    	  testClassName = CGUtil.shortClassName(stackTrace[2].getClassName());
-      } else {
-    	  testMethodName = stackTrace[1].getMethodName();
-        testClassName = CGUtil.shortClassName(stackTrace[1].getClassName());
+      if (callEntry.getClassName().equals(StoryPage.class.getName()))
+      {
+         callEntry = stackTrace[2];
+         testMethodName = stackTrace[2].getMethodName();
+         testClassName = CGUtil.shortClassName(stackTrace[2].getClassName());
       }
-      
+      else
+      {
+         testMethodName = stackTrace[1].getMethodName();
+         testClassName = CGUtil.shortClassName(stackTrace[1].getClassName());
+      }
+
       String storyName = testMethodName;
-      
+
       if ("main".equals(storyName))
       {
          storyName = testClassName;
       }
-      
+
       if (storyName.startsWith("test"))
       {
          storyName = storyName.substring(4);
@@ -279,10 +280,13 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    // private String rootDir = null;
 
    /**
-    * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. Thus use the version without parameters. 
-    * @param rootDir The RootDir of Sources
+    * @deprecated Storyboards search for their root dir (like src or
+    *             src/test/java) themself. Thus use the version without
+    *             parameters.
+    * @param rootDir
+    *           The RootDir of Sources
     */
-   @Deprecated 
+   @Deprecated
    public Storyboard(String rootDir)
    {
       if (rootDir == null)
@@ -312,16 +316,18 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    }
 
-   
    /**
-    * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. 
-    *             Similarly, Storyboards get their name from the method they are used in. Name that method appropriately. 
-    *             Use the version without parameters.
-    *              
-    * @param rootDir The RootDir of Sources
-    * @param name Name of the html file and page title to be generated. 
+    * @deprecated Storyboards search for their root dir (like src or
+    *             src/test/java) themself. Similarly, Storyboards get their name
+    *             from the method they are used in. Name that method
+    *             appropriately. Use the version without parameters.
+    * 
+    * @param rootDir
+    *           The RootDir of Sources
+    * @param name
+    *           Name of the html file and page title to be generated.
     */
-   @Deprecated 
+   @Deprecated
    public Storyboard(String rootDir, String name)
    {
       this.rootDir = rootDir;
@@ -335,8 +341,6 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       StackTraceElement callEntry = stackTrace[1];
       javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
-
-
 
    private void writeToFile(String imgName, String fileText)
    {
@@ -366,7 +370,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             }
 
             in.close();
-            
+
             String oldFileString = oldFileText.toString().trim();
 
             fileText = fileText.replaceAll("\\r", "");
@@ -452,7 +456,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             Class<?> creatorClass = Class.forName(className);
             Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-            method.setAccessible(true);   
+            method.setAccessible(true);
             idMap = method.invoke(null, "debug");
 
             jsonIdMap = (IdMap) idMap;
@@ -920,9 +924,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             // e.printStackTrace();
          }
       }
-      
+
       // go through all creator classes and call createIdMap
-      for ( SendableEntityCreator creator : copyMap.getCreators().values())
+      for (SendableEntityCreator creator : copyMap.getCreators().values())
       {
          try
          {
@@ -938,7 +942,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    /**
     * Add a class diagram to the generated html page.
-    * @param model The ClassModel for drawing
+    * 
+    * @param model
+    *           The ClassModel for drawing
     */
    public void addClassDiagram(ClassModel model)
    {
@@ -963,16 +969,14 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       Object root = null;
       LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
       boolean restrictToExplicitElems = false;
-      
+
       // do we have a JsonIdMap?
       if (jsonIdMap == null)
       {
          // jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
          jsonIdMap = (IdMap) new SDMLibIdMap("s").withSessionId(null);
-         //FIXME TRY IF NESSESSARY         jsonIdMap.getLogger().withError(false);
+         // FIXME TRY IF NESSESSARY jsonIdMap.getLogger().withError(false);
       }
-
-
 
       // go through all diagram elems
       int i = 0;
@@ -1078,32 +1082,32 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       }
       else
       {
-    	  AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-//FIXME Stackoverflow please show Albert         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
+         AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
+         // FIXME Stackoverflow please show Albert addObjectDiagram(jsonIdMap,
+         // explicitElems, conditionMap);
       }
    }
 
    private class AlwaysTrueCondition implements UpdateListener
    {
-	public boolean update(Object value) {
-		return true;
-	}
+      public boolean update(Object value)
+      {
+         return true;
+      }
    }
 
    private void addObjectDiagram(IdMap jsonIdMap, Object root, UpdateListener filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
-      if (largestJsonArray == null || largestJsonArray.size() <=
-         jsonArray.size())
+      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
          largestJsonArray = jsonArray;
          largestRoot = root;
       }
 
-      String imgLink =
-            getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-               .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+         .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
 
       this.addToSteps(imgLink);
 
@@ -1141,8 +1145,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      if (callEntry.getClassName().equals(StoryPage.class.getName())) {
-    	  callEntry = stackTrace[2];
+      if (callEntry.getClassName().equals(StoryPage.class.getName()))
+      {
+         callEntry = stackTrace[2];
       }
       codeStartLineNumber = callEntry.getLineNumber();
    }
@@ -1161,13 +1166,13 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      
+
       int i = 1;
-      
+
       while (callEntry.getMethodName().startsWith("addCode"))
       {
-    	  i++;
-    	  callEntry = stackTrace[i];
+         i++;
+         callEntry = stackTrace[i];
       }
       codeEndLineNumber = callEntry.getLineNumber();
 
@@ -1278,48 +1283,56 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    }
 
    /**
-    * Generate an html page from this story. 
-    * This html file will be named like the story, i.e. like the method that created the Storyboard. 
-    * It will be added to the refs.html and thus become part of the index.html.
-    * All these html files are stored in an directory "doc" located in the project root directory. 
+    * Generate an html page from this story. This html file will be named like
+    * the story, i.e. like the method that created the Storyboard. It will be
+    * added to the refs.html and thus become part of the index.html. All these
+    * html files are stored in an directory "doc" located in the project root
+    * directory.
     * 
     * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
     */
    public void dumpHTML()
    {
       // copy Javascript files
-      generateJavaDoc();
-      
+      try
+      {
+         generateJavaDoc();
+      }
+      catch (java.lang.StringIndexOutOfBoundsException e)
+      {
+         // parser throws IOOB if java source not available at runtime
+      }
+
       dumpIndexHtml();
-      
+
       // generate the html text
       String htmlText = "<!DOCTYPE html>\n"
          + "<html>\n" +
-            "<head>" +
-            "<meta charset=\"utf-8\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-            "\n" +
-            "<script src=\"includes/dagre.min.js\"></script>\n" +
-            "<script src=\"includes/drawer.js\"></script>\n" +
-            "<script src=\"includes/graph.js\"></script>\n" +
-            "</head>" +
-            "<body>\n" +
-            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-            "$text\n" +
-            "</body>\n" +
-            "</html>\n";
+         "<head>" +
+         "<meta charset=\"utf-8\">\n" +
+         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+         "\n" +
+         "<script src=\"includes/dagre.min.js\"></script>\n" +
+         "<script src=\"includes/drawer.js\"></script>\n" +
+         "<script src=\"includes/graph.js\"></script>\n" +
+         "</head>" +
+         "<body>\n" +
+         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+         "$text\n" +
+         "</body>\n" +
+         "</html>\n";
 
       String storyboardName = this.getName();
 
       htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
       htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
-      
+
       String shortFileName = "" + storyboardName + ".html";
       String pathname = "doc/" + shortFileName;
 
-      addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD+":"+testMethodName, pathname);
-      
+      addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD + ":" + testMethodName, pathname);
+
       StringBuffer text = new StringBuffer();
 
       for (StoryboardStep step : this.getStoryboardSteps())
@@ -1352,21 +1365,21 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
-      
+
       // add entry to refs.html
       try
       {
          byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/refs.html"));
          String refsText = new String(readAllBytes);
-         
+
          String entry = refForFile(storyboardName);
-         
+
          pos = refsText.indexOf(entry);
-         
+
          if (pos < 0)
          {
             String newText = CGUtil.replaceAll(refsText, "</body>", entry + "</body>");
-            
+
             writeToFile("refs.html", newText);
          }
       }
@@ -1375,12 +1388,10 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      
 
       coverage4GeneratedModelCode(largestRoot);
    }
-   
-   
+
    private void dumpIndexHtml()
    {
       new File("doc").mkdirs();
@@ -1390,24 +1401,24 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       // ensure style file
       File styleFile = new File("doc/style.css");
 
-      if ( ! styleFile.exists())
+      if (!styleFile.exists())
       {
-         String text = "" + 
-               "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" + 
-               "B {font-weight:bold;}\n" + 
-               "\n" + 
-               "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
-               "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
-               "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
-               "\n" + 
-               "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
-               "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" + 
-               "\n" + 
-               "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
-               "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
-               "\n" + 
-               "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
-               "";
+         String text = "" +
+            "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" +
+            "B {font-weight:bold;}\n" +
+            "\n" +
+            "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+            "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+            "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+            "\n" +
+            "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+            "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" +
+            "\n" +
+            "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+            "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+            "\n" +
+            "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+            "";
 
          writeToFile("style.css", text);
       }
@@ -1415,53 +1426,49 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       // ensure index.html
       File file = new File("doc/index.html");
 
-      if ( ! file.exists())
+      if (!file.exists())
       {
-         String text = 
-               "<html>\n" +
-                     "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
-                     "<frameset cols='250,*'>\n" +
-                     "<frame src='refs.html' name='Index'>\n" +
-                     "<frame name='Main'>a</frame>\n" +
-                     "<noframes>\n" +
-                     "  <body>\n" +
-                     "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
-                     "  </body>\n" +
-                     "</noframes>\n" +
-                     "</frameset>\n" +
-                     "</html>\n";
+         String text = "<html>\n" +
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
+            "<frameset cols='250,*'>\n" +
+            "<frame src='refs.html' name='Index'>\n" +
+            "<frame name='Main'>a</frame>\n" +
+            "<noframes>\n" +
+            "  <body>\n" +
+            "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
+            "  </body>\n" +
+            "</noframes>\n" +
+            "</frameset>\n" +
+            "</html>\n";
 
-         
          writeToFile("index.html", text);
       }
 
       // ensure refs.html
       file = new File("doc/refs.html");
 
-      if ( ! file.exists())
+      if (!file.exists())
       {
-         // build index 
+         // build index
          String refHtml = "<html>\n" +
-               "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-               "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-               "<body>\n" + 
-               "</body>\n" + 
-               "</html>\n";
-         
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<body>\n" +
+            "</body>\n" +
+            "</html>\n";
+
          writeToFile("refs.html", refHtml);
       }
 
    }
-   
 
-   public String refForFile(String filename) {
+   public String refForFile(String filename)
+   {
       String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
       ref = ref.replaceAll("filename", filename);
       return ref;
    }
-
-
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {
@@ -1545,28 +1552,29 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       return listeners;
    }
 
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
       return true;
    }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
       getPropertyChangeSupport().removePropertyChangeListener(listener);
       return true;
    }
-
 
    // ==========================================================================
 
    public void removeYou()
    {
-//      setWall(null);
+      // setWall(null);
       removeAllFromStoryboardSteps();
       withoutStoryboardSteps(this.getStoryboardSteps().toArray(new StoryboardStep[this.getStoryboardSteps().size()]));
       setWall(null);
@@ -1591,6 +1599,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
     * Storyboard ----------------------------------- StoryboardStep
     *              storyboard                   storyboardSteps
     * </pre>
+    * 
     * @return The StoryboardWall
     */
 
@@ -1686,53 +1695,55 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
     * Storyboard ----------------------------------- StoryboardWall
     *              storyboard                   wall
     * </pre>
+    * 
     * @return The StoryboardWall
     */
-//   public StoryboardWall getWall()
-//   {
-//      return this.wall;
-//   }
+   // public StoryboardWall getWall()
+   // {
+   // return this.wall;
+   // }
 
-//   public boolean setWall(StoryboardWall value)
-//   {
-//      boolean changed = false;
-//
-//      if (this.wall != value)
-//      {
-//         StoryboardWall oldValue = this.wall;
-//
-//         if (this.wall != null)
-//         {
-//            this.wall = null;
-//            oldValue.setStoryboard(null);
-//         }
-//
-//         this.wall = value;
-//
-//         if (value != null)
-//         {
-//            value.withStoryboard(this);
-//         }
-//
-//         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
-//         changed = true;
-//      }
-//
-//      return changed;
-//   }
+   // public boolean setWall(StoryboardWall value)
+   // {
+   // boolean changed = false;
+   //
+   // if (this.wall != value)
+   // {
+   // StoryboardWall oldValue = this.wall;
+   //
+   // if (this.wall != null)
+   // {
+   // this.wall = null;
+   // oldValue.setStoryboard(null);
+   // }
+   //
+   // this.wall = value;
+   //
+   // if (value != null)
+   // {
+   // value.withStoryboard(this);
+   // }
+   //
+   // getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue,
+   // value);
+   // changed = true;
+   // }
+   //
+   // return changed;
+   // }
 
-//   public Storyboard withWall(StoryboardWall value)
-//   {
-//      setWall(value);
-//      return this;
-//   }
+   // public Storyboard withWall(StoryboardWall value)
+   // {
+   // setWall(value);
+   // return this;
+   // }
 
-//   public StoryboardWall createWall()
-//   {
-//      StoryboardWall value = new StoryboardWall();
-//      withWall(value);
-//      return value;
-//   }
+   // public StoryboardWall createWall()
+   // {
+   // StoryboardWall value = new StoryboardWall();
+   // withWall(value);
+   // return value;
+   // }
 
    // ==========================================================================
    public String getRootDir()
@@ -1865,7 +1876,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
       public boolean update(Object values)
       {
-    	  PropertyChangeEvent evt = (PropertyChangeEvent) values;
+         PropertyChangeEvent evt = (PropertyChangeEvent) values;
          if (evt.getNewValue() != null
             && ("Integer Float Double Long Boolean String"
                .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0))
@@ -1875,7 +1886,6 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          return explicitElems.contains(evt.getNewValue());
       }
    }
-
 
    private StoryboardWall wall = null;
 
@@ -1887,28 +1897,28 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    public boolean setWall(StoryboardWall value)
    {
       boolean changed = false;
-      
+
       if (this.wall != value)
       {
          StoryboardWall oldValue = this.wall;
-         
+
          if (this.wall != null)
          {
             this.wall = null;
             oldValue.setStoryboard(null);
          }
-         
+
          this.wall = value;
-         
+
          if (value != null)
          {
             value.withStoryboard(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -1916,7 +1926,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
    {
       setWall(value);
       return this;
-   } 
+   }
 
    public StoryboardWall createWall()
    {
@@ -1927,14 +1937,15 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
 
    private void generateJavaDoc()
    {
-      // search the (test) method that creates this story for methods it calls / tests. 
+      // search the (test) method that creates this story for methods it calls /
+      // tests.
       // create a javadoc on such methods that refers to the test method.
-      
+
       // where am I called?
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      
+
       // find first method outside Storyboard and StoryPage
       int i = 1;
 
@@ -1942,8 +1953,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       {
          callEntry = stackTrace[i];
 
-         if (callEntry.getClassName().equals(Storyboard.class.getName()) 
-               || callEntry.getClassName().equals(StoryPage.class.getName()))
+         if (callEntry.getClassName().equals(Storyboard.class.getName())
+            || callEntry.getClassName().equals(StoryPage.class.getName()))
          {
             i++;
             continue;
@@ -1953,30 +1964,31 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             break;
          }
       }
-      
+
       String methodName = callEntry.getMethodName();
       String className = callEntry.getClassName();
-      String classFileName = className.replaceAll("\\.",  "/")+".java";
+      String classFileName = className.replaceAll("\\.", "/") + ".java";
       String fullFileName = this.rootDir + "/" + classFileName;
-      
+
       // parse the test method body
       Parser parser = new Parser().withFileName(fullFileName);
       File javaFile = new File(fullFileName);
 
       parser.withFileBody(CGUtil.readFile(javaFile));
-      
+
       parser.parse();
-      
+
       SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-      
-      SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName+"()");
-      
-      if (symTabEntry == null)   return; // <========== sudden death
-      
+
+      SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName + "()");
+
+      if (symTabEntry == null)
+         return; // <========== sudden death
+
       parser.parseMethodBody(symTabEntry);
-      
+
       StatementEntry parentStatement = parser.getCurrentStatement().getParent();
-      
+
       // loop through top level statements and look for interesting method calls
       for (StatementEntry statement : parentStatement.getBodyStatsTransitive())
       {
@@ -1985,7 +1997,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             continue;
          }
-         
+
          if (statement.toString().startsWith(" new"))
          {
             // yes, an object is created try to refer to it
@@ -2003,29 +2015,33 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
          {
             // try to find simple method calls
             ArrayList<String> tokenList = statement.getTokenList();
-            
-            if (tokenList.size() < 3) continue; // <==== sudden death
-            
+
+            if (tokenList.size() < 3)
+               continue; // <==== sudden death
+
             String callString = tokenList.get(0);
             String[] split = callString.split("\\.");
-            
-            if (split.length < 2 
-                  || ! tokenList.get(1).equals("("))  continue; // <==== sudden death
-            
+
+            if (split.length < 2
+               || !tokenList.get(1).equals("("))
+               continue; // <==== sudden death
+
             String varName = split[0];
             String methodUnderTestName = split[1];
 
             LocalVarTableEntry localVarTableEntry = parser.getLocalVarTable().get(varName);
-            
-            if (localVarTableEntry == null) return; // <=========== sudden death
+
+            if (localVarTableEntry == null)
+               return; // <=========== sudden death
 
             String classUnderTestName = localVarTableEntry.getType();
-            
+
             String fullClassUnderTestName = findJavaFile(classUnderTestName, symTab);
 
-            if (fullClassUnderTestName == null)   continue; // <==== sudden death
-            
-            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD+":"+methodUnderTestName, fullFileName);
+            if (fullClassUnderTestName == null)
+               continue; // <==== sudden death
+
+            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD + ":" + methodUnderTestName, fullFileName);
          }
       }
    }
@@ -2036,28 +2052,29 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       {
          // parse the class under test
          Parser parser = new Parser().withFileName(classUnderTestName);
-         
+
          File javaFile = new File(classUnderTestName);
-         
-         if ( ! javaFile.exists() ) return; // <=================== sudden death
-         
+
+         if (!javaFile.exists())
+            return; // <=================== sudden death
+
          parser.withFileBody(CGUtil.readFile(javaFile));
-         
+
          parser.parse();
-         
+
          ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
-         
-         for (int k = symTabEntries.size()-1; k >= 0; k--)
+
+         for (int k = symTabEntries.size() - 1; k >= 0; k--)
          {
             SymTabEntry symTabEntry = symTabEntries.get(k);
-            
+
             int javaDocStartPos = symTabEntry.getPreCommentStartPos();
             int javaDocEndPos = symTabEntry.getPreCommentEndPos();
-            String javaDocText = null; 
+            String javaDocText = null;
             if (javaDocStartPos == 0)
             {
                // no javadoc yet
-               javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos()-1;
+               javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos() - 1;
                javaDocText = "   /**\n"
                   + "    * \n"
                   + "    */\n"
@@ -2065,9 +2082,9 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             }
             else
             {
-               javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos+1);
+               javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos + 1);
             }
-            
+
             // compute reference
             while (testFileName.startsWith("./"))
             {
@@ -2080,49 +2097,51 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
             }
 
             String[] split = classUnderTestName.split("/");
-            
+
             String href = "";
-            for (int i = 0; i < split.length-1; i++)
+            for (int i = 0; i < split.length - 1; i++)
             {
                href += "../";
             }
-            
+
             href += testFileName;
-            
+
             String[] testFileSplit = testFileName.split("/");
 
-            String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>";
+            String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length - 1] + "</a>";
 
             if (javaDocText.indexOf(hrefText) < 0)
             {
                // add reference
-               
+
                int insertPos = javaDocText.indexOf("*/");
-               
-               if (insertPos < 0) continue; // <================ sudden death
-                  
-               javaDocText = javaDocText.substring(0, insertPos) 
-                     + hrefText + "\n "+ javaDocText.substring(insertPos);
-            
+
+               if (insertPos < 0)
+                  continue; // <================ sudden death
+
+               javaDocText = javaDocText.substring(0, insertPos)
+                  + hrefText + "\n " + javaDocText.substring(insertPos);
+
                // write new javadoc
-               parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);
+               parser.getFileBody().replace(javaDocStartPos, javaDocEndPos + 1, javaDocText);
                parser.withFileChanged(true);
                CGUtil.printFile(parser);
-               
+
             }
          }
       }
       catch (Exception e)
       {
-         // This may fail if the java source is not available, e.g. if run from a jar file
-         // No problem, just ignore it. 
+         // This may fail if the java source is not available, e.g. if run from
+         // a jar file
+         // No problem, just ignore it.
          // e.printStackTrace();
       }
    }
 
    private LinkedHashMap<String, String> javaFileTable = null;
    private String testMethodName;
-   
+
    private String findJavaFile(String classUnderTestName, SimpleKeyValueList<String, SymTabEntry> symTab)
    {
       if (javaFileTable == null)
@@ -2136,7 +2155,7 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                String fullImportName = key.substring("import:".length());
 
                fullImportName = CGUtil.packageName(fullImportName);
-               
+
                importedPackages.add(fullImportName);
             }
             else if (key.startsWith("package:"))
@@ -2146,39 +2165,39 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
                importedPackages.add(fullImportName);
             }
          }
-         
+
          // add package of test class
-         
 
          javaFileTable = new LinkedHashMap<String, String>();
-         
+
          searchJavaFiles(".", this.getRootDir(), "", importedPackages);
       }
-      
-      return javaFileTable.get(classUnderTestName+".java");
+
+      return javaFileTable.get(classUnderTestName + ".java");
    }
 
-   private void searchJavaFiles(String rootDir2, String fileName, String packageName, LinkedHashSet<String> importedPackages)
+   private void searchJavaFiles(String rootDir2, String fileName, String packageName,
+         LinkedHashSet<String> importedPackages)
    {
-      File dir = new File(rootDir2+"/"+fileName);
-      
+      File dir = new File(rootDir2 + "/" + fileName);
+
       if (fileName.endsWith(".java"))
       {
          // does it fit to imports?
-         String filePackageName = packageName.substring(1, packageName.length() - fileName.length()-1);
-         
+         String filePackageName = packageName.substring(1, packageName.length() - fileName.length() - 1);
+
          if (importedPackages.contains(filePackageName))
          {
-            javaFileTable.put(fileName, rootDir2+"/"+fileName);
+            javaFileTable.put(fileName, rootDir2 + "/" + fileName);
          }
       }
       else if (dir.isDirectory())
       {
          for (String kidName : dir.list())
          {
-            searchJavaFiles(rootDir2+"/"+fileName, kidName, packageName + "." + kidName, importedPackages);
+            searchJavaFiles(rootDir2 + "/" + fileName, kidName, packageName + "." + kidName, importedPackages);
          }
       }
-         
-   } 
+
+   }
 }

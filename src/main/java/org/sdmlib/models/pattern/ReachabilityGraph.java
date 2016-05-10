@@ -479,7 +479,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public enum Searchmode
    {
-      DEFAULT, DEPTH, IGNORE
+      DEFAULT, DEPTH, IGNORE, DEPTHIGNORE
    }
 
    public long explore(long maxNoOfNewStates, Searchmode mode)
@@ -487,6 +487,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       long currentStateNum = 1;
       long bestMetricYet = Long.MIN_VALUE;
       int ignoredStates = 0;
+      String ignoredString = "";
+      boolean changedIgnoreString = false;
 
       IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
 
@@ -507,7 +509,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       // take a todo state and apply all rules at all places until
       // maxNoOfNewStates
       // is reached
-      doToDo: while (!getTodo().isEmpty() && this.getStates().size() + ignoredStates <= maxNoOfNewStates)
+      doToDo: while (!getTodo().isEmpty() && this.getStates().size() <= maxNoOfNewStates)
       {
          if (metric != null)
          {
@@ -549,6 +551,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // expand more promising state.
                   // Now it is reconsidered. But we do not need to go through
                   // the already done expansions.
+                  bestMetricYet = (long) first.getMetricValue();
 
                   continue;
                }
@@ -588,13 +591,15 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      double newMetricValue = metric.compute(newReachableState.getGraphRoot());
                      newReachableState.setMetricValue(newMetricValue);
-                     if (mode == Searchmode.IGNORE && newMetricValue < bestMetricYet)
+                     if ((mode == Searchmode.IGNORE || mode == Searchmode.DEPTHIGNORE)
+                        && newMetricValue < bestMetricYet)
                      {
-                        if (++ignoredStates % 500 == 0)
-                        {
-                           System.out.print("*");
-                        }
                         // ignore rules with a bad metric
+                        if (++ignoredStates % (maxNoOfNewStates / 30) == 0)
+                        {
+                           ignoredString = " Ignored " + ignoredStates + " graphs.";
+                           changedIgnoreString = true;
+                        }
                         continue;
                      }
                      else
@@ -607,12 +612,27 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      newReachableState);
                   first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
-                  if (size % 50 == 0)
+                  // progress bar, 30 steps
+                  if (size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
                   {
-                     System.out.print(".");
+                     changedIgnoreString = false;
+                     System.out.print("Progress [");
+                     for (int i = 0; i < 30; i++)
+                     {
+                        if (i < (size / (maxNoOfNewStates / 30)))
+                        {
+                           System.out.print(".");
+                        }
+                        else
+                        {
+                           System.out.print(" ");
+                        }
+                     }
+                     System.out.print("] (Generating " + maxNoOfNewStates + " graphs)" + ignoredString + "\r");
                   }
 
-                  if (mode == Searchmode.DEPTH && newReachableState.getMetricValue() > first.getMetricValue())
+                  if ((mode == Searchmode.DEPTH || mode == Searchmode.DEPTHIGNORE)
+                     && newReachableState.getMetricValue() > first.getMetricValue())
                   {
                      // new state is more interesting than current state,
                      // abort current state and continue with new state
@@ -624,7 +644,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             }
          }
       }
-      System.out.println(" Ignored: " + ignoredStates + " states due to applied metric.");
 
       return currentStateNum;
    }
