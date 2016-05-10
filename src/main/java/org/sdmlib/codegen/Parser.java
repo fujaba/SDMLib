@@ -357,7 +357,7 @@ public class Parser
          int endPosAnnotation = currentRealToken.startPos - 1;
 
          // FIXME please
-         if (annotation != "")
+         if (!annotation.equals(""))
          {
             symTab.put(ANNOTATION + ":" + annotation.substring(1),
                new SymTabEntry().withKind(ANNOTATION).withMemberName(annotation.substring(1))

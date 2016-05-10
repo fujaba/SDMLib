@@ -99,18 +99,26 @@ public class GenEnumeration extends GenClazzEntity{
 		ArrayList<SymTabEntry> enumEntriesInSymTab = parser.getSymTabEntriesFor(signature);
 		
 		HashSet<String> knownValues = new HashSet<String>();
+		boolean firstEntry = true;
 		for (SymTabEntry symTabEnumEntry : enumEntriesInSymTab) {
 			int endPos = symTabEnumEntry.getEndPos();
-			if (endPos > -1 && endPos < enumCurrentPos) 
-			{
-			   enumCurrentPos = endPos;
+			if (firstEntry) {
+				if (endPos > -1) {
+					enumCurrentPos = endPos;
+					firstEntry = false;
+				}
+			} else {
+				if (endPos > -1 && endPos < enumCurrentPos) 
+				{
+					enumCurrentPos = endPos;
+				}
 			}
 			String memberName = symTabEnumEntry.getMemberName();
 			if (memberName.startsWith("_"))
 			{
-			   memberName = memberName.substring(1);
+				memberName = memberName.substring(1);
 			}
-         knownValues.add(memberName);
+			knownValues.add(memberName);
 		}
 		
 		SimpleSet<Literal> values = model.getValues();
@@ -127,7 +135,7 @@ public class GenEnumeration extends GenClazzEntity{
 	   {
 	      for (Attribute attr : model.getAttributes())
 	      {
-	         if ("PropertyChangeSupport".equals(attr.getType()))
+	         if ("PropertyChangeSupport".equals(attr.getType().getName(true)))
 	            continue;
 	         
 	         getGenerator(attr).generate(rootDir, helpersDir, false);

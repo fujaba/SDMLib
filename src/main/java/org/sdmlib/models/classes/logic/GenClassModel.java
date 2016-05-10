@@ -987,7 +987,7 @@ public class GenClassModel implements ClassModelAdapter
 
       for (Attribute attribute : clazzAttributes)
       {
-         if (!hasAttribute(attribute, entry, rootDir) && !"PropertyChangeSupport".equals(attribute.getType()))
+         if (!hasAttribute(attribute, entry, rootDir) && !"PropertyChangeSupport".equals(attribute.getType().getName(true)))
          {
             writeToFile(modelCreationClass);
 
@@ -1614,7 +1614,7 @@ public class GenClassModel implements ClassModelAdapter
 
       for (Attribute attribute : sortedAttributes)
       {
-         if (!"PropertyChangeSupport".equals(attribute.getType()))
+         if (!"PropertyChangeSupport".equals(attribute.getType().getName(true)))
          {
             currentInsertPos = insertCreationAttributeCode(attribute,
                   currentInsertPos, modelCreationClass, symTabEntry);
@@ -3023,7 +3023,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       for (Attribute attr : clazz.getAttributes())
       {
-         if (attrName.equals(attr.getName()) && type.equals(attr.getType()))
+         if (attrName.equals(attr.getName()) && type.equals(attr.getType().getName(true)))
             return true;
       }
       return false;

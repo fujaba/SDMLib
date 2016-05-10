@@ -398,7 +398,7 @@ public class GenMethod extends Generator<Method>
 			if (param.getName() != null) {
 				name = param.getName().trim();
 			}
-			if (name == "") {
+			if (name.equals("")) {
 				name = "p" + (i++);
 			}
 			formalParameter.append(name);

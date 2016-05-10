@@ -135,7 +135,7 @@ import java.lang.Object;
                   }
                }
             }
-            else
+            else if (value != null)
             {
                this.getTgt().setCandidates(value);
 

@@ -81,7 +81,7 @@ import java.lang.Object;
                itWorks = (value == null && tgtValue != null || value != null && ! value.equals(tgtValue));
             }
             
-            if (upperTgtValue != null)
+            if (value != null && upperTgtValue != null)
             {
                Comparable<Object> comparable = (Comparable<Object>) value;
                itWorks = comparable.compareTo(tgtValue) >= 0 && comparable.compareTo(upperTgtValue) <= 0;

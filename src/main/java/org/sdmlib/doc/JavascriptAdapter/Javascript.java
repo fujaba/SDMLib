@@ -30,7 +30,6 @@ public class Javascript implements GuiAdapter
 {
    public static final String NAME="Javascript";
    private String rootDir = "src";
-   private IdMap lastIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<>();
 
    @Override

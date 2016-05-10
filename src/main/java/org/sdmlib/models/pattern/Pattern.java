@@ -265,7 +265,6 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
    public static final String PROPERTY_ELEMENTS = "elements";
 
    private PatternElementSet elements = null;
-   private int objNo;
 
    public PatternElementSet getElements()
    {
@@ -543,7 +542,6 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
    
    public String dumpDiagramOld(String diagramName, boolean showMatch)
    {
-      objNo = 0;
 
       LinkedHashSet<Object> matchedObjects = new LinkedHashSet<Object>();
 

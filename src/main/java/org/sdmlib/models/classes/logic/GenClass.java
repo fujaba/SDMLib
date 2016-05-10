@@ -204,7 +204,7 @@ public class GenClass extends GenClazzEntity
    {
       for (Attribute attr : model.getAttributes())
       {
-         if ("PropertyChangeSupport".equals(attr.getType()))
+         if ("PropertyChangeSupport".equals(attr.getType().getName(true)))
             continue;
          
          getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
@@ -226,7 +226,7 @@ public class GenClass extends GenClazzEntity
 
       for (Attribute attr : superClazz.getAttributes())
       {
-         if ("PropertyChangeSupport".equals(attr.getType()))
+         if ("PropertyChangeSupport".equals(attr.getType().getName(true)))
             continue;
          GenAttribute generator = getGenerator(attr);
          if (generator != null)
@@ -318,7 +318,7 @@ public class GenClass extends GenClazzEntity
 			}
 		}
 	}
-	final String searchString="jsonIdMap.withCreator(new ";
+	static final String searchString="jsonIdMap.withCreator(new ";
 	private boolean isMultiCreator(Parser creatorcreator) {
 		creatorcreator.indexOf(Parser.CLASS_END);
 		ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
