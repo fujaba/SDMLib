@@ -91,7 +91,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 	private String databaseName;
 	private String userName = "couchdb";
 
-	private ExecutorService executor = Executors.newFixedThreadPool(2);
+	private ExecutorService executor; // = Executors.newFixedThreadPool(2);
 	private long lastChangeId = 0;
 
 	private ConcurrentLinkedQueue<Task<Boolean>> queue = new ConcurrentLinkedQueue<>();
@@ -108,6 +108,8 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 
 	public ModelCouch(CouchDBAdapter couchAdapter) {
 		this.couchDBAdapter = couchAdapter;
+		this.hostName = couchAdapter.getHostName();
+		this.port = couchAdapter.getPort();
 	}
 
 	public ModelCouch registerAtIdMap() {
@@ -129,6 +131,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 	// try to open connection to an existing database
 	// create new if database was not existing
 	public ModelCouch open(String databaseName) {
+		executor = Executors.newFixedThreadPool(2);
 		this.databaseName = databaseName;
 
 		String urlString = "http://" + hostName + ":" + port + "/" + databaseName + "/";

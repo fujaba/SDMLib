@@ -166,7 +166,7 @@ public class ModelCouchTasksTest {
 
 	@BeforeClass
 	public static void testForConnection() {
-		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withUserName(DB_USERNAME);
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withHostName(DB_HOST).withPort(DB_PORT).withUserName(DB_USERNAME);
 		assumeTrue("Couch is not Reachable", couchDBAdapter.testConnection());
 
 		if (DB_PASSWORD != null && !DB_PASSWORD.equals("")) {
@@ -305,8 +305,7 @@ public class ModelCouchTasksTest {
 
 	@Test
 	public void testDatabaseReachable() {
-		// ModelCouch couch = createCouch();
-		CouchDBAdapter couchDBAdapter = new CouchDBAdapter();
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withHostName(DB_HOST).withPort(DB_PORT);
 		assertFalse(couchDBAdapter.testConnection(DB_NAME));
 		couchDBAdapter.createDB(DB_NAME);
 		assertTrue(couchDBAdapter.testConnection(DB_NAME));
