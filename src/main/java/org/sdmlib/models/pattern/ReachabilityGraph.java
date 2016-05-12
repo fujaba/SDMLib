@@ -490,7 +490,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       String ignoredString = "";
       boolean changedIgnoreString = false;
 
-      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
+      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("rg");
 
       // inital states get certificates
       for (ReachableState s : this.getStates())
@@ -569,7 +569,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   newReachableState.setMetricValue(newMetricValue);
                   
                   if ((mode == Searchmode.IGNORE || mode == Searchmode.DEPTHIGNORE)
-                     && newMetricValue < bestMetricYet)
+                     && newMetricValue <= bestMetricYet)
                   {
                      // ignore rules with a bad metric
                      if (++ignoredStates % (maxNoOfNewStates / 30) == 0)
@@ -587,7 +587,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                
                // is the new graph already known?
                newJsonIdMap = (IdMap) new SDMLibIdMap("r").with(rule.getIdMap());
-               newJsonIdMap.withSessionId("s");
+               newJsonIdMap.withSessionId("cg");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
 
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
