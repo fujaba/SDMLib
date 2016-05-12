@@ -562,6 +562,29 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
+               if (metric != null)
+               {
+                  // computing the metric is cheap and might allow to avoid further computation
+                  double newMetricValue = metric.compute(newReachableState.getGraphRoot());
+                  newReachableState.setMetricValue(newMetricValue);
+                  
+                  if ((mode == Searchmode.IGNORE || mode == Searchmode.DEPTHIGNORE)
+                     && newMetricValue < bestMetricYet)
+                  {
+                     // ignore rules with a bad metric
+                     if (++ignoredStates % (maxNoOfNewStates / 30) == 0)
+                     {
+                        ignoredString = " Ignored " + ignoredStates + " graphs.";
+                        changedIgnoreString = true;
+                     }
+                     continue;
+                  }
+                  else
+                  {
+                     bestMetricYet = (long) Math.max(bestMetricYet, newMetricValue);
+                  }
+               }
+               
                // is the new graph already known?
                newJsonIdMap = (IdMap) new SDMLibIdMap("r").with(rule.getIdMap());
                newJsonIdMap.withSessionId("s");
@@ -587,26 +610,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                if (match == null)
                {
                   // no isomorphic old state, add new state
-                  if (metric != null)
-                  {
-                     double newMetricValue = metric.compute(newReachableState.getGraphRoot());
-                     newReachableState.setMetricValue(newMetricValue);
-                     if ((mode == Searchmode.IGNORE || mode == Searchmode.DEPTHIGNORE)
-                        && newMetricValue < bestMetricYet)
-                     {
-                        // ignore rules with a bad metric
-                        if (++ignoredStates % (maxNoOfNewStates / 30) == 0)
-                        {
-                           ignoredString = " Ignored " + ignoredStates + " graphs.";
-                           changedIgnoreString = true;
-                        }
-                        continue;
-                     }
-                     else
-                     {
-                        bestMetricYet = (long) Math.max(bestMetricYet, newMetricValue);
-                     }
-                  }
+                  
 
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate,
                      newReachableState);
