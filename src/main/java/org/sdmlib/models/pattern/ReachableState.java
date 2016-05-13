@@ -95,7 +95,8 @@ import org.sdmlib.models.pattern.RuleApplication;
 
          // get the id
          String id = jsonObj.getString(IdMap.ID);
-         oldnode2certificates.put(id, "#" + id.charAt(2));
+         int pos = id.indexOf('.');
+         oldnode2certificates.put(id, "#" + id.charAt(pos+1));
       }
 
       boolean stopNextRound = false;
