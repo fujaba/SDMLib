@@ -646,7 +646,7 @@ public class StudyRightWithAssignmentsStoryboards {
         	 Assert.assertEquals(25, assertMatch.getCredits());
          }
          
-//         System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
+         //         System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
       }
       
       story.addCode();
@@ -654,6 +654,30 @@ public class StudyRightWithAssignmentsStoryboards {
       story.addPattern(roomPO, false);
       
       story.addObjectDiagramOnlyWith(university.getStudents(), university.getStudents().getIn());
+      
+      
+    //=====================================================
+      story.addStep("lure students from other rooms into math room: ");
+      
+      story.markCodeStart();
+      
+      roomPO = new RoomPO(mathRoom);
+      
+      stud1PO = roomPO.filterPath(r->((Room)r).getDoors().getStudents(), new StudentPO());
+      
+      stud1PO.startCreate();
+      
+      stud1PO.filterIn(roomPO);
+      
+      stud1PO.allMatches();
+      
+      story.addCode();
+
+      story.addPattern(roomPO, false);
+      
+      story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
+
+      story.assertEquals("New students in math room: ", 3, mathRoom.getStudents().size());
       
       story.dumpHTML();
    }

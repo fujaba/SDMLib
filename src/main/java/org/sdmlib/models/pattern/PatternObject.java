@@ -807,6 +807,22 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+   
+   
+   public <TPOC extends PatternObject> TPOC filterPath(PathExpression expression, TPOC targetPatternObject)
+   {
+      PatternPath patternPath = new PatternPath();
+      patternPath.setPathExpr(expression);
+      patternPath.withSrc(this).withPattern(this.getPattern());
+      patternPath.withTgt(targetPatternObject);
+      
+      targetPatternObject.withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return targetPatternObject;
+   }
+   
    /********************************************************************
     * <pre>
     *              one                       one
