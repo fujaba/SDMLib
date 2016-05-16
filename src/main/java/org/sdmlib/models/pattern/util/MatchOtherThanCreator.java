@@ -1,24 +1,24 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.IdMap;
 
-public class MatchOtherThenCreator extends PatternElementCreator
+public class MatchOtherThanCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
-      MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT,
+      MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT,
       PatternElement.PROPERTY_MODIFIER,
       PatternElement.PROPERTY_HASMATCH,
       PatternElement.PROPERTY_PATTERNOBJECTNAME,
       PatternElement.PROPERTY_DOALLMATCHES,
       PatternElement.PROPERTY_PATTERN,
-      MatchOtherThen.PROPERTY_SRC,
-      MatchOtherThen.PROPERTY_FORBIDDEN,
+      MatchOtherThan.PROPERTY_SRC,
+      MatchOtherThan.PROPERTY_FORBIDDEN,
    };
    
    @Override
@@ -30,30 +30,30 @@ public class MatchOtherThenCreator extends PatternElementCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new MatchOtherThen();
+      return new MatchOtherThan();
    }
    
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
-         return ((MatchOtherThen)target).getHostGraphSrcObject();
+         return ((MatchOtherThan)target).getHostGraphSrcObject();
       }
 
-      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         return ((MatchOtherThen)target).getSrc();
+         return ((MatchOtherThan)target).getSrc();
       }
 
-      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
       {
-         return ((MatchOtherThen)target).getForbidden();
+         return ((MatchOtherThan)target).getForbidden();
       }
 
-      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         return ((MatchOtherThen) target).getPattern();
+         return ((MatchOtherThan) target).getPattern();
       }
       return super.getValue(target, attrName);
    }
@@ -61,27 +61,27 @@ public class MatchOtherThenCreator extends PatternElementCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
-         ((MatchOtherThen)target).setHostGraphSrcObject((Object) value);
+         ((MatchOtherThan)target).setHostGraphSrcObject((Object) value);
          return true;
       }
 
-      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         ((MatchOtherThen)target).setSrc((PatternObject<?,?>) value);
+         ((MatchOtherThan)target).setSrc((PatternObject<?,?>) value);
          return true;
       }
 
-      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
       {
-         ((MatchOtherThen)target).setForbidden((PatternObject<?,?>) value);
+         ((MatchOtherThan)target).setForbidden((PatternObject<?,?>) value);
          return true;
       }
 
-      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      if (MatchOtherThan.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((MatchOtherThen) target).setPattern((Pattern) value);
+         ((MatchOtherThan) target).setPattern((Pattern) value);
          return true;
       }
 
@@ -99,7 +99,7 @@ public class MatchOtherThenCreator extends PatternElementCreator
    @Override
    public void removeObject(Object entity)
    {
-      ((MatchOtherThen) entity).removeYou();
+      ((MatchOtherThan) entity).removeYou();
    }
 }
 

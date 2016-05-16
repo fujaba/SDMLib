@@ -1,19 +1,19 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 
 import de.uniks.networkparser.IdMap;
 
 
-public class MatchOtherThenPOCreator extends PatternObjectCreator
+public class MatchOtherThanPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new MatchOtherThenPO(new MatchOtherThen[]{});
+         return new MatchOtherThanPO(new MatchOtherThan[]{});
       } else {
-         return new MatchOtherThenPO();
+         return new MatchOtherThanPO();
       }
    }
    

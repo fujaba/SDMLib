@@ -26,7 +26,7 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
@@ -36,14 +36,14 @@ import de.uniks.networkparser.list.SimpleSet;
 
 import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
+public class MatchOtherThanSet extends SimpleSet<MatchOtherThan> implements org.sdmlib.models.modelsets.ModelSet
 {
    @Override
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (MatchOtherThen elem : this)
+      for (MatchOtherThan elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -55,7 +55,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.models.pattern.MatchOtherThen";
+      return "org.sdmlib.models.pattern.MatchOtherThan";
    }
 
 
@@ -63,7 +63,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       ObjectSet result = new ObjectSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getHostGraphSrcObject());
       }
@@ -71,9 +71,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withHostGraphSrcObject(Object value)
+   public MatchOtherThanSet withHostGraphSrcObject(Object value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.setHostGraphSrcObject(value);
       }
@@ -85,7 +85,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       StringList result = new StringList();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getModifier());
       }
@@ -93,9 +93,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withModifier(String value)
+   public MatchOtherThanSet withModifier(String value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.setModifier(value);
       }
@@ -107,7 +107,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       booleanList result = new booleanList();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getHasMatch());
       }
@@ -115,9 +115,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withHasMatch(boolean value)
+   public MatchOtherThanSet withHasMatch(boolean value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.setHasMatch(value);
       }
@@ -129,7 +129,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       StringList result = new StringList();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
@@ -137,9 +137,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withPatternObjectName(String value)
+   public MatchOtherThanSet withPatternObjectName(String value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.setPatternObjectName(value);
       }
@@ -151,7 +151,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       booleanList result = new booleanList();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
@@ -159,9 +159,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withDoAllMatches(boolean value)
+   public MatchOtherThanSet withDoAllMatches(boolean value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.setDoAllMatches(value);
       }
@@ -173,7 +173,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       PatternSet result = new PatternSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getPattern());
       }
@@ -181,9 +181,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withPattern(Pattern value)
+   public MatchOtherThanSet withPattern(Pattern value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.withPattern(value);
       }
@@ -195,7 +195,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       PatternObjectSet result = new PatternObjectSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getSrc());
       }
@@ -203,9 +203,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withSrc(PatternObject value)
+   public MatchOtherThanSet withSrc(PatternObject value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.withSrc(value);
       }
@@ -217,7 +217,7 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
    {
       PatternObjectSet result = new PatternObjectSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          result.add(obj.getForbidden());
       }
@@ -225,9 +225,9 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet withForbidden(PatternObject value)
+   public MatchOtherThanSet withForbidden(PatternObject value)
    {
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          obj.withForbidden(value);
       }
@@ -237,13 +237,13 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
 
-   public MatchOtherThenPO startModelPattern()
+   public MatchOtherThanPO startModelPattern()
    {
-      return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
+      return new MatchOtherThanPO(this.toArray(new MatchOtherThan[this.size()]));
    }
 
 
-   public MatchOtherThenSet with(Object value)
+   public MatchOtherThanSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
@@ -251,13 +251,13 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       }
       else if (value != null)
       {
-         this.add((MatchOtherThen) value);
+         this.add((MatchOtherThan) value);
       }
       
       return this;
    }
    
-   public MatchOtherThenSet without(MatchOtherThen value)
+   public MatchOtherThanSet without(MatchOtherThan value)
    {
       this.remove(value);
       return this;
@@ -265,17 +265,17 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
 
-   public MatchOtherThenPO hasMatchOtherThenPO()
+   public MatchOtherThanPO hasMatchOtherThanPO()
    {
-      return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
+      return new MatchOtherThanPO(this.toArray(new MatchOtherThan[this.size()]));
    }
 
-   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withFlag(MatchOtherThenSet.READONLY);
-   public MatchOtherThenSet hasHostGraphSrcObject(Object value)
+   public static final MatchOtherThanSet EMPTY_SET = new MatchOtherThanSet().withFlag(MatchOtherThanSet.READONLY);
+   public MatchOtherThanSet hasHostGraphSrcObject(Object value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.getHostGraphSrcObject())
          {
@@ -286,11 +286,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasModifier(String value)
+   public MatchOtherThanSet hasModifier(String value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value.equals(obj.getModifier()))
          {
@@ -301,11 +301,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasModifier(String lower, String upper)
+   public MatchOtherThanSet hasModifier(String lower, String upper)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
          {
@@ -316,11 +316,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasHasMatch(boolean value)
+   public MatchOtherThanSet hasHasMatch(boolean value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.isHasMatch())
          {
@@ -331,11 +331,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasPatternObjectName(String value)
+   public MatchOtherThanSet hasPatternObjectName(String value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value.equals(obj.getPatternObjectName()))
          {
@@ -346,11 +346,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasPatternObjectName(String lower, String upper)
+   public MatchOtherThanSet hasPatternObjectName(String lower, String upper)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
          {
@@ -361,11 +361,11 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
       return result;
    }
 
-   public MatchOtherThenSet hasDoAllMatches(boolean value)
+   public MatchOtherThanSet hasDoAllMatches(boolean value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.isDoAllMatches())
          {
@@ -378,23 +378,23 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
 
-   public MatchOtherThenPO filterMatchOtherThenPO()
+   public MatchOtherThanPO filterMatchOtherThanPO()
    {
-      return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
+      return new MatchOtherThanPO(this.toArray(new MatchOtherThan[this.size()]));
    }
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the hostGraphSrcObject attribute matches the parameter value. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the hostGraphSrcObject attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterHostGraphSrcObject(Object value)
+   public MatchOtherThanSet filterHostGraphSrcObject(Object value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.getHostGraphSrcObject())
          {
@@ -407,17 +407,17 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the modifier attribute matches the parameter value. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the modifier attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterModifier(String value)
+   public MatchOtherThanSet filterModifier(String value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value.equals(obj.getModifier()))
          {
@@ -430,18 +430,18 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the modifier attribute is between lower and upper. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the modifier attribute is between lower and upper. 
     * 
     * @param lower Lower bound 
     * @param upper Upper bound 
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterModifier(String lower, String upper)
+   public MatchOtherThanSet filterModifier(String lower, String upper)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
          {
@@ -454,17 +454,17 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the hasMatch attribute matches the parameter value. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterHasMatch(boolean value)
+   public MatchOtherThanSet filterHasMatch(boolean value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.isHasMatch())
          {
@@ -477,17 +477,17 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the patternObjectName attribute matches the parameter value. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterPatternObjectName(String value)
+   public MatchOtherThanSet filterPatternObjectName(String value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value.equals(obj.getPatternObjectName()))
          {
@@ -500,18 +500,18 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the patternObjectName attribute is between lower and upper. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the patternObjectName attribute is between lower and upper. 
     * 
     * @param lower Lower bound 
     * @param upper Upper bound 
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterPatternObjectName(String lower, String upper)
+   public MatchOtherThanSet filterPatternObjectName(String lower, String upper)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
          {
@@ -524,17 +524,17 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.
 
 
    /**
-    * Loop through the current set of MatchOtherThen objects and collect those MatchOtherThen objects where the doAllMatches attribute matches the parameter value. 
+    * Loop through the current set of MatchOtherThan objects and collect those MatchOtherThan objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of MatchOtherThen objects that match the parameter
+    * @return Subset of MatchOtherThan objects that match the parameter
     */
-   public MatchOtherThenSet filterDoAllMatches(boolean value)
+   public MatchOtherThanSet filterDoAllMatches(boolean value)
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
-      for (MatchOtherThen obj : this)
+      for (MatchOtherThan obj : this)
       {
          if (value == obj.isDoAllMatches())
          {

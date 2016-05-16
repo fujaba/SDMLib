@@ -86,8 +86,8 @@ public class ReachabilityGraphFerrymansProblemExample
       
       CargoPO cargoPO = bankPO.hasCargos();
       
-      CargoPO goatPO = bankPO.startNAC().hasCargos().hasName("goat").hasMatchOtherThen(cargoPO);
-      bankPO.hasCargos().hasMatchOtherThen(cargoPO).hasMatchOtherThen(goatPO);
+      CargoPO goatPO = bankPO.startNAC().hasCargos().hasName("goat").hasMatchOtherThan(cargoPO);
+      bankPO.hasCargos().hasMatchOtherThan(cargoPO).hasMatchOtherThan(goatPO);
       bankPO.endNAC();
       
       loadPattern.clone(reachabilityGraph);
@@ -118,11 +118,11 @@ public class ReachabilityGraphFerrymansProblemExample
       
       BankPO oldBankPO = boatPO.hasBank();
       
-      BankPO newBankPO = riverPO.hasBanks().hasMatchOtherThen(oldBankPO);
+      BankPO newBankPO = riverPO.hasBanks().hasMatchOtherThan(oldBankPO);
       
       // do not leave the goat allone with some other cargo
       goatPO = oldBankPO.startNAC().hasCargos().hasName("goat");
-      oldBankPO.hasCargos().hasMatchOtherThen(goatPO).endNAC();
+      oldBankPO.hasCargos().hasMatchOtherThan(goatPO).endNAC();
       
       movePattern.clone(reachabilityGraph);
       

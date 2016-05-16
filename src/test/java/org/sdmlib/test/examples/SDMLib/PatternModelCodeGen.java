@@ -128,10 +128,10 @@ public class PatternModelCodeGen
          .withAttribute("maxCard", DataType.LONG)
       .withBidirectional(patternObject, "src", Cardinality.ONE, "cardConstraints", Cardinality.MANY);
       
-      model.createClazz("MatchOtherThen")
+      model.createClazz("MatchOtherThan")
          .withSuperClazz(patternElement)
          .withAttribute("hostGraphSrcObject", DataType.OBJECT)
-         .withBidirectional(patternObject, "src", Cardinality.ONE, "matchOtherThen", Cardinality.MANY)
+         .withBidirectional(patternObject, "src", Cardinality.ONE, "matchOtherThan", Cardinality.MANY)
          .withBidirectional(patternObject, "forbidden", Cardinality.ONE, "excluders", Cardinality.MANY);
       
       model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)

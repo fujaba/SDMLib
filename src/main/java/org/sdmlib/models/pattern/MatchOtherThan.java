@@ -21,7 +21,7 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
+import org.sdmlib.models.pattern.util.MatchOtherThanSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import java.lang.Object;
@@ -30,7 +30,7 @@ import org.sdmlib.models.pattern.PatternObject;
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
-   public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
+   public class MatchOtherThan extends PatternElement<MatchOtherThan> implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
@@ -137,7 +137,7 @@ import org.sdmlib.models.pattern.PatternObject;
       }
    }
    
-   public MatchOtherThen withHostGraphSrcObject(Object value)
+   public MatchOtherThan withHostGraphSrcObject(Object value)
    {
       setHostGraphSrcObject(value);
       return this;
@@ -158,8 +158,8 @@ import org.sdmlib.models.pattern.PatternObject;
    /********************************************************************
     * <pre>
     *              many                       one
-    * MatchOtherThen ----------------------------------- PatternObject
-    *              matchOtherThen                   src
+    * MatchOtherThan ----------------------------------- PatternObject
+    *              matchOtherThan                   src
     * </pre>
     */
    
@@ -183,14 +183,14 @@ import org.sdmlib.models.pattern.PatternObject;
          if (this.src != null)
          {
             this.src = null;
-            oldValue.withoutMatchOtherThen(this);
+            oldValue.withoutMatchOtherThan(this);
          }
          
          this.src = value;
          
          if (value != null)
          {
-            value.withMatchOtherThen(this);
+            value.withMatchOtherThan(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
@@ -200,7 +200,7 @@ import org.sdmlib.models.pattern.PatternObject;
       return changed;
    }
    
-   public MatchOtherThen withSrc(PatternObject value)
+   public MatchOtherThan withSrc(PatternObject value)
    {
       setSrc(value);
       return this;
@@ -214,13 +214,13 @@ import org.sdmlib.models.pattern.PatternObject;
    } 
 
    
-   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet();
+   public static final MatchOtherThanSet EMPTY_SET = new MatchOtherThanSet();
 
    
    /********************************************************************
     * <pre>
     *              many                       one
-    * MatchOtherThen ----------------------------------- PatternObject
+    * MatchOtherThan ----------------------------------- PatternObject
     *              excluders                   forbidden
     * </pre>
     */
@@ -262,7 +262,7 @@ import org.sdmlib.models.pattern.PatternObject;
       return changed;
    }
    
-   public MatchOtherThen withForbidden(PatternObject value)
+   public MatchOtherThan withForbidden(PatternObject value)
    {
       setForbidden(value);
       return this;

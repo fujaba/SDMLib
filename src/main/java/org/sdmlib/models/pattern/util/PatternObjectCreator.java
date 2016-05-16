@@ -3,7 +3,7 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
@@ -28,7 +28,7 @@ public class PatternObjectCreator extends PatternElementCreator
       PatternObject.PROPERTY_ATTRCONSTRAINTS,
       PatternObject.PROPERTY_DESTROYELEM,
       PatternObject.PROPERTY_CARDCONSTRAINTS,
-      PatternObject.PROPERTY_MATCHOTHERTHEN,
+      PatternObject.PROPERTY_MATCHOTHERTHAN,
       PatternObject.PROPERTY_EXCLUDERS,
    };
    
@@ -89,9 +89,9 @@ public class PatternObjectCreator extends PatternElementCreator
          return ((PatternObject<?, ?>)target).getCardConstraints();
       }
 
-      if (PatternObject.PROPERTY_MATCHOTHERTHEN.equalsIgnoreCase(attribute))
+      if (PatternObject.PROPERTY_MATCHOTHERTHAN.equalsIgnoreCase(attribute))
       {
-         return ((PatternObject<?, ?>)target).getMatchOtherThen();
+         return ((PatternObject<?, ?>)target).getMatchOtherThan();
       }
 
       if (PatternObject.PROPERTY_EXCLUDERS.equalsIgnoreCase(attribute))
@@ -175,27 +175,27 @@ public class PatternObjectCreator extends PatternElementCreator
          return true;
       }
 
-      if (PatternObject.PROPERTY_MATCHOTHERTHEN.equalsIgnoreCase(attrName))
+      if (PatternObject.PROPERTY_MATCHOTHERTHAN.equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).addToMatchOtherThen((MatchOtherThen) value);
+         ((PatternObject<?, ?>)target).addToMatchOtherThan((MatchOtherThan) value);
          return true;
       }
 
-      if ((PatternObject.PROPERTY_MATCHOTHERTHEN + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_MATCHOTHERTHAN + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).removeFromMatchOtherThen((MatchOtherThen) value);
+         ((PatternObject<?, ?>)target).removeFromMatchOtherThan((MatchOtherThan) value);
          return true;
       }
 
       if (PatternObject.PROPERTY_EXCLUDERS.equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).addToExcluders((MatchOtherThen) value);
+         ((PatternObject<?, ?>)target).addToExcluders((MatchOtherThan) value);
          return true;
       }
 
       if ((PatternObject.PROPERTY_EXCLUDERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).removeFromExcluders((MatchOtherThen) value);
+         ((PatternObject<?, ?>)target).removeFromExcluders((MatchOtherThan) value);
          return true;
       }
 
