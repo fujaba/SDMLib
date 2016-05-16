@@ -115,12 +115,12 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return this;
    }
    
-   public PatternLinkPO hasIncomming()
+   public PatternLinkPO hasIncoming()
    {
       PatternLinkPO result = new PatternLinkPO();
       
       PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(PatternObject.PROPERTY_INCOMMING)
+      .withTgt(result).withTgtRoleName(PatternObject.PROPERTY_INCOMING)
       .withSrc(this);
       
       super.getPattern().addToElements(patternLink);
@@ -132,10 +132,10 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return result;
    }
    
-   public PatternObjectPO hasIncomming(PatternLinkPO tgt)
+   public PatternObjectPO hasIncoming(PatternLinkPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_INCOMMING)
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_INCOMING)
       .withSrc(this);
       
       super.getPattern().addToElements(patternLink);
@@ -145,20 +145,20 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return this;
    }
    
-   public PatternObjectPO withIncomming(PatternLinkPO tgtPO)
+   public PatternObjectPO withIncoming(PatternLinkPO tgtPO)
    {
       if (super.getCurrentMatch() != null)
       {
-         ((PatternObject) super.getCurrentMatch()).withIncomming((PatternLink) tgtPO.getCurrentMatch());
+         ((PatternObject) super.getCurrentMatch()).withIncoming((PatternLink) tgtPO.getCurrentMatch());
       }
       return this;
    }
    
-   public PatternObjectPO withoutIncomming(PatternLinkPO tgtPO)
+   public PatternObjectPO withoutIncoming(PatternLinkPO tgtPO)
    {
       if (super.getCurrentMatch() != null)
       {
-         ((PatternObject) super.getCurrentMatch()).withoutIncomming((PatternLink) tgtPO.getCurrentMatch());
+         ((PatternObject) super.getCurrentMatch()).withoutIncoming((PatternLink) tgtPO.getCurrentMatch());
       }
       return this;
    }
@@ -287,11 +287,11 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return false;
    }
    
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      if (super.getCurrentMatch() != null)
 //      {
-//         return ((PatternObject) this.getCurrentMatch()).getIncomming();
+//         return ((PatternObject) this.getCurrentMatch()).getIncoming();
 //      }
 //      return null;
 //   }

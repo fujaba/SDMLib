@@ -22,7 +22,7 @@ public class PatternObjectCreator extends PatternElementCreator
       PatternElement.PROPERTY_PATTERNOBJECTNAME,
 
       PatternObject.PROPERTY_CURRENTMATCH,
-      PatternObject.PROPERTY_INCOMMING,
+      PatternObject.PROPERTY_INCOMING,
       PatternObject.PROPERTY_OUTGOING,
       PatternObject.PROPERTY_CANDIDATES,
       PatternObject.PROPERTY_ATTRCONSTRAINTS,
@@ -60,9 +60,9 @@ public class PatternObjectCreator extends PatternElementCreator
          return ((PatternObject<?, ?>)target).getCurrentMatch();
       }
 
-      if (PatternObject.PROPERTY_INCOMMING.equalsIgnoreCase(attribute))
+      if (PatternObject.PROPERTY_INCOMING.equalsIgnoreCase(attribute))
       {
-         return ((PatternObject<?, ?>)target).getIncomming();
+         return ((PatternObject<?, ?>)target).getIncoming();
       }
       if (PatternObject.PROPERTY_OUTGOING.equalsIgnoreCase(attribute))
       {
@@ -115,15 +115,15 @@ public class PatternObjectCreator extends PatternElementCreator
          ((PatternObject<?, ?>)target).setCurrentMatch((Object) value);
          return true;
       }
-      if (PatternObject.PROPERTY_INCOMMING.equalsIgnoreCase(attrName))
+      if (PatternObject.PROPERTY_INCOMING.equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).addToIncomming((PatternLink) value);
+         ((PatternObject<?, ?>)target).addToIncoming((PatternLink) value);
          return true;
       }
 
-      if ((PatternObject.PROPERTY_INCOMMING + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PatternObject.PROPERTY_INCOMING + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((PatternObject<?, ?>)target).removeFromIncomming((PatternLink) value);
+         ((PatternObject<?, ?>)target).removeFromIncoming((PatternLink) value);
          return true;
       }
 

@@ -47,7 +47,7 @@ import de.uniks.networkparser.graph.DataType;
       .withAttribute("srcLabel", DataType.STRING);
 
       genericObjectClazz.withBidirectional(genericLinkClazz, "outgoingLinks", Cardinality.MANY, "src", Cardinality.ONE);
-      genericObjectClazz.withBidirectional(genericLinkClazz, "incommingLinks", Cardinality.MANY, "tgt", Cardinality.ONE);
+      genericObjectClazz.withBidirectional(genericLinkClazz, "incomingLinks", Cardinality.MANY, "tgt", Cardinality.ONE);
       
       genericGraph.withBidirectional(genericLinkClazz, "links", Cardinality.MANY, "graph", Cardinality.ONE);
       

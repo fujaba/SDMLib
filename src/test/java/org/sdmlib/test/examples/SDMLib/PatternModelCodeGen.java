@@ -83,7 +83,7 @@ public class PatternModelCodeGen
       
 //      new Association()
 //      .withTarget(patternObject, "tgt", R.ONE)
-//      .withSource(patternLink, "incomming", R.MANY);
+//      .withSource(patternLink, "incoming", R.MANY);
 //      
 //      new Association()
 //      .withTarget(patternObject, "src", R.ONE)

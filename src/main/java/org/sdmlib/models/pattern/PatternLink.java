@@ -263,7 +263,7 @@ import java.lang.Object;
     * <pre>
     *              many                       one
     * PatternLink ----------------------------------- PatternObject
-    *              incomming                   tgt
+    *              incoming                   tgt
     * </pre>
     */
    
@@ -287,14 +287,14 @@ import java.lang.Object;
          if (this.tgt != null)
          {
             this.tgt = null;
-            oldValue.withoutIncomming(this);
+            oldValue.withoutIncoming(this);
          }
          
          this.tgt = value;
          
          if (value != null)
          {
-            value.withIncomming(this);
+            value.withIncoming(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);

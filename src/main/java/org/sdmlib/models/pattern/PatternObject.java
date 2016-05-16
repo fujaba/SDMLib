@@ -53,13 +53,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public static final String PROPERTY_CURRENTMATCH = "currentMatch";
    public static final String PROPERTY_DESTROYELEM = "destroyElem";
    public static final String PROPERTY_EXCLUDERS = "excluders";
-   public static final String PROPERTY_INCOMMING = "incomming";
+   public static final String PROPERTY_INCOMING = "incoming";
    public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
    public static final String PROPERTY_OUTGOING = "outgoing";
 
    private PatternLinkSet outgoing = null;
    private MatchOtherThenSet matchOtherThen = null;
-   private PatternLinkSet incomming = null;
+   private PatternLinkSet incoming = null;
    private MatchOtherThenSet excluders = null;
    private DestroyObjectElem destroyElem = null;
    private Object currentMatch;
@@ -418,7 +418,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       super.removeYou();
 
-      removeAllFromIncomming();
+      removeAllFromIncoming();
       removeAllFromOutgoing();
       removeAllFromAttrConstraints();
       setDestroyElem(null);
@@ -459,80 +459,80 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * <pre>
     *              one                       many
     * PatternObject ----------------------------------- PatternLink
-    *              tgt                   incomming
+    *              tgt                   incoming
     * </pre>
     * @return The PatternObject
     */
-   public PatternLinkSet getIncomming()
+   public PatternLinkSet getIncoming()
    {
-      if (this.incomming == null)
+      if (this.incoming == null)
       {
          return PatternLink.EMPTY_SET;
       }
 
-      return this.incomming;
+      return this.incoming;
    }
 
-   public boolean addToIncomming(PatternLink value)
+   public boolean addToIncoming(PatternLink value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.incomming == null)
+         if (this.incoming == null)
          {
-            this.incomming = new PatternLinkSet();
+            this.incoming = new PatternLinkSet();
          }
 
-         changed = this.incomming.add(value);
+         changed = this.incoming.add(value);
 
          if (changed)
          {
             value.withTgt(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMING, null, value);
          }
       }
 
       return changed;
    }
 
-   public boolean removeFromIncomming(PatternLink value)
+   public boolean removeFromIncoming(PatternLink value)
    {
       boolean changed = false;
 
-      if ((this.incomming != null) && (value != null))
+      if ((this.incoming != null) && (value != null))
       {
-         changed = this.incomming.remove(value);
+         changed = this.incoming.remove(value);
 
          if (changed)
          {
             value.setTgt(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMING, value, null);
          }
       }
 
       return changed;
    }
 
-   public PatternObject withIncomming(PatternLink value)
+   public PatternObject withIncoming(PatternLink value)
    {
-      addToIncomming(value);
+      addToIncoming(value);
       return this;
    }
 
-   public PatternObject withoutIncomming(PatternLink value)
+   public PatternObject withoutIncoming(PatternLink value)
    {
-      removeFromIncomming(value);
+      removeFromIncoming(value);
       return this;
    }
 
-   public void removeAllFromIncomming()
+   public void removeAllFromIncoming()
    {
-      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getIncomming());
+      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getIncoming());
 
       for (PatternLink value : tmpSet)
       {
-         this.removeFromIncomming(value);
+         this.removeFromIncoming(value);
       }
    }
 

@@ -163,32 +163,32 @@ public class GenericObjectSet extends SimpleSet<GenericObject>
       return this;
    }
 
-   public GenericLinkSet getIncommingLinks()
+   public GenericLinkSet getIncomingLinks()
    {
       GenericLinkSet result = new GenericLinkSet();
       
       for (GenericObject obj : this)
       {
-         result.addAll(obj.getIncommingLinks());
+         result.addAll(obj.getIncomingLinks());
       }
       
       return result;
    }
-   public GenericObjectSet withIncommingLinks(GenericLink value)
+   public GenericObjectSet withIncomingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
       {
-         obj.withIncommingLinks(value);
+         obj.withIncomingLinks(value);
       }
       
       return this;
    }
 
-   public GenericObjectSet withoutIncommingLinks(GenericLink value)
+   public GenericObjectSet withoutIncomingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
       {
-         obj.withoutIncommingLinks(value);
+         obj.withoutIncomingLinks(value);
       }
       
       return this;

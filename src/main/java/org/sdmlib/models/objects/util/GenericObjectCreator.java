@@ -18,7 +18,7 @@ public class GenericObjectCreator extends EntityFactory
       GenericObject.PROPERTY_GRAPH,
       GenericObject.PROPERTY_ATTRS,
       GenericObject.PROPERTY_OUTGOINGLINKS,
-      GenericObject.PROPERTY_INCOMMINGLINKS,
+      GenericObject.PROPERTY_INCOMINGLINKS,
    };
    
    @Override
@@ -66,9 +66,9 @@ public class GenericObjectCreator extends EntityFactory
          return ((GenericObject) target).getOutgoingLinks();
       }
 
-      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
+      if (GenericObject.PROPERTY_INCOMINGLINKS.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject) target).getIncommingLinks();
+         return ((GenericObject) target).getIncomingLinks();
       }
 
       return null;
@@ -130,15 +130,15 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
 
-      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
+      if (GenericObject.PROPERTY_INCOMINGLINKS.equalsIgnoreCase(attrName))
       {
-         ((GenericObject) target).addToIncommingLinks((GenericLink) value);
+         ((GenericObject) target).addToIncomingLinks((GenericLink) value);
          return true;
       }
       
-      if ((GenericObject.PROPERTY_INCOMMINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_INCOMINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((GenericObject) target).removeFromIncommingLinks((GenericLink) value);
+         ((GenericObject) target).removeFromIncomingLinks((GenericLink) value);
          return true;
       }
       return false;

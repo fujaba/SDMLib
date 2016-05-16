@@ -53,13 +53,13 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return result;
    }
 
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      PatternLinkSet result = new PatternLinkSet();
 //      
 //      for (PatternObject obj : this)
 //      {
-//         result.addAll(obj.getIncomming());
+//         result.addAll(obj.getIncoming());
 //      }
 //      
 //      return result;
@@ -118,21 +118,21 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return this;
    }
 
-   public PatternObjectSet withIncomming(PatternLink value)
+   public PatternObjectSet withIncoming(PatternLink value)
    {
       for (PatternObject obj : this)
       {
-         obj.withIncomming(value);
+         obj.withIncoming(value);
       }
       
       return this;
    }
 
-   public PatternObjectSet withoutIncomming(PatternLink value)
+   public PatternObjectSet withoutIncoming(PatternLink value)
    {
       for (PatternObject obj : this)
       {
-         obj.withoutIncomming(value);
+         obj.withoutIncoming(value);
       }
       
       return this;
@@ -437,13 +437,13 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 //      return result;
 //   }
 
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      PatternLinkSet result = new PatternLinkSet();
 //      
 //      for (PatternObject obj : this)
 //      {
-//         result.addAll(obj.getIncomming());
+//         result.addAll(obj.getIncoming());
 //      }
 //      
 //      return result;

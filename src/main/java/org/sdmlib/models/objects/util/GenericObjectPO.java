@@ -134,19 +134,19 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return null;
    }
    
-   public GenericLinkPO hasIncommingLinks()
+   public GenericLinkPO hasIncomingLinks()
    {
       GenericLinkPO result = new GenericLinkPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(GenericObject.PROPERTY_INCOMMINGLINKS, result);
+      super.hasLink(GenericObject.PROPERTY_INCOMINGLINKS, result);
       
       return result;   }
    
-   public GenericObjectPO hasIncommingLinks(GenericLinkPO tgt)
+   public GenericObjectPO hasIncomingLinks(GenericLinkPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GenericObject.PROPERTY_INCOMMINGLINKS)
+      .withTgt(tgt).withTgtRoleName(GenericObject.PROPERTY_INCOMINGLINKS)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -157,11 +157,11 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return this;
    }
    
-   public GenericLinkSet getIncommingLinks()
+   public GenericLinkSet getIncomingLinks()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((GenericObject) this.getCurrentMatch()).getIncommingLinks();
+         return ((GenericObject) this.getCurrentMatch()).getIncomingLinks();
       }
       return null;
    }
@@ -330,14 +330,14 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return this.startCreate().hasOutgoingLinks(tgt).endCreate();
    }
 
-   public GenericLinkPO createIncommingLinks()
+   public GenericLinkPO createIncomingLinks()
    {
-      return this.startCreate().hasIncommingLinks().endCreate();
+      return this.startCreate().hasIncomingLinks().endCreate();
    }
 
-   public GenericObjectPO createIncommingLinks(GenericLinkPO tgt)
+   public GenericObjectPO createIncomingLinks(GenericLinkPO tgt)
    {
-      return this.startCreate().hasIncommingLinks(tgt).endCreate();
+      return this.startCreate().hasIncomingLinks(tgt).endCreate();
    }
 
    public GenericObjectPO filterName(String value)
@@ -472,19 +472,19 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return hasLinkConstraint(tgt, GenericObject.PROPERTY_OUTGOINGLINKS);
    }
 
-   public GenericLinkPO filterIncommingLinks()
+   public GenericLinkPO filterIncomingLinks()
    {
       GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(GenericObject.PROPERTY_INCOMMINGLINKS, result);
+      super.hasLink(GenericObject.PROPERTY_INCOMINGLINKS, result);
       
       return result;
    }
 
-   public GenericObjectPO filterIncommingLinks(GenericLinkPO tgt)
+   public GenericObjectPO filterIncomingLinks(GenericLinkPO tgt)
    {
-      return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMMINGLINKS);
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMINGLINKS);
    }
 
 }
