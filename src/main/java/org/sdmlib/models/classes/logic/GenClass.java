@@ -491,7 +491,7 @@ public class GenClass extends GenClazzEntity
    private void insertRemoveYouMethod(String rootDir)
    {
 	   // TODO : alternative removeYou() 
-		String propChSupport = "getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);";
+		String propChSupport = "this.firePropertyChange(\"REMOVE_YOU\", this, null);";
 		if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) {
 			// return;
 			propChSupport = "";
@@ -535,7 +535,7 @@ public class GenClass extends GenClazzEntity
          return;
       }
 
-      String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
+      String searchString = Parser.METHOD + ":firePropertyChange(String,Object,Object)";
       // Check if no super has PropertyChange
       for (Clazz clazz : model.getSuperClazzes(true).without(model))
       {
@@ -566,27 +566,40 @@ public class GenClass extends GenClazzEntity
             "\n   " +
                "\n   //==========================================================================" +
                "\n   " +
-               "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
+               "\n   protected PropertyChangeSupport listeners = null;" +
                "\n   " +
-               "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
+               "\n   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)" +
                "\n   {" +
-               "\n      return listeners;" +
+               "\n      if (listeners != null) {" +
+               "\n   		listeners.firePropertyChange(propertyName, oldValue, newValue);" +
+               "\n   		return true;" +
+               "\n   	}" +
+               "\n   	return false;" +
                "\n   }" +
                "\n   " +
                "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
                "\n   {" +
-               "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" +
-               "\n      return true;" +
+               "\n   	if (listeners == null) {" +
+               "\n   		listeners = new PropertyChangeSupport(this);" +
+               "\n   	}" +
+               "\n   	listeners.addPropertyChangeListener(listener);" +
+               "\n   	return true;" +
                "\n   }" +
                "\n   " +
                "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
-               "\n      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);" +
-               "\n      return true;" +
+               "\n   	if (listeners == null) {" +
+               "\n   		listeners = new PropertyChangeSupport(this);" +
+               "\n   	}" +
+               "\n   	listeners.addPropertyChangeListener(propertyName, listener);" +
+               "\n   	return true;" +
                "\n   }"+
                "\n   " +
                "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
-               "\n      getPropertyChangeSupport().removePropertyChangeListener(listener);" +
-               "\n      return true;" +
+               "\n   	if (listeners == null) {" +
+               "\n   		listeners = new PropertyChangeSupport(this);" +
+               "\n   	}" +
+               "\n   	listeners.removePropertyChangeListener(listener);" +
+               "\n   	return true;" +
                "\n   }"+
                "\n"
             );
