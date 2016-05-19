@@ -491,7 +491,7 @@ public class GenClass extends GenClazzEntity
    private void insertRemoveYouMethod(String rootDir)
    {
 	   // TODO : alternative removeYou() 
-		String propChSupport = "this.firePropertyChange(\"REMOVE_YOU\", this, null);";
+		String propChSupport = "firePropertyChange(\"REMOVE_YOU\", this, null);";
 		if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) {
 			// return;
 			propChSupport = "";
