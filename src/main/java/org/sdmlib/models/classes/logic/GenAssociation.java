@@ -409,8 +409,8 @@ public class GenAssociation extends Generator<Association>
       String propertyChangeAdd = "";
       String propertyChangeRemove = "";
       if(clazzModel.hasFeature(Feature.PropertyChangeSupport, model.getClazz())){
-     	 propertyChangeAdd = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
-     	 propertyChangeRemove = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
+     	 propertyChangeAdd = "this.firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
+     	 propertyChangeRemove = "this.firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
       }
       
       CGUtil.replaceAll(text, "PROPERTYCHANGEADD", propertyChangeAdd, "PROPERTYCHANGEREMOVE", propertyChangeRemove);
