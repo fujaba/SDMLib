@@ -113,7 +113,15 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 	public void removeAllGeneratedCode() {
-		getGenerator().removeAllGeneratedCode("src", "src", "src");
+	   File srcDir = new File("src/main/java");
+
+      if (srcDir.exists()) {
+         getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
+      }
+      else
+      {
+         getGenerator().removeAllGeneratedCode("src", "src", "src");
+      }
 	}
 
 	public void removeAllGeneratedCode(String rootDir) {

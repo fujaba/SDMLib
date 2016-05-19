@@ -511,21 +511,16 @@ public class GenClass extends GenClazzEntity
 				break;
 			}
 		}
-		String superReplacement = "";
-		if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
-			superReplacement = "\n      super.removeYou();\n";
-		}
 		template.withTemplate("\n   " +
 	               "\n   //==========================================================================" +
 	               "\n   " +
 	               "\n   {{Override}}" +
 	               "\n   public void removeYou()" +
 	               "\n   {" +
-	               "\n   {{Super}}" +
 	               "\n      " + propChSupport +              
 	               "\n   }" +
 	               "\n");
-		template.insert(parser, "Override",  overrideText, "Super", superReplacement);
+		template.insert(parser, "Override",  overrideText);
    }
 
    private void insertPropertyChangeSupport(String rootDir)
