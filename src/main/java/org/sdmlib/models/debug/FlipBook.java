@@ -281,31 +281,6 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    
    public long currentStep = -1;
    
-//   public void addModelRoot(Object root)
-//   {
-//      map.getId(root);
-//   }
-//   
-//   private JsonIdMap map = null;
-//   
-//   public JsonIdMap getMap()
-//   {
-//      return map;
-//   }
-//   
-//   public void setMap(JsonIdMap map)
-//   {
-//      this.map = map;
-//   }
-//   
-//   public FlipBook withMap(JsonIdMap map)
-//   {
-//      this.setMap(map);
-//      // map.addListener(this);
-//      map.withUpdateMsgListener(this);
-//      return this;
-//   }
-   
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    public boolean update(Object event) {
       if (isReading)
@@ -315,6 +290,14 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       }
       // store message in list
       SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      
+      if (simpleEvent.getEntity() == null) 
+      {
+         // looks like a bug in IDMap. It fires an empty property change within 
+         // Filter.isPropertyRegard 
+         return false;
+      }
+      
       StepInfo stepInfo = new StepInfo((JsonObject)simpleEvent.getEntity(), new RuntimeException());
       changes.add(stepInfo);
       

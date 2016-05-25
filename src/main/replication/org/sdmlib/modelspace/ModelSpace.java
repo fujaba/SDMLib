@@ -562,6 +562,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       }
       
       SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      
+      if (simpleEvent.getEntity() == null) 
+      {
+         // looks like a bug in IDMap. It fires an empty property change within 
+         // Filter.isPropertyRegard 
+         return false;
+      }
 
       JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 

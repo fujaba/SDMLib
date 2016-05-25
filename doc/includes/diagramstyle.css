@@ -101,17 +101,17 @@
 
 .classdiagram{
 	border: 1px solid rgb(187, 187, 187);
-	position: absolute; 
+	position: absolute;
 }
 .objectdiagram{
 	border: 1px solid rgb(187, 187, 187);
-	position: absolute; 
+	position: absolute;
 }
 
 .classElement{
 	border: 1px solid rgb(187, 187, 187);
 	/*background-color: rgb(221, 221, 221);*/
-	position: absolute; 
+	position: absolute;
 	background:#ffffff;
 }
 .classElement table{
@@ -147,7 +147,7 @@
 .objectElement{
 	border: 1px solid rgb(187, 187, 187);
 	/*background-color: rgb(221, 221, 221);*/
-	position: absolute; 
+	position: absolute;
 	background:#ffffff;
 }
 .objectElement table{
@@ -185,12 +185,12 @@
 .patternElement{
 	border: 1px solid rgb(187, 187, 187);
 	/*background-color: rgb(221, 221, 221);*/
-	position: absolute; 
+	position: absolute;
 	background:lightblue;
 }
 .patternElement table{
 	border-spacing:0;
-	
+
 	cursor: hand;
 }
 .patternElement .head{
@@ -217,7 +217,7 @@
 
 .infoBox{
 	border: 1px solid rgb(187, 187, 187);
-	position: absolute; 
+	position: absolute;
 }
 .draggable {
 	cursor: move;
