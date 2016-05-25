@@ -485,10 +485,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public long explore(long maxNoOfNewStates, Searchmode mode)
    {
       long currentStateNum = 1;
-      long bestMetricYet = Long.MIN_VALUE;
+      double bestMetricYet = Double.NEGATIVE_INFINITY;
+      double reallyBestMetricYet = Double.NEGATIVE_INFINITY;
       int ignoredStates = 0;
       String ignoredString = "";
       boolean changedIgnoreString = false;
+      
+      long lastMessageTime = System.currentTimeMillis();
 
       IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
 
@@ -502,7 +505,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          {
             double smetric = metric.compute(s.getGraphRoot());
             s.setMetricValue(smetric);
-            bestMetricYet = (long) Math.max(bestMetricYet, smetric);
+            bestMetricYet = Math.max(bestMetricYet, smetric);
+            reallyBestMetricYet = bestMetricYet;
          }
       }
 
@@ -517,19 +521,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             Collections.sort(getTodo(), (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
          }
 
-         ReachableState first = getTodo().get(0);
+         ReachableState current = getTodo().get(0);
 
-         if (first.getNumber() == 0)
+         if (current.getNumber() == 0)
          {
-            first.withNumber((int) currentStateNum);
+            current.withNumber((int) currentStateNum);
          }
 
          currentStateNum++;
 
-         long alreadyKnownMatches = first.noOfRuleMatchesDone;
-         first.noOfRuleMatchesDone = 0;
+         long alreadyKnownMatches = current.noOfRuleMatchesDone;
+         current.noOfRuleMatchesDone = 0;
 
-         this.withoutTodo(first);
+         this.withoutTodo(current);
 
          for (Pattern rule : getRules())
          {
@@ -537,21 +541,21 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
             rule.resetSearch();
 
-            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(first.getGraphRoot());
+            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(current.getGraphRoot());
 
             while (rule.findMatch())
             {
                // count matches found on this graph
-               first.noOfRuleMatchesDone++;
+               current.noOfRuleMatchesDone++;
 
-               if (first.noOfRuleMatchesDone <= alreadyKnownMatches)
+               if (current.noOfRuleMatchesDone <= alreadyKnownMatches)
                {
                   // has been considered in previous expansions of this state.
                   // Those previous expansions have been aborted in order to
                   // expand more promising state.
                   // Now it is reconsidered. But we do not need to go through
                   // the already done expansions.
-                  bestMetricYet = (long) first.getMetricValue();
+                  bestMetricYet = current.getMetricValue();
 
                   continue;
                }
@@ -581,7 +585,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   }
                   else
                   {
-                     bestMetricYet = (long) Math.max(bestMetricYet, newMetricValue);
+                     bestMetricYet = Math.max(bestMetricYet, newMetricValue);
+                     reallyBestMetricYet = Math.max(bestMetricYet, reallyBestMetricYet);
+                  }
+                  
+                  long currentTime = System.currentTimeMillis();
+                  long elapsedTime = currentTime - lastMessageTime;
+                  elapsedTime /= 1000; // elapsed seconds
+                  elapsedTime /= 60; // elapsed minutes
+                  if (elapsedTime >= 1)
+                  {
+                     System.out.println("Best metric so far: " + reallyBestMetricYet);
+                     System.out.println("     Number of visited graphs: " + this.getStates().size());
+                     lastMessageTime = currentTime;
                   }
                }
                
@@ -602,7 +618,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      // newReachableState is isomorphic to oldState. Just add a
                      // link from first to oldState
-                     first.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                     current.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
                      break;
                   }
                }
@@ -612,7 +628,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // no isomorphic old state, add new state
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate,
                      newReachableState);
-                  first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
                   // progress bar, 30 steps
                   if (size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
@@ -634,11 +650,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   }
 
                   if ((mode == Searchmode.DEPTH || mode == Searchmode.DEPTHIGNORE)
-                     && newReachableState.getMetricValue() > first.getMetricValue())
+                     && newReachableState.getMetricValue() > current.getMetricValue())
                   {
                      // new state is more interesting than current state,
                      // abort current state and continue with new state
-                     this.withTodo(first);
+                     this.withTodo(current);
 
                      continue doToDo;
                   }
