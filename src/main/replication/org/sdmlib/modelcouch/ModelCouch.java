@@ -322,6 +322,9 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 			return true;
 		}
 		SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+		if(simpleEvent.isNewEvent() == false) {
+			return true;
+		}
 		JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
 		String opCode = IdMap.UPDATE;
