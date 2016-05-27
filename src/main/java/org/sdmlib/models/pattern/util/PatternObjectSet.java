@@ -29,7 +29,7 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
@@ -37,7 +37,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
+import org.sdmlib.models.pattern.util.MatchOtherThanSet;
 
 public class PatternObjectSet extends SimpleSet<PatternObject>
 {
@@ -53,13 +53,13 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return result;
    }
 
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      PatternLinkSet result = new PatternLinkSet();
 //      
 //      for (PatternObject obj : this)
 //      {
-//         result.addAll(obj.getIncomming());
+//         result.addAll(obj.getIncoming());
 //      }
 //      
 //      return result;
@@ -118,21 +118,21 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return this;
    }
 
-   public PatternObjectSet withIncomming(PatternLink value)
+   public PatternObjectSet withIncoming(PatternLink value)
    {
       for (PatternObject obj : this)
       {
-         obj.withIncomming(value);
+         obj.withIncoming(value);
       }
       
       return this;
    }
 
-   public PatternObjectSet withoutIncomming(PatternLink value)
+   public PatternObjectSet withoutIncoming(PatternLink value)
    {
       for (PatternObject obj : this)
       {
-         obj.withoutIncomming(value);
+         obj.withoutIncoming(value);
       }
       
       return this;
@@ -361,41 +361,41 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return this;
    }
 
-   public MatchOtherThenSet getMatchOtherThen()
+   public MatchOtherThanSet getMatchOtherThan()
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
       for (PatternObject obj : this)
       {
-         result.addAll(obj.getMatchOtherThen());
+         result.addAll(obj.getMatchOtherThan());
       }
       
       return result;
    }
 
-   public PatternObjectSet withMatchOtherThen(MatchOtherThen value)
+   public PatternObjectSet withMatchOtherThan(MatchOtherThan value)
    {
       for (PatternObject obj : this)
       {
-         obj.withMatchOtherThen(value);
+         obj.withMatchOtherThan(value);
       }
       
       return this;
    }
 
-   public PatternObjectSet withoutMatchOtherThen(MatchOtherThen value)
+   public PatternObjectSet withoutMatchOtherThan(MatchOtherThan value)
    {
       for (PatternObject obj : this)
       {
-         obj.withoutMatchOtherThen(value);
+         obj.withoutMatchOtherThan(value);
       }
       
       return this;
    }
 
-   public MatchOtherThenSet getExcluders()
+   public MatchOtherThanSet getExcluders()
    {
-      MatchOtherThenSet result = new MatchOtherThenSet();
+      MatchOtherThanSet result = new MatchOtherThanSet();
       
       for (PatternObject obj : this)
       {
@@ -405,7 +405,7 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return result;
    }
 
-   public PatternObjectSet withExcluders(MatchOtherThen value)
+   public PatternObjectSet withExcluders(MatchOtherThan value)
    {
       for (PatternObject obj : this)
       {
@@ -415,7 +415,7 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
       return this;
    }
 
-   public PatternObjectSet withoutExcluders(MatchOtherThen value)
+   public PatternObjectSet withoutExcluders(MatchOtherThan value)
    {
       for (PatternObject obj : this)
       {
@@ -437,13 +437,13 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 //      return result;
 //   }
 
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      PatternLinkSet result = new PatternLinkSet();
 //      
 //      for (PatternObject obj : this)
 //      {
-//         result.addAll(obj.getIncomming());
+//         result.addAll(obj.getIncoming());
 //      }
 //      
 //      return result;

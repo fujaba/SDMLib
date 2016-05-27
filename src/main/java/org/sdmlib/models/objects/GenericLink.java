@@ -198,7 +198,7 @@ import org.sdmlib.models.objects.GenericGraph;
     * <pre>
     *              many                       one
     * GenericLink ----------------------------------- GenericObject
-    *              incommingLinks                   tgt
+    *              incomingLinks                   tgt
     * </pre>
     */
    
@@ -222,14 +222,14 @@ import org.sdmlib.models.objects.GenericGraph;
          if (this.tgt != null)
          {
             this.tgt = null;
-            oldValue.withoutIncommingLinks(this);
+            oldValue.withoutIncomingLinks(this);
          }
          
          this.tgt = value;
          
          if (value != null)
          {
-            value.withIncommingLinks(this);
+            value.withIncomingLinks(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);

@@ -69,7 +69,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
       pattern.createElementsGenericConstraint();
       pattern.createElementsLinkConstraint();
       pattern.createElementsMatchIsomorphicConstraint();
-      pattern.createElementsMatchOtherThen();
+      pattern.createElementsMatchOtherThan();
       pattern.createElementsNegativeApplicationCondition();
       pattern.createElementsOptionalSubPattern();
       pattern.createElementsPatternLink();

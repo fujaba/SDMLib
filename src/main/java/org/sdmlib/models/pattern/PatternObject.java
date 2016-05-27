@@ -30,7 +30,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
+import org.sdmlib.models.pattern.util.MatchOtherThanSet;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.storyboards.Kanban;
@@ -39,7 +39,7 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 
 /**
  * 
@@ -53,14 +53,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public static final String PROPERTY_CURRENTMATCH = "currentMatch";
    public static final String PROPERTY_DESTROYELEM = "destroyElem";
    public static final String PROPERTY_EXCLUDERS = "excluders";
-   public static final String PROPERTY_INCOMMING = "incomming";
-   public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
+   public static final String PROPERTY_INCOMING = "incoming";
+   public static final String PROPERTY_MATCHOTHERTHAN = "matchOtherThan";
    public static final String PROPERTY_OUTGOING = "outgoing";
 
    private PatternLinkSet outgoing = null;
-   private MatchOtherThenSet matchOtherThen = null;
-   private PatternLinkSet incomming = null;
-   private MatchOtherThenSet excluders = null;
+   private MatchOtherThanSet matchOtherThan = null;
+   private PatternLinkSet incoming = null;
+   private MatchOtherThanSet excluders = null;
    private DestroyObjectElem destroyElem = null;
    private Object currentMatch;
    private CardinalityConstraintSet cardConstraints = null;
@@ -418,18 +418,18 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       super.removeYou();
 
-      removeAllFromIncomming();
+      removeAllFromIncoming();
       removeAllFromOutgoing();
       removeAllFromAttrConstraints();
       setDestroyElem(null);
       setPattern(null);
       removeAllFromCardConstraints();
-      removeAllFromMatchOtherThen();
+      removeAllFromMatchOtherThan();
       removeAllFromExcluders();
       withoutAttrConstraints(this.getAttrConstraints().toArray(new AttributeConstraint[this.getAttrConstraints().size()]));
       withoutCardConstraints(this.getCardConstraints().toArray(new CardinalityConstraint[this.getCardConstraints().size()]));
-      withoutMatchOtherThen(this.getMatchOtherThen().toArray(new MatchOtherThen[this.getMatchOtherThen().size()]));
-      withoutExcluders(this.getExcluders().toArray(new MatchOtherThen[this.getExcluders().size()]));
+      withoutMatchOtherThan(this.getMatchOtherThan().toArray(new MatchOtherThan[this.getMatchOtherThan().size()]));
+      withoutExcluders(this.getExcluders().toArray(new MatchOtherThan[this.getExcluders().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -459,80 +459,80 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * <pre>
     *              one                       many
     * PatternObject ----------------------------------- PatternLink
-    *              tgt                   incomming
+    *              tgt                   incoming
     * </pre>
     * @return The PatternObject
     */
-   public PatternLinkSet getIncomming()
+   public PatternLinkSet getIncoming()
    {
-      if (this.incomming == null)
+      if (this.incoming == null)
       {
          return PatternLink.EMPTY_SET;
       }
 
-      return this.incomming;
+      return this.incoming;
    }
 
-   public boolean addToIncomming(PatternLink value)
+   public boolean addToIncoming(PatternLink value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.incomming == null)
+         if (this.incoming == null)
          {
-            this.incomming = new PatternLinkSet();
+            this.incoming = new PatternLinkSet();
          }
 
-         changed = this.incomming.add(value);
+         changed = this.incoming.add(value);
 
          if (changed)
          {
             value.withTgt(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMING, null, value);
          }
       }
 
       return changed;
    }
 
-   public boolean removeFromIncomming(PatternLink value)
+   public boolean removeFromIncoming(PatternLink value)
    {
       boolean changed = false;
 
-      if ((this.incomming != null) && (value != null))
+      if ((this.incoming != null) && (value != null))
       {
-         changed = this.incomming.remove(value);
+         changed = this.incoming.remove(value);
 
          if (changed)
          {
             value.setTgt(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMING, value, null);
          }
       }
 
       return changed;
    }
 
-   public PatternObject withIncomming(PatternLink value)
+   public PatternObject withIncoming(PatternLink value)
    {
-      addToIncomming(value);
+      addToIncoming(value);
       return this;
    }
 
-   public PatternObject withoutIncomming(PatternLink value)
+   public PatternObject withoutIncoming(PatternLink value)
    {
-      removeFromIncomming(value);
+      removeFromIncoming(value);
       return this;
    }
 
-   public void removeAllFromIncomming()
+   public void removeAllFromIncoming()
    {
-      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getIncomming());
+      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getIncoming());
 
       for (PatternLink value : tmpSet)
       {
-         this.removeFromIncomming(value);
+         this.removeFromIncoming(value);
       }
    }
 
@@ -1007,94 +1007,94 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    /********************************************************************
     * <pre>
     *              one                       many
-    * PatternObject ----------------------------------- MatchOtherThen
-    *              src                   matchOtherThen
+    * PatternObject ----------------------------------- MatchOtherThan
+    *              src                   matchOtherThan
     * </pre>
-    * @return The MatchOtherThenSet
+    * @return The MatchOtherThanSet
     */
-   public MatchOtherThenSet getMatchOtherThen()
+   public MatchOtherThanSet getMatchOtherThan()
    {
-      if (this.matchOtherThen == null)
+      if (this.matchOtherThan == null)
       {
-         return MatchOtherThen.EMPTY_SET;
+         return MatchOtherThan.EMPTY_SET;
       }
 
-      return this.matchOtherThen;
+      return this.matchOtherThan;
    }
 
-   public boolean addToMatchOtherThen(MatchOtherThen value)
+   public boolean addToMatchOtherThan(MatchOtherThan value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.matchOtherThen == null)
+         if (this.matchOtherThan == null)
          {
-            this.matchOtherThen = new MatchOtherThenSet();
+            this.matchOtherThan = new MatchOtherThanSet();
          }
 
-         changed = this.matchOtherThen.add(value);
+         changed = this.matchOtherThan.add(value);
 
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHEN, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHAN, null, value);
          }
       }
 
       return changed;
    }
 
-   public boolean removeFromMatchOtherThen(MatchOtherThen value)
+   public boolean removeFromMatchOtherThan(MatchOtherThan value)
    {
       boolean changed = false;
 
-      if ((this.matchOtherThen != null) && (value != null))
+      if ((this.matchOtherThan != null) && (value != null))
       {
-         changed = this.matchOtherThen.remove(value);
+         changed = this.matchOtherThan.remove(value);
 
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHEN, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHAN, value, null);
          }
       }
 
       return changed;
    }
 
-   public PatternObject withMatchOtherThen(MatchOtherThen value)
+   public PatternObject withMatchOtherThan(MatchOtherThan value)
    {
-      addToMatchOtherThen(value);
+      addToMatchOtherThan(value);
       return this;
    }
 
-   public PatternObject withoutMatchOtherThen(MatchOtherThen value)
+   public PatternObject withoutMatchOtherThan(MatchOtherThan value)
    {
-      removeFromMatchOtherThen(value);
+      removeFromMatchOtherThan(value);
       return this;
    }
 
-   public void removeAllFromMatchOtherThen()
+   public void removeAllFromMatchOtherThan()
    {
-      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(this.getMatchOtherThen());
+      LinkedHashSet<MatchOtherThan> tmpSet = new LinkedHashSet<MatchOtherThan>(this.getMatchOtherThan());
 
-      for (MatchOtherThen value : tmpSet)
+      for (MatchOtherThan value : tmpSet)
       {
-         this.removeFromMatchOtherThen(value);
+         this.removeFromMatchOtherThan(value);
       }
    }
 
-   MatchOtherThen createMatchOtherThen()
+   MatchOtherThan createMatchOtherThan()
    {
-      MatchOtherThen value = new MatchOtherThen();
-      withMatchOtherThen(value);
+      MatchOtherThan value = new MatchOtherThan();
+      withMatchOtherThan(value);
       return value;
    }
 
-   public POC hasMatchOtherThen(PatternObject forbidden)
+   public POC hasMatchOtherThan(PatternObject forbidden)
    {
-      MatchOtherThen otherThen = createMatchOtherThen()
+      MatchOtherThan otherThan = createMatchOtherThan()
             .withForbidden(forbidden)
             .withPattern(getPattern());
 
@@ -1106,22 +1106,22 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    /********************************************************************
     * <pre>
     *              one                       many
-    * PatternObject ----------------------------------- MatchOtherThen
+    * PatternObject ----------------------------------- MatchOtherThan
     *              forbidden                   excluders
     * </pre>
-    * @return The MatchOtherThenSet
+    * @return The MatchOtherThanSet
     */
-   public MatchOtherThenSet getExcluders()
+   public MatchOtherThanSet getExcluders()
    {
       if (this.excluders == null)
       {
-         return MatchOtherThen.EMPTY_SET;
+         return MatchOtherThan.EMPTY_SET;
       }
 
       return this.excluders;
    }
 
-   public boolean addToExcluders(MatchOtherThen value)
+   public boolean addToExcluders(MatchOtherThan value)
    {
       boolean changed = false;
 
@@ -1129,7 +1129,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       {
          if (this.excluders == null)
          {
-            this.excluders = new MatchOtherThenSet();
+            this.excluders = new MatchOtherThanSet();
          }
 
          changed = this.excluders.add(value);
@@ -1144,7 +1144,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
-   public boolean removeFromExcluders(MatchOtherThen value)
+   public boolean removeFromExcluders(MatchOtherThan value)
    {
       boolean changed = false;
 
@@ -1162,13 +1162,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
-   public PatternObject withExcluders(MatchOtherThen value)
+   public PatternObject withExcluders(MatchOtherThan value)
    {
       addToExcluders(value);
       return this;
    }
 
-   public PatternObject withoutExcluders(MatchOtherThen value)
+   public PatternObject withoutExcluders(MatchOtherThan value)
    {
       removeFromExcluders(value);
       return this;
@@ -1176,17 +1176,17 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public void removeAllFromExcluders()
    {
-      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(this.getExcluders());
+      LinkedHashSet<MatchOtherThan> tmpSet = new LinkedHashSet<MatchOtherThan>(this.getExcluders());
 
-      for (MatchOtherThen value : tmpSet)
+      for (MatchOtherThan value : tmpSet)
       {
          this.removeFromExcluders(value);
       }
    }
 
-   MatchOtherThen createExcluders()
+   MatchOtherThan createExcluders()
    {
-      MatchOtherThen value = new MatchOtherThen();
+      MatchOtherThan value = new MatchOtherThan();
       withExcluders(value);
       return value;
    }
@@ -1242,39 +1242,39 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
-   public PatternObject withMatchOtherThen(MatchOtherThen... value)
+   public PatternObject withMatchOtherThan(MatchOtherThan... value)
    {
-      for (MatchOtherThen item : value)
+      for (MatchOtherThan item : value)
       {
-         addToMatchOtherThen(item);
+         addToMatchOtherThan(item);
       }
       return this;
    }
 
-   public PatternObject withoutMatchOtherThen(MatchOtherThen... value)
+   public PatternObject withoutMatchOtherThan(MatchOtherThan... value)
    {
-      for (MatchOtherThen item : value)
+      for (MatchOtherThan item : value)
       {
-         removeFromMatchOtherThen(item);
+         removeFromMatchOtherThan(item);
       }
       return this;
    }
 
-   public PatternObject withExcluders(MatchOtherThen... value)
+   public PatternObject withExcluders(MatchOtherThan... value)
    {
       if(value==null){
          return this;
       }
-      for (MatchOtherThen item : value)
+      for (MatchOtherThan item : value)
       {
          addToExcluders(item);
       }
       return this;
    }
 
-   public PatternObject withoutExcluders(MatchOtherThen... value)
+   public PatternObject withoutExcluders(MatchOtherThan... value)
    {
-      for (MatchOtherThen item : value)
+      for (MatchOtherThan item : value)
       {
          removeFromExcluders(item);
       }

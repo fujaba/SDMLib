@@ -73,7 +73,7 @@ import org.sdmlib.models.objects.GenericLink;
       setGraph(null);
       withoutAttrs(this.getAttrs().toArray(new GenericAttribute[this.getAttrs().size()]));
       withoutOutgoingLinks(this.getOutgoingLinks().toArray(new GenericLink[this.getOutgoingLinks().size()]));
-      withoutIncommingLinks(this.getIncommingLinks().toArray(new GenericLink[this.getIncommingLinks().size()]));
+      withoutIncomingLinks(this.getIncomingLinks().toArray(new GenericLink[this.getIncomingLinks().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -389,93 +389,93 @@ import org.sdmlib.models.objects.GenericLink;
     * <pre>
     *              one                       many
     * GenericObject ----------------------------------- GenericLink
-    *              tgt                   incommingLinks
+    *              tgt                   incomingLinks
     * </pre>
     */
    
-   public static final String PROPERTY_INCOMMINGLINKS = "incommingLinks";
+   public static final String PROPERTY_INCOMINGLINKS = "incomingLinks";
    
-   private GenericLinkSet incommingLinks = null;
+   private GenericLinkSet incomingLinks = null;
    
-   public GenericLinkSet getIncommingLinks()
+   public GenericLinkSet getIncomingLinks()
    {
-      if (this.incommingLinks == null)
+      if (this.incomingLinks == null)
       {
          return GenericLink.EMPTY_SET;
       }
    
-      return this.incommingLinks;
+      return this.incomingLinks;
    }
    
-   public boolean addToIncommingLinks(GenericLink value)
+   public boolean addToIncomingLinks(GenericLink value)
    {
       boolean changed = false;
       
       if (value != null)
       {
-         if (this.incommingLinks == null)
+         if (this.incomingLinks == null)
          {
-            this.incommingLinks = new GenericLinkSet();
+            this.incomingLinks = new GenericLinkSet();
          }
          
-         changed = this.incommingLinks.add (value);
+         changed = this.incomingLinks.add (value);
          
          if (changed)
          {
             value.withTgt(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMINGLINKS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMINGLINKS, null, value);
          }
       }
          
       return changed;   
    }
    
-   public boolean removeFromIncommingLinks(GenericLink value)
+   public boolean removeFromIncomingLinks(GenericLink value)
    {
       boolean changed = false;
       
-      if ((this.incommingLinks != null) && (value != null))
+      if ((this.incomingLinks != null) && (value != null))
       {
-         changed = this.incommingLinks.remove (value);
+         changed = this.incomingLinks.remove (value);
          
          if (changed)
          {
             value.setTgt(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMINGLINKS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMINGLINKS, value, null);
          }
       }
          
       return changed;   
    }
    
-   public GenericObject withIncommingLinks(GenericLink value)
+   public GenericObject withIncomingLinks(GenericLink value)
    {
-      addToIncommingLinks(value);
+      addToIncomingLinks(value);
       return this;
    } 
    
-   public GenericObject withoutIncommingLinks(GenericLink value)
+   public GenericObject withoutIncomingLinks(GenericLink value)
    {
-      removeFromIncommingLinks(value);
+      removeFromIncomingLinks(value);
       return this;
    } 
    
-   public void removeAllFromIncommingLinks()
+   public void removeAllFromIncomingLinks()
    {
-      LinkedHashSet<GenericLink> tmpSet = new LinkedHashSet<GenericLink>(this.getIncommingLinks());
+      LinkedHashSet<GenericLink> tmpSet = new LinkedHashSet<GenericLink>(this.getIncomingLinks());
    
       for (GenericLink value : tmpSet)
       {
-         this.removeFromIncommingLinks(value);
+         this.removeFromIncomingLinks(value);
       }
    }
    
-   public GenericLink createIncommingLinks()
+   public GenericLink createIncomingLinks()
    {
       GenericLink value = new GenericLink()
       .withGraph(this.getGraph());
       
-      this.withIncommingLinks(value);
+      this.withIncomingLinks(value);
       
       return value;
    }
@@ -596,20 +596,20 @@ import org.sdmlib.models.objects.GenericLink;
       return this;
    }
 
-   public GenericObject withIncommingLinks(GenericLink... value)
+   public GenericObject withIncomingLinks(GenericLink... value)
    {
       for (GenericLink item : value)
       {
-         addToIncommingLinks(item);
+         addToIncomingLinks(item);
       }
       return this;
    } 
 
-   public GenericObject withoutIncommingLinks(GenericLink... value)
+   public GenericObject withoutIncomingLinks(GenericLink... value)
    {
       for (GenericLink item : value)
       {
-         removeFromIncommingLinks(item);
+         removeFromIncomingLinks(item);
       }
       return this;
    }

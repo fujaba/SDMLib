@@ -11,8 +11,8 @@ import java.lang.Object;
 import org.sdmlib.models.pattern.util.CardinalityConstraintPO;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.util.PatternObjectPO;
-import org.sdmlib.models.pattern.util.MatchOtherThenPO;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.util.MatchOtherThanPO;
+import org.sdmlib.models.pattern.MatchOtherThan;
 
 
 public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>
@@ -115,12 +115,12 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return this;
    }
    
-   public PatternLinkPO hasIncomming()
+   public PatternLinkPO hasIncoming()
    {
       PatternLinkPO result = new PatternLinkPO();
       
       PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(PatternObject.PROPERTY_INCOMMING)
+      .withTgt(result).withTgtRoleName(PatternObject.PROPERTY_INCOMING)
       .withSrc(this);
       
       super.getPattern().addToElements(patternLink);
@@ -132,10 +132,10 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return result;
    }
    
-   public PatternObjectPO hasIncomming(PatternLinkPO tgt)
+   public PatternObjectPO hasIncoming(PatternLinkPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_INCOMMING)
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_INCOMING)
       .withSrc(this);
       
       super.getPattern().addToElements(patternLink);
@@ -145,20 +145,20 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return this;
    }
    
-   public PatternObjectPO withIncomming(PatternLinkPO tgtPO)
+   public PatternObjectPO withIncoming(PatternLinkPO tgtPO)
    {
       if (super.getCurrentMatch() != null)
       {
-         ((PatternObject) super.getCurrentMatch()).withIncomming((PatternLink) tgtPO.getCurrentMatch());
+         ((PatternObject) super.getCurrentMatch()).withIncoming((PatternLink) tgtPO.getCurrentMatch());
       }
       return this;
    }
    
-   public PatternObjectPO withoutIncomming(PatternLinkPO tgtPO)
+   public PatternObjectPO withoutIncoming(PatternLinkPO tgtPO)
    {
       if (super.getCurrentMatch() != null)
       {
-         ((PatternObject) super.getCurrentMatch()).withoutIncomming((PatternLink) tgtPO.getCurrentMatch());
+         ((PatternObject) super.getCurrentMatch()).withoutIncoming((PatternLink) tgtPO.getCurrentMatch());
       }
       return this;
    }
@@ -287,11 +287,11 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return false;
    }
    
-//   public PatternLinkSet getIncomming()
+//   public PatternLinkSet getIncoming()
 //   {
 //      if (super.getCurrentMatch() != null)
 //      {
-//         return ((PatternObject) this.getCurrentMatch()).getIncomming();
+//         return ((PatternObject) this.getCurrentMatch()).getIncoming();
 //      }
 //      return null;
 //   }
@@ -431,33 +431,33 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return null;
    }
 
-   public MatchOtherThenPO hasMatchOtherThen()
+   public MatchOtherThanPO hasMatchOtherThan()
    {
-      MatchOtherThenPO result = new MatchOtherThenPO();
+      MatchOtherThanPO result = new MatchOtherThanPO();
       result.setModifier(super.getPattern().getModifier());
       
-      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHEN, result);
+      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHAN, result);
       
       return result;
    }
 
-   public PatternObjectPO hasMatchOtherThen(MatchOtherThenPO tgt)
+   public PatternObjectPO hasMatchOtherThan(MatchOtherThanPO tgt)
    {
-      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHEN);
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHAN);
    }
 
-   public MatchOtherThenSet getMatchOtherThen()
+   public MatchOtherThanSet getMatchOtherThan()
    {
       if (super.getCurrentMatch() != null)
       {
-         return ((PatternObject) super.getCurrentMatch()).getMatchOtherThen();
+         return ((PatternObject) super.getCurrentMatch()).getMatchOtherThan();
       }
       return null;
    }
 
-   public MatchOtherThenPO hasExcluders()
+   public MatchOtherThanPO hasExcluders()
    {
-      MatchOtherThenPO result = new MatchOtherThenPO();
+      MatchOtherThanPO result = new MatchOtherThanPO();
       result.setModifier(super.getPattern().getModifier());
       
       super.hasLink(PatternObject.PROPERTY_EXCLUDERS, result);
@@ -465,12 +465,12 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return result;
    }
 
-   public PatternObjectPO hasExcluders(MatchOtherThenPO tgt)
+   public PatternObjectPO hasExcluders(MatchOtherThanPO tgt)
    {
       return hasLinkConstraint(tgt, PatternObject.PROPERTY_EXCLUDERS);
    }
 
-   public MatchOtherThenSet getExcluders()
+   public MatchOtherThanSet getExcluders()
    {
       if (super.getCurrentMatch() != null)
       {
@@ -655,22 +655,22 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return this.startCreate().hasCardConstraints(tgt).endCreate();
    }
 
-   public MatchOtherThenPO createMatchOtherThen()
+   public MatchOtherThanPO createMatchOtherThan()
    {
-      return this.startCreate().hasMatchOtherThen().endCreate();
+      return this.startCreate().hasMatchOtherThan().endCreate();
    }
 
-   public PatternObjectPO createMatchOtherThen(MatchOtherThenPO tgt)
+   public PatternObjectPO createMatchOtherThan(MatchOtherThanPO tgt)
    {
-      return this.startCreate().hasMatchOtherThen(tgt).endCreate();
+      return this.startCreate().hasMatchOtherThan(tgt).endCreate();
    }
 
-   public MatchOtherThenPO createExcluders()
+   public MatchOtherThanPO createExcluders()
    {
       return this.startCreate().hasExcluders().endCreate();
    }
 
-   public PatternObjectPO createExcluders(MatchOtherThenPO tgt)
+   public PatternObjectPO createExcluders(MatchOtherThanPO tgt)
    {
       return this.startCreate().hasExcluders(tgt).endCreate();
    }
@@ -804,24 +804,24 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return hasLinkConstraint(tgt, PatternObject.PROPERTY_CARDCONSTRAINTS);
    }
 
-   public MatchOtherThenPO filterMatchOtherThen()
+   public MatchOtherThanPO filterMatchOtherThan()
    {
-      MatchOtherThenPO result = new MatchOtherThenPO(new MatchOtherThen[]{});
+      MatchOtherThanPO result = new MatchOtherThanPO(new MatchOtherThan[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHEN, result);
+      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHAN, result);
       
       return result;
    }
 
-   public PatternObjectPO filterMatchOtherThen(MatchOtherThenPO tgt)
+   public PatternObjectPO filterMatchOtherThan(MatchOtherThanPO tgt)
    {
-      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHEN);
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHAN);
    }
 
-   public MatchOtherThenPO filterExcluders()
+   public MatchOtherThanPO filterExcluders()
    {
-      MatchOtherThenPO result = new MatchOtherThenPO(new MatchOtherThen[]{});
+      MatchOtherThanPO result = new MatchOtherThanPO(new MatchOtherThan[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternObject.PROPERTY_EXCLUDERS, result);
@@ -829,7 +829,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return result;
    }
 
-   public PatternObjectPO filterExcluders(MatchOtherThenPO tgt)
+   public PatternObjectPO filterExcluders(MatchOtherThanPO tgt)
    {
       return hasLinkConstraint(tgt, PatternObject.PROPERTY_EXCLUDERS);
    }

@@ -1,35 +1,35 @@
 package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.MatchOtherThan;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
 import org.sdmlib.models.pattern.util.PatternObjectPO;
-import org.sdmlib.models.pattern.util.MatchOtherThenPO;
+import org.sdmlib.models.pattern.util.MatchOtherThanPO;
 
-public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOtherThen>
+public class MatchOtherThanPO extends PatternObject<MatchOtherThanPO, MatchOtherThan>
 {
-   public MatchOtherThenPO(){
+   public MatchOtherThanPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public MatchOtherThenPO(MatchOtherThen... hostGraphObject) {
+   public MatchOtherThanPO(MatchOtherThan... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
-   public MatchOtherThenSet allMatches()
+   public MatchOtherThanSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      MatchOtherThenSet matches = new MatchOtherThenSet();
+      MatchOtherThanSet matches = new MatchOtherThanSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((MatchOtherThen) this.getCurrentMatch());
+         matches.add((MatchOtherThan) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -37,10 +37,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return matches;
    }
    
-   public MatchOtherThenPO hasHostGraphSrcObject(Object value)
+   public MatchOtherThanPO hasHostGraphSrcObject(Object value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withAttrName(MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -55,24 +55,24 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) getCurrentMatch()).getHostGraphSrcObject();
+         return ((MatchOtherThan) getCurrentMatch()).getHostGraphSrcObject();
       }
       return null;
    }
    
-   public MatchOtherThenPO withHostGraphSrcObject(Object value)
+   public MatchOtherThanPO withHostGraphSrcObject(Object value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((MatchOtherThen) getCurrentMatch()).setHostGraphSrcObject(value);
+         ((MatchOtherThan) getCurrentMatch()).setHostGraphSrcObject(value);
       }
       return this;
    }
    
-   public MatchOtherThenPO hasModifier(String value)
+   public MatchOtherThanPO hasModifier(String value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withAttrName(MatchOtherThan.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -87,24 +87,24 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) getCurrentMatch()).getModifier();
+         return ((MatchOtherThan) getCurrentMatch()).getModifier();
       }
       return null;
    }
    
-   public MatchOtherThenPO withModifier(String value)
+   public MatchOtherThanPO withModifier(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((MatchOtherThen) getCurrentMatch()).setModifier(value);
+         ((MatchOtherThan) getCurrentMatch()).setModifier(value);
       }
       return this;
    }
    
-   public MatchOtherThenPO hasHasMatch(boolean value)
+   public MatchOtherThanPO hasHasMatch(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
+      .withAttrName(MatchOtherThan.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -119,24 +119,24 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) getCurrentMatch()).getHasMatch();
+         return ((MatchOtherThan) getCurrentMatch()).getHasMatch();
       }
       return false;
    }
    
-   public MatchOtherThenPO withHasMatch(boolean value)
+   public MatchOtherThanPO withHasMatch(boolean value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((MatchOtherThen) getCurrentMatch()).setHasMatch(value);
+         ((MatchOtherThan) getCurrentMatch()).setHasMatch(value);
       }
       return this;
    }
    
-   public MatchOtherThenPO hasPatternObjectName(String value)
+   public MatchOtherThanPO hasPatternObjectName(String value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withAttrName(MatchOtherThan.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -151,24 +151,24 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) getCurrentMatch()).getPatternObjectName();
+         return ((MatchOtherThan) getCurrentMatch()).getPatternObjectName();
       }
       return null;
    }
    
-   public MatchOtherThenPO withPatternObjectName(String value)
+   public MatchOtherThanPO withPatternObjectName(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((MatchOtherThen) getCurrentMatch()).setPatternObjectName(value);
+         ((MatchOtherThan) getCurrentMatch()).setPatternObjectName(value);
       }
       return this;
    }
    
-   public MatchOtherThenPO hasDoAllMatches(boolean value)
+   public MatchOtherThanPO hasDoAllMatches(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
+      .withAttrName(MatchOtherThan.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -183,16 +183,16 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) getCurrentMatch()).getDoAllMatches();
+         return ((MatchOtherThan) getCurrentMatch()).getDoAllMatches();
       }
       return false;
    }
    
-   public MatchOtherThenPO withDoAllMatches(boolean value)
+   public MatchOtherThanPO withDoAllMatches(boolean value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((MatchOtherThen) getCurrentMatch()).setDoAllMatches(value);
+         ((MatchOtherThan) getCurrentMatch()).setDoAllMatches(value);
       }
       return this;
    }
@@ -207,7 +207,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return result;
    }
 
-   public MatchOtherThenPO hasPattern(PatternPO tgt)
+   public MatchOtherThanPO hasPattern(PatternPO tgt)
    {
       return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
@@ -227,21 +227,21 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(MatchOtherThen.PROPERTY_SRC, result);
+      super.hasLink(MatchOtherThan.PROPERTY_SRC, result);
       
       return result;
    }
 
-   public MatchOtherThenPO hasSrc(PatternObjectPO tgt)
+   public MatchOtherThanPO hasSrc(PatternObjectPO tgt)
    {
-      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_SRC);
+      return hasLinkConstraint(tgt, MatchOtherThan.PROPERTY_SRC);
    }
 
    public PatternObject getSrc()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) this.getCurrentMatch()).getSrc();
+         return ((MatchOtherThan) this.getCurrentMatch()).getSrc();
       }
       return null;
    }
@@ -251,29 +251,29 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(MatchOtherThen.PROPERTY_FORBIDDEN, result);
+      super.hasLink(MatchOtherThan.PROPERTY_FORBIDDEN, result);
       
       return result;
    }
 
-   public MatchOtherThenPO hasForbidden(PatternObjectPO tgt)
+   public MatchOtherThanPO hasForbidden(PatternObjectPO tgt)
    {
-      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_FORBIDDEN);
+      return hasLinkConstraint(tgt, MatchOtherThan.PROPERTY_FORBIDDEN);
    }
 
    public PatternObject getForbidden()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchOtherThen) this.getCurrentMatch()).getForbidden();
+         return ((MatchOtherThan) this.getCurrentMatch()).getForbidden();
       }
       return null;
    }
 
-   public MatchOtherThenPO hasHostGraphSrcObject(Object lower, Object upper)
+   public MatchOtherThanPO hasHostGraphSrcObject(Object lower, Object upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withAttrName(MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -285,10 +285,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO hasModifier(String lower, String upper)
+   public MatchOtherThanPO hasModifier(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withAttrName(MatchOtherThan.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -300,10 +300,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO hasHasMatch(boolean lower, boolean upper)
+   public MatchOtherThanPO hasHasMatch(boolean lower, boolean upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
+      .withAttrName(MatchOtherThan.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -315,10 +315,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO hasPatternObjectName(String lower, String upper)
+   public MatchOtherThanPO hasPatternObjectName(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withAttrName(MatchOtherThan.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -330,10 +330,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO hasDoAllMatches(boolean lower, boolean upper)
+   public MatchOtherThanPO hasDoAllMatches(boolean lower, boolean upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
+      .withAttrName(MatchOtherThan.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -345,31 +345,31 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO createHostGraphSrcObject(Object value)
+   public MatchOtherThanPO createHostGraphSrcObject(Object value)
    {
       this.startCreate().hasHostGraphSrcObject(value).endCreate();
       return this;
    }
    
-   public MatchOtherThenPO createModifier(String value)
+   public MatchOtherThanPO createModifier(String value)
    {
       this.startCreate().hasModifier(value).endCreate();
       return this;
    }
    
-   public MatchOtherThenPO createHasMatch(boolean value)
+   public MatchOtherThanPO createHasMatch(boolean value)
    {
       this.startCreate().hasHasMatch(value).endCreate();
       return this;
    }
    
-   public MatchOtherThenPO createPatternObjectName(String value)
+   public MatchOtherThanPO createPatternObjectName(String value)
    {
       this.startCreate().hasPatternObjectName(value).endCreate();
       return this;
    }
    
-   public MatchOtherThenPO createDoAllMatches(boolean value)
+   public MatchOtherThanPO createDoAllMatches(boolean value)
    {
       this.startCreate().hasDoAllMatches(value).endCreate();
       return this;
@@ -380,7 +380,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
-   public MatchOtherThenPO createPattern(PatternPO tgt)
+   public MatchOtherThanPO createPattern(PatternPO tgt)
    {
       return this.startCreate().hasPattern(tgt).endCreate();
    }
@@ -390,7 +390,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return (PatternObjectPO) this.startCreate().hasSrc().endCreate();
    }
 
-   public MatchOtherThenPO createSrc(PatternObjectPO tgt)
+   public MatchOtherThanPO createSrc(PatternObjectPO tgt)
    {
       return this.startCreate().hasSrc(tgt).endCreate();
    }
@@ -400,15 +400,15 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this.startCreate().hasForbidden().endCreate();
    }
 
-   public MatchOtherThenPO createForbidden(PatternObjectPO tgt)
+   public MatchOtherThanPO createForbidden(PatternObjectPO tgt)
    {
       return this.startCreate().hasForbidden(tgt).endCreate();
    }
 
-   public MatchOtherThenPO filterHostGraphSrcObject(Object value)
+   public MatchOtherThanPO filterHostGraphSrcObject(Object value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
+      .withAttrName(MatchOtherThan.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -419,10 +419,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterModifier(String value)
+   public MatchOtherThanPO filterModifier(String value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withAttrName(MatchOtherThan.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -433,10 +433,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterModifier(String lower, String upper)
+   public MatchOtherThanPO filterModifier(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
+      .withAttrName(MatchOtherThan.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -448,10 +448,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterHasMatch(boolean value)
+   public MatchOtherThanPO filterHasMatch(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
+      .withAttrName(MatchOtherThan.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -462,10 +462,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterPatternObjectName(String value)
+   public MatchOtherThanPO filterPatternObjectName(String value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withAttrName(MatchOtherThan.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -476,10 +476,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterPatternObjectName(String lower, String upper)
+   public MatchOtherThanPO filterPatternObjectName(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
+      .withAttrName(MatchOtherThan.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -491,10 +491,10 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
-   public MatchOtherThenPO filterDoAllMatches(boolean value)
+   public MatchOtherThanPO filterDoAllMatches(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
+      .withAttrName(MatchOtherThan.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -510,14 +510,14 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(MatchOtherThen.PROPERTY_SRC, result);
+      super.hasLink(MatchOtherThan.PROPERTY_SRC, result);
       
       return result;
    }
 
-   public MatchOtherThenPO filterSrc(PatternObjectPO tgt)
+   public MatchOtherThanPO filterSrc(PatternObjectPO tgt)
    {
-      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_SRC);
+      return hasLinkConstraint(tgt, MatchOtherThan.PROPERTY_SRC);
    }
 
    public PatternObjectPO filterForbidden()
@@ -525,14 +525,14 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(MatchOtherThen.PROPERTY_FORBIDDEN, result);
+      super.hasLink(MatchOtherThan.PROPERTY_FORBIDDEN, result);
       
       return result;
    }
 
-   public MatchOtherThenPO filterForbidden(PatternObjectPO tgt)
+   public MatchOtherThanPO filterForbidden(PatternObjectPO tgt)
    {
-      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_FORBIDDEN);
+      return hasLinkConstraint(tgt, MatchOtherThan.PROPERTY_FORBIDDEN);
    }
 
 }

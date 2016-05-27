@@ -2101,10 +2101,10 @@ public class GenClassModel implements ClassModelAdapter
          allObjects.add(currentObject);
 
          allLinks.addAll(currentObject.getOutgoingLinks());
-         allLinks.addAll(currentObject.getIncommingLinks());
+         allLinks.addAll(currentObject.getIncomingLinks());
 
          todoObjects.addAll(currentObject.getOutgoingLinks().getTgt().minus(allObjects));
-         todoObjects.addAll(currentObject.getIncommingLinks().getSrc().minus(allObjects));
+         todoObjects.addAll(currentObject.getIncomingLinks().getSrc().minus(allObjects));
       }
 
       // now derive classes from node types

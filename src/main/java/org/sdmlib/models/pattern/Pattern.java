@@ -893,9 +893,9 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
             previousConstraint = genericConstraint;
          }
-         else if (patElem instanceof MatchOtherThen)
+         else if (patElem instanceof MatchOtherThan)
          {
-            MatchOtherThen matchOther = (MatchOtherThen) patElem;
+            MatchOtherThan matchOther = (MatchOtherThan) patElem;
 
             StringBuilder cardConstrBuilder = new StringBuilder(
                   "id [label=\"{nodeX != nodeY}\"]\n");
@@ -1379,9 +1379,9 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
       return value;
    }
 
-   public PatternElement createElementsMatchOtherThen()
+   public PatternElement createElementsMatchOtherThan()
    {
-      PatternElement value = new MatchOtherThen();
+      PatternElement value = new MatchOtherThan();
       withElements(value);
       return value;
    }
@@ -1477,9 +1477,9 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
       return value;
    }
 
-   public MatchOtherThen createMatchOtherThen()
+   public MatchOtherThan createMatchOtherThan()
    {
-      MatchOtherThen value = new MatchOtherThen();
+      MatchOtherThan value = new MatchOtherThan();
       withElements(value);
       return value;
    }
