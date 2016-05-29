@@ -50,34 +50,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
    
    //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
-   }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
-
-   
-   //==========================================================================
-   
-   
    public void removeYou()
    {
    
@@ -86,7 +58,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       withoutAssignments(this.getAssignments().toArray(new Assignment[this.getAssignments().size()]));
       withoutTas(this.getTas().toArray(new TeachingAssistant[this.getTas().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -107,7 +79,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
@@ -148,7 +120,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       
          String oldValue = this.topic;
          this.topic = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
+         firePropertyChange(PROPERTY_TOPIC, oldValue, value);
       }
    }
    
@@ -176,7 +148,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+         firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
    
@@ -225,7 +197,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             value.withRooms(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
+         firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
          changed = true;
       }
       
@@ -293,7 +265,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withDoors(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null, item);
+               firePropertyChange(PROPERTY_DOORS, null, item);
             }
          }
       }
@@ -309,7 +281,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.doors.remove(item))
             {
                item.withoutDoors(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
+               firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
       }
@@ -336,7 +308,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
    private StudentSet students = null;
    
-   public StudentSet<Student> getStudents()
+   public StudentSet getStudents()
    {
       if (this.students == null)
       {
@@ -365,7 +337,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withIn(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, item);
+               firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
       }
@@ -381,7 +353,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.students.remove(item))
             {
                item.setIn(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
+               firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
       }
@@ -444,7 +416,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, null, item);
+               firePropertyChange(PROPERTY_ASSIGNMENTS, null, item);
             }
          }
       }
@@ -460,7 +432,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.assignments.remove(item))
             {
                item.setRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
+               firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
             }
          }
       }
@@ -521,7 +493,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null, item);
+               firePropertyChange(PROPERTY_TAS, null, item);
             }
          }
       }
@@ -537,7 +509,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.tas.remove(item))
             {
                item.setRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, item, null);
+               firePropertyChange(PROPERTY_TAS, item, null);
             }
          }
       }
@@ -550,4 +522,43 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       withTas(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = null;
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 }

@@ -272,9 +272,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 				&& getRepairClassModel().hasFeature(Feature.Serialization) == false) {
 			return null;
 		}
-//		if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
-//			return null;
-//		}
 		if (((ClassModel) model.getClassModel()).hasFeature(Feature.ALBERTsSets) == false) {
 			return null;
 		}
@@ -285,12 +282,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          {
             System.out.println("ups");
          }
+         
          // try to find existing file
          String name = model.getName(false);
-//         if(EntityUtil.isNumericType(name) ) {
-//        	 model.with(NumberList.class.getName());
-//        	 return null;
-//         }
+
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -366,6 +361,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             modelSetParser.withFileBody(text).withFileChanged(true);
          }
          insertLicense(modelSetParser);
+         insertConstructor(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
          if(((ClassModel) model.getClassModel()).hasFeature(Feature.PatternObject)) {
         	 insertSetStartModelPattern(modelSetParser);
@@ -377,6 +373,44 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       return modelSetParser;
    }
    
+   private void insertConstructor(Parser parser)
+   {
+      String searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) 
+      + "Set(" + CGUtil.shortClassName(model.getName()) + "...)";
+      int pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+               "\n" +
+                  "   public ModelSet(ModelClass... objects)\n" +
+                  "   {\n" +
+                  "      for (ModelClass obj : objects)\n" + 
+                  "      {\n" +
+                  "         this.add(obj);\n" +
+                  "      }\n" +
+                  "   }\n"
+               );
+
+         String packageName = CGUtil.packageName(model.getName());
+
+         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+         {
+            packageName = packageName.substring(0, packageName.length() - 5);
+         }
+
+         CGUtil.replaceAll(text,
+            "ModelSet", CGUtil.shortClassName(model.getName()) + "Set",
+            "ModelClass", CGUtil.shortClassName(model.getName())
+            );
+
+         // insertImport(parser, StringList.class.getName());
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+      }
+   }
+
    private void insertSetStartModelPattern(Parser parser)
    {
       String searchString = Parser.METHOD + ":filter" + CGUtil.shortClassName(model.getName()) + "PO()";

@@ -394,4 +394,12 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+
+   public AssignmentSet(Assignment... objects)
+   {
+      for (Assignment obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 }

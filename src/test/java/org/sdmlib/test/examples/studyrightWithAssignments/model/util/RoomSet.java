@@ -528,7 +528,7 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return Set of Student objects reachable via students
     */
-   public StudentSet<Student> getStudents()
+   public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
       
@@ -763,4 +763,12 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 }

@@ -38,34 +38,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
  */
 public  class Student implements SendableEntity
 {
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
-   }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
-
-   
    //==========================================================================
    
    
@@ -76,7 +48,7 @@ public  class Student implements SendableEntity
       setIn(null);
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -97,7 +69,7 @@ public  class Student implements SendableEntity
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
@@ -140,7 +112,7 @@ public  class Student implements SendableEntity
       
          String oldValue = this.id;
          this.id = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue, value);
+         firePropertyChange(PROPERTY_ID, oldValue, value);
       }
    }
    
@@ -173,7 +145,7 @@ public  class Student implements SendableEntity
       
          int oldValue = this.assignmentPoints;
          this.assignmentPoints = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
+         firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
       }
    }
    
@@ -201,7 +173,7 @@ public  class Student implements SendableEntity
       
          int oldValue = this.motivation;
          this.motivation = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MOTIVATION, oldValue, value);
+         firePropertyChange(PROPERTY_MOTIVATION, oldValue, value);
       }
    }
    
@@ -234,7 +206,7 @@ public  class Student implements SendableEntity
       
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+         firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
    
@@ -288,7 +260,7 @@ public  class Student implements SendableEntity
             value.withStudents(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
+         firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
          changed = true;
       }
       
@@ -347,7 +319,7 @@ public  class Student implements SendableEntity
             value.withStudents(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue, value);
+         firePropertyChange(PROPERTY_IN, oldValue, value);
          changed = true;
       }
       
@@ -380,7 +352,7 @@ public  class Student implements SendableEntity
 
    private StudentSet friends = null;
    
-   public StudentSet<Student> getFriends()
+   public StudentSet getFriends()
    {
       if (this.friends == null)
       {
@@ -420,7 +392,7 @@ public  class Student implements SendableEntity
             if (changed)
             {
                item.withFriends(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, null, item);
+               firePropertyChange(PROPERTY_FRIENDS, null, item);
             }
          }
       }
@@ -436,7 +408,7 @@ public  class Student implements SendableEntity
             if (this.friends.remove(item))
             {
                item.withoutFriends(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, item, null);
+               firePropertyChange(PROPERTY_FRIENDS, item, null);
             }
          }
       }
@@ -504,7 +476,7 @@ public  class Student implements SendableEntity
             if (changed)
             {
                item.withStudents(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, item);
+               firePropertyChange(PROPERTY_DONE, null, item);
             }
          }
       }
@@ -520,7 +492,7 @@ public  class Student implements SendableEntity
             if (this.done.remove(item))
             {
                item.withoutStudents(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, item, null);
+               firePropertyChange(PROPERTY_DONE, item, null);
             }
          }
       }
@@ -533,4 +505,43 @@ public  class Student implements SendableEntity
       withDone(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = null;
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 }

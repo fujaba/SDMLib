@@ -34,6 +34,15 @@ import org.sdmlib.simple.model.association_h.Room;
 public class TeacherSet extends SDMSet<Teacher>
 {
 
+
+   public TeacherSet(Teacher... objects)
+   {
+      for (Teacher obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
    public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
 
 

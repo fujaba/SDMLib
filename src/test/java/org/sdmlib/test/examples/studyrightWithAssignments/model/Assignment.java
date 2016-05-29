@@ -38,34 +38,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
  */
    public  class Assignment implements SendableEntity
 {
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
-   }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
-
-   
    //==========================================================================
    
    
@@ -74,7 +46,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    
       setRoom(null);
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -95,7 +67,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
       
          String oldValue = this.content;
          this.content = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CONTENT, oldValue, value);
+         firePropertyChange(PROPERTY_CONTENT, oldValue, value);
       }
    }
    
@@ -135,7 +107,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
       
          int oldValue = this.points;
          this.points = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_POINTS, oldValue, value);
+         firePropertyChange(PROPERTY_POINTS, oldValue, value);
       }
    }
    
@@ -184,7 +156,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
             value.withAssignments(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
          changed = true;
       }
       
@@ -217,7 +189,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
    private StudentSet students = null;
    
-   public StudentSet<Student> getStudents()
+   public StudentSet getStudents()
    {
       if (this.students == null)
       {
@@ -246,7 +218,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
             if (changed)
             {
                item.withDone(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, item);
+               firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
       }
@@ -262,7 +234,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
             if (this.students.remove(item))
             {
                item.withoutDone(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
+               firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
       }
@@ -282,4 +254,43 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
       withStudents(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = null;
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 }

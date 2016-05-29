@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
@@ -39,7 +40,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityS
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
-public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
+public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
 
    public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withFlag(TeachingAssistantSet.READONLY);
@@ -747,9 +748,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return Set of Student objects reachable via friends transitively (including the start set)
     */
-   public StudentSet<Student> getFriendsTransitive()
+   public StudentSet getFriendsTransitive()
    {
-      StudentSet<Student> todo = new StudentSet<Student>().with(this);
+      StudentSet todo = new StudentSet().with(this);
       
       StudentSet result = new StudentSet();
       
@@ -945,4 +946,12 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
       return this;
    }
 
+
+   public TeachingAssistantSet(TeachingAssistant... objects)
+   {
+      for (TeachingAssistant obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 }

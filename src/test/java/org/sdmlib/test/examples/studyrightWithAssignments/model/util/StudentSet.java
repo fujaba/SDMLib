@@ -37,20 +37,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
-public class StudentSet<T extends Student> extends SDMSet<T>
+public class StudentSet extends SDMSet<Student>
 {
-   public StudentSet()
-   {
-      // empty
-   }
-
-   public StudentSet(Object value)
-   {
-      this();
-      this.with(value);
-   }
-
-   public static final StudentSet EMPTY_SET = new StudentSet<Student>().withFlag(StudentSet.READONLY);
+   public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
 
 
    public StudentPO filterStudentPO()
@@ -74,11 +63,11 @@ public class StudentSet<T extends Student> extends SDMSet<T>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<T>)value);
+         this.addAll((Collection<Student>)value);
       }
       else if (value != null)
       {
-         this.add((T) value);
+         this.add((Student) value);
       }
       
       return this;
@@ -91,7 +80,7 @@ public class StudentSet<T extends Student> extends SDMSet<T>
    }
 
    @Override
-   public StudentSet filter(Condition<T> newValue) {
+   public StudentSet filter(Condition<Student> newValue) {
       StudentSet filterList = new StudentSet();
       filterItems(filterList, newValue);
       return filterList;
@@ -698,7 +687,7 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     */
    public StudentSet getFriendsTransitive()
    {
-      StudentSet<T> todo = new StudentSet<T>().with(this);
+      StudentSet todo = new StudentSet().with(this);
       
       StudentSet result = new StudentSet();
       
@@ -829,4 +818,12 @@ public class StudentSet<T extends Student> extends SDMSet<T>
       return this;
    }
 
+
+   public StudentSet(Student... objects)
+   {
+      for (Student obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 }

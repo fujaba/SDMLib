@@ -30,6 +30,13 @@ import org.sdmlib.models.modelsets.intList;
 
 public class PersonSet extends SDMSet<Person>
 {
+   public PersonSet(Person... persons)
+   {
+      for (Person p : persons)
+      {
+         this.add(p);
+      }
+   }
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 

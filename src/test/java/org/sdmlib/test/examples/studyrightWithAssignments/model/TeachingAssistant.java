@@ -49,7 +49,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       setRoom(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -70,7 +70,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       
          boolean oldValue = this.certified;
          this.certified = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
+         firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
       }
    }
    
@@ -134,7 +134,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
             value.withTas(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
          changed = true;
       }
       

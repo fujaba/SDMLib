@@ -35,6 +35,13 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
 public class UniversitySet extends SDMSet<University>
 {
+   public UniversitySet(University... objects)
+   {
+      for (University obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 
    public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
 
@@ -324,5 +331,4 @@ public class UniversitySet extends SDMSet<University>
       
       return this;
    }
-
 }

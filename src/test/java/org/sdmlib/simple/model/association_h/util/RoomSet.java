@@ -35,6 +35,15 @@ import org.sdmlib.simple.model.association_h.Teacher;
 public class RoomSet extends SDMSet<Room>
 {
 
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
 
