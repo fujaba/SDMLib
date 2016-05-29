@@ -167,31 +167,6 @@ public class GenAssociation extends Generator<Association>
          elistPos = type.indexOf(":EList<");
       }
       
-      if (elistPos >= 0)
-      {
-         pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Set()");
-
-         if (pos < 0)
-         {
-            if (GraphUtil.isInterface(clazz) == false)
-            {
-               text.append 
-               (     "  public type getPartnerRoleNameSet()\n" + 
-                     "  {\n" + 
-                     "     return new type().with(getPartnerRoleName());\n" + 
-                     "  }\n" + 
-                     "\n");
-            }
-            else
-            {
-               text.append
-               (     "\n   public type getPartnerRoleNameSet();" +
-                     "\n");
-            }
-         }
-      }
-      
-      
       if (model.getClazz() == model.getOtherClazz())
       {
          // recursive assoc, add getTransitive methods
@@ -269,11 +244,6 @@ public class GenAssociation extends Generator<Association>
             text.append
             (     "\n   public myClassName withPartnerRoleName(partnerClassName... value);" +
                   "\n");
-         }
-         
-         if (elistPos >= 0)
-         {
-            CGUtil.replaceAll(text, "initRoleVar", "this.getPartnerRoleName()");
          }
       }
       
@@ -1030,7 +1000,8 @@ public class GenAssociation extends Generator<Association>
                   + "      if (this.getPattern().getHasMatch())\n"
                   + "      {\n"
                   + "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n"
-                  + "      }\n" + "      return null;\n" + "   }\n\n");
+                  + "      }\n" 
+                  + "      return null;\n" + "   }\n\n");
          }
          else
          {
@@ -1040,7 +1011,8 @@ public class GenAssociation extends Generator<Association>
                   + "      if (this.getPattern().getHasMatch())\n"
                   + "      {\n"
                   + "         return ((ModelClass) this.getCurrentMatch()).getRoleNameSet();\n"
-                  + "      }\n" + "      return null;\n" + "   }\n\n");
+                  + "      }\n" 
+                  + "      return null;\n" + "   }\n\n");
          }
          
          
