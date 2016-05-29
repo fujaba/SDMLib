@@ -331,4 +331,9 @@ public class UniversitySet extends SDMSet<University>
       
       return this;
    }
+
+   public UniversitySet()
+   {
+      // empty
+   }
 }

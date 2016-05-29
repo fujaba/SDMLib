@@ -375,14 +375,47 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    private void insertConstructor(Parser parser)
    {
-      String searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) 
-      + "Set(" + CGUtil.shortClassName(model.getName()) + "...)";
+      String searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) + "Set()";
+
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-               "\n" +
+            "\n" +
+                  "   public ModelSet()\n" +
+                  "   {\n" +
+                  "      // empty\n" +
+                  "   }\n"
+               );
+
+         String packageName = CGUtil.packageName(model.getName());
+
+         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+         {
+            packageName = packageName.substring(0, packageName.length() - 5);
+         }
+
+         CGUtil.replaceAll(text,
+            "ModelSet", CGUtil.shortClassName(model.getName()) + "Set",
+            "ModelClass", CGUtil.shortClassName(model.getName())
+               );
+
+         // insertImport(parser, StringList.class.getName());
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+      }
+
+      searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) 
+      + "Set(" + CGUtil.shortClassName(model.getName()) + "...)";
+
+      pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n" +
                   "   public ModelSet(ModelClass... objects)\n" +
                   "   {\n" +
                   "      for (ModelClass obj : objects)\n" + 
@@ -402,7 +435,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          CGUtil.replaceAll(text,
             "ModelSet", CGUtil.shortClassName(model.getName()) + "Set",
             "ModelClass", CGUtil.shortClassName(model.getName())
-            );
+               );
 
          // insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -410,7 +443,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
       }
    }
-
+   
    private void insertSetStartModelPattern(Parser parser)
    {
       String searchString = Parser.METHOD + ":filter" + CGUtil.shortClassName(model.getName()) + "PO()";

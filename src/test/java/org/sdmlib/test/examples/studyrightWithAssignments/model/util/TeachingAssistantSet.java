@@ -954,4 +954,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
          this.add(obj);
       }
    }
+
+   public TeachingAssistantSet()
+   {
+      // empty
+   }
 }

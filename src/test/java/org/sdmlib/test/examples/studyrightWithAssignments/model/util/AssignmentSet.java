@@ -402,4 +402,9 @@ public class AssignmentSet extends SDMSet<Assignment>
          this.add(obj);
       }
    }
+
+   public AssignmentSet()
+   {
+      // empty
+   }
 }

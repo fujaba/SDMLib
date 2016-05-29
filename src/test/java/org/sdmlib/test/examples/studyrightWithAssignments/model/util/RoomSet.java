@@ -771,4 +771,9 @@ public class RoomSet extends SDMSet<Room>
          this.add(obj);
       }
    }
+
+   public RoomSet()
+   {
+      // empty
+   }
 }

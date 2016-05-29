@@ -826,4 +826,9 @@ public class StudentSet extends SDMSet<Student>
          this.add(obj);
       }
    }
+
+   public StudentSet()
+   {
+      // empty
+   }
 }

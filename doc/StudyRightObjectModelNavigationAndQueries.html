@@ -68,7 +68,8 @@
          "id":"Student",
          "methods":[
             "getFriendsTransitive() StudentSet",
-            "createFriendsTeachingAssistant() TeachingAssistant"
+            "createFriendsTeachingAssistant() TeachingAssistant",
+            "firePropertyChange(String p0, Object p1, Object p2) boolean"
          ]
       },
       {
@@ -77,7 +78,8 @@
          "methods":[
             "findPath(int p0) String",
             "getDoorsTransitive() RoomSet",
-            "createStudentsTeachingAssistant() TeachingAssistant"
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "firePropertyChange(String p0, Object p1, Object p2) boolean"
          ]
       },
       {
@@ -88,7 +90,8 @@
          "typ":"node",
          "id":"Assignment",
          "methods":[
-            "createStudentsTeachingAssistant() TeachingAssistant"
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "firePropertyChange(String p0, Object p1, Object p2) boolean"
          ]
       },
       {
@@ -102,7 +105,8 @@
          "typ":"node",
          "id":"University",
          "methods":[
-            "createStudentsTeachingAssistant() TeachingAssistant"
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "firePropertyChange(String p0, Object p1, Object p2) boolean"
          ]
       },
       {
@@ -147,53 +151,6 @@
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
             "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"TeachingAssistantSet",
-         "methods":[
-            "filterTeachingAssistantPO() TeachingAssistantPO",
-            "getEntryType() String",
-            "with(Object p0) TeachingAssistantSet",
-            "without(TeachingAssistant p0) TeachingAssistantSet",
-            "filter(Condition<TeachingAssistant> p0) TeachingAssistantSet",
-            "getCertified() booleanList",
-            "filterCertified(boolean p0) TeachingAssistantSet",
-            "withCertified(boolean p0) TeachingAssistantSet",
-            "getName() StringList",
-            "filterName(String p0) TeachingAssistantSet",
-            "withName(String p0) TeachingAssistantSet",
-            "getId() StringList",
-            "filterId(String p0) TeachingAssistantSet",
-            "withId(String p0) TeachingAssistantSet",
-            "getAssignmentPoints() intList",
-            "filterAssignmentPoints(int p0) TeachingAssistantSet",
-            "withAssignmentPoints(int p0) TeachingAssistantSet",
-            "getMotivation() intList",
-            "filterMotivation(int p0) TeachingAssistantSet",
-            "withMotivation(int p0) TeachingAssistantSet",
-            "getCredits() intList",
-            "filterCredits(int p0) TeachingAssistantSet",
-            "withCredits(int p0) TeachingAssistantSet",
-            "getUniversity() UniversitySet",
-            "filterUniversity(Object p0) TeachingAssistantSet",
-            "withUniversity(University p0) TeachingAssistantSet",
-            "getIn() RoomSet",
-            "filterIn(Object p0) TeachingAssistantSet",
-            "withIn(Room p0) TeachingAssistantSet",
-            "getFriends() StudentSet",
-            "filterFriends(Object p0) TeachingAssistantSet",
-            "getFriendsTransitive() StudentSet<Student>",
-            "withFriends(Student p0) TeachingAssistantSet",
-            "withoutFriends(Student p0) TeachingAssistantSet",
-            "getDone() AssignmentSet",
-            "filterDone(Object p0) TeachingAssistantSet",
-            "withDone(Assignment p0) TeachingAssistantSet",
-            "withoutDone(Assignment p0) TeachingAssistantSet",
-            "getRoom() RoomSet",
-            "filterRoom(Object p0) TeachingAssistantSet",
-            "withRoom(Room p0) TeachingAssistantSet"
          ]
       },
       {
@@ -1069,12 +1026,7 @@
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
+         "id":"R2 : Room"
       },
       {
          "typ":"clazz",
@@ -1090,12 +1042,7 @@
       },
       {
          "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
+         "id":"R4 : Room"
       },
       {
          "typ":"clazz",
