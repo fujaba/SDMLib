@@ -375,7 +375,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    private void insertConstructor(Parser parser)
    {
-      String searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) + "Set()";
+      String shortClassName = CGUtil.shortClassName(model.getName());
+      String searchString = Parser.CONSTRUCTOR + ":" + shortClassName + "Set()";
 
       int pos = parser.indexOf(searchString);
 
@@ -397,8 +398,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
 
          CGUtil.replaceAll(text,
-            "ModelSet", CGUtil.shortClassName(model.getName()) + "Set",
-            "ModelClass", CGUtil.shortClassName(model.getName())
+            "ModelSet", shortClassName + "Set",
+            "ModelClass", shortClassName
                );
 
          // insertImport(parser, StringList.class.getName());
@@ -407,8 +408,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
       }
 
-      searchString = Parser.CONSTRUCTOR + ":" + CGUtil.shortClassName(model.getName()) 
-      + "Set(" + CGUtil.shortClassName(model.getName()) + "...)";
+      searchString = Parser.CONSTRUCTOR + ":" + shortClassName 
+      + "Set(" + shortClassName + "...)";
 
       pos = parser.indexOf(searchString);
 
@@ -433,8 +434,41 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
 
          CGUtil.replaceAll(text,
-            "ModelSet", CGUtil.shortClassName(model.getName()) + "Set",
-            "ModelClass", CGUtil.shortClassName(model.getName())
+            "ModelSet", shortClassName + "Set",
+            "ModelClass", shortClassName
+               );
+
+         // insertImport(parser, StringList.class.getName());
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+      }
+      
+      searchString = Parser.CONSTRUCTOR + ":" + shortClassName 
+      + "Set(Collection<" + shortClassName + ">)";
+
+      pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n" +
+                  "   public ModelSet(Collection<ModelClass> objects)\n" +
+                  "   {\n" +
+                  "      this.addAll(objects);\n" +
+                  "   }\n"
+               );
+
+         String packageName = CGUtil.packageName(model.getName());
+
+         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+         {
+            packageName = packageName.substring(0, packageName.length() - 5);
+         }
+
+         CGUtil.replaceAll(text,
+            "ModelSet", shortClassName + "Set",
+            "ModelClass", shortClassName
                );
 
          // insertImport(parser, StringList.class.getName());

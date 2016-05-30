@@ -831,4 +831,9 @@ public class StudentSet extends SDMSet<Student>
    {
       // empty
    }
+
+   public StudentSet(Collection<Student> objects)
+   {
+      this.addAll(objects);
+   }
 }

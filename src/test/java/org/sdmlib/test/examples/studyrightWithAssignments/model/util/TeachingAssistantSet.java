@@ -959,4 +959,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    {
       // empty
    }
+
+   public TeachingAssistantSet(Collection<TeachingAssistant> objects)
+   {
+      this.addAll(objects);
+   }
 }

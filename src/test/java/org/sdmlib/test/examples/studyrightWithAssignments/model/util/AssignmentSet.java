@@ -407,4 +407,9 @@ public class AssignmentSet extends SDMSet<Assignment>
    {
       // empty
    }
+
+   public AssignmentSet(Collection<Assignment> objects)
+   {
+      this.addAll(objects);
+   }
 }

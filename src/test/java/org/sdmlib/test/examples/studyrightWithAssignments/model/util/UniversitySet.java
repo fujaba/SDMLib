@@ -336,4 +336,9 @@ public class UniversitySet extends SDMSet<University>
    {
       // empty
    }
+
+   public UniversitySet(Collection<University> objects)
+   {
+      this.addAll(objects);
+   }
 }
