@@ -552,6 +552,7 @@ public class GenClass extends GenClazzEntity
 
       // does it implement PropertyChangeSupportClient?
 
+      searchString = Parser.ATTRIBUTE + ":listeners";
       int pos = parser.indexOf(searchString);
 //TODO CHANGE
       if (pos < 0)
@@ -562,42 +563,75 @@ public class GenClass extends GenClazzEntity
                "\n   //==========================================================================" +
                "\n   " +
                "\n   protected PropertyChangeSupport listeners = null;" +
-               "\n   " +
-               "\n   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)" +
-               "\n   {" +
-               "\n      if (listeners != null) {" +
-               "\n   		listeners.firePropertyChange(propertyName, oldValue, newValue);" +
-               "\n   		return true;" +
-               "\n   	}" +
-               "\n   	return false;" +
-               "\n   }" +
-               "\n   " +
-               "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
-               "\n   {" +
-               "\n   	if (listeners == null) {" +
-               "\n   		listeners = new PropertyChangeSupport(this);" +
-               "\n   	}" +
-               "\n   	listeners.addPropertyChangeListener(listener);" +
-               "\n   	return true;" +
-               "\n   }" +
-               "\n   " +
-               "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
-               "\n   	if (listeners == null) {" +
-               "\n   		listeners = new PropertyChangeSupport(this);" +
-               "\n   	}" +
-               "\n   	listeners.addPropertyChangeListener(propertyName, listener);" +
-               "\n   	return true;" +
-               "\n   }"+
-               "\n   " +
-               "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
-               "\n   	if (listeners == null) {" +
-               "\n   		listeners = new PropertyChangeSupport(this);" +
-               "\n   	}" +
-               "\n   	listeners.removePropertyChangeListener(listener);" +
-               "\n   	return true;" +
-               "\n   }"+
-               "\n"
-            );
+               "\n   "
+        	);
+         
+      }
+      
+      searchString = Parser.METHOD + ":firePropertyChange(String,Object,Object)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)" +
+                  "\n   {" +
+                  "\n      if (listeners != null) {" +
+                  "\n   		listeners.firePropertyChange(propertyName, oldValue, newValue);" +
+                  "\n   		return true;" +
+                  "\n   	}" +
+                  "\n   	return false;" +
+                  "\n   }" +
+                  "\n   "
+    		);
+      }
+      
+      searchString = Parser.METHOD + ":addPropertyChangeListener(PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
+    		      "\n   {" +
+    		      "\n   	if (listeners == null) {" +
+    		      "\n   		listeners = new PropertyChangeSupport(this);" +
+    		      "\n   	}" +
+    		      "\n   	listeners.addPropertyChangeListener(listener);" +
+    		      "\n   	return true;" +
+    		      "\n   }" +
+    		      "\n   "
+    		);
+      }
+    	
+      searchString = Parser.METHOD + ":addPropertyChangeListener(String,PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners == null) {" +
+    					  "\n   		listeners = new PropertyChangeSupport(this);" +
+    					  "\n   	}" +
+    					  "\n   	listeners.addPropertyChangeListener(propertyName, listener);" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n   "
+    		);
+      }
+
+      searchString = Parser.METHOD + ":removePropertyChangeListener(PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners == null) {" +
+    					  "\n   		listeners = new PropertyChangeSupport(this);" +
+    					  "\n   	}" +
+    					  "\n   	listeners.removePropertyChangeListener(listener);" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n"
+    			  );
       }
 
       insertImport(PropertyChangeSupport.class.getName());
