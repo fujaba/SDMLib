@@ -698,4 +698,22 @@ public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
       return result;
    }
 
+
+   public PlaceHolderDescriptionSet()
+   {
+      // empty
+   }
+
+   public PlaceHolderDescriptionSet(PlaceHolderDescription... objects)
+   {
+      for (PlaceHolderDescription obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlaceHolderDescriptionSet(Collection<PlaceHolderDescription> objects)
+   {
+      this.addAll(objects);
+   }
 }

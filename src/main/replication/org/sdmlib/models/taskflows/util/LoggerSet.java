@@ -506,4 +506,22 @@ public class LoggerSet extends SimpleSet<Logger>
       return result;
    }
 
+
+   public LoggerSet()
+   {
+      // empty
+   }
+
+   public LoggerSet(Logger... objects)
+   {
+      for (Logger obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LoggerSet(Collection<Logger> objects)
+   {
+      this.addAll(objects);
+   }
 }

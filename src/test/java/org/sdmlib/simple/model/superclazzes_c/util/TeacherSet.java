@@ -29,6 +29,24 @@ import de.uniks.networkparser.interfaces.Condition;
 public class TeacherSet extends SDMSet<Teacher>
 {
 
+   public TeacherSet()
+   {
+      // empty
+   }
+
+   public TeacherSet(Teacher... objects)
+   {
+      for (Teacher obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TeacherSet(Collection<Teacher> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
 
 

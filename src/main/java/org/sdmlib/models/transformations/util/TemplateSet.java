@@ -1115,4 +1115,22 @@ public class TemplateSet extends SimpleSet<Template>
       return result;
    }
 
+
+   public TemplateSet()
+   {
+      // empty
+   }
+
+   public TemplateSet(Template... objects)
+   {
+      for (Template obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TemplateSet(Collection<Template> objects)
+   {
+      this.addAll(objects);
+   }
 }

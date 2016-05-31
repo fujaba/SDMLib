@@ -35,9 +35,6 @@ import org.sdmlib.simple.model.superclazzes_b.Person;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 }

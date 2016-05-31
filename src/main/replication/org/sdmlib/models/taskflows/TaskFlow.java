@@ -381,4 +381,13 @@ import java.beans.PropertyChangeListener;
       return result.getParentTransitive();
    }
 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

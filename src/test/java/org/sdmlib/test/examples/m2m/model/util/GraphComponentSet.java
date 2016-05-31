@@ -222,4 +222,22 @@ public class GraphComponentSet extends SimpleSet<GraphComponent>
       return result;
    }
 
+
+   public GraphComponentSet()
+   {
+      // empty
+   }
+
+   public GraphComponentSet(GraphComponent... objects)
+   {
+      for (GraphComponent obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GraphComponentSet(Collection<GraphComponent> objects)
+   {
+      this.addAll(objects);
+   }
 }

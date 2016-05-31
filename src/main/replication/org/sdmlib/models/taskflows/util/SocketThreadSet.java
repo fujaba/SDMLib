@@ -393,4 +393,22 @@ public class SocketThreadSet extends SimpleSet<SocketThread>
       return result;
    }
 
+
+   public SocketThreadSet()
+   {
+      // empty
+   }
+
+   public SocketThreadSet(SocketThread... objects)
+   {
+      for (SocketThread obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SocketThreadSet(Collection<SocketThread> objects)
+   {
+      this.addAll(objects);
+   }
 }

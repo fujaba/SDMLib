@@ -421,4 +421,22 @@ public class ChatMsgSet extends SimpleSet<ChatMsg>
       return result;
    }
 
+
+   public ChatMsgSet()
+   {
+      // empty
+   }
+
+   public ChatMsgSet(ChatMsg... objects)
+   {
+      for (ChatMsg obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatMsgSet(Collection<ChatMsg> objects)
+   {
+      this.addAll(objects);
+   }
 }

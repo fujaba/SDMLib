@@ -32,6 +32,24 @@ import org.sdmlib.test.examples.annotations.model.simple.House;
 public class DoorSet extends SDMSet<Door>
 {
 
+   public DoorSet()
+   {
+      // empty
+   }
+
+   public DoorSet(Door... objects)
+   {
+      for (Door obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DoorSet(Collection<Door> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
 
 

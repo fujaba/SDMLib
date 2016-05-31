@@ -199,4 +199,22 @@ public class RemoteTaskSet extends SimpleSet<RemoteTask>
       return result;
    }
 
+
+   public RemoteTaskSet()
+   {
+      // empty
+   }
+
+   public RemoteTaskSet(RemoteTask... objects)
+   {
+      for (RemoteTask obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RemoteTaskSet(Collection<RemoteTask> objects)
+   {
+      this.addAll(objects);
+   }
 }

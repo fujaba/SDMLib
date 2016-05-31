@@ -539,4 +539,22 @@ public class PupilSet extends SDMSet<Pupil>
       return this;
    }
 
+
+   public PupilSet()
+   {
+      // empty
+   }
+
+   public PupilSet(Pupil... objects)
+   {
+      for (Pupil obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PupilSet(Collection<Pupil> objects)
+   {
+      this.addAll(objects);
+   }
 }

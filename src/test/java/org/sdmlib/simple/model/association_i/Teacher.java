@@ -38,27 +38,40 @@ import org.sdmlib.simple.model.association_i.Room;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
    
@@ -67,10 +80,9 @@ import org.sdmlib.simple.model.association_i.Room;
    
    public void removeYou()
    {
-   
       withoutPersons(this.getPersons().toArray(new Person[this.getPersons().size()]));
       withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -115,7 +127,7 @@ import org.sdmlib.simple.model.association_i.Room;
             if (changed)
             {
                item.withTeacher(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, null, item);
+               firePropertyChange(PROPERTY_PERSONS, null, item);
             }
          }
       }
@@ -131,7 +143,7 @@ import org.sdmlib.simple.model.association_i.Room;
             if (this.persons.remove(item))
             {
                item.setTeacher(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, item, null);
+               firePropertyChange(PROPERTY_PERSONS, item, null);
             }
          }
       }
@@ -187,7 +199,7 @@ import org.sdmlib.simple.model.association_i.Room;
             if (changed)
             {
                item.withTeacher(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, item);
+               firePropertyChange(PROPERTY_ROOMS, null, item);
             }
          }
       }
@@ -203,7 +215,7 @@ import org.sdmlib.simple.model.association_i.Room;
             if (this.rooms.remove(item))
             {
                item.setTeacher(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, item, null);
+               firePropertyChange(PROPERTY_ROOMS, item, null);
             }
          }
       }

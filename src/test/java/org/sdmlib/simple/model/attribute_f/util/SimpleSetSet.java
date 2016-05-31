@@ -75,4 +75,22 @@ public class SimpleSetSet extends SDMSet<SimpleSet>
       filterItems(filterList, newValue);
       return filterList;
    }
+
+   public SimpleSetSet()
+   {
+      // empty
+   }
+
+   public SimpleSetSet(SimpleSet... objects)
+   {
+      for (SimpleSet obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleSetSet(Collection<SimpleSet> objects)
+   {
+      this.addAll(objects);
+   }
 }

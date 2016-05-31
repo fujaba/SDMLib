@@ -36,27 +36,40 @@ import org.sdmlib.simple.model.association_g.Teacher;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
    
@@ -65,10 +78,9 @@ import org.sdmlib.simple.model.association_g.Teacher;
    
    public void removeYou()
    {
-   
       setPerson(null);
       setTeacher(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -110,7 +122,7 @@ import org.sdmlib.simple.model.association_g.Teacher;
             value.withRoom(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSON, oldValue, value);
+         firePropertyChange(PROPERTY_PERSON, oldValue, value);
          changed = true;
       }
       
@@ -169,7 +181,7 @@ import org.sdmlib.simple.model.association_g.Teacher;
             value.withRoom(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEACHER, oldValue, value);
+         firePropertyChange(PROPERTY_TEACHER, oldValue, value);
          changed = true;
       }
       

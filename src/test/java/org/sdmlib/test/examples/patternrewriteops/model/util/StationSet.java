@@ -393,5 +393,23 @@ public class StationSet extends SimpleSet<Station>
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.Station";
    }
+
+   public StationSet()
+   {
+      // empty
+   }
+
+   public StationSet(Station... objects)
+   {
+      for (Station obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StationSet(Collection<Station> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

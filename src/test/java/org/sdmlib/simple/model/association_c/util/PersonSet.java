@@ -33,6 +33,24 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
 public class PersonSet extends SDMSet<Person>
 {
 
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
@@ -235,102 +253,6 @@ public class PersonSet extends SDMSet<Person>
       for (Person obj : this)
       {
          obj.withPrevPerson(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Person objects and collect a set of the Person objects reached via person. 
-    * 
-    * @return Set of Person objects reachable via person
-    */
-   public PersonSet getPerson()
-   {
-      PersonSet result = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         result.with(obj.getPerson());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Person objects and collect all contained objects with reference person pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as person neighbor of the collected results. 
-    * 
-    * @return Set of Person objects referring to value via person
-    */
-   public PersonSet filterPerson(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PersonSet answer = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (neighbors.contains(obj.getPerson()) || (neighbors.isEmpty() && obj.getPerson() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Follow person reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
-    * 
-    * @return Set of Person objects reachable via person transitively (including the start set)
-    */
-   public PersonSet getPersonTransitive()
-   {
-      PersonSet todo = new PersonSet().with(this);
-      
-      PersonSet result = new PersonSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Person current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            if ( ! result.contains(current.getPerson()))
-            {
-               todo.with(current.getPerson());
-            }
-         }
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Person attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Person attributes.
-    */
-   public PersonSet withPerson(Person value)
-   {
-      for (Person obj : this)
-      {
-         obj.withPerson(value);
       }
       
       return this;

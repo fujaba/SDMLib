@@ -280,4 +280,22 @@ public class OpenStackSet extends SimpleSet<OpenStack>
    {
       return new OpenStackPO(this.toArray(new OpenStack[this.size()]));
    }
+
+   public OpenStackSet()
+   {
+      // empty
+   }
+
+   public OpenStackSet(OpenStack... objects)
+   {
+      for (OpenStack obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public OpenStackSet(Collection<OpenStack> objects)
+   {
+      this.addAll(objects);
+   }
 }

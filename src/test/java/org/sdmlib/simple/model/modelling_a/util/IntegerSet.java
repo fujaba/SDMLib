@@ -75,4 +75,22 @@ public class IntegerSet extends SDMSet<Integer>
       filterItems(filterList, newValue);
       return filterList;
    }
+
+   public IntegerSet()
+   {
+      // empty
+   }
+
+   public IntegerSet(Integer... objects)
+   {
+      for (Integer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public IntegerSet(Collection<Integer> objects)
+   {
+      this.addAll(objects);
+   }
 }

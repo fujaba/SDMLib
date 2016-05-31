@@ -232,4 +232,22 @@ public class HolderSet extends SimpleSet<Holder>
    {
       return "org.sdmlib.test.examples.maumau.model.Holder";
    }
+
+   public HolderSet()
+   {
+      // empty
+   }
+
+   public HolderSet(Holder... objects)
+   {
+      for (Holder obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public HolderSet(Collection<Holder> objects)
+   {
+      this.addAll(objects);
+   }
 }

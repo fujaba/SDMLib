@@ -244,4 +244,13 @@ import org.sdmlib.test.examples.replication.chat.ChatChannel;
       return result.substring(1);
    }
 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

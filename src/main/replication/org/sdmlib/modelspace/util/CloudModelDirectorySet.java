@@ -134,4 +134,22 @@ public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
    {
       return new CloudModelDirectoryPO(this.toArray(new CloudModelDirectory[this.size()]));
    }
+
+   public CloudModelDirectorySet()
+   {
+      // empty
+   }
+
+   public CloudModelDirectorySet(CloudModelDirectory... objects)
+   {
+      for (CloudModelDirectory obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CloudModelDirectorySet(Collection<CloudModelDirectory> objects)
+   {
+      this.addAll(objects);
+   }
 }

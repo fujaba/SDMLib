@@ -506,5 +506,23 @@ public class GenericObjectSet extends SimpleSet<GenericObject>
       return result;
    }
 
+
+   public GenericObjectSet()
+   {
+      // empty
+   }
+
+   public GenericObjectSet(GenericObject... objects)
+   {
+      for (GenericObject obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericObjectSet(Collection<GenericObject> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

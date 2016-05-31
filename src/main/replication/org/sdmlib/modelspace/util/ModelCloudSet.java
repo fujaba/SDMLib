@@ -394,4 +394,22 @@ public class ModelCloudSet extends SimpleSet<ModelCloud>
       return result;
    }
 
+
+   public ModelCloudSet()
+   {
+      // empty
+   }
+
+   public ModelCloudSet(ModelCloud... objects)
+   {
+      for (ModelCloud obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelCloudSet(Collection<ModelCloud> objects)
+   {
+      this.addAll(objects);
+   }
 }

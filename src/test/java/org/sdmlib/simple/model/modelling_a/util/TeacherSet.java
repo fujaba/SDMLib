@@ -555,4 +555,22 @@ public class TeacherSet extends SDMSet<Teacher>
       return this;
    }
 
+
+   public TeacherSet()
+   {
+      // empty
+   }
+
+   public TeacherSet(Teacher... objects)
+   {
+      for (Teacher obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TeacherSet(Collection<Teacher> objects)
+   {
+      this.addAll(objects);
+   }
 }

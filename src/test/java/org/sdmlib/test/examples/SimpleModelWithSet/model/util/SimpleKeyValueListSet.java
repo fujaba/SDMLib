@@ -71,4 +71,22 @@ public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
    {
       return new SimpleKeyValueListPO(this.toArray(new SimpleKeyValueList[this.size()]));
    }
+
+   public SimpleKeyValueListSet()
+   {
+      // empty
+   }
+
+   public SimpleKeyValueListSet(SimpleKeyValueList... objects)
+   {
+      for (SimpleKeyValueList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleKeyValueListSet(Collection<SimpleKeyValueList> objects)
+   {
+      this.addAll(objects);
+   }
 }

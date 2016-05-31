@@ -568,4 +568,22 @@ public class PlayerSet extends SimpleSet<Player>
       return this;
    }
 
+
+   public PlayerSet()
+   {
+      // empty
+   }
+
+   public PlayerSet(Player... objects)
+   {
+      for (Player obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlayerSet(Collection<Player> objects)
+   {
+      this.addAll(objects);
+   }
 }

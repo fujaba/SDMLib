@@ -392,4 +392,22 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 }

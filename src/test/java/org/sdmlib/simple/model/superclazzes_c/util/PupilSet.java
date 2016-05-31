@@ -29,6 +29,24 @@ import de.uniks.networkparser.interfaces.Condition;
 public class PupilSet extends SDMSet<Pupil>
 {
 
+   public PupilSet()
+   {
+      // empty
+   }
+
+   public PupilSet(Pupil... objects)
+   {
+      for (Pupil obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PupilSet(Collection<Pupil> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final PupilSet EMPTY_SET = new PupilSet().withFlag(PupilSet.READONLY);
 
 

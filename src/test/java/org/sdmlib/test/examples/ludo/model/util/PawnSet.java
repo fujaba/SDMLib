@@ -471,4 +471,22 @@ public class PawnSet extends SimpleSet<Pawn>
       return result;
    }
 
+
+   public PawnSet()
+   {
+      // empty
+   }
+
+   public PawnSet(Pawn... objects)
+   {
+      for (Pawn obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PawnSet(Collection<Pawn> objects)
+   {
+      this.addAll(objects);
+   }
 }

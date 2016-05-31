@@ -381,4 +381,22 @@ public class TaskFlowSet extends SimpleSet<TaskFlow>
       return result;
    }
 
+
+   public TaskFlowSet()
+   {
+      // empty
+   }
+
+   public TaskFlowSet(TaskFlow... objects)
+   {
+      for (TaskFlow obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskFlowSet(Collection<TaskFlow> objects)
+   {
+      this.addAll(objects);
+   }
 }

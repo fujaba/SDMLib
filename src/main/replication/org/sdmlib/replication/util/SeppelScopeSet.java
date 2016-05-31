@@ -469,4 +469,22 @@ public class SeppelScopeSet extends SimpleSet<SeppelScope>
       return result;
    }
 
+
+   public SeppelScopeSet()
+   {
+      // empty
+   }
+
+   public SeppelScopeSet(SeppelScope... objects)
+   {
+      for (SeppelScope obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelScopeSet(Collection<SeppelScope> objects)
+   {
+      this.addAll(objects);
+   }
 }

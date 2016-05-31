@@ -134,4 +134,22 @@ public class TaskBoardSet extends SimpleSet<TaskBoard>
    {
       return new TaskBoardPO(this.toArray(new TaskBoard[this.size()]));
    }
+
+   public TaskBoardSet()
+   {
+      // empty
+   }
+
+   public TaskBoardSet(TaskBoard... objects)
+   {
+      for (TaskBoard obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskBoardSet(Collection<TaskBoard> objects)
+   {
+      this.addAll(objects);
+   }
 }

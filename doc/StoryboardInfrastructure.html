@@ -70,35 +70,9 @@
             "property":"storyboard"
          },
          "target":{
-            "id":"StoryboardWall",
-            "cardinality":"one",
-            "property":"wall"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Storyboard",
-            "cardinality":"one",
-            "property":"storyboard"
-         },
-         "target":{
             "id":"StoryboardStep",
             "cardinality":"many",
             "property":"storyboardSteps"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"StoryboardStep",
-            "cardinality":"many",
-            "property":"storyboardSteps"
-         },
-         "target":{
-            "id":"Storyboard",
-            "cardinality":"one",
-            "property":"storyboard"
          }
       }
    ]

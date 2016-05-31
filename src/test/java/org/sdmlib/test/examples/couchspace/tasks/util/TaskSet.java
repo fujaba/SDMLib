@@ -813,4 +813,22 @@ public class TaskSet extends SDMSet<Task>
       return this;
    }
 
+
+   public TaskSet()
+   {
+      // empty
+   }
+
+   public TaskSet(Task... objects)
+   {
+      for (Task obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskSet(Collection<Task> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -797,4 +797,22 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
+
+   public NodeSet()
+   {
+      // empty
+   }
+
+   public NodeSet(Node... objects)
+   {
+      for (Node obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public NodeSet(Collection<Node> objects)
+   {
+      this.addAll(objects);
+   }
 }

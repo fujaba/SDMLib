@@ -325,4 +325,22 @@ public class UserSet extends SDMSet<User>
       return this;
    }
 
+
+   public UserSet()
+   {
+      // empty
+   }
+
+   public UserSet(User... objects)
+   {
+      for (User obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UserSet(Collection<User> objects)
+   {
+      this.addAll(objects);
+   }
 }

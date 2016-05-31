@@ -367,4 +367,22 @@ public class ReplicationServerSet extends SimpleSet<ReplicationServer>
    {
       return "org.sdmlib.replication.ReplicationServer";
    }
+
+   public ReplicationServerSet()
+   {
+      // empty
+   }
+
+   public ReplicationServerSet(ReplicationServer... objects)
+   {
+      for (ReplicationServer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationServerSet(Collection<ReplicationServer> objects)
+   {
+      this.addAll(objects);
+   }
 }

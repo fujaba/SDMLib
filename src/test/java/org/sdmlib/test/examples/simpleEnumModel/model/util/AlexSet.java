@@ -171,4 +171,22 @@ public class AlexSet extends SimpleSet<Alex>
       return result;
    }
 
+
+   public AlexSet()
+   {
+      // empty
+   }
+
+   public AlexSet(Alex... objects)
+   {
+      for (Alex obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public AlexSet(Collection<Alex> objects)
+   {
+      this.addAll(objects);
+   }
 }

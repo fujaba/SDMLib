@@ -35,6 +35,10 @@ import org.sdmlib.simple.model.association_h.Teacher;
 public class PersonSet extends SDMSet<Person>
 {
 
+   public PersonSet()
+   {
+      // empty
+   }
 
    public PersonSet(Person... objects)
    {
@@ -42,6 +46,11 @@ public class PersonSet extends SDMSet<Person>
       {
          this.add(obj);
       }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
    }
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);

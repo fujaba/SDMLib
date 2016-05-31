@@ -730,4 +730,22 @@ public class BoardTaskSet extends SimpleSet<BoardTask>
       return result;
    }
 
+
+   public BoardTaskSet()
+   {
+      // empty
+   }
+
+   public BoardTaskSet(BoardTask... objects)
+   {
+      for (BoardTask obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BoardTaskSet(Collection<BoardTask> objects)
+   {
+      this.addAll(objects);
+   }
 }

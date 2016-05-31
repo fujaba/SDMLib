@@ -255,4 +255,22 @@ public class MacListSet extends SimpleSet<MacList>
       return result;
    }
 
+
+   public MacListSet()
+   {
+      // empty
+   }
+
+   public MacListSet(MacList... objects)
+   {
+      for (MacList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MacListSet(Collection<MacList> objects)
+   {
+      this.addAll(objects);
+   }
 }

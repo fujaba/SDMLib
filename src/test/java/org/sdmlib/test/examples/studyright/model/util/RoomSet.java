@@ -597,4 +597,22 @@ public class RoomSet extends SimpleSet<Room>
       return result;
    }
 
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -358,5 +358,23 @@ public class GenericLinkSet extends SimpleSet<GenericLink>
       return result;
    }
 
+
+   public GenericLinkSet()
+   {
+      // empty
+   }
+
+   public GenericLinkSet(GenericLink... objects)
+   {
+      for (GenericLink obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericLinkSet(Collection<GenericLink> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

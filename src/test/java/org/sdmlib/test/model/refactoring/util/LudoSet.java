@@ -314,4 +314,22 @@ public class LudoSet extends SimpleSet<Ludo>
       return result;
    }
 
+
+   public LudoSet()
+   {
+      // empty
+   }
+
+   public LudoSet(Ludo... objects)
+   {
+      for (Ludo obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LudoSet(Collection<Ludo> objects)
+   {
+      this.addAll(objects);
+   }
 }

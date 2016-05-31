@@ -314,6 +314,24 @@ public class GenericAttributeSet extends SimpleSet<GenericAttribute>
       return result;
    }
 
+
+   public GenericAttributeSet()
+   {
+      // empty
+   }
+
+   public GenericAttributeSet(GenericAttribute... objects)
+   {
+      for (GenericAttribute obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericAttributeSet(Collection<GenericAttribute> objects)
+   {
+      this.addAll(objects);
+   }
 }
 
 

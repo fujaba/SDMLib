@@ -69,4 +69,22 @@ public class ThreadSet extends SimpleSet<Thread>
    {
       return "java.lang.Thread";
    }
+
+   public ThreadSet()
+   {
+      // empty
+   }
+
+   public ThreadSet(Thread... objects)
+   {
+      for (Thread obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ThreadSet(Collection<Thread> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -294,4 +294,22 @@ public class MSChatGroupSet extends SimpleSet<MSChatGroup>
       return result;
    }
 
+
+   public MSChatGroupSet()
+   {
+      // empty
+   }
+
+   public MSChatGroupSet(MSChatGroup... objects)
+   {
+      for (MSChatGroup obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MSChatGroupSet(Collection<MSChatGroup> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -147,4 +147,22 @@ public class ChildSet extends SDMSet<Child>
       return this;
    }
 
+
+   public ChildSet()
+   {
+      // empty
+   }
+
+   public ChildSet(Child... objects)
+   {
+      for (Child obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChildSet(Collection<Child> objects)
+   {
+      this.addAll(objects);
+   }
 }

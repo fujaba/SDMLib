@@ -149,4 +149,22 @@ public class MoveDownSet extends SimpleSet<MoveDown>
    {
       return new MoveDownPO(this.toArray(new MoveDown[this.size()]));
    }
+
+   public MoveDownSet()
+   {
+      // empty
+   }
+
+   public MoveDownSet(MoveDown... objects)
+   {
+      for (MoveDown obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MoveDownSet(Collection<MoveDown> objects)
+   {
+      this.addAll(objects);
+   }
 }

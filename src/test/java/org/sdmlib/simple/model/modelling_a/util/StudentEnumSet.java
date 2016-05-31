@@ -135,4 +135,22 @@ public class StudentEnumSet extends SDMSet<StudentEnum>
       return this;
    }
 
+
+   public StudentEnumSet()
+   {
+      // empty
+   }
+
+   public StudentEnumSet(StudentEnum... objects)
+   {
+      for (StudentEnum obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StudentEnumSet(Collection<StudentEnum> objects)
+   {
+      this.addAll(objects);
+   }
 }

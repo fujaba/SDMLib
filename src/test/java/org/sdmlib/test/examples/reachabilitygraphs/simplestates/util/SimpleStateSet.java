@@ -133,4 +133,22 @@ public class SimpleStateSet extends SimpleSet<SimpleState>
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
    }
+
+   public SimpleStateSet()
+   {
+      // empty
+   }
+
+   public SimpleStateSet(SimpleState... objects)
+   {
+      for (SimpleState obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleStateSet(Collection<SimpleState> objects)
+   {
+      this.addAll(objects);
+   }
 }

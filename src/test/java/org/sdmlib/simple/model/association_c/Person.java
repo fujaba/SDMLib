@@ -36,27 +36,40 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
    
@@ -65,12 +78,10 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
    
    public void removeYou()
    {
-   
       setRoom(null);
       setPrevPerson(null);
-      setPerson(null);
       setNextPerson(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -103,7 +114,7 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
          this.room = value;
          
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
          changed = true;
       }
       
@@ -159,7 +170,7 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
          this.prevPerson = value;
          
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREVPERSON, oldValue, value);
+         firePropertyChange(PROPERTY_PREVPERSON, oldValue, value);
          changed = true;
       }
       
@@ -176,62 +187,6 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
    {
       Person value = new Person();
       withPrevPerson(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Person ----------------------------------- Person
-    *              person                   person
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PERSON = "person";
-
-   private Person person = null;
-
-   public Person getPerson()
-   {
-      return this.person;
-   }
-   public PersonSet getPersonTransitive()
-   {
-      PersonSet result = new PersonSet().with(this);
-      return result.getPersonTransitive();
-   }
-
-
-   public boolean setPerson(Person value)
-   {
-      boolean changed = false;
-      
-      if (this.person != value)
-      {
-         Person oldValue = this.person;
-         
-         
-         this.person = value;
-         
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSON, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Person withPerson(Person value)
-   {
-      setPerson(value);
-      return this;
-   } 
-
-   public Person createPerson()
-   {
-      Person value = new Person();
-      withPerson(value);
       return value;
    } 
 
@@ -271,7 +226,7 @@ import org.sdmlib.simple.model.association_c.util.PersonSet;
          this.nextPerson = value;
          
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXTPERSON, oldValue, value);
+         firePropertyChange(PROPERTY_NEXTPERSON, oldValue, value);
          changed = true;
       }
       

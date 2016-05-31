@@ -557,4 +557,22 @@ public class FetchFileFlowSet extends SimpleSet<FetchFileFlow>
       return result;
    }
 
+
+   public FetchFileFlowSet()
+   {
+      // empty
+   }
+
+   public FetchFileFlowSet(FetchFileFlow... objects)
+   {
+      for (FetchFileFlow obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FetchFileFlowSet(Collection<FetchFileFlow> objects)
+   {
+      this.addAll(objects);
+   }
 }

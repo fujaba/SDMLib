@@ -61,35 +61,9 @@
             "property":"users"
          },
          "target":{
-            "id":"ChatRoot",
-            "cardinality":"one",
-            "property":"chatRoot"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChatUser",
-            "cardinality":"many",
-            "property":"users"
-         },
-         "target":{
             "id":"ChatChannel",
             "cardinality":"many",
             "property":"channels"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChatChannel",
-            "cardinality":"many",
-            "property":"channels"
-         },
-         "target":{
-            "id":"ChatUser",
-            "cardinality":"many",
-            "property":"users"
          }
       },
       {
@@ -103,19 +77,6 @@
             "id":"ChatMsg",
             "cardinality":"many",
             "property":"msgs"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChatMsg",
-            "cardinality":"many",
-            "property":"msgs"
-         },
-         "target":{
-            "id":"ChatChannel",
-            "cardinality":"one",
-            "property":"channel"
          }
       }
    ]

@@ -112,19 +112,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"Player",
-            "cardinality":"many",
-            "property":"players"
-         },
-         "target":{
-            "id":"Ludo",
-            "cardinality":"one",
-            "property":"game"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Player",
             "cardinality":"one",
             "property":"next"
          },
@@ -197,45 +184,6 @@
             "id":"Pawn",
             "cardinality":"many",
             "property":"pawns"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Dice",
-            "cardinality":"one",
-            "property":"dice"
-         },
-         "target":{
-            "id":"Ludo",
-            "cardinality":"one",
-            "property":"game"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Dice",
-            "cardinality":"one",
-            "property":"dice"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"player"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Field",
-            "cardinality":"many",
-            "property":"fields"
-         },
-         "target":{
-            "id":"Ludo",
-            "cardinality":"one",
-            "property":"game"
          }
       },
       {
@@ -269,77 +217,12 @@
          "source":{
             "id":"Field",
             "cardinality":"one",
-            "property":"start"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"starter"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Field",
-            "cardinality":"one",
-            "property":"base"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"baseowner"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Field",
-            "cardinality":"one",
-            "property":"landing"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"lander"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Field",
-            "cardinality":"one",
             "property":"pos"
          },
          "target":{
             "id":"Pawn",
             "cardinality":"many",
             "property":"pawns"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Pawn",
-            "cardinality":"many",
-            "property":"pawns"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"player"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Pawn",
-            "cardinality":"many",
-            "property":"pawns"
-         },
-         "target":{
-            "id":"Field",
-            "cardinality":"one",
-            "property":"pos"
          }
       }
    ]

@@ -149,4 +149,22 @@ public class MoveUpSet extends SimpleSet<MoveUp>
    {
       return new MoveUpPO(this.toArray(new MoveUp[this.size()]));
    }
+
+   public MoveUpSet()
+   {
+      // empty
+   }
+
+   public MoveUpSet(MoveUp... objects)
+   {
+      for (MoveUp obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MoveUpSet(Collection<MoveUp> objects)
+   {
+      this.addAll(objects);
+   }
 }

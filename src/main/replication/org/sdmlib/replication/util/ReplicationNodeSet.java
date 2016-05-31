@@ -367,4 +367,22 @@ public class ReplicationNodeSet extends SimpleSet<ReplicationNode>
    {
       return "org.sdmlib.replication.ReplicationNode";
    }
+
+   public ReplicationNodeSet()
+   {
+      // empty
+   }
+
+   public ReplicationNodeSet(ReplicationNode... objects)
+   {
+      for (ReplicationNode obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationNodeSet(Collection<ReplicationNode> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -394,4 +394,22 @@ public class FloorSet extends SDMSet<Floor>
       return this;
    }
 
+
+   public FloorSet()
+   {
+      // empty
+   }
+
+   public FloorSet(Floor... objects)
+   {
+      for (Floor obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FloorSet(Collection<Floor> objects)
+   {
+      this.addAll(objects);
+   }
 }

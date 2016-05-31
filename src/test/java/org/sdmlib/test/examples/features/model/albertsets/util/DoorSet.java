@@ -122,4 +122,22 @@ public class DoorSet extends SimpleSet<Door>
    {
       return "org.sdmlib.test.examples.features.model.albertsets.Door";
    }
+
+   public DoorSet()
+   {
+      // empty
+   }
+
+   public DoorSet(Door... objects)
+   {
+      for (Door obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DoorSet(Collection<Door> objects)
+   {
+      this.addAll(objects);
+   }
 }

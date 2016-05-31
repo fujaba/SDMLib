@@ -451,6 +451,24 @@ public class GreetingSet extends SimpleSet<Greeting>
       return this;
    }
 
+
+   public GreetingSet()
+   {
+      // empty
+   }
+
+   public GreetingSet(Greeting... objects)
+   {
+      for (Greeting obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GreetingSet(Collection<Greeting> objects)
+   {
+      this.addAll(objects);
+   }
 }
 
 

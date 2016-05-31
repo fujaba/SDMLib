@@ -326,4 +326,22 @@ public class ItemSet extends SimpleSet<Item>
       return result;
    }
 
+
+   public ItemSet()
+   {
+      // empty
+   }
+
+   public ItemSet(Item... objects)
+   {
+      for (Item obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ItemSet(Collection<Item> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -59,19 +59,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"Person",
-            "cardinality":"many",
-            "property":"persons"
-         },
-         "target":{
-            "id":"GroupAccount",
-            "cardinality":"one",
-            "property":"parent"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Person",
             "cardinality":"one",
             "property":"buyer"
          },
@@ -79,19 +66,6 @@
             "id":"Item",
             "cardinality":"many",
             "property":"item"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Item",
-            "cardinality":"many",
-            "property":"item"
-         },
-         "target":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"buyer"
          }
       }
    ]

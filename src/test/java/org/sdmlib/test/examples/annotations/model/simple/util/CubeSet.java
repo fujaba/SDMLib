@@ -29,6 +29,24 @@ import de.uniks.networkparser.interfaces.Condition;
 public class CubeSet extends SDMSet<Cube>
 {
 
+   public CubeSet()
+   {
+      // empty
+   }
+
+   public CubeSet(Cube... objects)
+   {
+      for (Cube obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CubeSet(Collection<Cube> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final CubeSet EMPTY_SET = new CubeSet().withFlag(CubeSet.READONLY);
 
 

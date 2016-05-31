@@ -283,4 +283,22 @@ public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
       return result;
    }
 
+
+   public ReplicationChannelSet()
+   {
+      // empty
+   }
+
+   public ReplicationChannelSet(ReplicationChannel... objects)
+   {
+      for (ReplicationChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationChannelSet(Collection<ReplicationChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

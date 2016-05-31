@@ -222,6 +222,24 @@ public class GreetingMessageSet extends SimpleSet<GreetingMessage>
       return result;
    }
 
+
+   public GreetingMessageSet()
+   {
+      // empty
+   }
+
+   public GreetingMessageSet(GreetingMessage... objects)
+   {
+      for (GreetingMessage obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GreetingMessageSet(Collection<GreetingMessage> objects)
+   {
+      this.addAll(objects);
+   }
 }
 
 

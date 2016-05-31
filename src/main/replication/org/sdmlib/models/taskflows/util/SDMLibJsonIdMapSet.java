@@ -71,4 +71,22 @@ public class SDMLibJsonIdMapSet extends SimpleSet<SDMLibJsonIdMap>
    {
       return "org.sdmlib.serialization.SDMLibJsonIdMap";
    }
+
+   public SDMLibJsonIdMapSet()
+   {
+      // empty
+   }
+
+   public SDMLibJsonIdMapSet(SDMLibJsonIdMap... objects)
+   {
+      for (SDMLibJsonIdMap obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SDMLibJsonIdMapSet(Collection<SDMLibJsonIdMap> objects)
+   {
+      this.addAll(objects);
+   }
 }

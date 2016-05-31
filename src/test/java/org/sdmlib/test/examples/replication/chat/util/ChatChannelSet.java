@@ -192,4 +192,22 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
    {
       return "org.sdmlib.test.examples.replication.chat.ChatChannel";
    }
+
+   public ChatChannelSet()
+   {
+      // empty
+   }
+
+   public ChatChannelSet(ChatChannel... objects)
+   {
+      for (ChatChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatChannelSet(Collection<ChatChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

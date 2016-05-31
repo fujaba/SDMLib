@@ -442,4 +442,22 @@ public class TaskLaneSet extends SimpleSet<TaskLane>
       return result;
    }
 
+
+   public TaskLaneSet()
+   {
+      // empty
+   }
+
+   public TaskLaneSet(TaskLane... objects)
+   {
+      for (TaskLane obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskLaneSet(Collection<TaskLane> objects)
+   {
+      this.addAll(objects);
+   }
 }

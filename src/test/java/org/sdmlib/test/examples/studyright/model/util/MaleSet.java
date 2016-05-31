@@ -105,4 +105,22 @@ public class MaleSet extends SimpleSet<Male>
    {
       return "org.sdmlib.test.examples.studyright.model.Male";
    }
+
+   public MaleSet()
+   {
+      // empty
+   }
+
+   public MaleSet(Male... objects)
+   {
+      for (Male obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MaleSet(Collection<Male> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -32,7 +32,6 @@ public class PersonCreator implements SendableEntityCreator
    {
       Person.PROPERTY_ROOM,
       Person.PROPERTY_PREVPERSON,
-      Person.PROPERTY_PERSON,
       Person.PROPERTY_NEXTPERSON,
    };
    
@@ -69,11 +68,6 @@ public class PersonCreator implements SendableEntityCreator
          return ((Person) target).getPrevPerson();
       }
 
-      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attribute))
-      {
-         return ((Person) target).getPerson();
-      }
-
       if (Person.PROPERTY_NEXTPERSON.equalsIgnoreCase(attribute))
       {
          return ((Person) target).getNextPerson();
@@ -99,12 +93,6 @@ public class PersonCreator implements SendableEntityCreator
       if (Person.PROPERTY_PREVPERSON.equalsIgnoreCase(attrName))
       {
          ((Person) target).setPrevPerson((Person) value);
-         return true;
-      }
-
-      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attrName))
-      {
-         ((Person) target).setPerson((Person) value);
          return true;
       }
 

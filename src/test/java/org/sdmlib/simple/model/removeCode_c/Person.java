@@ -66,4 +66,13 @@ import java.beans.PropertyChangeListener;
    
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

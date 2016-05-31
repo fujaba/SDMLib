@@ -149,4 +149,22 @@ public class MoveRightSet extends SimpleSet<MoveRight>
    {
       return new MoveRightPO(this.toArray(new MoveRight[this.size()]));
    }
+
+   public MoveRightSet()
+   {
+      // empty
+   }
+
+   public MoveRightSet(MoveRight... objects)
+   {
+      for (MoveRight obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MoveRightSet(Collection<MoveRight> objects)
+   {
+      this.addAll(objects);
+   }
 }

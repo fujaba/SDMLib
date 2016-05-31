@@ -193,4 +193,22 @@ public class HouseSet extends SimpleSet<House>
    {
       return "org.sdmlib.test.examples.features.model.all.House";
    }
+
+   public HouseSet()
+   {
+      // empty
+   }
+
+   public HouseSet(House... objects)
+   {
+      for (House obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public HouseSet(Collection<House> objects)
+   {
+      this.addAll(objects);
+   }
 }

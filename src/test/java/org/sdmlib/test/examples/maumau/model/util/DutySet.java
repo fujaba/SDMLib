@@ -284,4 +284,22 @@ public class DutySet extends SimpleSet<Duty>
       return result;
    }
 
+
+   public DutySet()
+   {
+      // empty
+   }
+
+   public DutySet(Duty... objects)
+   {
+      for (Duty obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DutySet(Collection<Duty> objects)
+   {
+      this.addAll(objects);
+   }
 }

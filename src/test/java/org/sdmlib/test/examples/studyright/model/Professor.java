@@ -307,5 +307,14 @@ import org.sdmlib.test.examples.studyright.model.Topic;
       withTopic(value);
       return value;
    } 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }
 

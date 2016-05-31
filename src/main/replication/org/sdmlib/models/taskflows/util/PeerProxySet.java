@@ -332,4 +332,22 @@ public class PeerProxySet extends SimpleSet<PeerProxy>
       return result;
    }
 
+
+   public PeerProxySet()
+   {
+      // empty
+   }
+
+   public PeerProxySet(PeerProxy... objects)
+   {
+      for (PeerProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PeerProxySet(Collection<PeerProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

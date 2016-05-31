@@ -33,6 +33,24 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
 public class TaskSet extends SDMSet<Task>
 {
 
+   public TaskSet()
+   {
+      // empty
+   }
+
+   public TaskSet(Task... objects)
+   {
+      for (Task obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskSet(Collection<Task> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
 
 

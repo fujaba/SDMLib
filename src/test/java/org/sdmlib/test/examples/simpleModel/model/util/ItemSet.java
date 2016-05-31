@@ -82,4 +82,22 @@ public class ItemSet extends SimpleSet<Item>
    {
       return "org.sdmlib.test.examples.simpleModel.model.Item";
    }
+
+   public ItemSet()
+   {
+      // empty
+   }
+
+   public ItemSet(Item... objects)
+   {
+      for (Item obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ItemSet(Collection<Item> objects)
+   {
+      this.addAll(objects);
+   }
 }

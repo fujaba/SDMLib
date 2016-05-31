@@ -71,4 +71,22 @@ public class ColorSet extends SimpleSet<Color>
    {
       return "org.sdmlib.test.examples.mancala.referencemodel.Color";
    }
+
+   public ColorSet()
+   {
+      // empty
+   }
+
+   public ColorSet(Color... objects)
+   {
+      for (Color obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ColorSet(Collection<Color> objects)
+   {
+      this.addAll(objects);
+   }
 }

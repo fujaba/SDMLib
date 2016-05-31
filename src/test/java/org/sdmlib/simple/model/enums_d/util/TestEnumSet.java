@@ -135,4 +135,22 @@ public class TestEnumSet extends SDMSet<TestEnum>
       return this;
    }
 
+
+   public TestEnumSet()
+   {
+      // empty
+   }
+
+   public TestEnumSet(TestEnum... objects)
+   {
+      for (TestEnum obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TestEnumSet(Collection<TestEnum> objects)
+   {
+      this.addAll(objects);
+   }
 }

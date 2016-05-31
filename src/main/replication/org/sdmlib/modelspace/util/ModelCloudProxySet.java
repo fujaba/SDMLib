@@ -384,4 +384,22 @@ public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
       return result;
    }
 
+
+   public ModelCloudProxySet()
+   {
+      // empty
+   }
+
+   public ModelCloudProxySet(ModelCloudProxy... objects)
+   {
+      for (ModelCloudProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelCloudProxySet(Collection<ModelCloudProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

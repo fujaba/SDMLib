@@ -234,4 +234,22 @@ public class MSChatChannelSet extends SimpleSet<MSChatChannel>
       return result;
    }
 
+
+   public MSChatChannelSet()
+   {
+      // empty
+   }
+
+   public MSChatChannelSet(MSChatChannel... objects)
+   {
+      for (MSChatChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MSChatChannelSet(Collection<MSChatChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

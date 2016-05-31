@@ -159,4 +159,22 @@ public class roomInterfaceSet extends SDMSet<roomInterface>
       return this;
    }
 
+
+   public roomInterfaceSet()
+   {
+      // empty
+   }
+
+   public roomInterfaceSet(roomInterface... objects)
+   {
+      for (roomInterface obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public roomInterfaceSet(Collection<roomInterface> objects)
+   {
+      this.addAll(objects);
+   }
 }

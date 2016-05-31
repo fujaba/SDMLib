@@ -254,4 +254,22 @@ public class GraphSet extends SimpleSet<Graph>
    {
       return "org.sdmlib.test.examples.helloworld.model.Graph";
    }
+
+   public GraphSet()
+   {
+      // empty
+   }
+
+   public GraphSet(Graph... objects)
+   {
+      for (Graph obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GraphSet(Collection<Graph> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -1088,4 +1088,22 @@ public class FieldSet extends SimpleSet<Field>
       return result;
    }
 
+
+   public FieldSet()
+   {
+      // empty
+   }
+
+   public FieldSet(Field... objects)
+   {
+      for (Field obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FieldSet(Collection<Field> objects)
+   {
+      this.addAll(objects);
+   }
 }

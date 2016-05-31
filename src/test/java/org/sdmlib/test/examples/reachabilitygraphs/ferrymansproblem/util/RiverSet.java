@@ -192,4 +192,22 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
    }
+
+   public RiverSet()
+   {
+      // empty
+   }
+
+   public RiverSet(River... objects)
+   {
+      for (River obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RiverSet(Collection<River> objects)
+   {
+      this.addAll(objects);
+   }
 }

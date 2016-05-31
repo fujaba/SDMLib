@@ -422,4 +422,22 @@ public class MSChatMsgSet extends SimpleSet<MSChatMsg>
       return result;
    }
 
+
+   public MSChatMsgSet()
+   {
+      // empty
+   }
+
+   public MSChatMsgSet(MSChatMsg... objects)
+   {
+      for (MSChatMsg obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MSChatMsgSet(Collection<MSChatMsg> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -222,4 +222,22 @@ public class TopicSet extends SimpleSet<Topic>
       return result;
    }
 
+
+   public TopicSet()
+   {
+      // empty
+   }
+
+   public TopicSet(Topic... objects)
+   {
+      for (Topic obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TopicSet(Collection<Topic> objects)
+   {
+      this.addAll(objects);
+   }
 }

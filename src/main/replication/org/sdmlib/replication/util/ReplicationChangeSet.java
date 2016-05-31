@@ -743,4 +743,22 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
       return result;
    }
 
+
+   public ReplicationChangeSet()
+   {
+      // empty
+   }
+
+   public ReplicationChangeSet(ReplicationChange... objects)
+   {
+      for (ReplicationChange obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationChangeSet(Collection<ReplicationChange> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -149,4 +149,22 @@ public class StaySet extends SimpleSet<Stay>
    {
       return new StayPO(this.toArray(new Stay[this.size()]));
    }
+
+   public StaySet()
+   {
+      // empty
+   }
+
+   public StaySet(Stay... objects)
+   {
+      for (Stay obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StaySet(Collection<Stay> objects)
+   {
+      this.addAll(objects);
+   }
 }

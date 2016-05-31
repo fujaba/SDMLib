@@ -146,4 +146,22 @@ public class PointSet extends SimpleSet<Point>
    {
       return "java.awt.Point";
    }
+
+   public PointSet()
+   {
+      // empty
+   }
+
+   public PointSet(Point... objects)
+   {
+      for (Point obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PointSet(Collection<Point> objects)
+   {
+      this.addAll(objects);
+   }
 }

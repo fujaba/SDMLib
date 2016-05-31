@@ -433,4 +433,22 @@ public class BankSet extends SimpleSet<Bank>
       return result;
    }
 
+
+   public BankSet()
+   {
+      // empty
+   }
+
+   public BankSet(Bank... objects)
+   {
+      for (Bank obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BankSet(Collection<Bank> objects)
+   {
+      this.addAll(objects);
+   }
 }

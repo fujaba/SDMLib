@@ -71,4 +71,22 @@ public class LudoColorSet extends SimpleSet<LudoColor>
    {
       return "org.sdmlib.test.examples.ludo.LudoModel.LudoColor";
    }
+
+   public LudoColorSet()
+   {
+      // empty
+   }
+
+   public LudoColorSet(LudoColor... objects)
+   {
+      for (LudoColor obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LudoColorSet(Collection<LudoColor> objects)
+   {
+      this.addAll(objects);
+   }
 }

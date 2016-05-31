@@ -157,5 +157,23 @@ public class GenericGraphSet extends SimpleSet<GenericGraph>
    {
       return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
+
+   public GenericGraphSet()
+   {
+      // empty
+   }
+
+   public GenericGraphSet(GenericGraph... objects)
+   {
+      for (GenericGraph obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericGraphSet(Collection<GenericGraph> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

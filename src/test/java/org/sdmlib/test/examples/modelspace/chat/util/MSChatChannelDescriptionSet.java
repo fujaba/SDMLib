@@ -383,4 +383,22 @@ public class MSChatChannelDescriptionSet extends SimpleSet<MSChatChannelDescript
       return result;
    }
 
+
+   public MSChatChannelDescriptionSet()
+   {
+      // empty
+   }
+
+   public MSChatChannelDescriptionSet(MSChatChannelDescription... objects)
+   {
+      for (MSChatChannelDescription obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MSChatChannelDescriptionSet(Collection<MSChatChannelDescription> objects)
+   {
+      this.addAll(objects);
+   }
 }

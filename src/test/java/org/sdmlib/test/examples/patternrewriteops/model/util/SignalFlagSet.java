@@ -133,5 +133,23 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
    }
+
+   public SignalFlagSet()
+   {
+      // empty
+   }
+
+   public SignalFlagSet(SignalFlag... objects)
+   {
+      for (SignalFlag obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SignalFlagSet(Collection<SignalFlag> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

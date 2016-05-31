@@ -116,19 +116,6 @@
          }
       },
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"FetchFileFlow",
-            "cardinality":"one",
-            "property":"fetchfileflow"
-         },
-         "target":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskflow"
-         }
-      },
-      {
          "typ":"ASSOCIATION",
          "source":{
             "id":"Logger",
@@ -139,19 +126,6 @@
             "id":"LogEntry",
             "cardinality":"many",
             "property":"entries"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"LogEntry",
-            "cardinality":"many",
-            "property":"entries"
-         },
-         "target":{
-            "id":"Logger",
-            "cardinality":"one",
-            "property":"logger"
          }
       },
       {
@@ -165,19 +139,6 @@
             "id":"LogEntry",
             "cardinality":"one",
             "property":"parent"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"SDMTimer",
-            "cardinality":"one",
-            "property":"sdmtimer"
-         },
-         "target":{
-            "id":"Timer",
-            "cardinality":"one",
-            "property":"timer"
          }
       },
       {

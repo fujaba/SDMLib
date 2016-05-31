@@ -76,19 +76,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"GenericObject",
-            "cardinality":"many",
-            "property":"objects"
-         },
-         "target":{
-            "id":"GenericGraph",
-            "cardinality":"one",
-            "property":"graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"GenericObject",
             "cardinality":"one",
             "property":"owner"
          },
@@ -122,58 +109,6 @@
             "id":"GenericLink",
             "cardinality":"many",
             "property":"incommingLinks"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"GenericAttribute",
-            "cardinality":"many",
-            "property":"attrs"
-         },
-         "target":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"owner"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"outgoingLinks"
-         },
-         "target":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"src"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"incommingLinks"
-         },
-         "target":{
-            "id":"GenericObject",
-            "cardinality":"one",
-            "property":"tgt"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"GenericLink",
-            "cardinality":"many",
-            "property":"links"
-         },
-         "target":{
-            "id":"GenericGraph",
-            "cardinality":"one",
-            "property":"graph"
          }
       }
    ]
@@ -259,19 +194,6 @@
             "id":"Floor",
             "cardinality":"many",
             "property":"has"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Floor",
-            "cardinality":"many",
-            "property":"has"
-         },
-         "target":{
-            "id":"Building",
-            "cardinality":"one",
-            "property":"buildings"
          }
       }
    ]

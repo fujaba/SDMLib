@@ -257,4 +257,22 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
       return this;
    }
 
+
+   public BombermanStrategySet()
+   {
+      // empty
+   }
+
+   public BombermanStrategySet(BombermanStrategy... objects)
+   {
+      for (BombermanStrategy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BombermanStrategySet(Collection<BombermanStrategy> objects)
+   {
+      this.addAll(objects);
+   }
 }

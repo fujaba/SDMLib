@@ -390,4 +390,22 @@ public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
       return result;
    }
 
+
+   public ReplicationRootSet()
+   {
+      // empty
+   }
+
+   public ReplicationRootSet(ReplicationRoot... objects)
+   {
+      for (ReplicationRoot obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationRootSet(Collection<ReplicationRoot> objects)
+   {
+      this.addAll(objects);
+   }
 }

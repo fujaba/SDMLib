@@ -544,4 +544,22 @@ public class KalahSet extends SimpleSet<Kalah>
       return result;
    }
 
+
+   public KalahSet()
+   {
+      // empty
+   }
+
+   public KalahSet(Kalah... objects)
+   {
+      for (Kalah obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public KalahSet(Collection<Kalah> objects)
+   {
+      this.addAll(objects);
+   }
 }

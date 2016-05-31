@@ -325,4 +325,22 @@ public class UserGroupSet extends SDMSet<UserGroup>
       return this;
    }
 
+
+   public UserGroupSet()
+   {
+      // empty
+   }
+
+   public UserGroupSet(UserGroup... objects)
+   {
+      for (UserGroup obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UserGroupSet(Collection<UserGroup> objects)
+   {
+      this.addAll(objects);
+   }
 }

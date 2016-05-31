@@ -36,27 +36,40 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
    
@@ -65,10 +78,9 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
    
    public void removeYou()
    {
-   
       withoutParentTasks(this.getParentTasks().toArray(new Task[this.getParentTasks().size()]));
       withoutSubTasks(this.getSubTasks().toArray(new Task[this.getSubTasks().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -89,7 +101,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
@@ -158,7 +170,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
             if (changed)
             {
                item.withSubTasks(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTTASKS, null, item);
+               firePropertyChange(PROPERTY_PARENTTASKS, null, item);
             }
          }
       }
@@ -174,7 +186,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
             if (this.parentTasks.remove(item))
             {
                item.withoutSubTasks(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTTASKS, item, null);
+               firePropertyChange(PROPERTY_PARENTTASKS, item, null);
             }
          }
       }
@@ -236,7 +248,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
             if (changed)
             {
                item.withParentTasks(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTASKS, null, item);
+               firePropertyChange(PROPERTY_SUBTASKS, null, item);
             }
          }
       }
@@ -251,8 +263,8 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
          {
             if (this.subTasks.remove(item))
             {
-               item.withoutSubTasks(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTASKS, item, null);
+               item.withoutParentTasks(this);
+               firePropertyChange(PROPERTY_SUBTASKS, item, null);
             }
          }
       }

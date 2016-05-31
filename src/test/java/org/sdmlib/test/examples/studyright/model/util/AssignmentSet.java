@@ -383,4 +383,22 @@ public class AssignmentSet extends SimpleSet<Assignment>
       return result;
    }
 
+
+   public AssignmentSet()
+   {
+      // empty
+   }
+
+   public AssignmentSet(Assignment... objects)
+   {
+      for (Assignment obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public AssignmentSet(Collection<Assignment> objects)
+   {
+      this.addAll(objects);
+   }
 }

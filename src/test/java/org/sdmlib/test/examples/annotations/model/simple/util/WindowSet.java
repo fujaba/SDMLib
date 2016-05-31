@@ -32,6 +32,24 @@ import org.sdmlib.test.examples.annotations.model.simple.House;
 public class WindowSet extends SDMSet<Window>
 {
 
+   public WindowSet()
+   {
+      // empty
+   }
+
+   public WindowSet(Window... objects)
+   {
+      for (Window obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public WindowSet(Collection<Window> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final WindowSet EMPTY_SET = new WindowSet().withFlag(WindowSet.READONLY);
 
 

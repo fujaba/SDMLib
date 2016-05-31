@@ -222,4 +222,22 @@ public class BoatSet extends SimpleSet<Boat>
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
    }
+
+   public BoatSet()
+   {
+      // empty
+   }
+
+   public BoatSet(Boat... objects)
+   {
+      for (Boat obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BoatSet(Collection<Boat> objects)
+   {
+      this.addAll(objects);
+   }
 }

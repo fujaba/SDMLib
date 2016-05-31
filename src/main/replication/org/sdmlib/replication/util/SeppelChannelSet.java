@@ -244,4 +244,22 @@ public class SeppelChannelSet extends SimpleSet<SeppelChannel>
       return result;
    }
 
+
+   public SeppelChannelSet()
+   {
+      // empty
+   }
+
+   public SeppelChannelSet(SeppelChannel... objects)
+   {
+      for (SeppelChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelChannelSet(Collection<SeppelChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

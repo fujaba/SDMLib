@@ -75,4 +75,22 @@ public class SimpleKeyValueListSet extends SDMSet<SimpleKeyValueList>
       filterItems(filterList, newValue);
       return filterList;
    }
+
+   public SimpleKeyValueListSet()
+   {
+      // empty
+   }
+
+   public SimpleKeyValueListSet(SimpleKeyValueList... objects)
+   {
+      for (SimpleKeyValueList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleKeyValueListSet(Collection<SimpleKeyValueList> objects)
+   {
+      this.addAll(objects);
+   }
 }

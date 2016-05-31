@@ -361,4 +361,22 @@ public class MacSet extends SimpleSet<Mac>
       return result;
    }
 
+
+   public MacSet()
+   {
+      // empty
+   }
+
+   public MacSet(Mac... objects)
+   {
+      for (Mac obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MacSet(Collection<Mac> objects)
+   {
+      this.addAll(objects);
+   }
 }

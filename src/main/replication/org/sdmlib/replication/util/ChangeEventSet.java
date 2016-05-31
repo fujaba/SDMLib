@@ -964,4 +964,22 @@ public class ChangeEventSet extends SimpleSet<ChangeEvent>
       return result;
    }
 
+
+   public ChangeEventSet()
+   {
+      // empty
+   }
+
+   public ChangeEventSet(ChangeEvent... objects)
+   {
+      for (ChangeEvent obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChangeEventSet(Collection<ChangeEvent> objects)
+   {
+      this.addAll(objects);
+   }
 }

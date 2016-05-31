@@ -382,4 +382,22 @@ public class ProfessorSet extends SimpleSet<Professor>
       return result;
    }
 
+
+   public ProfessorSet()
+   {
+      // empty
+   }
+
+   public ProfessorSet(Professor... objects)
+   {
+      for (Professor obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ProfessorSet(Collection<Professor> objects)
+   {
+      this.addAll(objects);
+   }
 }

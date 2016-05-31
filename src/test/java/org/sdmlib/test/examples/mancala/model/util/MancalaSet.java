@@ -263,4 +263,22 @@ public class MancalaSet extends SimpleSet<Mancala>
    {
       return "org.sdmlib.test.examples.mancala.model.Mancala";
    }
+
+   public MancalaSet()
+   {
+      // empty
+   }
+
+   public MancalaSet(Mancala... objects)
+   {
+      for (Mancala obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MancalaSet(Collection<Mancala> objects)
+   {
+      this.addAll(objects);
+   }
 }

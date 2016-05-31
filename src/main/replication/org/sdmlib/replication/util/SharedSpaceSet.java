@@ -694,4 +694,22 @@ public class SharedSpaceSet extends SimpleSet<SharedSpace>
       return result;
    }
 
+
+   public SharedSpaceSet()
+   {
+      // empty
+   }
+
+   public SharedSpaceSet(SharedSpace... objects)
+   {
+      for (SharedSpace obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SharedSpaceSet(Collection<SharedSpace> objects)
+   {
+      this.addAll(objects);
+   }
 }

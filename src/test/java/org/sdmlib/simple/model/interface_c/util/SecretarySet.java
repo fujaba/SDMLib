@@ -29,6 +29,24 @@ import de.uniks.networkparser.interfaces.Condition;
 public class SecretarySet extends SDMSet<Secretary>
 {
 
+   public SecretarySet()
+   {
+      // empty
+   }
+
+   public SecretarySet(Secretary... objects)
+   {
+      for (Secretary obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SecretarySet(Collection<Secretary> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final SecretarySet EMPTY_SET = new SecretarySet().withFlag(SecretarySet.READONLY);
 
 

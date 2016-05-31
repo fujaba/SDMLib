@@ -465,6 +465,24 @@ public class EdgeSet extends SimpleSet<Edge>
       return result;
    }
 
+
+   public EdgeSet()
+   {
+      // empty
+   }
+
+   public EdgeSet(Edge... objects)
+   {
+      for (Edge obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public EdgeSet(Collection<Edge> objects)
+   {
+      this.addAll(objects);
+   }
 }
 
 

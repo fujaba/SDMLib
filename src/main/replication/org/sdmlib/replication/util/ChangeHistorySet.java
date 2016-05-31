@@ -133,4 +133,22 @@ public class ChangeHistorySet extends SimpleSet<ChangeHistory>
    {
       return "org.sdmlib.replication.ChangeHistory";
    }
+
+   public ChangeHistorySet()
+   {
+      // empty
+   }
+
+   public ChangeHistorySet(ChangeHistory... objects)
+   {
+      for (ChangeHistory obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChangeHistorySet(Collection<ChangeHistory> objects)
+   {
+      this.addAll(objects);
+   }
 }

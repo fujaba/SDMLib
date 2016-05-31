@@ -133,4 +133,22 @@ public class RemoteTaskBoardSet extends SimpleSet<RemoteTaskBoard>
    {
       return "org.sdmlib.replication.RemoteTaskBoard";
    }
+
+   public RemoteTaskBoardSet()
+   {
+      // empty
+   }
+
+   public RemoteTaskBoardSet(RemoteTaskBoard... objects)
+   {
+      for (RemoteTaskBoard obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RemoteTaskBoardSet(Collection<RemoteTaskBoard> objects)
+   {
+      this.addAll(objects);
+   }
 }

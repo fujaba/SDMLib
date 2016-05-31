@@ -133,4 +133,22 @@ public class ChatRootSet extends SimpleSet<ChatRoot>
    {
       return "org.sdmlib.test.examples.replication.chat.ChatRoot";
    }
+
+   public ChatRootSet()
+   {
+      // empty
+   }
+
+   public ChatRootSet(ChatRoot... objects)
+   {
+      for (ChatRoot obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatRootSet(Collection<ChatRoot> objects)
+   {
+      this.addAll(objects);
+   }
 }

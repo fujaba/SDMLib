@@ -619,4 +619,22 @@ public class MauMauSet extends SimpleSet<MauMau>
       return result;
    }
 
+
+   public MauMauSet()
+   {
+      // empty
+   }
+
+   public MauMauSet(MauMau... objects)
+   {
+      for (MauMau obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MauMauSet(Collection<MauMau> objects)
+   {
+      this.addAll(objects);
+   }
 }

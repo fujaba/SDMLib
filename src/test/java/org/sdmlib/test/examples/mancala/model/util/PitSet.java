@@ -507,4 +507,22 @@ public class PitSet extends SimpleSet<Pit>
       return result;
    }
 
+
+   public PitSet()
+   {
+      // empty
+   }
+
+   public PitSet(Pit... objects)
+   {
+      for (Pit obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PitSet(Collection<Pit> objects)
+   {
+      this.addAll(objects);
+   }
 }

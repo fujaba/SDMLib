@@ -406,4 +406,22 @@ public class ModelCouchSet extends SimpleSet<ModelCouch>
       return result;
    }
 
+
+   public ModelCouchSet()
+   {
+      // empty
+   }
+
+   public ModelCouchSet(ModelCouch... objects)
+   {
+      for (ModelCouch obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelCouchSet(Collection<ModelCouch> objects)
+   {
+      this.addAll(objects);
+   }
 }

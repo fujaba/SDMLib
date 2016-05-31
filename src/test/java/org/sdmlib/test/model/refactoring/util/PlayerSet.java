@@ -140,4 +140,22 @@ public class PlayerSet extends SimpleSet<Player>
    {
       return new PlayerPO(this.toArray(new Player[this.size()]));
    }
+
+   public PlayerSet()
+   {
+      // empty
+   }
+
+   public PlayerSet(Player... objects)
+   {
+      for (Player obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlayerSet(Collection<Player> objects)
+   {
+      this.addAll(objects);
+   }
 }

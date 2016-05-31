@@ -72,4 +72,22 @@ public class ModelSpaceSet extends SimpleSet<ModelSpace>
    {
       return new ModelSpacePO(this.toArray(new ModelSpace[this.size()]));
    }
+
+   public ModelSpaceSet()
+   {
+      // empty
+   }
+
+   public ModelSpaceSet(ModelSpace... objects)
+   {
+      for (ModelSpace obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelSpaceSet(Collection<ModelSpace> objects)
+   {
+      this.addAll(objects);
+   }
 }

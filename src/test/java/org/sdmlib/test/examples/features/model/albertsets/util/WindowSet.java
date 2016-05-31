@@ -122,4 +122,22 @@ public class WindowSet extends SimpleSet<Window>
    {
       return "org.sdmlib.test.examples.features.model.albertsets.Window";
    }
+
+   public WindowSet()
+   {
+      // empty
+   }
+
+   public WindowSet(Window... objects)
+   {
+      for (Window obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public WindowSet(Collection<Window> objects)
+   {
+      this.addAll(objects);
+   }
 }

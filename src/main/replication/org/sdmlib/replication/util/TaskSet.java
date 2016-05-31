@@ -133,4 +133,22 @@ public class TaskSet extends SimpleSet<Task>
    {
       return "org.sdmlib.replication.Task";
    }
+
+   public TaskSet()
+   {
+      // empty
+   }
+
+   public TaskSet(Task... objects)
+   {
+      for (Task obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskSet(Collection<Task> objects)
+   {
+      this.addAll(objects);
+   }
 }

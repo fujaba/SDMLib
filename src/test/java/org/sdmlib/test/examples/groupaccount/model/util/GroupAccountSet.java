@@ -281,4 +281,22 @@ public class GroupAccountSet extends SimpleSet<GroupAccount>
       return result;
    }
 
+
+   public GroupAccountSet()
+   {
+      // empty
+   }
+
+   public GroupAccountSet(GroupAccount... objects)
+   {
+      for (GroupAccount obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GroupAccountSet(Collection<GroupAccount> objects)
+   {
+      this.addAll(objects);
+   }
 }

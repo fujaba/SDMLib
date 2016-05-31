@@ -280,4 +280,22 @@ public class DrawingStackSet extends SimpleSet<DrawingStack>
    {
       return new DrawingStackPO(this.toArray(new DrawingStack[this.size()]));
    }
+
+   public DrawingStackSet()
+   {
+      // empty
+   }
+
+   public DrawingStackSet(DrawingStack... objects)
+   {
+      for (DrawingStack obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DrawingStackSet(Collection<DrawingStack> objects)
+   {
+      this.addAll(objects);
+   }
 }

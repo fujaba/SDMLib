@@ -104,40 +104,6 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public PersonPO filterPerson()
-   {
-      PersonPO result = new PersonPO(new Person[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_PERSON, result);
-      
-      return result;
-   }
-
-   public PersonPO createPerson()
-   {
-      return this.startCreate().filterPerson().endCreate();
-   }
-
-   public PersonPO filterPerson(PersonPO tgt)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_PERSON);
-   }
-
-   public PersonPO createPerson(PersonPO tgt)
-   {
-      return this.startCreate().filterPerson(tgt).endCreate();
-   }
-
-   public Person getPerson()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) this.getCurrentMatch()).getPerson();
-      }
-      return null;
-   }
-
    public PersonPO filterNextPerson()
    {
       PersonPO result = new PersonPO(new Person[]{});

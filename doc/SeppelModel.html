@@ -99,19 +99,6 @@
          }
       },
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"SeppelSpace",
-            "cardinality":"one",
-            "property":"seppelspace"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         }
-      },
-      {
          "typ":"ASSOCIATION",
          "source":{
             "id":"SeppelSpaceProxy",
@@ -177,19 +164,6 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SeppelScope",
-            "cardinality":"many",
-            "property":"scopes"
-         },
-         "target":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"many",
-            "property":"spaces"
-         }
-      },
-      {
          "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Object",
@@ -200,45 +174,6 @@
             "id":"SeppelScope",
             "cardinality":"one",
             "property":"seppelscope"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"Object",
-            "cardinality":"many",
-            "property":"observedObjects"
-         },
-         "target":{
-            "id":"SeppelScope",
-            "cardinality":"one",
-            "property":"seppelscope"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SeppelChannel",
-            "cardinality":"one",
-            "property":"channel"
-         },
-         "target":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"one",
-            "property":"seppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"BoardTask",
-            "cardinality":"many",
-            "property":"tasks"
-         },
-         "target":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"one",
-            "property":"proxy"
          }
       }
    ]

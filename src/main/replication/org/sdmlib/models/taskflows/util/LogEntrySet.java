@@ -479,4 +479,22 @@ public class LogEntrySet extends SimpleSet<LogEntry>
       return result;
    }
 
+
+   public LogEntrySet()
+   {
+      // empty
+   }
+
+   public LogEntrySet(LogEntry... objects)
+   {
+      for (LogEntry obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LogEntrySet(Collection<LogEntry> objects)
+   {
+      this.addAll(objects);
+   }
 }

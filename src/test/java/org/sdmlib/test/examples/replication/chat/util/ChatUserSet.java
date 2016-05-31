@@ -283,4 +283,22 @@ public class ChatUserSet extends SimpleSet<ChatUser>
       return result;
    }
 
+
+   public ChatUserSet()
+   {
+      // empty
+   }
+
+   public ChatUserSet(ChatUser... objects)
+   {
+      for (ChatUser obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatUserSet(Collection<ChatUser> objects)
+   {
+      this.addAll(objects);
+   }
 }

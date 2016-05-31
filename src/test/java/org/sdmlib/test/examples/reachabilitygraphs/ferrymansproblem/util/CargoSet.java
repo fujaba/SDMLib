@@ -272,4 +272,22 @@ public class CargoSet extends SimpleSet<Cargo>
       return result;
    }
 
+
+   public CargoSet()
+   {
+      // empty
+   }
+
+   public CargoSet(Cargo... objects)
+   {
+      for (Cargo obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CargoSet(Collection<Cargo> objects)
+   {
+      this.addAll(objects);
+   }
 }

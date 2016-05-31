@@ -323,4 +323,22 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
       return this;
    }
 
+
+   public TaskFlowSet()
+   {
+      // empty
+   }
+
+   public TaskFlowSet(TaskFlow... objects)
+   {
+      for (TaskFlow obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskFlowSet(Collection<TaskFlow> objects)
+   {
+      this.addAll(objects);
+   }
 }

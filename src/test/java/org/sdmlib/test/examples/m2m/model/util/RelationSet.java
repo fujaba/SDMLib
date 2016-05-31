@@ -467,4 +467,22 @@ public class RelationSet extends SimpleSet<Relation>
       return result;
    }
 
+
+   public RelationSet()
+   {
+      // empty
+   }
+
+   public RelationSet(Relation... objects)
+   {
+      for (Relation obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RelationSet(Collection<Relation> objects)
+   {
+      this.addAll(objects);
+   }
 }

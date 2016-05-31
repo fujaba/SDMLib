@@ -145,4 +145,22 @@ public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
    {
       return new ModelDBListenerPO(this.toArray(new ModelDBListener[this.size()]));
    }
+
+   public ModelDBListenerSet()
+   {
+      // empty
+   }
+
+   public ModelDBListenerSet(ModelDBListener... objects)
+   {
+      for (ModelDBListener obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelDBListenerSet(Collection<ModelDBListener> objects)
+   {
+      this.addAll(objects);
+   }
 }

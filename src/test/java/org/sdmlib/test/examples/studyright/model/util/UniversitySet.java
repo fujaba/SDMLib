@@ -291,4 +291,22 @@ public class UniversitySet extends SimpleSet<University>
       return result;
    }
 
+
+   public UniversitySet()
+   {
+      // empty
+   }
+
+   public UniversitySet(University... objects)
+   {
+      for (University obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UniversitySet(Collection<University> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -883,4 +883,22 @@ public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
       return result;
    }
 
+
+   public SeppelSpaceProxySet()
+   {
+      // empty
+   }
+
+   public SeppelSpaceProxySet(SeppelSpaceProxy... objects)
+   {
+      for (SeppelSpaceProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelSpaceProxySet(Collection<SeppelSpaceProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

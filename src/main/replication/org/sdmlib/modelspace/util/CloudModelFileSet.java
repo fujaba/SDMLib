@@ -323,4 +323,22 @@ public class CloudModelFileSet extends SimpleSet<CloudModelFile>
       return result;
    }
 
+
+   public CloudModelFileSet()
+   {
+      // empty
+   }
+
+   public CloudModelFileSet(CloudModelFile... objects)
+   {
+      for (CloudModelFile obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CloudModelFileSet(Collection<CloudModelFile> objects)
+   {
+      this.addAll(objects);
+   }
 }

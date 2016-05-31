@@ -295,4 +295,22 @@ public class CardSet extends SimpleSet<Card>
       return result;
    }
 
+
+   public CardSet()
+   {
+      // empty
+   }
+
+   public CardSet(Card... objects)
+   {
+      for (Card obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CardSet(Collection<Card> objects)
+   {
+      this.addAll(objects);
+   }
 }

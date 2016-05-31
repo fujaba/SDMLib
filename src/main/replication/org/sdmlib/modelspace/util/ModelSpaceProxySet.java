@@ -284,4 +284,22 @@ public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
       return result;
    }
 
+
+   public ModelSpaceProxySet()
+   {
+      // empty
+   }
+
+   public ModelSpaceProxySet(ModelSpaceProxy... objects)
+   {
+      for (ModelSpaceProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelSpaceProxySet(Collection<ModelSpaceProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

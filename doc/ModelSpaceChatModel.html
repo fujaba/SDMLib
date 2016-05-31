@@ -70,19 +70,6 @@
       {
          "typ":"ASSOCIATION",
          "source":{
-            "id":"MSChatMsg",
-            "cardinality":"many",
-            "property":"msgs"
-         },
-         "target":{
-            "id":"MSChatChannel",
-            "cardinality":"one",
-            "property":"channel"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
             "id":"MSChatGroup",
             "cardinality":"one",
             "property":"group"
@@ -114,48 +101,9 @@
             "property":"members"
          },
          "target":{
-            "id":"MSChatGroup",
-            "cardinality":"one",
-            "property":"group"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"MSChatMember",
-            "cardinality":"many",
-            "property":"members"
-         },
-         "target":{
             "id":"MSChatChannelDescription",
             "cardinality":"many",
             "property":"channels"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"MSChatChannelDescription",
-            "cardinality":"many",
-            "property":"channels"
-         },
-         "target":{
-            "id":"MSChatGroup",
-            "cardinality":"one",
-            "property":"group"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"MSChatChannelDescription",
-            "cardinality":"many",
-            "property":"channels"
-         },
-         "target":{
-            "id":"MSChatMember",
-            "cardinality":"many",
-            "property":"members"
          }
       }
    ]

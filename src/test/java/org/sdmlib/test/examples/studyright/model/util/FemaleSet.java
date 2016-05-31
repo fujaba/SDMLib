@@ -205,4 +205,22 @@ public class FemaleSet extends SimpleSet<Female>
       return result;
    }
 
+
+   public FemaleSet()
+   {
+      // empty
+   }
+
+   public FemaleSet(Female... objects)
+   {
+      for (Female obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FemaleSet(Collection<Female> objects)
+   {
+      this.addAll(objects);
+   }
 }

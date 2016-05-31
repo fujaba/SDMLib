@@ -183,5 +183,23 @@ public class TrainSet extends SimpleSet<Train>
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.Train";
    }
+
+   public TrainSet()
+   {
+      // empty
+   }
+
+   public TrainSet(Train... objects)
+   {
+      for (Train obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TrainSet(Collection<Train> objects)
+   {
+      this.addAll(objects);
+   }
 }
 

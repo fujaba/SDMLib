@@ -272,4 +272,22 @@ public class DiceSet extends SimpleSet<Dice>
       return result;
    }
 
+
+   public DiceSet()
+   {
+      // empty
+   }
+
+   public DiceSet(Dice... objects)
+   {
+      for (Dice obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DiceSet(Collection<Dice> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -35,6 +35,24 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
 public class HouseSet extends SDMSet<House>
 {
 
+   public HouseSet()
+   {
+      // empty
+   }
+
+   public HouseSet(House... objects)
+   {
+      for (House obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public HouseSet(Collection<House> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final HouseSet EMPTY_SET = new HouseSet().withFlag(HouseSet.READONLY);
 
 

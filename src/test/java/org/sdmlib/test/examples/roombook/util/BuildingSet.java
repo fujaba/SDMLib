@@ -243,4 +243,22 @@ public class BuildingSet extends SDMSet<Building>
       return this;
    }
 
+
+   public BuildingSet()
+   {
+      // empty
+   }
+
+   public BuildingSet(Building... objects)
+   {
+      for (Building obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BuildingSet(Collection<Building> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -98,6 +98,8 @@ public  class Person implements SendableEntity
 
 
 
+
+
       return result.substring(1);
    }
 
@@ -118,16 +120,7 @@ public  class Person implements SendableEntity
 
 
 
-   
-   
-   
-   
 
-   
-   
-   
-   
-    
 
    
    
@@ -261,6 +254,48 @@ public  class Person implements SendableEntity
    
     
 
+   
+   
+   
+   
+
+   
+   
+   
+   
+    
+
+   
+   
+   
+   
+
+   
+   
+   
+   
+    
+
+   
+   
+   
+   
+
+   
+   
+   
+   
+    
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
    
    
    

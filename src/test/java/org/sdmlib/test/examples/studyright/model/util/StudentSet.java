@@ -725,4 +725,22 @@ public class StudentSet extends SimpleSet<Student>
       return result;
    }
 
+
+   public StudentSet()
+   {
+      // empty
+   }
+
+   public StudentSet(Student... objects)
+   {
+      for (Student obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StudentSet(Collection<Student> objects)
+   {
+      this.addAll(objects);
+   }
 }

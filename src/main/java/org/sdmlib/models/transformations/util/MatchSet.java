@@ -788,4 +788,22 @@ public class MatchSet extends SimpleSet<Match>
       return result;
    }
 
+
+   public MatchSet()
+   {
+      // empty
+   }
+
+   public MatchSet(Match... objects)
+   {
+      for (Match obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MatchSet(Collection<Match> objects)
+   {
+      this.addAll(objects);
+   }
 }

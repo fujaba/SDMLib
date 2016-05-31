@@ -1174,4 +1174,22 @@ public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
       return result;
    }
 
+
+   public ChoiceTemplateSet()
+   {
+      // empty
+   }
+
+   public ChoiceTemplateSet(ChoiceTemplate... objects)
+   {
+      for (ChoiceTemplate obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChoiceTemplateSet(Collection<ChoiceTemplate> objects)
+   {
+      this.addAll(objects);
+   }
 }

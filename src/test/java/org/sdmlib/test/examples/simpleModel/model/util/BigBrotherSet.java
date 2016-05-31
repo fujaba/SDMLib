@@ -239,4 +239,22 @@ public class BigBrotherSet extends SimpleSet<BigBrother>
    {
       return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
    }
+
+   public BigBrotherSet()
+   {
+      // empty
+   }
+
+   public BigBrotherSet(BigBrother... objects)
+   {
+      for (BigBrother obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BigBrotherSet(Collection<BigBrother> objects)
+   {
+      this.addAll(objects);
+   }
 }

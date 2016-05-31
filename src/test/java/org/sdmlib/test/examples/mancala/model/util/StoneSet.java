@@ -71,4 +71,22 @@ public class StoneSet extends SimpleSet<Stone>
    {
       return "org.sdmlib.test.examples.mancala.model.Stone";
    }
+
+   public StoneSet()
+   {
+      // empty
+   }
+
+   public StoneSet(Stone... objects)
+   {
+      for (Stone obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StoneSet(Collection<Stone> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -149,4 +149,22 @@ public class BlastSet extends SimpleSet<Blast>
    {
       return new BlastPO(this.toArray(new Blast[this.size()]));
    }
+
+   public BlastSet()
+   {
+      // empty
+   }
+
+   public BlastSet(Blast... objects)
+   {
+      for (Blast obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BlastSet(Collection<Blast> objects)
+   {
+      this.addAll(objects);
+   }
 }

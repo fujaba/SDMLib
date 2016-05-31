@@ -69,4 +69,22 @@ public class ObjectSet extends SDMSet<Object>
    {
       return "java.lang.Object";
    }
+
+   public ObjectSet()
+   {
+      // empty
+   }
+
+   public ObjectSet(Object... objects)
+   {
+      for (Object obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ObjectSet(Collection<Object> objects)
+   {
+      this.addAll(objects);
+   }
 }

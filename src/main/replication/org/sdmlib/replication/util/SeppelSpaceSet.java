@@ -386,4 +386,22 @@ public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
       return result;
    }
 
+
+   public SeppelSpaceSet()
+   {
+      // empty
+   }
+
+   public SeppelSpaceSet(SeppelSpace... objects)
+   {
+      for (SeppelSpace obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelSpaceSet(Collection<SeppelSpace> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -319,4 +319,22 @@ public class LectureSet extends SimpleSet<Lecture>
       return result;
    }
 
+
+   public LectureSet()
+   {
+      // empty
+   }
+
+   public LectureSet(Lecture... objects)
+   {
+      for (Lecture obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LectureSet(Collection<Lecture> objects)
+   {
+      this.addAll(objects);
+   }
 }
