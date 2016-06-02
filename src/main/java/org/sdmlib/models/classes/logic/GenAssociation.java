@@ -598,7 +598,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0 && ! (GraphUtil.isWithNoObjects(partnerRole.getClazz()) && kidClassesInterfaces.size() != 1))
       {
-         if (!GraphUtil.isWithNoObjects(clazz))
+         if (!GraphUtil.isInterface(clazz))
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +

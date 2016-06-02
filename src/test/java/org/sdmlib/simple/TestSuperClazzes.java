@@ -3,7 +3,10 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
+import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
 
 public class TestSuperClazzes {
 
@@ -54,6 +57,21 @@ public class TestSuperClazzes {
 //		model.generate("src/test/java");
 	}
 	
+	@Test
+	public void testAbstractAssociation() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_e");
+		Clazz person = model.createClazz("Person");
+		person.with(Modifier.ABSTRACT);
+		Clazz teacher = model.createClazz("Teacher");
+		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
+		
+		person.withAttribute("name", DataType.STRING);
+		
+		teacher.withBidirectional(person, "person", Cardinality.ONE, "teacher", Cardinality.ONE);
+		
+		model.getGenerator().testGeneratedCode();
+	}
 	
 //FIXME Wrong call of RemoveYou
 //	   @Override
