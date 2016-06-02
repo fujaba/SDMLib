@@ -305,7 +305,7 @@ public class GenAssociation extends Generator<Association>
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
       
-      if (pos < 0 && GraphUtil.isInterface(partnerRole.getClazz()) == false && kidClassesInterfaces.size() != 1)
+      if (pos < 0 && GraphUtil.isWithNoObjects(partnerRole.getClazz()) == false && kidClassesInterfaces.size() != 1)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {

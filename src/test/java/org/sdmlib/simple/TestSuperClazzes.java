@@ -62,8 +62,25 @@ public class TestSuperClazzes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_e");
 		Clazz person = model.createClazz("Person");
-		person.with(Modifier.ABSTRACT);
+		person.with(Modifier.create("abstract"));
 		Clazz teacher = model.createClazz("Teacher");
+		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
+		
+		person.withAttribute("name", DataType.STRING);
+		
+		teacher.withBidirectional(person, "person", Cardinality.ONE, "teacher", Cardinality.ONE);
+		
+		model.getGenerator().testGeneratedCode();
+	}
+	
+	@Test
+	public void testMultipleAbstractAssociation() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_f");
+		Clazz person = model.createClazz("Person");
+		person.with(Modifier.create("abstract"));
+		Clazz teacher = model.createClazz("Teacher");
+		teacher.with(Modifier.create("abstract"));
 		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
 		
 		person.withAttribute("name", DataType.STRING);
