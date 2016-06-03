@@ -172,6 +172,14 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
    public boolean rebind(PatternObject boundObject, Object value)
    {
+	  // reset old bound modifiers
+	  for (PatternElement pe : this.getElements())
+	  {
+		 pe.setModifier(null);
+	  }
+	  // set Modifier
+	  boundObject.setModifier(BOUND);
+	  
       boundObject.setCurrentMatch(value);
       this.resetSearch();
       return this.findMatch();
