@@ -75,7 +75,7 @@ public class GenClass extends GenClazzEntity
             if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
 
-            if (classModel.hasFeature(Feature.Serialization, model))
+            if (classModel.hasFeature(Feature.SERIALIZATION, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -88,10 +88,10 @@ public class GenClass extends GenClazzEntity
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if (classModel.hasFeature(Feature.Serialization, model))
+      if (classModel.hasFeature(Feature.SERIALIZATION, model))
       { 
          // now generate the corresponding creator class
-         if (getRepairClassModel().hasFeature(Feature.Serialization))
+         if (getRepairClassModel().hasFeature(Feature.SERIALIZATION))
          {
             getOrCreateParserForCreatorClass(helpersDir);
 
@@ -105,12 +105,12 @@ public class GenClass extends GenClazzEntity
       }
 
       // now generate the corresponding ModelSet class
-      if (classModel.hasFeature(Feature.Serialization, model))
+      if (classModel.hasFeature(Feature.SERIALIZATION, model))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
 
-         if (getRepairClassModel().hasFeature(Feature.PatternObject))
+         if (getRepairClassModel().hasFeature(Feature.PATTERNOBJECT))
          {
 
             // now generate the corresponding PatterObject class
@@ -267,7 +267,8 @@ public class GenClass extends GenClazzEntity
 
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
-		if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+		ClassModel model = (ClassModel) clazz.getClassModel();
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -300,7 +301,7 @@ public class GenClass extends GenClazzEntity
 			}
 			StringBuilder creators=new StringBuilder();
 			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
-			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject)) {
+			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PATTERNOBJECT)) {
 				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
@@ -379,6 +380,7 @@ public class GenClass extends GenClazzEntity
 	                           "   }\n" +
 	                           "}\n")
 	               );
+	    	  parser.insertImport(IdMap.class.getName());
 	      }
 	      return creatorCreator;
 	}
@@ -468,7 +470,7 @@ public class GenClass extends GenClazzEntity
 
    private void insertRemoveObjectInCreatorClass()
    {
-	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) 
+	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT)) 
 //      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
       {
          return;
@@ -492,7 +494,7 @@ public class GenClass extends GenClazzEntity
    {
 	   // TODO : alternative removeYou() 
 		String propChSupport = "firePropertyChange(\"REMOVE_YOU\", this, null);";
-		if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) {
+		if (!getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT)) {
 			// return;
 			propChSupport = "";
 		}
@@ -525,7 +527,7 @@ public class GenClass extends GenClazzEntity
 
    private void insertPropertyChangeSupport(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
+      if (!getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT))
       {
          return;
       }
@@ -640,9 +642,11 @@ public class GenClass extends GenClazzEntity
 
    private void insertImplementsClauseForPropertyChangeInterface()
    {
+	   if(getRepairClassModel().hasFeature(Feature.STANDALONE)) {
+		   return;
+	   }
       String searchString = Parser.IMPLEMENTS;
       int implementsPos = parser.indexOf(searchString);
-
       String propertyChangeInterface = SendableEntity.class.getSimpleName();
 
       if (implementsPos < 0)
@@ -749,7 +753,7 @@ public class GenClass extends GenClazzEntity
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.Serialization))
+      if (!getRepairClassModel().hasFeature(Feature.SERIALIZATION))
       {
          return null;
       }
@@ -779,9 +783,9 @@ public class GenClass extends GenClazzEntity
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
+         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION))
          {
-            HashSet<String> featureSet = Feature.Serialization.getPath();
+            HashSet<String> featureSet = Feature.SERIALIZATION.getPath();
 
             for (String featureValue : featureSet)
             {

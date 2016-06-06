@@ -21,11 +21,13 @@
    
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.sdmlib.doc.DocEnvironment;
@@ -38,9 +40,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphModel;
-import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
@@ -56,7 +57,6 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	public ClassModel() {
 		name = DEFAULTPACKAGE;
 		setAuthorName(System.getProperty("user.name"));
-		Feature.reset();
 	}
 
 	public ClassModel(String packageName)
@@ -315,4 +315,14 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+	public Feature getFeature(Feature value) {
+		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
+			Feature item = i.next();
+			if(item.equals(value)) {
+				return item;
+			}
+		}
+		return null;
+	}
 }

@@ -79,8 +79,8 @@ public class AttributeTemplates {
 		      }
 	    	  
 	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + attribute.getType().getName(true) + ")");
-	    	  attrSetter.withVariable(ReplaceText.create("pgold", Feature.PropertyChangeSupport, "\n         {{type}} oldValue = this.{{name}};"));
-	    	  ReplaceText propertyChange = ReplaceText.create("propertychange", Feature.PropertyChangeSupport, "\n         this.firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);");
+	    	  attrSetter.withVariable(ReplaceText.create("pgold", Feature.PROPERTYCHANGESUPPORT, "\n         {{type}} oldValue = this.{{name}};"));
+	    	  ReplaceText propertyChange = ReplaceText.create("propertychange", Feature.PROPERTYCHANGESUPPORT, "\n         this.firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);");
 	    	  propertyChange.withCondition(attribute.getClazz().getType()!=ClazzType.ENUMERATION);
 
 	    	  attrSetter.withVariable(propertyChange);

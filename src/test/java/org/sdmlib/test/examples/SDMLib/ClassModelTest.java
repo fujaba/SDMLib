@@ -172,7 +172,7 @@ public class ClassModelTest
       // .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
       // .withShowDiff(DIFF.DIFF);
 
-      model.withoutFeature(Feature.PatternObject);
+      model.withoutFeature(Feature.PATTERNOBJECT);
       // model.generate("src/main/java");
 
       storyboard.dumpHTML();

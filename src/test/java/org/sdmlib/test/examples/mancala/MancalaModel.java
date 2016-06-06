@@ -63,8 +63,8 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withBidirectional(player, "player", Cardinality.ONE, "stone", Cardinality.ONE);
         
-        Feature.Serialization.withPath("org.sdmlib.test.examples.mancala.referencemodel.util");
-        Feature.Serialization.withExcludeClazz(stone);
+        Feature.SERIALIZATION.withPath("org.sdmlib.test.examples.mancala.referencemodel.util");
+        Feature.SERIALIZATION.withExcludeClazz(stone);
 		
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);

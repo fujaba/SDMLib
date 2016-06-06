@@ -11,8 +11,6 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.modelsets.ObjectSet;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
@@ -142,9 +140,9 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n");
             
-            if (clazzModel.hasFeature(Feature.ALBERTsSets, clazz) == false 
-            		&& clazzModel.hasFeature(Feature.PatternObject, clazz) == false
-            		&& clazzModel.hasFeature(Feature.Serialization, clazz) == false
+            if (clazzModel.hasFeature(Feature.SETCLASS, clazz) == false 
+            		&& clazzModel.hasFeature(Feature.PATTERNOBJECT, clazz) == false
+            		&& clazzModel.hasFeature(Feature.SERIALIZATION, clazz) == false
             		 ) {
             	CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
             }
@@ -378,7 +376,7 @@ public class GenAssociation extends Generator<Association>
       
       String propertyChangeAdd = "";
       String propertyChangeRemove = "";
-      if(clazzModel.hasFeature(Feature.PropertyChangeSupport, model.getClazz())){
+      if(clazzModel.hasFeature(Feature.PROPERTYCHANGESUPPORT, model.getClazz())){
      	 propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
      	 propertyChangeRemove = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
       }
@@ -627,7 +625,7 @@ public class GenAssociation extends Generator<Association>
       }
       
       String propertyChangeAdd = "";
-      if(((ClassModel) model.getClazz().getClassModel()).hasFeature(Feature.PropertyChangeSupport)){
+      if(((ClassModel) model.getClazz().getClassModel()).hasFeature(Feature.PROPERTYCHANGESUPPORT)){
      	 propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);";
       }
       CGUtil.replaceAll(text, "PROPERTYCHANGEADD", propertyChangeAdd);
@@ -702,7 +700,7 @@ public class GenAssociation extends Generator<Association>
          getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
       }
       
-      if(!((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+      if(!((ClassModel) clazz.getClassModel()).hasFeature(Feature.SERIALIZATION)) {
     	  insertRemovalInRemoveYou(clazz, myParser, partnerRole);
     	  getGenerator(clazz).printFile();
     	  return;
@@ -727,7 +725,7 @@ public class GenAssociation extends Generator<Association>
       
       // generate property in creator class
       ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
-      if (GraphUtil.isInterface(clazz) == false && classModel.hasFeature(Feature.Serialization, partnerRole.getClazz()))
+      if (GraphUtil.isInterface(clazz) == false && classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
@@ -735,7 +733,7 @@ public class GenAssociation extends Generator<Association>
       }
       
     		  
-      if (classModel.hasFeature(Feature.Serialization, partnerRole.getClazz())) {
+      if (classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz())) {
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
@@ -744,7 +742,7 @@ public class GenAssociation extends Generator<Association>
 	      
 	      getGenerator(clazz).printFile(modelSetParser);
 	
-	      if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(Feature.PatternObject)){
+	      if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(Feature.PATTERNOBJECT)){
 	      // generate property in pattern object class
 	      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
 	      
@@ -833,8 +831,9 @@ public class GenAssociation extends Generator<Association>
                   "      \n" + 
                   "      return result;\n" + 
                   "   }\n" + 
-                  "\n" + 
-                  "   /**\n" +
+                  "\n");
+         	if(this.getClazz().hasFeature(Feature.STANDALONE) == false) {
+         		 text.append("   /**\n" +
                   "    * Loop through the current set of ContentType objects and collect all contained objects with "
                         + "reference thename pointing to the object passed as parameter. \n" +
                   "    * \n" +
@@ -868,8 +867,9 @@ public class GenAssociation extends Generator<Association>
                   "      return answer;\n" + 
                   "   }\n" + 
                   "\n");
-            parser.insertImport(Collection.class.getName());
-            parser.insertImport(ObjectSet.class.getName());
+         		 parser.insertImport(Collection.class.getName());
+         		 parser.insertImport(ObjectSet.class.getName());
+         	}
             
             String containsClause = "neighbors.contains(obj.get"
                   + StrUtil.upFirstChar(partnerRole.getName()) + "())"
@@ -1359,7 +1359,7 @@ public class GenAssociation extends Generator<Association>
                "\n         return true;" +
                "\n      }" +
                "\n      " + 
-               "\n      if ((ClassName.PROPERTY_NAME + IdMap.REMOVE).equalsIgnoreCase(attrName))" +
+               "\n      if ((ClassName.PROPERTY_NAME + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))" +
                "\n      {" +
                "\n         ((ClassName) target).withoutPropertyName((type) value);" +
                "\n         return true;" +
@@ -1379,7 +1379,6 @@ public class GenAssociation extends Generator<Association>
 
          parser.insert(lastIfEndPos, text.toString());
          
-         parser.insertImport(IdMap.class.getName());
          parser.insertImport(partnerRole.getClazz().getName(false));
          
       }

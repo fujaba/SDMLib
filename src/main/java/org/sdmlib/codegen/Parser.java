@@ -2300,6 +2300,9 @@ public class Parser
 
    public void insertImport(String className)
    {
+	   if(className == null || className.indexOf(".")<0) {
+		   return;
+	   }
 	   int genericType = className.indexOf("<");
 	   String[] strings;
       if (genericType > 0)

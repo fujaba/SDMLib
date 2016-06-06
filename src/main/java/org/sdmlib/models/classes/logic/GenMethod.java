@@ -17,7 +17,6 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.util.ParameterSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenMethod extends Generator<Method>
@@ -41,7 +40,7 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (clazzModel.hasFeature(Feature.PatternObject)) {
+      if (clazzModel.hasFeature(Feature.PATTERNOBJECT)) {
 	      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
 	      insertMethodInPatternObject(clazz, patternObjectParser);
 	      generator.printFile(patternObjectParser);
