@@ -15,6 +15,7 @@ public class Feature implements Comparable<Feature>{
 	public static final Feature SETCLASS = new Feature("SETCLASS").withClazzValue(SDMSet.class);
 	public static final Feature REMOVEYOUMETHOD = new Feature("REMOVEYOUMETHOD");
 	public static final Feature STANDALONE = new Feature("STANDALONE");
+   public static final Feature EMFSTYLE = new Feature("EMFSTYLE");
 
 	private HashSet<Clazz> includeClazz = new HashSet<Clazz>();
 	private HashSet<Clazz> excludeClazz = new HashSet<Clazz>();
