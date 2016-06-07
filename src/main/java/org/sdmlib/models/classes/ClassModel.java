@@ -51,7 +51,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
 	public static final String PROPERTY_CLASSES = "classes";
 	private static final String PROPERTY_FEATURE = "feature";
-	private Set<Feature> features = Feature.getAll();
+	private Set<FeatureProperty> features = Feature.getAll();
 	private GenClassModel generator;
 
 	public ClassModel() {
@@ -167,7 +167,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		}
 		for (Feature item : value) {
 			if (item != null) {
-				if (this.features.add(item)) {
+				if (this.features.add(item.create())) {
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
 				}
 			}
@@ -189,12 +189,12 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return this;
 	}
 
-	public ClassModel withFeatures(HashSet<Feature> value) {
+	public ClassModel withFeatures(HashSet<FeatureProperty> value) {
 		if (value == null) {
 			this.features.clear();
 			return this;
 		}
-		for (Feature item : value) {
+		for (FeatureProperty item : value) {
 			if (item != null) {
 				if (this.features.add(item)) {
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
@@ -205,12 +205,19 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 	public boolean hasFeature(Feature value) {
-		return features.contains(value);
+		for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
+			FeatureProperty item = i.next();
+			if(item.equals(value)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean hasFeature(Feature feature, Clazz value) {
-		if (hasFeature(feature)) {
-			return feature.match(value);
+		FeatureProperty property = getFeature(feature);
+		if(property != null) {
+			return property.match(value);
 		}
 		return false;
 	}
@@ -316,9 +323,9 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-	public Feature getFeature(Feature value) {
-		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
-			Feature item = i.next();
+	public FeatureProperty getFeature(Feature value) {
+		for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
+			FeatureProperty item = i.next();
 			if(item.equals(value)) {
 				return item;
 			}

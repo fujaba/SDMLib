@@ -12,6 +12,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.modelsets.SDMSet;
 
@@ -311,9 +312,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          File modelSetJavaFile = new File(fileName);
 
-         if (!modelSetJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         if (!modelSetJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = Feature.SERIALIZATION.getPath();
+            HashSet<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -343,7 +345,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          else
          {
         	 Class<?> setClass;
-        	 Feature feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+        	 feature = getRepairClassModel().getFeature(Feature.SETCLASS);
         	 if(feature != null) {
         		 setClass = feature.getClassValue();
         	 } else {
@@ -533,7 +535,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       {
          // add attribute declaration in class file
          partnerPos = parser.indexOf(Parser.CLASS_END);
-         Feature feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+         FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          StringBuilder partnerText;
          if(feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class)) {
         	 partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);\n");
@@ -584,7 +586,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "      return this;\n" +
                   "   }\n"
                 + "\n");
-         Feature feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+         FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          if(feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class)) {
         	 text.append("   @Override\n" + 
                    "   public ModelTypeSet filter(Condition<ModelType> newValue) {\r\n" + 
@@ -709,9 +711,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          File patternObjectJavaFile = new File(fileName);
 
-         if (!patternObjectJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         if (!patternObjectJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = Feature.SERIALIZATION.getPath();
+            HashSet<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -836,9 +839,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          File creatorJavaFile = new File(fileName);
 
-         if (!creatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         if (!creatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = Feature.SERIALIZATION.getPath();
+            HashSet<String> featureSet = feature.getPath();
             for (String featureValue : featureSet)
             {
                String alternativePackageName = featureValue;

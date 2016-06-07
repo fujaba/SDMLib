@@ -18,6 +18,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
@@ -783,9 +784,10 @@ public class GenClass extends GenClazzEntity
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         if (!patternObjectCreatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = Feature.SERIALIZATION.getPath();
+            HashSet<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
