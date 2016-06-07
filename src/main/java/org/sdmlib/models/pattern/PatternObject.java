@@ -43,7 +43,9 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 
 /**
  * 
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see <a href=
+ *      '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a
+ *      >
  */
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -68,23 +70,27 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    private AttributeConstraintSet attrConstraints = null;
 
-   protected void newInstance(IdMap map){
+   protected void newInstance(IdMap map)
+   {
       Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
    }
 
-   protected void newInstance(IdMap map, Object[] hostGraphObject){
+   protected void newInstance(IdMap map, Object[] hostGraphObject)
+   {
       Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
-      if(hostGraphObject.length>1){
+      if (hostGraphObject.length > 1)
+      {
          this.withCandidates(Arrays.asList(hostGraphObject));
-      } else {
+      }
+      else
+      {
          this.withCurrentMatch(hostGraphObject[0]);
          this.withModifier(Pattern.BOUND);
       }
       pattern.findMatch();
    }
-
 
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
@@ -159,7 +165,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
                this.getTopPattern().addLogMsg(
                   "" + getLHSPatternObjectName() + " = new " + shortClassName + "(); // "
-                        + getPattern().getIdMap().getId(sendableInstance));
+                     + getPattern().getIdMap().getId(sendableInstance));
             }
 
             return true;
@@ -192,7 +198,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
 
       if (this.getCandidates() == null
-            || this.getCandidates() instanceof Collection && ((Collection<?>) this.getCandidates()).isEmpty())
+         || this.getCandidates() instanceof Collection && ((Collection<?>) this.getCandidates()).isEmpty())
       {
          this.setHasMatch(false);
          return false;
@@ -221,8 +227,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
                String tgtVar = getLHSPatternObjectName();
                getTopPattern().addLogMsg(
                   tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
-                        + getTopPattern().getIdMap().getId(obj) + " " + obj + " <- "
-                        + valueSetString(this.getCandidates()));
+                     + getTopPattern().getIdMap().getId(obj) + " " + obj + " <- "
+                     + valueSetString(this.getCandidates()));
             }
          }
          else
@@ -402,15 +408,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public POC destroy()
    {
       DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
-            .withPatternObject(this)
-            .withPattern(this.getPattern());
+         .withPatternObject(this)
+         .withPattern(this.getPattern());
 
       this.getPattern()
-      .findMatch();
+         .findMatch();
 
       return (POC) this;
    }
-
 
    // ==========================================================================
 
@@ -426,8 +431,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       removeAllFromCardConstraints();
       removeAllFromMatchOtherThen();
       removeAllFromExcluders();
-      withoutAttrConstraints(this.getAttrConstraints().toArray(new AttributeConstraint[this.getAttrConstraints().size()]));
-      withoutCardConstraints(this.getCardConstraints().toArray(new CardinalityConstraint[this.getCardConstraints().size()]));
+      withoutAttrConstraints(this.getAttrConstraints().toArray(
+         new AttributeConstraint[this.getAttrConstraints().size()]));
+      withoutCardConstraints(this.getCardConstraints().toArray(
+         new CardinalityConstraint[this.getCardConstraints().size()]));
       withoutMatchOtherThen(this.getMatchOtherThen().toArray(new MatchOtherThen[this.getMatchOtherThen().size()]));
       withoutExcluders(this.getExcluders().toArray(new MatchOtherThen[this.getExcluders().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -461,6 +468,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- PatternLink
     *              tgt                   incomming
     * </pre>
+    * 
     * @return The PatternObject
     */
    public PatternLinkSet getIncomming()
@@ -542,6 +550,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- PatternLink
     *              src                   outgoing
     * </pre>
+    * 
     * @return The PatternLinkSet
     */
    public PatternLinkSet getOutgoing()
@@ -647,6 +656,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- AttributeConstraint
     *              src                   attrConstraints
     * </pre>
+    * 
     * @return The AttributeConstraintSet
     */
    public AttributeConstraintSet getAttrConstraints()
@@ -731,9 +741,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          this.getPattern().findMatch();
 
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-               .withTgt(result).withTgtRoleName(roleName)
-               .withSrc(this)
-               .withModifier(this.getPattern().getModifier());
+            .withTgt(result).withTgtRoleName(roleName)
+            .withSrc(this)
+            .withModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
 
@@ -742,8 +752,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       else
       {
          PatternLink patternLink = new PatternLink()
-               .withTgt(result).withTgtRoleName(roleName)
-               .withSrc(this);
+            .withTgt(result).withTgtRoleName(roleName)
+            .withSrc(this);
          patternLink.setModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
@@ -751,12 +761,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          this.getPattern().addToElements(result);
 
          result.getPattern()
-         .findMatch();
+            .findMatch();
       }
    }
 
-   protected void filterAttr() {
-      if(!this.getPattern().findMatch()) 
+   protected void filterAttr()
+   {
+      if (!this.getPattern().findMatch())
       {
          setCurrentMatch(null);
       }
@@ -765,11 +776,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public POC has(Condition<Object> condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-            .withText(text)
-            .withSrc(this)
-            .withCondition(condition)
-            .withModifier(this.getPattern().getModifier())
-            .withPattern(this.getPattern());
+         .withText(text)
+         .withSrc(this)
+         .withCondition(condition)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
@@ -778,17 +789,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    /**
     * Depricated. Use filter() instead.
-    * @param condition The condition used for filtering
+    * 
+    * @param condition
+    *           The condition used for filtering
     * @return this
     */
    @Deprecated
    public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-            .withCondition(condition)
-            .withSrc(this)
-            .withModifier(this.getPattern().getModifier())
-            .withPattern(this.getPattern());
+         .withCondition(condition)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
@@ -798,37 +811,37 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public POC filter(Condition<MC> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-            .withCondition((Condition<Object>) condition)
-            .withSrc(this)
-            .withModifier(this.getPattern().getModifier())
-            .withPattern(this.getPattern());
+         .withCondition((Condition<Object>) condition)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
 
       this.getPattern().findMatch();
 
       return (POC) this;
    }
-   
-   
+
    public <TPOC extends PatternObject> TPOC filterPath(PathExpression expression, TPOC targetPatternObject)
    {
       PatternPath patternPath = new PatternPath();
       patternPath.setPathExpr(expression);
       patternPath.withSrc(this).withPattern(this.getPattern());
       patternPath.withTgt(targetPatternObject);
-      
+
       targetPatternObject.withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return targetPatternObject;
    }
-   
+
    /********************************************************************
     * <pre>
     *              one                       one
     * PatternObject ----------------------------------- DestroyObjectElem
     *              patternObject                   destroyElem
     * </pre>
+    * 
     * @return The DestroyObjectElem
     */
    public DestroyObjectElem getDestroyElem()
@@ -893,6 +906,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- CardinalityConstraint
     *              src                   cardConstraints
     * </pre>
+    * 
     * @return The CardinalityConstraintSet
     */
    public CardinalityConstraintSet getCardConstraints()
@@ -991,10 +1005,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       else
       {
+         if (tgt.getPattern() != this.getPattern())
+         {
+            this.getPattern().withElements(tgt);
+         }
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-               .withTgt(tgt).withTgtRoleName(roleName)
-               .withSrc(this)
-               .withModifier(this.getPattern().getModifier());
+            .withTgt(tgt).withTgtRoleName(roleName)
+            .withSrc(this)
+            .withModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
 
@@ -1010,6 +1028,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- MatchOtherThen
     *              src                   matchOtherThen
     * </pre>
+    * 
     * @return The MatchOtherThenSet
     */
    public MatchOtherThenSet getMatchOtherThen()
@@ -1095,8 +1114,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public POC hasMatchOtherThen(PatternObject forbidden)
    {
       MatchOtherThen otherThen = createMatchOtherThen()
-            .withForbidden(forbidden)
-            .withPattern(getPattern());
+         .withForbidden(forbidden)
+         .withPattern(getPattern());
 
       getPattern().findMatch();
 
@@ -1109,6 +1128,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- MatchOtherThen
     *              forbidden                   excluders
     * </pre>
+    * 
     * @return The MatchOtherThenSet
     */
    public MatchOtherThenSet getExcluders()
@@ -1193,7 +1213,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withAttrConstraints(AttributeConstraint... value)
    {
-      if(value==null)
+      if (value == null)
       {
          return this;
       }
@@ -1222,7 +1242,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withCardConstraints(CardinalityConstraint... value)
    {
-      if(value==null)
+      if (value == null)
       {
          return this;
       }
@@ -1233,7 +1253,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
-   public PatternObject<?,?> withoutCardConstraints(CardinalityConstraint... value)
+   public PatternObject<?, ?> withoutCardConstraints(CardinalityConstraint... value)
    {
       for (CardinalityConstraint item : value)
       {
@@ -1262,7 +1282,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withExcluders(MatchOtherThen... value)
    {
-      if(value==null){
+      if (value == null)
+      {
          return this;
       }
       for (MatchOtherThen item : value)
