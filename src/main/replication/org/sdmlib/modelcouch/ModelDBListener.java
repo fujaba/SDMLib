@@ -97,8 +97,9 @@ public  class ModelDBListener implements SendableEntity, Runnable
 					}
 					
 				} else {
-					while (couch != null && (changeLine = in.readLine()) != null)
+					while (couch != null && (in.ready()))
 					{
+					   changeLine = in.readLine();
 						final String localChangeLine = changeLine;
 						//handle changes
 						if(!changeLine.equals("") && !changeLine.contains("last_seq"))
