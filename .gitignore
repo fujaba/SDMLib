@@ -22,8 +22,7 @@ atlassian-ide-plugin.xml
 *.*~
 .settings
 /build/
-*.iml
-*.ipr
 /.idea/
 /gen/
 
+*.jar
