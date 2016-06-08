@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.attribute_j.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.attribute_j.Person;
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator implements SendableEntityCreator
 {
@@ -72,7 +72,7 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

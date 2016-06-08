@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.attribute_c.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.attribute_c.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
@@ -49,7 +48,7 @@ public class PersonSet extends SDMSet<Person>
       this.addAll(objects);
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
 
    public PersonPO filterPersonPO()
@@ -89,12 +88,6 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Person objects and collect a list of the name attribute values. 

@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.interface_b.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.interface_b.Pupil;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.interface_b.Person;
 
 public class PupilCreator implements SendableEntityCreator
@@ -73,7 +73,7 @@ public class PupilCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

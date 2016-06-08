@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.superclazzes_a.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.superclazzes_a.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class PersonSet extends SDMSet<Person>
 {
@@ -47,7 +46,7 @@ public class PersonSet extends SDMSet<Person>
       this.addAll(objects);
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
 
    public PersonPO filterPersonPO()
@@ -87,10 +86,4 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.interface_c.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.interface_c.Secretary;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class SecretarySet extends SDMSet<Secretary>
 {
@@ -47,7 +46,7 @@ public class SecretarySet extends SDMSet<Secretary>
       this.addAll(objects);
    }
 
-   public static final SecretarySet EMPTY_SET = new SecretarySet().withFlag(SecretarySet.READONLY);
+   public static final SecretarySet EMPTY_SET = new SecretarySet();
 
 
    public SecretaryPO filterSecretaryPO()
@@ -87,10 +86,4 @@ public class SecretarySet extends SDMSet<Secretary>
       return this;
    }
 
-   @Override
-   public SecretarySet filter(Condition<Secretary> newValue) {
-      SecretarySet filterList = new SecretarySet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.superclazzes_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.superclazzes_a.Pupil;
+import de.uniks.networkparser.IdMap;
 
 public class PupilCreator implements SendableEntityCreator
 {
@@ -60,7 +60,7 @@ public class PupilCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

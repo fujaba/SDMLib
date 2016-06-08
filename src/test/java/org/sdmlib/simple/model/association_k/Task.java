@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_k.util.TaskSet;
    /**
     * 

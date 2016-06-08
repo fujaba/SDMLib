@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.association_h.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_h.Teacher;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_h.Person;
 import org.sdmlib.simple.model.association_h.Room;
 
@@ -74,7 +74,7 @@ public class TeacherCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

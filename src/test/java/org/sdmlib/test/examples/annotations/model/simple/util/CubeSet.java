@@ -24,7 +24,6 @@ package org.sdmlib.test.examples.annotations.model.simple.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class CubeSet extends SDMSet<Cube>
 {
@@ -47,7 +46,7 @@ public class CubeSet extends SDMSet<Cube>
       this.addAll(objects);
    }
 
-   public static final CubeSet EMPTY_SET = new CubeSet().withFlag(CubeSet.READONLY);
+   public static final CubeSet EMPTY_SET = new CubeSet();
 
 
    public CubePO filterCubePO()
@@ -87,12 +86,6 @@ public class CubeSet extends SDMSet<Cube>
       return this;
    }
 
-   @Override
-   public CubeSet filter(Condition<Cube> newValue) {
-      CubeSet filterList = new CubeSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    
    //==========================================================================
    

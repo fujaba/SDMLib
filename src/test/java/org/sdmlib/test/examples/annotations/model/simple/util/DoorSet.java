@@ -24,7 +24,6 @@ package org.sdmlib.test.examples.annotations.model.simple.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
@@ -50,7 +49,7 @@ public class DoorSet extends SDMSet<Door>
       this.addAll(objects);
    }
 
-   public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
+   public static final DoorSet EMPTY_SET = new DoorSet();
 
 
    public DoorPO filterDoorPO()
@@ -90,12 +89,6 @@ public class DoorSet extends SDMSet<Door>
       return this;
    }
 
-   @Override
-   public DoorSet filter(Condition<Door> newValue) {
-      DoorSet filterList = new DoorSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    /**
     * Loop through the current set of Door objects and collect a set of the House objects reached via house. 
     * 

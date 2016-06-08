@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.association_i.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.association_i.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.simple.model.association_i.util.RoomSet;
 import org.sdmlib.simple.model.association_i.Room;
@@ -52,7 +51,7 @@ public class PersonSet extends SDMSet<Person>
       this.addAll(objects);
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
 
    public PersonPO filterPersonPO()
@@ -92,12 +91,6 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    /**
     * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
     * 

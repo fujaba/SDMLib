@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.association_i.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_i.Teacher;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_i.Person;
 import org.sdmlib.simple.model.association_i.Room;
 
@@ -74,7 +74,7 @@ public class TeacherCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -85,7 +85,7 @@ public class TeacherCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Teacher.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Teacher.PROPERTY_PERSONS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Teacher) target).withoutPersons((Person) value);
          return true;
@@ -97,7 +97,7 @@ public class TeacherCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Teacher.PROPERTY_ROOMS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Teacher.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Teacher) target).withoutRooms((Room) value);
          return true;

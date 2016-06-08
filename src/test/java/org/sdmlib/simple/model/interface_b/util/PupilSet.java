@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.interface_b.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.interface_b.Pupil;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 
 public class PupilSet extends SDMSet<Pupil>
@@ -48,7 +47,7 @@ public class PupilSet extends SDMSet<Pupil>
       this.addAll(objects);
    }
 
-   public static final PupilSet EMPTY_SET = new PupilSet().withFlag(PupilSet.READONLY);
+   public static final PupilSet EMPTY_SET = new PupilSet();
 
 
    public PupilPO filterPupilPO()
@@ -88,12 +87,6 @@ public class PupilSet extends SDMSet<Pupil>
       return this;
    }
 
-   @Override
-   public PupilSet filter(Condition<Pupil> newValue) {
-      PupilSet filterList = new PupilSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Pupil objects and collect a list of the name attribute values. 

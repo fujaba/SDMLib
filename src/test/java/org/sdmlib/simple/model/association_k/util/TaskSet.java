@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.association_k.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.association_k.Task;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
@@ -51,7 +50,7 @@ public class TaskSet extends SDMSet<Task>
       this.addAll(objects);
    }
 
-   public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
+   public static final TaskSet EMPTY_SET = new TaskSet();
 
 
    public TaskPO filterTaskPO()
@@ -91,12 +90,6 @@ public class TaskSet extends SDMSet<Task>
       return this;
    }
 
-   @Override
-   public TaskSet filter(Condition<Task> newValue) {
-      TaskSet filterList = new TaskSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Task objects and collect a list of the name attribute values. 

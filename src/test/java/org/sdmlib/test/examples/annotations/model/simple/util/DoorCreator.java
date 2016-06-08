@@ -22,8 +22,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
 public class DoorCreator implements SendableEntityCreator
@@ -67,7 +67,7 @@ public class DoorCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.methods_e.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.methods_e.Room;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class RoomSet extends SDMSet<Room>
 {
@@ -47,7 +46,7 @@ public class RoomSet extends SDMSet<Room>
       this.addAll(objects);
    }
 
-   public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
+   public static final RoomSet EMPTY_SET = new RoomSet();
 
 
    public RoomPO filterRoomPO()
@@ -87,10 +86,4 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   @Override
-   public RoomSet filter(Condition<Room> newValue) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

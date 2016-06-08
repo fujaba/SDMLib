@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.association_i.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.association_i.Teacher;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.simple.model.association_i.util.PersonSet;
@@ -53,7 +52,7 @@ public class TeacherSet extends SDMSet<Teacher>
       this.addAll(objects);
    }
 
-   public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
+   public static final TeacherSet EMPTY_SET = new TeacherSet();
 
 
    public TeacherPO filterTeacherPO()
@@ -93,12 +92,6 @@ public class TeacherSet extends SDMSet<Teacher>
       return this;
    }
 
-   @Override
-   public TeacherSet filter(Condition<Teacher> newValue) {
-      TeacherSet filterList = new TeacherSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    /**
     * Loop through the current set of Teacher objects and collect a set of the Person objects reached via persons. 
     * 

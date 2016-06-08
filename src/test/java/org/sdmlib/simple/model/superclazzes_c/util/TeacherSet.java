@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.superclazzes_c.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.superclazzes_c.Teacher;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class TeacherSet extends SDMSet<Teacher>
 {
@@ -47,7 +46,7 @@ public class TeacherSet extends SDMSet<Teacher>
       this.addAll(objects);
    }
 
-   public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
+   public static final TeacherSet EMPTY_SET = new TeacherSet();
 
 
    public TeacherPO filterTeacherPO()
@@ -87,10 +86,4 @@ public class TeacherSet extends SDMSet<Teacher>
       return this;
    }
 
-   @Override
-   public TeacherSet filter(Condition<Teacher> newValue) {
-      TeacherSet filterList = new TeacherSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }
