@@ -39,26 +39,21 @@
       },
       {
          "typ":"patternObject",
-         "id":"p2 : PlayerPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"d3 : DicePO",
+         "id":"d2 : DicePO",
          "attributes":[
             "value == 6"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"f4 : FieldPO",
+         "id":"f3 : FieldPO",
          "attributes":[
             "kind == base"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"f5 : FieldPO",
+         "id":"f4 : FieldPO",
          "attributes":[]
       },
       {
@@ -68,7 +63,12 @@
          "nodes":[
             {
                "typ":"patternObject",
-               "id":"p6 : PawnPO",
+               "id":"p5 : PawnPO",
+               "attributes":[]
+            },
+            {
+               "typ":"patternObject",
+               "id":"p6 : PlayerPO",
                "attributes":[]
             }
          ]
@@ -83,18 +83,18 @@
          },
          "target":{
             "property":"player",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          },
          "target":{
             "property":"dice",
-            "id":"d3 : DicePO"
+            "id":"d2 : DicePO"
          }
       },
       {
@@ -105,17 +105,28 @@
          },
          "target":{
             "property":"pos",
-            "id":"f4 : FieldPO"
+            "id":"f3 : FieldPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          },
          "target":{
             "property":"base",
+            "id":"f3 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p6 : PlayerPO"
+         },
+         "target":{
+            "property":"start",
             "id":"f4 : FieldPO"
          }
       },
@@ -123,33 +134,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
-         },
-         "target":{
-            "property":"start",
-            "id":"f5 : FieldPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"f5 : FieldPO"
+            "id":"f4 : FieldPO"
          },
          "target":{
             "property":"pawns",
-            "id":"p6 : PawnPO"
+            "id":"p5 : PawnPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p6 : PawnPO"
+            "id":"p5 : PawnPO"
          },
          "target":{
             "property":"player",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          }
       }
    ]
@@ -176,26 +176,21 @@
       },
       {
          "typ":"patternObject",
-         "id":"p2 : PlayerPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"d3 : DicePO",
+         "id":"d2 : DicePO",
          "attributes":[
             "value == 6"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"f4 : FieldPO",
+         "id":"f3 : FieldPO",
          "attributes":[
             "kind == base"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"f5 : FieldPO",
+         "id":"f4 : FieldPO",
          "attributes":[]
       },
       {
@@ -205,7 +200,12 @@
          "nodes":[
             {
                "typ":"patternObject",
-               "id":"p6 : PawnPO",
+               "id":"p5 : PawnPO",
+               "attributes":[]
+            },
+            {
+               "typ":"patternObject",
+               "id":"p6 : PlayerPO",
                "attributes":[]
             }
          ]
@@ -220,18 +220,18 @@
          },
          "target":{
             "property":"player",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          },
          "target":{
             "property":"dice",
-            "id":"d3 : DicePO"
+            "id":"d2 : DicePO"
          }
       },
       {
@@ -242,51 +242,62 @@
          },
          "target":{
             "property":"pos",
-            "id":"f4 : FieldPO"
+            "id":"f3 : FieldPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          },
          "target":{
             "property":"base",
-            "id":"f4 : FieldPO"
+            "id":"f3 : FieldPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
          },
          "target":{
             "property":"start",
-            "id":"f5 : FieldPO"
+            "id":"f4 : FieldPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"f5 : FieldPO"
+            "id":"f4 : FieldPO"
          },
          "target":{
             "property":"pawns",
-            "id":"p6 : PawnPO"
+            "id":"p5 : PawnPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p6 : PawnPO"
+            "id":"p5 : PawnPO"
          },
          "target":{
             "property":"player",
-            "id":"p2 : PlayerPO"
+            "id":"p6 : PlayerPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"pos",
+            "id":"f3 : FieldPO"
          }
       },
       {
@@ -298,17 +309,6 @@
          "target":{
             "property":"pos",
             "id":"f4 : FieldPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PawnPO"
-         },
-         "target":{
-            "property":"pos",
-            "id":"f5 : FieldPO"
          }
       }
    ]

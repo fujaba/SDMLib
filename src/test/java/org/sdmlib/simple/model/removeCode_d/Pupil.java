@@ -82,8 +82,10 @@ public  class Pupil implements SendableEntity
 
 
 
+
       firePropertyChange("REMOVE_YOU", this, null);
    }
+
 
 
 
@@ -322,6 +324,19 @@ public  class Pupil implements SendableEntity
    	return false;
    }
    
+   
+   
+
+   
+
+   
+
+   
+
+    
+
+    
+
    
    
 
