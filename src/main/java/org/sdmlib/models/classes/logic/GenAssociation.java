@@ -659,6 +659,8 @@ public class GenAssociation extends Generator<Association>
    
    public void generate(Clazz clazz, String rootDir, String helperDir, Association partnerRole, boolean fromSuperClass)
    {
+      ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
+      
       if (clazz.isExternal())
       {
          return;
@@ -666,7 +668,7 @@ public class GenAssociation extends Generator<Association>
       
       Parser myParser = getGenerator(clazz).getOrCreateParser(rootDir);
       
-      if ( ! fromSuperClass)
+      if ( ! fromSuperClass && ! classModel.hasFeature(Feature.EMFSTYLE))
       {
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
@@ -695,15 +697,19 @@ public class GenAssociation extends Generator<Association>
 //         }
       }
       
-      //import partner role class if package name has changed
-      if(!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true))){
-         getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
-      }
-      
-      if(!((ClassModel) clazz.getClassModel()).hasFeature(Feature.SERIALIZATION)) {
-    	  insertRemovalInRemoveYou(clazz, myParser, partnerRole);
-    	  getGenerator(clazz).printFile();
-    	  return;
+      if (! classModel.hasFeature(Feature.EMFSTYLE))
+      {
+         //import partner role class if package name has changed
+         if (!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true)))
+         {
+            getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
+         }
+         if (!((ClassModel) clazz.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         {
+            insertRemovalInRemoveYou(clazz, myParser, partnerRole);
+            getGenerator(clazz).printFile();
+            return;
+         } 
       }
       
       Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
@@ -718,13 +724,15 @@ public class GenAssociation extends Generator<Association>
          insertCaseInGenericSetToOne(clazz, creatorParser, partnerRole, rootDir);
       }
       
-      insertRemovalInRemoveYou(clazz, myParser, partnerRole);
-      
-      getGenerator(clazz).printFile();
+      if (! classModel.hasFeature(Feature.EMFSTYLE))
+      {
+         insertRemovalInRemoveYou(clazz, myParser, partnerRole);
+         
+         getGenerator(clazz).printFile();
+      }
       
       
       // generate property in creator class
-      ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
       if (GraphUtil.isInterface(clazz) == false && classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
@@ -743,12 +751,12 @@ public class GenAssociation extends Generator<Association>
 	      getGenerator(clazz).printFile(modelSetParser);
 	
 	      if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(Feature.PATTERNOBJECT)){
-	      // generate property in pattern object class
-	      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
-	      
-	      insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
-	      
-	      getGenerator(clazz).printFile(patternObjectParser);
+	         // generate property in pattern object class
+	         Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
+
+	         insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
+
+	         getGenerator(clazz).printFile(patternObjectParser);
 	      }
       }
    }
