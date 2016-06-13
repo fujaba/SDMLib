@@ -17,6 +17,9 @@ ext.sharedManifest = manifest {
 }
 
 task sourceJar(type: Jar) {
+	def file = new File("build/libs")
+        file.mkdirs()
+
     from sourceSets.main.allSource;
     classifier = 'sources'
 	manifest = project.manifest {from sharedManifest}
