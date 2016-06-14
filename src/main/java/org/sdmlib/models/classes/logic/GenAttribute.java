@@ -298,8 +298,9 @@ public class GenAttribute extends Generator<Attribute>
       String patternObjectType = CGUtil.shortClassName(ownerClazz.getName(false)) + "PO";
 
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
-
-      if (ownerClazz.isExternal()) {
+      ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
+      
+      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
@@ -342,7 +343,7 @@ public class GenAttribute extends Generator<Attribute>
 
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
 
-      if (ownerClazz.isExternal()) {
+      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
