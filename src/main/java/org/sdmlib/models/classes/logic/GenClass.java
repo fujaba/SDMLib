@@ -381,7 +381,7 @@ public class GenClass extends GenClazzEntity
 	                           "   }\n" +
 	                           "}\n")
 	               );
-	    	  parser.insertImport(IdMap.class.getName());
+	    	 creatorCreator.insertImport(IdMap.class.getName());
 	      }
 	      return creatorCreator;
 	}
