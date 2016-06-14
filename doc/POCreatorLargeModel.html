@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java' type='text/x-java'>POCreatorLargeModel</a></p>
+<p>Start: At first we instanciate a Model</p>
+<pre>      University university = new University().withName(&quot;StudyRight University&quot;);
+      Room mathRoom = university.createRooms().withCredits(6).withName(&quot;Multiply&quot;).withTopic(&quot;Math&quot;);
+      Student susi = mathRoom.createStudents().withName(&quot;Susi Sorglos&quot;);
+      Student peter = mathRoom.createStudentsTeachingAssistant().withName(&quot;Peter Teacher&quot;).withIn(mathRoom);
+      mathRoom.createAssignments().withContent(&quot;1*1&quot;).withPoints(2).withStudents(susi);
+      university.withStudents(susi, peter);
+</pre><p><a name = 'step_1'>Step 1: Now the corresponding Pattern is generated</a></p><pre>      POCreator poCreator = new POCreator();
+      PatternObject po = poCreator
+         .createPO(university);
+</pre><p><a name = 'step_2'>Step 2: Now we want to rebind the patternObject to the University model and look for the matches</a></p><pre>      po.rebind(university);
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"u1 : UniversityPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>",
+            "name == StudyRight University"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[
+            "name == Susi Sorglos",
+            "id == null",
+            "assignmentPoints == 0",
+            "motivation == 0",
+            "credits == 0"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"r3 : RoomPO",
+         "attributes":[
+            "name == Multiply",
+            "topic == Math",
+            "credits == 6"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"t4 : TeachingAssistantPO",
+         "attributes":[
+            "certified == false",
+            "name == Peter Teacher",
+            "id == null",
+            "assignmentPoints == 0",
+            "motivation == 0",
+            "credits == 0",
+            "room == null"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"a5 : AssignmentPO",
+         "attributes":[
+            "content == 1*1",
+            "points == 2"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"university",
+            "id":"u1 : UniversityPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r3 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"university",
+            "id":"u1 : UniversityPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"t4 : TeachingAssistantPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t4 : TeachingAssistantPO"
+         },
+         "target":{
+            "property":"university",
+            "id":"u1 : UniversityPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t4 : TeachingAssistantPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r3 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"t4 : TeachingAssistantPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"assignments",
+            "id":"a5 : AssignmentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"a5 : AssignmentPO"
+         },
+         "target":{
+            "property":"room",
+            "id":"r3 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"a5 : AssignmentPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RoomPO"
+         },
+         "target":{
+            "property":"assignments",
+            "id":"a5 : AssignmentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r3 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"done",
+            "id":"a5 : AssignmentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"t4 : TeachingAssistantPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"rooms",
+            "id":"r3 : RoomPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasPOCreatorLargeModelPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: The PatternObject has a match true</p>
+<p>Check: The University is the Match of the PatternObject StudyRight University actual StudyRight University</p>
+<p>Check: The Pattern contains as many PatternObjects as Objects were created in the University Model 5 actual 5</p>
+
+</body>
+</html>
