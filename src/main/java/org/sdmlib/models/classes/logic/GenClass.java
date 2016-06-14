@@ -54,7 +54,7 @@ public class GenClass extends GenClazzEntity
    {
       // first generate the class itself
 	  ClassModel classModel = (ClassModel) model.getClassModel();
-      if (!model.isExternal())
+      if (!model.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
       {
          getOrCreateParser(rootDir);
 

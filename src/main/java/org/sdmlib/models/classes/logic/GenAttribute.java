@@ -7,6 +7,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.templates.AddTemplate;
 import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
@@ -19,6 +20,7 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 
@@ -843,7 +845,8 @@ public class GenAttribute extends Generator<Attribute>
    {
       // get parser from class
       Parser parser;
-      if (!clazz.isExternal())
+      ClassModel classModel = (ClassModel) clazz.getClassModel();
+      if (!clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
       {
          parser = getGenerator(clazz).getOrCreateParser(rootDir);
          if (!fromSuperClass)

@@ -70,7 +70,7 @@ dependencies {
 	else
 	{
 		println "using local networkparser"
-		compile fileTree(dir: "../NetworkParser", include: ['*SNAPSHOT.jar'])
+		compile fileTree(dir: "../NetworkParser", include: ['NetworkParser.jar'])
 	}
 }
 
