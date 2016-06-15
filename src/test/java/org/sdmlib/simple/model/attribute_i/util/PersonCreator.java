@@ -68,7 +68,7 @@ public class PersonCreator implements SendableEntityCreator
    {
       if (Person.PROPERTY_NAMESMAP.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withNamesMap((de.uniks.networkparser.list.SimpleKeyValueList<String,de.uniks.networkparser.list.SimpleKeyValueList>) value);
+         ((Person) target).setNamesMap((de.uniks.networkparser.list.SimpleKeyValueList<String,de.uniks.networkparser.list.SimpleKeyValueList>) value);
          return true;
       }
 
