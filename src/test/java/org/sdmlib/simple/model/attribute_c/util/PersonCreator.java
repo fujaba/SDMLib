@@ -74,13 +74,13 @@ public class PersonCreator implements SendableEntityCreator
    {
       if (Person.PROPERTY_AGE.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withAge(Integer.parseInt(value.toString()));
+         ((Person) target).setAge(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withName((String) value);
+         ((Person) target).setName((String) value);
          return true;
       }
 

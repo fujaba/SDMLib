@@ -27,79 +27,79 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
 
 public abstract class GenClazzEntity extends Generator<Clazz>{
-	protected Parser parser = null;
-	protected Parser modelSetParser = null;
-	protected Parser patternObjectParser = null;
-	protected Parser creatorParser = null;
-	public abstract void generate(String rootDir, String helpersDir);
-	public abstract Parser getOrCreateParser(String rootDir);
-	public abstract void printFile(Parser parser);
+   protected Parser parser = null;
+   protected Parser modelSetParser = null;
+   protected Parser patternObjectParser = null;
+   protected Parser creatorParser = null;
+   public abstract void generate(String rootDir, String helpersDir);
+   public abstract Parser getOrCreateParser(String rootDir);
+   public abstract void printFile(Parser parser);
 
-	public void setParser(Parser parser) {
-		this.parser = parser;
-	}
+   public void setParser(Parser parser) {
+      this.parser = parser;
+   }
 
-	public Parser getParser() {
-		return parser;
-	}
+   public Parser getParser() {
+      return parser;
+   }
 
-	public boolean isShowDiff() {
-		ClassModel model = (ClassModel) getModel().getClassModel();
-		if (model != null) {
-			return model.getGenerator().getShowDiff() != DIFF.NONE;
-		}
-		return false;
-	}
-	
-	protected void insertLicense(Parser parser)
-	   {
-	      // file should start with head comment
-	      int pos = parser.search("/*");
-	      if (pos < 0 || pos > 20)
-	      {
-	         // insert MIT License otherwise.
-	         String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
-	         String developer = model.getClassModel().getAuthorName();
-	         if(pos>0) {
-	        	 int existingIndex = parser.indexOf("Copyright (c) ");
-	        	 if(existingIndex>0) {
-		        	 String lineForPos = parser.getLineForPos(existingIndex);
-		        	 String[] items = lineForPos.split(" ");
-		        	 if(!items[items.length-1].trim().isEmpty()) {
-		        		 developer = items[items.length-1].trim();
-		        	 }
-	        	 }
-	         }
-	         parser
-	         .replaceAll(0,
-	            "/*\n" +
-	                  "   Copyright (c) <year> <developer>\r\n" +
-	                  "   \r\n" +
-	                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
-	                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
-	                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
-	                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
-	                  "   furnished to do so, subject to the following conditions: \n" +
-	                  "   \n" +
-	                  "   The above copyright notice and this permission notice shall be included in all copies or \n" +
-	                  "   substantial portions of the Software. \n" +
-	                  "   \n" +
-	                  "   The Software shall be used for Good, not Evil. \n" +
-	                  "   \n" +
-	                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
-	                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
-	                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
-	                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
-	                  "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
-	                  " */\n" +
-	                  "   \n", 
-	                  "<year>", year,
-	                  "<developer>", developer
-	               );
-	      }
+   public boolean isShowDiff() {
+      ClassModel model = (ClassModel) getModel().getClassModel();
+      if (model != null) {
+         return model.getGenerator().getShowDiff() != DIFF.NONE;
+      }
+      return false;
+   }
 
-	   }
-	
+   protected void insertLicense(Parser parser)
+   {
+      // file should start with head comment
+      int pos = parser.search("/*");
+      if (pos < 0 || pos > 20)
+      {
+         // insert MIT License otherwise.
+         String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
+         String developer = model.getClassModel().getAuthorName();
+         if(pos>0) {
+            int existingIndex = parser.indexOf("Copyright (c) ");
+            if(existingIndex>0) {
+               String lineForPos = parser.getLineForPos(existingIndex);
+               String[] items = lineForPos.split(" ");
+               if(!items[items.length-1].trim().isEmpty()) {
+                  developer = items[items.length-1].trim();
+               }
+            }
+         }
+         parser
+         .replaceAll(0,
+            "/*\n" +
+                  "   Copyright (c) <year> <developer>\r\n" +
+                  "   \r\n" +
+                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
+                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
+                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
+                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
+                  "   furnished to do so, subject to the following conditions: \n" +
+                  "   \n" +
+                  "   The above copyright notice and this permission notice shall be included in all copies or \n" +
+                  "   substantial portions of the Software. \n" +
+                  "   \n" +
+                  "   The Software shall be used for Good, not Evil. \n" +
+                  "   \n" +
+                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
+                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
+                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
+                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
+                  "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
+                  " */\n" +
+                  "   \n", 
+                  "<year>", year,
+                  "<developer>", developer
+               );
+      }
+
+   }
+
    public void printFile()
    {
       if (model.getClassModel() == null || ((ClassModel) model.getClassModel()).getGenerator().getShowDiff() == DIFF.NONE)
@@ -107,12 +107,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          CGUtil.printFile(parser);
       }
    }
-   
+
    public void insertImport(String className)
    {
-	   parser.insertImport(className);
+      parser.insertImport(className);
    }
-   
+
    public String shortNameAndImport(String typeName, Parser parser)
    {
       // no dot no import
@@ -134,7 +134,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
       return baseName;
    }
-   
+
    /**
     * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
     * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
@@ -143,21 +143,21 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
     * @param symbName name of the symbol, as it would be contained in the symbol table of the corresponding parser
     */
    public void removeFragment(Parser parser, String symbName) {
-	   parser.indexOf(Parser.CLASS_END);
-	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-	   SymTabEntry symTabEntry = symTab.get(symbName);
-	   
-	   if (symTabEntry != null) {
-		   StringBuilder fileBody = parser.getFileBody();
-		   int startPos = symTabEntry.getStartPos();
-		   if (symTabEntry.getPreCommentStartPos() > 0) {
-			   startPos = symTabEntry.getPreCommentStartPos();
-		   }
-		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
-		   parser.withFileChanged(true);
-	   }
+      parser.indexOf(Parser.CLASS_END);
+      SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+      SymTabEntry symTabEntry = symTab.get(symbName);
+
+      if (symTabEntry != null) {
+         StringBuilder fileBody = parser.getFileBody();
+         int startPos = symTabEntry.getStartPos();
+         if (symTabEntry.getPreCommentStartPos() > 0) {
+            startPos = symTabEntry.getPreCommentStartPos();
+         }
+         fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+         parser.withFileChanged(true);
+      }
    }
-   
+
    /**
     * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
     * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
@@ -171,43 +171,43 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
     * 
     */
    public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
-	   parser.indexOf(Parser.CLASS_END);
-	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-	   SymTabEntry symTabEntry = symTab.get(symTabKey);
-	   
-	   if (symTabEntry != null) {
-		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
-		   int indexOf = substring.indexOf(startLineContent);
-		   if (indexOf >= 0) {
-			   String[] split = substring.split("\n");
-			   for (int i = 0; i < split.length; i++) {
-				   if (split[i].indexOf(startLineContent) >= 0) {
-					   if (split[i].indexOf(endLineContent) < 0) {
-						   while(i < split.length) {
-							   if (split[i].indexOf(endLineContent) >= 0) {
-								   split[i] = "";
-								   break;
-							   }
-							   split[i] = "";
-							   i++;
-						   }
-					   } else {
-						   split[i] = "";
-					   }
-					   break;
-				   }
-			   }
-			   StringBuilder builder = new StringBuilder();
-			   for (int i = 0; i < split.length; i++) {
-				   builder.append(split[i]).append("\n");
-			   }
-			   
-			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
-			   parser.withFileChanged(true);
-		   }
-	   }
+      parser.indexOf(Parser.CLASS_END);
+      SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+      SymTabEntry symTabEntry = symTab.get(symTabKey);
+
+      if (symTabEntry != null) {
+         String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
+         int indexOf = substring.indexOf(startLineContent);
+         if (indexOf >= 0) {
+            String[] split = substring.split("\n");
+            for (int i = 0; i < split.length; i++) {
+               if (split[i].indexOf(startLineContent) >= 0) {
+                  if (split[i].indexOf(endLineContent) < 0) {
+                     while(i < split.length) {
+                        if (split[i].indexOf(endLineContent) >= 0) {
+                           split[i] = "";
+                           break;
+                        }
+                        split[i] = "";
+                        i++;
+                     }
+                  } else {
+                     split[i] = "";
+                  }
+                  break;
+               }
+            }
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < split.length; i++) {
+               builder.append(split[i]).append("\n");
+            }
+
+            parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
+            parser.withFileChanged(true);
+         }
+      }
    }
-   
+
    private boolean repairThis = false;
 
    public ClassModel getRepairClassModel()
@@ -229,7 +229,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          {
             model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Superclass ("
-               + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
+                  + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
             return getRepairClassModel();
          }
@@ -243,14 +243,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          {
             model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Kindclass (" + getRepairClassModel()
-               + "). Please add Classmodel to Clazz: " + model.getName());
+            + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
             return getRepairClassModel();
          }
       }
       for (Iterator<Association> i = model.getAssociations().iterator(); i.hasNext();)
       {
-    	 Association item = i.next();
+         Association item = i.next();
          Clazz otherClazz = item.getOtherClazz();
          if (otherClazz != model)
          {
@@ -268,16 +268,16 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       this.repairThis = false;
       return getRepairClassModel();
    }
-   
+
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
-		if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false
-				&& getRepairClassModel().hasFeature(Feature.SERIALIZATION) == false) {
-			return null;
-		}
-		if (((ClassModel) model.getClassModel()).hasFeature(Feature.SETCLASS) == false) {
-			return null;
-		}
+      if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false
+            && getRepairClassModel().hasFeature(Feature.SERIALIZATION) == false) {
+         return null;
+      }
+      if (((ClassModel) model.getClassModel()).hasFeature(Feature.SETCLASS) == false) {
+         return null;
+      }
 
       if (modelSetParser == null)
       {
@@ -285,7 +285,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          {
             System.out.println("ups");
          }
-         
+
          // try to find existing file
          String name = model.getName(false);
 
@@ -335,7 +335,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
 
          modelSetParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
 
          // found old one?
          if (modelSetJavaFile.exists() && !isShowDiff())
@@ -344,25 +344,25 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
          else
          {
-        	 Class<?> setClass;
-        	 feature = getRepairClassModel().getFeature(Feature.SETCLASS);
-        	 if(feature != null) {
-        		 setClass = feature.getClassValue();
-        	 } else {
-        		 setClass = SDMSet.class;
-        	 }
+            Class<?> setClass;
+            feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+            if(feature != null) {
+               setClass = feature.getClassValue();
+            } else {
+               setClass = SDMSet.class;
+            }
             StringBuilder text = new StringBuilder("" +
-               "package packageName;\n" +
-               "\n" +
-               "import sdmsetimport;\n" +
-               "import fullEntityClassName;\n" +
-               "\n" +
-               "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
-               "{\n" +
-               "}\n");
+                  "package packageName;\n" +
+                  "\n" +
+                  "import sdmsetimport;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
+                  "{\n" +
+                  "}\n");
 
-            
-            
+
+
             CGUtil.replaceAll(text,
                "modelSetClassName", modelSetClassName,
                "entitiyClassName", entitiyClassName,
@@ -371,14 +371,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                "sdmsetimport", setClass.getName(),
                "SDMSet", EntityUtil.shortClassName(setClass.getName()),
                "Item", entitiyClassName
-               );
+                  );
             modelSetParser.withFileBody(text).withFileChanged(true);
          }
          insertLicense(modelSetParser);
          insertConstructor(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
          if(((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT)) {
-        	 insertSetStartModelPattern(modelSetParser);
+            insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
          insertSetWithWithout(modelSetParser);
@@ -386,7 +386,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
       return modelSetParser;
    }
-   
+
    private void insertConstructor(Parser parser)
    {
       String shortClassName = CGUtil.shortClassName(model.getName());
@@ -423,7 +423,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       }
 
       searchString = Parser.CONSTRUCTOR + ":" + shortClassName 
-      + "Set(" + shortClassName + "...)";
+            + "Set(" + shortClassName + "...)";
 
       pos = parser.indexOf(searchString);
 
@@ -457,9 +457,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          parser.insert(pos, text.toString());
       }
-      
+
       searchString = Parser.CONSTRUCTOR + ":" + shortClassName 
-      + "Set(Collection<" + shortClassName + ">)";
+            + "Set(Collection<" + shortClassName + ">)";
 
       pos = parser.indexOf(searchString);
 
@@ -491,7 +491,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
       }
    }
-   
+
    private void insertSetStartModelPattern(Parser parser)
    {
       String searchString = Parser.METHOD + ":filter" + CGUtil.shortClassName(model.getName()) + "PO()";
@@ -500,7 +500,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-               "\n\n" +
+            "\n\n" +
                   "   public ModelPO filterModelPO()\n" +
                   "   {\n" +
                   "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
@@ -518,7 +518,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             "ModelPO", CGUtil.shortClassName(model.getName()) + "PO",
             "ModelPatternClass", packageName + ".creators.ModelPattern",
             "ModelItem", CGUtil.shortClassName(model.getName())
-            );
+               );
 
          // insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -526,7 +526,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
       }
    }
-   
+
    private void insertEmptySetDecl(Parser parser, String modelSetClassName)
    {
       int partnerPos = parser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
@@ -538,20 +538,20 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          StringBuilder partnerText;
          if(feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class)) {
-        	 partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);\n");
+            partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);\n");
          } else {
-        	 partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type();\n");
+            partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type();\n");
          }
 
          CGUtil.replaceAll(partnerText,
             "type", modelSetClassName
-            );
+               );
 
          parser.insert(partnerPos, partnerText.toString());
       }
    }
-   
-   
+
+
    private void insertSetWithWithout(Parser parser)
    {
       String searchString = Parser.METHOD + ":with(Object)";
@@ -560,7 +560,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-               "\n\n"
+            "\n\n"
                   + "   @SuppressWarnings(\"unchecked\")\n"
                   + "   public ModelTypeSet with(Object value)\n"
                   + "   {\n"
@@ -585,18 +585,18 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "      this.remove(value);\n" +
                   "      return this;\n" +
                   "   }\n"
-                + "\n");
+                  + "\n");
          FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          if(feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class)) {
-        	 text.append("   @Override\n" + 
-                   "   public ModelTypeSet filter(Condition<ModelType> newValue) {\r\n" + 
-                   "      ModelTypeSet filterList = new ModelTypeSet();\r\n" + 
-                   "      filterItems(filterList, newValue);\r\n" + 
-                   "      return filterList;\r\n" + 
-                   "   }"
-                 + "\n"
-                );
-        	  parser.insertImport(Condition.class.getName());
+            text.append("   @Override\n" + 
+                  "   public ModelTypeSet filter(Condition<ModelType> newValue) {\r\n" + 
+                  "      ModelTypeSet filterList = new ModelTypeSet();\r\n" + 
+                  "      filterItems(filterList, newValue);\r\n" + 
+                  "      return filterList;\r\n" + 
+                  "   }"
+                  + "\n"
+                  );
+            parser.insertImport(Condition.class.getName());
          }
 
          CGUtil.replaceAll(text,
@@ -607,7 +607,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
 
          parser.insertImport("java.util.Collection");
-       
+
       }
    }
 
@@ -619,7 +619,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-               "\n\n" +
+            "\n\n" +
                   "   public String getEntryType()\n" +
                   "   {\n" +
                   "      return \"ModelType\";\n" +
@@ -633,7 +633,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          parser.insert(pos, text.toString());
       }
    }
-   
+
    public String getModelSetClassName()
    {
       String name = model.getName(false);
@@ -680,9 +680,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          return null;
       }
       if (((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT) == false) {
-    	  return null;
+         return null;
       }
-      
+
       if (patternObjectParser == null)
       {
          // try to find existing file
@@ -734,7 +734,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
 
          patternObjectParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
          // found old one?
          if (patternObjectJavaFile.exists() && !isShowDiff())
          {
@@ -743,7 +743,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          else
          {
             StringBuilder text = new StringBuilder(
-                  ""
+               ""
                      + "package packageName;\n\n"
                      + "import org.sdmlib.models.pattern.PatternObject;\n"
                      + "import fullEntityClassName;\n\n"
@@ -764,19 +764,19 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             {
                CGUtil.replaceAll(text,
                   "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" +
-                     "   {\n" +
-                     "      this.setDoAllMatches(true);\n" +
-                     "      \n" +
-                     "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" +
-                     "\n" +
-                     "      while (this.getPattern().getHasMatch())\n" +
-                     "      {\n" +
-                     "         matches.add((entitiyClassName) this.getCurrentMatch());\n" +
-                     "         \n" +
-                     "         this.getPattern().findMatch();\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return matches;\n" +
+                        "   {\n" +
+                        "      this.setDoAllMatches(true);\n" +
+                        "      \n" +
+                        "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" +
+                        "\n" +
+                        "      while (this.getPattern().getHasMatch())\n" +
+                        "      {\n" +
+                        "         matches.add((entitiyClassName) this.getCurrentMatch());\n" +
+                        "         \n" +
+                        "         this.getPattern().findMatch();\n" +
+                        "      }\n" +
+                        "      \n" +
+                        "      return matches;\n" +
                      "   }\n");
             }
             else
@@ -803,15 +803,16 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
       }
       return patternObjectParser;
    }
-   
+
    public Parser getOrCreateParserForCreatorClass(String rootDir)
    {
-//	  if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
-//		  return null;
-//	  } else if (((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization) == false) {
-	  if (((ClassModel) model.getClassModel()).hasFeature(Feature.SERIALIZATION) == false) {	
-	   	  return null;
-	  }
+      ClassModel classModel = (ClassModel) model.getClassModel();
+      
+      if (classModel.hasFeature(Feature.SERIALIZATION) == false) 
+      {	
+         return null;
+      }
+      
       if (creatorParser == null)
       {
          // try to find existing file
@@ -839,7 +840,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          File creatorJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         FeatureProperty feature = classModel.getFeature(Feature.SERIALIZATION);
+         
          if (!creatorJavaFile.exists() && feature != null)
          {
             HashSet<String> featureSet = feature.getPath();
@@ -861,7 +863,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
 
          creatorParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
 
          // found old one?
          if (creatorJavaFile.exists() && !isShowDiff())
@@ -870,12 +872,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          }
          else
          {
-        	 boolean standAlone = this.getRepairClassModel().hasFeature(Feature.STANDALONE);
+            boolean standAlone = this.getRepairClassModel().hasFeature(Feature.STANDALONE);
             StringBuilder text = new StringBuilder(
-                  "package packageName;\n" +
+               "package packageName;\n" +
                      "\n" +
                      "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
-            		 "fullEntityClassName" +
+                     "fullEntityClassName" +
                      "\n" +
                      "public class creatorClassName implements SendableEntityCreator\n" +
                      "{\n" +
@@ -918,14 +920,17 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                      "      }\n" +
                      "      \n" +
                      "      return false;\n" +
-                     "   }\n");
-            if(standAlone == false) {
-            	text.append("   public static IdMap createIdMap(String sessionID)\n" +
-		            "   {\n" +
-		            "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
-		            "   }");
+                  "   }\n");
+            
+            if(standAlone == false) 
+            {
+               text.append("   public static IdMap createIdMap(String sessionID)\n" +
+                     "   {\n" +
+                     "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
+                     "   }");
             }
-			text.append("}\n");
+            
+            text.append("}\n");
 
             if (model.isExternal())
             {
@@ -954,14 +959,24 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             }
 
             String instanceCreationClause = "";
-            
-            if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
-            	instanceCreationClause = entitiyClassName + ".class" ;
-            } else {
-            	instanceCreationClause = "new " + entitiyClassName + "()";
+            String fullFactoryName = null;
+
+            if (classModel.hasFeature(Feature.EMFSTYLE))
+            {
+               String factoryName = classModel.getName(true) + "Factory";
+               fullFactoryName = classModel.getName() + "." + factoryName;
+               instanceCreationClause = factoryName + ".eINSTANCE.create" + model.getName(true) + "()";
             }
-            
-//            String instanceCreationClause = "new " + entitiyClassName + "()";
+            else if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) 
+            {
+               instanceCreationClause = entitiyClassName + ".class" ;
+            } 
+            else 
+            {
+               instanceCreationClause = "new " + entitiyClassName + "()";
+            }
+
+            //            String instanceCreationClause = "new " + entitiyClassName + "()";
 
             String modelPackage = CGUtil.packageName(model.getName(false));
 
@@ -974,9 +989,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                String basicClassName = entitiyClassName.substring(0, entitiyClassName.length() - 4);
 
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName
-                  + "()";
+                     + "()";
             }
-            
+
             if (model.getModifier().has(Modifier.ABSTRACT))
             {
                instanceCreationClause = "null";
@@ -994,7 +1009,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
             creatorParser.withFileBody(text).withFileChanged(true);
             if(standAlone == false) {
-            	creatorParser.insertImport(IdMap.class.getName());
+               creatorParser.insertImport(IdMap.class.getName());
+            }
+            if (fullFactoryName != null)
+            {
+               creatorParser.insertImport(fullFactoryName);
             }
             insertLicense(creatorParser);
          }

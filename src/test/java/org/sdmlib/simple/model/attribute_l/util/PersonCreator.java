@@ -68,7 +68,7 @@ public class PersonCreator implements SendableEntityCreator
    {
       if (Person.PROPERTY_PERSONALNAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withPersonalName((String) value);
+         ((Person) target).setPersonalName((String) value);
          return true;
       }
 

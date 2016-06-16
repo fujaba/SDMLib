@@ -80,7 +80,7 @@ public class TaskCreator implements SendableEntityCreator
    {
       if (Task.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Task) target).withName((String) value);
+         ((Task) target).setName((String) value);
          return true;
       }
 

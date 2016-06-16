@@ -24,7 +24,6 @@ package org.sdmlib.simple.model.association_g;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_g.Room;
 import org.sdmlib.simple.model.association_g.Teacher;
    /**
