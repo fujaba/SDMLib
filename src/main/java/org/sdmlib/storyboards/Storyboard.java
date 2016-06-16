@@ -1083,8 +1083,8 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       else
       {
          AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         // FIXME Stackoverflow please show Albert addObjectDiagram(jsonIdMap,
-         // explicitElems, conditionMap);
+         IdMap localIdMap = new SDMLibIdMap("s2").withSessionId(null);
+         addObjectDiagram(localIdMap, explicitElems, conditionMap);
       }
    }
 
