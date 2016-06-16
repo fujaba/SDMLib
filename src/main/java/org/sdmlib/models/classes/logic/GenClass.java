@@ -31,7 +31,9 @@ import de.uniks.networkparser.graph.ClazzImport;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleSet;
 
 /**
@@ -502,7 +504,9 @@ public class GenClass extends GenClazzEntity
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
+		ClazzSet superClazzes = model.getSuperClazzes(true);
+		superClazzes.without(model);
+		for (Clazz clazz : superClazzes) {
 			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
@@ -535,8 +539,9 @@ public class GenClass extends GenClazzEntity
 
       String searchString = Parser.METHOD + ":firePropertyChange(String,Object,Object)";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzes(true).without(model))
-      {
+      ClazzSet superClazzes = model.getSuperClazzes(true);
+      superClazzes.without(model);
+      for (Clazz clazz : superClazzes) {
          if (GraphUtil.isInterface(clazz))
          {
             continue;
