@@ -30,7 +30,9 @@ public class PersonCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
 
+
    };
+
 
    
    @Override
@@ -60,14 +62,26 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
+
+
+
+
+
       
       return null;
    }
+
 
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+
+
+
+
+
+
 
 
 
@@ -81,6 +95,7 @@ public class PersonCreator implements SendableEntityCreator
       
       return false;
    }
+
 
    public static IdMap createIdMap(String sessionID)
    {

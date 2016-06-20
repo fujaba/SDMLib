@@ -34,6 +34,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
@@ -3255,9 +3256,14 @@ public class GenClassModel implements ClassModelAdapter
       int pos = className.lastIndexOf('.');
       packageName = className.substring(0, pos);
 
+      ClassModel classModel = (ClassModel) clazz.getClassModel();
+      
       // class file
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
-      deleteFile(fileName);
+      if (! clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      {
+         deleteFile(fileName);
+      }
 
       String path = helpersDir + "/" + (packageName + UTILPATH).replaceAll("\\.", "/") + "/";
 
