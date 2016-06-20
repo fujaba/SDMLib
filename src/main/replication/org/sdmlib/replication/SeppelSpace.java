@@ -51,7 +51,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.SimpleMapEvent;
+import de.uniks.networkparser.logic.SimpleEvent;
 import javafx.application.Platform;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.ChangeEventList;
@@ -330,7 +330,7 @@ import org.sdmlib.replication.ChangeEventList;
 
       @Override
       public boolean update(Object event) {
-    	  SimpleMapEvent evt=(SimpleMapEvent) event;
+    	  SimpleEvent evt=(SimpleEvent) event;
          if (evt.getNewValue() != null)
          {
             if (evt.getDeep() >= 3)
@@ -357,7 +357,7 @@ import org.sdmlib.replication.ChangeEventList;
          // ignore
          return true;
       }
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
       JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
       // {"id":"testerProxy",

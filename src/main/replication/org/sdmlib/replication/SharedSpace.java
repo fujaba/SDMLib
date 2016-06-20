@@ -60,7 +60,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.SimpleMapEvent;
+import de.uniks.networkparser.logic.SimpleEvent;
 import javafx.application.Platform;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.ChangeHistory;
@@ -837,7 +837,7 @@ UpdateListener, SendableEntity
          // ignore
          return true;
       }
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
       Entity source = simpleEvent.getEntity();
 
       ReplicationChange change = new ReplicationChange()
