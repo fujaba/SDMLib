@@ -97,7 +97,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 					}
 					
 				} else {
-					while (couch != null && (in.ready()))
+					// FIXME  if not (in.ready()), then a BogusChunkSize can occur...
+					while (couch != null)
 					{
 					   changeLine = in.readLine();
 						final String localChangeLine = changeLine;
