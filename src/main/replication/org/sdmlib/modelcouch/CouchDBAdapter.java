@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -131,10 +132,14 @@ public class CouchDBAdapter {
 
 	public ReturnObject addAttachment(ReturnObject lastRes, Path path, ContentType contentType) {
 		ReturnObject res = null;
-		LinkedList<String> content = lastRes.getContentAsString();
-		if (content != null && content.size() > 0) {
+		byte[] content = lastRes.getContentAsBytes();
+		if (content != null && content.length > 0) {
 			JsonObject jsonObject = new JsonObject();
-			jsonObject.withValue(content.toArray(new String[content.size()]));
+			try {
+				jsonObject.withValue(new String(content, "UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 			// ...
 
 			RequestObject attachRequest = createRequestObject();
@@ -144,8 +149,9 @@ public class CouchDBAdapter {
 
 			String id = (String) jsonObject.getValue("id");
 			String rev = (String) jsonObject.getValue("rev");
-
-			attachRequest.setPath("segroup/" + id + "/attachment?rev=" + rev);
+			
+			attachRequest.setServer(lastRes.getHeaderFields().get("Location").get(0));
+			attachRequest.setPath("/attachment?rev=" + rev);
 
 			try {
 				attachRequest.setOutput(Files.readAllBytes(path));
