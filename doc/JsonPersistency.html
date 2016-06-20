@@ -11,6 +11,15 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>JsonPersistency</a></p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":null
+}   ;
+   json["options"]={"canvasid":"canvasJsonPersistency3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
@@ -266,6 +275,15 @@
       Object rootObject = readerMap.decode(jsonText);
 
       University readUniversity = (University) rootObject;
-</pre>
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":null
+}   ;
+   json["options"]={"canvasid":"canvasJsonPersistency10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
 </body>
 </html>
