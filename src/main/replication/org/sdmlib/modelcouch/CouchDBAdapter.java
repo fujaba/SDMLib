@@ -1,15 +1,26 @@
 package org.sdmlib.modelcouch;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.sdmlib.modelcouch.authentication.Authenticator;
@@ -17,12 +28,14 @@ import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
 
 public class CouchDBAdapter {
 	private String userName = "";
 	private String hostName = "localhost";
 	private int port = 5984;
-	
+
 	public String getHostName() {
 		return hostName;
 	}
@@ -30,38 +43,38 @@ public class CouchDBAdapter {
 	public int getPort() {
 		return port;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
-	
-	public CouchDBAdapter withHostName(String hostName){
+
+	public CouchDBAdapter withHostName(String hostName) {
 		this.hostName = hostName;
 		return this;
 	}
-	
+
 	public void setPort(int port) {
 		this.port = port;
 	}
-	
+
 	public CouchDBAdapter withPort(int port) {
 		this.port = port;
 		return this;
 	}
-	
+
 	public void setUserName(String username) {
 		this.userName = username;
 	}
-	
+
 	public CouchDBAdapter withUserName(String username) {
 		this.userName = username;
 		return this;
 	}
-	
+
 	public ReturnObject replicate(ModelCouch modelCouch, String source, String target) {
 		RequestObject request = createRequestObject();
 		request.setPath("_replicate");
@@ -117,27 +130,90 @@ public class CouchDBAdapter {
 		return new RequestObject(this);
 	}
 
+	public ReturnObject addAttachment(ReturnObject lastRes, Path path, ContentType contentType) {
+		ReturnObject res = null;
+		byte[] content = lastRes.getContentAsBytes();
+		if (content != null && content.length > 0) {
+			JsonObject jsonObject = new JsonObject();
+			try {
+				jsonObject.withValue(new String(content, "UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			// ...
+
+			RequestObject attachRequest = createRequestObject();
+			attachRequest.setShouldHandleInput(true);
+			attachRequest.setContentType(contentType);
+			attachRequest.setRequestType(RequestType.PUT);
+
+			String id = (String) jsonObject.getValue("id");
+			String rev = (String) jsonObject.getValue("rev");
+			
+			attachRequest.setServer(lastRes.getHeaderFields().get("Location").get(0));
+			attachRequest.setPath("/attachment?rev=" + rev);
+
+			try {
+				attachRequest.setOutput(Files.readAllBytes(path));
+				res = send(attachRequest);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (res == null)
+			res = new ReturnObject();
+		return res;
+	}
+
+	public byte[] getAttachment(ReturnObject lastRes) {
+		byte[] res = null;
+		LinkedList<String> content = lastRes.getContentAsString();
+		if (content != null && content.size() > 0) {
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.withValue(content.toArray(new String[content.size()]));
+
+			RequestObject attachRequest = createRequestObject();
+			attachRequest.setShouldHandleInput(true);
+			attachRequest.setRequestType(RequestType.GET);
+
+			String id = (String) jsonObject.getValue("id");
+			String rev = (String) jsonObject.getValue("rev");
+
+			attachRequest.setPath("segroup/" + id + "/attachment?rev=" + rev);
+			ReturnObject send = send(attachRequest);
+
+			// FIXME: We don't want Strings...
+			res = send.getContentAsBytes();
+		}
+		if (res == null)
+			res = new byte[0];
+		return res;
+	}
+
 	public ReturnObject send(RequestObject request) {
 		ReturnObject res = new ReturnObject();
 		try {
 			URL obj = new URL(request.getServer() + request.getPath());
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			// try to delete database
 			con.setRequestMethod(request.getRequestType().toString());
 			con.setDoInput(true);
-			if (request.getRequestProperties() == null) {
-				con.addRequestProperty("Content-Type", "application/json");
-			} else {
-				for (Entry<String, String> entry : request.getRequestProperties().entrySet()) {
-					con.addRequestProperty(entry.getKey(), entry.getValue());
-				}
+
+			con.addRequestProperty("Content-Type", request.getContentType().getValue());
+
+			for (Entry<String, String> entry : request.getRequestProperties().entrySet()) {
+				con.addRequestProperty(entry.getKey(), entry.getValue());
 			}
 			authenticate(con);
+			// Write to DB
 			if ((request.getOutput() != null && request.getOutput().length > 0)) {
 				con.setDoOutput(true);
 				con.getOutputStream().write(request.getOutput());
 			}
+
+			// Get the Results
 			res.responseCode = con.getResponseCode();
+			res.setResponseMessage(con.getResponseMessage());
+			res.setHeaderFields(con.getHeaderFields());
 
 			if (res.responseCode >= 400 && con.getErrorStream() != null) {
 				InputStream errorStream = (InputStream) con.getErrorStream();
@@ -151,6 +227,7 @@ public class CouchDBAdapter {
 							break;
 						}
 						lines.add(readLine);
+						// System.out.println(readLine);
 					} while (readLine != null);
 					res.error = lines;
 				} catch (IOException e) {
@@ -159,28 +236,17 @@ public class CouchDBAdapter {
 			} else {
 				if (request.isShouldHandleInput()) {
 					InputStream content = (InputStream) con.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-					try {
-						LinkedList<String> lines = new LinkedList<>();
-						String readLine = null;
-						do {
-							readLine = reader.readLine();
-							if (readLine == null) {
-								break;
-							}
-							lines.add(readLine);
-						} while (readLine != null);
-						res.setContent(lines);
-					} catch (IOException e) {
-						// e.printStackTrace();
-					}
+					BufferedInputStream reader = new BufferedInputStream(content);
+					byte[] bytes = new byte[Integer.parseInt(res.getHeaderFields().get("Content-Length").get(0))];
+					reader.read(bytes);
+					res.setContent(bytes);
 				}
 			}
 
 			con.disconnect();
 		} catch (Exception e) {
 			res.responseCode = 400;
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 		return res;
 	}
@@ -245,29 +311,32 @@ public class CouchDBAdapter {
 	public Authenticator getAutheticator() {
 		return authenticator;
 	}
-	
+
 	/**
 	 * Must be called after setting credentials (and authenticator)
 	 * 
-	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
+	 * You can get the Return from the Server by asking the Authenticator for
+	 * the loginRequest
 	 * 
-	 * @param password The Password
+	 * @param password
+	 *            The Password
 	 * @return ThisComponent
-	 * @throws Exception any Errors for login
+	 * @throws Exception
+	 *             any Errors for login
 	 */
-	public CouchDBAdapter login(String password) throws Exception{
-		if(this.authenticator == null){
+	public CouchDBAdapter login(String password) throws Exception {
+		if (this.authenticator == null) {
 			this.authenticator = new BasicAuthenticator();
 		}
-		if(this.authenticator.login(getUserName(), password , this)){
+		if (this.authenticator.login(getUserName(), password, this)) {
 			return this;
-		}else{
+		} else {
 			throw new Exception("Couldn't log in...");
 		}
 	}
-	
+
 	protected void authenticate(HttpURLConnection connection) {
-		if(authenticator != null){
+		if (authenticator != null) {
 			authenticator.authenticate(connection);
 		}
 	}

@@ -13,7 +13,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.SimpleMapEvent;
+import de.uniks.networkparser.logic.SimpleEvent;
 
 public class FlipBook implements UpdateListener,  PropertyChangeInterface
 
@@ -289,7 +289,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
          return true;
       }
       // store message in list
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
       
       if (simpleEvent.getEntity() == null) 
       {

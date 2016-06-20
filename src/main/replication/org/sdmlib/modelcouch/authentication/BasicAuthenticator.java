@@ -5,7 +5,6 @@ import java.nio.charset.Charset;
 import java.util.Base64;
 
 import org.sdmlib.modelcouch.CouchDBAdapter;
-import org.sdmlib.modelcouch.ModelCouch;
 
 /**
  * Uses Base64 and sends credentials with every request that uses authenticate
@@ -26,7 +25,7 @@ public class BasicAuthenticator implements Authenticator {
 
 	@Override
 	public void authenticate(HttpURLConnection connection) {
-		// Bad idea because of password beeing sent all the time...
+		// Bad idea because of password being sent all the time...
 		connection.addRequestProperty("Authorization", "Basic " + encoding);
 	}
 
