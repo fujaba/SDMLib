@@ -96,8 +96,6 @@ public class StudyRightWithAssignmentsStoryboards {
             .withStudents(karli)
             .withAssignments(matrixMult, series, a3);
 
-      storyboard.addObjectDiagram(university);
-      
       Room artsRoom = university.createRooms()
             .withName("7522")
             .withTopic("arts")
@@ -123,6 +121,8 @@ public class StudyRightWithAssignmentsStoryboards {
             .withDoors(artsRoom, examRoom);
       storyboard.addCode();
       
+      storyboard.addObjectDiagram(university);
+
       storyboard.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 

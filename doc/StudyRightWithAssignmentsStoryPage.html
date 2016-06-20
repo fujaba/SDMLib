@@ -37,8 +37,6 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             .withStudents(karli)
             .withAssignments(matrixMult, series, a3);
 
-      storyboard.addObjectDiagram(university);
-      
       Room artsRoom = university.createRooms()
             .withName(&quot;7522&quot;)
             .withTopic(&quot;arts&quot;)
@@ -62,7 +60,312 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             .withTopic(&quot;Software Engineering&quot;)
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
-</pre><p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student"
+      },
+      {
+         "typ":"clazz",
+         "id":"R3 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student"
+      },
+      {
+         "typ":"clazz",
+         "id":"R3 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room"
+      },
+      {
+         "typ":"clazz",
+         "id":"A8 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A9 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A10 : Assignment",
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A8 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A9 : Assignment"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A10 : Assignment"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
@@ -91,6 +394,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"clazz",
          "id":"A3 : Assignment",
+         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
             "points=5"
@@ -99,6 +403,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"clazz",
          "id":"A4 : Assignment",
+         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Series",
             "points=6"
@@ -107,7 +412,6 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"clazz",
          "id":"A5 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
@@ -169,7 +473,7 @@ Karli's motivation is reduced by 5 points to now 209.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
@@ -200,6 +504,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"clazz",
          "id":"A3 : Assignment",
+         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
             "points=5"
@@ -208,6 +513,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"clazz",
          "id":"A4 : Assignment",
+         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Series",
             "points=6"
@@ -216,7 +522,6 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"clazz",
          "id":"A5 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
@@ -278,7 +583,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>4. Karli does the third assignment on Integrals, earns <br>
@@ -309,6 +614,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"clazz",
          "id":"A3 : Assignment",
+         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
             "points=5"
@@ -317,6 +623,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"clazz",
          "id":"A4 : Assignment",
+         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Series",
             "points=6"
@@ -325,7 +632,6 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"clazz",
          "id":"A5 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
@@ -387,7 +693,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5. Since 19 points are more than the 17 points required 
@@ -423,6 +729,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"clazz",
          "id":"A3 : Assignment",
+         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
             "points=5"
@@ -431,6 +738,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"clazz",
          "id":"A4 : Assignment",
+         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Series",
             "points=6"
@@ -439,7 +747,6 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"clazz",
          "id":"A5 : Assignment",
-         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
@@ -501,7 +808,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage16", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
