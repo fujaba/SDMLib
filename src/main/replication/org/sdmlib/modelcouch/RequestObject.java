@@ -14,6 +14,7 @@ public class RequestObject {
 	// TODO - set to false for Speed Improvement!
 	private boolean shouldHandleInput = false;
 	private LinkedHashMap<String, String> requestProperties = null;
+	private ContentType contentType = ContentType.APPLICATION_JSON;
 
 	public RequestObject(CouchDBAdapter couchDBAdapter) {
 		server = "http://" + couchDBAdapter.getHostName() + ":" + couchDBAdapter.getPort() + "/";
@@ -78,6 +79,10 @@ public class RequestObject {
 	public void setOutput(byte[] output) {
 		this.output = output;
 	}
+	
+	public void setOutput(String output) {
+		this.output = output.getBytes();
+	}
 
 	/**
 	 * @return the contentHandler
@@ -87,33 +92,45 @@ public class RequestObject {
 	}
 
 	/**
-	 * @param contentHandler the contentHandler to set
+	 * @param contentHandler
+	 *            the contentHandler to set
 	 */
 	public void setContentHandler(ContentHandler contentHandler) {
 		this.contentHandler = contentHandler;
 	}
-	
+
 	public void setShouldHandleInput(boolean handleInput) {
 		this.shouldHandleInput = handleInput;
 	}
 
 	public boolean isShouldHandleInput() {
-		return this.shouldHandleInput ;
+		return this.shouldHandleInput;
 	}
-	
+
 	public void addRequestProperty(String key, String value) {
-		if(this.requestProperties == null)
+		if (this.requestProperties == null)
 			this.requestProperties = new LinkedHashMap<>();
 		this.requestProperties.put(key, value);
 	}
-	
+
 	public String removeRequestProperty(String key) {
-		if(this.requestProperties != null)
+		if (this.requestProperties != null)
 			return this.requestProperties.remove(key);
 		return null;
 	}
-	
+
 	public LinkedHashMap<String, String> getRequestProperties() {
+		if(requestProperties == null){
+			requestProperties = new LinkedHashMap<>();
+		}
 		return requestProperties;
+	}
+
+	public ContentType getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 }

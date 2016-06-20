@@ -59,7 +59,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
-import de.uniks.networkparser.logic.SimpleMapEvent;
+import de.uniks.networkparser.logic.SimpleEvent;
 import javafx.application.Platform;
 import de.uniks.networkparser.interfaces.SendableEntity;
 
@@ -561,7 +561,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
       
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
       
       if (simpleEvent.getEntity() == null) 
       {

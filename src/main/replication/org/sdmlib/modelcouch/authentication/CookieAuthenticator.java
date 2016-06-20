@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.sdmlib.modelcouch.ContentType;
 import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.RequestObject;
@@ -49,6 +50,7 @@ public class CookieAuthenticator implements Authenticator {
 		login.setPath("_session");
 		login.setShouldHandleInput(true);
 		login.setRequestType(RequestType.POST);
+		login.setContentType(ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
 		login.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		try {
 			login.setOutput(("name=" + URLEncoder.encode(username, "UTF-8") + "&password="

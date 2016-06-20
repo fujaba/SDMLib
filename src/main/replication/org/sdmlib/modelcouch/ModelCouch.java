@@ -61,7 +61,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.SimpleMapEvent;
+import de.uniks.networkparser.logic.SimpleEvent;
 import javafx.concurrent.Task;
 
 import org.sdmlib.modelcouch.ModelDBListener;
@@ -321,7 +321,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 			// ignore
 			return true;
 		}
-		SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+		SimpleEvent simpleEvent = (SimpleEvent) event;
 		if(simpleEvent.isNewEvent() == false) {
 			return true;
 		}

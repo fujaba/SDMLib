@@ -1,25 +1,23 @@
 package org.sdmlib.test.examples.modelcouch;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.ContentHandler;
-import java.net.ContentHandlerFactory;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assume.*;
-
+import org.sdmlib.modelcouch.ContentType;
 import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
@@ -42,17 +40,11 @@ public class ModelCouchTasksTest {
 	private static final String DB_HOST = "docker.cs.uni-kassel.de";
 	private static final String DB_NAME = "segroup";
 
-	/**
-	 * 
-	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>
-	 *      BasicModelOnTheCouch.html</a>
-	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>
-	 *      BasicModelOnTheCouch.html</a>
-	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>
-	 *      BasicModelOnTheCouch.html</a>
-	 * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>BasicModelOnTheCouch.html</a>
+   /**
+    * 
+    * @see <a href='../../../../../../../../doc/BasicModelOnTheCouch.html'>BasicModelOnTheCouch.html</a>
  */
-	@Test
+   @Test
 	public void testBasicModelOnTheCouch() {
 		CouchDBAdapter adapter = createAdapter();
 		StoryPage story = new StoryPage();
@@ -123,8 +115,10 @@ public class ModelCouchTasksTest {
 		story.addObjectDiagram(resultSeGroup);
 
 		// TODO - Test via Diff...
-//		assertEquals("person", resultSeGroup.getMembers().first().getPersonData().first().getType());
-//		assertEquals("tobi", resultSeGroup.getMembers().first().getPersonData().first().getValue());
+		// assertEquals("person",
+		// resultSeGroup.getMembers().first().getPersonData().first().getType());
+		// assertEquals("tobi",
+		// resultSeGroup.getMembers().first().getPersonData().first().getValue());
 
 		story.add("" + "Finally the database is deleted.");
 
@@ -167,7 +161,8 @@ public class ModelCouchTasksTest {
 
 	@BeforeClass
 	public static void testForConnection() {
-		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withHostName(DB_HOST).withPort(DB_PORT).withUserName(DB_USERNAME);
+		CouchDBAdapter couchDBAdapter = new CouchDBAdapter().withHostName(DB_HOST).withPort(DB_PORT)
+				.withUserName(DB_USERNAME);
 		assumeTrue("Couch is not Reachable", couchDBAdapter.testConnection());
 
 		if (DB_PASSWORD != null && !DB_PASSWORD.equals("")) {
@@ -179,6 +174,8 @@ public class ModelCouchTasksTest {
 				assumeTrue("Couldn't login into DB", False());
 			}
 		}
+		
+		couchDBAdapter.createDB(DB_NAME);
 
 		ModelCouch couch = new ModelCouch(couchDBAdapter).withHostName(DB_HOST).withPort(DB_PORT)
 				.withUserName(DB_USERNAME).withApplicationType(ApplicationType.StandAlone);
@@ -207,10 +204,10 @@ public class ModelCouchTasksTest {
 		// first create temporary DB
 		adapter.createDB(DB_NAME);
 
-		ReturnObject setUserPrivileges = adapter.setUserPrivileges(DB_NAME, null,
-				Arrays.asList("admin"), null, Arrays.asList("user"));
+		ReturnObject setUserPrivileges = adapter.setUserPrivileges(DB_NAME, null, Arrays.asList("admin"), null,
+				Arrays.asList("user"));
 		assertEquals(200, setUserPrivileges.getResponseCode());
-		LinkedList<String> content = setUserPrivileges.getContent();
+		LinkedList<String> content = setUserPrivileges.getContentAsString();
 		if (content == null || content.size() == 0) {
 			System.out.println("NULL!");
 		}
@@ -282,8 +279,10 @@ public class ModelCouchTasksTest {
 
 		Person resultSeGroup = (Person) resultiIdMap.getObject("root");
 		// TODO - Test via Diff...
-//		assertEquals("person", resultSeGroup.getMembers().first().getPersonData().first().getType());
-//		assertEquals("tobi", resultSeGroup.getMembers().first().getPersonData().first().getValue());
+		// assertEquals("person",
+		// resultSeGroup.getMembers().first().getPersonData().first().getType());
+		// assertEquals("tobi",
+		// resultSeGroup.getMembers().first().getPersonData().first().getValue());
 
 		couch.getCouchDBAdapter().deleteDatabase(databaseName);
 	}
@@ -292,8 +291,8 @@ public class ModelCouchTasksTest {
 	public void testSendAndConnection() {
 		/**
 		 * {"couchdb":"Welcome","uuid":"40b8d651b68043e5195153dfcd218f1f",
-		 * "version":"1.6.1","vendor":{"version":"1.6.1","name":
-		 * "The Apache Software Foundation"}}
+		 * "version":"1.6.1","vendor":{"version":"1.6.1","name": "The Apache
+		 * Software Foundation"}}
 		 */
 		CouchDBAdapter adapter = createAdapter();
 		RequestObject request = adapter.createRequestObject();
@@ -301,7 +300,8 @@ public class ModelCouchTasksTest {
 		request.setShouldHandleInput(true);
 
 		ReturnObject send = adapter.send(request);
-		JsonObject returnValue = new JsonObject().withValue(send.getContent().getFirst());
+//		printOutResult(send);
+		JsonObject returnValue = new JsonObject().withValue(send.getContentAsString().getFirst());
 		assertEquals("Welcome", returnValue.get("couchdb"));
 	}
 
@@ -315,6 +315,74 @@ public class ModelCouchTasksTest {
 
 	private static boolean False() {
 		return false;
+	}
+
+	@Test
+	public void testDocumentCreation() {
+		CouchDBAdapter adapter = createAdapter();
+		String databaseName = DB_NAME + "/";
+
+		adapter.createDB(databaseName);
+		RequestObject request = adapter.createRequestObject();
+		request.setPath(databaseName);
+
+		request.setRequestType(RequestType.POST);
+		request.setShouldHandleInput(true);
+		request.setContentType(ContentType.APPLICATION_JSON);
+
+		JsonObject json = new JsonObject();
+		json.with("Key", "Value");
+
+		request.setOutput(json.toString());
+
+		ReturnObject send = adapter.send(request);
+	}
+
+	@Test
+	public void testAttachment() throws IOException {
+		CouchDBAdapter adapter = createAdapter();
+		String databaseName = DB_NAME + "/";
+
+		// Create DB
+		adapter.createDB(databaseName);
+		
+		// Create a Document, where we want to attach the Attachment
+		RequestObject request = adapter.createRequestObject();
+		request.setPath(databaseName);
+
+		request.setRequestType(RequestType.POST);
+		request.setShouldHandleInput(true);
+		request.setContentType(ContentType.APPLICATION_JSON);
+
+		// attach some content to the Document
+		JsonObject json = new JsonObject();
+		json.with("Key", "Value");
+
+		request.setOutput(json.toString());
+		
+		// create Document
+		ReturnObject send = adapter.send(request);
+		
+		// make Attachment
+		ReturnObject attachment = adapter.addAttachment(send, Paths.get("infinitest.filters"), ContentType.TEXT_PLAIN);
+		
+//		printOutResult(attachment);
+		
+		String location = attachment.getHeaderFields().get("Location").get(0);
+//		System.out.println("Location: " + location);
+		
+		// get Attachment back from couch
+		byte[] getAttachmentRequest = adapter.getAttachment(attachment);
+		
+		assertTrue(Arrays.equals(Files.readAllBytes(Paths.get("infinitest.filters")), getAttachmentRequest));
+	}
+
+	private void printOutResult(ReturnObject res) {
+		System.out.println(res);
+		Map<String, List<String>> headerFields = res.getHeaderFields();
+		headerFields.keySet().forEach(t -> {
+			System.out.println(t + ": " + headerFields.get(t));
+		});
 	}
 
 }
