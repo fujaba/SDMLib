@@ -40,7 +40,7 @@ public class ReturnObject {
 		LinkedList<String> res = new LinkedList<>();
 		String string = "";
 		try {
-			string = new String(content, "UTF-8");
+			string = new String(getContentAsBytes(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class ReturnObject {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
-
+	
 	/**
 	 * @return the error
 	 */
@@ -136,6 +136,9 @@ public class ReturnObject {
 	}
 
 	public byte[] getContentAsBytes() {
+		if(content == null){
+			return new byte[0];
+		}
 		return content;
 	}
 }
