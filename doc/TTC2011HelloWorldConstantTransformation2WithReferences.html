@@ -192,6 +192,62 @@
    g.layout(100,100);
 </script>
 <p>For completeness just the host graph:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : Greeting"
+      },
+      {
+         "typ":"clazz",
+         "id":"G2 : GreetingMessage",
+         "attributes":[
+            "text=Hello"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=TTC Participants"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"greetingMessage",
+            "id":"G2 : GreetingMessage"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferences11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting();
 

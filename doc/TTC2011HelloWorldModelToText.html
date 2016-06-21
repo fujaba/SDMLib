@@ -22,6 +22,62 @@
       PersonPO personPO = greetingPO.hasPerson()
             .hasName(&quot;TTC Participants&quot;);
 </pre><p>The created object model looks like: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : Greeting"
+      },
+      {
+         "typ":"clazz",
+         "id":"G2 : GreetingMessage",
+         "attributes":[
+            "text=Hello"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=TTC Participants"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"greetingMessage",
+            "id":"G2 : GreetingMessage"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldModelToText5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>The model to text transfromation template mechanism is used like this: </p>
 <pre>      systemout = CGUtil.replaceAll(&quot;message name&quot;, 
          &quot;message&quot;, greetingMessagePO.getText(),
@@ -33,7 +89,63 @@ Hello TTC Participants</p>
          &quot;message&quot;, greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
          &quot;name&quot;, personPO, Person.PROPERTY_NAME
             );
-</pre><p>Alternatively, plain java code that does the model to text transformation looks like: </p>
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : Greeting"
+      },
+      {
+         "typ":"clazz",
+         "id":"G2 : GreetingMessage",
+         "attributes":[
+            "text=Hi"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=dudes"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"greetingMessage",
+            "id":"G2 : GreetingMessage"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldModelToText11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Alternatively, plain java code that does the model to text transformation looks like: </p>
 <pre>      systemout = greetingMessagePO.getText() + &quot; &quot; + personPO.getName();
 </pre>
 </body>
