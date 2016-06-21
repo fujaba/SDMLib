@@ -74,148 +74,59 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "typ":"clazz",
-         "id":"S2 : Student"
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room"
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room"
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room"
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room"
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Room"
-      }
-   ],
-   "edges":[
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"U1 : University",
+         "id":"S2 : Student",
          "attributes":[
-            "name=StudyRight"
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"S2 : Student"
+         "id":"R3 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
       },
       {
          "typ":"clazz",
-         "id":"R3 : Room"
+         "id":"R4 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
       },
       {
          "typ":"clazz",
-         "id":"R4 : Room"
+         "id":"R5 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
       },
       {
          "typ":"clazz",
-         "id":"R5 : Room"
+         "id":"R6 : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
       },
       {
          "typ":"clazz",
-         "id":"R6 : Room"
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Room"
+         "id":"R7 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
       },
       {
          "typ":"clazz",
@@ -244,7 +155,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -257,7 +168,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -270,7 +181,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -283,7 +194,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -296,7 +207,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -309,7 +220,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -322,42 +233,466 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"one",
-            "property":"room",
+            "property":"in",
             "id":"R3 : Room"
          },
          "target":{
-            "cardinality":"one",
-            "property":"assignment",
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
             "id":"A8 : Assignment"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R3 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"assignment",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
             "id":"A9 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A10 : Assignment"
+         },
+         "target":{
             "cardinality":"one",
             "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightWithAssignmentsStoryPage3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A8 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A9 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A10 : Assignment",
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
             "id":"R3 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"assignment",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A8 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A9 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
             "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
          }
       }
    ]
@@ -389,7 +724,12 @@ Karli's motivation is reduced by 5 points to now 209.
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room"
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
       },
       {
          "typ":"clazz",
@@ -499,7 +839,12 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room"
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
       },
       {
          "typ":"clazz",
@@ -609,7 +954,12 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room"
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
       },
       {
          "typ":"clazz",
@@ -724,7 +1074,12 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room"
+         "id":"R2 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
       },
       {
          "typ":"clazz",
