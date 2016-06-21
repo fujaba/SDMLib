@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -35,9 +35,9 @@ import de.uniks.networkparser.list.SimpleList;
 
 public class ModelCouchTasksTest {
 	private static final int DB_PORT = 5984;
-	private static final String DB_USERNAME = "segroup";
-	private static final String DB_PASSWORD = "";
-	private static final String DB_HOST = "docker.cs.uni-kassel.de";
+	private static final String DB_USERNAME = "alex";
+	private static final String DB_PASSWORD = "Passwort";
+	private static final String DB_HOST = "localhost";//"docker.cs.uni-kassel.de";
 	private static final String DB_NAME = "segroup";
 
    /**
@@ -261,7 +261,7 @@ public class ModelCouchTasksTest {
 				DB_NAME + "-replicate");
 
 		if (replicate.getError() != null && replicate.getError().size() > 0) {
-			System.out.println(replicate.getError().toString());
+//			System.out.println(replicate.getError().toString());
 		}
 
 		couch.close();

@@ -32,6 +32,7 @@ public class CookieAuthenticator implements Authenticator {
 	private String password;
 	private CouchDBAdapter couch;
 	private ReturnObject loginResponse;
+	private CookieManager cookieManager;
 
 	@Override
 	public boolean login(String username, String password, CouchDBAdapter couch) {
@@ -39,9 +40,12 @@ public class CookieAuthenticator implements Authenticator {
 		this.password = password;
 		this.couch = couch;
 		// CookieHandler will save the Cookies
-		if (CookieHandler.getDefault() == null)
-			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+		if (CookieHandler.getDefault() == null){
+			cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+			CookieHandler.setDefault(cookieManager);
+		}
 		loginResponse = getCookie(couch);
+//		System.out.println(loginResponse.getHeaderFields().get("Set-Cookie"));
 		return loginResponse.getResponseCode() == 200;
 	}
 
@@ -51,7 +55,6 @@ public class CookieAuthenticator implements Authenticator {
 		login.setShouldHandleInput(true);
 		login.setRequestType(RequestType.POST);
 		login.setContentType(ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
-		login.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		try {
 			login.setOutput(("name=" + URLEncoder.encode(username, "UTF-8") + "&password="
 					+ URLEncoder.encode(password, "UTF-8")).getBytes());
@@ -65,6 +68,10 @@ public class CookieAuthenticator implements Authenticator {
 
 	@Override
 	public void authenticate(HttpURLConnection connection) {
+	}
+	
+	public CookieManager getCookieManager() {
+		return cookieManager;
 	}
 
 }

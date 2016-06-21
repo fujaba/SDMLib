@@ -2,6 +2,7 @@ package org.sdmlib.modelcouch;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -149,9 +150,12 @@ public class CouchDBAdapter {
 
 			String id = (String) jsonObject.getValue("id");
 			String rev = (String) jsonObject.getValue("rev");
-			
+
 			attachRequest.setServer(lastRes.getHeaderFields().get("Location").get(0));
-			attachRequest.setPath("/attachment?rev=" + rev);
+			
+			String filename = path.getFileName().toString();
+			
+			attachRequest.setPath("/" + filename +"?rev=" + rev);
 
 			try {
 				attachRequest.setOutput(Files.readAllBytes(path));
@@ -165,29 +169,36 @@ public class CouchDBAdapter {
 		return res;
 	}
 
+	public byte[] getAttachment(String location) {
+		byte[] res = null;
+
+		RequestObject attachRequest = createRequestObject();
+		attachRequest.setShouldHandleInput(true);
+		attachRequest.setRequestType(RequestType.GET);
+
+		attachRequest.setServer(location);
+		attachRequest.setPath("");
+		ReturnObject send = send(attachRequest);
+
+		// FIXME: We don't want Strings...
+		res = send.getContentAsBytes();
+
+		if (res == null)
+			res = new byte[0];
+		return res;
+	}
+
 	public byte[] getAttachment(ReturnObject lastRes) {
 		byte[] res = null;
 		LinkedList<String> content = lastRes.getContentAsString();
 		if (content != null && content.size() > 0) {
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.withValue(content.toArray(new String[content.size()]));
-
-			RequestObject attachRequest = createRequestObject();
-			attachRequest.setShouldHandleInput(true);
-			attachRequest.setRequestType(RequestType.GET);
-
-			String id = (String) jsonObject.getValue("id");
 			String rev = (String) jsonObject.getValue("rev");
 
-			attachRequest.setPath("segroup/" + id + "/attachment?rev=" + rev);
-			ReturnObject send = send(attachRequest);
-
-			// FIXME: We don't want Strings...
-			res = send.getContentAsBytes();
+			return getAttachment(lastRes.getHeaderFields().get("Location").get(0) + "?rev=" + rev);
 		}
-		if (res == null)
-			res = new byte[0];
-		return res;
+		return new byte[0];
 	}
 
 	public ReturnObject send(RequestObject request) {
@@ -236,13 +247,18 @@ public class CouchDBAdapter {
 			} else {
 				if (request.isShouldHandleInput()) {
 					InputStream content = (InputStream) con.getContent();
+					ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+					int nRead;
+					byte[] data = new byte[Integer.parseInt(res.getHeaderFields().get("Content-Length").get(0))];
+					while ((nRead = content.read(data, 0, data.length)) != -1) {
+					  buffer.write(data, 0, nRead);
+					}
+					buffer.flush();
 					BufferedInputStream reader = new BufferedInputStream(content);
-					byte[] bytes = new byte[Integer.parseInt(res.getHeaderFields().get("Content-Length").get(0))];
-					reader.read(bytes);
+					byte[] bytes = buffer.toByteArray();
 					res.setContent(bytes);
 				}
 			}
-
 			con.disconnect();
 		} catch (Exception e) {
 			res.responseCode = 400;

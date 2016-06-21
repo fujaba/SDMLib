@@ -103,7 +103,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 					   changeLine = in.readLine();
 						final String localChangeLine = changeLine;
 						//handle changes
-						if(!changeLine.equals("") && !changeLine.contains("last_seq"))
+						if(changeLine != null && !changeLine.equals("") && !changeLine.contains("last_seq"))
 						{
 							if(couch != null && couch.getApplicationType() == ApplicationType.JavaFX)
 							{

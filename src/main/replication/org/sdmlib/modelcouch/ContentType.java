@@ -3,6 +3,7 @@ package org.sdmlib.modelcouch;
 public enum ContentType {
 	APPLICATION_JSON("application/json"),
 	IMAGE_JPEG("image/jpeg"),
+	IMAGE("image"),
 	APPLICATION_X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded"),
 	TEXT_PLAIN("text/plain");
 
