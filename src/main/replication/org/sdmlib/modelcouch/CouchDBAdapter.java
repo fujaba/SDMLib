@@ -3,9 +3,6 @@ package org.sdmlib.modelcouch;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,15 +10,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.sdmlib.modelcouch.authentication.Authenticator;
@@ -29,8 +22,6 @@ import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleList;
 
 public class CouchDBAdapter {
 	private String userName = "";
@@ -129,6 +120,17 @@ public class CouchDBAdapter {
 
 	public RequestObject createRequestObject() {
 		return new RequestObject(this);
+	}
+	
+	public ReturnObject createEmptyDocument(String path) {
+		RequestObject newDoc = createRequestObject();
+		newDoc.setPath(path);
+		newDoc.setShouldHandleInput(true);
+		newDoc.setRequestType(RequestType.POST);
+		JsonObject jsonObject = new JsonObject();
+		newDoc.setOutput(jsonObject.toString().getBytes());
+		
+		return send(newDoc);
 	}
 
 	public ReturnObject addAttachment(ReturnObject lastRes, Path path, ContentType contentType) {

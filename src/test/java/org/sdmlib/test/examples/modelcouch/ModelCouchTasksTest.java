@@ -366,11 +366,6 @@ public class ModelCouchTasksTest {
 		// make Attachment
 		ReturnObject attachment = adapter.addAttachment(send, Paths.get("infinitest.filters"), ContentType.TEXT_PLAIN);
 		
-//		printOutResult(attachment);
-		
-		String location = attachment.getHeaderFields().get("Location").get(0);
-//		System.out.println("Location: " + location);
-		
 		// get Attachment back from couch
 		byte[] getAttachmentRequest = adapter.getAttachment(attachment);
 		
