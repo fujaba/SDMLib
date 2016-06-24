@@ -65,8 +65,13 @@ import de.uniks.networkparser.logic.SimpleEvent;
 import javafx.concurrent.Task;
 
 import org.sdmlib.modelcouch.ModelDBListener;
-import org.sdmlib.modelcouch.authentication.Authenticator;
-import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
+import org.sdmlib.modelcouch.connection.authentication.Authenticator;
+import org.sdmlib.modelcouch.connection.authentication.BasicAuthenticator;
 
 /**
  * 
@@ -205,24 +210,20 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 
 				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/";
 				try {
-					URL obj = new URL(url);
-					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+					HTTPConnectionHandler connectionHandler = couchDBAdapter.getConnectionHandler();
+					RequestObject send = connectionHandler.createRequestObject(url);
+					
+					
+//					URL obj = new URL(url);
+//					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 					String urlParameters = jsonObject.toString();
-
 					urlParameters = entityUtil.encode(urlParameters);
-
-					con.setRequestMethod("POST");
-					con.setDoOutput(true);
-					con.setDoInput(true);
-					couchDBAdapter.authenticate(con);
-					con.addRequestProperty("Content-Type", "application/json");
-					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-					wr.writeBytes(urlParameters);
-					wr.flush();
-					wr.close();
-
-					responsecode = con.getResponseCode();
-					con.disconnect();
+					
+					send.setOutput(urlParameters, "UTF-8");
+					send.setRequestType(RequestType.POST);
+					send.setContentType(ContentType.APPLICATION_JSON);
+					ReturnObject sendResult = send.send();
+					responsecode = sendResult.getResponseCode();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -263,15 +264,19 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/" + objId + "?"
 						+ rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
 				try {
-					URL obj = new URL(url);
-					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-					con.setRequestMethod("DELETE");
-					con.addRequestProperty("Content-Type", "application/json");
-					couchDBAdapter.authenticate(con);
-
-					responsecode = con.getResponseCode();
-					con.disconnect();
+					RequestObject delete = couchDBAdapter.getConnectionHandler().createRequestObject(url);
+					delete.setRequestType(RequestType.DELETE);
+					delete.send();
+					
+//					URL obj = new URL(url);
+//					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//
+//					con.setRequestMethod("DELETE");
+//					con.addRequestProperty("Content-Type", "application/json");
+//					couchDBAdapter.authenticate(con);
+//
+//					responsecode = con.getResponseCode();
+//					con.disconnect();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

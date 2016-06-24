@@ -1,4 +1,4 @@
-package org.sdmlib.modelcouch;
+package org.sdmlib.modelcouch.connection;
 
 public enum ContentType {
 	APPLICATION_JSON("application/json"),

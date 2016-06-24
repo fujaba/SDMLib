@@ -1,9 +1,8 @@
-package org.sdmlib.modelcouch.authentication;
+package org.sdmlib.modelcouch.connection.authentication;
 
 import java.net.HttpURLConnection;
 
-import org.sdmlib.modelcouch.CouchDBAdapter;
-import org.sdmlib.modelcouch.ModelCouch;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
 
 public interface Authenticator {
 	/**
@@ -11,10 +10,10 @@ public interface Authenticator {
 	 * 
 	 * @param username The User
 	 * @param password The Password
-	 * @param couchDBAdapter The Database
+	 * @param connectionHandler The HTTPConnectionHandler that sends the requests
 	 * @return result success if login
 	 */
-	public boolean login(String username, String password, CouchDBAdapter couchDBAdapter);
+	public boolean login(String username, String password, HTTPConnectionHandler connectionHandler);
 
 	/**
 	 * Called in every request

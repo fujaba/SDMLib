@@ -7,7 +7,6 @@ import static org.junit.Assume.assumeTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,14 +16,14 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.sdmlib.modelcouch.ContentType;
 import org.sdmlib.modelcouch.CouchDBAdapter;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
-import org.sdmlib.modelcouch.RequestObject;
-import org.sdmlib.modelcouch.RequestType;
-import org.sdmlib.modelcouch.ReturnObject;
-import org.sdmlib.modelcouch.authentication.CookieAuthenticator;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
+import org.sdmlib.modelcouch.connection.authentication.CookieAuthenticator;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelcouch.util.PersonCreator;
 
@@ -35,9 +34,9 @@ import de.uniks.networkparser.list.SimpleList;
 
 public class ModelCouchTasksTest {
 	private static final int DB_PORT = 5984;
-	private static final String DB_USERNAME = "alex";
-	private static final String DB_PASSWORD = "Passwort";
-	private static final String DB_HOST = "localhost";//"docker.cs.uni-kassel.de";
+	private static final String DB_USERNAME = "segroup";
+	private static final String DB_PASSWORD = "";
+	private static final String DB_HOST = "docker.cs.uni-kassel.de";
 	private static final String DB_NAME = "segroup";
 
    /**
@@ -154,9 +153,9 @@ public class ModelCouchTasksTest {
 		RequestObject delete = adapter.createRequestObject();
 		delete.setRequestType(RequestType.DELETE);
 		delete.setPath(DB_NAME);
-		adapter.send(delete);
+		delete.send();
 		delete.setPath(DB_NAME + "-replicate");
-		adapter.send(delete);
+		delete.send();
 	}
 
 	@BeforeClass
@@ -299,7 +298,7 @@ public class ModelCouchTasksTest {
 		request.setRequestType(RequestType.GET);
 		request.setShouldHandleInput(true);
 
-		ReturnObject send = adapter.send(request);
+		ReturnObject send = request.send();
 //		printOutResult(send);
 		JsonObject returnValue = new JsonObject().withValue(send.getContentAsString().getFirst());
 		assertEquals("Welcome", returnValue.get("couchdb"));
@@ -335,7 +334,7 @@ public class ModelCouchTasksTest {
 
 		request.setOutput(json.toString());
 
-		ReturnObject send = adapter.send(request);
+		ReturnObject send = request.send();
 	}
 
 	@Test
@@ -361,7 +360,7 @@ public class ModelCouchTasksTest {
 		request.setOutput(json.toString());
 		
 		// create Document
-		ReturnObject send = adapter.send(request);
+		ReturnObject send = request.send();
 		
 		// make Attachment
 		ReturnObject attachment = adapter.addAttachment(send, Paths.get("infinitest.filters"), ContentType.TEXT_PLAIN);

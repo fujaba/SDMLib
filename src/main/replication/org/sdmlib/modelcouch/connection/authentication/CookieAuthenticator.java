@@ -1,27 +1,21 @@
-package org.sdmlib.modelcouch.authentication;
+package org.sdmlib.modelcouch.connection.authentication;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 
-import org.sdmlib.modelcouch.ContentType;
-import org.sdmlib.modelcouch.CouchDBAdapter;
-import org.sdmlib.modelcouch.ModelCouch;
-import org.sdmlib.modelcouch.RequestObject;
-import org.sdmlib.modelcouch.RequestType;
-import org.sdmlib.modelcouch.ReturnObject;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
 
 /**
  * Tries to get Cookie and sends cookie with every request per CookieHandler
+ * Currently only working with CouchDB...
  * 
  * @author alexw
  *
@@ -30,27 +24,26 @@ public class CookieAuthenticator implements Authenticator {
 
 	private String username;
 	private String password;
-	private CouchDBAdapter couch;
+	private HTTPConnectionHandler connectionHandler;
 	private ReturnObject loginResponse;
 	private CookieManager cookieManager;
 
 	@Override
-	public boolean login(String username, String password, CouchDBAdapter couch) {
+	public boolean login(String username, String password, HTTPConnectionHandler connectionHandler) {
 		this.username = username;
 		this.password = password;
-		this.couch = couch;
+		this.connectionHandler = connectionHandler;
 		// CookieHandler will save the Cookies
-		if (CookieHandler.getDefault() == null){
+		if (CookieHandler.getDefault() == null) {
 			cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
 			CookieHandler.setDefault(cookieManager);
 		}
-		loginResponse = getCookie(couch);
-//		System.out.println(loginResponse.getHeaderFields().get("Set-Cookie"));
+		loginResponse = getCookie(connectionHandler);
 		return loginResponse.getResponseCode() == 200;
 	}
 
-	private ReturnObject getCookie(CouchDBAdapter couch) {
-		RequestObject login = couch.createRequestObject();
+	private ReturnObject getCookie(HTTPConnectionHandler connectionHandler) {
+		RequestObject login = connectionHandler.createRequestObject();
 		login.setPath("_session");
 		login.setShouldHandleInput(true);
 		login.setRequestType(RequestType.POST);
@@ -59,7 +52,7 @@ public class CookieAuthenticator implements Authenticator {
 			login.setOutput(("name=" + URLEncoder.encode(username, "UTF-8") + "&password="
 					+ URLEncoder.encode(password, "UTF-8")).getBytes());
 
-			return couch.send(login);
+			return connectionHandler.send(login);
 		} catch (UnsupportedEncodingException e) {
 			// e.printStackTrace();
 		}
@@ -69,7 +62,7 @@ public class CookieAuthenticator implements Authenticator {
 	@Override
 	public void authenticate(HttpURLConnection connection) {
 	}
-	
+
 	public CookieManager getCookieManager() {
 		return cookieManager;
 	}

@@ -1,13 +1,12 @@
-package org.sdmlib.modelcouch;
+package org.sdmlib.modelcouch.connection;
 
+import java.io.UnsupportedEncodingException;
 import java.net.ContentHandler;
-import java.net.ContentHandlerFactory;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 public class RequestObject {
 	private RequestType requestType = RequestType.GET;
-	private String path = "";
+	private String path;
 	private String server;
 	private byte[] output = null;
 	private ContentHandler contentHandler = null;
@@ -15,9 +14,21 @@ public class RequestObject {
 	private boolean shouldHandleInput = false;
 	private LinkedHashMap<String, String> requestProperties = null;
 	private ContentType contentType = ContentType.APPLICATION_JSON;
+	private HTTPConnectionHandler connnectionHandler = null;
 
-	public RequestObject(CouchDBAdapter couchDBAdapter) {
-		server = "http://" + couchDBAdapter.getHostName() + ":" + couchDBAdapter.getPort() + "/";
+	public RequestObject(HTTPConnectionHandler conHandler, String server, String path) {
+		this.connnectionHandler = conHandler;
+		this.server = server;
+		this.path = path;
+	}
+
+	public RequestObject(String server, String path) {
+		this.server = server;
+		this.path = path;
+	}
+
+	public RequestObject(String server) {
+		this(server, "");
 	}
 
 	/**
@@ -79,9 +90,13 @@ public class RequestObject {
 	public void setOutput(byte[] output) {
 		this.output = output;
 	}
-	
+
 	public void setOutput(String output) {
 		this.output = output.getBytes();
+	}
+	
+	public void setOutput(String output, String encoding) throws UnsupportedEncodingException {
+		this.output = output.getBytes(encoding);
 	}
 
 	/**
@@ -120,7 +135,7 @@ public class RequestObject {
 	}
 
 	public LinkedHashMap<String, String> getRequestProperties() {
-		if(requestProperties == null){
+		if (requestProperties == null) {
 			requestProperties = new LinkedHashMap<>();
 		}
 		return requestProperties;
@@ -132,5 +147,18 @@ public class RequestObject {
 
 	public void setContentType(ContentType contentType) {
 		this.contentType = contentType;
+	}
+
+	public ReturnObject send() {
+		if (connnectionHandler != null) {
+			return connnectionHandler.send(this);
+		} else {
+			throw new RuntimeException("No ConnectionHandler available to send...");
+		}
+	}
+
+	@Override
+	public String toString() {
+		return server + path;
 	}
 }

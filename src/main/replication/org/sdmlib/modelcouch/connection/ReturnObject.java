@@ -1,4 +1,4 @@
-package org.sdmlib.modelcouch;
+package org.sdmlib.modelcouch.connection;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -8,8 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import de.uniks.networkparser.list.AbstractArray;
 
 public class ReturnObject {
 	int responseCode = -1;
@@ -63,7 +61,7 @@ public class ReturnObject {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
-	
+
 	/**
 	 * @return the error
 	 */
@@ -104,7 +102,7 @@ public class ReturnObject {
 		return responseMessage;
 	}
 
-	void setResponseMessage(String responseMessage) {
+	public void setResponseMessage(String responseMessage) {
 		this.responseMessage = responseMessage;
 	}
 
@@ -125,7 +123,7 @@ public class ReturnObject {
 		return res.toString();
 	}
 
-	void setHeaderFields(Map<String, List<String>> headerFields) {
+	public void setHeaderFields(Map<String, List<String>> headerFields) {
 		this.headerFields = headerFields;
 	}
 
@@ -136,7 +134,7 @@ public class ReturnObject {
 	}
 
 	public byte[] getContentAsBytes() {
-		if(content == null){
+		if (content == null) {
 			return new byte[0];
 		}
 		return content;

@@ -74,7 +74,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Connection", "Keep-Alive"); 
 
-			couch.getCouchDBAdapter().authenticate(con);
+//			couch.getCouchDBAdapter().authenticate(con);
+			// the default cookie handler uses the cookie...
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -145,7 +146,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Content-Type", "application/json"); 
 			
-			couch.getCouchDBAdapter().authenticate(con);
+//			couch.getCouchDBAdapter().authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
