@@ -121,8 +121,6 @@ public class StudyRightWithAssignmentsStoryboards {
             .withDoors(artsRoom, examRoom);
       storyboard.addCode();
       
-      storyboard.addObjectDiagram(university);
-
       storyboard.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 

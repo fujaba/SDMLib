@@ -80,6 +80,23 @@
    new Graph(json, {"canvasid":"canvasStoryboardInfrastructureClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p><a name = 'step_4'>Step 4: Show some internals</a></p><p>Internally, the class model looks like:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"C1 : ClassModel",
+         "attributes":[
+            "name=org.sdmlib.storyboards"
+         ]
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStoryboardInfrastructure9", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

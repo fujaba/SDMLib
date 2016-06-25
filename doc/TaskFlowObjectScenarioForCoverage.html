@@ -10,6 +10,127 @@
 </head><body>
 <p>Storyboard <a href='.././src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java' type='text/x-java'>TaskFlowObjectScenarioForCoverage</a></p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"F1 : FetchFileFlow",
+         "attributes":[
+            "taskNo=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : PeerProxy",
+         "attributes":[
+            "port=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"L5 : Logger",
+         "attributes":[
+            "taskNo=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"L6 : LogEntry"
+      },
+      {
+         "typ":"clazz",
+         "id":"L7 : LogEntry"
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : SocketThread",
+         "attributes":[
+            "port=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S3 : SDMTimer"
+      },
+      {
+         "typ":"clazz",
+         "id":"L8 : LogEntry"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"fileServer",
+            "id":"P4 : PeerProxy"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"subFlow",
+            "id":"L5 : Logger"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"entries",
+            "id":"L6 : LogEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"logger",
+            "id":"L5 : Logger"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"entries",
+            "id":"L7 : LogEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"logger",
+            "id":"L5 : Logger"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"children",
+            "id":"L8 : LogEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"L6 : LogEntry"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTaskFlowObjectScenarioForCoverage2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

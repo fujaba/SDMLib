@@ -381,6 +381,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
             insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
+         insertFilterMethod(modelSetParser);
          insertSetWithWithout(modelSetParser);
       }
 
@@ -631,6 +632,36 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.insert(pos, text.toString());
+      }
+   }
+
+   private void insertFilterMethod(Parser parser)
+   {
+      String searchString = Parser.METHOD + ":filter()";
+      int pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n\n" +
+                  "   public ModelSetType filter(Condition<ModelType> condition) {\n" + 
+                  "      ModelSetType filterList = new ModelSetType();\n" + 
+                  "      filterItems(filterList, condition);\n" + 
+                  "      return filterList;\n" + 
+                  "   }"
+               );
+
+         String shortClassName = CGUtil.shortClassName(model.getName(false));
+         CGUtil.replaceAll(text, 
+            "ModelType", shortClassName,
+            "ModelSetType", shortClassName + "Set"
+            );
+
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+         
+         parser.insertImport(Condition.class.getName());
       }
    }
 

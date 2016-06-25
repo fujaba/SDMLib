@@ -16,7 +16,155 @@
       Student peter = mathRoom.createStudentsTeachingAssistant().withName(&quot;Peter Teacher&quot;).withIn(mathRoom);
       mathRoom.createAssignments().withContent(&quot;1*1&quot;).withPoints(2).withStudents(susi);
       university.withStudents(susi, peter);
-</pre><p><a name = 'step_1'>Step 1: Now the corresponding Pattern is generated</a></p><pre>      POCreator poCreator = new POCreator();
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight University"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "name=Susi Sorglos",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "certified=false",
+            "name=Peter Teacher",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "name=Multiply",
+            "topic=Math",
+            "credits=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : Assignment",
+         "attributes":[
+            "content=1*1",
+            "points=2"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A5 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasPOCreatorLargeModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_1'>Step 1: Now the corresponding Pattern is generated</a></p><pre>      POCreator poCreator = new POCreator();
       PatternObject po = poCreator
          .createPO(university);
 </pre><p><a name = 'step_2'>Step 2: Now we want to rebind the patternObject to the University model and look for the matches</a></p><pre>      po.rebind(university);
@@ -276,7 +424,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasPOCreatorLargeModelPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasPOCreatorLargeModelPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Check: The PatternObject has a match true</p>

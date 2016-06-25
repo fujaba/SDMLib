@@ -10,6 +10,229 @@
 </head><body>
 <p>Storyboard <a href='.././src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java' type='text/x-java'>ReplicationObjectScenarioForCoverage</a></p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R1 : ReplicationNode",
+         "attributes":[
+            "spaceId=coverage",
+            "lastChangeId=0",
+            "javaFXApplication=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S7 : SharedSpace",
+         "attributes":[
+            "lastChangeId=0",
+            "javaFXApplication=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R10 : ReplicationChannel"
+      },
+      {
+         "typ":"clazz",
+         "id":"C11 : ChangeHistory"
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : ReplicationServer",
+         "attributes":[
+            "lastChangeId=0",
+            "javaFXApplication=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S3 : ServerSocketAcceptThread",
+         "attributes":[
+            "port=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : RemoteTaskBoard"
+      },
+      {
+         "typ":"clazz",
+         "id":"L8 : Lane",
+         "attributes":[
+            "name=todo"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"B12 : BoardTask",
+         "attributes":[
+            "name=firstTask",
+            "manualExecution=false",
+            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=firstTask null]"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"B13 : BoardTask",
+         "attributes":[
+            "name=secondTask",
+            "manualExecution=false",
+            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=secondTask null]"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : ReplicationRoot"
+      },
+      {
+         "typ":"clazz",
+         "id":"C6 : ChangeHistory"
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : ReplicationChange",
+         "attributes":[
+            "historyIdPrefix=42",
+            "historyIdNumber=0",
+            "isToManyProperty=false",
+            "changeMsg={}"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"L14 : LogEntry",
+         "attributes":[
+            "timeStamp=0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"sharedSpaces",
+            "id":"S7 : SharedSpace"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"R1 : ReplicationNode"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"channels",
+            "id":"R10 : ReplicationChannel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"sharedSpace",
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"history",
+            "id":"C11 : ChangeHistory"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"sharedspace",
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"lanes",
+            "id":"L8 : Lane"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"board",
+            "id":"R4 : RemoteTaskBoard"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"B12 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lane",
+            "id":"L8 : Lane"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"B13 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lane",
+            "id":"L8 : Lane"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"changes",
+            "id":"R9 : ReplicationChange"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"changehistory",
+            "id":"C6 : ChangeHistory"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"logEntries",
+            "id":"L14 : LogEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"task",
+            "id":"B12 : BoardTask"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"B13 : BoardTask"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"B12 : BoardTask"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasReplicationObjectScenarioForCoverage2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

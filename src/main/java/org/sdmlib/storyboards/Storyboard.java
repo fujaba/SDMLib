@@ -1077,14 +1077,12 @@ public class Storyboard implements PropertyChangeInterface, SendableEntity
       if (restrictToExplicitElems)
       {
          RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
-         IdMap localIdMap = new SDMLibIdMap("s2").withSessionId(null);
-         addObjectDiagram(localIdMap, explicitElems, jsonFilter);
+         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
       }
       else
       {
          AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         IdMap localIdMap = new SDMLibIdMap("s2").withSessionId(null);
-         addObjectDiagram(localIdMap, explicitElems, conditionMap);
+         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
       }
    }
 
