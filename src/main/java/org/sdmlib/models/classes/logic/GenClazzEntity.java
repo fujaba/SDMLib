@@ -637,7 +637,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
    private void insertFilterMethod(Parser parser)
    {
-      String searchString = Parser.METHOD + ":filter()";
+	   String shortClassName = CGUtil.shortClassName(model.getName(false));
+      String searchString = Parser.METHOD + ":filter(Condition<"+shortClassName+">)";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
@@ -651,7 +652,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "   }"
                );
 
-         String shortClassName = CGUtil.shortClassName(model.getName(false));
+         
          CGUtil.replaceAll(text, 
             "ModelType", shortClassName,
             "ModelSetType", shortClassName + "Set"
