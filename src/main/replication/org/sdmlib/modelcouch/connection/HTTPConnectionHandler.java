@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.sdmlib.modelcouch.connection.authentication.Authenticator;
@@ -127,7 +128,12 @@ public class HTTPConnectionHandler {
 					InputStream content = (InputStream) con.getContent();
 					ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 					int nRead;
-					byte[] data = new byte[Integer.parseInt(res.getHeaderFields().get("Content-Length").get(0))];
+					List<String> contentLength = res.getHeaderFields().get("Content-Length");
+					if (contentLength == null) {
+						contentLength = res.getHeaderFields().get("Content-length");
+						// try to get Content length
+					}
+					byte[] data = new byte[Integer.parseInt(contentLength.get(0))];
 					while ((nRead = content.read(data, 0, data.length)) != -1) {
 						buffer.write(data, 0, nRead);
 					}
