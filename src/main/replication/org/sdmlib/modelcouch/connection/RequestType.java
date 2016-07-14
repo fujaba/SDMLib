@@ -1,5 +1,5 @@
 package org.sdmlib.modelcouch.connection;
 
 public enum RequestType {
-	GET, PUT, DELETE, PUSH, POST, UPDATE
+	GET, PUT, DELETE, POST, UPDATE, PATCH
 }

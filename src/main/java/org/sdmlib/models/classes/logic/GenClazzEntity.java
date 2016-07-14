@@ -587,19 +587,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   "      return this;\n" +
                   "   }\n"
                   + "\n");
-         FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
-         if(feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class)) {
-            text.append("   @Override\n" + 
-                  "   public ModelTypeSet filter(Condition<ModelType> newValue) {\r\n" + 
-                  "      ModelTypeSet filterList = new ModelTypeSet();\r\n" + 
-                  "      filterItems(filterList, newValue);\r\n" + 
-                  "      return filterList;\r\n" + 
-                  "   }"
-                  + "\n"
-                  );
-            parser.insertImport(Condition.class.getName());
-         }
-
          CGUtil.replaceAll(text,
             "ModelType", CGUtil.shortClassName(model.getName(false)));
 
@@ -637,7 +624,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
    private void insertFilterMethod(Parser parser)
    {
-	   String shortClassName = CGUtil.shortClassName(model.getName(false));
+       FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+
+	   if(feature.getClass() != null && feature.getClass().isInstance(SimpleSet.class) == false) {
+		   return;
+	   }
+	  String shortClassName = CGUtil.shortClassName(model.getName(false));
       String searchString = Parser.METHOD + ":filter(Condition<"+shortClassName+">)";
       int pos = parser.indexOf(searchString);
 
