@@ -202,7 +202,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
-   public StudentPO filterMotivation(int value)
+   public StudentPO createMotivationCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Student.PROPERTY_MOTIVATION)
@@ -216,7 +216,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
-   public StudentPO filterMotivation(int lower, int upper)
+   public StudentPO createMotivationCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Student.PROPERTY_MOTIVATION)
@@ -233,7 +233,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    
    public StudentPO createMotivation(int value)
    {
-      this.startCreate().filterMotivation(value).endCreate();
+      this.startCreate().createMotivationCondition(value).endCreate();
       return this;
    }
    
@@ -391,14 +391,14 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this.startCreate().filterFriends().endCreate();
    }
 
-   public StudentPO filterFriends(StudentPO tgt)
+   public StudentPO createFriendsPO(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
    }
 
    public StudentPO createFriends(StudentPO tgt)
    {
-      return this.startCreate().filterFriends(tgt).endCreate();
+      return this.startCreate().createFriendsPO(tgt).endCreate();
    }
 
    public StudentSet getFriends()

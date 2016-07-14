@@ -773,6 +773,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+   /**
+    * Depricated. Use filter() instead.
+    * 
+    * @param condition
+    *           The condition used for filtering
+    * @return this
+    */
+   @Deprecated
    public POC has(Condition<Object> condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
@@ -808,7 +816,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
-   public POC filter(Condition<MC> condition)
+   public POC createCondition(Condition<MC> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
          .withCondition((Condition<Object>) condition)
@@ -821,7 +829,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
-   public <TPOC extends PatternObject> TPOC filterPath(PathExpression expression, TPOC targetPatternObject)
+   public <TPOC extends PatternObject> TPOC createPath(PathExpression expression, TPOC targetPatternObject)
    {
       PatternPath patternPath = new PatternPath();
       patternPath.setPathExpr(expression);

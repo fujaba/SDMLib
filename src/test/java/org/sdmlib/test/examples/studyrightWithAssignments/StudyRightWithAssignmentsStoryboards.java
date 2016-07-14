@@ -514,11 +514,11 @@ public class StudyRightWithAssignmentsStoryboards {
       
       story.markCodeStart();
       
-      RoomPO roomPO = university.getRooms().filterRoomPO();
+      RoomPO roomPO = university.getRooms().createRoomPO();
             
-      StudentPO stud1PO = roomPO.filterStudents();      
+      StudentPO stud1PO = roomPO.createStudentsPO();      
       
-      roomPO.filterStudents().filterMotivation(42).filterFriends(stud1PO);
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -536,13 +536,13 @@ public class StudyRightWithAssignmentsStoryboards {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().filterRoomPO();
+      roomPO = university.getRooms().createRoomPO();
             
-      stud1PO = roomPO.filterStudents();      
+      stud1PO = roomPO.createStudentsPO();      
       
-      final StudentPO stud2PO = roomPO.filterStudents().filterMotivation(0, 50);
+      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
       
-      stud2PO.filterFriends(stud1PO);
+      stud2PO.createFriendsPO(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -561,11 +561,11 @@ public class StudyRightWithAssignmentsStoryboards {
       
       UniversityPO uniPO = new UniversityPO(university);
       
-      roomPO = uniPO.filterRooms();
+      roomPO = uniPO.createRoomsPO();
             
-      stud1PO = roomPO.filterStudents().filterMotivation(0, 42);      
+      stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);      
       
-      roomPO.filterStudents().filterFriends(stud1PO);
+      roomPO.createStudentsPO().createFriendsPO(stud1PO);
       
       roomPO.filterTas(null);
       
@@ -592,9 +592,9 @@ public class StudyRightWithAssignmentsStoryboards {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().filterRoomPO();
+      roomPO = university.getRooms().createRoomPO();
       
-      stud1PO = roomPO.filterStudents();
+      stud1PO = roomPO.createStudentsPO();
       
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
       
@@ -612,9 +612,9 @@ public class StudyRightWithAssignmentsStoryboards {
       
       story.markCodeStart();
       
-      roomPO = university.getRooms().filterRoomPO();
+      roomPO = university.getRooms().createRoomPO();
       
-      stud1PO = roomPO.filterStudents();
+      stud1PO = roomPO.createStudentsPO();
 
       for (Match match : (Iterable<Match>) roomPO.getPattern())
       {
@@ -661,7 +661,7 @@ public class StudyRightWithAssignmentsStoryboards {
       
       roomPO = new RoomPO(mathRoom);
       
-      stud1PO = roomPO.filterPath(r->((Room)r).getDoors().getStudents(), new StudentPO());
+      stud1PO = roomPO.createPath(r->((Room)r).getDoors().getStudents(), new StudentPO());
       
       stud1PO.startCreate();
       
@@ -754,13 +754,13 @@ public class StudyRightWithAssignmentsStoryboards {
       
       RoomPO nextRoomPO = currentRoomPO.filterDoors();
       
-      studPO.filter(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
+      studPO.createCondition(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
       
       uniPO.getPattern().clone(reachabilityGraph);
       
       studPO.startCreate().filterIn(nextRoomPO).endCreate();
       
-      studPO.filter(s -> 
+      studPO.createCondition(s -> 
          {
             studPO.withMotivation(studPO.getMotivation()-nextRoomPO.getCredits());
             studPO.withCredits(studPO.getCredits()+nextRoomPO.getCredits());
@@ -826,7 +826,7 @@ public class StudyRightWithAssignmentsStoryboards {
       ReachabilityGraphPO reachabilityGraphPO = new ReachabilityGraphPO(reachabilityGraph);
       ReachableStatePO statePO = reachabilityGraphPO.filterStates();
       UniversityPO universityPO = statePO.filterGraphRoot().instanceOf(new UniversityPO());
-      StudentPO studentPO = universityPO.filterStudents().filterMotivation(0);
+      StudentPO studentPO = universityPO.filterStudents().createMotivationCondition(0);
       RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
       
       ReachableState currentMatch = statePO.getCurrentMatch();

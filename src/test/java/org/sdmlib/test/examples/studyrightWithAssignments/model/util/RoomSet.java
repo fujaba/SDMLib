@@ -45,7 +45,7 @@ public class RoomSet extends SDMSet<Room>
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
 
-   public RoomPO filterRoomPO()
+   public RoomPO createRoomPO()
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }

@@ -286,7 +286,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public StudentPO filterStudents()
+   public StudentPO createStudentsPO()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -298,7 +298,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
    public StudentPO createStudents()
    {
-      return this.startCreate().filterStudents().endCreate();
+      return this.startCreate().createStudentsPO().endCreate();
    }
 
    public RoomPO filterStudents(StudentPO tgt)

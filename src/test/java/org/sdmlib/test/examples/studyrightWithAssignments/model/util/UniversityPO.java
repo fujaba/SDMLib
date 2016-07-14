@@ -128,7 +128,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return null;
    }
 
-   public RoomPO filterRooms()
+   public RoomPO createRoomsPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -140,7 +140,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
    public RoomPO createRooms()
    {
-      return this.startCreate().filterRooms().endCreate();
+      return this.startCreate().createRoomsPO().endCreate();
    }
 
    public UniversityPO filterRooms(RoomPO tgt)
