@@ -495,14 +495,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
    private void insertSetStartModelPattern(Parser parser)
    {
-      String searchString = Parser.METHOD + ":filter" + CGUtil.shortClassName(model.getName()) + "PO()";
+      String searchString = Parser.METHOD + ":create" + CGUtil.shortClassName(model.getName()) + "PO()";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
             "\n\n" +
-                  "   public ModelPO filterModelPO()\n" +
+                  "   public ModelPO createModelPO()\n" +
                   "   {\n" +
                   "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
                   "   }\n"
@@ -630,14 +630,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 		   return;
 	   }
 	  String shortClassName = CGUtil.shortClassName(model.getName(false));
-      String searchString = Parser.METHOD + ":filter(Condition<"+shortClassName+">)";
+      String searchString = Parser.METHOD + ":create(Condition<"+shortClassName+">)";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
             "\n\n" +
-                  "   public ModelSetType filter(Condition<ModelType> condition) {\n" + 
+                  "   public ModelSetType create(Condition<ModelType> condition) {\n" + 
                   "      ModelSetType filterList = new ModelSetType();\n" + 
                   "      filterItems(filterList, condition);\n" + 
                   "      return filterList;\n" + 

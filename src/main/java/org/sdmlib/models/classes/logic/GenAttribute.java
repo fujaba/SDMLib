@@ -165,14 +165,14 @@ public class GenAttribute extends Generator<Attribute>
       Template template = new Template(Parser.METHOD + ":create{{Name}}({{AttrType}})");
       template.withTemplate("   public {{PatternObjectType}} create{{Name}}({{AttrType}} value)\n" +
             "   {\n" +
-            "      this.startCreate().filter{{Name}}(value).endCreate();\n" +
+            "      this.startCreate().create{{Name}}Condition(value).endCreate();\n" +
             "      return this;\n" +
             "   }\n" +
             "   \n");
 
       String patternObjectType = CGUtil.shortClassName(ownerClazz.getName(false)) + "PO";
       template.insert(parser, "PatternObjectType", patternObjectType,
-         "name", StrUtil.upFirstChar(model.getName()),
+    	 "name", StrUtil.upFirstChar(model.getName()),
          "AttrType", attrType);
    }
 
@@ -277,9 +277,9 @@ public class GenAttribute extends Generator<Attribute>
       }
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getName(false), parser);
       attrType = CGUtil.shortClassName(attrType);
-      Template template = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}},{{AttrType}})");
+      Template template = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}},{{AttrType}})");
       template.withTemplate("" +
-            "   public {{PatternObjectType}} filter{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
+            "   public {{PatternObjectType}} create{{Name}}Condition({{AttrType}} lower, {{AttrType}} upper)\n" +
             "   {\n" +
             "      new AttributeConstraint()\n" +
             "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
@@ -316,9 +316,9 @@ public class GenAttribute extends Generator<Attribute>
       String attrType = model.getType().getName(true);
       parser.insertImport(model.getType().getName(false));
       attrType = CGUtil.shortClassName(attrType);
-      Template template = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}})");
+      Template template = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}})");
       template.withTemplate("" + 
-            "   public {{PatternObjectType}} filter{{Name}}({{AttrType}} value)\n" +
+            "   public {{PatternObjectType}} create{{Name}}Condition({{AttrType}} value)\n" +
             "   {\n" +
             "      new AttributeConstraint()\n" +
             "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
@@ -379,7 +379,7 @@ public class GenAttribute extends Generator<Attribute>
             + "   }\n"
             + "\n");
 
-      Template templateFilter = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}})");
+      Template templateFilter = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}})");
       templateFilter.withTemplate("\n" + 
             "   /**\n" + 
             "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute matches the parameter value. \n" + 
@@ -388,7 +388,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} value)\n" +
+            + "   public {{ObjectSetType}} create{{Name}}Condition({{AttrType}} value)\n" +
             "   {\n" +
             "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
             "      \n" +
@@ -404,7 +404,7 @@ public class GenAttribute extends Generator<Attribute>
             "   }\n" +
             "\n");
 
-      Template templateFilterUpper = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}},{{AttrType}})");
+      Template templateFilterUpper = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}},{{AttrType}})");
       templateFilterUpper.withCondition(" int long float double String ".indexOf(" " + model.getType().getName(false) + " ") >= 0);
       templateFilterUpper.withTemplate("\n" + 
             "   /**\n" + 
@@ -415,7 +415,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
+            + "   public {{ObjectSetType}} create{{Name}}Condition({{AttrType}} lower, {{AttrType}} upper)\n" +
             "   {\n" +
             "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
             "      \n" +
@@ -1077,9 +1077,9 @@ public class GenAttribute extends Generator<Attribute>
 
       Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 
-      genClass.removeFragment(poParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + ")");
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + ")");
 
-      genClass.removeFragment(poParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + "," + attributeType + ")");
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + "," + attributeType + ")");
 
       genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "(" + attributeType + ")");
 
@@ -1093,9 +1093,9 @@ public class GenAttribute extends Generator<Attribute>
 
       genClass.removeFragment(setParser, Parser.METHOD + ":get" + attributeName + "()");
 
-      genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + ")");
+      genClass.removeFragment(setParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + ")");
 
-      genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + "," + attributeType + ")");
+      genClass.removeFragment(setParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + "," + attributeType + ")");
 
       genClass.removeFragment(setParser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
 

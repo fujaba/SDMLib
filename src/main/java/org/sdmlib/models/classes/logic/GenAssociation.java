@@ -889,7 +889,9 @@ public class GenAssociation extends Generator<Association>
                      + StrUtil.upFirstChar(partnerRole.getName()) + "())";
                parser.insertImport(Collections.class.getName());
             }
-            CGUtil.replaceAll(text, "containsClause", containsClause);
+            CGUtil.replaceAll(text, 
+            		"containsClause", containsClause,
+            		"filterName", "filter" + StrUtil.upFirstChar(partnerRole.getName()));
             
       }
        
@@ -1043,7 +1045,7 @@ public class GenAssociation extends Generator<Association>
    private void insertFilterNoParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
-      String key = Parser.METHOD + ":filter" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO()";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
@@ -1080,7 +1082,7 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "filterName", "filter" + StrUtil.upFirstChar(partnerRole.getName()), 
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
             "ClassObjectType", partnerClass,
             "ModelClass", modelClassName,
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
@@ -1122,7 +1124,8 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "Name", StrUtil.upFirstChar(partnerRole.getName()), 
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
+            "createName", "create" + StrUtil.upFirstChar(partnerRole.getName()), 
             "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
@@ -1138,7 +1141,7 @@ public class GenAssociation extends Generator<Association>
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
-      String key = Parser.METHOD + ":filter" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
@@ -1163,7 +1166,7 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "filterName", "filter" + StrUtil.upFirstChar(partnerRole.getName()), 
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
             "ModelClass", modelClassName,
             "ModelPOType", modelPOType, 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
@@ -1197,7 +1200,8 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "Name", StrUtil.upFirstChar(partnerRole.getName()), 
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
+            "createName", "create" + StrUtil.upFirstChar(partnerRole.getName()), 
             "ModelPOType", modelPOType);
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
@@ -1582,13 +1586,13 @@ public class GenAssociation extends Generator<Association>
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":filter" + roleName + "()");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
 	   
 	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "()");
 	   
 	   genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":filter" + roleName + "(" + partnerPO + ")");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(" + partnerPO + ")");
 	   
 	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "(" + partnerPO + ")");
 	   
