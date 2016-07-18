@@ -31,6 +31,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.modelsets.SDMSet;
 
@@ -51,7 +52,7 @@ public class GenEnumeration extends GenClazzEntity{
 			insertMethods(rootDir, helpersDir);
 			printFile(parser);
 			ClassModel classModel = (ClassModel) model.getClassModel();
-			if (classModel.hasFeature(Feature.Serialization, model))
+			if (classModel.hasFeature(Feature.SERIALIZATION, model))
 		    {
 		         getOrCreateParserForModelSetFile(helpersDir);
 		         printFile(modelSetParser);
@@ -101,11 +102,11 @@ public class GenEnumeration extends GenClazzEntity{
 	
 	public Parser getOrCreateParserForModelSetFile(String rootDir)
 	   {
-			if (getRepairClassModel().hasFeature(Feature.ALBERTsSets) == false
-					&& getRepairClassModel().hasFeature(Feature.Serialization) == false) {
+			if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false
+					&& getRepairClassModel().hasFeature(Feature.SERIALIZATION) == false) {
 				return null;
 			}
-			if (((ClassModel) model.getClassModel()).hasFeature(Feature.ALBERTsSets) == false) {
+			if (((ClassModel) model.getClassModel()).hasFeature(Feature.SETCLASS) == false) {
 				return null;
 			}
 
@@ -140,9 +141,10 @@ public class GenEnumeration extends GenClazzEntity{
 
 	         File modelSetJavaFile = new File(fileName);
 
-	         if (!modelSetJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
-	         {
-	            HashSet<String> featureSet = Feature.Serialization.getPath();
+	         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+	         
+	         if (!modelSetJavaFile.exists()  && feature != null) {
+	            HashSet<String> featureSet = feature.getPath();
 
 	            for (String featureValue : featureSet)
 	            {
