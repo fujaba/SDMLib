@@ -14,12 +14,10 @@ public class TestAttributes {
 
 	@Test
 	public void testClassWithoutAttributes() {
-		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_a");
 		Clazz person = model.createClazz("Person");
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
 	
 	@Test
@@ -157,7 +155,6 @@ public class TestAttributes {
 		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PUBLIC));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
 	
 	@Test
@@ -168,6 +165,14 @@ public class TestAttributes {
 		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.STATIC));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
+	@Test
+	public void testClassWithProtectedModifiedAttribute() {
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_o");
+		Clazz person = model.createClazz("Person");
+		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PROTECTED));
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
+	}
+
 }
