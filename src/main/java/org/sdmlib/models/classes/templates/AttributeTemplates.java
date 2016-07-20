@@ -58,7 +58,7 @@ public class AttributeTemplates {
 	         return allTemplates;
 
 	      
-	      if (attribute.getModifier().equals(Modifier.PRIVATE))
+	      if (attribute.getModifier().equals(Modifier.PRIVATE) || attribute.getModifier().equals(Modifier.PROTECTED) )
 	      {
 	    	  Template attrGetter;
 	    	  if ("boolean".equalsIgnoreCase(attribute.getType().getName(false)))
