@@ -3,6 +3,7 @@ package org.sdmlib.models.tables.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Cell;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.tables.util.RowPO;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.util.CellPO;
@@ -39,6 +40,11 @@ public class CellPO extends PatternObject<CellPO, Cell>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public CellPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    public CellPO createValueCondition(Object value)
    {
       new AttributeConstraint()
@@ -53,9 +59,17 @@ public class CellPO extends PatternObject<CellPO, Cell>
       return this;
    }
    
-   public CellPO createValue(Object value)
+   public CellPO createValueAssignment(Object value)
    {
-      this.startCreate().createValueCondition(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Cell.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -87,19 +101,24 @@ public class CellPO extends PatternObject<CellPO, Cell>
       return result;
    }
 
-   public RowPO createRow()
+   public RowPO createRowPO(String modifier)
    {
-      return this.startCreate().createRowPO().endCreate();
+      RowPO result = new RowPO(new Row[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Cell.PROPERTY_ROW, result);
+      
+      return result;
    }
 
-   public CellPO createRowPO(RowPO tgt)
+   public CellPO createRowLink(RowPO tgt)
    {
       return hasLinkConstraint(tgt, Cell.PROPERTY_ROW);
    }
 
-   public CellPO createRow(RowPO tgt)
+   public CellPO createRowLink(RowPO tgt, String modifier)
    {
-      return this.startCreate().createRowPO(tgt).endCreate();
+      return hasLinkConstraint(tgt, Cell.PROPERTY_ROW, modifier);
    }
 
    public Row getRow()
@@ -121,9 +140,24 @@ public class CellPO extends PatternObject<CellPO, Cell>
       return result;
    }
 
-   public CellPO createColumnPO(ColumnPO tgt)
+   public ColumnPO createColumnPO(String modifier)
+   {
+      ColumnPO result = new ColumnPO(new Column[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Cell.PROPERTY_COLUMN, result);
+      
+      return result;
+   }
+
+   public CellPO createColumnLink(ColumnPO tgt)
    {
       return hasLinkConstraint(tgt, Cell.PROPERTY_COLUMN);
+   }
+
+   public CellPO createColumnLink(ColumnPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Cell.PROPERTY_COLUMN, modifier);
    }
 
    public Column getColumn()
@@ -133,16 +167,6 @@ public class CellPO extends PatternObject<CellPO, Cell>
          return ((Cell) this.getCurrentMatch()).getColumn();
       }
       return null;
-   }
-
-   public ColumnPO createColumn()
-   {
-      return this.startCreate().createColumnPO().endCreate();
-   }
-
-   public CellPO createColumn(ColumnPO tgt)
-   {
-      return this.startCreate().createColumnPO(tgt).endCreate();
    }
 
 }

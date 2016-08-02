@@ -778,7 +778,7 @@ public class StudyRightWithAssignmentsStoryboards
       // story.addObjectDiagram(university);
 
       // =====================================================
-      story.addStep("List all rooms:");
+      story.addStep("List all topics:");
 
       story.markCodeStart();
 
@@ -802,20 +802,16 @@ public class StudyRightWithAssignmentsStoryboards
       
       RoomPO roomsPO = universityPO.createRoomsPO();
       
-      universityPO.startCreate();
+      RowPO rowPO = tablePO.createRowsPO(CREATE);
       
-      RowPO rowPO = tablePO.createRowsPO();
-      
-      CellPO cell1PO = rowPO.createCellsPO().createColumnPO(col1PO);
+      CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
       cell1PO.createCondition( cell -> cell.withValue(roomsPO.getTopic()) != null );
       
-      CellPO cell2PO = rowPO.createCellsPO().createColumnPO(col2PO);
+      CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
       cell2PO.createCondition( cell -> cell.withValue(roomsPO.getCredits()) != null );
       
-      CellPO cell3PO = rowPO.createCellsPO().createColumnPO(col3PO);
+      CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
       cell3PO.createCondition( cell -> cell.withValue(roomsPO.getStudents().size()) != null );
-      
-      universityPO.endCreate();
       
       universityPO.doAllMatches();
 

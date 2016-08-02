@@ -13,6 +13,7 @@ import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Annotation;
@@ -154,26 +155,40 @@ public class GenAttribute extends Generator<Attribute>
       return importList;
    }
 
-   private void insertCreateMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz)
+   private void insertCreateAssignmentMethodInPatternObjectClass(Parser parser, Clazz ownerClazz)
    {
       String attrType = model.getType().getName(true);
       parser.insertImport(model.getType().getName(false));
-      //      String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getName(false), parser);
+      parser.insertImport(Pattern.class.getName());
+      
 
       attrType = CGUtil.shortClassName(attrType);
 
-      Template template = new Template(Parser.METHOD + ":create{{Name}}({{AttrType}})");
-      template.withTemplate("   public {{PatternObjectType}} create{{Name}}({{AttrType}} value)\n" +
+      Template template = new Template(Parser.METHOD + ":create{{Name}}Assignment({{AttrType}})");
+      template.withTemplate("" + 
+            "   public {{PatternObjectType}} create{{Name}}Assignment({{AttrType}} value)\n" +
             "   {\n" +
-            "      this.startCreate().create{{Name}}Condition(value).endCreate();\n" +
+            "      new AttributeConstraint()\n" +
+            "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
+            "      .withTgtValue(value)\n" +
+            "      .withSrc(this)\n" +
+            "      .withModifier(Pattern.CREATE)\n" +
+            "      .withPattern(this.getPattern());\n" +
+            "      \n" +
+            "      super.filterAttr();\n" +
+            "      \n" +
             "      return this;\n" +
             "   }\n" +
             "   \n");
 
       String patternObjectType = CGUtil.shortClassName(ownerClazz.getName(false)) + "PO";
-      template.insert(parser, "PatternObjectType", patternObjectType,
-    	 "name", StrUtil.upFirstChar(model.getName()),
-         "AttrType", attrType);
+      String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
+
+      template.insert(parser, 
+         "PatternObjectType", patternObjectType,
+         "name", model.getName(),
+         "AttrType", attrType,
+         "ModelClass", modelClass);
    }
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz)
@@ -265,7 +280,7 @@ public class GenAttribute extends Generator<Attribute>
    {
       insertFilterMethodInPatternObjectClassOneParam(parser, ownerClazz);
       insertFilterMethodInPatternObjectClassRange(parser, ownerClazz);
-      insertCreateMethodInPatternObjectClassOneParam(parser, ownerClazz);
+      insertCreateAssignmentMethodInPatternObjectClass(parser, ownerClazz);
    }
 
    private void insertFilterMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz)

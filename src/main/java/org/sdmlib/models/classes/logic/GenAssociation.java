@@ -973,10 +973,10 @@ public class GenAssociation extends Generator<Association>
 
    private void insertGetterInPatternObjectFile(Clazz clazz, Parser parser, Association partnerRole)
    {
-      insertFilterNoParamInPatternObjectFile(clazz, parser, partnerRole);
       insertCreateNoParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertCreateModifierParamInPatternObjectFile(clazz, parser, partnerRole);
       insertFilterWithParamInPatternObjectFile(clazz, parser, partnerRole);
-      insertCreateWithParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertFilterWithPOAndModifierParamInPatternObjectFile(clazz, parser, partnerRole);
       insertGetInPatternObjectFile(clazz, parser, partnerRole);
    }
 
@@ -1042,7 +1042,7 @@ public class GenAssociation extends Generator<Association>
    }
 
 
-   private void insertFilterNoParamInPatternObjectFile(Clazz clazz, Parser parser,
+   private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO()";
@@ -1099,38 +1099,59 @@ public class GenAssociation extends Generator<Association>
    }
 
 
-   private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
+   private void insertCreateModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
-      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO(String)";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public PatternObjectType createName()\n" + 
+            "   public PatternObjectType filterName(String modifier)\n" + 
             "   {\n" + 
-            "      return this.startCreate().filterName().endCreate();\n" + 
+            "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" + 
+            "      \n" + 
+            "      result.setModifier(modifier);\n" + 
+            "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
+            "      \n" + 
+            "      return result;\n" + 
             "   }\n\n");
 
-//         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
-         
+         //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
+                  
          if ( ! partnerRole.getClazz().isExternal())
          {
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
          
+         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
+         
+         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         {
+            modelClassName += "Creator";
+         }
+         
+         String partnerClass = partnerRole.getClazz().getName();
+         
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
-            "createName", "create" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser));
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
+            "ClassObjectType", partnerClass,
+            "ModelClass", modelClassName,
+            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.insert(classEnd, text.toString());
+         
+         if(partnerClass.indexOf(".") < 0) 
+         {
+            parser.insertImport(partnerRole.getClazz().getName(false));
+         }
       }
    }
 
@@ -1141,7 +1162,7 @@ public class GenAssociation extends Generator<Association>
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
-      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO(" + patternObjectType + ")";
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
@@ -1166,7 +1187,7 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link", 
             "ModelClass", modelClassName,
             "ModelPOType", modelPOType, 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
@@ -1177,38 +1198,48 @@ public class GenAssociation extends Generator<Association>
       }
    }
 
-
-   private void insertCreateWithParamInPatternObjectFile(Clazz clazz, Parser parser,
+   private void insertFilterWithPOAndModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
-	   String patternObjectType = partnerRole.getClazz().getName(true)+"PO";
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
+      String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
-      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link(" + patternObjectType + ",String)";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public ModelPOType createName(PatternObjectType tgt)\n" + 
+            "   public ModelPOType filterName(PatternObjectType tgt, String modifier)\n" + 
             "   {\n" + 
-            "      return this.startCreate().filterName(tgt).endCreate();\n" + 
+            "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME, modifier);\n" + 
             "   }\n\n");
 
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
+         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         
+         ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
+
+         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         {
+            modelClassName += "Creator";
+         }
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
-            "createName", "create" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelPOType", modelPOType);
+            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link", 
+            "ModelClass", modelClassName,
+            "ModelPOType", modelPOType, 
+            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.insert(classEnd, text.toString());
       }
    }
+
 
 
    private void insertSetterInModelSetFile(Clazz tgtClass, Parser parser, Association partnerRole)

@@ -176,151 +176,6 @@ public class ColumnSet extends SDMSet<Column>
       return this;
    }
 
-   /**
-    * Loop through the current set of Column objects and collect a set of the Table objects reached via table. 
-    * 
-    * @return Set of Table objects reachable via table
-    */
-   public TableSet getTable()
-   {
-      TableSet result = new TableSet();
-      
-      for (Column obj : this)
-      {
-         result.with(obj.getTable());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Column objects and collect all contained objects with reference table pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as table neighbor of the collected results. 
-    * 
-    * @return Set of Table objects referring to value via table
-    */
-   public ColumnSet filterTable(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ColumnSet answer = new ColumnSet();
-      
-      for (Column obj : this)
-      {
-         if (neighbors.contains(obj.getTable()) || (neighbors.isEmpty() && obj.getTable() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Table attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Table attributes.
-    */
-   public ColumnSet withTable(Table value)
-   {
-      for (Column obj : this)
-      {
-         obj.withTable(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Column objects and collect a set of the Cell objects reached via cells. 
-    * 
-    * @return Set of Cell objects reachable via cells
-    */
-   public CellSet getCells()
-   {
-      CellSet result = new CellSet();
-      
-      for (Column obj : this)
-      {
-         result.with(obj.getCells());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Column objects and collect all contained objects with reference cells pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as cells neighbor of the collected results. 
-    * 
-    * @return Set of Cell objects referring to value via cells
-    */
-   public ColumnSet filterCells(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ColumnSet answer = new ColumnSet();
-      
-      for (Column obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getCells()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Cells attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Cells attributes.
-    */
-   public ColumnSet withCells(Cell value)
-   {
-      for (Column obj : this)
-      {
-         obj.withCells(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Column object passed as parameter from the Cells attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public ColumnSet withoutCells(Cell value)
-   {
-      for (Column obj : this)
-      {
-         obj.withoutCells(value);
-      }
-      
-      return this;
-   }
-
 
    /**
     * Loop through the current set of Column objects and collect a list of the tdCssClass attribute values. 
@@ -482,6 +337,151 @@ public class ColumnSet extends SDMSet<Column>
       for (Column obj : this)
       {
          obj.setThCssClass(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Column objects and collect a set of the Table objects reached via table. 
+    * 
+    * @return Set of Table objects reachable via table
+    */
+   public TableSet getTable()
+   {
+      TableSet result = new TableSet();
+      
+      for (Column obj : this)
+      {
+         result.with(obj.getTable());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Column objects and collect all contained objects with reference table pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as table neighbor of the collected results. 
+    * 
+    * @return Set of Table objects referring to value via table
+    */
+   public ColumnSet filterTable(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ColumnSet answer = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (neighbors.contains(obj.getTable()) || (neighbors.isEmpty() && obj.getTable() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Table attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Table attributes.
+    */
+   public ColumnSet withTable(Table value)
+   {
+      for (Column obj : this)
+      {
+         obj.withTable(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Column objects and collect a set of the Cell objects reached via cells. 
+    * 
+    * @return Set of Cell objects reachable via cells
+    */
+   public CellSet getCells()
+   {
+      CellSet result = new CellSet();
+      
+      for (Column obj : this)
+      {
+         result.with(obj.getCells());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Column objects and collect all contained objects with reference cells pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as cells neighbor of the collected results. 
+    * 
+    * @return Set of Cell objects referring to value via cells
+    */
+   public ColumnSet filterCells(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ColumnSet answer = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getCells()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Cells attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Cells attributes.
+    */
+   public ColumnSet withCells(Cell value)
+   {
+      for (Column obj : this)
+      {
+         obj.withCells(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Column object passed as parameter from the Cells attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public ColumnSet withoutCells(Cell value)
+   {
+      for (Column obj : this)
+      {
+         obj.withoutCells(value);
       }
       
       return this;

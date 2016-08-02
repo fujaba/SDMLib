@@ -32,10 +32,10 @@ public class ColumnCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Column.PROPERTY_NAME,
-      Column.PROPERTY_TABLE,
-      Column.PROPERTY_CELLS,
       Column.PROPERTY_TDCSSCLASS,
       Column.PROPERTY_THCSSCLASS,
+      Column.PROPERTY_TABLE,
+      Column.PROPERTY_CELLS,
    };
    
    @Override
@@ -66,16 +66,6 @@ public class ColumnCreator implements SendableEntityCreator
          return ((Column) target).getName();
       }
 
-      if (Column.PROPERTY_TABLE.equalsIgnoreCase(attribute))
-      {
-         return ((Column) target).getTable();
-      }
-
-      if (Column.PROPERTY_CELLS.equalsIgnoreCase(attribute))
-      {
-         return ((Column) target).getCells();
-      }
-
       if (Column.PROPERTY_TDCSSCLASS.equalsIgnoreCase(attribute))
       {
          return ((Column) target).getTdCssClass();
@@ -84,6 +74,16 @@ public class ColumnCreator implements SendableEntityCreator
       if (Column.PROPERTY_THCSSCLASS.equalsIgnoreCase(attribute))
       {
          return ((Column) target).getThCssClass();
+      }
+
+      if (Column.PROPERTY_TABLE.equalsIgnoreCase(attribute))
+      {
+         return ((Column) target).getTable();
+      }
+
+      if (Column.PROPERTY_CELLS.equalsIgnoreCase(attribute))
+      {
+         return ((Column) target).getCells();
       }
       
       return null;

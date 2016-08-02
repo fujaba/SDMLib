@@ -1081,8 +1081,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return value;
    }
 
-
    public POC hasLinkConstraint(PatternObject tgt, String roleName)
+   {
+      return this.hasLinkConstraint(tgt, roleName, this.getPattern().getModifier());
+   }
+
+   public POC hasLinkConstraint(PatternObject tgt, String roleName, String modifier)
    {
       if (tgt == null)
       {
@@ -1090,7 +1094,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
          PatternObject result = new PatternObject();
 
-         result.setModifier(this.getPattern().getModifier());
+         result.setModifier(modifier);
 
          this.hasLink(roleName, result);
 
@@ -1105,7 +1109,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
             .withTgt(tgt).withTgtRoleName(roleName)
             .withSrc(this)
-            .withModifier(this.getPattern().getModifier());
+            .withModifier(modifier);
 
          this.getPattern().addToElements(patternLink);
 

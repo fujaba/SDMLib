@@ -15,98 +15,81 @@ import org.sdmlib.models.tables.util.RowSet;
 public class TablePO extends PatternObject<TablePO, Table>
 {
 
-   public TableSet allMatches()
+    public TableSet allMatches()
    {
       this.setDoAllMatches(true);
-
+      
       TableSet matches = new TableSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Table) this.getCurrentMatch());
-
+         
          this.getPattern().findMatch();
       }
-
+      
       return matches;
    }
 
 
-   public TablePO()
-   {
+   public TablePO(){
       newInstance(null);
    }
 
-
-   public TablePO(String modifier)
-   {
-      this.withModifier(modifier);
-   }
-
-
-   public TablePO(Table... hostGraphObject)
-   {
-      if (hostGraphObject == null || hostGraphObject.length < 1)
-      {
-         return;
+   public TablePO(Table... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
       }
       newInstance(null, hostGraphObject);
    }
 
-
-   public TablePO createNameAssignment(String value)
+   public TablePO(String modifier)
    {
-      new AttributeConstraint()
-         .withAttrName(Table.PROPERTY_NAME)
-         .withTgtValue(value)
-         .withSrc(this)
-         .withModifier(Pattern.CREATE)
-         .withPattern(this.getPattern());
-
-      super.filterAttr();
-
-      return this;
+      this.setModifier(modifier);
    }
-
-
-   public TablePO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-         .withAttrName(Table.PROPERTY_NAME)
-         .withTgtValue(lower)
-         .withUpperTgtValue(upper)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
-
-      super.filterAttr();
-
-      return this;
-   }
-
-
    public TablePO createNameCondition(String value)
    {
       new AttributeConstraint()
-         .withAttrName(Table.PROPERTY_NAME)
-         .withTgtValue(value)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
-
+      .withAttrName(Table.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
       super.filterAttr();
-
+      
       return this;
    }
-
-
-   public TablePO createName(String value)
+   
+   public TablePO createNameCondition(String lower, String upper)
    {
-      this.startCreate().createNameCondition(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Table.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
-
-
+   
+   public TablePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Table.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -115,8 +98,7 @@ public class TablePO extends PatternObject<TablePO, Table>
       }
       return null;
    }
-
-
+   
    public TablePO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -125,50 +107,36 @@ public class TablePO extends PatternObject<TablePO, Table>
       }
       return this;
    }
-
-
+   
    public ColumnPO createColumnsPO()
    {
-      ColumnPO result = new ColumnPO(new Column[]
-      {});
-
+      ColumnPO result = new ColumnPO(new Column[]{});
+      
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(Table.PROPERTY_COLUMNS, result);
-
+      
       return result;
    }
-
 
    public ColumnPO createColumnsPO(String modifier)
    {
-      ColumnPO result = new ColumnPO(new Column[]
-      {});
-
-      result.setModifier(modifier);
+      ColumnPO result = new ColumnPO(new Column[]{});
       
+      result.setModifier(modifier);
       super.hasLink(Table.PROPERTY_COLUMNS, result);
-
+      
       return result;
    }
 
-
-   public ColumnPO createColumns()
-   {
-      return this.startCreate().createColumnsPO().endCreate();
-   }
-
-
-   public TablePO createColumnsPO(ColumnPO tgt)
+   public TablePO createColumnsLink(ColumnPO tgt)
    {
       return hasLinkConstraint(tgt, Table.PROPERTY_COLUMNS);
    }
 
-
-   public TablePO createColumns(ColumnPO tgt)
+   public TablePO createColumnsLink(ColumnPO tgt, String modifier)
    {
-      return this.startCreate().createColumnsPO(tgt).endCreate();
+      return hasLinkConstraint(tgt, Table.PROPERTY_COLUMNS, modifier);
    }
-
 
    public ColumnSet getColumns()
    {
@@ -179,36 +147,35 @@ public class TablePO extends PatternObject<TablePO, Table>
       return null;
    }
 
-
    public RowPO createRowsPO()
    {
-      RowPO result = new RowPO(new Row[]
-      {});
-
+      RowPO result = new RowPO(new Row[]{});
+      
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(Table.PROPERTY_ROWS, result);
-
+      
       return result;
    }
 
-
-   public RowPO createRows()
+   public RowPO createRowsPO(String modifier)
    {
-      return this.startCreate().createRowsPO().endCreate();
+      RowPO result = new RowPO(new Row[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Table.PROPERTY_ROWS, result);
+      
+      return result;
    }
 
-
-   public TablePO createRowsPO(RowPO tgt)
+   public TablePO createRowsLink(RowPO tgt)
    {
       return hasLinkConstraint(tgt, Table.PROPERTY_ROWS);
    }
 
-
-   public TablePO createRows(RowPO tgt)
+   public TablePO createRowsLink(RowPO tgt, String modifier)
    {
-      return this.startCreate().createRowsPO(tgt).endCreate();
+      return hasLinkConstraint(tgt, Table.PROPERTY_ROWS, modifier);
    }
-
 
    public RowSet getRows()
    {
