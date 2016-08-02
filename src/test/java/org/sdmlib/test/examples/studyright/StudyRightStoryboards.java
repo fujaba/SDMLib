@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
@@ -18,7 +18,7 @@ public class StudyRightStoryboards
    @Test
    public void testStudyRightObjectStoryboards()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       //=============================================================
       storyboard.add("Start situation: use University class to build object structure");
@@ -101,7 +101,7 @@ public class StudyRightStoryboards
    @Test
    public void testFlipbook()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
 
       //=============================================================
@@ -208,7 +208,7 @@ public class StudyRightStoryboards
    @Test
    public void testBidirectionalModelToTextTransformation()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
 
       //=============================================================

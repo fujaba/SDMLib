@@ -122,20 +122,20 @@ public class StoryboardStep implements PropertyChangeInterface, SendableEntity
    
    public static final String PROPERTY_STORYBOARD = "storyboard";
    
-   private Storyboard storyboard = null;
+   private StoryboardImpl storyboard = null;
    
-   public Storyboard getStoryboard()
+   public StoryboardImpl getStoryboard()
    {
       return this.storyboard;
    }
    
-   public boolean setStoryboard(Storyboard value)
+   public boolean setStoryboard(StoryboardImpl storyboardImpl)
    {
       boolean changed = false;
       
-      if (this.storyboard != value)
+      if (this.storyboard != storyboardImpl)
       {
-         Storyboard oldValue = this.storyboard;
+         StoryboardImpl oldValue = this.storyboard;
          
          if (this.storyboard != null)
          {
@@ -143,29 +143,29 @@ public class StoryboardStep implements PropertyChangeInterface, SendableEntity
             oldValue.withoutStoryboardSteps(this);
          }
          
-         this.storyboard = value;
+         this.storyboard = storyboardImpl;
          
-         if (value != null)
+         if (storyboardImpl != null)
          {
-            value.withStoryboardSteps(this);
+            storyboardImpl.withStoryboardSteps(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, storyboardImpl);
          changed = true;
       }
       
       return changed;
    }
    
-   public StoryboardStep withStoryboard(Storyboard value)
+   public StoryboardStep withStoryboard(StoryboardImpl storyboardImpl)
    {
-      setStoryboard(value);
+      setStoryboard(storyboardImpl);
       return this;
    } 
    
-   public Storyboard createStoryboard()
+   public StoryboardImpl createStoryboard()
    {
-      Storyboard value = new Storyboard();
+      StoryboardImpl value = new StoryboardImpl();
       withStoryboard(value);
       return value;
    } 

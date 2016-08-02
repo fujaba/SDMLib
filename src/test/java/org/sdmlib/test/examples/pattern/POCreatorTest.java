@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.sdmlib.models.pattern.POCreator;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -44,7 +44,7 @@ public class POCreatorTest
    @Test
    public void testPOCreatorLargeModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryboardImpl storyboard = new StoryboardImpl();
       storyboard.addStep("At first we instanciate a Model");
 
       storyboard.markCodeStart();

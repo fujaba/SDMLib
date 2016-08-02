@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.SDMLib;
    
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
@@ -41,7 +41,7 @@ public class PatternModelCodeGen
    @Test
    public void testPatternModelCodegen()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ");
       

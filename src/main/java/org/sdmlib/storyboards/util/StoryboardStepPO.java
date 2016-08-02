@@ -2,7 +2,7 @@ package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.util.StoryboardPO;
 import org.sdmlib.storyboards.util.StoryboardStepPO;
@@ -69,7 +69,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    
    public StoryboardPO hasStoryboard()
    {
-      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.Storyboard[]{});
+      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.StoryboardImpl[]{});
       result.setModifier(this.getPattern().getModifier());
       
       super.hasLink(StoryboardStep.PROPERTY_STORYBOARD, result);
@@ -82,7 +82,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
       return hasLinkConstraint(tgt, StoryboardStep.PROPERTY_STORYBOARD);
    }
 
-   public Storyboard getStoryboard()
+   public StoryboardImpl getStoryboard()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -153,7 +153,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    
    public StoryboardPO filterStoryboard()
    {
-      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.Storyboard[]{});
+      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.StoryboardImpl[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(StoryboardStep.PROPERTY_STORYBOARD, result);

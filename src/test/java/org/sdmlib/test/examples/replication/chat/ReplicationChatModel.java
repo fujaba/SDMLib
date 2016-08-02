@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.replication.chat;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -18,7 +18,7 @@ public class ReplicationChatModel
    
    public static void main(String[] args)
    {
-      Storyboard story = new Storyboard("src/test/java", "ReplicationChatModel");
+      StoryboardImpl story = new StoryboardImpl("src/test/java", "ReplicationChatModel");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.replication.chat");
       

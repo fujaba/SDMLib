@@ -24,7 +24,7 @@ import org.sdmlib.modelcouch.connection.RequestObject;
 import org.sdmlib.modelcouch.connection.RequestType;
 import org.sdmlib.modelcouch.connection.ReturnObject;
 import org.sdmlib.modelcouch.connection.authentication.CookieAuthenticator;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.modelcouch.util.PersonCreator;
 
 import de.uniks.networkparser.IdMap;
@@ -46,7 +46,7 @@ public class ModelCouchTasksTest {
    @Test
 	public void testBasicModelOnTheCouch() {
 		CouchDBAdapter adapter = createAdapter();
-		StoryPage story = new StoryPage();
+		Storyboard story = new Storyboard();
 
 		story.add(""
 				+ "This is a test for writing objects to the CouchDB instance https://docker.cs.uni-kassel.de:5984/ and read from it. "

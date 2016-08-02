@@ -8,7 +8,7 @@ import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.replication.util.SeppelSpaceProxyCreator;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
 
@@ -132,7 +132,7 @@ public class ReplicationChatServer
                   }
 
                   // protocol result
-                  Storyboard story = (Storyboard) task.getFromTaskObjects("story");
+                  StoryboardImpl story = (StoryboardImpl) task.getFromTaskObjects("story");
                   
                   story.withJsonIdMap(SeppelSpaceProxyCreator.createIdMap("sb"));
                   

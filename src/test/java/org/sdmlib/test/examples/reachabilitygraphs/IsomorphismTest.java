@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 import org.junit.Test;
 import org.sdmlib.models.pattern.IsomorphismComputation;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
@@ -14,7 +14,7 @@ public class IsomorphismTest
    @Test
    public void testIsomorphismCalculation()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("Create two rings of three nodes with a mark at one node.");
 

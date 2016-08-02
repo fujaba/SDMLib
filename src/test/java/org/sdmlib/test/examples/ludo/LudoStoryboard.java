@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.ludo;
    
 import org.junit.Test;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
@@ -51,7 +51,7 @@ public class LudoStoryboard
    public void testLudoStoryboard()
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ");
       
@@ -142,7 +142,7 @@ public class LudoStoryboard
    @Test
    public void testLudoStoryboardManual()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ");
       

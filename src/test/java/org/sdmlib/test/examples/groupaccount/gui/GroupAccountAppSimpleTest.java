@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
@@ -36,7 +36,7 @@ public class GroupAccountAppSimpleTest
 //   @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       // clean chat directory from .jsonchgs
       final String location = "modeldata/groupaccount/junitest";

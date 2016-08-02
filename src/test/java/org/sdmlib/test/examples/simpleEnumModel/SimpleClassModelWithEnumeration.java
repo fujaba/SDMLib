@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.simpleEnumModel;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -20,7 +20,7 @@ public class SimpleClassModelWithEnumeration
    @Test
    public void testEnumerationInSimpleClassModel()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleEnumModel.model");
       
       Clazz enumeration = model.createClazz("TEnum").enableEnumeration();

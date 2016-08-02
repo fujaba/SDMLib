@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
@@ -36,7 +36,7 @@ public class LudoModel
    @Test
    public void testLudoModel()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("The model: ");
       

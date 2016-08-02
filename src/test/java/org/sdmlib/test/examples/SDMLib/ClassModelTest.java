@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.SDMLib;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
@@ -45,7 +45,7 @@ public class ClassModelTest
    @Test
    public void testClassModelCodeGen()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       // =======================================================================
       // storyboard.add("This test generates some classes with some elements. ");

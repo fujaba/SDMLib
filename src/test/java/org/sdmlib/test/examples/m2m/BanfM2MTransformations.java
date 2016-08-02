@@ -15,7 +15,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.util.PatternCreator;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
@@ -48,7 +48,7 @@ public class BanfM2MTransformations
    @Test
    public void testBanfM2MTransformation()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Class diagram for source model:");
    
@@ -167,7 +167,7 @@ public class BanfM2MTransformations
    }
    
 
-   private Graph simpleReverseMigration(Graph tgtGraph, StoryPage storyboard)
+   private Graph simpleReverseMigration(Graph tgtGraph, Storyboard storyboard)
    {
       // make the graph generic
       GenericGraph genGraph = new Specific2Generic().convert(GraphComponentCreator.createIdMap("s"), tgtGraph);
@@ -362,7 +362,7 @@ public class BanfM2MTransformations
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(PersonCreator.createIdMap("g1"), origGraph);
@@ -421,7 +421,7 @@ public class BanfM2MTransformations
 
    }
 
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g"), origGraph);

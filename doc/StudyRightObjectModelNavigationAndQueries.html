@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -882,41 +885,41 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
+<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
-      
+
       int donePoints = university.getStudents().getDone().getPoints().sum();
-      
+
 </pre><p>Results in:</p>
 <pre>      Sum of assignment points: 23. 
       Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points:  23 actual 23</p>
 <p>Check: donePoints:  15 actual 15</p>
-<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
+<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
-      
+
       RoomSet rooms = availableAssignments.getRoom();
-      
+
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
-<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
+<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>
       RoomSet rooms17 = university.getRooms().filterCredits(17);
       RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
 <pre>      rooms17: (senate math 17)
-      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
-      
+
       RoomSet roomsEven = university.getRooms().filter(value -&gt; value.getCredits() % 2 == 0);
-      
+
 </pre><p>Results in:</p>
-<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>
       TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
-      
-</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
+
+</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>
       university.getStudents().withMotivation(42);
-      
+
 </pre><script>
    var json = {
    "typ":"objectdiagram",
@@ -961,15 +964,15 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries32", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
-      RoomPO roomPO = university.getRooms().filterRoomPO();
-            
-      StudentPO stud1PO = roomPO.filterStudents();      
-      
-      roomPO.filterStudents().filterMotivation(42).filterFriends(stud1PO);
-      
+<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>
+      RoomPO roomPO = university.getRooms().createRoomPO();
+
+      StudentPO stud1PO = roomPO.createStudentsPO();
+
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1034,17 +1037,17 @@
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-            
-      stud1PO = roomPO.filterStudents();      
-      
-      final StudentPO stud2PO = roomPO.filterStudents().filterMotivation(0, 50);
-      
-      stud2PO.filterFriends(stud1PO);
-      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
+
+      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
+
+      stud2PO.createFriendsPO(stud1PO);
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1109,21 +1112,21 @@
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>
       UniversityPO uniPO = new UniversityPO(university);
-      
-      roomPO = uniPO.filterRooms();
-            
-      stud1PO = roomPO.filterStudents().filterMotivation(0, 42);      
-      
-      roomPO.filterStudents().filterFriends(stud1PO);
-      
+
+      roomPO = uniPO.createRoomsPO();
+
+      stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
+
+      roomPO.createStudentsPO().createFriendsPO(stud1PO);
+
       roomPO.filterTas(null);
-      
+
       roomPO.createTas();
-      
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1338,15 +1341,15 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries47", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-      
-      stud1PO = roomPO.filterStudents();
-      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
+
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
-      
+
       TeachingAssistantSet taSet = taPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1419,42 +1422,48 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries52", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-      
-      stud1PO = roomPO.filterStudents();
+<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
 
       for (Match match : (Iterable&lt;Match&gt;) roomPO.getPattern())
       {
          Student currentMatch = stud1PO.getCurrentMatch();
-         
+
          currentMatch.withMotivation(currentMatch.getMotivation() * 2);
-         
+
          &#x2F;&#x2F; or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
-        
+
          Room assertMatch = roomPO.getCurrentMatch();
-         
-         if (match.number == 1) {
-        	 Assert.assertEquals(&quot;Karli&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;senate&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;math&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(17, assertMatch.getCredits());
-         } else if (match.number == 2) {
-        	 Assert.assertEquals(&quot;Abu&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(25, assertMatch.getCredits());
-         } else if (match.number == 3) {
-        	 Assert.assertEquals(&quot;Alice&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(25, assertMatch.getCredits());
+
+         if (match.number == 1)
+         {
+            Assert.assertEquals(&quot;Karli&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;senate&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;math&quot;, assertMatch.getTopic());
+            Assert.assertEquals(17, assertMatch.getCredits());
          }
-         
-         &#x2F;&#x2F;         System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
+         else if (match.number == 2)
+         {
+            Assert.assertEquals(&quot;Abu&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
+            Assert.assertEquals(25, assertMatch.getCredits());
+         }
+         else if (match.number == 3)
+         {
+            Assert.assertEquals(&quot;Alice&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
+            Assert.assertEquals(25, assertMatch.getCredits());
+         }
+
+         &#x2F;&#x2F; System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot;
+         &#x2F;&#x2F; in room &quot; + roomPO.getCurrentMatch());
       }
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1592,17 +1601,17 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries56", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_12'>Step 12: lure students from other rooms into math room: </a></p><pre>      
+<p><a name = 'step_12'>Step 12: lure students from other rooms into math room: </a></p><pre>
       roomPO = new RoomPO(mathRoom);
-      
-      stud1PO = roomPO.filterPath(r-&gt;((Room)r).getDoors().getStudents(), new StudentPO());
-      
+
+      stud1PO = roomPO.createPath(r -&gt; ((Room) r).getDoors().getStudents(), new StudentPO());
+
       stud1PO.startCreate();
-      
+
       stud1PO.filterIn(roomPO);
-      
+
       stud1PO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",

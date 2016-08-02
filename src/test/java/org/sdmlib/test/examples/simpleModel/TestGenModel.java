@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.simpleModel;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -33,7 +33,7 @@ public class TestGenModel
    @Test
    public void testUniDirectionalAssoc()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
@@ -61,7 +61,7 @@ public class TestGenModel
    @Test
    public void testUniDirectionalAssocToObject()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       

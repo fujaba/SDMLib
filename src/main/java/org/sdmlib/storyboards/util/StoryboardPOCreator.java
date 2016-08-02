@@ -1,7 +1,7 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.IdMap;
 
@@ -11,7 +11,7 @@ public class StoryboardPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new StoryboardPO(new Storyboard[]{});
+          return new StoryboardPO(new StoryboardImpl[]{});
       } else {
           return new StoryboardPO();
       }

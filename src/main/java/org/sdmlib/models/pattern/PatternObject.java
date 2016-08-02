@@ -43,38 +43,53 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 
 /**
  * 
- * @see <a href=
- *      '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a
- *      >
+ * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a >
  */
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
    public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
+
    public static final String PROPERTY_CANDIDATES = "candidates";
+
    public static final String PROPERTY_CARDCONSTRAINTS = "cardConstraints";
+
    public static final String PROPERTY_CURRENTMATCH = "currentMatch";
+
    public static final String PROPERTY_DESTROYELEM = "destroyElem";
+
    public static final String PROPERTY_EXCLUDERS = "excluders";
+
    public static final String PROPERTY_INCOMMING = "incomming";
+
    public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
+
    public static final String PROPERTY_OUTGOING = "outgoing";
 
    private PatternLinkSet outgoing = null;
+
    private MatchOtherThenSet matchOtherThen = null;
+
    private PatternLinkSet incomming = null;
+
    private MatchOtherThenSet excluders = null;
+
    private DestroyObjectElem destroyElem = null;
+
    private Object currentMatch;
+
    private CardinalityConstraintSet cardConstraints = null;
+
    private Object candidates;
 
    private AttributeConstraintSet attrConstraints = null;
+
 
    protected void newInstance(IdMap map)
    {
       Pattern<Object> pattern = new Pattern<Object>(new SDMLibIdMap("p"));
       pattern.addToElements(this);
    }
+
 
    protected void newInstance(IdMap map, Object[] hostGraphObject)
    {
@@ -92,6 +107,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       pattern.findMatch();
    }
 
+
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
       // add a pattern link that checks the type of the source object and the
@@ -100,10 +116,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return subclassPO;
    }
 
+
    public boolean rebind(MC o)
    {
       return this.getPattern().rebind(this, o);
    }
+
 
    public POC nextMatch()
    {
@@ -116,6 +134,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    private Iterator<Object> candidatesIterator;
 
+
    public POC matchAsSet()
    {
       this.matchAsSet = true;
@@ -126,6 +145,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    @Override
    public boolean findNextMatch()
@@ -260,6 +280,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return resultStat;
    }
 
+
    public String getLHSPatternObjectName()
    {
       String lhsName = getPatternObjectName();
@@ -276,6 +297,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return lhsName;
    }
 
+
    @Override
    public void resetSearch()
    {
@@ -288,12 +310,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       this.setHasMatch(false);
    }
 
+
    public POC startCreate()
    {
       this.getPattern().startCreate();
 
       return (POC) this;
    }
+
 
    public POC endCreate()
    {
@@ -302,6 +326,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC startDestroy()
    {
       this.getPattern().startDestroy();
@@ -309,12 +334,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC endDestroy()
    {
       this.getPattern().endCreate();
 
       return (POC) this;
    }
+
 
    public POC startNAC()
    {
@@ -330,6 +357,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    public POC endNAC()
    {
@@ -352,6 +380,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC startSubPattern()
    {
       OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
@@ -367,6 +396,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    public POC endSubPattern()
    {
@@ -387,6 +417,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC doAllMatches()
    {
       this.getPattern().setDoAllMatches(true);
@@ -405,6 +436,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC destroy()
    {
       DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
@@ -416,6 +448,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    // ==========================================================================
 
@@ -440,11 +473,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+
    // ==========================================================================
    public MC getCurrentMatch()
    {
       return (MC) this.currentMatch;
    }
+
 
    public void setCurrentMatch(Object value)
    {
@@ -456,11 +491,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    public PatternObject withCurrentMatch(Object value)
    {
       setCurrentMatch(value);
       return this;
    }
+
 
    /********************************************************************
     * <pre>
@@ -480,6 +517,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.incomming;
    }
+
 
    public boolean addToIncomming(PatternLink value)
    {
@@ -504,6 +542,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public boolean removeFromIncomming(PatternLink value)
    {
       boolean changed = false;
@@ -522,17 +561,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withIncomming(PatternLink value)
    {
       addToIncomming(value);
       return this;
    }
 
+
    public PatternObject withoutIncomming(PatternLink value)
    {
       removeFromIncomming(value);
       return this;
    }
+
 
    public void removeAllFromIncomming()
    {
@@ -543,6 +585,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          this.removeFromIncomming(value);
       }
    }
+
 
    /********************************************************************
     * <pre>
@@ -562,6 +605,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.outgoing;
    }
+
 
    public boolean addToOutgoing(PatternLink value)
    {
@@ -586,6 +630,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public boolean removeFromOutgoing(PatternLink value)
    {
       boolean changed = false;
@@ -604,17 +649,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withOutgoing(PatternLink value)
    {
       addToOutgoing(value);
       return this;
    }
 
+
    public PatternObject withoutOutgoing(PatternLink value)
    {
       removeFromOutgoing(value);
       return this;
    }
+
 
    public void removeAllFromOutgoing()
    {
@@ -627,11 +675,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       // }
    }
 
+
    // ==========================================================================
    public Object getCandidates()
    {
       return this.candidates;
    }
+
 
    public void setCandidates(Object value)
    {
@@ -644,11 +694,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    public PatternObject withCandidates(Object value)
    {
       setCandidates(value);
       return this;
    }
+
 
    /********************************************************************
     * <pre>
@@ -668,6 +720,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.attrConstraints;
    }
+
 
    public boolean addToAttrConstraints(AttributeConstraint value)
    {
@@ -692,6 +745,18 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
+   public void addToPattern(PatternObject po)
+   {
+      this.getPattern().addToElements(po);
+      if (po.getModifier() == null)
+      {
+         po.setModifier(this.getPattern().getModifier());
+      }
+      this.getPattern().findMatch();
+   }
+
+
    public boolean removeFromAttrConstraints(AttributeConstraint value)
    {
       boolean changed = false;
@@ -710,17 +775,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withAttrConstraints(AttributeConstraint value)
    {
       addToAttrConstraints(value);
       return this;
    }
 
+
    public PatternObject withoutAttrConstraints(AttributeConstraint value)
    {
       removeFromAttrConstraints(value);
       return this;
    }
+
 
    public void removeAllFromAttrConstraints()
    {
@@ -732,9 +800,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    public void hasLink(String roleName, PatternObject result)
    {
-      if (Pattern.CREATE.equals(this.getPattern().getModifier()))
+      if (Pattern.CREATE.equals(result.getModifier()))
       {
          this.getPattern().addToElements(result);
 
@@ -743,7 +812,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
             .withTgt(result).withTgtRoleName(roleName)
             .withSrc(this)
-            .withModifier(this.getPattern().getModifier());
+            .withModifier(Pattern.CREATE);
 
          this.getPattern().addToElements(patternLink);
 
@@ -754,16 +823,17 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          PatternLink patternLink = new PatternLink()
             .withTgt(result).withTgtRoleName(roleName)
             .withSrc(this);
-         patternLink.setModifier(this.getPattern().getModifier());
+
+         patternLink.setModifier(result.getModifier());
 
          this.getPattern().addToElements(patternLink);
 
          this.getPattern().addToElements(result);
 
-         result.getPattern()
-            .findMatch();
+         result.getPattern().findMatch();
       }
    }
+
 
    protected void filterAttr()
    {
@@ -773,11 +843,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    /**
     * Depricated. Use filter() instead.
     * 
-    * @param condition
-    *           The condition used for filtering
+    * @param condition The condition used for filtering
     * @return this
     */
    @Deprecated
@@ -795,11 +865,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    /**
     * Depricated. Use filter() instead.
     * 
-    * @param condition
-    *           The condition used for filtering
+    * @param condition The condition used for filtering
     * @return this
     */
    @Deprecated
@@ -816,6 +886,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public POC createCondition(Condition<MC> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
@@ -828,6 +899,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    public <TPOC extends PatternObject> TPOC createPath(PathExpression expression, TPOC targetPatternObject)
    {
@@ -843,6 +915,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return targetPatternObject;
    }
 
+
    /********************************************************************
     * <pre>
     *              one                       one
@@ -856,6 +929,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       return this.destroyElem;
    }
+
 
    public boolean setDestroyElem(DestroyObjectElem value)
    {
@@ -885,11 +959,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withDestroyElem(DestroyObjectElem value)
    {
       setDestroyElem(value);
       return this;
    }
+
 
    DestroyObjectElem createDestroyElem()
    {
@@ -897,6 +973,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       withDestroyElem(value);
       return value;
    }
+
 
    public String toString()
    {
@@ -907,6 +984,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);
    }
+
 
    /********************************************************************
     * <pre>
@@ -926,6 +1004,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.cardConstraints;
    }
+
 
    public boolean addToCardConstraints(CardinalityConstraint value)
    {
@@ -950,6 +1029,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public boolean removeFromCardConstraints(CardinalityConstraint value)
    {
       boolean changed = false;
@@ -968,17 +1048,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withCardConstraints(CardinalityConstraint value)
    {
       addToCardConstraints(value);
       return this;
    }
 
+
    public PatternObject withoutCardConstraints(CardinalityConstraint value)
    {
       removeFromCardConstraints(value);
       return this;
    }
+
 
    public void removeAllFromCardConstraints()
    {
@@ -990,12 +1073,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    CardinalityConstraint createCardConstraints()
    {
       CardinalityConstraint value = new CardinalityConstraint();
       withCardConstraints(value);
       return value;
    }
+
 
    public POC hasLinkConstraint(PatternObject tgt, String roleName)
    {
@@ -1030,6 +1115,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1048,6 +1134,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.matchOtherThen;
    }
+
 
    public boolean addToMatchOtherThen(MatchOtherThen value)
    {
@@ -1072,6 +1159,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public boolean removeFromMatchOtherThen(MatchOtherThen value)
    {
       boolean changed = false;
@@ -1090,17 +1178,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withMatchOtherThen(MatchOtherThen value)
    {
       addToMatchOtherThen(value);
       return this;
    }
 
+
    public PatternObject withoutMatchOtherThen(MatchOtherThen value)
    {
       removeFromMatchOtherThen(value);
       return this;
    }
+
 
    public void removeAllFromMatchOtherThen()
    {
@@ -1112,12 +1203,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    MatchOtherThen createMatchOtherThen()
    {
       MatchOtherThen value = new MatchOtherThen();
       withMatchOtherThen(value);
       return value;
    }
+
 
    public POC hasMatchOtherThen(PatternObject forbidden)
    {
@@ -1129,6 +1222,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
+
 
    /********************************************************************
     * <pre>
@@ -1148,6 +1242,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return this.excluders;
    }
+
 
    public boolean addToExcluders(MatchOtherThen value)
    {
@@ -1172,6 +1267,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public boolean removeFromExcluders(MatchOtherThen value)
    {
       boolean changed = false;
@@ -1190,17 +1286,20 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return changed;
    }
 
+
    public PatternObject withExcluders(MatchOtherThen value)
    {
       addToExcluders(value);
       return this;
    }
 
+
    public PatternObject withoutExcluders(MatchOtherThen value)
    {
       removeFromExcluders(value);
       return this;
    }
+
 
    public void removeAllFromExcluders()
    {
@@ -1212,12 +1311,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
    }
 
+
    MatchOtherThen createExcluders()
    {
       MatchOtherThen value = new MatchOtherThen();
       withExcluders(value);
       return value;
    }
+
 
    public PatternObject withAttrConstraints(AttributeConstraint... value)
    {
@@ -1232,6 +1333,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
+
    public PatternObject withoutAttrConstraints(AttributeConstraint... value)
    {
       for (AttributeConstraint item : value)
@@ -1241,12 +1343,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
+
    public AttributeConstraint createAttrConstraintsNew()
    {
       AttributeConstraint value = new AttributeConstraint();
       withAttrConstraints(value);
       return value;
    }
+
 
    public PatternObject withCardConstraints(CardinalityConstraint... value)
    {
@@ -1261,6 +1365,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
+
    public PatternObject<?, ?> withoutCardConstraints(CardinalityConstraint... value)
    {
       for (CardinalityConstraint item : value)
@@ -1269,6 +1374,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       return this;
    }
+
 
    public PatternObject withMatchOtherThen(MatchOtherThen... value)
    {
@@ -1279,6 +1385,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
+
    public PatternObject withoutMatchOtherThen(MatchOtherThen... value)
    {
       for (MatchOtherThen item : value)
@@ -1287,6 +1394,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       return this;
    }
+
 
    public PatternObject withExcluders(MatchOtherThen... value)
    {
@@ -1301,6 +1409,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
+
    public PatternObject withoutExcluders(MatchOtherThen... value)
    {
       for (MatchOtherThen item : value)
@@ -1309,6 +1418,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       return this;
    }
+
 
    public Object createAttrConstraints()
    {

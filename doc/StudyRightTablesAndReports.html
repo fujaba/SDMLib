@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
+<p>How to generate table reports from a model.</p>
+<p>Start: Example object structure:</p>
+<p><a name = 'step_1'>Step 1: List all rooms:</a></p><pre>
+      UniversityPO universityPO = new UniversityPO(university);
+      
+      TablePO tablePO = new TablePO(CREATE);
+      
+      universityPO.addToPattern(tablePO);
+      
+      tablePO.createNameAssignment(&quot;University&quot;);
+      
+      ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
+      
+      ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment(&quot;Credits&quot;)
+            .createTdCssClassAssignment(&quot;text-right&quot;);
+      
+      ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment(&quot;Students&quot;)
+            .createTdCssClassAssignment(&quot;text-right&quot;);
+      
+      RoomPO roomsPO = universityPO.createRoomsPO();
+      
+      universityPO.startCreate();
+      
+      RowPO rowPO = tablePO.createRowsPO();
+      
+      CellPO cell1PO = rowPO.createCellsPO().createColumnPO(col1PO);
+      cell1PO.createCondition( cell -&gt; cell.withValue(roomsPO.getTopic()) != null );
+      
+      CellPO cell2PO = rowPO.createCellsPO().createColumnPO(col2PO);
+      cell2PO.createCondition( cell -&gt; cell.withValue(roomsPO.getCredits()) != null );
+      
+      CellPO cell3PO = rowPO.createCellsPO().createColumnPO(col3PO);
+      cell3PO.createCondition( cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null );
+      
+      universityPO.endCreate();
+      
+      universityPO.doAllMatches();
+
+</pre><p>Results in:</p>
+<table class="table">
+<thead>
+<tr>
+<th class="text-center">Topic</th>
+<th class="text-center">Credits</th>
+<th class="text-center">Students</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >math</td>
+<td class="text-right">17</td>
+<td class="text-right">1</td>
+</tr>
+<tr>
+<td >arts</td>
+<td class="text-right">16</td>
+<td class="text-right">0</td>
+</tr>
+<tr>
+<td >sports</td>
+<td class="text-right">25</td>
+<td class="text-right">2</td>
+</tr>
+<tr>
+<td >exam</td>
+<td class="text-right">0</td>
+<td class="text-right">0</td>
+</tr>
+<tr>
+<td >Software Engineering</td>
+<td class="text-right">42</td>
+<td class="text-right">0</td>
+</tr>
+</tbody>
+
+</table>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"T1 : Table",
+         "attributes":[
+            "name=University"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C2 : Column",
+         "attributes":[
+            "name=Topic",
+            "thCssClass=text-center"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C3 : Column",
+         "attributes":[
+            "name=Credits",
+            "tdCssClass=text-right",
+            "thCssClass=text-center"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C4 : Column",
+         "attributes":[
+            "name=Students",
+            "tdCssClass=text-right",
+            "thCssClass=text-center"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Row",
+         "attributes":[
+            "number=1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Row",
+         "attributes":[
+            "number=2"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Row",
+         "attributes":[
+            "number=3"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R8 : Row",
+         "attributes":[
+            "number=4"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : Row",
+         "attributes":[
+            "number=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C10 : Cell",
+         "attributes":[
+            "value=math"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C11 : Cell",
+         "attributes":[
+            "value=arts"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C12 : Cell",
+         "attributes":[
+            "value=sports"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C13 : Cell",
+         "attributes":[
+            "value=exam"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C14 : Cell",
+         "attributes":[
+            "value=Software Engineering"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C15 : Cell",
+         "attributes":[
+            "value=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C16 : Cell",
+         "attributes":[
+            "value=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C17 : Cell",
+         "attributes":[
+            "value=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C18 : Cell",
+         "attributes":[
+            "value=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C19 : Cell",
+         "attributes":[
+            "value=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C20 : Cell",
+         "attributes":[
+            "value=1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C21 : Cell",
+         "attributes":[
+            "value=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C22 : Cell",
+         "attributes":[
+            "value=2"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C23 : Cell",
+         "attributes":[
+            "value=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C24 : Cell",
+         "attributes":[
+            "value=0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C2 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C3 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C4 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R5 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R6 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R7 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R8 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R9 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T1 : Table"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C10 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C2 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C11 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C2 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C12 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C2 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C13 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C2 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C14 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C2 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C15 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C3 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C16 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C3 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C17 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C3 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C18 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C3 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C19 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C3 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C20 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C4 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C21 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C4 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C22 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C4 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C23 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C4 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C24 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C4 : Column"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C10 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R5 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C15 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R5 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C20 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R5 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C11 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R6 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C16 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R6 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C21 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R6 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C12 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R7 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C17 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R7 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C22 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R7 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C13 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R8 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C18 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R8 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C23 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R8 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C14 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R9 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C19 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R9 : Row"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C24 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R9 : Row"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReports7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

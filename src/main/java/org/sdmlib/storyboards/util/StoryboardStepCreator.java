@@ -1,7 +1,7 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.IdMap;
@@ -57,7 +57,7 @@ public class StoryboardStepCreator extends EntityFactory
 
       if (StoryboardStep.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
       {
-         ((StoryboardStep) target).setStoryboard((Storyboard) value);
+         ((StoryboardStep) target).setStoryboard((StoryboardImpl) value);
          return true;
       }
       

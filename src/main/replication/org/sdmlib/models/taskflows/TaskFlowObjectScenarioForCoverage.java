@@ -1,7 +1,7 @@
 package org.sdmlib.models.taskflows;
 
 import org.junit.Test;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 public class TaskFlowObjectScenarioForCoverage
 {
@@ -13,7 +13,7 @@ public class TaskFlowObjectScenarioForCoverage
    @Test
    public void testTaskFlowObjectScenarioForCoverage()
    {
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       
