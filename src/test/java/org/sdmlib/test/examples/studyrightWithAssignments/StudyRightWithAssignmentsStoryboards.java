@@ -35,6 +35,7 @@ import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.util.ReachableStatePO;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
+import org.sdmlib.models.tables.Table;
 import org.sdmlib.models.tables.util.CellPO;
 import org.sdmlib.models.tables.util.ColumnPO;
 import org.sdmlib.models.tables.util.RowPO;
@@ -65,11 +66,9 @@ public class StudyRightWithAssignmentsStoryboards
 {
    /**
     *
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightWithAssignmentsStoryPage.html'>
-    *      StudyRightWithAssignmentsStoryPage.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightWithAssignmentsStoryPage.html'> StudyRightWithAssignmentsStoryPage.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryPage.html'>StudyRightWithAssignmentsStoryPage.html</a>
- */
+    */
    @Test
    public void testStudyRightWithAssignmentsStoryPage()
    {
@@ -207,10 +206,9 @@ public class StudyRightWithAssignmentsStoryboards
 
 
    /**
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>
-    *      JsonPersistency.html</a>
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'> JsonPersistency.html</a>
     * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
- */
+    */
    @Test
    public void testJsonPersistency()
    {
@@ -320,11 +318,9 @@ public class StudyRightWithAssignmentsStoryboards
 
 
    /**
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>
-    *      StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'> StudyRightObjectModelNavigationAndQueries.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
- */
+    */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
@@ -695,10 +691,10 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
 
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
- */
+    */
    @Test
    public void testStudyRightTablesAndReports()
    {
@@ -777,63 +773,92 @@ public class StudyRightWithAssignmentsStoryboards
 
       // story.addObjectDiagram(university);
 
+      story.addStep("Query for table");
+
+      {
+         story.markCodeStart();
+
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         story.addCode();
+
+         story.add("Results in:");
+
+         story.addTable(table);
+
+         story.markCodeStart();
+
+         table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
+         table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits());
+         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size());
+         table.withoutColumns("A", "B");
+
+         story.addCode();
+
+         story.addTable(table);
+      }
+
       // =====================================================
       story.addStep("List all topics:");
 
-      story.markCodeStart();
+      {
+         story.markCodeStart();
 
-      UniversityPO universityPO = new UniversityPO(university);
-      
-      TablePO tablePO = new TablePO(CREATE);
-      
-      universityPO.addToPattern(tablePO);
-      
-      tablePO.createNameAssignment("University");
-      
-      ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment("Topic");
-      
-      ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+         UniversityPO universityPO = new UniversityPO(university);
+
+         TablePO tablePO = new TablePO(CREATE);
+
+         universityPO.addToPattern(tablePO);
+
+         tablePO.createNameAssignment("University");
+
+         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment("Topic");
+
+         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
             .createNameAssignment("Credits")
             .createTdCssClassAssignment("text-right");
-      
-      ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+
+         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
             .createNameAssignment("Students")
             .createTdCssClassAssignment("text-right");
-      
-      RoomPO roomsPO = universityPO.createRoomsPO();
-      
-      RowPO rowPO = tablePO.createRowsPO(CREATE);
-      
-      CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
-      cell1PO.createCondition( cell -> cell.withValue(roomsPO.getTopic()) != null );
-      
-      CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
-      cell2PO.createCondition( cell -> cell.withValue(roomsPO.getCredits()) != null );
-      
-      CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
-      cell3PO.createCondition( cell -> cell.withValue(roomsPO.getStudents().size()) != null );
-      
-      universityPO.doAllMatches();
 
-      story.addCode();
+         RoomPO roomsPO = universityPO.createRoomsPO();
 
-      story.add("Results in:");
-      
-      story.addTable(tablePO.getCurrentMatch());
+         RowPO rowPO = tablePO.createRowsPO(CREATE);
 
-      story.addObjectDiagram(tablePO.getCurrentMatch());
+         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
+         cell1PO.createCondition(cell -> cell.withValue(roomsPO.getTopic()) != null);
 
+         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
+         cell2PO.createCondition(cell -> cell.withValue(roomsPO.getCredits()) != null);
+
+         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
+         cell3PO.createCondition(cell -> cell.withValue(roomsPO.getStudents().size()) != null);
+
+         universityPO.doAllMatches();
+
+         story.addCode();
+
+         story.add("Results in:");
+
+         story.addTable(tablePO.getCurrentMatch());
+
+         story.addObjectDiagram(tablePO.getCurrentMatch());
+
+      }
       story.dumpHTML();
    }
 
 
    /**
     * 
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightReachabilityGraph.html'>
-    *      StudyRightReachabilityGraph.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightReachabilityGraph.html'> StudyRightReachabilityGraph.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
- */
+    */
    @Test
    public void testStudyRightReachabilityGraph()
    {

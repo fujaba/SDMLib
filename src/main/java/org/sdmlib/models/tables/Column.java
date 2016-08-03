@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.tables;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -28,56 +28,65 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.tables.Table;
 import org.sdmlib.models.tables.util.CellSet;
 import org.sdmlib.models.tables.Cell;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  */
-   public  class Column implements SendableEntity
+public class Column implements SendableEntity
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = null;
-   
+
+
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
-   }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.removePropertyChangeListener(listener);
-   	return true;
+      if (listeners != null)
+      {
+         listeners.firePropertyChange(propertyName, oldValue, newValue);
+         return true;
+      }
+      return false;
    }
 
-   
-   //==========================================================================
-   
-   
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners == null)
+      {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(listener);
+      return true;
+   }
+
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
+      if (listeners == null)
+      {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners == null)
+      {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.removePropertyChangeListener(listener);
+      return true;
+   }
+
+
+   // ==========================================================================
+
    public void removeYou()
    {
       setTable(null);
@@ -85,48 +94,49 @@ import org.sdmlib.models.tables.Cell;
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
+
 
    public String getName()
    {
       return this.name;
    }
-   
+
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value)) {
-      
+      if (!StrUtil.stringEquals(this.name, value))
+      {
+
          String oldValue = this.name;
          this.name = value;
          this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
-   
+
+
    public Column withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
-      
+
       result.append(" ").append(this.getName());
       result.append(" ").append(this.getTdCssClass());
       result.append(" ").append(this.getThCssClass());
       return result.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -134,58 +144,81 @@ import org.sdmlib.models.tables.Cell;
     *              columns                   table
     * </pre>
     */
-   
+
    public static final String PROPERTY_TABLE = "table";
 
    private Table table = null;
+
 
    public Table getTable()
    {
       return this.table;
    }
 
+
    public boolean setTable(Table value)
    {
       boolean changed = false;
-      
+
       if (this.table != value)
       {
          Table oldValue = this.table;
-         
+
          if (this.table != null)
          {
             this.table = null;
             oldValue.withoutColumns(this);
          }
-         
+
          this.table = value;
-         
+
          if (value != null)
          {
             value.withColumns(this);
+
+            if (this.getName() == null)
+            {
+               String name = "";
+
+               int size = value.getColumns().size();
+
+               int numOfChars = ('Z' - 'A' + 1);
+
+               while (size > 0)
+               {
+                  char c = (char) ('A' + (size % numOfChars) - 1);
+
+                  name = "" + c + name;
+
+                  size = size / numOfChars;
+               }
+               
+               this.setName(name);
+            }
          }
-         
+
          firePropertyChange(PROPERTY_TABLE, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
+
 
    public Column withTable(Table value)
    {
       setTable(value);
       return this;
-   } 
+   }
+
 
    public Table createTable()
    {
       Table value = new Table();
       withTable(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -193,24 +226,27 @@ import org.sdmlib.models.tables.Cell;
     *              column                   cells
     * </pre>
     */
-   
+
    public static final String PROPERTY_CELLS = "cells";
 
    private CellSet cells = null;
-   
+
+
    public CellSet getCells()
    {
       if (this.cells == null)
       {
          return CellSet.EMPTY_SET;
       }
-   
+
       return this.cells;
    }
 
+
    public Column withCells(Cell... value)
    {
-      if(value==null){
+      if (value == null)
+      {
          return this;
       }
       for (Cell item : value)
@@ -221,8 +257,8 @@ import org.sdmlib.models.tables.Cell;
             {
                this.cells = new CellSet();
             }
-            
-            boolean changed = this.cells.add (item);
+
+            boolean changed = this.cells.add(item);
 
             if (changed)
             {
@@ -232,7 +268,8 @@ import org.sdmlib.models.tables.Cell;
          }
       }
       return this;
-   } 
+   }
+
 
    public Column withoutCells(Cell... value)
    {
@@ -250,66 +287,73 @@ import org.sdmlib.models.tables.Cell;
       return this;
    }
 
+
    public Cell createCells()
    {
       Cell value = new Cell();
       withCells(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TDCSSCLASS = "tdCssClass";
-   
+
    private String tdCssClass;
+
 
    public String getTdCssClass()
    {
       return this.tdCssClass;
    }
-   
+
+
    public void setTdCssClass(String value)
    {
-      if ( ! StrUtil.stringEquals(this.tdCssClass, value)) {
-      
+      if (!StrUtil.stringEquals(this.tdCssClass, value))
+      {
+
          String oldValue = this.tdCssClass;
          this.tdCssClass = value;
          this.firePropertyChange(PROPERTY_TDCSSCLASS, oldValue, value);
       }
    }
-   
+
+
    public Column withTdCssClass(String value)
    {
       setTdCssClass(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_THCSSCLASS = "thCssClass";
-   
+
    private String thCssClass = "text-center";
+
 
    public String getThCssClass()
    {
       return this.thCssClass;
    }
-   
+
+
    public void setThCssClass(String value)
    {
-      if ( ! StrUtil.stringEquals(this.thCssClass, value)) {
-      
+      if (!StrUtil.stringEquals(this.thCssClass, value))
+      {
+
          String oldValue = this.thCssClass;
          this.thCssClass = value;
          this.firePropertyChange(PROPERTY_THCSSCLASS, oldValue, value);
       }
    }
-   
+
+
    public Column withThCssClass(String value)
    {
       setThCssClass(value);
       return this;
-   } 
+   }
 }

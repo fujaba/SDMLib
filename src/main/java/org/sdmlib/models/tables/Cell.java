@@ -208,6 +208,10 @@ import org.sdmlib.models.tables.Column;
          {
             value.withCells(this);
          }
+         else
+         {
+            this.removeYou();
+         }
          
          firePropertyChange(PROPERTY_COLUMN, oldValue, value);
          changed = true;

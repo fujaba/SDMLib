@@ -183,6 +183,9 @@ import org.sdmlib.models.tables.Row;
             if (this.columns.remove(item))
             {
                item.setTable(null);
+               
+               item.removeYou();
+               
                firePropertyChange(PROPERTY_COLUMNS, item, null);
             }
          }
@@ -190,6 +193,12 @@ import org.sdmlib.models.tables.Row;
       return this;
    }
 
+   @FunctionalInterface
+   public interface RowConsumer 
+   {
+      public Object exec (Row r);
+   }
+   
    public Column createColumns()
    {
       Column value = new Column();
@@ -197,6 +206,20 @@ import org.sdmlib.models.tables.Row;
       return value;
    } 
 
+   public Column createColumns(String columnName, RowConsumer cons)
+   {
+      Column newColumn = this.createColumns()
+            .withName(columnName);
+      
+      for (Row row : this.getRows())
+      {
+         Object value = cons.exec(row);
+         Cell newCell = row.createCells().withColumn(newColumn);
+         newCell.setValue(value);
+      }
+      
+      return newColumn;
+   } 
    
    /********************************************************************
     * <pre>
@@ -267,5 +290,20 @@ import org.sdmlib.models.tables.Row;
       Row value = new Row();
       withRows(value);
       return value;
+   }
+
+   public void withoutColumns(String... colNames)
+   {
+      for (String name : colNames)
+      {
+         for (Column col : this.getColumns())
+         {
+            if (col.getName().equals(name))
+            {
+               this.withoutColumns(col);
+               break;
+            }
+         }
+      }
    } 
 }

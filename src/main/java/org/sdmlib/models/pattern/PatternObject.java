@@ -32,6 +32,7 @@ import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
+import org.sdmlib.models.tables.Table;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.storyboards.Kanban;
 
@@ -434,6 +435,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
 
       return (POC) this;
+   }
+   
+   public Table createResultTable()
+   {
+      return this.getPattern().createResultTable();
    }
 
 

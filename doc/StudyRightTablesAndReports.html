@@ -14,39 +14,123 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
 <p>How to generate table reports from a model.</p>
 <p>Start: Example object structure:</p>
-<p><a name = 'step_1'>Step 1: List all rooms:</a></p><pre>
-      UniversityPO universityPO = new UniversityPO(university);
-      
-      TablePO tablePO = new TablePO(CREATE);
-      
-      universityPO.addToPattern(tablePO);
-      
-      tablePO.createNameAssignment(&quot;University&quot;);
-      
-      ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
-      
-      ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+<p><a name = 'step_1'>Step 1: Query for table</a></p><pre>
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+</pre><p>Results in:</p>
+<table class="table">
+<thead>
+<tr>
+<th class="text-center">A</th>
+<th class="text-center">B</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >StudyRight</td>
+<td >senate math 17</td>
+</tr>
+<tr>
+<td >StudyRight</td>
+<td >7522 arts 16</td>
+</tr>
+<tr>
+<td >StudyRight</td>
+<td >gymnasium sports 25</td>
+</tr>
+<tr>
+<td >StudyRight</td>
+<td >The End exam 0</td>
+</tr>
+<tr>
+<td >StudyRight</td>
+<td >7422 Software Engineering 42</td>
+</tr>
+</tbody>
+
+</table>
+<pre>
+         table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
+         table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits());
+         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size());
+         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+
+</pre><table class="table">
+<thead>
+<tr>
+<th class="text-center">Topic</th>
+<th class="text-center">Credits</th>
+<th class="text-center">Students</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >math</td>
+<td >17</td>
+<td >1</td>
+</tr>
+<tr>
+<td >arts</td>
+<td >16</td>
+<td >0</td>
+</tr>
+<tr>
+<td >sports</td>
+<td >25</td>
+<td >2</td>
+</tr>
+<tr>
+<td >exam</td>
+<td >0</td>
+<td >0</td>
+</tr>
+<tr>
+<td >Software Engineering</td>
+<td >42</td>
+<td >0</td>
+</tr>
+</tbody>
+
+</table>
+<p><a name = 'step_2'>Step 2: List all topics:</a></p><pre>
+         UniversityPO universityPO = new UniversityPO(university);
+
+         TablePO tablePO = new TablePO(CREATE);
+
+         universityPO.addToPattern(tablePO);
+
+         tablePO.createNameAssignment(&quot;University&quot;);
+
+         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
+
+         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
             .createNameAssignment(&quot;Credits&quot;)
             .createTdCssClassAssignment(&quot;text-right&quot;);
-      
-      ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+
+         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
             .createNameAssignment(&quot;Students&quot;)
             .createTdCssClassAssignment(&quot;text-right&quot;);
-      
-      RoomPO roomsPO = universityPO.createRoomsPO();
-      
-      RowPO rowPO = tablePO.createRowsPO(CREATE);
-      
-      CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
-      cell1PO.createCondition( cell -&gt; cell.withValue(roomsPO.getTopic()) != null );
-      
-      CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
-      cell2PO.createCondition( cell -&gt; cell.withValue(roomsPO.getCredits()) != null );
-      
-      CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
-      cell3PO.createCondition( cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null );
-      
-      universityPO.doAllMatches();
+
+         RoomPO roomsPO = universityPO.createRoomsPO();
+
+         RowPO rowPO = tablePO.createRowsPO(CREATE);
+
+         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
+         cell1PO.createCondition(cell -&gt; cell.withValue(roomsPO.getTopic()) != null);
+
+         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
+         cell2PO.createCondition(cell -&gt; cell.withValue(roomsPO.getCredits()) != null);
+
+         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
+         cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
+
+         universityPO.doAllMatches();
 
 </pre><p>Results in:</p>
 <table class="table">
@@ -763,7 +847,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightTablesAndReports7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReports13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 
