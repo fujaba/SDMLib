@@ -174,7 +174,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       if (oldEntry == null)
       {
-         stateMap.put(certificate, newState);
+         ReachableStateSet newStateSet = new ReachableStateSet()
+            .with((ReachableState) oldEntry).with(newState);
+         stateMap.put(certificate, newStateSet);
       }
       else if (oldEntry instanceof ReachableState && oldEntry != newState)
       {
@@ -490,7 +492,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       int ignoredStates = 0;
       String ignoredString = "";
       boolean changedIgnoreString = false;
-      
+
       long lastMessageTime = System.currentTimeMillis();
 
       IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
@@ -571,7 +573,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // computing the metric is cheap and might allow to avoid further computation
                   double newMetricValue = metric.compute(newReachableState.getGraphRoot());
                   newReachableState.setMetricValue(newMetricValue);
-                  
+
                   if ((mode == Searchmode.IGNORE || mode == Searchmode.DEPTHIGNORE)
                      && newMetricValue < bestMetricYet)
                   {
@@ -588,7 +590,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      bestMetricYet = Math.max(bestMetricYet, newMetricValue);
                      reallyBestMetricYet = Math.max(bestMetricYet, reallyBestMetricYet);
                   }
-                  
+
                   long currentTime = System.currentTimeMillis();
                   long elapsedTime = currentTime - lastMessageTime;
                   elapsedTime /= 1000; // elapsed seconds
@@ -600,7 +602,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      lastMessageTime = currentTime;
                   }
                }
-               
+
                // is the new graph already known?
                newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
                newJsonIdMap.withSessionId("s");
