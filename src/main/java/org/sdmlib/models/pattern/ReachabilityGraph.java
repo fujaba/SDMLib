@@ -476,7 +476,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public long explore()
    {
-      return explore(Long.MAX_VALUE, Searchmode.DEFAULT);
+      return explore(Long.MAX_VALUE, Searchmode.DEPTH);
    }
 
    public enum Searchmode
@@ -570,7 +570,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                if (metric != null)
                {
-                  // computing the metric is cheap and might allow to avoid further computation
+                  // computing the metric is cheap and might allow to avoid
+                  // further computation
                   double newMetricValue = metric.compute(newReachableState.getGraphRoot());
                   newReachableState.setMetricValue(newMetricValue);
 
@@ -968,4 +969,27 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       withRules(value);
       return value;
    }
+
+   public void verify(Pattern... pattern)
+   {
+      for (Pattern rule : pattern)
+      {
+         PatternObject firstPO = (PatternObject) rule.getElements().first();
+
+         rule.resetSearch();
+         for (ReachableState reachableState : states)
+         {
+            System.out.println(masterMap.getId(reachableState));
+            Object graphRoot = reachableState.getGraphRoot();
+            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(graphRoot);
+            if (rule.findMatch())
+            {
+               reachableState.setFailureState(true);
+            }
+
+         }
+
+      }
+   }
+
 }
