@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.SimpleEvent;
 
 public class Specific2Generic
 {
