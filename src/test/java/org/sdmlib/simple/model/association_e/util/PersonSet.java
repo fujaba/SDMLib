@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.association_e.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.association_e.Person;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.association_e.util.RoomSet;
 import org.sdmlib.simple.model.association_e.Room;
 

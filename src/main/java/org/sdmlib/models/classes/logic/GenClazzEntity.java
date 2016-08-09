@@ -574,7 +574,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          partnerPos = parser.indexOf(Parser.CLASS_END);
          FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          StringBuilder partnerText;
-         if (feature.getClass() == null || feature.getClass().isInstance(SimpleSet.class))
+         if (feature.getClassValue() == null || SimpleSet.class.isAssignableFrom(feature.getClassValue()))
          {
             partnerText = new StringBuilder("\n   public static final type EMPTY_SET = new type().withFlag(type.READONLY);\n");
          }

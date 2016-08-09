@@ -26,8 +26,8 @@ import org.sdmlib.test.examples.roombook.Floor;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.roombook.util.BuildingSet;
 import org.sdmlib.test.examples.roombook.Building;
 

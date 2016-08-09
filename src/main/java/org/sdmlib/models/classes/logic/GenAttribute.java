@@ -24,6 +24,9 @@ import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class GenAttribute extends Generator<Attribute>
 {
@@ -476,23 +479,19 @@ public class GenAttribute extends Generator<Attribute>
          add = "addAll";
       }
 
-      if (CGUtil.isPrimitiveType(fullModelSetType))
-      {
-         if(!fullModelSetType.equalsIgnoreCase("object")) 
-         {
-            modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
-         }
-         else
-         {
-            modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
-         }
-         fullModelSetType = "org.sdmlib.models.modelsets."
-               + modelSetType;
-         importClassesFromTypes.add(fullModelSetType);
-         //            importClassesFromTypes.add("java.util.List");
-      }
-      else
-      {
+		if (CGUtil.isPrimitiveType(fullModelSetType)) {
+			if (fullModelSetType.equalsIgnoreCase("boolean")) {
+				fullModelSetType = BooleanList.class.getName();
+				modelSetType = BooleanList.class.getSimpleName();
+			} else if (EntityUtil.isNumericType(fullModelSetType)) {
+				fullModelSetType = NumberList.class.getName();
+				modelSetType = NumberList.class.getSimpleName();
+			} else {
+				fullModelSetType = ObjectSet.class.getName();
+				modelSetType = ObjectSet.class.getSimpleName();
+			}
+			importClassesFromTypes.add(fullModelSetType);
+		} else {
          // check for enum types
          try
          {

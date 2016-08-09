@@ -24,7 +24,7 @@ package org.sdmlib.models.tables.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.tables.Cell;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.tables.util.RowSet;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.util.ColumnSet;

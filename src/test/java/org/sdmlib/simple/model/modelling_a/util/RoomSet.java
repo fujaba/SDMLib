@@ -26,7 +26,7 @@ import org.sdmlib.simple.model.modelling_a.Room;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.simple.model.modelling_a.util.PersonSet;
 import org.sdmlib.simple.model.modelling_a.Person;

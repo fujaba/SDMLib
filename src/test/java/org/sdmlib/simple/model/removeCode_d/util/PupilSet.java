@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.removeCode_d.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.removeCode_d.Pupil;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.removeCode_d.util.PersonSet;
 import org.sdmlib.simple.model.removeCode_d.Person;
 

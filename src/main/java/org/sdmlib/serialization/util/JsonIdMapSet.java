@@ -24,7 +24,7 @@ package org.sdmlib.serialization.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 
 import de.uniks.networkparser.IdMap;
 

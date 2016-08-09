@@ -23,7 +23,7 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 
 public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements org.sdmlib.models.modelsets.ModelSet
 {

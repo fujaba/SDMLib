@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.attribute_c.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.attribute_c.Person;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 public class PersonSet extends SDMSet<Person>

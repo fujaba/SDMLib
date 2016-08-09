@@ -200,6 +200,15 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 			if (item != null) {
 				if (this.features.remove(item)) {
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
+				} else { 
+					// Search for name
+					for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
+						FeatureProperty prop = i.next();
+						if(prop.getName().toString().equals(item.toString())) {
+							this.features.remove(prop);
+							break;
+						}
+					}
 				}
 			}
 		}

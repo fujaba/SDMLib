@@ -8,6 +8,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,6 +18,9 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenMethod extends Generator<Method>
@@ -334,12 +338,15 @@ public class GenMethod extends Generator<Method>
          }
          else
          {
-            if ("String int double long boolean".indexOf(type) >= 0)
-            {
-               type = type + "List";
-               importType = "org.sdmlib.models.modelsets." + type;
-            }
-            else if ("Object".indexOf(type) >= 0)
+			if (CGUtil.isPrimitiveType(type)) {
+				if (type.equalsIgnoreCase("boolean")) {
+					importType = BooleanList.class.getName();
+				} else if (EntityUtil.isNumericType(type)) {
+					importType = NumberList.class.getName();
+				} else {
+					importType = ObjectSet.class.getName();
+				}
+			} else if ("Object".indexOf(type) >= 0)
             {
                type = "LinkedHashSet<Object>";
                importType = LinkedHashSet.class.getName();

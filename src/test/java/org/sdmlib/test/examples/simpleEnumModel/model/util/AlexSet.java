@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 import de.uniks.networkparser.list.SimpleSet;

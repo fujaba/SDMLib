@@ -23,14 +23,12 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GenericGraphSet extends SimpleSet<GenericGraph>
 {

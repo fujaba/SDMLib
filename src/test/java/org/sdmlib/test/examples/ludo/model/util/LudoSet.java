@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 
 import org.sdmlib.models.modelsets.DateList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;

@@ -25,7 +25,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.tables.Row;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.tables.util.TableSet;
 import org.sdmlib.models.tables.Table;
 import java.util.Collections;

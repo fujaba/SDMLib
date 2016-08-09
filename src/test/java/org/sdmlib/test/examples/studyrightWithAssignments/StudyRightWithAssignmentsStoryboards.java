@@ -20,13 +20,13 @@
  */
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
+import static org.sdmlib.models.pattern.Pattern.CREATE;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.Match;
-import org.sdmlib.models.pattern.Pattern;
-import static org.sdmlib.models.pattern.Pattern.*;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
@@ -57,10 +57,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityC
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.IdMap;
 
 public class StudyRightWithAssignmentsStoryboards
 {
@@ -980,9 +980,9 @@ public class StudyRightWithAssignmentsStoryboards
          }
       }
 
-      UniversitySet interestingUniversities = interestingStates.getGraphRoot().instanceOf(new UniversitySet());
+      UniversitySet interestingUniversities = CGUtil.instanceOf(interestingStates.getGraphRoot(), new UniversitySet());
 
-      StudentSet studentsSet = allStates.getGraphRoot().instanceOf(new UniversitySet()).getStudents().filterMotivation(0);
+      StudentSet studentsSet = CGUtil.instanceOf(allStates.getGraphRoot(), new UniversitySet()).getStudents().filterMotivation(0);
 
       story.addObjectDiagramOnlyWith(
          interestingStates,

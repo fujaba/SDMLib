@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.superclazzes_f.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.superclazzes_f.Teacher;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.superclazzes_f.util.PersonSet;
 import org.sdmlib.simple.model.superclazzes_f.Person;
 
