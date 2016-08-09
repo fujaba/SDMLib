@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.tables.Table;
 import org.sdmlib.models.tables.util.CellSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.models.tables.Cell;
 
 /**
