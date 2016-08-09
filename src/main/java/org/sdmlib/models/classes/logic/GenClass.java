@@ -33,7 +33,6 @@ import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleSet;
 
 /**

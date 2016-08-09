@@ -21,12 +21,14 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
+
 import de.uniks.networkparser.interfaces.Condition;
 
-public class ArrayListSet extends SDMSet<ArrayList>
+public class ArrayListSet extends SDMSet<ArrayList<?>>
 {
 
    public static final ArrayListSet EMPTY_SET = new ArrayListSet().withFlag(ArrayListSet.READONLY);
@@ -47,24 +49,24 @@ public class ArrayListSet extends SDMSet<ArrayList>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ArrayList>)value);
+         this.addAll((Collection<ArrayList<?>>)value);
       }
       else if (value != null)
       {
-         this.add((ArrayList) value);
+         this.add((ArrayList<?>) value);
       }
       
       return this;
    }
    
-   public ArrayListSet without(ArrayList value)
+   public ArrayListSet without(ArrayList<?> value)
    {
       this.remove(value);
       return this;
    }
 
    @Override
-   public ArrayListSet filter(Condition<ArrayList> newValue) {
+   public ArrayListSet filter(Condition<ArrayList<?>> newValue) {
       ArrayListSet filterList = new ArrayListSet();
       filterItems(filterList, newValue);
       return filterList;

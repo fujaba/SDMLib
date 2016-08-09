@@ -9,6 +9,7 @@ import org.sdmlib.models.classes.Feature;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
 
 public class TestModel {
 
@@ -20,6 +21,9 @@ public class TestModel {
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
 		person.createAttribute("credits", DataType.LONG);
+		Method createMethod = person.createMethod("getLong");
+		createMethod.with(DataType.LONG);
+		createMethod.withBody("return 42;");
 		
 		Clazz uni = model.createClazz("University");
 		uni.withBidirectional(person, "stud", Cardinality.MANY, "owner", Cardinality.ONE);

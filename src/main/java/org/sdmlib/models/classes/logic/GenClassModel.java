@@ -3324,15 +3324,9 @@ public class GenClassModel implements ClassModelAdapter
    {
       // try to create example object structure and use storyboard to do
       // coverage
-      Clazz firstClazz = this.getModel().getClazzes().first();
-
       try
       {
          // try to load creator class
-         String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
-         Class<?> creatorClass = Class.forName(creatorClassName);
-         java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         // IdMap map = (IdMap) method.invoke(null, "t");
          IdMap map = new SDMLibIdMap("t");
 
          Object largestModelRoot = null;

@@ -6,9 +6,9 @@ import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.Clazz.ClazzType;
 
 public class AttributeTemplates {
 	public static ExistTemplate insertPropertyInInterface(Attribute attribute) {

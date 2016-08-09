@@ -299,12 +299,7 @@ public class GenMethod extends Generator<Method>
                   "\n   " +
                   "\n   modifiers returnType methodName(formalParameter)" +
                   "\n   {" +
-                  "\n      returnSetCreate" +
-                  "\n      for (memberType obj : this)" +
-                  "\n      {" +
-                  "\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;" +
-                  "\n      }" +
-                  "\n      returnStat" +
+                  "\n      body" +
                   "\n   }" +
                   "\n\n"
                );
@@ -313,10 +308,6 @@ public class GenMethod extends Generator<Method>
          StringBuilder actualParameter = new StringBuilder();
          calculateParameters(parser, formalParameter, actualParameter);
 
-         String returnSetCreate = "";
-         String returnSetAdd = "";
-         String returnSetAddEnd = "";
-         String returnStat = "return this;";
 
          String type = model.getReturnType().getName(false);
          if (type == null)
@@ -332,20 +323,16 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 3);
          }
          String importType = type;
+         String body="";
          if ("void".equals(type))
          {
             type =  clazz2.getName(true) + "Set";
          }
          else
          {
+        	 String returnStat = "return this;";
 			if (CGUtil.isPrimitiveType(type)) {
-				if (type.equalsIgnoreCase("boolean")) {
-					importType = BooleanList.class.getName();
-				} else if (EntityUtil.isNumericType(type)) {
-					importType = NumberList.class.getName();
-				} else {
-					importType = ObjectSet.class.getName();
-				}
+				
 			} else if ("Object".indexOf(type) >= 0)
             {
                type = "LinkedHashSet<Object>";
@@ -359,27 +346,35 @@ public class GenMethod extends Generator<Method>
                int typePos = type.lastIndexOf('.');
                type = type.substring(typePos + 1);
                importType = importType.substring(0, dotpos) + GenClassModel.UTILPATH + "." + type;
+               returnStat = "return result;";
             }
 
             parser.insertImport(importType);
+            if (model.getModifier().has(Modifier.STATIC))
+            {
+               returnStat = "";
+            }
+            if(model.getBody()!=null &&model.getBody().length()>0) {
+            	body = model.getBody();
+            } else {
+            	body = 	"\n      returnSetCreate" +
+            			"\n      for (memberType obj : this)" +
+            			"\n      {" +
+            			"\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;" +
+            			"\n      }" +
+            			"\n      returnStat";
+            	 CGUtil.replaceAll(body,
+            	        	"returnSetCreate", type + " result = new " + type + "();\n      ",
+            	            "returnStat", returnStat,
+            	            "returnSetAdd", "result.add(",
+            	            "returnSetAddEnd", ")"
+            	            );
 
-            returnSetCreate = type + " result = new " + type + "();\n      ";
-
-            returnSetAdd = "result.add(";
-            returnSetAddEnd = ")";
-            returnStat = "return result;";
-         }
-
-         if (model.getModifier().has(Modifier.STATIC))
-         {
-            returnStat = "";
+            }
          }
 
          CGUtil.replaceAll(text,
-            "returnSetCreate\n      ", returnSetCreate,
-            "returnSetAdd ", returnSetAdd,
-            " returnSetAddEnd", returnSetAddEnd,
-            "returnStat", returnStat,
+        	"body", body,
             "modifiers", model.getModifier().getName(),
             "returnType", type,
             "methodName", model.getName(),

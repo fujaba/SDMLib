@@ -84,6 +84,14 @@ public class PersonSet extends HashSet<Person>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public long getLong()
+   {
+      return 42;
+   }
+
 
    /**
     * Loop through the current set of Person objects and collect a list of the name attribute values. 

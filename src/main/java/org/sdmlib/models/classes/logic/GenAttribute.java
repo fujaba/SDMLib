@@ -21,7 +21,6 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.list.BooleanList;
@@ -638,8 +637,6 @@ public class GenAttribute extends Generator<Attribute>
       
       String entitiyClassName = CGUtil.shortClassName(model.getClazz().getName(false));
       String entitiyNameClass = entitiyClassName;
-
-      String propertyDeclarationClassNamePrefix = entitiyClassName + ".";
 
       if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
       {
