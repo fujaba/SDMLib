@@ -31,6 +31,9 @@ import org.sdmlib.simple.model.test.Person;
 
 public class UniversitySet extends HashSet<University>
 {
+	protected Class<?> getTypClass() {
+		return University.class;
+	}
 
    public UniversitySet()
    {

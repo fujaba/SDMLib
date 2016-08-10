@@ -31,6 +31,9 @@ import org.sdmlib.simple.model.test.University;
 
 public class PersonSet extends HashSet<Person>
 {
+	protected Class<?> getTypClass() {
+		return Person.class;
+	}
 
    public PersonSet()
    {
@@ -82,14 +85,6 @@ public class PersonSet extends HashSet<Person>
    {
       this.remove(value);
       return this;
-   }
-
-   
-   //==========================================================================
-   
-   public long getLong()
-   {
-      return 42;
    }
 
 

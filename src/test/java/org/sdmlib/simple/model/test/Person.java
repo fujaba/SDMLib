@@ -35,12 +35,6 @@ import org.sdmlib.simple.model.test.University;
 
    
    //==========================================================================
-   public long getLong(  )
-   {
-return 42;   }
-
-   
-   //==========================================================================
    
    protected PropertyChangeSupport listeners = null;
    

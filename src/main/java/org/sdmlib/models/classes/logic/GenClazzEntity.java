@@ -392,7 +392,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             }
             else
             {
-               setClass = SDMSet.class;
+               setClass = SimpleSet.class;
             }
             StringBuilder text = new StringBuilder("" +
                "package packageName;\n" +
@@ -402,6 +402,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
                "{\n" +
+               "	protected Class<?> getTypClass() {\n" +
+               "		return entitiyClassName.class;\n"+
+               "	}\n"+
                "}\n");
 
             CGUtil.replaceAll(text,
