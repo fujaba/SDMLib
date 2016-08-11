@@ -5,6 +5,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.SDMSet;
 
+import de.uniks.networkparser.list.SimpleSet;
+
 public enum Feature {
 	PROPERTYCHANGESUPPORT, PATTERNOBJECT, SERIALIZATION, SETCLASS, REMOVEYOUMETHOD, STANDALONE,EMFSTYLE;
 	public static final HashSet<FeatureProperty> getNone(){
@@ -16,7 +18,7 @@ public enum Feature {
 	      result.add(PROPERTYCHANGESUPPORT.create());
 	      result.add(PATTERNOBJECT.create());
 	      result.add(SERIALIZATION.create());
-	      result.add(SETCLASS.create().withClazzValue(SDMSet.class));
+	      result.add(SETCLASS.create().withClazzValue(SimpleSet.class));
 	      result.add(REMOVEYOUMETHOD.create());
 	      return result;
 	   }

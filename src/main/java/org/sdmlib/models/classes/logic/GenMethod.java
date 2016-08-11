@@ -18,10 +18,9 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GenMethod extends Generator<Method>
 {
@@ -331,56 +330,60 @@ public class GenMethod extends Generator<Method>
          else
          {
         	 String returnStat = "return this;";
-			if (CGUtil.isPrimitiveType(type)) {
-				
-			} else if ("Object".indexOf(type) >= 0)
-            {
+        	 if (EntityUtil.isNumericType(type)) {
+        		 type = "NumberList";
+                 importType = NumberList.class.getName();
+        	 } else if ("String".indexOf(type) >= 0) {
+        		 type = "StringList";
+        		 importType = StringList.class.getName();
+        	 } else if ("Object".indexOf(type) >= 0) {
                type = "LinkedHashSet<Object>";
                importType = LinkedHashSet.class.getName();
             }
             else
             {
+            	
                type = type + "Set";
                importType = model.getClazz().getName(false);
                int dotpos = importType.lastIndexOf('.');
                int typePos = type.lastIndexOf('.');
                type = type.substring(typePos + 1);
                importType = importType.substring(0, dotpos) + GenClassModel.UTILPATH + "." + type;
-               returnStat = "return result;";
             }
+        	 returnStat = "return result;";
 
             parser.insertImport(importType);
             if (model.getModifier().has(Modifier.STATIC))
             {
                returnStat = "";
             }
-            if(model.getBody()!=null &&model.getBody().length()>0) {
-            	body = model.getBody();
-            } else {
+//            if(model.getBody()!=null &&model.getBody().length()>0) {
+////            	body = model.getBody();
+//            } else {
             	body = 	"\n      returnSetCreate" +
             			"\n      for (memberType obj : this)" +
             			"\n      {" +
-            			"\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;" +
+            			"\n         returnSetAdd obj.methodName(actualParameter) returnSetEnd;" +
             			"\n      }" +
             			"\n      returnStat";
-            	 CGUtil.replaceAll(body,
-            	        	"returnSetCreate", type + " result = new " + type + "();\n      ",
-            	            "returnStat", returnStat,
-            	            "returnSetAdd", "result.add(",
-            	            "returnSetAddEnd", ")"
-            	            );
-
-            }
+//            }
+            body = CGUtil.replaceAll(body,
+            		"returnSetCreate", type + " result = new " + type + "();\n      ",
+            		"returnStat", returnStat,
+            		"returnSetAdd", "result.add(",
+            		"returnSetEnd", ")",
+            		"methodName", model.getName(),
+                    "memberType", clazz2.getName(true),
+                    "actualParameter", actualParameter.toString()
+            		);
          }
 
          CGUtil.replaceAll(text,
         	"body", body,
             "modifiers", model.getModifier().getName(),
-            "returnType", type,
             "methodName", model.getName(),
-            "memberType", clazz2.getName(true),
             "formalParameter", formalParameter.toString(),
-            "actualParameter", actualParameter.toString()
+            "returnType", type
             );
 
          int pos = parser.indexOf(Parser.CLASS_END);
