@@ -56,8 +56,10 @@
 </table>
 <pre>
          table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
-         table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits());
-         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size());
+         table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
+         .withTdCssClass(&quot;text-right&quot;);
+         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+         .withTdCssClass(&quot;text-right&quot;);
          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
 
 </pre><table class="table">
@@ -72,28 +74,28 @@
 <tbody>
 <tr>
 <td >math</td>
-<td >17</td>
-<td >1</td>
+<td class="text-right">17</td>
+<td class="text-right">1</td>
 </tr>
 <tr>
 <td >arts</td>
-<td >16</td>
-<td >0</td>
+<td class="text-right">16</td>
+<td class="text-right">0</td>
 </tr>
 <tr>
 <td >sports</td>
-<td >25</td>
-<td >2</td>
+<td class="text-right">25</td>
+<td class="text-right">2</td>
 </tr>
 <tr>
 <td >exam</td>
-<td >0</td>
-<td >0</td>
+<td class="text-right">0</td>
+<td class="text-right">0</td>
 </tr>
 <tr>
 <td >Software Engineering</td>
-<td >42</td>
-<td >0</td>
+<td class="text-right">42</td>
+<td class="text-right">0</td>
 </tr>
 </tbody>
 
@@ -850,6 +852,133 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReports13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
+<p><a name = 'step_3'>Step 3: Do a nested table</a></p><pre>
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
+         table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
+         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+         .withTdCssClass(&quot;text-right&quot;);
+         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+
+</pre><table class="table">
+<thead>
+<tr>
+<th class="text-center">Topic</th>
+<th class="text-center">Assignments</th>
+<th class="text-center">Students</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >math</td>
+<td ><table class="table">
+<thead>
+<tr>
+<th class="text-center">Content</th>
+<th class="text-center">Points</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >Matrix Multiplication</td>
+<td class="text-right">5</td>
+</tr>
+<tr>
+<td >Series</td>
+<td class="text-right">6</td>
+</tr>
+<tr>
+<td >Integrals</td>
+<td class="text-right">8</td>
+</tr>
+</tbody>
+
+</table>
+</td>
+<td class="text-right">1</td>
+</tr>
+<tr>
+<td >arts</td>
+<td ><table class="table">
+<thead>
+<tr>
+<th class="text-center">Content</th>
+<th class="text-center">Points</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+</td>
+<td class="text-right">0</td>
+</tr>
+<tr>
+<td >sports</td>
+<td ><table class="table">
+<thead>
+<tr>
+<th class="text-center">Content</th>
+<th class="text-center">Points</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >Pushups</td>
+<td class="text-right">4</td>
+</tr>
+</tbody>
+
+</table>
+</td>
+<td class="text-right">2</td>
+</tr>
+<tr>
+<td >exam</td>
+<td ><table class="table">
+<thead>
+<tr>
+<th class="text-center">Content</th>
+<th class="text-center">Points</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+</td>
+<td class="text-right">0</td>
+</tr>
+<tr>
+<td >Software Engineering</td>
+<td ><table class="table">
+<thead>
+<tr>
+<th class="text-center">Content</th>
+<th class="text-center">Points</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+</td>
+<td class="text-right">0</td>
+</tr>
+</tbody>
+
+</table>
 
 </body>
 </html>

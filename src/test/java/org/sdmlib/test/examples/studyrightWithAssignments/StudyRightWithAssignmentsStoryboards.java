@@ -35,6 +35,7 @@ import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.util.ReachableStatePO;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
+import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.Table;
 import org.sdmlib.models.tables.util.CellPO;
 import org.sdmlib.models.tables.util.ColumnPO;
@@ -46,6 +47,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
@@ -691,11 +693,12 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
 
+ //FIXME ALBERT NOT WORK ON JENKINS SEE BUILD 1063,1064,1065,1066  @Test
    /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     */
-//FIXME ALBERT NOT WORK ON JENKINS SEE BUILD 1063,1064,1065,1066  @Test
+   // @Test
    public void testStudyRightTablesAndReports()
    {
       Storyboard story = new Storyboard();
@@ -793,8 +796,10 @@ public class StudyRightWithAssignmentsStoryboards
          story.markCodeStart();
 
          table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
-         table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits());
-         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size());
+         table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits())
+         .withTdCssClass("text-right");
+         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
+         .withTdCssClass("text-right");
          table.withoutColumns("A", "B");
 
          story.addCode();
@@ -848,15 +853,52 @@ public class StudyRightWithAssignmentsStoryboards
          story.addTable(tablePO.getCurrentMatch());
 
          story.addObjectDiagram(tablePO.getCurrentMatch());
+      }
+      
+      story.addStep("Do a nested table");
+      {
+         story.markCodeStart();
 
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
+         table.createColumns("Assignments", row -> addAssignments(row));
+         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
+         .withTdCssClass("text-right");
+         table.withoutColumns("A", "B");
+
+         story.addCode();
+
+         story.addTable(table);
       }
       story.dumpHTML();
    }
 
+   public Table addAssignments(Row row)
+   {
+      Room room = (Room) row.getCellValue("B");
+      
+      RoomPO roomPO = new RoomPO(room);
+      
+      AssignmentPO assignmentPO = roomPO.createAssignmentsPO();
+      
+      Table table = roomPO.createResultTable();
+      
+      table.createColumns("Content", r -> ((Assignment) r.getCellValue("B")).getContent());
+      table.createColumns("Points", r -> ((Assignment) r.getCellValue("B")).getPoints())
+      .withTdCssClass("text-right");
+      table.withoutColumns("A", "B");
+
+      return table;
+   }
+   
 
    /**
     * 
-    * @see <a href= '../../../../../../../../doc/StudyRightReachabilityGraph.html'> StudyRightReachabilityGraph.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
     */
    @Test

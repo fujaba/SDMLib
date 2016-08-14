@@ -320,7 +320,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public AssignmentPO filterAssignments()
+   public AssignmentPO createAssignmentsPO()
    {
       AssignmentPO result = new AssignmentPO(new Assignment[]{});
       
@@ -330,19 +330,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
-   public AssignmentPO createAssignments()
-   {
-      return this.startCreate().filterAssignments().endCreate();
-   }
-
-   public RoomPO filterAssignments(AssignmentPO tgt)
+   public RoomPO createAssignmentsPO(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_ASSIGNMENTS);
-   }
-
-   public RoomPO createAssignments(AssignmentPO tgt)
-   {
-      return this.startCreate().filterAssignments(tgt).endCreate();
    }
 
    public AssignmentSet getAssignments()

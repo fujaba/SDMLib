@@ -24,6 +24,8 @@ package org.sdmlib.models.tables;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
+import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.tables.util.ColumnSet;
 import org.sdmlib.models.tables.Column;
@@ -305,5 +307,102 @@ import org.sdmlib.models.tables.Row;
             }
          }
       }
+   }
+
+   public String getHtmlTable()
+   {
+      StringBuilder columnHeaders = new StringBuilder();
+
+      for (Column col : this.getColumns())
+      {
+         String cssClass = "";
+         String thCssText = col.getThCssClass();
+         
+         if (thCssText != null)
+         {
+            cssClass = "class=\"" + thCssText + "\"";
+         }
+         
+         String colHeader = ""
+            + "<th cssClass>colName</th>\n";
+         
+         colHeader = CGUtil.replaceAll(colHeader, 
+            "cssClass", cssClass,
+            "colName", col.getName()
+            );
+         
+         columnHeaders.append(colHeader);
+      }
+
+      String tableHeaderText = ""
+         + "<thead>\n"
+         + "<tr>\n"
+         + "columnHeaders"
+         + "</tr>\n"
+         + "</thead>\n";
+
+      tableHeaderText = CGUtil.replaceAll(tableHeaderText,
+         "columnHeaders", columnHeaders);
+
+      
+      StringBuilder allRowsBuf = new StringBuilder();
+      
+      for (Row row : this.getRows())
+      {
+         StringBuilder rowBuf = new StringBuilder();
+         
+         for (Cell cell : row.getCells())
+         {
+            
+            String cssClass = ""; 
+            String tdClass = cell.getColumn().getTdCssClass();
+
+            if (tdClass != null) 
+            {
+               cssClass = "class=\""+ tdClass + "\"";
+            }
+            
+            String cellText = "<td cssClass>cellValue</td>\n";
+            
+            Object value = cell.getValue();
+            String cellValue = value.toString();
+            
+            if (value instanceof Table)
+            {
+               cellValue = ((Table) value).getHtmlTable();
+            }
+            
+            cellText = CGUtil.replaceAll(cellText, 
+               "cssClass", cssClass,
+               "cellValue", cellValue
+                  );
+            
+            rowBuf.append(cellText);
+         }
+         
+         String rowLine = ""
+               + "<tr>\n"
+               + rowBuf
+               + "</tr>\n";
+         
+         allRowsBuf.append(rowLine);
+      }
+      
+      String tableRowsText = ""
+         + "<tbody>\n"
+         + allRowsBuf
+         + "</tbody>\n";
+
+      String tableText = ""
+         + "<table class=\"table\">\n"
+         + "tableHeader\n"
+         + "tableRows\n"
+         + "</table>\n";
+
+      tableText = CGUtil.replaceAll(tableText,
+         "tableHeader", tableHeaderText,
+         "tableRows", tableRowsText);
+      
+      return tableText;
    } 
 }
