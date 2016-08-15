@@ -290,4 +290,12 @@ public class Row implements SendableEntity
       }
       return null;
    }
+
+   public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    if (listeners == null) {
+       listeners = new PropertyChangeSupport(this);
+    }
+    listeners.removePropertyChangeListener(propertyName, listener);
+    return true;
+   }
 }

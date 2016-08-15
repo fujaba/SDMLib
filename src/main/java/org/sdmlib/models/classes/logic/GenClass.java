@@ -641,6 +641,22 @@ public class GenClass extends GenClazzEntity
     			  );
       }
 
+      searchString = Parser.METHOD + ":removePropertyChangeListener(String,PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+        parser.replaceAll(
+              "\n   public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
+                    "\n    if (listeners == null) {" +
+                    "\n       listeners = new PropertyChangeSupport(this);" +
+                    "\n    }" +
+                    "\n    listeners.removePropertyChangeListener(propertyName, listener);" +
+                    "\n    return true;" +
+                    "\n   }"+
+                    "\n"
+              );
+      }
+      
       insertImport(PropertyChangeSupport.class.getName());
       insertImport(PropertyChangeListener.class.getName());
    }

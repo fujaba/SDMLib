@@ -693,7 +693,6 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
 
- //FIXME ALBERT NOT WORK ON JENKINS SEE BUILD 1063,1064,1065,1066  @Test
    /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>

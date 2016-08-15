@@ -77,6 +77,13 @@ import org.sdmlib.models.tables.Row;
    	return true;
    }
 
+   public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.removePropertyChangeListener(propertyName, listener);
+      return true;
+   }
    
    //==========================================================================
    
