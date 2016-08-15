@@ -31,6 +31,7 @@ import org.sdmlib.models.tables.Table;
 import java.util.Collections;
 import org.sdmlib.models.tables.util.CellSet;
 import org.sdmlib.models.tables.Cell;
+import de.uniks.networkparser.list.NumberList;
 
 public class RowSet extends SDMSet<Row>
 {

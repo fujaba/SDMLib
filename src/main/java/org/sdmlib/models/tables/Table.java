@@ -394,7 +394,7 @@ import org.sdmlib.models.tables.Row;
          + "</tbody>\n";
 
       String tableText = ""
-         + "<table class=\"table\">\n"
+         + "<table class=\"table table-bordered table-condensed\">\n"
          + "tableHeader\n"
          + "tableRows\n"
          + "</table>\n";

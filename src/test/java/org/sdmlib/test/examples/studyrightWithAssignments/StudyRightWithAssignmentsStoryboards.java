@@ -698,7 +698,7 @@ public class StudyRightWithAssignmentsStoryboards
     * 
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     */
-   // @Test
+   @Test
    public void testStudyRightTablesAndReports()
    {
       Storyboard story = new Storyboard();

@@ -533,7 +533,7 @@ public class Parser
          skip(">");
       }
 
-      if (currentRealTokenEquals(CLASS))
+      if (currentRealTokenEquals(CLASS) || currentRealTokenEquals(INTERFACE))
       {
          // parse nested class
          // throw new RuntimeException("class " + className +
