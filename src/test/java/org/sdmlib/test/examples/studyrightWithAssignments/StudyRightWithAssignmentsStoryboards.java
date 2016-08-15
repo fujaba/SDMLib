@@ -794,7 +794,7 @@ public class StudyRightWithAssignmentsStoryboards
 
          story.markCodeStart();
 
-         table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
+         table.createColumns("Topic", row -> {Room r = row.getCellValue("B");return r.getTopic();});
          table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits())
          .withTdCssClass("text-right");
          table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
