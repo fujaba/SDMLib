@@ -278,13 +278,14 @@ public class Row implements SendableEntity
    }
 
 
-   public Object getCellValue(String columnName)
+   @SuppressWarnings("unchecked")
+   public <T> T getCellValue(String columnName)
    {
       for (Cell c : this.getCells())
       {
          if (c.getColumn().getName().equals(columnName))
          {
-            return c.getValue();
+            return (T) c.getValue();
          }
       }
       return null;
