@@ -329,6 +329,14 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return true;
 	}
 
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
+	
 	@Override
 	public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		getPropertyChangeSupport().removePropertyChangeListener(propertyName, listener);
