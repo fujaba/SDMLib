@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:1.1.+'
+    compile 'org.sdmlib:SDMLib:2.2.+'
 }
 ~~~
 
@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:1.1.+'
+    compile 'org.sdmlib:SDMLib:2.2.+'
 }
 ~~~
 
@@ -65,7 +65,7 @@ In order to get started, just add the following Maven dependency:
     <dependency>
         <groupId>org.sdmlib</groupId>
         <artifactId>SDMLib</artifactId>
-        <version>1.1.600</version>
+        <version>2.2.963</version>
     </dependency>
 
 In addition to class models, SDMLib will also support object diagrams, storyboards and model transformations. 
