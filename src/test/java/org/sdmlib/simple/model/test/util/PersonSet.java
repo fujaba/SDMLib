@@ -24,8 +24,8 @@ package org.sdmlib.simple.model.test.util;
 import java.util.HashSet;
 import org.sdmlib.simple.model.test.Person;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.test.util.UniversitySet;
 import org.sdmlib.simple.model.test.University;
 
@@ -85,6 +85,21 @@ public class PersonSet extends HashSet<Person>
    {
       this.remove(value);
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList getLong()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Person obj : this)
+      {
+         result.add( obj.getLong() );
+      }
+      return result;
    }
 
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,9 +23,6 @@ package org.sdmlib.simple.model.modelling_a.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.modelling_a.StudentEnum;
-import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import java.lang.Integer;
 
 public class StudentEnumSet extends SDMSet<StudentEnum>
 {
@@ -33,48 +30,9 @@ public class StudentEnumSet extends SDMSet<StudentEnum>
    public static final StudentEnumSet EMPTY_SET = new StudentEnumSet().withFlag(StudentEnumSet.READONLY);
 
 
-   public StudentEnumPO filterStudentEnumPO()
-   {
-      return new StudentEnumPO(this.toArray(new StudentEnum[this.size()]));
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.simple.model.modelling_a.StudentEnum";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public StudentEnumSet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<StudentEnum>)value);
-      }
-      else if (value != null)
-      {
-         this.add((StudentEnum) value);
-      }
-      
-      return this;
-   }
-   
-   public StudentEnumSet without(StudentEnum value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-   @Override
-   public StudentEnumSet filter(Condition<StudentEnum> newValue) {
-      StudentEnumSet filterList = new StudentEnumSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**
@@ -102,7 +60,7 @@ public class StudentEnumSet extends SDMSet<StudentEnum>
     * 
     * @return Subset of StudentEnum objects that match the parameter
     */
-   public StudentEnumSet filterValue0(Integer value)
+   public StudentEnumSet createValue0Condition(Integer value)
    {
       StudentEnumSet result = new StudentEnumSet();
       
@@ -135,22 +93,4 @@ public class StudentEnumSet extends SDMSet<StudentEnum>
       return this;
    }
 
-
-   public StudentEnumSet()
-   {
-      // empty
-   }
-
-   public StudentEnumSet(StudentEnum... objects)
-   {
-      for (StudentEnum obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public StudentEnumSet(Collection<StudentEnum> objects)
-   {
-      this.addAll(objects);
-   }
 }

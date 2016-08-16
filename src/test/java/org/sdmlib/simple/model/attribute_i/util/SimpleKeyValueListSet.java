@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,38 @@
    
 package org.sdmlib.simple.model.attribute_i.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class SimpleKeyValueListSet extends SDMSet<SimpleKeyValueList>
+public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {
+	protected Class<?> getTypClass() {
+		return SimpleKeyValueList.class;
+	}
+
+   public SimpleKeyValueListSet()
+   {
+      // empty
+   }
+
+   public SimpleKeyValueListSet(SimpleKeyValueList... objects)
+   {
+      for (SimpleKeyValueList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleKeyValueListSet(Collection<SimpleKeyValueList> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final SimpleKeyValueListSet EMPTY_SET = new SimpleKeyValueListSet().withFlag(SimpleKeyValueListSet.READONLY);
 
 
-   public SimpleKeyValueListPO filterSimpleKeyValueListPO()
+   public SimpleKeyValueListPO createSimpleKeyValueListPO()
    {
       return new SimpleKeyValueListPO(this.toArray(new SimpleKeyValueList[this.size()]));
    }
@@ -69,28 +89,4 @@ public class SimpleKeyValueListSet extends SDMSet<SimpleKeyValueList>
       return this;
    }
 
-   @Override
-   public SimpleKeyValueListSet filter(Condition<SimpleKeyValueList> newValue) {
-      SimpleKeyValueListSet filterList = new SimpleKeyValueListSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
-
-   public SimpleKeyValueListSet()
-   {
-      // empty
-   }
-
-   public SimpleKeyValueListSet(SimpleKeyValueList... objects)
-   {
-      for (SimpleKeyValueList obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public SimpleKeyValueListSet(Collection<SimpleKeyValueList> objects)
-   {
-      this.addAll(objects);
-   }
 }

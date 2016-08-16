@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.superclazzes_e.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.superclazzes_e.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.simple.model.superclazzes_e.util.TeacherPO;
 import org.sdmlib.simple.model.superclazzes_e.Teacher;
 import org.sdmlib.simple.model.superclazzes_e.util.PersonPO;
@@ -37,7 +38,12 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
-   public PersonPO filterName(String value)
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -51,7 +57,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO filterName(String lower, String upper)
+   public PersonPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -66,9 +72,17 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createName(String value)
+   public PersonPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -90,7 +104,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public TeacherPO filterTeacher()
+   public TeacherPO createTeacherPO()
    {
       TeacherPO result = new TeacherPO(new Teacher[]{});
       
@@ -100,19 +114,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public TeacherPO createTeacher()
+   public TeacherPO createTeacherPO(String modifier)
    {
-      return this.startCreate().filterTeacher().endCreate();
+      TeacherPO result = new TeacherPO(new Teacher[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_TEACHER, result);
+      
+      return result;
    }
 
-   public PersonPO filterTeacher(TeacherPO tgt)
+   public PersonPO createTeacherLink(TeacherPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_TEACHER);
    }
 
-   public PersonPO createTeacher(TeacherPO tgt)
+   public PersonPO createTeacherLink(TeacherPO tgt, String modifier)
    {
-      return this.startCreate().filterTeacher(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_TEACHER, modifier);
    }
 
    public Teacher getTeacher()

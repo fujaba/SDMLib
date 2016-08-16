@@ -33,6 +33,11 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    

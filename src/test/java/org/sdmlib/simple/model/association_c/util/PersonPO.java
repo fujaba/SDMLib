@@ -36,7 +36,12 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
-   public RoomPO filterRoom()
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -46,19 +51,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public RoomPO createRoom()
+   public RoomPO createRoomPO(String modifier)
    {
-      return this.startCreate().filterRoom().endCreate();
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
    }
 
-   public PersonPO filterRoom(RoomPO tgt)
+   public PersonPO createRoomLink(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
    }
 
-   public PersonPO createRoom(RoomPO tgt)
+   public PersonPO createRoomLink(RoomPO tgt, String modifier)
    {
-      return this.startCreate().filterRoom(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
    }
 
    public Room getRoom()
@@ -70,7 +80,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public PersonPO filterPrevPerson()
+   public PersonPO createPrevPersonPO()
    {
       PersonPO result = new PersonPO(new Person[]{});
       
@@ -80,19 +90,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public PersonPO createPrevPerson()
+   public PersonPO createPrevPersonPO(String modifier)
    {
-      return this.startCreate().filterPrevPerson().endCreate();
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_PREVPERSON, result);
+      
+      return result;
    }
 
-   public PersonPO filterPrevPerson(PersonPO tgt)
+   public PersonPO createPrevPersonLink(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_PREVPERSON);
    }
 
-   public PersonPO createPrevPerson(PersonPO tgt)
+   public PersonPO createPrevPersonLink(PersonPO tgt, String modifier)
    {
-      return this.startCreate().filterPrevPerson(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_PREVPERSON, modifier);
    }
 
    public Person getPrevPerson()
@@ -104,7 +119,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public PersonPO filterNextPerson()
+   public PersonPO createNextPersonPO()
    {
       PersonPO result = new PersonPO(new Person[]{});
       
@@ -114,19 +129,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public PersonPO createNextPerson()
+   public PersonPO createNextPersonPO(String modifier)
    {
-      return this.startCreate().filterNextPerson().endCreate();
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_NEXTPERSON, result);
+      
+      return result;
    }
 
-   public PersonPO filterNextPerson(PersonPO tgt)
+   public PersonPO createNextPersonLink(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_NEXTPERSON);
    }
 
-   public PersonPO createNextPerson(PersonPO tgt)
+   public PersonPO createNextPersonLink(PersonPO tgt, String modifier)
    {
-      return this.startCreate().filterNextPerson(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_NEXTPERSON, modifier);
    }
 
    public Person getNextPerson()

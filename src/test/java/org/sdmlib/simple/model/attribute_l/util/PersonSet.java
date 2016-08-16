@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,16 @@
    
 package org.sdmlib.simple.model.attribute_l.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.attribute_l.Person;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 
-public class PersonSet extends SDMSet<Person>
+public class PersonSet extends SimpleSet<Person>
 {
+	protected Class<?> getTypClass() {
+		return Person.class;
+	}
 
    public PersonSet()
    {
@@ -47,10 +50,10 @@ public class PersonSet extends SDMSet<Person>
       this.addAll(objects);
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet();
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
-   public PersonPO filterPersonPO()
+   public PersonPO createPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
@@ -93,9 +96,9 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return List of String objects reachable via personalName attribute
     */
-   public StringList getPersonalName()
+   public ObjectSet getPersonalName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Person obj : this)
       {
@@ -113,7 +116,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterPersonalName(String value)
+   public PersonSet createPersonalNameCondition(String value)
    {
       PersonSet result = new PersonSet();
       
@@ -137,7 +140,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterPersonalName(String lower, String upper)
+   public PersonSet createPersonalNameCondition(String lower, String upper)
    {
       PersonSet result = new PersonSet();
       

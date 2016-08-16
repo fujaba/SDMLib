@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.interface_b.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.interface_b.Pupil;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PupilPO extends PatternObject<PupilPO, Pupil>
 {
@@ -34,7 +35,12 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       }
       newInstance(null, hostGraphObject);
    }
-   public PupilPO filterName(String value)
+
+   public PupilPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PupilPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_NAME)
@@ -48,7 +54,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterName(String lower, String upper)
+   public PupilPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_NAME)
@@ -63,9 +69,17 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO createName(String value)
+   public PupilPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Pupil.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

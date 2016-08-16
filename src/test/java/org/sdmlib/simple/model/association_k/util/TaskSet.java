@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,18 @@
    
 package org.sdmlib.simple.model.association_k.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.association_k.Task;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.simple.model.association_k.util.TaskSet;
 
-public class TaskSet extends SDMSet<Task>
+public class TaskSet extends SimpleSet<Task>
 {
+	protected Class<?> getTypClass() {
+		return Task.class;
+	}
 
    public TaskSet()
    {
@@ -50,10 +52,10 @@ public class TaskSet extends SDMSet<Task>
       this.addAll(objects);
    }
 
-   public static final TaskSet EMPTY_SET = new TaskSet();
+   public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
 
 
-   public TaskPO filterTaskPO()
+   public TaskPO createTaskPO()
    {
       return new TaskPO(this.toArray(new Task[this.size()]));
    }
@@ -96,9 +98,9 @@ public class TaskSet extends SDMSet<Task>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Task obj : this)
       {
@@ -116,7 +118,7 @@ public class TaskSet extends SDMSet<Task>
     * 
     * @return Subset of Task objects that match the parameter
     */
-   public TaskSet filterName(String value)
+   public TaskSet createNameCondition(String value)
    {
       TaskSet result = new TaskSet();
       
@@ -140,7 +142,7 @@ public class TaskSet extends SDMSet<Task>
     * 
     * @return Subset of Task objects that match the parameter
     */
-   public TaskSet filterName(String lower, String upper)
+   public TaskSet createNameCondition(String lower, String upper)
    {
       TaskSet result = new TaskSet();
       

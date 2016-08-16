@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.interface_b.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.interface_b.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -34,6 +35,11 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    
@@ -56,7 +62,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
    }
 
-   public PersonPO filterName(String value)
+   public PersonPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -70,7 +76,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO filterName(String lower, String upper)
+   public PersonPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -85,9 +91,17 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createName(String value)
+   public PersonPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

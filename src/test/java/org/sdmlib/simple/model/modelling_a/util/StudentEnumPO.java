@@ -2,8 +2,8 @@ package org.sdmlib.simple.model.modelling_a.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.modelling_a.StudentEnum;
-import java.lang.Integer;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class StudentEnumPO extends PatternObject<StudentEnumPO, StudentEnum>
 {
@@ -35,7 +35,12 @@ public class StudentEnumPO extends PatternObject<StudentEnumPO, StudentEnum>
       }
       newInstance(null, hostGraphObject);
    }
-   public StudentEnumPO filterValue0(Integer value)
+
+   public StudentEnumPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public StudentEnumPO createValue0Condition(Integer value)
    {
       new AttributeConstraint()
       .withAttrName(StudentEnum.PROPERTY_VALUE0)
@@ -49,9 +54,17 @@ public class StudentEnumPO extends PatternObject<StudentEnumPO, StudentEnum>
       return this;
    }
    
-   public StudentEnumPO createValue0(Integer value)
+   public StudentEnumPO createValue0Assignment(Integer value)
    {
-      this.startCreate().filterValue0(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(StudentEnum.PROPERTY_VALUE0)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

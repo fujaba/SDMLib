@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Room;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.roomInterface;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.simple.model.modelling_a.Pupil;
@@ -90,11 +90,11 @@ public class RoomCreator implements SendableEntityCreator
    {
       if (roomInterface.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
       {
-         ((roomInterface) target).withNumber(Integer.parseInt(value.toString()));
+         ((roomInterface) target).setNumber(Integer.parseInt(value.toString()));
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -105,7 +105,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_PERSONS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutPersons((Person) value);
          return true;
@@ -117,7 +117,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_CURRENTPUPILS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_CURRENTPUPILS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutCurrentPupils((Pupil) value);
          return true;

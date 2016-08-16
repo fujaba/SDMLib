@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,7 +22,7 @@
 package org.sdmlib.simple.model.modelling_a;
 
 import org.sdmlib.simple.model.modelling_a.Person;
-import org.sdmlib.StrUtil;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.simple.model.modelling_a.Room;
 import org.sdmlib.simple.model.modelling_a.util.PupilSet;
 import org.sdmlib.simple.model.modelling_a.Pupil;
@@ -47,13 +47,10 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setRoom(null);
-      setCurrentRoom(null);
       withoutPupils(this.getPupils().toArray(new Pupil[this.getPupils().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setCurrentRoom(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -70,11 +67,11 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
    
    public void setRank(String value)
    {
-      if ( ! StrUtil.stringEquals(this.rank, value)) {
+      if ( ! EntityUtil.stringEquals(this.rank, value)) {
       
          String oldValue = this.rank;
          this.rank = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_RANK, oldValue, value);
+         this.firePropertyChange(PROPERTY_RANK, oldValue, value);
       }
    }
    
@@ -96,65 +93,6 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
       return result.substring(1);
    }
 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Teacher ----------------------------------- Room
-    *              currentTeacher                   currentRoom
-    * </pre>
-    */
-   
-   public static final String PROPERTY_CURRENTROOM = "currentRoom";
-
-   private Room currentRoom = null;
-
-   public Room getCurrentRoom()
-   {
-      return this.currentRoom;
-   }
-
-   public boolean setCurrentRoom(Room value)
-   {
-      boolean changed = false;
-      
-      if (this.currentRoom != value)
-      {
-         Room oldValue = this.currentRoom;
-         
-         if (this.currentRoom != null)
-         {
-            this.currentRoom = null;
-            oldValue.setCurrentTeacher(null);
-         }
-         
-         this.currentRoom = value;
-         
-         if (value != null)
-         {
-            value.withCurrentTeacher(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTROOM, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Teacher withCurrentRoom(Room value)
-   {
-      setCurrentRoom(value);
-      return this;
-   } 
-
-   public Room createCurrentRoom()
-   {
-      Room value = new Room();
-      withCurrentRoom(value);
-      return value;
-   } 
 
    
    /********************************************************************
@@ -198,7 +136,7 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
             if (changed)
             {
                item.withTeacher(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PUPILS, null, item);
+               firePropertyChange(PROPERTY_PUPILS, null, item);
             }
          }
       }
@@ -214,7 +152,7 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
             if (this.pupils.remove(item))
             {
                item.setTeacher(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PUPILS, item, null);
+               firePropertyChange(PROPERTY_PUPILS, item, null);
             }
          }
       }
@@ -225,6 +163,65 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
    {
       Pupil value = new Pupil();
       withPupils(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Teacher ----------------------------------- Room
+    *              currentTeacher                   currentRoom
+    * </pre>
+    */
+   
+   public static final String PROPERTY_CURRENTROOM = "currentRoom";
+
+   private Room currentRoom = null;
+
+   public Room getCurrentRoom()
+   {
+      return this.currentRoom;
+   }
+
+   public boolean setCurrentRoom(Room value)
+   {
+      boolean changed = false;
+      
+      if (this.currentRoom != value)
+      {
+         Room oldValue = this.currentRoom;
+         
+         if (this.currentRoom != null)
+         {
+            this.currentRoom = null;
+            oldValue.setCurrentTeacher(null);
+         }
+         
+         this.currentRoom = value;
+         
+         if (value != null)
+         {
+            value.withCurrentTeacher(this);
+         }
+         
+         firePropertyChange(PROPERTY_CURRENTROOM, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Teacher withCurrentRoom(Room value)
+   {
+      setCurrentRoom(value);
+      return this;
+   } 
+
+   public Room createCurrentRoom()
+   {
+      Room value = new Room();
+      withCurrentRoom(value);
       return value;
    } 
 }

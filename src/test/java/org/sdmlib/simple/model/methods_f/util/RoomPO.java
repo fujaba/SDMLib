@@ -33,4 +33,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public RoomPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

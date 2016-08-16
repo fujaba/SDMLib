@@ -35,6 +35,12 @@ import org.sdmlib.simple.model.test.University;
 
    
    //==========================================================================
+   public long getLong(  )
+   {
+return this.getCredits() + 42;   }
+
+   
+   //==========================================================================
    
    protected PropertyChangeSupport listeners = null;
    
@@ -66,9 +72,16 @@ import org.sdmlib.simple.model.test.University;
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
    	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
+   		listeners.removePropertyChangeListener(listener);
    	}
    	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
    	return true;
    }
 

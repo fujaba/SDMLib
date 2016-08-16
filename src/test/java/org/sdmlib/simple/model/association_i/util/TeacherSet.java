@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,7 +21,7 @@
    
 package org.sdmlib.simple.model.association_i.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.association_i.Teacher;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
@@ -31,8 +31,11 @@ import org.sdmlib.simple.model.association_i.Person;
 import org.sdmlib.simple.model.association_i.util.RoomSet;
 import org.sdmlib.simple.model.association_i.Room;
 
-public class TeacherSet extends SDMSet<Teacher>
+public class TeacherSet extends SimpleSet<Teacher>
 {
+	protected Class<?> getTypClass() {
+		return Teacher.class;
+	}
 
    public TeacherSet()
    {
@@ -52,10 +55,10 @@ public class TeacherSet extends SDMSet<Teacher>
       this.addAll(objects);
    }
 
-   public static final TeacherSet EMPTY_SET = new TeacherSet();
+   public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
 
 
-   public TeacherPO filterTeacherPO()
+   public TeacherPO createTeacherPO()
    {
       return new TeacherPO(this.toArray(new Teacher[this.size()]));
    }

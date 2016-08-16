@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,18 @@
    
 package org.sdmlib.simple.model.superclazzes_e.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.superclazzes_e.Pupil;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.superclazzes_e.util.TeacherSet;
 import org.sdmlib.simple.model.superclazzes_e.Teacher;
 
-public class PupilSet extends SDMSet<Pupil>
+public class PupilSet extends SimpleSet<Pupil>
 {
+	protected Class<?> getTypClass() {
+		return Pupil.class;
+	}
 
    public PupilSet()
    {
@@ -50,10 +52,10 @@ public class PupilSet extends SDMSet<Pupil>
       this.addAll(objects);
    }
 
-   public static final PupilSet EMPTY_SET = new PupilSet();
+   public static final PupilSet EMPTY_SET = new PupilSet().withFlag(PupilSet.READONLY);
 
 
-   public PupilPO filterPupilPO()
+   public PupilPO createPupilPO()
    {
       return new PupilPO(this.toArray(new Pupil[this.size()]));
    }
@@ -96,9 +98,9 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Pupil obj : this)
       {
@@ -116,7 +118,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterName(String value)
+   public PupilSet createNameCondition(String value)
    {
       PupilSet result = new PupilSet();
       
@@ -140,7 +142,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterName(String lower, String upper)
+   public PupilSet createNameCondition(String lower, String upper)
    {
       PupilSet result = new PupilSet();
       

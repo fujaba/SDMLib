@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,39 @@
    
 package org.sdmlib.simple.model.modelling_a.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.modelling_a.roomInterface;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.intList;
+import de.uniks.networkparser.list.NumberList;
 
-public class roomInterfaceSet extends SDMSet<roomInterface>
+public class roomInterfaceSet extends SimpleSet<roomInterface>
 {
+	protected Class<?> getTypClass() {
+		return roomInterface.class;
+	}
+
+   public roomInterfaceSet()
+   {
+      // empty
+   }
+
+   public roomInterfaceSet(roomInterface... objects)
+   {
+      for (roomInterface obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public roomInterfaceSet(Collection<roomInterface> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final roomInterfaceSet EMPTY_SET = new roomInterfaceSet().withFlag(roomInterfaceSet.READONLY);
 
 
-   public roomInterfacePO filterroomInterfacePO()
+   public roomInterfacePO createroomInterfacePO()
    {
       return new roomInterfacePO(this.toArray(new roomInterface[this.size()]));
    }
@@ -70,21 +90,15 @@ public class roomInterfaceSet extends SDMSet<roomInterface>
       return this;
    }
 
-   @Override
-   public roomInterfaceSet filter(Condition<roomInterface> newValue) {
-      roomInterfaceSet filterList = new roomInterfaceSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of roomInterface objects and collect a list of the number attribute values. 
     * 
     * @return List of int objects reachable via number attribute
     */
-   public intList getNumber()
+   public NumberList getNumber()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (roomInterface obj : this)
       {
@@ -102,7 +116,7 @@ public class roomInterfaceSet extends SDMSet<roomInterface>
     * 
     * @return Subset of roomInterface objects that match the parameter
     */
-   public roomInterfaceSet filterNumber(int value)
+   public roomInterfaceSet createNumberCondition(int value)
    {
       roomInterfaceSet result = new roomInterfaceSet();
       
@@ -126,7 +140,7 @@ public class roomInterfaceSet extends SDMSet<roomInterface>
     * 
     * @return Subset of roomInterface objects that match the parameter
     */
-   public roomInterfaceSet filterNumber(int lower, int upper)
+   public roomInterfaceSet createNumberCondition(int lower, int upper)
    {
       roomInterfaceSet result = new roomInterfaceSet();
       
@@ -159,22 +173,4 @@ public class roomInterfaceSet extends SDMSet<roomInterface>
       return this;
    }
 
-
-   public roomInterfaceSet()
-   {
-      // empty
-   }
-
-   public roomInterfaceSet(roomInterface... objects)
-   {
-      for (roomInterface obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public roomInterfaceSet(Collection<roomInterface> objects)
-   {
-      this.addAll(objects);
-   }
 }

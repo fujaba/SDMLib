@@ -74,16 +74,20 @@ public class Column implements SendableEntity
    }
 
 
-   public boolean removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      if (listeners == null)
-      {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.removePropertyChangeListener(listener);
-      return true;
-   }
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
 
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
 
    // ==========================================================================
 
@@ -355,13 +359,5 @@ public class Column implements SendableEntity
    {
       setThCssClass(value);
       return this;
-   }
-
-   public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-    if (listeners == null) {
-       listeners = new PropertyChangeSupport(this);
-    }
-    listeners.removePropertyChangeListener(propertyName, listener);
-    return true;
    }
 }

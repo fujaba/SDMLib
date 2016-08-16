@@ -33,4 +33,9 @@ public class SimpleKeyValueListPO extends PatternObject<SimpleKeyValueListPO, Si
       }
       newInstance(null, hostGraphObject);
    }
+
+   public SimpleKeyValueListPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

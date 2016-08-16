@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -72,9 +72,16 @@ import java.beans.PropertyChangeListener;
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
    	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
+   		listeners.removePropertyChangeListener(listener);
    	}
    	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
    	return true;
    }
 

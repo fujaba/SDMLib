@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.attribute_i.Person;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -35,7 +36,12 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
-   public PersonPO filterNamesMap(SimpleKeyValueList<String,SimpleKeyValueList> value)
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createNamesMapCondition(SimpleKeyValueList<String,SimpleKeyValueList> value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAMESMAP)
@@ -49,9 +55,17 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createNamesMap(SimpleKeyValueList<String,SimpleKeyValueList> value)
+   public PersonPO createNamesMapAssignment(SimpleKeyValueList<String,SimpleKeyValueList> value)
    {
-      this.startCreate().filterNamesMap(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAMESMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

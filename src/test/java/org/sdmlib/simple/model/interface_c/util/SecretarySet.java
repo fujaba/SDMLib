@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,15 @@
    
 package org.sdmlib.simple.model.interface_c.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.interface_c.Secretary;
 import java.util.Collection;
 
-public class SecretarySet extends SDMSet<Secretary>
+public class SecretarySet extends SimpleSet<Secretary>
 {
+	protected Class<?> getTypClass() {
+		return Secretary.class;
+	}
 
    public SecretarySet()
    {
@@ -46,10 +49,10 @@ public class SecretarySet extends SDMSet<Secretary>
       this.addAll(objects);
    }
 
-   public static final SecretarySet EMPTY_SET = new SecretarySet();
+   public static final SecretarySet EMPTY_SET = new SecretarySet().withFlag(SecretarySet.READONLY);
 
 
-   public SecretaryPO filterSecretaryPO()
+   public SecretaryPO createSecretaryPO()
    {
       return new SecretaryPO(this.toArray(new Secretary[this.size()]));
    }

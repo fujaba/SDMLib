@@ -66,9 +66,16 @@ import org.sdmlib.simple.model.test.Person;
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
    	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
+   		listeners.removePropertyChangeListener(listener);
    	}
    	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
    	return true;
    }
 

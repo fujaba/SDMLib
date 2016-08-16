@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.modelling_a.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.simple.model.modelling_a.util.RoomPO;
 import org.sdmlib.simple.model.modelling_a.Room;
 import org.sdmlib.simple.model.modelling_a.util.PersonPO;
@@ -37,6 +38,11 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    
@@ -59,7 +65,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
    }
 
-   public PersonPO filterName(String value)
+   public PersonPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -73,7 +79,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO filterName(String lower, String upper)
+   public PersonPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
@@ -88,9 +94,17 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createName(String value)
+   public PersonPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -112,7 +126,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO filterAge(int value)
+   public PersonPO createAgeCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_AGE)
@@ -126,7 +140,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO filterAge(int lower, int upper)
+   public PersonPO createAgeCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_AGE)
@@ -141,9 +155,17 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createAge(int value)
+   public PersonPO createAgeAssignment(int value)
    {
-      this.startCreate().filterAge(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -165,7 +187,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public RoomPO filterRoom()
+   public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -175,19 +197,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public RoomPO createRoom()
+   public RoomPO createRoomPO(String modifier)
    {
-      return this.startCreate().filterRoom().endCreate();
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
    }
 
-   public PersonPO filterRoom(RoomPO tgt)
+   public PersonPO createRoomLink(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
    }
 
-   public PersonPO createRoom(RoomPO tgt)
+   public PersonPO createRoomLink(RoomPO tgt, String modifier)
    {
-      return this.startCreate().filterRoom(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
    }
 
    public Room getRoom()

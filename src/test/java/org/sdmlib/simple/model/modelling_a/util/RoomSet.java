@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,10 @@
    
 package org.sdmlib.simple.model.modelling_a.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.modelling_a.Room;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.intList;
+import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.simple.model.modelling_a.util.PersonSet;
@@ -35,13 +34,34 @@ import org.sdmlib.simple.model.modelling_a.Pupil;
 import org.sdmlib.simple.model.modelling_a.util.TeacherSet;
 import org.sdmlib.simple.model.modelling_a.Teacher;
 
-public class RoomSet extends SDMSet<Room>
+public class RoomSet extends SimpleSet<Room>
 {
+	protected Class<?> getTypClass() {
+		return Room.class;
+	}
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
 
-   public RoomPO filterRoomPO()
+   public RoomPO createRoomPO()
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }
@@ -78,21 +98,15 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   @Override
-   public RoomSet filter(Condition<Room> newValue) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Room objects and collect a list of the number attribute values. 
     * 
     * @return List of int objects reachable via number attribute
     */
-   public intList getNumber()
+   public NumberList getNumber()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Room obj : this)
       {
@@ -110,7 +124,7 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterNumber(int value)
+   public RoomSet createNumberCondition(int value)
    {
       RoomSet result = new RoomSet();
       
@@ -134,7 +148,7 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterNumber(int lower, int upper)
+   public RoomSet createNumberCondition(int lower, int upper)
    {
       RoomSet result = new RoomSet();
       
@@ -392,22 +406,4 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-
-   public RoomSet()
-   {
-      // empty
-   }
-
-   public RoomSet(Room... objects)
-   {
-      for (Room obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public RoomSet(Collection<Room> objects)
-   {
-      this.addAll(objects);
-   }
 }

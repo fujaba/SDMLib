@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.modelling_a.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.modelling_a.Teacher;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.simple.model.modelling_a.util.RoomPO;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.simple.model.modelling_a.Room;
@@ -41,6 +42,11 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public TeacherPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    
@@ -53,7 +59,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return null;
    }
 
-   public TeacherPO filterRank(String value)
+   public TeacherPO createRankCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_RANK)
@@ -67,7 +73,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO filterRank(String lower, String upper)
+   public TeacherPO createRankCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_RANK)
@@ -82,9 +88,17 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO createRank(String value)
+   public TeacherPO createRankAssignment(String value)
    {
-      this.startCreate().filterRank(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Teacher.PROPERTY_RANK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -106,7 +120,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO filterName(String value)
+   public TeacherPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_NAME)
@@ -120,7 +134,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO filterName(String lower, String upper)
+   public TeacherPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_NAME)
@@ -135,9 +149,17 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO createName(String value)
+   public TeacherPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Teacher.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -159,7 +181,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO filterAge(int value)
+   public TeacherPO createAgeCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_AGE)
@@ -173,7 +195,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO filterAge(int lower, int upper)
+   public TeacherPO createAgeCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Teacher.PROPERTY_AGE)
@@ -188,9 +210,17 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public TeacherPO createAge(int value)
+   public TeacherPO createAgeAssignment(int value)
    {
-      this.startCreate().filterAge(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Teacher.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -212,7 +242,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return this;
    }
    
-   public RoomPO filterRoom()
+   public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -222,19 +252,24 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return result;
    }
 
-   public RoomPO createRoom()
+   public RoomPO createRoomPO(String modifier)
    {
-      return this.startCreate().filterRoom().endCreate();
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
    }
 
-   public TeacherPO filterRoom(RoomPO tgt)
+   public TeacherPO createRoomLink(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
    }
 
-   public TeacherPO createRoom(RoomPO tgt)
+   public TeacherPO createRoomLink(RoomPO tgt, String modifier)
    {
-      return this.startCreate().filterRoom(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
    }
 
    public Room getRoom()
@@ -246,41 +281,7 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return null;
    }
 
-   public RoomPO filterCurrentRoom()
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Teacher.PROPERTY_CURRENTROOM, result);
-      
-      return result;
-   }
-
-   public RoomPO createCurrentRoom()
-   {
-      return this.startCreate().filterCurrentRoom().endCreate();
-   }
-
-   public TeacherPO filterCurrentRoom(RoomPO tgt)
-   {
-      return hasLinkConstraint(tgt, Teacher.PROPERTY_CURRENTROOM);
-   }
-
-   public TeacherPO createCurrentRoom(RoomPO tgt)
-   {
-      return this.startCreate().filterCurrentRoom(tgt).endCreate();
-   }
-
-   public Room getCurrentRoom()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Teacher) this.getCurrentMatch()).getCurrentRoom();
-      }
-      return null;
-   }
-
-   public PupilPO filterPupils()
+   public PupilPO createPupilsPO()
    {
       PupilPO result = new PupilPO(new Pupil[]{});
       
@@ -290,19 +291,24 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       return result;
    }
 
-   public PupilPO createPupils()
+   public PupilPO createPupilsPO(String modifier)
    {
-      return this.startCreate().filterPupils().endCreate();
+      PupilPO result = new PupilPO(new Pupil[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Teacher.PROPERTY_PUPILS, result);
+      
+      return result;
    }
 
-   public TeacherPO filterPupils(PupilPO tgt)
+   public TeacherPO createPupilsLink(PupilPO tgt)
    {
       return hasLinkConstraint(tgt, Teacher.PROPERTY_PUPILS);
    }
 
-   public TeacherPO createPupils(PupilPO tgt)
+   public TeacherPO createPupilsLink(PupilPO tgt, String modifier)
    {
-      return this.startCreate().filterPupils(tgt).endCreate();
+      return hasLinkConstraint(tgt, Teacher.PROPERTY_PUPILS, modifier);
    }
 
    public PupilSet getPupils()
@@ -310,6 +316,45 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       if (this.getPattern().getHasMatch())
       {
          return ((Teacher) this.getCurrentMatch()).getPupils();
+      }
+      return null;
+   }
+
+   public RoomPO createCurrentRoomPO()
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Teacher.PROPERTY_CURRENTROOM, result);
+      
+      return result;
+   }
+
+   public RoomPO createCurrentRoomPO(String modifier)
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Teacher.PROPERTY_CURRENTROOM, result);
+      
+      return result;
+   }
+
+   public TeacherPO createCurrentRoomLink(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Teacher.PROPERTY_CURRENTROOM);
+   }
+
+   public TeacherPO createCurrentRoomLink(RoomPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Teacher.PROPERTY_CURRENTROOM, modifier);
+   }
+
+   public Room getCurrentRoom()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Teacher) this.getCurrentMatch()).getCurrentRoom();
       }
       return null;
    }
