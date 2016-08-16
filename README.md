@@ -22,7 +22,7 @@ The idea is that you _code_ your model:
     Clazz student = model.createClazz("Student")
         .withAttribute("studentID", DataType.STRING);
 
-    uni.withAssoc(student, "students", Card.MANY, "almaMater", Card.ONE);
+    uni.withBidirectional(student, "students", Cardinality.MANY, "almaMater", Cardinality.ONE);
 
     model.generate();
 
