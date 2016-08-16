@@ -22,8 +22,8 @@ atlassian-ide-plugin.xml
 *.*~
 .settings
 /build/
-*.iml
-*.ipr
 /.idea/
 /gen/
 
+/SDMLib-2.0.0-SNAPSHOT.jar
+/SDMLib.jar

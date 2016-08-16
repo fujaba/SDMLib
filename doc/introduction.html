@@ -24,7 +24,7 @@ Clazz uni = model.createClazz("University");
 
 Clazz stud = model.createClazz("Student").withAttribute("name", DataType.STRING);
 
-uni.withAssoc(stud, "students", Card.MANY, "university", Card.ONE);
+uni.withBidirectional(student, "students", Cardinality.MANY, "almaMater", Cardinality.ONE);
 
 model.generate();
 
