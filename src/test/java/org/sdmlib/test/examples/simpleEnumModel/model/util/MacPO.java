@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
+import org.sdmlib.models.pattern.Pattern;
 
 public class MacPO extends PatternObject<MacPO, Mac>
 {
@@ -239,6 +240,110 @@ public class MacPO extends PatternObject<MacPO, Mac>
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public MacPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MacPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createTypeCondition(TEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createTypeAssignment(TEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createOwnerCondition(Alex value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_OWNER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacPO createOwnerAssignment(Alex value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_OWNER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
+import org.sdmlib.models.pattern.Pattern;
 
 public class AlexPO extends PatternObject<AlexPO, Alex>
 {
@@ -109,6 +110,54 @@ public class AlexPO extends PatternObject<AlexPO, Alex>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public AlexPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public AlexPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Alex.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AlexPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Alex.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AlexPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Alex.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();
