@@ -33,4 +33,9 @@ public class TeacherPO extends PatternObject<TeacherPO, Teacher>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public TeacherPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

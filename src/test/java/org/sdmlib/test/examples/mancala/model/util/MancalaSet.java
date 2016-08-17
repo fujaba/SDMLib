@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;

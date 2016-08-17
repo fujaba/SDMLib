@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.groupaccount;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -18,7 +18,7 @@ public class GroupAccountClassModel
    @Test
    public void testGroupAccountCodegen()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: Nothing here yet. Generate classes");
       

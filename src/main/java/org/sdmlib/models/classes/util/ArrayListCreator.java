@@ -45,14 +45,6 @@ public class ArrayListCreator implements SendableEntityCreator
    @Override
    public Object getValue(Object target, String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-      
       return null;
    }
    

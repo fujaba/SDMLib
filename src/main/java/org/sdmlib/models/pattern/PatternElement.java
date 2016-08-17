@@ -24,7 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
@@ -66,11 +66,20 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return true;
    }
 
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
 
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
    //==========================================================================
    
    public void removeYou()

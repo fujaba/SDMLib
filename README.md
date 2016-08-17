@@ -22,7 +22,7 @@ The idea is that you _code_ your model:
     Clazz student = model.createClazz("Student")
         .withAttribute("studentID", DataType.STRING);
 
-    uni.withAssoc(student, "students", Card.MANY, "almaMater", Card.ONE);
+    uni.withBidirectional(student, "students", Cardinality.MANY, "almaMater", Cardinality.ONE);
 
     model.generate();
 
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:1.1.+'
+    compile 'org.sdmlib:SDMLib:2.2.+'
 }
 ~~~
 
@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:1.1.+'
+    compile 'org.sdmlib:SDMLib:2.2.+'
 }
 ~~~
 
@@ -65,7 +65,7 @@ In order to get started, just add the following Maven dependency:
     <dependency>
         <groupId>org.sdmlib</groupId>
         <artifactId>SDMLib</artifactId>
-        <version>1.1.600</version>
+        <version>2.2.963</version>
     </dependency>
 
 In addition to class models, SDMLib will also support object diagrams, storyboards and model transformations. 

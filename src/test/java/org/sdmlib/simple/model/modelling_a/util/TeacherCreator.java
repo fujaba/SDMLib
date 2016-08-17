@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Teacher;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.simple.model.modelling_a.Room;
 import org.sdmlib.simple.model.modelling_a.Pupil;
@@ -36,8 +36,8 @@ public class TeacherCreator implements SendableEntityCreator
       Person.PROPERTY_NAME,
       Person.PROPERTY_AGE,
       Person.PROPERTY_ROOM,
-      Teacher.PROPERTY_CURRENTROOM,
       Teacher.PROPERTY_PUPILS,
+      Teacher.PROPERTY_CURRENTROOM,
    };
    
    @Override
@@ -83,14 +83,14 @@ public class TeacherCreator implements SendableEntityCreator
          return ((Teacher) target).getRoom();
       }
 
-      if (Teacher.PROPERTY_CURRENTROOM.equalsIgnoreCase(attribute))
-      {
-         return ((Teacher) target).getCurrentRoom();
-      }
-
       if (Teacher.PROPERTY_PUPILS.equalsIgnoreCase(attribute))
       {
          return ((Teacher) target).getPupils();
+      }
+
+      if (Teacher.PROPERTY_CURRENTROOM.equalsIgnoreCase(attribute))
+      {
+         return ((Teacher) target).getCurrentRoom();
       }
       
       return null;
@@ -101,23 +101,23 @@ public class TeacherCreator implements SendableEntityCreator
    {
       if (Person.PROPERTY_AGE.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withAge(Integer.parseInt(value.toString()));
+         ((Person) target).setAge(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withName((String) value);
+         ((Person) target).setName((String) value);
          return true;
       }
 
       if (Teacher.PROPERTY_RANK.equalsIgnoreCase(attrName))
       {
-         ((Teacher) target).withRank((String) value);
+         ((Teacher) target).setRank((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -128,21 +128,21 @@ public class TeacherCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Teacher.PROPERTY_CURRENTROOM.equalsIgnoreCase(attrName))
-      {
-         ((Teacher) target).setCurrentRoom((Room) value);
-         return true;
-      }
-
       if (Teacher.PROPERTY_PUPILS.equalsIgnoreCase(attrName))
       {
          ((Teacher) target).withPupils((Pupil) value);
          return true;
       }
       
-      if ((Teacher.PROPERTY_PUPILS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Teacher.PROPERTY_PUPILS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Teacher) target).withoutPupils((Pupil) value);
+         return true;
+      }
+
+      if (Teacher.PROPERTY_CURRENTROOM.equalsIgnoreCase(attrName))
+      {
+         ((Teacher) target).setCurrentRoom((Room) value);
          return true;
       }
       

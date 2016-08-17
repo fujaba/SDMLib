@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.modelspace.chat;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,7 +17,7 @@ public class ModelSpaceChatModel
    @Test
    public void testModelSpaceChatModel() throws Exception
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       story.add("Chatting via model space, i.e. shared files");
       

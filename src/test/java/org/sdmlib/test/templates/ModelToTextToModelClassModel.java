@@ -22,7 +22,7 @@ package org.sdmlib.test.templates;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
@@ -38,7 +38,7 @@ public class ModelToTextToModelClassModel
    @Test
    public void modelToTextToModelClassModel()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
 
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
 

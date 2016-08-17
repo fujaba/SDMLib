@@ -33,7 +33,6 @@ import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleSet;
 
 /**
@@ -633,7 +632,7 @@ public class GenClass extends GenClazzEntity
     	  parser.replaceAll(
     			  "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
     					  "\n   	if (listeners == null) {" +
-    					  "\n   		listeners = new PropertyChangeSupport(this);" +
+    					  "\n   		listeners.removePropertyChangeListener(listener);" +
     					  "\n   	}" +
     					  "\n   	listeners.removePropertyChangeListener(listener);" +
     					  "\n   	return true;" +
@@ -641,7 +640,21 @@ public class GenClass extends GenClazzEntity
     					  "\n"
     			  );
       }
-
+      searchString = Parser.METHOD + ":removePropertyChangeListener(String,PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners != null) {" +
+    					  "\n   		listeners.removePropertyChangeListener(propertyName, listener);" +
+    					  "\n   	}" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n"
+    			  );
+      }
+      
       insertImport(PropertyChangeSupport.class.getName());
       insertImport(PropertyChangeListener.class.getName());
    }

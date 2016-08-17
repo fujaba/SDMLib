@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;

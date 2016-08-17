@@ -26,7 +26,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
@@ -41,7 +41,7 @@ public class GroupAccountTests implements PropertyChangeInterface
    @Test
    public void testGroupAccountStoryboard1()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       GroupAccount g1 = new GroupAccount();
       

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -40,27 +40,47 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
    
@@ -79,7 +99,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
       
          int oldValue = this.number;
          this.number = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUMBER, oldValue, value);
+         this.firePropertyChange(PROPERTY_NUMBER, oldValue, value);
       }
    }
    
@@ -106,11 +126,10 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
    
    public void removeYou()
    {
-   
       withoutPersons(this.getPersons().toArray(new Person[this.getPersons().size()]));
       withoutCurrentPupils(this.getCurrentPupils().toArray(new Pupil[this.getCurrentPupils().size()]));
       setCurrentTeacher(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -155,7 +174,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
             if (changed)
             {
                item.withRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, null, item);
+               firePropertyChange(PROPERTY_PERSONS, null, item);
             }
          }
       }
@@ -171,7 +190,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
             if (this.persons.remove(item))
             {
                item.setRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, item, null);
+               firePropertyChange(PROPERTY_PERSONS, item, null);
             }
          }
       }
@@ -241,7 +260,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
             if (changed)
             {
                item.withCurrentRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTPUPILS, null, item);
+               firePropertyChange(PROPERTY_CURRENTPUPILS, null, item);
             }
          }
       }
@@ -257,7 +276,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
             if (this.currentPupils.remove(item))
             {
                item.setCurrentRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTPUPILS, item, null);
+               firePropertyChange(PROPERTY_CURRENTPUPILS, item, null);
             }
          }
       }
@@ -310,7 +329,7 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
             value.withCurrentRoom(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTTEACHER, oldValue, value);
+         firePropertyChange(PROPERTY_CURRENTTEACHER, oldValue, value);
          changed = true;
       }
       
@@ -329,13 +348,4 @@ import org.sdmlib.simple.model.modelling_a.util.PupilSet;
       withCurrentTeacher(value);
       return value;
    } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
+}

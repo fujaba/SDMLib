@@ -45,6 +45,7 @@ import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+ * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  */
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
@@ -54,18 +55,30 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	private Set<FeatureProperty> features = Feature.getAll();
 	private GenClassModel generator;
 
-	public ClassModel() {
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
+   public ClassModel() {
 		name = DEFAULTPACKAGE;
 		setAuthorName(System.getProperty("user.name"));
 	}
 
-	public ClassModel(String packageName)
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
+   public ClassModel(String packageName)
 	   {
 		  this();
 	      with(packageName);
 	   }
 
-	public ClassModel generate() {
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
+   public ClassModel generate() {
 		File srcDir = new File("src/main/java");
 
 		if (srcDir.exists()) {
@@ -75,7 +88,11 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		}
 	}
 
-	public ClassModel generate(String rootDir) {
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
+   public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);
 		return this;
 	}
@@ -183,6 +200,15 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 			if (item != null) {
 				if (this.features.remove(item)) {
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
+				} else { 
+					// Search for name
+					for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
+						FeatureProperty prop = i.next();
+						if(prop.getName().toString().equals(item.toString())) {
+							this.features.remove(prop);
+							break;
+						}
+					}
 				}
 			}
 		}
@@ -303,6 +329,14 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return true;
 	}
 
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
+	
 	@Override
 	public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);

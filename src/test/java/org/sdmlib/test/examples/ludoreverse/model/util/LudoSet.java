@@ -23,8 +23,8 @@ package org.sdmlib.test.examples.ludoreverse.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;

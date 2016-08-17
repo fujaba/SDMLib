@@ -25,7 +25,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.classes.ClassModel;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 
 public class ClassModelSet extends SDMSet<ClassModel>
 {

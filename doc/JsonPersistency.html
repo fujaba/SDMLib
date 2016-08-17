@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -336,15 +339,15 @@
    json["options"]={"canvasid":"canvasJsonPersistency3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
+<p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>
       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-      
+
       JsonArray jsonArray = idMap.toJsonArray(university);
-      
+
       String jsonText = jsonArray.toString(3);
-      
+
       &#x2F;&#x2F; you might write jsonText into a file
-      
+
 </pre><p>Results in:</p>
 <pre>[
    {
@@ -584,10 +587,10 @@
          }
       }
    }
-]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
+]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>
       &#x2F;&#x2F; read jsonText from file
       IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-      
+
       Object rootObject = readerMap.decode(jsonText);
 
       University readUniversity = (University) rootObject;

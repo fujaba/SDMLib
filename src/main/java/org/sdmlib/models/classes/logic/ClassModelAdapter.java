@@ -3,6 +3,7 @@ package org.sdmlib.models.classes.logic;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.objects.GenericObject;
+
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;

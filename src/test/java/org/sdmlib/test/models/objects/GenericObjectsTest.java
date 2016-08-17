@@ -30,7 +30,7 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.Specific2Generic;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.test.examples.roombook.Building;
 import org.sdmlib.test.examples.roombook.util.BuildingCreator;
 
@@ -49,7 +49,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
    public void testGenericObjectDiagram()
    {
       //====================================================================================================
-      Storyboard storyboard = new Storyboard();
+      StoryboardImpl storyboard = new StoryboardImpl();
 
       storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models");
 

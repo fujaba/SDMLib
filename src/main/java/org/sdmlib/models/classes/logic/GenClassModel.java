@@ -38,7 +38,7 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
@@ -287,7 +287,7 @@ public class GenClassModel implements ClassModelAdapter
       // execution directory and search for the subdi
       File projectDir = new File(".");
       
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
       
       story.setJavaTestFileName(classModelConstructionClass.replaceAll("\\.", "/") + ".java");
       
@@ -3324,15 +3324,9 @@ public class GenClassModel implements ClassModelAdapter
    {
       // try to create example object structure and use storyboard to do
       // coverage
-      Clazz firstClazz = this.getModel().getClazzes().first();
-
       try
       {
          // try to load creator class
-         String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
-         Class<?> creatorClass = Class.forName(creatorClassName);
-         java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         // IdMap map = (IdMap) method.invoke(null, "t");
          IdMap map = new SDMLibIdMap("t");
 
          Object largestModelRoot = null;
@@ -3396,7 +3390,7 @@ public class GenClassModel implements ClassModelAdapter
          }
 
          // now ask the storyboad to do the coverage things
-         Storyboard story = new Storyboard("coverage");
+         StoryboardImpl story = new StoryboardImpl("coverage");
          story.coverSetAndPOClasses(map);
          story.coverSeldomModelMethods(map);
          story.coverage4GeneratedModelCode(largestModelRoot);

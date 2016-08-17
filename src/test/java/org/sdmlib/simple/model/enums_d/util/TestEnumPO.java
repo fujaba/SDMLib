@@ -2,8 +2,8 @@ package org.sdmlib.simple.model.enums_d.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.enums_d.TestEnum;
-import java.lang.Integer;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class TestEnumPO extends PatternObject<TestEnumPO, TestEnum>
 {
@@ -35,7 +35,12 @@ public class TestEnumPO extends PatternObject<TestEnumPO, TestEnum>
       }
       newInstance(null, hostGraphObject);
    }
-   public TestEnumPO filterValue0(Integer value)
+
+   public TestEnumPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TestEnumPO createValue0Condition(Integer value)
    {
       new AttributeConstraint()
       .withAttrName(TestEnum.PROPERTY_VALUE0)
@@ -49,9 +54,17 @@ public class TestEnumPO extends PatternObject<TestEnumPO, TestEnum>
       return this;
    }
    
-   public TestEnumPO createValue0(Integer value)
+   public TestEnumPO createValue0Assignment(Integer value)
    {
-      this.startCreate().filterValue0(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(TestEnum.PROPERTY_VALUE0)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

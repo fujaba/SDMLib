@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.association_k;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.simple.model.association_k.util.TaskSet;
    /**
     * 
@@ -66,9 +66,16 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
    	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
+   		listeners.removePropertyChangeListener(listener);
    	}
    	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
    	return true;
    }
 
@@ -97,7 +104,7 @@ import org.sdmlib.simple.model.association_k.util.TaskSet;
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value)) {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
       
          String oldValue = this.name;
          this.name = value;

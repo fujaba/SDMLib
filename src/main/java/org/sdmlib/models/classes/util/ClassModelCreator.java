@@ -22,9 +22,9 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
+
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.GraphMember;
-import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ClassModelCreator implements SendableEntityCreator

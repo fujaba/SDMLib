@@ -2,7 +2,7 @@ package org.sdmlib.test.model;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,7 +17,7 @@ public class ModelRefactoring {
    @Test
 	public void testRemoveAttribute() {
 		
-		StoryPage story = new StoryPage();
+		Storyboard story = new Storyboard();
 
 		ClassModel model = new ClassModel("org.sdmlib.test.model.refactoring");
 		

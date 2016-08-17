@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.modelling_a.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.modelling_a.roomInterface;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class roomInterfacePO extends PatternObject<roomInterfacePO, roomInterface>
 {
@@ -34,7 +35,12 @@ public class roomInterfacePO extends PatternObject<roomInterfacePO, roomInterfac
       }
       newInstance(null, hostGraphObject);
    }
-   public roomInterfacePO filterNumber(int value)
+
+   public roomInterfacePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public roomInterfacePO createNumberCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(roomInterface.PROPERTY_NUMBER)
@@ -48,7 +54,7 @@ public class roomInterfacePO extends PatternObject<roomInterfacePO, roomInterfac
       return this;
    }
    
-   public roomInterfacePO filterNumber(int lower, int upper)
+   public roomInterfacePO createNumberCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(roomInterface.PROPERTY_NUMBER)
@@ -63,9 +69,17 @@ public class roomInterfacePO extends PatternObject<roomInterfacePO, roomInterfac
       return this;
    }
    
-   public roomInterfacePO createNumber(int value)
+   public roomInterfacePO createNumberAssignment(int value)
    {
-      this.startCreate().filterNumber(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(roomInterface.PROPERTY_NUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

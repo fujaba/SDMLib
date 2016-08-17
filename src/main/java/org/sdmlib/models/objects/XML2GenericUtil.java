@@ -11,13 +11,13 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class XML2GenericUtil
 {
-   public static void xml2GenericGraph(Storyboard story, String... caseNames)
+   public static void xml2GenericGraph(StoryboardImpl story, String... caseNames)
    {
       ClassModelAdapter learnedModel = new ClassModel().getGenerator();
 

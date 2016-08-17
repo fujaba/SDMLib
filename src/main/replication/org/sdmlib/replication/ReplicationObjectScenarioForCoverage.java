@@ -1,7 +1,7 @@
 package org.sdmlib.replication;
 
 import org.junit.Test;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 public class ReplicationObjectScenarioForCoverage
 {
@@ -13,7 +13,7 @@ public class ReplicationObjectScenarioForCoverage
    @Test
    public void testReplicationObjectScenarioForCoverage()
    {
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       

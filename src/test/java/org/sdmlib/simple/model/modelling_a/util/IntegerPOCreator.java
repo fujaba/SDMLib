@@ -2,7 +2,6 @@ package org.sdmlib.simple.model.modelling_a.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
-import java.lang.Integer;
 
 public class IntegerPOCreator extends PatternObjectCreator
 {

@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.association_k.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.association_k.Task;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.simple.model.association_k.util.TaskPO;
 import org.sdmlib.simple.model.association_k.util.TaskSet;
 
@@ -36,7 +37,12 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       }
       newInstance(null, hostGraphObject);
    }
-   public TaskPO filterName(String value)
+
+   public TaskPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TaskPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Task.PROPERTY_NAME)
@@ -50,7 +56,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return this;
    }
    
-   public TaskPO filterName(String lower, String upper)
+   public TaskPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Task.PROPERTY_NAME)
@@ -65,9 +71,17 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return this;
    }
    
-   public TaskPO createName(String value)
+   public TaskPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -89,7 +103,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return this;
    }
    
-   public TaskPO filterParentTasks()
+   public TaskPO createParentTasksPO()
    {
       TaskPO result = new TaskPO(new Task[]{});
       
@@ -99,19 +113,24 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return result;
    }
 
-   public TaskPO createParentTasks()
+   public TaskPO createParentTasksPO(String modifier)
    {
-      return this.startCreate().filterParentTasks().endCreate();
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_PARENTTASKS, result);
+      
+      return result;
    }
 
-   public TaskPO filterParentTasks(TaskPO tgt)
+   public TaskPO createParentTasksLink(TaskPO tgt)
    {
       return hasLinkConstraint(tgt, Task.PROPERTY_PARENTTASKS);
    }
 
-   public TaskPO createParentTasks(TaskPO tgt)
+   public TaskPO createParentTasksLink(TaskPO tgt, String modifier)
    {
-      return this.startCreate().filterParentTasks(tgt).endCreate();
+      return hasLinkConstraint(tgt, Task.PROPERTY_PARENTTASKS, modifier);
    }
 
    public TaskSet getParentTasks()
@@ -123,7 +142,7 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return null;
    }
 
-   public TaskPO filterSubTasks()
+   public TaskPO createSubTasksPO()
    {
       TaskPO result = new TaskPO(new Task[]{});
       
@@ -133,19 +152,24 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return result;
    }
 
-   public TaskPO createSubTasks()
+   public TaskPO createSubTasksPO(String modifier)
    {
-      return this.startCreate().filterSubTasks().endCreate();
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_SUBTASKS, result);
+      
+      return result;
    }
 
-   public TaskPO filterSubTasks(TaskPO tgt)
+   public TaskPO createSubTasksLink(TaskPO tgt)
    {
       return hasLinkConstraint(tgt, Task.PROPERTY_SUBTASKS);
    }
 
-   public TaskPO createSubTasks(TaskPO tgt)
+   public TaskPO createSubTasksLink(TaskPO tgt, String modifier)
    {
-      return this.startCreate().filterSubTasks(tgt).endCreate();
+      return hasLinkConstraint(tgt, Task.PROPERTY_SUBTASKS, modifier);
    }
 
    public TaskSet getSubTasks()

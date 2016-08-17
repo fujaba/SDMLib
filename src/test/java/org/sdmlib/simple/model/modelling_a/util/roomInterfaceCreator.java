@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.roomInterface;
+import de.uniks.networkparser.IdMap;
 
 public class roomInterfaceCreator implements SendableEntityCreator
 {
@@ -68,11 +68,11 @@ public class roomInterfaceCreator implements SendableEntityCreator
    {
       if (roomInterface.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
       {
-         ((roomInterface) target).withNumber(Integer.parseInt(value.toString()));
+         ((roomInterface) target).setNumber(Integer.parseInt(value.toString()));
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

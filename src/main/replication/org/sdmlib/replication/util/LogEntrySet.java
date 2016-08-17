@@ -23,8 +23,8 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;

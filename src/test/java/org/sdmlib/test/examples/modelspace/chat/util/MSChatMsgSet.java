@@ -23,8 +23,8 @@ package org.sdmlib.test.examples.modelspace.chat.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;

@@ -23,7 +23,7 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;

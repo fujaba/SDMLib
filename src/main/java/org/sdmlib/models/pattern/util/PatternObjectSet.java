@@ -24,7 +24,7 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.CardinalityConstraint;
@@ -35,7 +35,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 

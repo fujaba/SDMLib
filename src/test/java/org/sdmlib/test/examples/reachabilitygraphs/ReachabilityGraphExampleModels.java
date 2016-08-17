@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.reachabilitygraphs;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,7 +17,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void SimpleReachabilityGraphModel()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.simplestates");
       
@@ -44,7 +44,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void FerryMansProblemModel()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem");
       

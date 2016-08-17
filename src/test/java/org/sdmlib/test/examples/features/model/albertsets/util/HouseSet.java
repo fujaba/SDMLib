@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.features.model.albertsets.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;

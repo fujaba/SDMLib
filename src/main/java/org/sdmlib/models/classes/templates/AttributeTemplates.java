@@ -4,10 +4,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.Feature;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.Clazz.ClazzType;
 
 public class AttributeTemplates {
 	public static ExistTemplate insertPropertyInInterface(Attribute attribute) {
@@ -84,7 +85,7 @@ public class AttributeTemplates {
 	    	  propertyChange.withCondition(attribute.getClazz().getType()!=ClazzType.ENUMERATION);
 
 	    	  attrSetter.withVariable(propertyChange);
-	    	  attrSetter.withVariable(ReplaceText.create("valuecompare", "String".equalsIgnoreCase(attribute.getType().getName(false)), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.{{name}}, value)", "this.{{name}} != value"));
+	    	  attrSetter.withVariable(ReplaceText.create("valuecompare", "String".equalsIgnoreCase(attribute.getType().getName(false)), EntityUtil.class.getName(), " ! EntityUtil.stringEquals(this.{{name}}, value)", "this.{{name}} != value"));
 	    	  attrSetter.withTemplate("\n   public void set{{Name}}({{type}} value)" +
 	                  "\n   {" +
 	                  "\n      if ({{valuecompare}}) {" +

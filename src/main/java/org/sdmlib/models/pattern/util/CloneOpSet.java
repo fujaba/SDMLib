@@ -23,7 +23,7 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;

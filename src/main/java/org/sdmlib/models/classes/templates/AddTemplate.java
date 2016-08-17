@@ -14,7 +14,11 @@ public class AddTemplate extends TemplateItem {
 	public AddTemplate(int methodStart, String... search) {
 		this.withPos(methodStart);
 		this.withOffset(methodStart+1);
-		this.search.with(search);
+		if(search != null) {
+			for(String string : search) {
+				this.search.with(string);
+			}
+		}
 	}
 	
 	public AddTemplate withLast(String last) {

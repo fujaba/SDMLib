@@ -33,19 +33,24 @@ import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.tables.Cell;
+import org.sdmlib.models.tables.Column;
+import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";
@@ -167,6 +172,43 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
          findMatch();
       }
 
+      return result;
+   }
+   
+   
+   public Table createResultTable()
+   {
+      Table result = new Table();
+      
+      SimpleSet<PatternObject> patternObjects = new SimpleSet<PatternObject>();
+      
+      // add columns for pattern objects
+      for (PatternElement elem : this.getElements())
+      {
+         if (elem instanceof PatternObject)
+         {
+            Column newCol = result.createColumns();
+            patternObjects.add((PatternObject) elem);
+         }
+      }
+      
+      while(this.getHasMatch())
+      {
+         Row newRow = result.createRows();
+         
+         Iterator<Column> colIter = result.getColumns().iterator();
+         for (PatternObject po : patternObjects)
+         {
+            Column col = colIter.next();
+            Cell newCell = newRow.createCells()
+                  .withColumn(col)
+                  .withValue(po.getCurrentMatch());
+            
+         }
+         
+         this.findNextMatch();
+      }
+      
       return result;
    }
 

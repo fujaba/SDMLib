@@ -2,7 +2,7 @@ package org.sdmlib.test.models.objects;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Cardinality;
@@ -23,7 +23,7 @@ import de.uniks.networkparser.graph.DataType;
    @Test
    public void testGenericGraphModel()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       genericModel = new ClassModel("org.sdmlib.models.objects");
       

@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;

@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Female;
 
 import de.uniks.networkparser.list.SimpleSet;

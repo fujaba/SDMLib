@@ -36,7 +36,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       newInstance(null, hostGraphObject);
    }
-   public PersonPO filterPerson()
+
+   public RoomPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createPersonPO()
    {
       PersonPO result = new PersonPO(new Person[]{});
       
@@ -46,19 +51,24 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
-   public PersonPO createPerson()
+   public PersonPO createPersonPO(String modifier)
    {
-      return this.startCreate().filterPerson().endCreate();
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_PERSON, result);
+      
+      return result;
    }
 
-   public RoomPO filterPerson(PersonPO tgt)
+   public RoomPO createPersonLink(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_PERSON);
    }
 
-   public RoomPO createPerson(PersonPO tgt)
+   public RoomPO createPersonLink(PersonPO tgt, String modifier)
    {
-      return this.startCreate().filterPerson(tgt).endCreate();
+      return hasLinkConstraint(tgt, Room.PROPERTY_PERSON, modifier);
    }
 
    public Person getPerson()

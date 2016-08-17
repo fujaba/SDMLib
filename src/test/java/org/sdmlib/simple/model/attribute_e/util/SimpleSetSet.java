@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,38 @@
    
 package org.sdmlib.simple.model.attribute_e.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.SimpleSet;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class SimpleSetSet extends SDMSet<SimpleSet>
+public class SimpleSetSet extends SimpleSet<SimpleSet>
 {
+	protected Class<?> getTypClass() {
+		return SimpleSet.class;
+	}
+
+   public SimpleSetSet()
+   {
+      // empty
+   }
+
+   public SimpleSetSet(SimpleSet... objects)
+   {
+      for (SimpleSet obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleSetSet(Collection<SimpleSet> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final SimpleSetSet EMPTY_SET = new SimpleSetSet().withFlag(SimpleSetSet.READONLY);
 
 
-   public SimpleSetPO filterSimpleSetPO()
+   public SimpleSetPO createSimpleSetPO()
    {
       return new SimpleSetPO(this.toArray(new SimpleSet[this.size()]));
    }
@@ -69,28 +89,4 @@ public class SimpleSetSet extends SDMSet<SimpleSet>
       return this;
    }
 
-   @Override
-   public SimpleSetSet filter(Condition<SimpleSet> newValue) {
-      SimpleSetSet filterList = new SimpleSetSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
-
-   public SimpleSetSet()
-   {
-      // empty
-   }
-
-   public SimpleSetSet(SimpleSet... objects)
-   {
-      for (SimpleSet obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public SimpleSetSet(Collection<SimpleSet> objects)
-   {
-      this.addAll(objects);
-   }
 }

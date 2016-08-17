@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,18 @@
    
 package org.sdmlib.simple.model.association_d.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.association_d.Room;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.association_d.util.PersonSet;
 import org.sdmlib.simple.model.association_d.Person;
 
-public class RoomSet extends SDMSet<Room>
+public class RoomSet extends SimpleSet<Room>
 {
+	protected Class<?> getTypClass() {
+		return Room.class;
+	}
 
    public RoomSet()
    {
@@ -49,10 +52,10 @@ public class RoomSet extends SDMSet<Room>
       this.addAll(objects);
    }
 
-   public static final RoomSet EMPTY_SET = new RoomSet();
+   public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
 
-   public RoomPO filterRoomPO()
+   public RoomPO createRoomPO()
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }

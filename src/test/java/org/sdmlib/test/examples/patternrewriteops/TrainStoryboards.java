@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.patternrewriteops;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
@@ -24,7 +24,7 @@ public class TrainStoryboards
    @Test 
    public void trainCollectPassengers()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       Train train = new Train();
 

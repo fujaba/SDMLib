@@ -10,8 +10,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-
-public class UniversityPO extends PatternObject<UniversityPO, University>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
+   public class UniversityPO extends PatternObject<UniversityPO, University>
 {
 
     public UniversitySet allMatches()
@@ -31,10 +34,18 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public UniversityPO(){
       newInstance(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
@@ -94,7 +105,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return this;
    }
    
-   public StudentPO filterStudents()
+   public StudentPO createStudentsPO()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -104,19 +115,9 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return result;
    }
 
-   public StudentPO createStudents()
-   {
-      return this.startCreate().filterStudents().endCreate();
-   }
-
-   public UniversityPO filterStudents(StudentPO tgt)
+   public UniversityPO withStudentsLinkConstraint(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_STUDENTS);
-   }
-
-   public UniversityPO createStudents(StudentPO tgt)
-   {
-      return this.startCreate().filterStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()
@@ -128,6 +129,10 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public RoomPO createRoomsPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
@@ -138,19 +143,9 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return result;
    }
 
-   public RoomPO createRooms()
-   {
-      return this.startCreate().createRoomsPO().endCreate();
-   }
-
-   public UniversityPO filterRooms(RoomPO tgt)
+   public UniversityPO withRoomsLinkConstraint(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_ROOMS);
-   }
-
-   public UniversityPO createRooms(RoomPO tgt)
-   {
-      return this.startCreate().filterRooms(tgt).endCreate();
    }
 
    public RoomSet getRooms()

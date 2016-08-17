@@ -23,25 +23,21 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.StoryboardWall;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.storyboards.util.StoryboardWallSet;
-import org.sdmlib.storyboards.util.StoryboardStepSet;
 
-public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
+public class StoryboardSet extends SimpleSet<StoryboardImpl> implements org.sdmlib.models.modelsets.ModelSet
 {
    @Override
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (Storyboard elem : this)
+      for (StoryboardImpl elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -57,13 +53,13 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    }
 
 
-   public StoryboardSet with(Storyboard value)
+   public StoryboardSet with(StoryboardImpl value)
    {
       this.add(value);
       return this;
    }
    
-   public StoryboardSet without(Storyboard value)
+   public StoryboardSet without(StoryboardImpl value)
    {
       this.remove(value);
       return this;
@@ -73,7 +69,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardStepSet result = new StoryboardStepSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          result.with(obj.getStoryboardSteps());
       }
@@ -83,7 +79,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardSet withStoryboardSteps(StoryboardStep value)
    {
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          obj.withStoryboardSteps(value);
       }
@@ -93,7 +89,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardSet withoutStoryboardSteps(StoryboardStep value)
    {
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          obj.withoutStoryboardSteps(value);
       }
@@ -127,7 +123,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          result.add(obj.getRootDir());
       }
@@ -137,7 +133,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardSet withRootDir(String value)
    {
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          obj.setRootDir(value);
       }
@@ -149,7 +145,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       intList result = new intList();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          result.add(obj.getStepCounter());
       }
@@ -159,7 +155,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardSet withStepCounter(int value)
    {
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          obj.setStepCounter(value);
       }
@@ -171,7 +167,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       intList result = new intList();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          result.add(obj.getStepDoneCounter());
       }
@@ -181,7 +177,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardSet withStepDoneCounter(int value)
    {
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          obj.setStepDoneCounter(value);
       }
@@ -193,7 +189,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardPO startModelPattern()
    {
-      return new StoryboardPO(this.toArray(new Storyboard[this.size()]));
+      return new StoryboardPO(this.toArray(new StoryboardImpl[this.size()]));
    }
 
 
@@ -205,7 +201,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
       }
       else if (value != null)
       {
-         this.add((Storyboard) value);
+         this.add((StoryboardImpl) value);
       }
       
       return this;
@@ -213,63 +209,16 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardPO hasStoryboardPO()
    {
-      return new StoryboardPO (this.toArray(new Storyboard[this.size()]));
+      return new StoryboardPO (this.toArray(new StoryboardImpl[this.size()]));
    }
 
    public static final StoryboardSet EMPTY_SET = new StoryboardSet().withFlag(StoryboardSet.READONLY);
-   public StoryboardWallSet getWall()
-   {
-      StoryboardWallSet result = new StoryboardWallSet();
-      
-      for (Storyboard obj : this)
-      {
-         result.add(obj.getWall());
-      }
-      
-      return result;
-   }
-
-   public StoryboardSet hasWall(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      StoryboardSet answer = new StoryboardSet();
-      
-      for (Storyboard obj : this)
-      {
-         if (neighbors.contains(obj.getWall()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public StoryboardSet withWall(StoryboardWall value)
-   {
-      for (Storyboard obj : this)
-      {
-         obj.withWall(value);
-      }
-      
-      return this;
-   }
-
+   
    public StoryboardSet hasRootDir(String value)
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value.equals(obj.getRootDir()))
          {
@@ -284,7 +233,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower.compareTo(obj.getRootDir()) <= 0 && obj.getRootDir().compareTo(upper) <= 0)
          {
@@ -299,7 +248,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value == obj.getStepCounter())
          {
@@ -314,7 +263,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower <= obj.getStepCounter() && obj.getStepCounter() <= upper)
          {
@@ -329,7 +278,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value == obj.getStepDoneCounter())
          {
@@ -344,7 +293,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower <= obj.getStepDoneCounter() && obj.getStepDoneCounter() <= upper)
          {
@@ -359,7 +308,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
 
    public StoryboardPO filterStoryboardPO()
    {
-      return new StoryboardPO(this.toArray(new Storyboard[this.size()]));
+      return new StoryboardPO(this.toArray(new StoryboardImpl[this.size()]));
    }
 
    /**
@@ -373,7 +322,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value.equals(obj.getRootDir()))
          {
@@ -397,7 +346,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower.compareTo(obj.getRootDir()) <= 0 && obj.getRootDir().compareTo(upper) <= 0)
          {
@@ -420,7 +369,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value == obj.getStepCounter())
          {
@@ -444,7 +393,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower <= obj.getStepCounter() && obj.getStepCounter() <= upper)
          {
@@ -467,7 +416,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (value == obj.getStepDoneCounter())
          {
@@ -491,7 +440,7 @@ public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.m
    {
       StoryboardSet result = new StoryboardSet();
       
-      for (Storyboard obj : this)
+      for (StoryboardImpl obj : this)
       {
          if (lower <= obj.getStepDoneCounter() && obj.getStepDoneCounter() <= upper)
          {

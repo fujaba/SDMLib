@@ -24,7 +24,7 @@ package org.sdmlib.simple.model.removeCode_a.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.removeCode_a.Person;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 
 public class PersonSet extends SDMSet<Person>
 {

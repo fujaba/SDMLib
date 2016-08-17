@@ -6,7 +6,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
@@ -29,7 +29,7 @@ public class ReachabilityGraphFerrymansProblemExample
 //   @Test
    public void FerrymansProblemExample()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       
       //================================================

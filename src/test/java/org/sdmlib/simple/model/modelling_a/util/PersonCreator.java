@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.modelling_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Person;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.modelling_a.Room;
 
 public class PersonCreator implements SendableEntityCreator
@@ -81,17 +81,17 @@ public class PersonCreator implements SendableEntityCreator
    {
       if (Person.PROPERTY_AGE.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withAge(Integer.parseInt(value.toString()));
+         ((Person) target).setAge(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).withName((String) value);
+         ((Person) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

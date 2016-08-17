@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -33,8 +34,11 @@ import java.util.TreeMap;
 
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.SDMSet;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
@@ -51,6 +55,32 @@ public class CGUtil
       if (type == null)  return false;
       
       return primitiveTypes.indexOf(" " + type + " ") >= 0;
+   }
+   
+   public static <ST extends SDMSet<?>> ST instanceOf(SimpleSet<Object> source, ST target)
+   {
+	   String className;
+	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();
+	   if(genericSuperclass.getActualTypeArguments().length>0){
+		   className = genericSuperclass.getActualTypeArguments()[0].getTypeName();
+	   }else{
+	      className = target.getClass().getName();
+	      className = CGUtil.baseClassName(className, "Set");
+	   }
+      try
+      {
+         Class<?> targetClass = target.getClass().getClassLoader().loadClass(className);
+         for (Object elem : source)
+         {
+            if (targetClass.isAssignableFrom(elem.getClass()))
+            {
+               target.with(elem);
+            }
+         }
+      }
+      catch (ClassNotFoundException e) {
+      }
+      return target;
    }
    
    public static void printFile(Parser parser){
