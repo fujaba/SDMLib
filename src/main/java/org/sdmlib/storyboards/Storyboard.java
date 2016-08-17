@@ -43,6 +43,13 @@ public class Storyboard {
 		return storyboard.addStep(txt);
 	}
 	
+	public Storyboard withDocDirName(String name )
+	{
+	   this.storyboard.withDocDirName(name);
+	   
+	   return this;
+	}
+	
 	/**
 	 * Adds a new step, with an preformatted text. 
 	 * 

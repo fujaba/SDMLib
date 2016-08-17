@@ -78,7 +78,10 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
- * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. This html page will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
+ * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
+ * This html page will be named like the story, i.e. like the method that created the Storyboard. 
+ * It will be added to the refs.html and thus become part of the index.html. 
+ * All these html files are stored in an directory "doc" located in the project root directory.
  * 
  * @see #dumpHTML()
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
@@ -379,7 +382,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             return;
          }
 
-         File oldFile = new File("doc/" + imgName);
+         File oldFile = new File(docDirName + "/" + imgName);
 
          if (oldFile.exists())
          {
@@ -412,7 +415,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
+         BufferedWriter out = new BufferedWriter(new FileWriter(docDirName + "/" + imgName));
 
          out.write(fileText);
          out.close();
@@ -1340,14 +1343,16 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    /**
-    * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
+    * Generate an html page from this story. This html file will be named like the story, i.e. 
+    * like the method that created the Storyboard. It will be added to the refs.html and thus 
+    * become part of the index.html. All these html files are stored in an directory "doc" located 
+    * in the project root directory.
     * 
     * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
     * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     */
    public void dumpHTML()
    {
-      // copy Javascript files
       try
       {
          generateJavaDoc();
@@ -1387,7 +1392,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
 
       String shortFileName = "" + storyboardName + ".html";
-      String pathname = "doc/" + shortFileName;
+      String pathname = docDirName + "/" + shortFileName;
 
       addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD + ":" + testMethodName, pathname);
 
@@ -1427,7 +1432,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       // add entry to refs.html
       try
       {
-         byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/refs.html"));
+         byte[] readAllBytes = Files.readAllBytes(Paths.get(docDirName + "/refs.html"));
          String refsText = new String(readAllBytes);
 
          String entry = refForFile(storyboardName);
@@ -1450,15 +1455,23 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       coverage4GeneratedModelCode(largestRoot);
    }
 
+   private String docDirName = "doc";
+   
+   public StoryboardImpl withDocDirName(String name)
+   {
+      this.docDirName = name;
+      
+      return this;
+   }
 
    private void dumpIndexHtml()
    {
-      new File("doc").mkdirs();
+      new File(docDirName).mkdirs();
 
-      new DocEnvironment().copyJS("doc");
+      new DocEnvironment().copyJS(docDirName);
 
       // ensure style file
-      File styleFile = new File("doc/style.css");
+      File styleFile = new File(docDirName+"/style.css");
 
       if (!styleFile.exists())
       {
@@ -1483,7 +1496,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       // ensure index.html
-      File file = new File("doc/index.html");
+      File file = new File(docDirName + "/index.html");
 
       if (!file.exists())
       {
@@ -1505,7 +1518,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       // ensure refs.html
-      file = new File("doc/refs.html");
+      file = new File(docDirName + "/refs.html");
 
       if (!file.exists())
       {
