@@ -55,7 +55,7 @@
 
 </table>
 <pre>
-         table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
+         table.createColumns(&quot;Topic&quot;, row -&gt; {Room r = row.getCellValue(&quot;B&quot;);return r.getTopic();});
          table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
          .withTdCssClass(&quot;text-right&quot;);
          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())

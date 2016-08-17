@@ -1108,7 +1108,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       else
       {
-         if (tgt.getPattern() != this.getPattern())
+         if (tgt.getTopPattern() != this.getTopPattern())
          {
             this.getPattern().withElements(tgt);
          }
