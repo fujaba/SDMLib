@@ -1529,6 +1529,17 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             "<body>\n" +
             "</body>\n" +
             "</html>\n";
+         
+         if (! docDirName.equals("doc"))
+         {
+            // add parent link
+            String parentLink = "" + 
+                  "<body>\n" +
+                  "<a href=\"../index.html\" target=\"_top\"> back to parent </a><br>\n" + 
+                  "<br>";
+            
+            refHtml = CGUtil.replaceAll(refHtml, "<body>\n", parentLink);
+         }
 
          writeToFile("refs.html", refHtml);
       }
