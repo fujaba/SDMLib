@@ -250,6 +250,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             {
                // got it
                this.rootDir = subDir.getPath().replaceAll("\\\\", "/");
+               
                javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
 
                return true;
@@ -1471,6 +1472,16 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    public StoryboardImpl withDocDirName(String name)
    {
       this.docDirName = name;
+      
+      // the doc dir may be a subdir, generate enough ../ elements to reach the root dir for the javafileName
+      int pos = -1; 
+      do {
+         pos = docDirName.indexOf('/', pos+1); 
+         if (pos >= 0)
+         {
+            javaTestFileName = "../" + javaTestFileName;
+         }
+      } while (pos >= 0);
       
       return this;
    }

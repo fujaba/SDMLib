@@ -38,15 +38,14 @@ import de.uniks.networkparser.graph.Parameter;
 
 public class ClassModelTest
 {
-     /**
-    * 
-    * @see <a href='../../../../../../../../doc/ClassModelCodeGen.html'>ClassModelCodeGen.html</a>
-*/
+   /**
+    * @see <a href='../../../../../../../../doc/internal/ClassModelCodeGen.html'>ClassModelCodeGen.html</a>
+    */
    @Test
    public void testClassModelCodeGen()
    {
-      Storyboard storyboard = new Storyboard();
-      
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
+
       // =======================================================================
       // storyboard.add("This test generates some classes with some elements. ");
 
@@ -62,10 +61,10 @@ public class ClassModelTest
          .withAttribute("external", DataType.BOOLEAN);
 
       new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association(clazzClass).with("classes").with(Cardinality.MANY));
+         .with(new Association(clazzClass).with("classes").with(Cardinality.MANY));
 
       new Association(clazzClass).with("superClazzes").with(Cardinality.MANY)
-      	.with(new Association(clazzClass).with("kidClazzes").with(Cardinality.MANY));
+         .with(new Association(clazzClass).with("kidClazzes").with(Cardinality.MANY));
 
       Clazz valueClass = model.createClazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
@@ -74,7 +73,7 @@ public class ClassModelTest
       Clazz attributeClass = model.createClazz("Attribute").withSuperClazz(valueClass);
 
       new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association(attributeClass).with("attributes").with(Cardinality.MANY));
+         .with(new Association(attributeClass).with("attributes").with(Cardinality.MANY));
 
       Clazz methodClass = model.createClazz("Method").withSuperClazz(sdmLibClazz)
          .withAttribute("returnType", DataType.create(DataType.class))
@@ -82,12 +81,12 @@ public class ClassModelTest
 
       Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz);
       annotationClass
-      .with(
-         new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
-            new Parameter(DataType.create("String...")).with("values")))
-      .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
-      .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
-      .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
+         .with(
+            new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
+                  new Parameter(DataType.create("String...")).with("values")))
+         .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
+         .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
+         .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
 
       Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
       Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
@@ -95,13 +94,13 @@ public class ClassModelTest
       Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SuppressWarnings");
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
-      
+
       // ---- Enumeration ----
 
       Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
 
       new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association(enumClass).with("enumerations").with(Cardinality.MANY));
+         .with(new Association(enumClass).with("enumerations").with(Cardinality.MANY));
 
       // ---- Enumeration END ----
 
@@ -109,7 +108,7 @@ public class ClassModelTest
          .withBidirectional(methodClass, "method", Cardinality.ONE, "parameter", Cardinality.MANY);
 
       new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association(methodClass).with("methods").with(Cardinality.MANY));
+         .with(new Association(methodClass).with("methods").with(Cardinality.MANY));
 
       Clazz associationClass = model.createClazz("Association").withSuperClazz(sdmLibClazz);
 
@@ -118,13 +117,13 @@ public class ClassModelTest
          .with(new Attribute("kind", DataType.STRING).withValue("VANILLA"));
 
       new Association(clazzClass).with("clazz").with(Cardinality.ONE)
-      	.with(new Association(roleClass).with("roles").with(Cardinality.MANY));
+         .with(new Association(roleClass).with("roles").with(Cardinality.MANY));
 
       new Association(associationClass).with("assoc").with(Cardinality.ONE)
-      	.with(new Association(roleClass).with("source").with(Cardinality.ONE));
+         .with(new Association(roleClass).with("source").with(Cardinality.ONE));
 
       new Association(associationClass).with("assoc").with(Cardinality.ONE)
-      	.with(new Association(roleClass).with("target").with(Cardinality.ONE));
+         .with(new Association(roleClass).with("target").with(Cardinality.ONE));
 
       model.createClazz("org.sdmlib.codegen.SymTabEntry")
          .withAttribute("kind", DataType.STRING)
@@ -137,8 +136,7 @@ public class ClassModelTest
          .withAttribute("modifiers", DataType.STRING)
          .withAttribute("annotationsStartPos", DataType.INT)
          .withAttribute("preCommentStartPos", DataType.INT)
-         .withAttribute("preCommentEndPos", DataType.INT)
-         ;
+         .withAttribute("preCommentEndPos", DataType.INT);
 
       model.createClazz("org.sdmlib.codegen.LocalVarTableEntry")
          .withAttribute("name", DataType.STRING)
@@ -155,11 +153,10 @@ public class ClassModelTest
          .withAttribute("endPos", DataType.INT);
 
       new Association(statementEntry).with("parent").with(Cardinality.ONE)
-      	.with(new Association(statementEntry).with("bodyStats").with(Cardinality.MANY));
+         .with(new Association(statementEntry).with("bodyStats").with(Cardinality.MANY));
 
-     storyboard.addClassDiagram(model);
+      storyboard.addClassDiagram(model);
 
-      
       // model.getGenerator()
       // .withIgnoreClazz("org.sdmlib.models.classes.Association")
       // .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
