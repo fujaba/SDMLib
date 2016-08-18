@@ -261,4 +261,57 @@ public class BuildingSet extends SDMSet<Building>
    {
       this.addAll(objects);
    }
+
+
+   public BuildingPO createBuildingPO()
+   {
+      return new BuildingPO(this.toArray(new Building[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Building objects and collect those Building objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Building objects that match the parameter
+    */
+   public BuildingSet createNameCondition(String value)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Building objects and collect those Building objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Building objects that match the parameter
+    */
+   public BuildingSet createNameCondition(String lower, String upper)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

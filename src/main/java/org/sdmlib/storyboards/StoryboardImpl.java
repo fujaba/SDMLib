@@ -374,6 +374,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void writeToFile(String imgName, String fileText)
    {
+      writeToDirFile(docDirName, imgName, fileText);
+   }
+   
+   private void writeToDirFile(String dirName, String imgName, String fileText)
+   {
       try
       {
          if (imgName.startsWith("<"))
@@ -382,7 +387,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             return;
          }
 
-         File oldFile = new File(docDirName + "/" + imgName);
+         File oldFile = new File(dirName + "/" + imgName);
 
          if (oldFile.exists())
          {
@@ -415,7 +420,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         BufferedWriter out = new BufferedWriter(new FileWriter(docDirName + "/" + imgName));
+         BufferedWriter out = new BufferedWriter(new FileWriter(dirName + "/" + imgName));
 
          out.write(fileText);
          out.close();
@@ -1429,21 +1434,29 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       writeToFile(shortFileName, htmlText);
 
+      String entry = refForFile(storyboardName);
+      addEntryToRefsHtml(docDirName, entry);
+
+      coverage4GeneratedModelCode(largestRoot);
+   }
+
+
+   private void addEntryToRefsHtml(String dirName, String entry)
+   {
+      int pos;
       // add entry to refs.html
       try
       {
-         byte[] readAllBytes = Files.readAllBytes(Paths.get(docDirName + "/refs.html"));
+         byte[] readAllBytes = Files.readAllBytes(Paths.get(dirName + "/refs.html"));
          String refsText = new String(readAllBytes);
 
-         String entry = refForFile(storyboardName);
-
-         pos = refsText.indexOf(entry);
+         pos = refsText.indexOf(entry.trim());
 
          if (pos < 0)
          {
             String newText = CGUtil.replaceAll(refsText, "</body>", entry + "</body>");
 
-            writeToFile("refs.html", newText);
+            writeToDirFile(dirName, "refs.html", newText);
          }
       }
       catch (IOException e)
@@ -1451,8 +1464,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-
-      coverage4GeneratedModelCode(largestRoot);
    }
 
    private String docDirName = "doc";
@@ -1539,6 +1550,16 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                   "<br>\n";
             
             refHtml = CGUtil.replaceAll(refHtml, "<body>\n", parentLink);
+            
+            // generate child link in ../refs.html
+            String childLink = "" + 
+                  "<a href=\"subdir/index.html\" target=\"_top\">subdir</a><br>\n";
+            
+            int pos = docDirName.lastIndexOf('/');
+            String childName = docDirName.substring(pos+1, docDirName.length());
+            childLink = CGUtil.replaceAll(childLink, "subdir", childName);
+            
+            addEntryToRefsHtml(docDirName+"/..", childLink);
          }
 
          writeToFile("refs.html", refHtml);

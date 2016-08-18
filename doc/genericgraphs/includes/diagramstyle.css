@@ -1,0 +1,261 @@
+@charset 'UTF-8';
+.Board{
+	position: relative;
+	overflow: hidden;
+	width: 800px; height: 800px;
+	border: 1px solid rgb(204, 204, 204);
+}
+.ClassEditor{
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	min-width: 100%;
+	border: 1px solid black;
+	vertical-align: middle;
+	text-align:center;
+}
+.Error{
+	border-color: #f00;
+	color: #f00;
+	box-shadow: inset 0 3px 4px #888;
+}
+.Ok{
+	border-color: #009B00;
+	box-shadow: inset 0 3px 4px #888;
+}
+.Add{
+	border-color: yellow;
+	box-shadow: inset 0 3px 4px #888;
+}
+.code_box {
+	position: absolute;
+	width:400px;
+	height:300px;
+	border: 1px solid #c2e1f5;
+	right:8px;
+	bottom: 56px;
+	text-align: left;
+}
+.code_box:before {
+	top: 100%;
+	right:0px;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	border-top-color: #c2e1f5;
+	border-width: 20px;
+}
+.Toolbar {
+	background : #F4F4F4;
+	background-image: linear-gradient(#696969 1px, rgba(255,255,255,0) 0%);
+	background-position: 3px 2px;
+	background-size: 1px 5px;
+	background-repeat: repeat-y;
+	border-bottom: 1px solid #696969;
+	border-right: 1px solid #999999;
+	position:fixed;
+	bottom:6px;
+}
+.Itembar {
+	background : #F4F4F4;
+	background-image: linear-gradient(#696969 1px, rgba(255,255,255,0) 0%);
+	background-position: 3px 2px;
+	background-size: 1px 5px;
+	background-repeat: repeat-y;
+	border-bottom: 1px solid #696969;
+	border-right: 1px solid #999999;
+	position:fixed;
+	right:6px;
+	top:30px;
+}
+.CodeView {
+	background : #F4F4F4;
+	position:fixed;
+	bottom:9px;
+	right:7px;
+	width:30px;
+	height:30px;
+}
+.pi {
+	padding-top:5px;
+	cursor:hand;
+}
+.ChoiceBox{
+	position:absolute;
+	height:80px;
+	border:1px solid black;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.ChoiceBox div{
+	height:20px;
+	width:100%;
+	cursor:pointer;
+}
+.ChoiceBox div.alt{
+	background:#F5F5F5;
+}
+.ChoiceBox div:hover{
+	background:#8EB8FD;
+}
+
+.classdiagram{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute;
+}
+.objectdiagram{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute;
+}
+
+.classElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute;
+	background:#ffffff;
+}
+.classElement table{
+	border-spacing:0;
+	cursor: hand;
+}
+
+.classElement th{
+	background-image: linear-gradient(left, white 0%, lightgray 50%);
+	background-image: linear-gradient(top, white 0%, lightgray 50%);
+	background-image: linear-gradient(45deg, white 0%, lightgray 50%);
+	height:20px;
+}
+
+.classElement .first{
+	border-top: 1px solid black;
+}
+.classElement .methods{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
+	vertical-align:top;
+}
+.classElement .attributes{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
+	vertical-align:top;
+}
+
+.objectElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute;
+	background:#ffffff;
+}
+.objectElement table{
+	border-spacing:0;
+	cursor: hand;
+}
+.objectElement th{
+	background-image: linear-gradient(left, white 0%, lightgray 50%);
+	background-image: linear-gradient(top, white 0%, lightgray 50%);
+	background-image: linear-gradient(45deg, white 0%, lightgray 50%);
+}
+.objectElement .first{
+	border-top: 1px solid black;
+}
+
+.ToolButton{
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #aaaaaa 50%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(50%,#aaaaaa), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* W3C */
+	border-radius: 20px;
+	-webkit-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+	cursor:pointer;
+}
+
+.EdgeInfo{
+	position: absolute;
+}
+
+.patternElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute;
+	background:lightblue;
+}
+.patternElement table{
+	border-spacing:0;
+
+	cursor: hand;
+}
+.patternElement .head{
+	text-align:center;
+}
+.patternElement th{
+	padding-left:10px;
+	padding-right:10px;
+}
+.patternElement .first{
+	border-top: 1px solid black;
+}
+.lineElement {
+	z-index : 42;
+	border-bottom: 1px solid black;
+}
+.lineRaster{
+	border-right: 1px dotted rgba(0,0,0,0.3);
+	border-bottom: 1px dotted rgba(0,0,0,0.3);
+	width: 1px;
+	height: 1px;
+	position:absolute;
+}
+
+.infoBox{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute;
+}
+.draggable {
+	cursor: move;
+}
+.selection{
+	cursor: hand;
+	opacity:0;
+}
+.selection:hover{
+	cursor: hand;
+	opacity:0.3;
+	fill: #FF9;
+}
+.saveBtn:hover{
+	opacity:0.75;
+	cursor: hand;
+}
+.btn:hover{
+	opacity:0.75;
+	cursor: pointer;
+}
+
+.hand{
+	cursor: pointer;
+}
+.saveBtn{
+	fill:url(#reflect);
+	filter: drop-shadow(5px 5px 2px black);
+}
+
+.draggable{
+}
+
+.draggable:hover{
+	border:1px dashed black;
+	-moz-border-radius: 8px;-webkit-border-radius: 8px;border-radius: 8px;
+	cursor: move;
+	opacity:0.50;
+	fill:#ddd;
+}
+

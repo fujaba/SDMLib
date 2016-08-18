@@ -151,5 +151,70 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
       return hasLinkConstraint(tgt, GenericGraph.PROPERTY_LINKS);
    }
 
+
+   public GenericGraphPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GenericObjectPO createObjectsPO()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericGraph.PROPERTY_OBJECTS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createObjectsPO(String modifier)
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericGraph.PROPERTY_OBJECTS, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO createObjectsLink(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_OBJECTS);
+   }
+
+   public GenericGraphPO createObjectsLink(GenericObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_OBJECTS, modifier);
+   }
+
+   public GenericLinkPO createLinksPO()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericGraph.PROPERTY_LINKS, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createLinksPO(String modifier)
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericGraph.PROPERTY_LINKS, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO createLinksLink(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_LINKS);
+   }
+
+   public GenericGraphPO createLinksLink(GenericLinkPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericGraph.PROPERTY_LINKS, modifier);
+   }
+
 }
 
