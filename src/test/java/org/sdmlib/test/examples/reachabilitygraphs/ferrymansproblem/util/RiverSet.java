@@ -193,11 +193,19 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
       return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public RiverSet()
    {
       // empty
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public RiverSet(River... objects)
    {
       for (River obj : objects)
@@ -206,6 +214,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public RiverSet(Collection<River> objects)
    {
       this.addAll(objects);

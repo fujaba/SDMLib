@@ -9,6 +9,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericGraphPO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
@@ -354,6 +355,187 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    public GenericLinkPO filterGraph(GenericGraphPO tgt)
    {
       return hasLinkConstraint(tgt, GenericLink.PROPERTY_GRAPH);
+   }
+
+
+   public GenericLinkPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GenericLinkPO createTgtLabelCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO createTgtLabelCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO createTgtLabelAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO createSrcLabelCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO createSrcLabelCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericLinkPO createSrcLabelAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericGraphPO createGraphPO()
+   {
+      GenericGraphPO result = new GenericGraphPO(new GenericGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericLink.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO createGraphPO(String modifier)
+   {
+      GenericGraphPO result = new GenericGraphPO(new GenericGraph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericLink.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createGraphLink(GenericGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_GRAPH);
+   }
+
+   public GenericLinkPO createGraphLink(GenericGraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_GRAPH, modifier);
+   }
+
+   public GenericObjectPO createSrcPO()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericLink.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createSrcPO(String modifier)
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericLink.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createSrcLink(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_SRC);
+   }
+
+   public GenericLinkPO createSrcLink(GenericObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_SRC, modifier);
+   }
+
+   public GenericObjectPO createTgtPO()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericLink.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createTgtPO(String modifier)
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericLink.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createTgtLink(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_TGT);
+   }
+
+   public GenericLinkPO createTgtLink(GenericObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericLink.PROPERTY_TGT, modifier);
    }
 
 }

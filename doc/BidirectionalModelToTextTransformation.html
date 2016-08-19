@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -898,36 +901,36 @@
 </script>
 <pre>
       Template rootTemplate = new Template()
-      .withModelObject(uni)
-      .with(&quot;The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList &quot;,
-         &quot;example&quot;, University.PROPERTY_NAME, 
-         &quot;99&quot;, University.PROPERTY_ROOMS +  &quot;.size&quot;, 
-         &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
+         .withModelObject(uni)
+         .with(&quot;The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList &quot;,
+            &quot;example&quot;, University.PROPERTY_NAME,
+            &quot;99&quot;, University.PROPERTY_ROOMS + &quot;.size&quot;,
+            &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
 
       Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withReferenceLookup(true)
-            .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
-            .with(
-               &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
-               &quot;xy&quot;, Room.PROPERTY_ROOMNO,
-               &quot;42&quot;, Room.PROPERTY_CREDITS)
-               .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+         .withReferenceLookup(true)
+         .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
+         .with(
+            &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
+            &quot;xy&quot;, Room.PROPERTY_ROOMNO,
+            &quot;42&quot;, Room.PROPERTY_CREDITS)
+         .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
 
       Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
-            .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
-            .withReferenceLookup(true)
-            .with(
-               &quot;name&quot;,
-               &quot;name&quot;, Room.PROPERTY_ROOMNO)
-               .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
-      
+         .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
+         .withReferenceLookup(true)
+         .with(
+            &quot;name&quot;,
+            &quot;name&quot;, Room.PROPERTY_ROOMNO)
+         .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
+
       Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
-            .with(
-               &quot; - Stud has student number 1234.&quot;,
-               &quot;Stud&quot;, Student.PROPERTY_NAME,
-               &quot;1234&quot;, Student.PROPERTY_MATRNO)
-               .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+         .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
+         .with(
+            &quot; - Stud has student number 1234.&quot;,
+            &quot;Stud&quot;, Student.PROPERTY_NAME,
+            &quot;1234&quot;, Student.PROPERTY_MATRNO)
+         .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
 
       storyboard.addObjectDiagram(rootTemplate);
 
@@ -945,16 +948,16 @@
  - Nina has student number 2323.
  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
       rootTemplate.setExpandedText(
-         &quot;The Study False University has many rooms and some students: \n&quot; + 
-               &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; + 
-               &quot; - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n&quot; + 
-               &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; + 
-               &quot;The students are: \n&quot; + 
-               &quot; - Bart has student number 111.\n&quot; + 
-               &quot; - Meggie has student number 112.\n &quot;);
+         &quot;The Study False University has many rooms and some students: \n&quot; +
+            &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; +
+            &quot; - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n&quot; +
+            &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; +
+            &quot;The students are: \n&quot; +
+            &quot; - Bart has student number 111.\n&quot; +
+            &quot; - Meggie has student number 112.\n &quot;);
 
       rootTemplate.parse();
-      
+
 </pre><script>
    var json = {
    "typ":"objectdiagram",

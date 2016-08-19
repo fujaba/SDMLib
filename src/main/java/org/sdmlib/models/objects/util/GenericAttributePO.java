@@ -7,6 +7,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.objects.util.GenericAttributePO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GenericAttributePO extends PatternObject<GenericAttributePO, GenericAttribute>
 {
@@ -256,6 +257,127 @@ public class GenericAttributePO extends PatternObject<GenericAttributePO, Generi
    public GenericAttributePO filterOwner(GenericObjectPO tgt)
    {
       return hasLinkConstraint(tgt, GenericAttribute.PROPERTY_OWNER);
+   }
+
+
+   public GenericAttributePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GenericAttributePO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO createValueCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO createValueCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericAttributePO createValueAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericAttribute.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createOwnerPO()
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericAttribute.PROPERTY_OWNER, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createOwnerPO(String modifier)
+   {
+      GenericObjectPO result = new GenericObjectPO(new GenericObject[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericAttribute.PROPERTY_OWNER, result);
+      
+      return result;
+   }
+
+   public GenericAttributePO createOwnerLink(GenericObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericAttribute.PROPERTY_OWNER);
+   }
+
+   public GenericAttributePO createOwnerLink(GenericObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericAttribute.PROPERTY_OWNER, modifier);
    }
 
 }

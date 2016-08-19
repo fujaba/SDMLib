@@ -78,7 +78,10 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
- * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. This html page will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
+ * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
+ * This html page will be named like the story, i.e. like the method that created the Storyboard. 
+ * It will be added to the refs.html and thus become part of the index.html. 
+ * All these html files are stored in an directory "doc" located in the project root directory.
  * 
  * @see #dumpHTML()
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
@@ -247,6 +250,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             {
                // got it
                this.rootDir = subDir.getPath().replaceAll("\\\\", "/");
+               
                javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
 
                return true;
@@ -371,6 +375,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void writeToFile(String imgName, String fileText)
    {
+      writeToDirFile(docDirName, imgName, fileText);
+   }
+   
+   private void writeToDirFile(String dirName, String imgName, String fileText)
+   {
       try
       {
          if (imgName.startsWith("<"))
@@ -379,7 +388,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             return;
          }
 
-         File oldFile = new File("doc/" + imgName);
+         File oldFile = new File(dirName + "/" + imgName);
 
          if (oldFile.exists())
          {
@@ -412,7 +421,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
+         BufferedWriter out = new BufferedWriter(new FileWriter(dirName + "/" + imgName));
 
          out.write(fileText);
          out.close();
@@ -1340,14 +1349,16 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    /**
-    * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
+    * Generate an html page from this story. This html file will be named like the story, i.e. 
+    * like the method that created the Storyboard. It will be added to the refs.html and thus 
+    * become part of the index.html. All these html files are stored in an directory "doc" located 
+    * in the project root directory.
     * 
     * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
     * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     */
    public void dumpHTML()
    {
-      // copy Javascript files
       try
       {
          generateJavaDoc();
@@ -1387,7 +1398,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
 
       String shortFileName = "" + storyboardName + ".html";
-      String pathname = "doc/" + shortFileName;
+      String pathname = docDirName + "/" + shortFileName;
 
       addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD + ":" + testMethodName, pathname);
 
@@ -1424,21 +1435,29 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       writeToFile(shortFileName, htmlText);
 
+      String entry = refForFile(storyboardName);
+      addEntryToRefsHtml(docDirName, entry);
+
+      coverage4GeneratedModelCode(largestRoot);
+   }
+
+
+   private void addEntryToRefsHtml(String dirName, String entry)
+   {
+      int pos;
       // add entry to refs.html
       try
       {
-         byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/refs.html"));
+         byte[] readAllBytes = Files.readAllBytes(Paths.get(dirName + "/refs.html"));
          String refsText = new String(readAllBytes);
 
-         String entry = refForFile(storyboardName);
-
-         pos = refsText.indexOf(entry);
+         pos = refsText.indexOf(entry.trim());
 
          if (pos < 0)
          {
             String newText = CGUtil.replaceAll(refsText, "</body>", entry + "</body>");
 
-            writeToFile("refs.html", newText);
+            writeToDirFile(dirName, "refs.html", newText);
          }
       }
       catch (IOException e)
@@ -1446,19 +1465,35 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-
-      coverage4GeneratedModelCode(largestRoot);
    }
 
+   private String docDirName = "doc";
+   
+   public StoryboardImpl withDocDirName(String name)
+   {
+      this.docDirName = name;
+      
+      // the doc dir may be a subdir, generate enough ../ elements to reach the root dir for the javafileName
+      int pos = -1; 
+      do {
+         pos = docDirName.indexOf('/', pos+1); 
+         if (pos >= 0)
+         {
+            javaTestFileName = "../" + javaTestFileName;
+         }
+      } while (pos >= 0);
+      
+      return this;
+   }
 
    private void dumpIndexHtml()
    {
-      new File("doc").mkdirs();
+      new File(docDirName).mkdirs();
 
-      new DocEnvironment().copyJS("doc");
+      new DocEnvironment().copyJS(docDirName);
 
       // ensure style file
-      File styleFile = new File("doc/style.css");
+      File styleFile = new File(docDirName+"/style.css");
 
       if (!styleFile.exists())
       {
@@ -1483,7 +1518,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       // ensure index.html
-      File file = new File("doc/index.html");
+      File file = new File(docDirName + "/index.html");
 
       if (!file.exists())
       {
@@ -1505,7 +1540,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       // ensure refs.html
-      file = new File("doc/refs.html");
+      file = new File(docDirName + "/refs.html");
 
       if (!file.exists())
       {
@@ -1516,6 +1551,27 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             "<body>\n" +
             "</body>\n" +
             "</html>\n";
+         
+         if (! docDirName.equals("doc"))
+         {
+            // add parent link
+            String parentLink = "" + 
+                  "<body>\n" +
+                  "<a href=\"../index.html\" target=\"_top\"> back to parent </a><br>\n" + 
+                  "<br>\n";
+            
+            refHtml = CGUtil.replaceAll(refHtml, "<body>\n", parentLink);
+            
+            // generate child link in ../refs.html
+            String childLink = "" + 
+                  "<a href=\"subdir/index.html\" target=\"_top\">subdir</a><br>\n";
+            
+            int pos = docDirName.lastIndexOf('/');
+            String childName = docDirName.substring(pos+1, docDirName.length());
+            childLink = CGUtil.replaceAll(childLink, "subdir", childName);
+            
+            addEntryToRefsHtml(docDirName+"/..", childLink);
+         }
 
          writeToFile("refs.html", refHtml);
       }

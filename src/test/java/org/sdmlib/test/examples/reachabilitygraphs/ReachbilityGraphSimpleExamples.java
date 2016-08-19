@@ -15,12 +15,12 @@ import de.uniks.networkparser.IdMap;
 public class ReachbilityGraphSimpleExamples
 {
    /**
-    * @see <a href='../../../../../../../../doc/ReachabilityGraphSimpleIsomorphismTest.html'>ReachabilityGraphSimpleIsomorphismTest.html</a>
+    * @see <a href='../../../../../../../../doc/internal/ReachabilityGraphSimpleIsomorphismTest.html'>ReachabilityGraphSimpleIsomorphismTest.html</a>
     */
    @Test
    public void ReachabilityGraphSimpleIsomorphismTest()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
       
       storyboard.add("Create two rings of three nodes with a mark at one node.");
       
@@ -97,11 +97,12 @@ public class ReachbilityGraphSimpleExamples
     /**
     * 
     * @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/internal/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
+ */
    @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
       
       storyboard.add("graph 1 two rings of two nodes");
       storyboard.add("graph 2 one ring of four nodes");

@@ -1,6 +1,7 @@
 package org.sdmlib.storyboards;
 
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Table;
 
@@ -40,6 +41,13 @@ public class Storyboard {
 	*/
 	public StoryboardImpl addStep(String txt) {
 		return storyboard.addStep(txt);
+	}
+	
+	public Storyboard withDocDirName(String name )
+	{
+	   this.storyboard.withDocDirName(name);
+	   
+	   return this;
 	}
 	
 	/**
@@ -108,6 +116,17 @@ public class Storyboard {
 		storyboard.addPattern(pattern, showMatch);
 	}
 	
+   /**
+    * Adds a pattern to the storyboard.
+    * 
+    * @param pattern the pattern, that will be added storyboard
+    * @param showMatch flag, that specifies, if the matches of the pattern will be shown
+    * 
+   */
+   public void addPattern(Pattern pattern, boolean showMatch) {
+      storyboard.addPattern(pattern, showMatch);
+   }
+   
 	/**
 	 * Marks the current position within the code.
 	*/

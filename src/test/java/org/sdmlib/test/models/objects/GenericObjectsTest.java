@@ -44,12 +44,13 @@ public class GenericObjectsTest implements PropertyChangeInterface
    /**
     * 
     * @see <a href='../../../../../../../../doc/GenericObjectDiagram.html'>GenericObjectDiagram.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/genericgraphs/GenericObjectDiagram.html'>GenericObjectDiagram.html</a>
+ */
    @Test
    public void testGenericObjectDiagram()
    {
       //====================================================================================================
-      StoryboardImpl storyboard = new StoryboardImpl();
+      StoryboardImpl storyboard = new StoryboardImpl().withDocDirName("doc/genericgraphs");
 
       storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models");
 

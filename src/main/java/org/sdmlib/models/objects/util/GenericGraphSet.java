@@ -29,6 +29,8 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericGraphSet extends SimpleSet<GenericGraph>
 {
@@ -172,6 +174,12 @@ public class GenericGraphSet extends SimpleSet<GenericGraph>
    public GenericGraphSet(Collection<GenericGraph> objects)
    {
       this.addAll(objects);
+   }
+
+
+   public GenericGraphPO createGenericGraphPO()
+   {
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
 }
 

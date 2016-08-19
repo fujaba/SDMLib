@@ -11,6 +11,7 @@ import org.sdmlib.models.objects.util.GenericAttributePO;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
@@ -485,6 +486,260 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    public GenericObjectPO filterIncommingLinks(GenericLinkPO tgt)
    {
       return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMMINGLINKS);
+   }
+
+
+   public GenericObjectPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GenericObjectPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createTypeCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createTypeCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createTypeAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createIconCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createIconCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericObjectPO createIconAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericGraphPO createGraphPO()
+   {
+      GenericGraphPO result = new GenericGraphPO(new GenericGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GenericGraphPO createGraphPO(String modifier)
+   {
+      GenericGraphPO result = new GenericGraphPO(new GenericGraph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericObject.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createGraphLink(GenericGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_GRAPH);
+   }
+
+   public GenericObjectPO createGraphLink(GenericGraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_GRAPH, modifier);
+   }
+
+   public GenericAttributePO createAttrsPO()
+   {
+      GenericAttributePO result = new GenericAttributePO(new GenericAttribute[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_ATTRS, result);
+      
+      return result;
+   }
+
+   public GenericAttributePO createAttrsPO(String modifier)
+   {
+      GenericAttributePO result = new GenericAttributePO(new GenericAttribute[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericObject.PROPERTY_ATTRS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createAttrsLink(GenericAttributePO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_ATTRS);
+   }
+
+   public GenericObjectPO createAttrsLink(GenericAttributePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_ATTRS, modifier);
+   }
+
+   public GenericLinkPO createOutgoingLinksPO()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_OUTGOINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createOutgoingLinksPO(String modifier)
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericObject.PROPERTY_OUTGOINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createOutgoingLinksLink(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_OUTGOINGLINKS);
+   }
+
+   public GenericObjectPO createOutgoingLinksLink(GenericLinkPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_OUTGOINGLINKS, modifier);
+   }
+
+   public GenericLinkPO createIncommingLinksPO()
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GenericObject.PROPERTY_INCOMMINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericLinkPO createIncommingLinksPO(String modifier)
+   {
+      GenericLinkPO result = new GenericLinkPO(new GenericLink[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GenericObject.PROPERTY_INCOMMINGLINKS, result);
+      
+      return result;
+   }
+
+   public GenericObjectPO createIncommingLinksLink(GenericLinkPO tgt)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMMINGLINKS);
+   }
+
+   public GenericObjectPO createIncommingLinksLink(GenericLinkPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GenericObject.PROPERTY_INCOMMINGLINKS, modifier);
    }
 
 }

@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class MacSet extends SimpleSet<Mac>
 {
@@ -379,4 +380,103 @@ public class MacSet extends SimpleSet<Mac>
    {
       this.addAll(objects);
    }
+
+
+   public MacPO createMacPO()
+   {
+      return new MacPO(this.toArray(new Mac[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the Name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet createNameCondition(String value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the Name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet createNameCondition(String lower, String upper)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet createTypeCondition(TEnum value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Mac objects and collect those Mac objects where the owner attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Mac objects that match the parameter
+    */
+   public MacSet createOwnerCondition(Alex value)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (value == obj.getOwner())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
