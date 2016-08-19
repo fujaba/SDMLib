@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
 
 public class NegativeApplicationConditionPOCreator extends PatternObjectCreator
 {
@@ -10,14 +10,13 @@ public class NegativeApplicationConditionPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new NegativeApplicationConditionPO(new NegativeApplicationCondition[]{});
+          return new NegativeApplicationConditionPO(new NegativeApplicationCondition[]{});
       } else {
-         return new NegativeApplicationConditionPO();
+          return new NegativeApplicationConditionPO();
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }

@@ -1,36 +1,18 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.DestroyObjectElemPO;
+import org.sdmlib.models.pattern.util.PatternObjectPO;
 
 public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, DestroyObjectElem>
 {
-   public DestroyObjectElemPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
-   }
 
-   public DestroyObjectElemPO(DestroyObjectElem... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   @Override
-   public DestroyObjectElemPO startNAC()
-   {
-      return (DestroyObjectElemPO) super.startNAC();
-   }
-   
-   @Override
-   public DestroyObjectElemPO endNAC()
-   {
-      return (DestroyObjectElemPO) super.endNAC();
-   }
-   
-   public DestroyObjectElemSet allMatches()
+    public DestroyObjectElemSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -45,8 +27,24 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       
       return matches;
    }
-   
-   public DestroyObjectElemPO hasModifier(String value)
+
+
+   public DestroyObjectElemPO(){
+      newInstance(null);
+   }
+
+   public DestroyObjectElemPO(DestroyObjectElem... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
+
+   public DestroyObjectElemPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public DestroyObjectElemPO createModifierCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
@@ -55,12 +53,40 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
       
       return this;
    }
    
-   @Override
+   public DestroyObjectElemPO createModifierCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO createModifierAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -70,7 +96,16 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return null;
    }
    
-   public DestroyObjectElemPO hasHasMatch(boolean value)
+   public DestroyObjectElemPO withModifier(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((DestroyObjectElem) getCurrentMatch()).setModifier(value);
+      }
+      return this;
+   }
+   
+   public DestroyObjectElemPO createHasMatchCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
@@ -79,70 +114,44 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
       
       return this;
    }
    
-   @Override
+   public DestroyObjectElemPO createHasMatchAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((DestroyObjectElem) getCurrentMatch()).getHasMatch();
+         return ((DestroyObjectElem) getCurrentMatch()).isHasMatch();
       }
       return false;
    }
    
-   public PatternObjectPO hasPatternObject()
-   {
-      PatternObjectPO result = new PatternObjectPO();
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(DestroyObjectElem.PROPERTY_PATTERNOBJECT, result);
-      
-      return result;
-   }
-   
-   public DestroyObjectElemPO hasPatternObject(PatternObjectPO tgt)
-   {
-      return hasLinkConstraint(tgt, DestroyObjectElem.PROPERTY_PATTERNOBJECT);
-   }
-   
-   public PatternObject getPatternObject()
+   public DestroyObjectElemPO withHasMatch(boolean value)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((DestroyObjectElem) this.getCurrentMatch()).getPatternObject();
+         ((DestroyObjectElem) getCurrentMatch()).setHasMatch(value);
       }
-      return null;
-   }
-   
-   public DestroyObjectElemPO hasDoAllMatches(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
       return this;
    }
    
-   @Override
-   public boolean getDoAllMatches()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((DestroyObjectElem) getCurrentMatch()).getDoAllMatches();
-      }
-      return false;
-   }
-   
-   public DestroyObjectElemPO hasPatternObjectName(String value)
+   public DestroyObjectElemPO createPatternObjectNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
@@ -151,12 +160,40 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
       
       return this;
    }
    
-   @Override
+   public DestroyObjectElemPO createPatternObjectNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO createPatternObjectNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
@@ -166,9 +203,64 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return null;
    }
    
-   public PatternPO hasPattern()
+   public DestroyObjectElemPO withPatternObjectName(String value)
    {
-      PatternPO result = new PatternPO();
+      if (this.getPattern().getHasMatch())
+      {
+         ((DestroyObjectElem) getCurrentMatch()).setPatternObjectName(value);
+      }
+      return this;
+   }
+   
+   public DestroyObjectElemPO createDoAllMatchesCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO createDoAllMatchesAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getDoAllMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((DestroyObjectElem) getCurrentMatch()).isDoAllMatches();
+      }
+      return false;
+   }
+   
+   public DestroyObjectElemPO withDoAllMatches(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((DestroyObjectElem) getCurrentMatch()).setDoAllMatches(value);
+      }
+      return this;
+   }
+   
+   public PatternPO createPatternPO()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
@@ -176,217 +268,72 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return result;
    }
 
-   public DestroyObjectElemPO hasPattern(PatternPO tgt)
+   public PatternPO createPatternPO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public DestroyObjectElemPO createPatternLink(PatternPO tgt)
    {
       return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
-   @Override
+   public DestroyObjectElemPO createPatternLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN, modifier);
+   }
+
    public Pattern getPattern()
    {
-      if (super.getPattern().getHasMatch())
+      if (this.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return super.getPattern();
+      return null;
    }
 
-
-   public DestroyObjectElemPO hasModifier(String lower, String upper)
+   public PatternObjectPO createPatternObjectPO()
    {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
-      this.getPattern().findMatch();
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(DestroyObjectElem.PROPERTY_PATTERNOBJECT, result);
       
-      return this;
-   }
-   
-   public DestroyObjectElemPO hasHasMatch(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO hasPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO hasDoAllMatches(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO createModifier(String value)
-   {
-      this.startCreate().hasModifier(value).endCreate();
-      return this;
-   }
-   
-   public DestroyObjectElemPO createHasMatch(boolean value)
-   {
-      this.startCreate().hasHasMatch(value).endCreate();
-      return this;
-   }
-   
-   public DestroyObjectElemPO createPatternObjectName(String value)
-   {
-      this.startCreate().hasPatternObjectName(value).endCreate();
-      return this;
-   }
-   
-   public DestroyObjectElemPO createDoAllMatches(boolean value)
-   {
-      this.startCreate().hasDoAllMatches(value).endCreate();
-      return this;
-   }
-   
-   @Override
-   public PatternPO createPattern()
-   {
-      return (PatternPO) this.startCreate().hasPattern().endCreate();
+      return result;
    }
 
-   public DestroyObjectElemPO createPattern(PatternPO tgt)
+   public PatternObjectPO createPatternObjectPO(String modifier)
    {
-      return this.startCreate().hasPattern(tgt).endCreate();
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(DestroyObjectElem.PROPERTY_PATTERNOBJECT, result);
+      
+      return result;
    }
 
-   public PatternObjectPO createPatternObject()
+   public DestroyObjectElemPO createPatternObjectLink(PatternObjectPO tgt)
    {
-      return (PatternObjectPO) this.startCreate().hasPatternObject().endCreate();
+      return hasLinkConstraint(tgt, DestroyObjectElem.PROPERTY_PATTERNOBJECT);
    }
 
-   public DestroyObjectElemPO createPatternObject(PatternObjectPO tgt)
+   public DestroyObjectElemPO createPatternObjectLink(PatternObjectPO tgt, String modifier)
    {
-      return this.startCreate().hasPatternObject(tgt).endCreate();
+      return hasLinkConstraint(tgt, DestroyObjectElem.PROPERTY_PATTERNOBJECT, modifier);
    }
 
-   public DestroyObjectElemPO filterModifier(String value)
+   public PatternObject getPatternObject()
    {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
+      if (this.getPattern().getHasMatch())
+      {
+         return ((DestroyObjectElem) this.getCurrentMatch()).getPatternObject();
+      }
+      return null;
    }
-   
-   public DestroyObjectElemPO filterModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO filterHasMatch(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO filterPatternObjectName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO filterPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public DestroyObjectElemPO filterDoAllMatches(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
+
 }
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,222 +21,66 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.pattern.ReachabilityGraph;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.ReachableState;
+import java.util.Collection;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import java.util.Collections;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.models.pattern.RuleApplication;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.models.modelsets.doubleList;
-
-public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachableStateSet extends SimpleSet<ReachableState>
 {
-   @Override
-   public String toString()
+	protected Class<?> getTypClass() {
+		return ReachableState.class;
+	}
+
+   public ReachableStateSet()
    {
-      StringList stringList = new StringList();
-      
-      for (ReachableState elem : this)
+      // empty
+   }
+
+   public ReachableStateSet(ReachableState... objects)
+   {
+      for (ReachableState obj : objects)
       {
-         stringList.add(elem.toString());
+         this.add(obj);
       }
-      
-      return "(" + stringList.concat(", ") + ")";
+   }
+
+   public ReachableStateSet(Collection<ReachableState> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withFlag(ReachableStateSet.READONLY);
+
+
+   public ReachableStatePO createReachableStatePO()
+   {
+      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 
 
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.ReachableState";
    }
 
 
-   public ReachabilityGraphSet getParent()
-   {
-      ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.add(obj.getParent());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withParent(ReachabilityGraph value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withParent(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableState first()
-   {
-      for (ReachableState s : this)
-      {
-         return s;
-      }
-      
-      return null;
-   }
-
-   public ObjectSet getGraphRoot()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.add(obj.getGraphRoot());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withGraphRoot(Object value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.setGraphRoot(value);
-      }
-      
-      return this;
-   }
-
-   public longList getNumber()
-   {
-      longList result = new longList();
-      
-      for (ReachableState obj : this)
-      {
-         result.add(obj.getNumber());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withNumber(int value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.setNumber(value);
-      }
-      
-      return this;
-   }
-   
-   public ReachableStateSet filterNumber(int lower, int upper)
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (ReachableState obj : this)
-      {
-         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public RuleApplicationSet getRuleapplications()
-   {
-      RuleApplicationSet result = new RuleApplicationSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.addAll(obj.getRuleapplications());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withRuleapplications(RuleApplication value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withRuleapplications(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet withoutRuleapplications(RuleApplication value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withoutRuleapplications(value);
-      }
-      
-      return this;
-   }
-
-   public RuleApplicationSet getResultOf()
-   {
-      RuleApplicationSet result = new RuleApplicationSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.addAll(obj.getResultOf());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withResultOf(RuleApplication value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withResultOf(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet withoutResultOf(RuleApplication value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withoutResultOf(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet withNumber(long value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.setNumber(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public ReachableStatePO startModelPattern()
-   {
-      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public ReachableStateSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.addAll((Collection<? extends ReachableState>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReachableState>)value);
       }
       else if (value != null)
       {
@@ -253,64 +97,23 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
    }
 
 
-
-   public ReachableStatePO hasReachableStatePO()
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the number attribute values. 
+    * 
+    * @return List of long objects reachable via number attribute
+    */
+   public NumberList getNumber()
    {
-      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
-   }
-
-   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet(); // .withFlag(ReachableStateSet.READONLY);
-   public ReachableStateSet hasNumber(long value)
-   {
-      ReachableStateSet result = new ReachableStateSet();
+      NumberList result = new NumberList();
       
       for (ReachableState obj : this)
       {
-         if (value == obj.getNumber())
-         {
-            result.add(obj);
-         }
+         result.add(obj.getNumber());
       }
       
       return result;
    }
 
-   public ReachableStateSet hasNumber(long lower, long upper)
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (ReachableState obj : this)
-      {
-         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet hasGraphRoot(Object value)
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (ReachableState obj : this)
-      {
-         if (value == obj.getGraphRoot())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public ReachableStatePO filterReachableStatePO()
-   {
-      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
-   }
 
    /**
     * Loop through the current set of ReachableState objects and collect those ReachableState objects where the number attribute matches the parameter value. 
@@ -319,7 +122,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
     * 
     * @return Subset of ReachableState objects that match the parameter
     */
-   public ReachableStateSet filterNumber(long value)
+   public ReachableStateSet createNumberCondition(long value)
    {
       ReachableStateSet result = new ReachableStateSet();
       
@@ -343,7 +146,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
     * 
     * @return Subset of ReachableState objects that match the parameter
     */
-   public ReachableStateSet filterNumber(long lower, long upper)
+   public ReachableStateSet createNumberCondition(long lower, long upper)
    {
       ReachableStateSet result = new ReachableStateSet();
       
@@ -360,25 +163,20 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
 
 
    /**
-    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the graphRoot attribute matches the parameter value. 
+    * Loop through the current set of ReachableState objects and assign value to the number attribute of each of it. 
     * 
-    * @param value Search value
+    * @param value New attribute value
     * 
-    * @return Subset of ReachableState objects that match the parameter
+    * @return Current set of ReachableState objects now with new attribute values.
     */
-   public ReachableStateSet filterGraphRoot(Object value)
+   public ReachableStateSet withNumber(long value)
    {
-      ReachableStateSet result = new ReachableStateSet();
-      
       for (ReachableState obj : this)
       {
-         if (value == obj.getGraphRoot())
-         {
-            result.add(obj);
-         }
+         obj.setNumber(value);
       }
       
-      return result;
+      return this;
    }
 
 
@@ -387,9 +185,9 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
     * 
     * @return List of double objects reachable via metricValue attribute
     */
-   public doubleList getMetricValue()
+   public NumberList getMetricValue()
    {
-      doubleList result = new doubleList();
+      NumberList result = new NumberList();
       
       for (ReachableState obj : this)
       {
@@ -407,7 +205,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
     * 
     * @return Subset of ReachableState objects that match the parameter
     */
-   public ReachableStateSet filterMetricValue(double value)
+   public ReachableStateSet createMetricValueCondition(double value)
    {
       ReachableStateSet result = new ReachableStateSet();
       
@@ -431,7 +229,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
     * 
     * @return Subset of ReachableState objects that match the parameter
     */
-   public ReachableStateSet filterMetricValue(double lower, double upper)
+   public ReachableStateSet createMetricValueCondition(double lower, double upper)
    {
       ReachableStateSet result = new ReachableStateSet();
       
@@ -459,6 +257,290 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       for (ReachableState obj : this)
       {
          obj.setMetricValue(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the graphRoot attribute values. 
+    * 
+    * @return List of Object objects reachable via graphRoot attribute
+    */
+   public ObjectSet getGraphRoot()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.getGraphRoot());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the graphRoot attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet createGraphRootCondition(Object value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getGraphRoot())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and assign value to the graphRoot attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ReachableState objects now with new attribute values.
+    */
+   public ReachableStateSet withGraphRoot(Object value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setGraphRoot(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a set of the ReachabilityGraph objects reached via parent. 
+    * 
+    * @return Set of ReachabilityGraph objects reachable via parent
+    */
+   public ReachabilityGraphSet getParent()
+   {
+      ReachabilityGraphSet result = new ReachabilityGraphSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.with(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect all contained objects with reference parent pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as parent neighbor of the collected results. 
+    * 
+    * @return Set of ReachabilityGraph objects referring to value via parent
+    */
+   public ReachableStateSet filterParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ReachableStateSet answer = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (neighbors.contains(obj.getParent()) || (neighbors.isEmpty() && obj.getParent() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the Parent attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Parent attributes.
+    */
+   public ReachableStateSet withParent(ReachabilityGraph value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a set of the RuleApplication objects reached via ruleapplications. 
+    * 
+    * @return Set of RuleApplication objects reachable via ruleapplications
+    */
+   public RuleApplicationSet getRuleapplications()
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.with(obj.getRuleapplications());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect all contained objects with reference ruleapplications pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as ruleapplications neighbor of the collected results. 
+    * 
+    * @return Set of RuleApplication objects referring to value via ruleapplications
+    */
+   public ReachableStateSet filterRuleapplications(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ReachableStateSet answer = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getRuleapplications()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the Ruleapplications attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Ruleapplications attributes.
+    */
+   public ReachableStateSet withRuleapplications(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withRuleapplications(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the ReachableState object passed as parameter from the Ruleapplications attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public ReachableStateSet withoutRuleapplications(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withoutRuleapplications(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a set of the RuleApplication objects reached via resultOf. 
+    * 
+    * @return Set of RuleApplication objects reachable via resultOf
+    */
+   public RuleApplicationSet getResultOf()
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.with(obj.getResultOf());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of ReachableState objects and collect all contained objects with reference resultOf pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as resultOf neighbor of the collected results. 
+    * 
+    * @return Set of RuleApplication objects referring to value via resultOf
+    */
+   public ReachableStateSet filterResultOf(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ReachableStateSet answer = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getResultOf()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the ResultOf attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their ResultOf attributes.
+    */
+   public ReachableStateSet withResultOf(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withResultOf(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the ReachableState object passed as parameter from the ResultOf attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public ReachableStateSet withoutResultOf(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withoutResultOf(value);
       }
       
       return this;

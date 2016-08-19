@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,153 +21,44 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.PatternElement;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
 
-public class PatternElementSet extends SimpleSet<PatternElement<?>>
+public class PatternElementSet extends SimpleSet<PatternElement>
 {
-   public PatternSet getPattern()
+	protected Class<?> getTypClass() {
+		return PatternElement.class;
+	}
+
+   public PatternElementSet()
    {
-      PatternSet result = new PatternSet();
-      
-      for (PatternElement obj : this)
-      {
-         result.add(obj.getPattern());
-      }
-      
-      return result;
-   }
-   public PatternElementSet withPattern(Pattern value)
-   {
-      for (PatternElement obj : this)
-      {
-         obj.withPattern(value);
-      }
-      
-      return this;
+      // empty
    }
 
-   public StringList getModifier()
+   public PatternElementSet(PatternElement... objects)
    {
-      StringList result = new StringList();
-      
-      for (PatternElement obj : this)
+      for (PatternElement obj : objects)
       {
-         result.add(obj.getModifier());
+         this.add(obj);
       }
-      
-      return result;
    }
 
-   public PatternElementSet withModifier(String value)
+   public PatternElementSet(Collection<PatternElement> objects)
    {
-      for (PatternElement obj : this)
-      {
-         obj.withModifier(value);
-      }
-      
-      return this;
+      this.addAll(objects);
    }
 
-   public booleanList getHasMatch()
-   {
-      booleanList result = new booleanList();
-      
-      for (PatternElement obj : this)
-      {
-         result.add(obj.getHasMatch());
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet withHasMatch(boolean value)
-   {
-      for (PatternElement obj : this)
-      {
-         obj.withHasMatch(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getDoAllMatches()
-   {
-      booleanList result = new booleanList();
-      
-      for (PatternElement obj : this)
-      {
-         result.add(obj.getDoAllMatches());
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet withDoAllMatches(boolean value)
-   {
-      for (PatternElement obj : this)
-      {
-         obj.withDoAllMatches(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getPatternObjectName()
-   {
-      StringList result = new StringList();
-      
-      for (PatternElement obj : this)
-      {
-         result.add(obj.getPatternObjectName());
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet withPatternObjectName(String value)
-   {
-      for (PatternElement obj : this)
-      {
-         obj.withPatternObjectName(value);
-      }
-      
-      return this;
-   }
-   
-   public PatternSet getContentOfTypePattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (PatternElement elem : this)
-      {
-         if (elem instanceof Pattern)
-         {
-            result.add((Pattern) elem);
-         }
-      }
-      
-      return result;
-   }
+   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withFlag(PatternElementSet.READONLY);
 
 
-
-   public String toString()
+   public PatternElementPO createPatternElementPO()
    {
-      StringList stringList = new StringList();
-      
-      for (PatternElement elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
+      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
 
 
@@ -176,28 +67,17 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
       return "org.sdmlib.models.pattern.PatternElement";
    }
 
-   public PatternElement first()
-   {
-      for (PatternElement pe : this)
-      {
-         return pe;
-      }
-      
-      return null;
-   }
 
-
-   public PatternElementPO startModelPattern()
-   {
-      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public PatternElementSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.addAll((Collection<PatternElement<?>>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PatternElement>)value);
       }
       else if (value != null)
       {
@@ -214,109 +94,23 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
    }
 
 
-
-   public PatternElementPO hasPatternElementPO()
+   /**
+    * Loop through the current set of PatternElement objects and collect a list of the modifier attribute values. 
+    * 
+    * @return List of String objects reachable via modifier attribute
+    */
+   public ObjectSet getModifier()
    {
-      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
-   }
-
-   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withFlag(PatternElementSet.READONLY);
-   public PatternElementSet hasModifier(String value)
-   {
-      PatternElementSet result = new PatternElementSet();
+      ObjectSet result = new ObjectSet();
       
       for (PatternElement obj : this)
       {
-         if (value.equals(obj.getModifier()))
-         {
-            result.add(obj);
-         }
+         result.add(obj.getModifier());
       }
       
       return result;
    }
 
-   public PatternElementSet hasModifier(String lower, String upper)
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (PatternElement obj : this)
-      {
-         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet hasHasMatch(boolean value)
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (PatternElement obj : this)
-      {
-         if (value == obj.isHasMatch())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet hasPatternObjectName(String value)
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (PatternElement obj : this)
-      {
-         if (value.equals(obj.getPatternObjectName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet hasPatternObjectName(String lower, String upper)
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (PatternElement obj : this)
-      {
-         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternElementSet hasDoAllMatches(boolean value)
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (PatternElement obj : this)
-      {
-         if (value == obj.isDoAllMatches())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public PatternElementPO filterPatternElementPO()
-   {
-      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
-   }
 
    /**
     * Loop through the current set of PatternElement objects and collect those PatternElement objects where the modifier attribute matches the parameter value. 
@@ -325,7 +119,7 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterModifier(String value)
+   public PatternElementSet createModifierCondition(String value)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -349,7 +143,7 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterModifier(String lower, String upper)
+   public PatternElementSet createModifierCondition(String lower, String upper)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -366,13 +160,49 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
 
 
    /**
+    * Loop through the current set of PatternElement objects and assign value to the modifier attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternElement objects now with new attribute values.
+    */
+   public PatternElementSet withModifier(String value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.setModifier(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect a list of the hasMatch attribute values. 
+    * 
+    * @return List of boolean objects reachable via hasMatch attribute
+    */
+   public BooleanList getHasMatch()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.isHasMatch());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternElement objects and collect those PatternElement objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterHasMatch(boolean value)
+   public PatternElementSet createHasMatchCondition(boolean value)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -389,13 +219,49 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
 
 
    /**
+    * Loop through the current set of PatternElement objects and assign value to the hasMatch attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternElement objects now with new attribute values.
+    */
+   public PatternElementSet withHasMatch(boolean value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.setHasMatch(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect a list of the patternObjectName attribute values. 
+    * 
+    * @return List of String objects reachable via patternObjectName attribute
+    */
+   public ObjectSet getPatternObjectName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternElement objects and collect those PatternElement objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterPatternObjectName(String value)
+   public PatternElementSet createPatternObjectNameCondition(String value)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -419,7 +285,7 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterPatternObjectName(String lower, String upper)
+   public PatternElementSet createPatternObjectNameCondition(String lower, String upper)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -436,13 +302,49 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
 
 
    /**
+    * Loop through the current set of PatternElement objects and assign value to the patternObjectName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternElement objects now with new attribute values.
+    */
+   public PatternElementSet withPatternObjectName(String value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.setPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and collect a list of the doAllMatches attribute values. 
+    * 
+    * @return List of boolean objects reachable via doAllMatches attribute
+    */
+   public BooleanList getDoAllMatches()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.isDoAllMatches());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternElement objects and collect those PatternElement objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternElement objects that match the parameter
     */
-   public PatternElementSet filterDoAllMatches(boolean value)
+   public PatternElementSet createDoAllMatchesCondition(boolean value)
    {
       PatternElementSet result = new PatternElementSet();
       
@@ -455,6 +357,89 @@ public class PatternElementSet extends SimpleSet<PatternElement<?>>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternElement objects and assign value to the doAllMatches attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternElement objects now with new attribute values.
+    */
+   public PatternElementSet withDoAllMatches(boolean value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.setDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of PatternElement objects and collect a set of the Pattern objects reached via pattern. 
+    * 
+    * @return Set of Pattern objects reachable via pattern
+    */
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (PatternElement obj : this)
+      {
+         result.with(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of PatternElement objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as pattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via pattern
+    */
+   public PatternElementSet filterPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PatternElementSet answer = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (neighbors.contains(obj.getPattern()) || (neighbors.isEmpty() && obj.getPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the PatternElement object passed as parameter to the Pattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
+    */
+   public PatternElementSet withPattern(Pattern value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
    }
 
 }

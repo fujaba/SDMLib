@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,115 +21,60 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.RuleApplication;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.RuleApplication;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.ReachableState;
 
-public class RuleApplicationSet extends SimpleSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
+public class RuleApplicationSet extends SimpleSet<RuleApplication>
 {
-   @Override
-   public String toString()
+	protected Class<?> getTypClass() {
+		return RuleApplication.class;
+	}
+
+   public RuleApplicationSet()
    {
-      StringList stringList = new StringList();
-      
-      for (RuleApplication elem : this)
+      // empty
+   }
+
+   public RuleApplicationSet(RuleApplication... objects)
+   {
+      for (RuleApplication obj : objects)
       {
-         stringList.add(elem.toString());
+         this.add(obj);
       }
-      
-      return "(" + stringList.concat(", ") + ")";
+   }
+
+   public RuleApplicationSet(Collection<RuleApplication> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withFlag(RuleApplicationSet.READONLY);
+
+
+   public RuleApplicationPO createRuleApplicationPO()
+   {
+      return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
    }
 
 
-   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.RuleApplication";
    }
 
 
-   public StringList getDescription()
-   {
-      StringList result = new StringList();
-      
-      for (RuleApplication obj : this)
-      {
-         result.add(obj.getDescription());
-      }
-      
-      return result;
-   }
-
-   public RuleApplicationSet withDescription(String value)
-   {
-      for (RuleApplication obj : this)
-      {
-         obj.setDescription(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet getSrc()
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (RuleApplication obj : this)
-      {
-         result.add(obj.getSrc());
-      }
-      
-      return result;
-   }
-
-   public RuleApplicationSet withSrc(ReachableState value)
-   {
-      for (RuleApplication obj : this)
-      {
-         obj.withSrc(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet getTgt()
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (RuleApplication obj : this)
-      {
-         result.add(obj.getTgt());
-      }
-      
-      return result;
-   }
-
-   public RuleApplicationSet withTgt(ReachableState value)
-   {
-      for (RuleApplication obj : this)
-      {
-         obj.withTgt(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public RuleApplicationPO startModelPattern()
-   {
-      return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public RuleApplicationSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<RuleApplication>)value);
       }
@@ -148,49 +93,23 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication> implements or
    }
 
 
-
-   public RuleApplicationPO hasRuleApplicationPO()
+   /**
+    * Loop through the current set of RuleApplication objects and collect a list of the description attribute values. 
+    * 
+    * @return List of String objects reachable via description attribute
+    */
+   public ObjectSet getDescription()
    {
-      return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
-   }
-
-   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withFlag(RuleApplicationSet.READONLY);
-   public RuleApplicationSet hasDescription(String value)
-   {
-      RuleApplicationSet result = new RuleApplicationSet();
+      ObjectSet result = new ObjectSet();
       
       for (RuleApplication obj : this)
       {
-         if (value.equals(obj.getDescription()))
-         {
-            result.add(obj);
-         }
+         result.add(obj.getDescription());
       }
       
       return result;
    }
 
-   public RuleApplicationSet hasDescription(String lower, String upper)
-   {
-      RuleApplicationSet result = new RuleApplicationSet();
-      
-      for (RuleApplication obj : this)
-      {
-         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public RuleApplicationPO filterRuleApplicationPO()
-   {
-      return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
-   }
 
    /**
     * Loop through the current set of RuleApplication objects and collect those RuleApplication objects where the description attribute matches the parameter value. 
@@ -199,7 +118,7 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication> implements or
     * 
     * @return Subset of RuleApplication objects that match the parameter
     */
-   public RuleApplicationSet filterDescription(String value)
+   public RuleApplicationSet createDescriptionCondition(String value)
    {
       RuleApplicationSet result = new RuleApplicationSet();
       
@@ -223,7 +142,7 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication> implements or
     * 
     * @return Subset of RuleApplication objects that match the parameter
     */
-   public RuleApplicationSet filterDescription(String lower, String upper)
+   public RuleApplicationSet createDescriptionCondition(String lower, String upper)
    {
       RuleApplicationSet result = new RuleApplicationSet();
       
@@ -236,6 +155,154 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication> implements or
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of RuleApplication objects and assign value to the description attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of RuleApplication objects now with new attribute values.
+    */
+   public RuleApplicationSet withDescription(String value)
+   {
+      for (RuleApplication obj : this)
+      {
+         obj.setDescription(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect a set of the ReachableState objects reached via src. 
+    * 
+    * @return Set of ReachableState objects reachable via src
+    */
+   public ReachableStateSet getSrc()
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (RuleApplication obj : this)
+      {
+         result.with(obj.getSrc());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect all contained objects with reference src pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as src neighbor of the collected results. 
+    * 
+    * @return Set of ReachableState objects referring to value via src
+    */
+   public RuleApplicationSet filterSrc(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RuleApplicationSet answer = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (neighbors.contains(obj.getSrc()) || (neighbors.isEmpty() && obj.getSrc() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Src attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
+    */
+   public RuleApplicationSet withSrc(ReachableState value)
+   {
+      for (RuleApplication obj : this)
+      {
+         obj.withSrc(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect a set of the ReachableState objects reached via tgt. 
+    * 
+    * @return Set of ReachableState objects reachable via tgt
+    */
+   public ReachableStateSet getTgt()
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (RuleApplication obj : this)
+      {
+         result.with(obj.getTgt());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect all contained objects with reference tgt pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as tgt neighbor of the collected results. 
+    * 
+    * @return Set of ReachableState objects referring to value via tgt
+    */
+   public RuleApplicationSet filterTgt(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RuleApplicationSet answer = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (neighbors.contains(obj.getTgt()) || (neighbors.isEmpty() && obj.getTgt() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Tgt attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Tgt attributes.
+    */
+   public RuleApplicationSet withTgt(ReachableState value)
+   {
+      for (RuleApplication obj : this)
+      {
+         obj.withTgt(value);
+      }
+      
+      return this;
    }
 
 }

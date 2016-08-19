@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class UnifyGraphsOpPOCreator extends PatternObjectCreator
 {
@@ -10,15 +10,13 @@ public class UnifyGraphsOpPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new UnifyGraphsOpPO(new UnifyGraphsOp[]{});
+          return new UnifyGraphsOpPO(new UnifyGraphsOp[]{});
       } else {
-         return new UnifyGraphsOpPO();
+          return new UnifyGraphsOpPO();
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }
-

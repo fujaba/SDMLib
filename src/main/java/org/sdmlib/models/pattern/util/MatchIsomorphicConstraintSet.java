@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,117 +21,44 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.Pattern;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
 
 public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConstraint>
 {
-   public StringList getModifier()
+	protected Class<?> getTypClass() {
+		return MatchIsomorphicConstraint.class;
+	}
+
+   public MatchIsomorphicConstraintSet()
    {
-      StringList result = new StringList();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         result.add(obj.getModifier());
-      }
-      
-      return result;
+      // empty
    }
 
-   public MatchIsomorphicConstraintSet withModifier(String value)
+   public MatchIsomorphicConstraintSet(MatchIsomorphicConstraint... objects)
    {
-      for (MatchIsomorphicConstraint obj : this)
+      for (MatchIsomorphicConstraint obj : objects)
       {
-         obj.setModifier(value);
+         this.add(obj);
       }
-      
-      return this;
    }
 
-   public booleanList getHasMatch()
+   public MatchIsomorphicConstraintSet(Collection<MatchIsomorphicConstraint> objects)
    {
-      booleanList result = new booleanList();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         result.add(obj.getHasMatch());
-      }
-      
-      return result;
+      this.addAll(objects);
    }
 
-   public MatchIsomorphicConstraintSet withHasMatch(boolean value)
+   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withFlag(MatchIsomorphicConstraintSet.READONLY);
+
+
+   public MatchIsomorphicConstraintPO createMatchIsomorphicConstraintPO()
    {
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         obj.setHasMatch(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getDoAllMatches()
-   {
-      booleanList result = new booleanList();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         result.add(obj.getDoAllMatches());
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet withDoAllMatches(boolean value)
-   {
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         obj.setDoAllMatches(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getPatternObjectName()
-   {
-      StringList result = new StringList();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         result.add(obj.getPatternObjectName());
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet withPatternObjectName(String value)
-   {
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         obj.setPatternObjectName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (MatchIsomorphicConstraint elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
+      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
 
 
@@ -140,41 +67,17 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
       return "org.sdmlib.models.pattern.MatchIsomorphicConstraint";
    }
 
-   public PatternSet getPattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         result.add(obj.getPattern());
-      }
-      
-      return result;
-   }
 
-   public MatchIsomorphicConstraintSet withPattern(Pattern<?> value)
-   {
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         obj.withPattern(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public MatchIsomorphicConstraintPO startModelPattern()
-   {
-      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public MatchIsomorphicConstraintSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.withList((Collection<?>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<MatchIsomorphicConstraint>)value);
       }
       else if (value != null)
       {
@@ -191,109 +94,23 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
    }
 
 
-
-   public MatchIsomorphicConstraintPO hasMatchIsomorphicConstraintPO()
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect a list of the modifier attribute values. 
+    * 
+    * @return List of String objects reachable via modifier attribute
+    */
+   public ObjectSet getModifier()
    {
-      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
-   }
-
-   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withFlag(MatchIsomorphicConstraintSet.READONLY);
-   public MatchIsomorphicConstraintSet hasModifier(String value)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      ObjectSet result = new ObjectSet();
       
       for (MatchIsomorphicConstraint obj : this)
       {
-         if (value.equals(obj.getModifier()))
-         {
-            result.add(obj);
-         }
+         result.add(obj.getModifier());
       }
       
       return result;
    }
 
-   public MatchIsomorphicConstraintSet hasModifier(String lower, String upper)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet hasHasMatch(boolean value)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         if (value == obj.isHasMatch())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet hasPatternObjectName(String value)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         if (value.equals(obj.getPatternObjectName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet hasPatternObjectName(String lower, String upper)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MatchIsomorphicConstraintSet hasDoAllMatches(boolean value)
-   {
-      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
-      
-      for (MatchIsomorphicConstraint obj : this)
-      {
-         if (value == obj.isDoAllMatches())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public MatchIsomorphicConstraintPO filterMatchIsomorphicConstraintPO()
-   {
-      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
-   }
 
    /**
     * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the modifier attribute matches the parameter value. 
@@ -302,7 +119,7 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterModifier(String value)
+   public MatchIsomorphicConstraintSet createModifierCondition(String value)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -326,7 +143,7 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterModifier(String lower, String upper)
+   public MatchIsomorphicConstraintSet createModifierCondition(String lower, String upper)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -343,13 +160,49 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
 
 
    /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and assign value to the modifier attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of MatchIsomorphicConstraint objects now with new attribute values.
+    */
+   public MatchIsomorphicConstraintSet withModifier(String value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.setModifier(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect a list of the hasMatch attribute values. 
+    * 
+    * @return List of boolean objects reachable via hasMatch attribute
+    */
+   public BooleanList getHasMatch()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         result.add(obj.isHasMatch());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterHasMatch(boolean value)
+   public MatchIsomorphicConstraintSet createHasMatchCondition(boolean value)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -366,13 +219,49 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
 
 
    /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and assign value to the hasMatch attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of MatchIsomorphicConstraint objects now with new attribute values.
+    */
+   public MatchIsomorphicConstraintSet withHasMatch(boolean value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.setHasMatch(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect a list of the patternObjectName attribute values. 
+    * 
+    * @return List of String objects reachable via patternObjectName attribute
+    */
+   public ObjectSet getPatternObjectName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterPatternObjectName(String value)
+   public MatchIsomorphicConstraintSet createPatternObjectNameCondition(String value)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -396,7 +285,7 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterPatternObjectName(String lower, String upper)
+   public MatchIsomorphicConstraintSet createPatternObjectNameCondition(String lower, String upper)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -413,13 +302,49 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
 
 
    /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and assign value to the patternObjectName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of MatchIsomorphicConstraint objects now with new attribute values.
+    */
+   public MatchIsomorphicConstraintSet withPatternObjectName(String value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.setPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect a list of the doAllMatches attribute values. 
+    * 
+    * @return List of boolean objects reachable via doAllMatches attribute
+    */
+   public BooleanList getDoAllMatches()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         result.add(obj.isDoAllMatches());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of MatchIsomorphicConstraint objects and collect those MatchIsomorphicConstraint objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of MatchIsomorphicConstraint objects that match the parameter
     */
-   public MatchIsomorphicConstraintSet filterDoAllMatches(boolean value)
+   public MatchIsomorphicConstraintSet createDoAllMatchesCondition(boolean value)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
       
@@ -432,6 +357,89 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and assign value to the doAllMatches attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of MatchIsomorphicConstraint objects now with new attribute values.
+    */
+   public MatchIsomorphicConstraintSet withDoAllMatches(boolean value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.setDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect a set of the Pattern objects reached via pattern. 
+    * 
+    * @return Set of Pattern objects reachable via pattern
+    */
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         result.with(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of MatchIsomorphicConstraint objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as pattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via pattern
+    */
+   public MatchIsomorphicConstraintSet filterPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MatchIsomorphicConstraintSet answer = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (neighbors.contains(obj.getPattern()) || (neighbors.isEmpty() && obj.getPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the MatchIsomorphicConstraint object passed as parameter to the Pattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
+    */
+   public MatchIsomorphicConstraintSet withPattern(Pattern value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
    }
 
 }
