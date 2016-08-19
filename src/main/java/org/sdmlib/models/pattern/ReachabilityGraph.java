@@ -36,6 +36,7 @@ import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.Filter;
@@ -137,19 +138,23 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(listener);
+      }
+      return true;
+   }
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String property, PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(property, listener);
+      }
+      return true;
+   }
 
    // ==========================================================================
 
@@ -982,17 +987,26 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       for (Pattern rule : pattern)
       {
-         PatternObject firstPO = (PatternObject) rule.getElements().first();
 
-         rule.resetSearch();
          for (ReachableState reachableState : states)
          {
-            System.out.println(masterMap.getId(reachableState));
             Object graphRoot = reachableState.getGraphRoot();
+
+            PatternObject firstPO = (PatternObject) rule.getElements().first();
+
+            rule.resetSearch();
+
             ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(graphRoot);
+
             if (rule.findMatch())
             {
                reachableState.setFailureState(true);
+            }
+
+            RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
+            if (ruleapplications.size() == 0)
+            {
+               System.out.println("final state");
             }
 
          }
