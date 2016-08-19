@@ -173,6 +173,76 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
     * <pre>
     *              one                       many
     * ReachabilityGraph ----------------------------------- ReachableState
+    *              reachabilitygraph                   finalStates
+    * </pre>
+    */
+
+   public static final String PROPERTY_FINALSTATES = "finalStates";
+
+   private ReachableStateSet finalStates = null;
+
+   public ReachableStateSet getFinalStates()
+   {
+      if (this.finalStates == null)
+      {
+         return ReachableStateSet.EMPTY_SET;
+      }
+
+      return this.finalStates;
+   }
+
+   public ReachabilityGraph withFinalStates(ReachableState... value)
+   {
+      if (value == null)
+      {
+         return this;
+      }
+      for (ReachableState item : value)
+      {
+         if (item != null)
+         {
+            if (this.finalStates == null)
+            {
+               this.finalStates = new ReachableStateSet();
+            }
+
+            boolean changed = this.finalStates.add(item);
+
+            if (changed)
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FINALSTATES, null, item);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ReachabilityGraph withoutFinalStates(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         if ((this.finalStates != null) && (item != null))
+         {
+            if (this.finalStates.remove(item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FINALSTATES, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ReachableState createFinalStates()
+   {
+      ReachableState value = new ReachableState();
+      withFinalStates(value);
+      return value;
+   }
+
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * ReachabilityGraph ----------------------------------- ReachableState
     *              parent                   states
     * </pre>
     */
@@ -647,13 +717,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
                   // progress bar, 30 steps
-                  if (size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
+                  if (maxNoOfNewStates < 30 || size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
                   {
                      changedIgnoreString = false;
                      System.out.print("Progress [");
                      for (int i = 0; i < 30; i++)
                      {
-                        if (i < (size / (maxNoOfNewStates / 30)))
+                        if (maxNoOfNewStates < 30 || i < (size / (maxNoOfNewStates / 30)))
                         {
                            System.out.print(".");
                         }
@@ -985,6 +1055,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public void verify(Pattern... pattern)
    {
+
       for (Pattern rule : pattern)
       {
 
@@ -1006,7 +1077,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
             if (ruleapplications.size() == 0)
             {
-               System.out.println("final state");
+               // find a final State
+               withFinalStates(reachableState);
             }
 
          }
