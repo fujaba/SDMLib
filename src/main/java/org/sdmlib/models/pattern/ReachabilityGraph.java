@@ -36,6 +36,7 @@ import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.Filter;
@@ -137,19 +138,23 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(listener);
+      }
+      return true;
+   }
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String property, PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(property, listener);
+      }
+      return true;
+   }
 
    // ==========================================================================
 
@@ -162,6 +167,76 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       withoutTodo(this.getTodo().toArray(new ReachableState[this.getTodo().size()]));
       withoutRules(this.getRules().toArray(new Pattern[this.getRules().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * ReachabilityGraph ----------------------------------- ReachableState
+    *              reachabilitygraph                   finalStates
+    * </pre>
+    */
+
+   public static final String PROPERTY_FINALSTATES = "finalStates";
+
+   private ReachableStateSet finalStates = null;
+
+   public ReachableStateSet getFinalStates()
+   {
+      if (this.finalStates == null)
+      {
+         return ReachableStateSet.EMPTY_SET;
+      }
+
+      return this.finalStates;
+   }
+
+   public ReachabilityGraph withFinalStates(ReachableState... value)
+   {
+      if (value == null)
+      {
+         return this;
+      }
+      for (ReachableState item : value)
+      {
+         if (item != null)
+         {
+            if (this.finalStates == null)
+            {
+               this.finalStates = new ReachableStateSet();
+            }
+
+            boolean changed = this.finalStates.add(item);
+
+            if (changed)
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FINALSTATES, null, item);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ReachabilityGraph withoutFinalStates(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         if ((this.finalStates != null) && (item != null))
+         {
+            if (this.finalStates.remove(item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FINALSTATES, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ReachableState createFinalStates()
+   {
+      ReachableState value = new ReachableState();
+      withFinalStates(value);
+      return value;
    }
 
    /********************************************************************
@@ -484,7 +559,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public long explore()
    {
-      return explore(Long.MAX_VALUE, Searchmode.DEFAULT);
+      return explore(Long.MAX_VALUE, Searchmode.DEPTH);
    }
 
    public enum Searchmode
@@ -578,7 +653,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                if (metric != null)
                {
-                  // computing the metric is cheap and might allow to avoid further computation
+                  // computing the metric is cheap and might allow to avoid
+                  // further computation
                   double newMetricValue = metric.compute(newReachableState.getGraphRoot());
                   newReachableState.setMetricValue(newMetricValue);
 
@@ -641,13 +717,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
                   // progress bar, 30 steps
-                  if (size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
+                  if (maxNoOfNewStates < 30 || size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
                   {
                      changedIgnoreString = false;
                      System.out.print("Progress [");
                      for (int i = 0; i < 30; i++)
                      {
-                        if (i < (size / (maxNoOfNewStates / 30)))
+                        if (maxNoOfNewStates < 30 || i < (size / (maxNoOfNewStates / 30)))
                         {
                            System.out.print(".");
                         }
@@ -976,4 +1052,38 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       withRules(value);
       return value;
    }
+
+   public void verify(Pattern... pattern)
+   {
+
+      for (Pattern rule : pattern)
+      {
+
+         for (ReachableState reachableState : states)
+         {
+            Object graphRoot = reachableState.getGraphRoot();
+
+            PatternObject firstPO = (PatternObject) rule.getElements().first();
+
+            rule.resetSearch();
+
+            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(graphRoot);
+
+            if (rule.findMatch())
+            {
+               reachableState.setFailureState(true);
+            }
+
+            RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
+            if (ruleapplications.size() == 0)
+            {
+               // find a final State
+               withFinalStates(reachableState);
+            }
+
+         }
+
+      }
+   }
+
 }
