@@ -1,43 +1,75 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.ReachabilityGraph;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.RuleApplication;
 
-public class ReachableStateCreator extends EntityFactory
+public class ReachableStateCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-         ReachableState.PROPERTY_PARENT,
-         ReachableState.PROPERTY_GRAPHROOT,
-         ReachableState.PROPERTY_NUMBER,
-         ReachableState.PROPERTY_RULEAPPLICATIONS,
-         ReachableState.PROPERTY_RESULTOF,
-         ReachableState.PROPERTY_METRICVALUE,
-         ReachableState.PROPERTY_FAILURE_STATE
+      ReachableState.PROPERTY_NUMBER,
+      ReachableState.PROPERTY_METRICVALUE,
+      ReachableState.PROPERTY_GRAPHROOT,
+      ReachableState.PROPERTY_PARENT,
+      ReachableState.PROPERTY_RULEAPPLICATIONS,
+      ReachableState.PROPERTY_RESULTOF,
    };
-
+   
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-
+   
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new ReachableState();
    }
-
+   
    @Override
-   public Object getValue(Object target, String attribute)
+   public Object getValue(Object target, String attrName)
    {
-      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attribute))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((ReachableState) target).getParent();
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).getNumber();
+      }
+
+      if (ReachableState.PROPERTY_METRICVALUE.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).getMetricValue();
       }
 
       if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attribute))
@@ -45,9 +77,9 @@ public class ReachableStateCreator extends EntityFactory
          return ((ReachableState) target).getGraphRoot();
       }
 
-      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attribute))
+      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attribute))
       {
-         return ((ReachableState) target).getNumber();
+         return ((ReachableState) target).getParent();
       }
 
       if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attribute))
@@ -59,26 +91,34 @@ public class ReachableStateCreator extends EntityFactory
       {
          return ((ReachableState) target).getResultOf();
       }
-
-      if (ReachableState.PROPERTY_METRICVALUE.equalsIgnoreCase(attribute))
-      {
-         return ((ReachableState) target).getMetricValue();
-      }
-
-      if (ReachableState.PROPERTY_FAILURE_STATE.equalsIgnoreCase(attribute))
-      {
-         return ((ReachableState) target).isFailureState();
-      }
-      return super.getValue(target, attribute);
+      
+      return null;
    }
-
+   
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).setGraphRoot((Object) value);
+         return true;
+      }
+
       if (ReachableState.PROPERTY_METRICVALUE.equalsIgnoreCase(attrName))
       {
-         ((ReachableState) target).withMetricValue(Double.parseDouble(value.toString()));
+         ((ReachableState) target).setMetricValue(Double.parseDouble(value.toString()));
          return true;
+      }
+
+      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).setNumber(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
@@ -87,59 +127,39 @@ public class ReachableStateCreator extends EntityFactory
          return true;
       }
 
-      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
-      {
-         ((ReachableState) target).setGraphRoot((Object) value);
-         return true;
-      }
-
-      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
-      {
-         ((ReachableState) target).setNumber(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (ReachableState.PROPERTY_FAILURE_STATE.equalsIgnoreCase(attrName))
-      {
-         ((ReachableState) target).setFailureState((Boolean.parseBoolean(value.toString())));
-         return true;
-      }
-
       if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
       {
-         ((ReachableState) target).addToRuleapplications((RuleApplication) value);
+         ((ReachableState) target).withRuleapplications((RuleApplication) value);
          return true;
       }
-
-      if ((ReachableState.PROPERTY_RULEAPPLICATIONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      
+      if ((ReachableState.PROPERTY_RULEAPPLICATIONS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ReachableState) target).removeFromRuleapplications((RuleApplication) value);
+         ((ReachableState) target).withoutRuleapplications((RuleApplication) value);
          return true;
       }
 
       if (ReachableState.PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
       {
-         ((ReachableState) target).addToResultOf((RuleApplication) value);
+         ((ReachableState) target).withResultOf((RuleApplication) value);
          return true;
       }
-
-      if ((ReachableState.PROPERTY_RESULTOF + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      
+      if ((ReachableState.PROPERTY_RESULTOF + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ReachableState) target).removeFromResultOf((RuleApplication) value);
+         ((ReachableState) target).withoutResultOf((RuleApplication) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
-   // ==========================================================================
-
-   @Override
-   public void removeObject(Object entity)
+   
+   //==========================================================================
+      public void removeObject(Object entity)
    {
       ((ReachableState) entity).removeYou();
    }

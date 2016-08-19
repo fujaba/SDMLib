@@ -1,13 +1,34 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.IdMap;
-
-public class CardinalityConstraintCreator extends PatternElementCreator
+public class CardinalityConstraintCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -38,91 +59,145 @@ public class CardinalityConstraintCreator extends PatternElementCreator
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((CardinalityConstraint)target).getTgtRoleName();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attribute))
       {
-         return ((CardinalityConstraint)target).getHostGraphSrcObject();
+         return ((CardinalityConstraint) target).getTgtRoleName();
       }
 
-      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attrName))
+      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attribute))
       {
-         return ((CardinalityConstraint)target).getMinCard();
+         return ((CardinalityConstraint) target).getHostGraphSrcObject();
       }
 
-      if (CardinalityConstraint.PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
+      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attribute))
       {
-         return ((CardinalityConstraint)target).getMaxCard();
+         return ((CardinalityConstraint) target).getMinCard();
       }
 
-      if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (CardinalityConstraint.PROPERTY_MAXCARD.equalsIgnoreCase(attribute))
       {
-         return ((CardinalityConstraint)target).getSrc();
+         return ((CardinalityConstraint) target).getMaxCard();
       }
 
-      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getModifier();
+      }
+
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isHasMatch();
+      }
+
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getPatternObjectName();
+      }
+
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isDoAllMatches();
+      }
+
+      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
       {
          return ((CardinalityConstraint) target).getPattern();
       }
-      return super.getValue(target, attrName);
+
+      if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      {
+         return ((CardinalityConstraint) target).getSrc();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint)target).setTgtRoleName((String) value);
+         ((PatternElement) target).setDoAllMatches((Boolean) value);
          return true;
       }
 
-      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint)target).setHostGraphSrcObject((Object) value);
+         ((PatternElement) target).setPatternObjectName((String) value);
          return true;
       }
 
-      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint)target).setMinCard(Long.parseLong(value.toString()));
+         ((PatternElement) target).setHasMatch((Boolean) value);
+         return true;
+      }
+
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setModifier((String) value);
          return true;
       }
 
       if (CardinalityConstraint.PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint)target).setMaxCard(Long.parseLong(value.toString()));
+         ((CardinalityConstraint) target).setMaxCard(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint) target).setMinCard(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint) target).setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint) target).setTgtRoleName((String) value);
+         return true;
+      }
+
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
+      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint) target).setPattern((Pattern) value);
          return true;
       }
 
       if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint)target).setSrc((PatternObject<?,?>) value);
+         ((CardinalityConstraint) target).setSrc((PatternObject) value);
          return true;
       }
-
-      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         ((CardinalityConstraint) target).setPattern((Pattern<?>) value);
-         return true;
-      }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-   
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((CardinalityConstraint) entity).removeYou();
    }
 }
-

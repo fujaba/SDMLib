@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
-
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class AttributeConstraintPOCreator extends PatternObjectCreator
 {
@@ -11,15 +10,13 @@ public class AttributeConstraintPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new AttributeConstraintPO(new AttributeConstraint[]{});
-     } else {
-         return new AttributeConstraintPO();
-     }
+          return new AttributeConstraintPO(new AttributeConstraint[]{});
+      } else {
+          return new AttributeConstraintPO();
+      }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }
-

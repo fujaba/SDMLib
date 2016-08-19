@@ -1,13 +1,34 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.IdMap;
-
-public class MatchOtherThenCreator extends PatternElementCreator
+public class MatchOtherThenCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -36,47 +57,93 @@ public class MatchOtherThenCreator extends PatternElementCreator
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((MatchOtherThen)target).getHostGraphSrcObject();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attribute))
       {
-         return ((MatchOtherThen)target).getSrc();
+         return ((MatchOtherThen) target).getHostGraphSrcObject();
       }
 
-      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
       {
-         return ((MatchOtherThen)target).getForbidden();
+         return ((PatternElement) target).getModifier();
       }
 
-      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isHasMatch();
+      }
+
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getPatternObjectName();
+      }
+
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isDoAllMatches();
+      }
+
+      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
       {
          return ((MatchOtherThen) target).getPattern();
       }
-      return super.getValue(target, attrName);
+
+      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      {
+         return ((MatchOtherThen) target).getSrc();
+      }
+
+      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attribute))
+      {
+         return ((MatchOtherThen) target).getForbidden();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setPatternObjectName((String) value);
+         return true;
+      }
+
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setHasMatch((Boolean) value);
+         return true;
+      }
+
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setModifier((String) value);
+         return true;
+      }
+
       if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
-         ((MatchOtherThen)target).setHostGraphSrcObject((Object) value);
+         ((MatchOtherThen) target).setHostGraphSrcObject((Object) value);
          return true;
       }
 
-      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
-         ((MatchOtherThen)target).setSrc((PatternObject<?,?>) value);
-         return true;
-      }
-
-      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
-      {
-         ((MatchOtherThen)target).setForbidden((PatternObject<?,?>) value);
-         return true;
+         attrName = attrName + type;
       }
 
       if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
@@ -85,21 +152,28 @@ public class MatchOtherThenCreator extends PatternElementCreator
          return true;
       }
 
-      return super.setValue(target, attrName, value, type);
+      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen) target).setSrc((PatternObject) value);
+         return true;
+      }
+
+      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen) target).setForbidden((PatternObject) value);
+         return true;
+      }
+      
+      return false;
    }
-   
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((MatchOtherThen) entity).removeYou();
    }
 }
-

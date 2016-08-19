@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,218 +21,44 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.PatternObject;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.PatternLink;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PatternLinkSet extends SimpleSet<PatternLink>
 {
-   public StringList getSrcRoleName()
+	protected Class<?> getTypClass() {
+		return PatternLink.class;
+	}
+
+   public PatternLinkSet()
    {
-      StringList result = new StringList();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getSrcRoleName());
-      }
-      
-      return result;
+      // empty
    }
 
-   public StringList getTgtRoleName()
+   public PatternLinkSet(PatternLink... objects)
    {
-      StringList result = new StringList();
-      
-      for (PatternLink obj : this)
+      for (PatternLink obj : objects)
       {
-         result.add(obj.getTgtRoleName());
+         this.add(obj);
       }
-      
-      return result;
    }
 
-   public PatternObjectSet getTgt()
+   public PatternLinkSet(Collection<PatternLink> objects)
    {
-      PatternObjectSet result = new PatternObjectSet();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getTgt());
-      }
-      
-      return result;
-   }
-   public PatternObjectSet getSrc()
-   {
-      PatternObjectSet result = new PatternObjectSet();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getSrc());
-      }
-      
-      return result;
-   }
-   public ObjectSet getHostGraphSrcObject()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getHostGraphSrcObject());
-      }
-      
-      return result;
+      this.addAll(objects);
    }
 
-   public PatternLinkSet withTgtRoleName(String value)
+   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withFlag(PatternLinkSet.READONLY);
+
+
+   public PatternLinkPO createPatternLinkPO()
    {
-      for (PatternLink obj : this)
-      {
-         obj.withTgtRoleName(value);
-      }
-      
-      return this;
-   }
-
-   public PatternLinkSet withHostGraphSrcObject(Object value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withHostGraphSrcObject(value);
-      }
-      
-      return this;
-   }
-
-   public PatternLinkSet withTgt(PatternObject value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withTgt(value);
-      }
-      
-      return this;
-   }
-
-   public PatternLinkSet withSrc(PatternObject value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withSrc(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getModifier()
-   {
-      StringList result = new StringList();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getModifier());
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet withModifier(String value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withModifier(value);
-      }
-      
-      return this;
-   }
-
-   public booleanSet getHasMatch()
-   {
-      booleanSet result = new booleanSet();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getHasMatch());
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet withHasMatch(boolean value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withHasMatch(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getDoAllMatches()
-   {
-      booleanList result = new booleanList();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getDoAllMatches());
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet withDoAllMatches(boolean value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withDoAllMatches(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getPatternObjectName()
-   {
-      StringList result = new StringList();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getPatternObjectName());
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet withPatternObjectName(String value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withPatternObjectName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (PatternLink elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
+      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
 
 
@@ -242,41 +68,16 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
    }
 
 
-   public PatternSet getPattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (PatternLink obj : this)
-      {
-         result.add(obj.getPattern());
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet withPattern(Pattern value)
-   {
-      for (PatternLink obj : this)
-      {
-         obj.withPattern(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public PatternLinkPO startModelPattern()
-   {
-      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public PatternLinkSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.withList((Collection<?>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PatternLink>)value);
       }
       else if (value != null)
       {
@@ -293,154 +94,23 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
    }
 
 
-
-   public PatternLinkPO hasPatternLinkPO()
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the tgtRoleName attribute values. 
+    * 
+    * @return List of String objects reachable via tgtRoleName attribute
+    */
+   public ObjectSet getTgtRoleName()
    {
-      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
-   }
-
-   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withFlag(PatternLinkSet.READONLY);
-   public PatternLinkSet hasTgtRoleName(String value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
+      ObjectSet result = new ObjectSet();
       
       for (PatternLink obj : this)
       {
-         if (value.equals(obj.getTgtRoleName()))
-         {
-            result.add(obj);
-         }
+         result.add(obj.getTgtRoleName());
       }
       
       return result;
    }
 
-   public PatternLinkSet hasTgtRoleName(String lower, String upper)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasHostGraphSrcObject(Object value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (value == obj.getHostGraphSrcObject())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasModifier(String value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (value.equals(obj.getModifier()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasModifier(String lower, String upper)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasHasMatch(boolean value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (value == obj.isHasMatch())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasPatternObjectName(String value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (value.equals(obj.getPatternObjectName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasPatternObjectName(String lower, String upper)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PatternLinkSet hasDoAllMatches(boolean value)
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternLink obj : this)
-      {
-         if (value == obj.isDoAllMatches())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public PatternLinkPO filterPatternLinkPO()
-   {
-      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
-   }
 
    /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the tgtRoleName attribute matches the parameter value. 
@@ -449,7 +119,7 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterTgtRoleName(String value)
+   public PatternLinkSet createTgtRoleNameCondition(String value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -473,7 +143,7 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterTgtRoleName(String lower, String upper)
+   public PatternLinkSet createTgtRoleNameCondition(String lower, String upper)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -490,13 +160,49 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
 
 
    /**
+    * Loop through the current set of PatternLink objects and assign value to the tgtRoleName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withTgtRoleName(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setTgtRoleName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the hostGraphSrcObject attribute values. 
+    * 
+    * @return List of Object objects reachable via hostGraphSrcObject attribute
+    */
+   public ObjectSet getHostGraphSrcObject()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getHostGraphSrcObject());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the hostGraphSrcObject attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterHostGraphSrcObject(Object value)
+   public PatternLinkSet createHostGraphSrcObjectCondition(Object value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -513,13 +219,49 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
 
 
    /**
+    * Loop through the current set of PatternLink objects and assign value to the hostGraphSrcObject attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withHostGraphSrcObject(Object value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setHostGraphSrcObject(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the modifier attribute values. 
+    * 
+    * @return List of String objects reachable via modifier attribute
+    */
+   public ObjectSet getModifier()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the modifier attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterModifier(String value)
+   public PatternLinkSet createModifierCondition(String value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -543,7 +285,7 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterModifier(String lower, String upper)
+   public PatternLinkSet createModifierCondition(String lower, String upper)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -560,13 +302,49 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
 
 
    /**
+    * Loop through the current set of PatternLink objects and assign value to the modifier attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withModifier(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setModifier(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the hasMatch attribute values. 
+    * 
+    * @return List of boolean objects reachable via hasMatch attribute
+    */
+   public BooleanList getHasMatch()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.isHasMatch());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterHasMatch(boolean value)
+   public PatternLinkSet createHasMatchCondition(boolean value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -583,13 +361,49 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
 
 
    /**
+    * Loop through the current set of PatternLink objects and assign value to the hasMatch attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withHasMatch(boolean value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setHasMatch(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the patternObjectName attribute values. 
+    * 
+    * @return List of String objects reachable via patternObjectName attribute
+    */
+   public ObjectSet getPatternObjectName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterPatternObjectName(String value)
+   public PatternLinkSet createPatternObjectNameCondition(String value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -613,7 +427,7 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterPatternObjectName(String lower, String upper)
+   public PatternLinkSet createPatternObjectNameCondition(String lower, String upper)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -630,13 +444,49 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
 
 
    /**
+    * Loop through the current set of PatternLink objects and assign value to the patternObjectName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withPatternObjectName(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a list of the doAllMatches attribute values. 
+    * 
+    * @return List of boolean objects reachable via doAllMatches attribute
+    */
+   public BooleanList getDoAllMatches()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.isDoAllMatches());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of PatternLink objects and collect those PatternLink objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of PatternLink objects that match the parameter
     */
-   public PatternLinkSet filterDoAllMatches(boolean value)
+   public PatternLinkSet createDoAllMatchesCondition(boolean value)
    {
       PatternLinkSet result = new PatternLinkSet();
       
@@ -649,6 +499,89 @@ public class PatternLinkSet extends SimpleSet<PatternLink>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of PatternLink objects and assign value to the doAllMatches attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of PatternLink objects now with new attribute values.
+    */
+   public PatternLinkSet withDoAllMatches(boolean value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.setDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of PatternLink objects and collect a set of the Pattern objects reached via pattern. 
+    * 
+    * @return Set of Pattern objects reachable via pattern
+    */
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (PatternLink obj : this)
+      {
+         result.with(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of PatternLink objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as pattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via pattern
+    */
+   public PatternLinkSet filterPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PatternLinkSet answer = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (neighbors.contains(obj.getPattern()) || (neighbors.isEmpty() && obj.getPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the PatternLink object passed as parameter to the Pattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
+    */
+   public PatternLinkSet withPattern(Pattern value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
    }
 
 }

@@ -7,93 +7,72 @@ import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, ReachabilityGraph>
 {
-   public ReachabilityGraphPO(){
-      newInstance(null);
-   }
 
-   public ReachabilityGraphPO(ReachabilityGraph... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(null, hostGraphObject);
-  }
    public ReachabilityGraphSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       ReachabilityGraphSet matches = new ReachabilityGraphSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((ReachabilityGraph) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-   public ReachableStatePO filterStates()
+
+   public ReachabilityGraphPO()
    {
-      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachabilityGraph.PROPERTY_STATES, result);
-      
-      return result;
+      newInstance(null);
    }
 
-   public ReachabilityGraphPO hasStates(ReachableStatePO tgt)
+   public ReachabilityGraphPO(ReachabilityGraph... hostGraphObject)
    {
-      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_STATES);
-   }
-
-   public ReachableStateSet getStates()
-   {
-      if (this.getPattern().getHasMatch())
+      if (hostGraphObject == null || hostGraphObject.length < 1)
       {
-         return ((ReachabilityGraph) this.getCurrentMatch()).getStates();
+         return;
       }
-      return null;
+      newInstance(null, hostGraphObject);
    }
 
-   public ReachableStatePO hasTodo()
+   public ReachabilityGraphPO(String modifier)
    {
-      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachabilityGraph.PROPERTY_TODO, result);
-      
-      return result;
+      this.setModifier(modifier);
    }
 
-   public ReachabilityGraphPO hasTodo(ReachableStatePO tgt)
+   public PatternPO createRulesPO()
    {
-      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_TODO);
-   }
+      PatternPO result = new PatternPO(new Pattern[]
+      {});
 
-   public ReachableStateSet getTodo()
-   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((ReachabilityGraph) this.getCurrentMatch()).getTodo();
-//      }
-      return null;
-   }
-
-   public PatternPO hasRules()
-   {
-      PatternPO result = new PatternPO(new Pattern[]{});
-      
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachabilityGraph.PROPERTY_RULES, result);
-      
+
       return result;
    }
 
-   public ReachabilityGraphPO hasRules(PatternPO tgt)
+   public PatternPO createRulesPO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]
+      {});
+
+      result.setModifier(modifier);
+      super.hasLink(ReachabilityGraph.PROPERTY_RULES, result);
+
+      return result;
+   }
+
+   public ReachabilityGraphPO createRulesLink(PatternPO tgt)
    {
       return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_RULES);
+   }
+
+   public ReachabilityGraphPO createRulesLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_RULES, modifier);
    }
 
    public PatternSet getRules()
@@ -105,69 +84,127 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
       return null;
    }
 
-   public ReachableStatePO createStates()
+   public ReachableStatePO createFinalStatesPO()
    {
-      return this.startCreate().filterStates().endCreate();
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachabilityGraph.PROPERTY_FINALSTATES, result);
+
+      return result;
    }
 
-   public ReachabilityGraphPO createStates(ReachableStatePO tgt)
+   public ReachableStatePO createFinalStatesPO(String modifier)
    {
-      return this.startCreate().hasStates(tgt).endCreate();
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
+      result.setModifier(modifier);
+      super.hasLink(ReachabilityGraph.PROPERTY_FINALSTATES, result);
+
+      return result;
    }
 
-   public ReachableStatePO createTodo()
+   public ReachabilityGraphPO createFinalStatesLink(ReachableStatePO tgt)
    {
-      return this.startCreate().hasTodo().endCreate();
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_FINALSTATES);
    }
 
-   public ReachabilityGraphPO createTodo(ReachableStatePO tgt)
+   public ReachabilityGraphPO createFinalStatesLink(ReachableStatePO tgt, String modifier)
    {
-      return this.startCreate().hasTodo(tgt).endCreate();
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_FINALSTATES, modifier);
    }
 
-   public PatternPO createRules()
+   public ReachableStateSet getFinalStates()
    {
-      return this.startCreate().hasRules().endCreate();
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReachabilityGraph) this.getCurrentMatch()).getFinalStates();
+      }
+      return null;
    }
 
-   public ReachabilityGraphPO createRules(PatternPO tgt)
+   public ReachableStatePO createStatesPO()
    {
-      return this.startCreate().hasRules(tgt).endCreate();
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachabilityGraph.PROPERTY_STATES, result);
+
+      return result;
    }
 
-   public ReachabilityGraphPO filterStates(ReachableStatePO tgt)
+   public ReachableStatePO createStatesPO(String modifier)
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
+      result.setModifier(modifier);
+      super.hasLink(ReachabilityGraph.PROPERTY_STATES, result);
+
+      return result;
+   }
+
+   public ReachabilityGraphPO createStatesLink(ReachableStatePO tgt)
    {
       return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_STATES);
    }
 
-   public ReachableStatePO filterTodo()
+   public ReachabilityGraphPO createStatesLink(ReachableStatePO tgt, String modifier)
    {
-      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
-      
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_STATES, modifier);
+   }
+
+   public ReachableStateSet getStates()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReachabilityGraph) this.getCurrentMatch()).getStates();
+      }
+      return null;
+   }
+
+   public ReachableStatePO createTodoPO()
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachabilityGraph.PROPERTY_TODO, result);
-      
+
       return result;
    }
 
-   public ReachabilityGraphPO filterTodo(ReachableStatePO tgt)
+   public ReachableStatePO createTodoPO(String modifier)
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]
+      {});
+
+      result.setModifier(modifier);
+      super.hasLink(ReachabilityGraph.PROPERTY_TODO, result);
+
+      return result;
+   }
+
+   public ReachabilityGraphPO createTodoLink(ReachableStatePO tgt)
    {
       return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_TODO);
    }
 
-   public PatternPO filterRules()
+   public ReachabilityGraphPO createTodoLink(ReachableStatePO tgt, String modifier)
    {
-      PatternPO result = new PatternPO(new Pattern[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReachabilityGraph.PROPERTY_RULES, result);
-      
-      return result;
+      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_TODO, modifier);
    }
 
-   public ReachabilityGraphPO filterRules(PatternPO tgt)
+   public ReachableStateSet getTodo()
    {
-      return hasLinkConstraint(tgt, ReachabilityGraph.PROPERTY_RULES);
+      if (this.getPattern().getHasMatch())
+      {
+         return new ReachableStateSet(((ReachabilityGraph) this.getCurrentMatch()).getTodo());
+      }
+      return null;
    }
 
 }

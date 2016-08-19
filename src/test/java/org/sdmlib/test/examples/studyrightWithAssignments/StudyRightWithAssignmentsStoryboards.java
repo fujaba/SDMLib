@@ -67,7 +67,8 @@ import de.uniks.networkparser.json.JsonArray;
 public class StudyRightWithAssignmentsStoryboards
 {
    /**
-    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     */
    @Test
    public void testStudyRightWithAssignmentsStoryboard()
@@ -204,10 +205,11 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
-
    /**
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'> JsonPersistency.html</a>
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>
+    *      JsonPersistency.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     */
    @Test
    public void testJsonPersistency()
@@ -316,10 +318,12 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
-
    /**
-    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'> StudyRightObjectModelNavigationAndQueries.html</a>
-    * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>
+    *      StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
     */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
@@ -690,10 +694,10 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
-
    /**
     * 
-    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     */
    @Test
    public void testStudyRightTablesAndReports()
@@ -792,11 +796,14 @@ public class StudyRightWithAssignmentsStoryboards
 
          story.markCodeStart();
 
-         table.createColumns("Topic", row -> {Room r = row.getCellValue("B");return r.getTopic();});
+         table.createColumns("Topic", row -> {
+            Room r = row.getCellValue("B");
+            return r.getTopic();
+         });
          table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits())
-         .withTdCssClass("text-right");
+            .withTdCssClass("text-right");
          table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
-         .withTdCssClass("text-right");
+            .withTdCssClass("text-right");
          table.withoutColumns("A", "B");
 
          story.addCode();
@@ -851,7 +858,7 @@ public class StudyRightWithAssignmentsStoryboards
 
          story.addObjectDiagram(tablePO.getCurrentMatch());
       }
-      
+
       story.addStep("Do a nested table");
       {
          story.markCodeStart();
@@ -865,7 +872,7 @@ public class StudyRightWithAssignmentsStoryboards
          table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
          table.createColumns("Assignments", row -> addAssignments(row));
          table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
-         .withTdCssClass("text-right");
+            .withTdCssClass("text-right");
          table.withoutColumns("A", "B");
 
          story.addCode();
@@ -878,25 +885,25 @@ public class StudyRightWithAssignmentsStoryboards
    public Table addAssignments(Row row)
    {
       Room room = (Room) row.getCellValue("B");
-      
+
       RoomPO roomPO = new RoomPO(room);
-      
+
       AssignmentPO assignmentPO = roomPO.createAssignmentsPO();
-      
+
       Table table = roomPO.createResultTable();
-      
+
       table.createColumns("Content", r -> ((Assignment) r.getCellValue("B")).getContent());
       table.createColumns("Points", r -> ((Assignment) r.getCellValue("B")).getPoints())
-      .withTdCssClass("text-right");
+         .withTdCssClass("text-right");
       table.withoutColumns("A", "B");
 
       return table;
    }
-   
 
    /**
     * 
-    * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
     */
    @Test
    public void testStudyRightReachabilityGraph()
@@ -1032,10 +1039,12 @@ public class StudyRightWithAssignmentsStoryboards
 
       // ok do it with search pattern
       ReachabilityGraphPO reachabilityGraphPO = new ReachabilityGraphPO(reachabilityGraph);
-      ReachableStatePO statePO = reachabilityGraphPO.filterStates();
-      UniversityPO universityPO = statePO.filterGraphRoot().instanceOf(new UniversityPO());
-      StudentPO studentPO = universityPO.createStudentsPO().createMotivationCondition(0);
-      RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
+      ReachableStatePO statePO = reachabilityGraphPO.createStatesPO();
+      // FIXME: UniversityPO universityPO =
+      // statePO.filterGraphRoot().instanceOf(new UniversityPO());
+      // StudentPO studentPO =
+      // universityPO.createStudentsPO().createMotivationCondition(0);
+      // RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
 
       ReachableState currentMatch = statePO.getCurrentMatch();
 

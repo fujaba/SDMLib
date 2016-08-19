@@ -1,24 +1,17 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.GenericConstraintPO;
 
 public class GenericConstraintPO extends PatternObject<GenericConstraintPO, GenericConstraint>
 {
-   public GenericConstraintPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
-   }
 
-   public GenericConstraintPO(GenericConstraint... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   public GenericConstraintSet allMatches()
+    public GenericConstraintSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -33,8 +26,85 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       
       return matches;
    }
+
+
+   public GenericConstraintPO(){
+      newInstance(null);
+   }
+
+   public GenericConstraintPO(GenericConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
+
+   public GenericConstraintPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GenericConstraintPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
    
-   public GenericConstraintPO hasModifier(String value)
+   public GenericConstraintPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GenericConstraint) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public GenericConstraintPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((GenericConstraint) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
+   public GenericConstraintPO createModifierCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
@@ -43,7 +113,36 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createModifierCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createModifierAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -66,7 +165,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this;
    }
    
-   public GenericConstraintPO hasHasMatch(boolean value)
+   public GenericConstraintPO createHasMatchCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
@@ -75,7 +174,21 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createHasMatchAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -84,7 +197,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((GenericConstraint) getCurrentMatch()).getHasMatch();
+         return ((GenericConstraint) getCurrentMatch()).isHasMatch();
       }
       return false;
    }
@@ -98,7 +211,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this;
    }
    
-   public GenericConstraintPO hasPatternObjectName(String value)
+   public GenericConstraintPO createPatternObjectNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
@@ -107,7 +220,36 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createPatternObjectNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createPatternObjectNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -130,7 +272,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this;
    }
    
-   public GenericConstraintPO hasDoAllMatches(boolean value)
+   public GenericConstraintPO createDoAllMatchesCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
@@ -139,7 +281,21 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createDoAllMatchesAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -148,7 +304,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((GenericConstraint) getCurrentMatch()).getDoAllMatches();
+         return ((GenericConstraint) getCurrentMatch()).isDoAllMatches();
       }
       return false;
    }
@@ -162,7 +318,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this;
    }
    
-   public PatternPO hasPattern()
+   public PatternPO createPatternPO()
    {
       PatternPO result = new PatternPO(new Pattern[]{});
       
@@ -172,285 +328,33 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return result;
    }
 
-   public GenericConstraintPO hasPattern(PatternPO tgt)
+   public PatternPO createPatternPO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public GenericConstraintPO createPatternLink(PatternPO tgt)
    {
       return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
+   public GenericConstraintPO createPatternLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN, modifier);
+   }
+
    public Pattern getPattern()
    {
-      if (super.getPattern().getHasMatch())
+      if (this.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return super.getPattern();
-   }
-
-
-   public GenericConstraintPO hasModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO hasHasMatch(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO hasPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO hasDoAllMatches(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO createModifier(String value)
-   {
-      this.startCreate().hasModifier(value).endCreate();
-      return this;
-   }
-   
-   public GenericConstraintPO createHasMatch(boolean value)
-   {
-      this.startCreate().hasHasMatch(value).endCreate();
-      return this;
-   }
-   
-   public GenericConstraintPO createPatternObjectName(String value)
-   {
-      this.startCreate().hasPatternObjectName(value).endCreate();
-      return this;
-   }
-   
-   public GenericConstraintPO createDoAllMatches(boolean value)
-   {
-      this.startCreate().hasDoAllMatches(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createPattern()
-   {
-      return this.startCreate().hasPattern().endCreate();
-   }
-
-   public GenericConstraintPO createPattern(PatternPO tgt)
-   {
-      return this.startCreate().hasPattern(tgt).endCreate();
-   }
-
-   public GenericConstraintPO hasText(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_TEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO hasText(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_TEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO createText(String value)
-   {
-      this.startCreate().hasText(value).endCreate();
-      return this;
-   }
-   
-   public String getText()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((GenericConstraint) getCurrentMatch()).getText();
-      }
       return null;
    }
-   
-   public GenericConstraintPO withText(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((GenericConstraint) getCurrentMatch()).setText(value);
-      }
-      return this;
-   }
-   
-   public GenericConstraintPO filterText(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_TEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterText(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_TEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterModifier(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterHasMatch(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterPatternObjectName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO filterDoAllMatches(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
+
 }
-
-
-
-

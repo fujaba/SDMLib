@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,163 +21,44 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.LinkConstraint;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
 
 public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 {
-   public StringList getTgtRoleName()
+	protected Class<?> getTypClass() {
+		return LinkConstraint.class;
+	}
+
+   public LinkConstraintSet()
    {
-      StringList result = new StringList();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getTgtRoleName());
-      }
-      
-      return result;
+      // empty
    }
 
-   public ObjectSet getHostGraphSrcObject()
+   public LinkConstraintSet(LinkConstraint... objects)
    {
-      ObjectSet result = new ObjectSet();
-      
-      for (LinkConstraint obj : this)
+      for (LinkConstraint obj : objects)
       {
-         result.add(obj.getHostGraphSrcObject());
+         this.add(obj);
       }
-      
-      return result;
    }
 
-   public LinkConstraintSet withTgtRoleName(String value)
+   public LinkConstraintSet(Collection<LinkConstraint> objects)
    {
-      for (LinkConstraint obj : this)
-      {
-         obj.withTgtRoleName(value);
-      }
-      
-      return this;
+      this.addAll(objects);
    }
 
-   public LinkConstraintSet withHostGraphSrcObject(Object value)
+   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withFlag(LinkConstraintSet.READONLY);
+
+
+   public LinkConstraintPO createLinkConstraintPO()
    {
-      for (LinkConstraint obj : this)
-      {
-         obj.withHostGraphSrcObject(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getModifier()
-   {
-      StringList result = new StringList();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getModifier());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withModifier(String value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withModifier(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getHasMatch()
-   {
-      booleanList result = new booleanList();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getHasMatch());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withHasMatch(boolean value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withHasMatch(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getDoAllMatches()
-   {
-      booleanList result = new booleanList();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getDoAllMatches());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withDoAllMatches(boolean value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withDoAllMatches(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getPatternObjectName()
-   {
-      StringList result = new StringList();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getPatternObjectName());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withPatternObjectName(String value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withPatternObjectName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (LinkConstraint elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
+      return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
    }
 
 
@@ -187,85 +68,16 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
    }
 
 
-   public PatternSet getPattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getPattern());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withPattern(Pattern<?> value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withPattern(value);
-      }
-      
-      return this;
-   }
-
-   public PatternObjectSet getTgt()
-   {
-      PatternObjectSet result = new PatternObjectSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getTgt());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withTgt(PatternObject value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withTgt(value);
-      }
-      
-      return this;
-   }
-
-   public PatternObjectSet getSrc()
-   {
-      PatternObjectSet result = new PatternObjectSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         result.add(obj.getSrc());
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet withSrc(PatternObject value)
-   {
-      for (LinkConstraint obj : this)
-      {
-         obj.withSrc(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public LinkConstraintPO startModelPattern()
-   {
-      return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public LinkConstraintSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.withList((Collection<?>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LinkConstraint>)value);
       }
       else if (value != null)
       {
@@ -282,154 +94,23 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
    }
 
 
-
-   public LinkConstraintPO hasLinkConstraintPO()
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the tgtRoleName attribute values. 
+    * 
+    * @return List of String objects reachable via tgtRoleName attribute
+    */
+   public ObjectSet getTgtRoleName()
    {
-      return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
-   }
-
-   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withFlag(LinkConstraintSet.READONLY);
-   public LinkConstraintSet hasTgtRoleName(String value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
+      ObjectSet result = new ObjectSet();
       
       for (LinkConstraint obj : this)
       {
-         if (value.equals(obj.getTgtRoleName()))
-         {
-            result.add(obj);
-         }
+         result.add(obj.getTgtRoleName());
       }
       
       return result;
    }
 
-   public LinkConstraintSet hasTgtRoleName(String lower, String upper)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasHostGraphSrcObject(Object value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (value == obj.getHostGraphSrcObject())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasModifier(String value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (value.equals(obj.getModifier()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasModifier(String lower, String upper)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasHasMatch(boolean value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (value == obj.isHasMatch())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasPatternObjectName(String value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (value.equals(obj.getPatternObjectName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasPatternObjectName(String lower, String upper)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public LinkConstraintSet hasDoAllMatches(boolean value)
-   {
-      LinkConstraintSet result = new LinkConstraintSet();
-      
-      for (LinkConstraint obj : this)
-      {
-         if (value == obj.isDoAllMatches())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public LinkConstraintPO filterLinkConstraintPO()
-   {
-      return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
-   }
 
    /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the tgtRoleName attribute matches the parameter value. 
@@ -438,7 +119,7 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterTgtRoleName(String value)
+   public LinkConstraintSet createTgtRoleNameCondition(String value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -462,7 +143,7 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterTgtRoleName(String lower, String upper)
+   public LinkConstraintSet createTgtRoleNameCondition(String lower, String upper)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -479,13 +160,49 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
 
    /**
+    * Loop through the current set of LinkConstraint objects and assign value to the tgtRoleName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withTgtRoleName(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setTgtRoleName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the hostGraphSrcObject attribute values. 
+    * 
+    * @return List of Object objects reachable via hostGraphSrcObject attribute
+    */
+   public ObjectSet getHostGraphSrcObject()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getHostGraphSrcObject());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the hostGraphSrcObject attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterHostGraphSrcObject(Object value)
+   public LinkConstraintSet createHostGraphSrcObjectCondition(Object value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -502,13 +219,49 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
 
    /**
+    * Loop through the current set of LinkConstraint objects and assign value to the hostGraphSrcObject attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withHostGraphSrcObject(Object value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setHostGraphSrcObject(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the modifier attribute values. 
+    * 
+    * @return List of String objects reachable via modifier attribute
+    */
+   public ObjectSet getModifier()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the modifier attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterModifier(String value)
+   public LinkConstraintSet createModifierCondition(String value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -532,7 +285,7 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterModifier(String lower, String upper)
+   public LinkConstraintSet createModifierCondition(String lower, String upper)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -549,13 +302,49 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
 
    /**
+    * Loop through the current set of LinkConstraint objects and assign value to the modifier attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withModifier(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setModifier(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the hasMatch attribute values. 
+    * 
+    * @return List of boolean objects reachable via hasMatch attribute
+    */
+   public BooleanList getHasMatch()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.isHasMatch());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterHasMatch(boolean value)
+   public LinkConstraintSet createHasMatchCondition(boolean value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -572,13 +361,49 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
 
    /**
+    * Loop through the current set of LinkConstraint objects and assign value to the hasMatch attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withHasMatch(boolean value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setHasMatch(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the patternObjectName attribute values. 
+    * 
+    * @return List of String objects reachable via patternObjectName attribute
+    */
+   public ObjectSet getPatternObjectName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterPatternObjectName(String value)
+   public LinkConstraintSet createPatternObjectNameCondition(String value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -602,7 +427,7 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterPatternObjectName(String lower, String upper)
+   public LinkConstraintSet createPatternObjectNameCondition(String lower, String upper)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -619,13 +444,49 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
 
    /**
+    * Loop through the current set of LinkConstraint objects and assign value to the patternObjectName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withPatternObjectName(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a list of the doAllMatches attribute values. 
+    * 
+    * @return List of boolean objects reachable via doAllMatches attribute
+    */
+   public BooleanList getDoAllMatches()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.isDoAllMatches());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of LinkConstraint objects and collect those LinkConstraint objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of LinkConstraint objects that match the parameter
     */
-   public LinkConstraintSet filterDoAllMatches(boolean value)
+   public LinkConstraintSet createDoAllMatchesCondition(boolean value)
    {
       LinkConstraintSet result = new LinkConstraintSet();
       
@@ -638,6 +499,89 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of LinkConstraint objects and assign value to the doAllMatches attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of LinkConstraint objects now with new attribute values.
+    */
+   public LinkConstraintSet withDoAllMatches(boolean value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.setDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect a set of the Pattern objects reached via pattern. 
+    * 
+    * @return Set of Pattern objects reachable via pattern
+    */
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.with(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of LinkConstraint objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as pattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via pattern
+    */
+   public LinkConstraintSet filterPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LinkConstraintSet answer = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (neighbors.contains(obj.getPattern()) || (neighbors.isEmpty() && obj.getPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the LinkConstraint object passed as parameter to the Pattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
+    */
+   public LinkConstraintSet withPattern(Pattern value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
    }
 
 }
