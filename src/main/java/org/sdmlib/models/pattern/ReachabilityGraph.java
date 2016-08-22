@@ -24,12 +24,16 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
@@ -391,13 +395,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public static final String PROPERTY_TODO = "todo";
 
-   private ArrayList<ReachableState> todo = null;
+   private BlockingQueue<ReachableState> todo = null;
 
-   public ArrayList<ReachableState> getTodo()
+   public BlockingQueue<ReachableState> getTodo()
    {
       if (this.todo == null)
       {
-         this.todo = new ArrayList<ReachableState>();
+         if (metric != null)
+         {
+            this.todo = new PriorityBlockingQueue<ReachableState>(11, (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+         }
+         else
+         {
+            this.todo = new LinkedBlockingQueue<>();
+         }
       }
 
       return this.todo;
@@ -411,10 +422,17 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       {
          if (this.todo == null)
          {
-            this.todo = new ArrayList<ReachableState>();
+            if (metric != null)
+            {
+               this.todo = new PriorityBlockingQueue<ReachableState>(11, (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+            }
+            else
+            {
+               this.todo = new LinkedBlockingQueue<>();
+            }
          }
 
-         changed = this.todo.add(value);
+         changed = this.todo.offer(value);
 
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null, value);
       }
@@ -476,6 +494,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public static final String PROPERTY_RULES = "rules";
 
    private PatternSet rules = null;
+
+   private long maxNoOfNewStates;
 
    public PatternSet getRules()
    {
@@ -603,10 +623,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          if (metric != null)
          {
             // sort todo list
-            Collections.sort(getTodo(), (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+            // Collections.sort(getTodo(), (s1, s2) ->
+            // Double.compare(s2.getMetricValue(), s1.getMetricValue()));
          }
 
-         ReachableState current = getTodo().get(0);
+         ReachableState current = null;
+         try
+         {
+            current = getTodo().take();
+         }
+         catch (InterruptedException e)
+         {
+            e.printStackTrace();
+         }
 
          if (current.getNumber() == 0)
          {
@@ -750,6 +779,163 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
 
       return currentStateNum;
+   }
+
+   public long exploreParallel()
+   {
+      this.maxNoOfNewStates = Long.MAX_VALUE;
+
+      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
+
+      // inital states get certificates
+      for (ReachableState s : this.getStates())
+      {
+         String newCertificate = s.computeCertificate(newJsonIdMap);
+         this.withStateMap(newCertificate, s);
+      }
+
+      ExecutorService threadPool = Executors.newFixedThreadPool(12);
+
+      while (!getTodo().isEmpty() || workercount != 0)
+      {
+         if (!getTodo().isEmpty())
+         {
+            try
+            {
+               ReachableState current = getTodo().take();
+               Worker worker = new Worker(this, current, threadPool);
+               threadPool.submit(worker);
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+         }
+         else
+         {
+            try
+            {
+               Thread.sleep(10);
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+         }
+
+      }
+
+      return states.size();
+   }
+
+   private long workercount = 0;
+
+   private class Worker implements Callable<Void>
+   {
+      private ReachabilityGraph hostgraph;
+      private ReachableState current;
+      private ExecutorService threadPool;
+
+      public Worker(ReachabilityGraph hostgraph, ReachableState current, ExecutorService threadPool)
+      {
+         this.threadPool = threadPool;
+         synchronized (hostgraph)
+         {
+            hostgraph.workercount++;
+         }
+         this.current = current;
+
+         this.hostgraph = hostgraph;
+      }
+
+      @Override
+      public Void call() throws Exception
+      {
+         synchronized (hostgraph)
+         {
+            long alreadyKnownMatches = current.noOfRuleMatchesDone;
+            long noOfRuleMatchesDone = 0;
+
+            for (Pattern rule : getRules())
+            {
+               PatternObject firstPO = (PatternObject) rule.getElements().first();
+
+               rule.resetSearch();
+
+               ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(current.getGraphRoot());
+
+               while (rule.findMatch())
+               {
+                  // count matches found on this graph
+                  noOfRuleMatchesDone++;
+
+                  if (noOfRuleMatchesDone <= alreadyKnownMatches)
+                  {
+                     // has been considered in previous expansions of this
+                     // state.
+                     // Those previous expansions have been aborted in order to
+                     // expand more promising state.
+                     // Now it is reconsidered. But we do not need to go through
+                     // the already done expansions.
+
+                     continue;
+                  }
+                  current.noOfRuleMatchesDone = noOfRuleMatchesDone;
+                  // for each match get the new reachable state and add it to
+                  // the
+                  // reachability graph
+                  Object newGraphRoot = firstPO.getCurrentMatch();
+
+                  ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
+
+                  // is the new graph already known?
+                  IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
+                  newJsonIdMap.withSessionId("s");
+                  String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
+
+                  LinkedHashMap<String, String> match;
+
+                  synchronized (hostgraph.stateMap)
+                  {
+                     ReachableStateSet candidateStates = hostgraph.getStateMap(newCertificate);
+                     match = null;
+                     for (ReachableState oldState : candidateStates)
+                     {
+                        match = match(oldState, newReachableState);
+
+                        if (match != null)
+                        {
+                           // newReachableState is isomorphic to oldState. Just
+                           // add
+                           // a
+                           // link from first to oldState
+                           current.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                           break;
+                        }
+                     }
+                  }
+                  if (match == null)
+                  {
+                     // no isomorphic old state, add new state
+                     hostgraph.withStates(newReachableState.withNumber(hostgraph.getStates().size()));
+                     hostgraph.withStateMap(newCertificate, newReachableState);
+
+                     threadPool.submit(new Worker(hostgraph, newReachableState, threadPool));
+
+                     current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                     int size = hostgraph.getStates().size();
+
+                  }
+               }
+            }
+
+            hostgraph.workercount--;
+         }
+         return null;
+      }
+
    }
 
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
@@ -1055,32 +1241,42 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public void verify(Pattern... pattern)
    {
-
-      for (Pattern rule : pattern)
+      for (ReachableState reachableState : states)
       {
-
-         for (ReachableState reachableState : states)
+         for (Pattern rule : pattern)
          {
+
+            if (reachableState.isFailureState())
+            {
+               continue;
+            }
+
             Object graphRoot = reachableState.getGraphRoot();
 
             PatternObject firstPO = (PatternObject) rule.getElements().first();
 
             rule.resetSearch();
-
-            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(graphRoot);
-
+            firstPO.withModifier(Pattern.BOUND);
+            firstPO.setCurrentMatch(graphRoot);
             if (rule.findMatch())
             {
                reachableState.setFailureState(true);
             }
 
-            RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
-            if (ruleapplications.size() == 0)
-            {
-               // find a final State
-               withFinalStates(reachableState);
-            }
+         }
 
+      }
+   }
+
+   public void lookUpForEndStates()
+   {
+      for (ReachableState reachableState : states)
+      {
+         RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
+         if (ruleapplications.size() == 0)
+         {
+            // find a final State
+            withFinalStates(reachableState);
          }
 
       }
