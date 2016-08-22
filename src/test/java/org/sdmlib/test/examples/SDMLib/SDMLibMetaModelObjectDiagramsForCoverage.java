@@ -26,7 +26,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
    @Test
    public void testPatternModelObjectsForCoverage()
    {
-      Storyboard story = new Storyboard();
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       

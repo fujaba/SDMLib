@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/SDMLib/SDMLibMetaModelObjectDiagramsForCoverage.java' type='text/x-java'>PatternModelObjectsForCoverage</a></p>
+<p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"P1 : PatternObject",
+         "attributes":[
+            "currentMatch=match",
+            "modifier=bound",
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : Pattern",
+         "attributes":[
+            "debugMode=0",
+            "hasMatch=true",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A5 : AttributeConstraint",
+         "attributes":[
+            "attrName=attr1",
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P21 : PatternLink",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P22 : PatternObject",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : ReachabilityGraph"
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Pattern",
+         "attributes":[
+            "debugMode=0",
+            "hasMatch=true",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : ReachableState",
+         "attributes":[
+            "number=0",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : ReachableState",
+         "attributes":[
+            "number=0",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A8 : AttributeConstraint",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C9 : CardinalityConstraint",
+         "attributes":[
+            "minCard=0",
+            "maxCard=0",
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C10 : CloneOp",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D11 : DestroyObjectElem",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A12 : AttributeConstraint",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C13 : CardinalityConstraint",
+         "attributes":[
+            "minCard=0",
+            "maxCard=0",
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C14 : CloneOp",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D15 : DestroyObjectElem",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"G16 : GenericConstraint",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"L17 : LinkConstraint",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"M18 : MatchIsomorphicConstraint",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"M19 : MatchOtherThen",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N20 : NegativeApplicationCondition",
+         "attributes":[
+            "debugMode=0",
+            "hasMatch=true",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R23 : RuleApplication"
+      },
+      {
+         "typ":"clazz",
+         "id":"O24 : OptionalSubPattern",
+         "attributes":[
+            "matchForward=true",
+            "debugMode=0",
+            "hasMatch=true",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P25 : PatternLink",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U26 : UnifyGraphsOp",
+         "attributes":[
+            "hasMatch=false",
+            "doAllMatches=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R27 : ReachableState",
+         "attributes":[
+            "number=0",
+            "metricValue=0.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P1 : PatternObject"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"attrConstraints",
+            "id":"A5 : AttributeConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"P1 : PatternObject"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P21 : PatternLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P22 : PatternObject"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"A5 : AttributeConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"rgraph",
+            "id":"R2 : ReachabilityGraph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rules",
+            "id":"P4 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rules",
+            "id":"P3 : Pattern"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rgraph",
+            "id":"R2 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"R6 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"R2 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"todo",
+            "id":"R7 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"R2 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"A8 : AttributeConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"C9 : CardinalityConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"C10 : CloneOp"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"D11 : DestroyObjectElem"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"A12 : AttributeConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"C13 : CardinalityConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"C14 : CloneOp"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"D15 : DestroyObjectElem"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"G16 : GenericConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"L17 : LinkConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"M18 : MatchIsomorphicConstraint"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"M19 : MatchOtherThen"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"N20 : NegativeApplicationCondition"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"currentSubPattern",
+            "id":"N20 : NegativeApplicationCondition"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P3 : Pattern"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"R23 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R6 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"O24 : OptionalSubPattern"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"N20 : NegativeApplicationCondition"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P25 : PatternLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"N20 : NegativeApplicationCondition"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"U26 : UnifyGraphsOp"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"N20 : NegativeApplicationCondition"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"currentSubPattern",
+            "id":"O24 : OptionalSubPattern"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"negativeapplicationcondition",
+            "id":"N20 : NegativeApplicationCondition"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R27 : ReachableState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"R23 : RuleApplication"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasPatternModelObjectsForCoverage2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>
