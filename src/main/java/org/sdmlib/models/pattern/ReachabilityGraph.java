@@ -34,6 +34,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
@@ -793,10 +794,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          String newCertificate = s.computeCertificate(newJsonIdMap);
          this.withStateMap(newCertificate, s);
       }
-
       ExecutorService threadPool = Executors.newFixedThreadPool(12);
 
-      while (!getTodo().isEmpty() || workercount != 0)
+      while (!getTodo().isEmpty())
       {
          if (!getTodo().isEmpty())
          {
@@ -825,6 +825,22 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             }
          }
 
+      }
+      try
+      {
+         // wait for all task finished
+         while (workercount > 0)
+         {
+            Thread.sleep(5);
+         }
+
+         threadPool.shutdown();
+         threadPool.awaitTermination(20, TimeUnit.SECONDS);
+
+      }
+      catch (InterruptedException e)
+      {
+         e.printStackTrace();
       }
 
       return states.size();
