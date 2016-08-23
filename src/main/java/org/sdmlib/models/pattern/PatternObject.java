@@ -39,8 +39,6 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
 
 /**
  * 
@@ -436,7 +434,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       return (POC) this;
    }
-   
+
    public Table createResultTable()
    {
       return this.getPattern().createResultTable();
@@ -896,7 +894,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public POC createCondition(Condition<MC> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-         .withCondition((Condition<Object>) condition)
+         .withCondition(o -> {
+            return o != null && ((Condition<Object>) condition).update(o);
+         })
          .withSrc(this)
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
