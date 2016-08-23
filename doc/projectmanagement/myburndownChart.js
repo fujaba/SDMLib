@@ -3,23 +3,6 @@
 
 var addEditingButtons = function ()
 {
-	$("#createIssueButton").click(function(){
-        $("\n\n<div class=\"well\"> \n" +
-          "<h3 contenteditable=\"true\">Issue: </h3>\n" +
-          "<p contenteditable=\"true\">Estimated: 1d</p>\n" +
-          "<p class=\"marker\"><button>Create Log</button></p>\n" + 
-          "</div>\n\n\n\n")
-          .insertAfter("#createIssueButton");
-    });
-
-    $("p.marker").click(function(){
-    	$("\n<h4 contenteditable=\"true\">Log: </h4>\n" +
-          "<p contenteditable=\"true\">Date: </p>\n" +
-          "<p contenteditable=\"true\">Time spent: 1h</p>\n" +
-          "<p contenteditable=\"true\">Remaining: 0h</p>\n")
-          .insertAfter(this);
-    });
-    
     $("#updateButton").click(function(){
     	computeBurndown();
     });
@@ -222,7 +205,8 @@ var addButtonsAndChart = function ()
 	computeBurndown();
 }
 
+window.onload = addButtonsAndChart;
 
-$(document).ready(addButtonsAndChart);
+// $(document).ready(addButtonsAndChart);
 
 
