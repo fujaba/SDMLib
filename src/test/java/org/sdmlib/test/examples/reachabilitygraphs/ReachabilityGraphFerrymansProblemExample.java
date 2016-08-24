@@ -2,7 +2,6 @@ package org.sdmlib.test.examples.reachabilitygraphs;
 
 import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
@@ -32,8 +31,7 @@ public class ReachabilityGraphFerrymansProblemExample
    {
       Storyboard storyboard = new Storyboard();
 
-
-      //================================================
+      // ================================================
       storyboard.add("initial situation:");
 
       River river = new River();
@@ -64,14 +62,14 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.add(s1cert);
 
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
-            .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
+         .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
 
-      //================================================
-      //      map.with(new ModelPatternCreator());
-      //      FlipBook flipBook = new FlipBook().withMap(map); 
-      //      String id = map.getId(reachabilityGraph);
-      //      
-      //================================================
+      // ================================================
+      // map.with(new ModelPatternCreator());
+      // FlipBook flipBook = new FlipBook().withMap(map);
+      // String id = map.getId(reachabilityGraph);
+      //
+      // ================================================
       // load boat rule
 
       RiverPO riverPO = new RiverPO();
@@ -91,7 +89,7 @@ public class ReachabilityGraphFerrymansProblemExample
       bankPO.hasCargos().hasMatchOtherThen(cargoPO).hasMatchOtherThen(goatPO);
       bankPO.endNAC();
 
-      loadPattern.clone(reachabilityGraph);
+      loadPattern.createCloneOp();
 
       bankPO.startDestroy().hasCargos(cargoPO).endDestroy();
 
@@ -101,8 +99,7 @@ public class ReachabilityGraphFerrymansProblemExample
 
       reachabilityGraph.addToRules(loadPattern);
 
-
-      //================================================
+      // ================================================
       // move boat rule
 
       riverPO = new RiverPO();
@@ -119,7 +116,7 @@ public class ReachabilityGraphFerrymansProblemExample
       goatPO = oldBankPO.startNAC().hasCargos().hasName("goat");
       oldBankPO.hasCargos().hasMatchOtherThen(goatPO).endNAC();
 
-      movePattern.clone(reachabilityGraph);
+      movePattern.createCloneOp();
 
       boatPO.startDestroy().hasBank(oldBankPO).endDestroy();
 
@@ -135,19 +132,18 @@ public class ReachabilityGraphFerrymansProblemExample
 
       reachabilityGraph.addToRules(movePattern);
 
-
-      //================================================
+      // ================================================
       long size = reachabilityGraph.explore();
 
       storyboard.assertEquals("Number of Reachable States expected: ", 27L, size);
 
       storyboard.add("Small reachbility graph with hyperlinks to states: ");
-      storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));   
+      storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));
 
       storyboard.add("large reachbility graph with embedded states: ");
       storyboard.addObjectDiagram(map, reachabilityGraph, true);
 
-      RiverSet rivers = new RiverSet().with( reachabilityGraph.getStates().getGraphRoot());
+      RiverSet rivers = new RiverSet().with(reachabilityGraph.getStates().getGraphRoot());
       BankSet banks = rivers.getBanks().hasName("right");
 
       for (Bank bank : banks)

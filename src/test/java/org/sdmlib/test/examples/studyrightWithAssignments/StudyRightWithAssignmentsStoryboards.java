@@ -67,8 +67,8 @@ import de.uniks.networkparser.json.JsonArray;
 public class StudyRightWithAssignmentsStoryboards
 {
    /**
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
+    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     */
    @Test
    public void testStudyRightWithAssignmentsStoryboard()
@@ -205,11 +205,11 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
+
    /**
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>
-    *      JsonPersistency.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'> JsonPersistency.html</a>
+    * @see <a href= '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     */
    @Test
    public void testJsonPersistency()
@@ -318,12 +318,11 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
+
    /**
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>
-    *      StudyRightObjectModelNavigationAndQueries.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'> StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
     */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
@@ -694,10 +693,11 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
+
    /**
     * 
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     */
    @Test
    public void testStudyRightTablesAndReports()
@@ -882,6 +882,7 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
+
    public Table addAssignments(Row row)
    {
       Room room = (Room) row.getCellValue("B");
@@ -900,10 +901,11 @@ public class StudyRightWithAssignmentsStoryboards
       return table;
    }
 
+
    /**
     * 
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+    * @see <a href= '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+    * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
     */
    @Test
    public void testStudyRightReachabilityGraph()
@@ -972,7 +974,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       studPO.createCondition(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
 
-      uniPO.getPattern().clone(reachabilityGraph);
+      uniPO.getPattern().createCloneOp();
 
       studPO.startCreate().filterIn(nextRoomPO).endCreate();
 

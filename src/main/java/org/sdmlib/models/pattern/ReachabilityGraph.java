@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -39,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
@@ -54,9 +56,7 @@ import de.uniks.networkparser.json.JsonTokener;
 
 /**
  * 
- * @see <a href=
- *      '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>
- *      PatternModelCodeGen.java</a>
+ * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'> PatternModelCodeGen.java</a>
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
@@ -65,10 +65,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       private Object root;
 
+
       public OmitRootCondition(Object root)
       {
          this.root = root;
       }
+
 
       @Override
       public boolean update(Object event)
@@ -77,6 +79,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          return evt.getNewValue() != root;
       }
    }
+
 
    public String dumpDiagram(String name)
    {
@@ -105,12 +108,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private Metric metric = null;
 
+
    public void setMetric(Metric metric)
    {
       this.metric = metric;
    }
 
    private GuiAdapter adapter;
+
 
    public GuiAdapter getAdapter()
    {
@@ -125,11 +130,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
+
 
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
@@ -137,11 +144,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
+
 
    public boolean removePropertyChangeListener(PropertyChangeListener listener)
    {
@@ -152,6 +161,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
+
    public boolean removePropertyChangeListener(String property, PropertyChangeListener listener)
    {
       if (listeners != null)
@@ -160,6 +170,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return true;
    }
+
 
    // ==========================================================================
 
@@ -186,6 +197,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private ReachableStateSet finalStates = null;
 
+
    public ReachableStateSet getFinalStates()
    {
       if (this.finalStates == null)
@@ -195,6 +207,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.finalStates;
    }
+
 
    public ReachabilityGraph withFinalStates(ReachableState... value)
    {
@@ -222,6 +235,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutFinalStates(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -236,6 +250,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachableState createFinalStates()
    {
@@ -255,6 +270,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public static final String PROPERTY_STATES = "states";
 
    private TreeMap<String, Object> stateMap = new TreeMap<String, Object>();
+
 
    public ReachabilityGraph withStateMap(String certificate, ReachableState newState)
    {
@@ -282,7 +298,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
    private static ReachableStateSet emptyStatesSet = new ReachableStateSet();
+
    private ReachableStateSet oneElemSet = new ReachableStateSet();
+
 
    public ReachableStateSet getStateMap(String certificate)
    {
@@ -306,6 +324,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private ReachableStateSet states = null;
 
+
    public ReachableStateSet getStates()
    {
       if (this.states == null)
@@ -315,6 +334,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.states;
    }
+
 
    public boolean addToStates(ReachableState value)
    {
@@ -339,6 +359,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public boolean removeFromStates(ReachableState value)
    {
       boolean changed = false;
@@ -357,17 +378,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withStates(ReachableState value)
    {
       addToStates(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutStates(ReachableState value)
    {
       removeFromStates(value);
       return this;
    }
+
 
    public void removeAllFromStates()
    {
@@ -378,6 +402,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          this.removeFromStates(value);
       }
    }
+
 
    public ReachableState createStates()
    {
@@ -398,6 +423,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private BlockingQueue<ReachableState> todo = null;
 
+
    public BlockingQueue<ReachableState> getTodo()
    {
       if (this.todo == null)
@@ -414,6 +440,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.todo;
    }
+
 
    public boolean addToTodo(ReachableState value)
    {
@@ -441,6 +468,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public boolean removeFromTodo(ReachableState value)
    {
       boolean changed = false;
@@ -455,17 +483,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withTodo(ReachableState value)
    {
       addToTodo(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutTodo(ReachableState value)
    {
       removeFromTodo(value);
       return this;
    }
+
 
    public void removeAllFromTodo()
    {
@@ -476,6 +507,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          this.removeFromTodo(value);
       }
    }
+
 
    public ReachableState createTodo()
    {
@@ -498,6 +530,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private long maxNoOfNewStates;
 
+
    public PatternSet getRules()
    {
       if (this.rules == null)
@@ -507,6 +540,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.rules;
    }
+
 
    public boolean addToRules(Pattern value)
    {
@@ -523,13 +557,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          if (changed)
          {
-            value.withRgraph(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, null, value);
          }
       }
 
       return changed;
    }
+
 
    public boolean removeFromRules(Pattern value)
    {
@@ -541,7 +575,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          if (changed)
          {
-            value.setRgraph(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, value, null);
          }
       }
@@ -549,17 +582,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withRules(Pattern value)
    {
       addToRules(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutRules(Pattern value)
    {
       removeFromRules(value);
       return this;
    }
+
 
    public void removeAllFromRules()
    {
@@ -571,12 +607,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
    }
 
+
    public Pattern createRules()
    {
       Pattern value = new Pattern();
       withRules(value);
       return value;
    }
+
 
    public long explore()
    {
@@ -587,6 +625,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       DEFAULT, DEPTH, IGNORE, DEPTHIGNORE
    }
+
 
    public long explore(long maxNoOfNewStates, Searchmode mode)
    {
@@ -782,6 +821,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return currentStateNum;
    }
 
+
    public long exploreParallel()
    {
       this.maxNoOfNewStates = Long.MAX_VALUE;
@@ -851,8 +891,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    private class Worker implements Callable<Void>
    {
       private ReachabilityGraph hostgraph;
+
       private ReachableState current;
+
       private ExecutorService threadPool;
+
 
       public Worker(ReachabilityGraph hostgraph, ReachableState current, ExecutorService threadPool)
       {
@@ -866,16 +909,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          this.hostgraph = hostgraph;
       }
 
+
       @Override
       public Void call() throws Exception
       {
-         synchronized (hostgraph)
+         try
          {
             long alreadyKnownMatches = current.noOfRuleMatchesDone;
             long noOfRuleMatchesDone = 0;
-
             for (Pattern rule : getRules())
             {
+
+               rule = getMyRuleCopy(rule);
+
                PatternObject firstPO = (PatternObject) rule.getElements().first();
 
                rule.resetSearch();
@@ -946,13 +992,17 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   }
                }
             }
-
             hostgraph.workercount--;
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
          }
          return null;
       }
 
    }
+
 
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
@@ -1004,6 +1054,58 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return match ? fwdmapping : null;
    }
+
+   HashMap<Long, HashMap<Pattern, Pattern>> ruleClones;
+
+
+   public Pattern getMyRuleCopy(Pattern rule)
+   {
+      long threadId = Thread.currentThread().getId();
+
+      if (ruleClones == null)
+      {
+         ruleClones = new HashMap<>();
+      }
+
+      HashMap<Pattern, Pattern> patternMap = ruleClones.get(threadId);
+      if (patternMap == null)
+      {
+         patternMap = new HashMap<>();
+         ruleClones.put(threadId, patternMap);
+      }
+      Pattern myClone = patternMap.get(rule);
+
+      if (myClone == null)
+      {
+         IdMap origMap = (IdMap) new SDMLibIdMap("om").with(rule.getIdMap());
+         IdMap cloneMap = (IdMap) new SDMLibIdMap("cm").with(rule.getIdMap());
+         JsonArray jsonArray = origMap.toJsonArray(rule);
+         myClone = (Pattern) cloneMap.decode(jsonArray);
+
+         setIdMap(myClone, cloneMap);
+
+         patternMap.put(rule, myClone);
+      }
+
+      return myClone;
+   }
+
+
+   private void setIdMap(Pattern pattern, IdMap idMap)
+   {
+      pattern.setIdMap(idMap);
+
+      PatternElementSet elements = pattern.getElements();
+      for (PatternElement patternElement : elements)
+      {
+         if (patternElement instanceof Pattern)
+         {
+            setIdMap((Pattern) patternElement, idMap);
+         }
+      }
+
+   }
+
 
    public boolean match(ReachableState s1, JsonArray ja1, LinkedHashMap<String, JsonObject> joMap1,
          ReachableState s2, JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2,
@@ -1144,15 +1246,18 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private IdMap masterMap = null;
 
+
    public IdMap getMasterMap()
    {
       return masterMap;
    }
 
+
    public void setMasterMap(IdMap newMasterMap)
    {
       masterMap = newMasterMap;
    }
+
 
    public ReachabilityGraph withMasterMap(IdMap map)
    {
@@ -1160,6 +1265,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this;
    }
+
 
    public ReachabilityGraph withStates(ReachableState... value)
    {
@@ -1174,6 +1280,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutStates(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -1182,6 +1289,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachabilityGraph withTodo(ReachableState... value)
    {
@@ -1196,6 +1304,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutTodo(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -1204,6 +1313,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachabilityGraph withRules(Pattern... value)
    {
@@ -1218,6 +1328,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutRules(Pattern... value)
    {
       for (Pattern item : value)
@@ -1227,12 +1338,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public Pattern createRulesNegativeApplicationCondition()
    {
       Pattern value = new NegativeApplicationCondition();
       withRules(value);
       return value;
    }
+
 
    public Pattern createRulesOptionalSubPattern()
    {
@@ -1241,6 +1354,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return value;
    }
 
+
    public NegativeApplicationCondition createNegativeApplicationCondition()
    {
       NegativeApplicationCondition value = new NegativeApplicationCondition();
@@ -1248,12 +1362,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return value;
    }
 
+
    public OptionalSubPattern createOptionalSubPattern()
    {
       OptionalSubPattern value = new OptionalSubPattern();
       withRules(value);
       return value;
    }
+
 
    public void verify(Pattern... pattern)
    {
@@ -1283,6 +1399,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       }
    }
+
 
    public void lookUpForEndStates()
    {
