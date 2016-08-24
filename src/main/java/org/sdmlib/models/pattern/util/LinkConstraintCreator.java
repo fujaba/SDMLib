@@ -18,47 +18,54 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.LinkConstraint;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class LinkConstraintCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      PatternLink.PROPERTY_TGTROLENAME,
-      PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT,
-      PatternElement.PROPERTY_MODIFIER,
-      PatternElement.PROPERTY_HASMATCH,
-      PatternElement.PROPERTY_PATTERNOBJECTNAME,
-      PatternElement.PROPERTY_DOALLMATCHES,
-      PatternElement.PROPERTY_PATTERN,
+         PatternLink.PROPERTY_TGTROLENAME,
+         PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT,
+         PatternLink.PROPERTY_SRC,
+         PatternLink.PROPERTY_TGT,
+         PatternElement.PROPERTY_MODIFIER,
+         PatternElement.PROPERTY_HASMATCH,
+         PatternElement.PROPERTY_PATTERNOBJECTNAME,
+         PatternElement.PROPERTY_DOALLMATCHES,
+         PatternElement.PROPERTY_PATTERN,
    };
-   
+
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LinkConstraint();
    }
-   
+
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -72,6 +79,16 @@ public class LinkConstraintCreator implements SendableEntityCreator
       if (PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attribute))
       {
          return ((PatternLink) target).getHostGraphSrcObject();
+      }
+
+      if (PatternLink.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink) target).getSrc();
+      }
+
+      if (PatternLink.PROPERTY_TGT.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink) target).getTgt();
       }
 
       if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
@@ -98,10 +115,11 @@ public class LinkConstraintCreator implements SendableEntityCreator
       {
          return ((LinkConstraint) target).getPattern();
       }
-      
+
       return null;
    }
-   
+
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -141,6 +159,18 @@ public class LinkConstraintCreator implements SendableEntityCreator
          return true;
       }
 
+      if (PatternLink.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink) target).setSrc((PatternObject) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink) target).setTgt((PatternObject) value);
+         return true;
+      }
+
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
@@ -151,16 +181,19 @@ public class LinkConstraintCreator implements SendableEntityCreator
          ((LinkConstraint) target).setPattern((Pattern) value);
          return true;
       }
-      
+
       return false;
    }
+
+
    public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-      public void removeObject(Object entity)
+
+
+   // ==========================================================================
+   public void removeObject(Object entity)
    {
       ((LinkConstraint) entity).removeYou();
    }

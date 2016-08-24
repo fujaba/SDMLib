@@ -18,32 +18,32 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.Pattern;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {
    public NegativeApplicationCondition()
    {
       super();
       setHasMatch(true);
    }
-   
-   //==========================================================================
-   
+
+
+   // ==========================================================================
+
    @Override
    public boolean findMatch()
    {
-      // start matching only if nac is complete 
+      // start matching only if nac is complete
       if (this.getPattern().getCurrentSubPattern() != null)
       {
          return true;
@@ -58,7 +58,7 @@ import org.sdmlib.models.pattern.Pattern;
    @Override
    public boolean findNextMatch()
    {
-      // start matching only if nac is complete 
+      // start matching only if nac is complete
       if (this.getPattern().getCurrentSubPattern() != null)
       {
          return true;
@@ -69,14 +69,14 @@ import org.sdmlib.models.pattern.Pattern;
          // thus some earlier pattern elements have been rematched.
          // check the NAC again
          resetSearch();
-         
+
          if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// start NAC " + getPatternObjectName());
          }
-         
+
          boolean nacHasMatch = findMatch();
-         
+
          if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             if (nacHasMatch)
@@ -88,8 +88,8 @@ import org.sdmlib.models.pattern.Pattern;
                getTopPattern().addLogMsg("// NAC " + getPatternObjectName() + " has NO match, that is good");
             }
          }
-         
-         return ! nacHasMatch;
+
+         return !nacHasMatch;
       }
       else
       {
@@ -99,8 +99,9 @@ import org.sdmlib.models.pattern.Pattern;
       }
    }
 
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public void removeYou()
    {
@@ -108,17 +109,17 @@ import org.sdmlib.models.pattern.Pattern;
 
       removeAllFromElements();
       setPattern(null);
-      setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       setCurrentSubPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+
    @Override
    public String toString()
    {
       StringBuilder s = new StringBuilder();
-      
+
       s.append(" ").append(this.getDebugMode());
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
@@ -126,19 +127,19 @@ import org.sdmlib.models.pattern.Pattern;
       return s.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_CURRENTSUBPATTERN = "currentSubPattern";
-   
+
    private Pattern currentSubPattern;
+
 
    public Pattern getCurrentSubPattern()
    {
       return this.currentSubPattern;
    }
-   
+
+
    public void setCurrentSubPattern(Pattern value)
    {
       if (this.currentSubPattern != value)
@@ -148,25 +149,27 @@ import org.sdmlib.models.pattern.Pattern;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTSUBPATTERN, oldValue, value);
       }
    }
-   
+
+
    public Pattern withCurrentSubPattern(Pattern value)
    {
       setCurrentSubPattern(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_DEBUGMODE = "debugMode";
-   
+
    private int debugMode;
+
 
    public int getDebugMode()
    {
       return this.debugMode;
    }
-   
+
+
    public void setDebugMode(int value)
    {
       if (this.debugMode != value)
@@ -176,40 +179,42 @@ import org.sdmlib.models.pattern.Pattern;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DEBUGMODE, oldValue, value);
       }
    }
-   
+
+
    public Pattern withDebugMode(int value)
    {
       setDebugMode(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
+
 
    public String getName()
    {
       return this.name;
    }
-   
+
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
-   
+
+
    public Pattern withName(String value)
    {
       setName(value);
       return this;
-   } 
- 
-}
+   }
 
+}

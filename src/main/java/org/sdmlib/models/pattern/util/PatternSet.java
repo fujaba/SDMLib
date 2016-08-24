@@ -31,8 +31,6 @@ import org.sdmlib.models.pattern.util.PatternSet;
 import java.util.Collections;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternSet extends SimpleSet<Pattern>
 {
@@ -784,71 +782,6 @@ public class PatternSet extends SimpleSet<Pattern>
       for (Pattern obj : this)
       {
          obj.withCurrentSubPattern(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Pattern objects and collect a set of the ReachabilityGraph objects reached via rgraph. 
-    * 
-    * @return Set of ReachabilityGraph objects reachable via rgraph
-    */
-   public ReachabilityGraphSet getRgraph()
-   {
-      ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
-      for (Pattern obj : this)
-      {
-         result.with(obj.getRgraph());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Pattern objects and collect all contained objects with reference rgraph pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as rgraph neighbor of the collected results. 
-    * 
-    * @return Set of ReachabilityGraph objects referring to value via rgraph
-    */
-   public PatternSet filterRgraph(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PatternSet answer = new PatternSet();
-      
-      for (Pattern obj : this)
-      {
-         if (neighbors.contains(obj.getRgraph()) || (neighbors.isEmpty() && obj.getRgraph() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Pattern object passed as parameter to the Rgraph attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Rgraph attributes.
-    */
-   public PatternSet withRgraph(ReachabilityGraph value)
-   {
-      for (Pattern obj : this)
-      {
-         obj.withRgraph(value);
       }
       
       return this;

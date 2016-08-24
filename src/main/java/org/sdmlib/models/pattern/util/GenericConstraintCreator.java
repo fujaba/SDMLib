@@ -18,45 +18,53 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.GenericConstraint;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.PatternObject;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class GenericConstraintCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      GenericConstraint.PROPERTY_TEXT,
-      PatternElement.PROPERTY_MODIFIER,
-      PatternElement.PROPERTY_HASMATCH,
-      PatternElement.PROPERTY_PATTERNOBJECTNAME,
-      PatternElement.PROPERTY_DOALLMATCHES,
-      PatternElement.PROPERTY_PATTERN,
+         GenericConstraint.PROPERTY_TEXT,
+         PatternElement.PROPERTY_MODIFIER,
+         PatternElement.PROPERTY_HASMATCH,
+         PatternElement.PROPERTY_PATTERNOBJECTNAME,
+         PatternElement.PROPERTY_DOALLMATCHES,
+         PatternElement.PROPERTY_PATTERN,
+         GenericConstraint.PROPERTY_CONDITION,
+         GenericConstraint.PROPERTY_SRC,
    };
-   
+
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new GenericConstraint();
    }
-   
+
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -91,13 +99,30 @@ public class GenericConstraintCreator implements SendableEntityCreator
       {
          return ((GenericConstraint) target).getPattern();
       }
-      
+
+      if (GenericConstraint.PROPERTY_CONDITION.equalsIgnoreCase(attribute))
+      {
+         return ((GenericConstraint) target).getCondition();
+      }
+
+      if (GenericConstraint.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      {
+         return ((GenericConstraint) target).getSrc();
+      }
+
       return null;
    }
-   
+
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (GenericConstraint.PROPERTY_CONDITION.equalsIgnoreCase(attrName))
+      {
+         ((GenericConstraint) target).setCondition((Condition) value);
+         return true;
+      }
+
       if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
          ((PatternElement) target).setDoAllMatches((Boolean) value);
@@ -138,16 +163,25 @@ public class GenericConstraintCreator implements SendableEntityCreator
          ((GenericConstraint) target).setPattern((Pattern) value);
          return true;
       }
-      
+
+      if (GenericConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((GenericConstraint) target).setSrc((PatternObject) value);
+         return true;
+      }
+
       return false;
    }
+
+
    public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-      public void removeObject(Object entity)
+
+
+   // ==========================================================================
+   public void removeObject(Object entity)
    {
       ((GenericConstraint) entity).removeYou();
    }
