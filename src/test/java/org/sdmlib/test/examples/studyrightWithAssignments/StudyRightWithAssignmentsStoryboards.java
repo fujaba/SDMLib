@@ -432,9 +432,9 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
 
-      int donePoints = university.getStudents().getDone().getPoints().sum();
+      double donePoints = university.getStudents().getDone().getPoints().sum();
 
       story.addCode();
 
@@ -472,8 +472,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      RoomSet rooms17 = university.getRooms().filterCredits(17);
-      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
 
       story.addCode();
 
@@ -528,7 +528,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       StudentPO stud1PO = roomPO.createStudentsPO();
 
-      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -551,7 +551,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
 
-      stud2PO.createFriendsPO(stud1PO);
+      stud2PO.createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -574,11 +574,11 @@ public class StudyRightWithAssignmentsStoryboards
 
       stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
 
-      roomPO.createStudentsPO().createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createFriendsLink(stud1PO);
 
-      roomPO.filterTas(null);
+      roomPO.createTasLink(null);
 
-      roomPO.createTas();
+      roomPO.createTasPO();
 
       rooms = roomPO.allMatches();
 
@@ -679,7 +679,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       stud1PO.startCreate();
 
-      stud1PO.filterIn(roomPO);
+      stud1PO.createInLink(roomPO);
 
       stud1PO.allMatches();
 
@@ -966,15 +966,15 @@ public class StudyRightWithAssignmentsStoryboards
 
       StudentPO studPO = uniPO.createStudentsPO();
 
-      RoomPO currentRoomPO = studPO.filterIn();
+      RoomPO currentRoomPO = studPO.createInPO();
 
-      RoomPO nextRoomPO = currentRoomPO.filterDoors();
+      RoomPO nextRoomPO = currentRoomPO.createDoorsPO();
 
       studPO.createCondition(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
 
       uniPO.getPattern().clone(reachabilityGraph);
 
-      studPO.startCreate().filterIn(nextRoomPO).endCreate();
+      studPO.startCreate().createInLink(nextRoomPO).endCreate();
 
       studPO.createCondition(s -> {
          studPO.withMotivation(studPO.getMotivation() - nextRoomPO.getCredits());
@@ -1028,7 +1028,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       UniversitySet interestingUniversities = CGUtil.instanceOf(interestingStates.getGraphRoot(), new UniversitySet());
 
-      StudentSet studentsSet = CGUtil.instanceOf(allStates.getGraphRoot(), new UniversitySet()).getStudents().filterMotivation(0);
+      StudentSet studentsSet = CGUtil.instanceOf(allStates.getGraphRoot(), new UniversitySet()).getStudents().createMotivationCondition(0);
 
       story.addObjectDiagramOnlyWith(
          interestingStates,

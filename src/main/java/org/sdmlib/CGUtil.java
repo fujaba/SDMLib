@@ -57,7 +57,7 @@ public class CGUtil
       return primitiveTypes.indexOf(" " + type + " ") >= 0;
    }
    
-   public static <ST extends SDMSet<?>> ST instanceOf(SimpleSet<Object> source, ST target)
+   public static <ST extends SimpleSet<?>> ST instanceOf(SimpleSet<Object> source, ST target)
    {
 	   String className;
 	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();

@@ -12,7 +12,7 @@ import de.uniks.networkparser.list.SimpleSet;
 public abstract class SDMSet<T> extends SimpleSet<T> {
 
    
-   public <ST extends SDMSet<?>> ST instanceOf(ST target)
+   public <ST extends SimpleSet<?>> ST instanceOf(ST target)
    {
 	   String className;
 	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();

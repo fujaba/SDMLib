@@ -22,8 +22,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
@@ -119,35 +119,35 @@ public class StudentCreator implements SendableEntityCreator
    {
       if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withCredits(Integer.parseInt(value.toString()));
+         ((Student) target).setCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withMotivation(Integer.parseInt(value.toString()));
+         ((Student) target).setMotivation(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withAssignmentPoints(Integer.parseInt(value.toString()));
+         ((Student) target).setAssignmentPoints(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withId((String) value);
+         ((Student) target).setId((String) value);
          return true;
       }
 
       if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withName((String) value);
+         ((Student) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -170,7 +170,7 @@ public class StudentCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Student.PROPERTY_FRIENDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Student.PROPERTY_FRIENDS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Student) target).withoutFriends((Student) value);
          return true;
@@ -182,7 +182,7 @@ public class StudentCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Student.PROPERTY_DONE + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Student.PROPERTY_DONE + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Student) target).withoutDone((Assignment) value);
          return true;

@@ -21,13 +21,11 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.intList;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
@@ -35,14 +33,37 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
 public class StudentSet extends SDMSet<Student>
 {
+	protected Class<?> getTypClass() {
+		return Student.class;
+	}
+
+   public StudentSet()
+   {
+      // empty
+   }
+
+   public StudentSet(Student... objects)
+   {
+      for (Student obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StudentSet(Collection<Student> objects)
+   {
+      this.addAll(objects);
+   }
+
    public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
 
 
-   public StudentPO filterStudentPO()
+   public StudentPO createStudentPO()
    {
       return new StudentPO(this.toArray(new Student[this.size()]));
    }
@@ -79,21 +100,15 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
-   @Override
-   public StudentSet filter(Condition<Student> newValue) {
-      StudentSet filterList = new StudentSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Student objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Student obj : this)
       {
@@ -111,7 +126,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterName(String value)
+   public StudentSet createNameCondition(String value)
    {
       StudentSet result = new StudentSet();
       
@@ -135,7 +150,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterName(String lower, String upper)
+   public StudentSet createNameCondition(String lower, String upper)
    {
       StudentSet result = new StudentSet();
       
@@ -174,9 +189,9 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return List of String objects reachable via id attribute
     */
-   public StringList getId()
+   public ObjectSet getId()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Student obj : this)
       {
@@ -194,7 +209,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterId(String value)
+   public StudentSet createIdCondition(String value)
    {
       StudentSet result = new StudentSet();
       
@@ -218,7 +233,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterId(String lower, String upper)
+   public StudentSet createIdCondition(String lower, String upper)
    {
       StudentSet result = new StudentSet();
       
@@ -257,9 +272,9 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return List of int objects reachable via assignmentPoints attribute
     */
-   public intList getAssignmentPoints()
+   public NumberList getAssignmentPoints()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -277,7 +292,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterAssignmentPoints(int value)
+   public StudentSet createAssignmentPointsCondition(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -301,7 +316,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterAssignmentPoints(int lower, int upper)
+   public StudentSet createAssignmentPointsCondition(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -340,9 +355,9 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return List of int objects reachable via motivation attribute
     */
-   public intList getMotivation()
+   public NumberList getMotivation()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -360,7 +375,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterMotivation(int value)
+   public StudentSet createMotivationCondition(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -384,7 +399,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterMotivation(int lower, int upper)
+   public StudentSet createMotivationCondition(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -423,9 +438,9 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return List of int objects reachable via credits attribute
     */
-   public intList getCredits()
+   public NumberList getCredits()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -443,7 +458,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterCredits(int value)
+   public StudentSet createCreditsCondition(int value)
    {
       StudentSet result = new StudentSet();
       
@@ -467,7 +482,7 @@ public class StudentSet extends SDMSet<Student>
     * 
     * @return Subset of Student objects that match the parameter
     */
-   public StudentSet filterCredits(int lower, int upper)
+   public StudentSet createCreditsCondition(int lower, int upper)
    {
       StudentSet result = new StudentSet();
       
@@ -818,22 +833,4 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
-
-   public StudentSet(Student... objects)
-   {
-      for (Student obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public StudentSet()
-   {
-      // empty
-   }
-
-   public StudentSet(Collection<Student> objects)
-   {
-      this.addAll(objects);
-   }
 }

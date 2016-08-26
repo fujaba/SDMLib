@@ -22,8 +22,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
@@ -82,11 +82,11 @@ public class UniversityCreator implements SendableEntityCreator
    {
       if (University.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((University) target).withName((String) value);
+         ((University) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -97,7 +97,7 @@ public class UniversityCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((University.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).withoutStudents((Student) value);
          return true;
@@ -109,7 +109,7 @@ public class UniversityCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((University.PROPERTY_ROOMS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).withoutRooms((Room) value);
          return true;
