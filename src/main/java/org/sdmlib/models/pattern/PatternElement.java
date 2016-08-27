@@ -29,6 +29,7 @@ import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -310,6 +311,15 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public boolean isDoAllMatches()
    {
       return this.doAllMatches;
+   }
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    }
 

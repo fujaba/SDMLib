@@ -43,6 +43,8 @@ class CreatorCreator{
       jsonIdMap.with(new ReachableStatePOCreator());
       jsonIdMap.with(new RuleApplicationCreator());
       jsonIdMap.with(new RuleApplicationPOCreator());
+      jsonIdMap.with(new ObjectCreator());
+      jsonIdMap.with(new ObjectPOCreator());
       return jsonIdMap;
    }
 }

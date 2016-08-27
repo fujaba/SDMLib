@@ -50,6 +50,11 @@ public class AssignmentSet extends SimpleSet<Assignment>
          this.add(obj);
       }
    }
+   
+   @Override
+   public AssignmentSet getNewList(boolean keyValue) {
+      return new AssignmentSet();
+   }
 
    public AssignmentSet(Collection<Assignment> objects)
    {

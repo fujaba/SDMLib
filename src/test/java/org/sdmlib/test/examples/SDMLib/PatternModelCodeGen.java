@@ -35,13 +35,7 @@ import de.uniks.networkparser.graph.GraphList;
 public class PatternModelCodeGen
 {
    /**
-    * 
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href='../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
     */
    @Test
    public void testPatternModelCodegen()
@@ -148,9 +142,12 @@ public class PatternModelCodeGen
 
       Clazz rState = model.createClazz("ReachableState")
          .withAttribute("number", DataType.LONG)
-         .withAttribute("metricValue", DataType.DOUBLE)
-         .withAttribute("graphRoot", DataType.OBJECT);
+         .withAttribute("metricValue", DataType.DOUBLE);
 
+      Clazz objectClass = model.createClazz(Object.class.getName()).withExternal(true);
+      
+      rState.withUniDirectional(objectClass, "graphRoot", Cardinality.ONE);
+      
       reachabilityGraph.withUniDirectional(rState, "finalStates", Cardinality.MANY);
       reachabilityGraph.withBidirectional(rState, "states", Cardinality.MANY, "parent", Cardinality.ONE);
 
@@ -165,9 +162,9 @@ public class PatternModelCodeGen
 
       reachabilityGraph.withBidirectional(pattern, "rules", Cardinality.MANY, "rgraph", Cardinality.ONE);
 
-      model.getGenerator().withShowDiff(DIFF.FULL);
-      GraphList list = new GraphList();
-      list.with(model.getClazzes().toArray());
+      // model.getGenerator().withShowDiff(DIFF.FULL);
+      // GraphList list = new GraphList();
+      // list.with(model.getClazzes().toArray());
       model.generate("src/main/java");
 
       storyboard.addClassDiagram(model);

@@ -331,4 +331,34 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return null;
    }
 
+   public ObjectPO createGraphRootPO()
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReachableState.PROPERTY_GRAPHROOT, result);
+      
+      return result;
+   }
+
+   public ObjectPO createGraphRootPO(String modifier)
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ReachableState.PROPERTY_GRAPHROOT, result);
+      
+      return result;
+   }
+
+   public ReachableStatePO createGraphRootLink(ObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_GRAPHROOT);
+   }
+
+   public ReachableStatePO createGraphRootLink(ObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_GRAPHROOT, modifier);
+   }
+
 }

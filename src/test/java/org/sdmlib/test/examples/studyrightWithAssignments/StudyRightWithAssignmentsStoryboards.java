@@ -69,7 +69,8 @@ public class StudyRightWithAssignmentsStoryboards
    /**
     * @see <a href=
     *      '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
+ */
    @Test
    public void testStudyRightWithAssignmentsStoryboard()
    {
@@ -210,7 +211,8 @@ public class StudyRightWithAssignmentsStoryboards
     *      JsonPersistency.html</a>
     * @see <a href=
     *      '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
+ */
    @Test
    public void testJsonPersistency()
    {
@@ -324,7 +326,8 @@ public class StudyRightWithAssignmentsStoryboards
     *      StudyRightObjectModelNavigationAndQueries.html</a>
     * @see <a href=
     *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+ */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
@@ -448,8 +451,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted(text);
 
-      story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 15, donePoints);
+      story.assertEquals("Assignment points: ", 23.0, assignmentPoints);
+      story.assertEquals("donePoints: ", 15.0, donePoints);
 
       // =====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");
@@ -698,7 +701,8 @@ public class StudyRightWithAssignmentsStoryboards
     * 
     * @see <a href=
     *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+ */
    @Test
    public void testStudyRightTablesAndReports()
    {
@@ -904,7 +908,8 @@ public class StudyRightWithAssignmentsStoryboards
     * 
     * @see <a href=
     *      '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+ */
    @Test
    public void testStudyRightReachabilityGraph()
    {
@@ -1040,11 +1045,11 @@ public class StudyRightWithAssignmentsStoryboards
       // ok do it with search pattern
       ReachabilityGraphPO reachabilityGraphPO = new ReachabilityGraphPO(reachabilityGraph);
       ReachableStatePO statePO = reachabilityGraphPO.createStatesPO();
-      // FIXME: UniversityPO universityPO =
-      // statePO.filterGraphRoot().instanceOf(new UniversityPO());
-      // StudentPO studentPO =
-      // universityPO.createStudentsPO().createMotivationCondition(0);
-      // RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
+      UniversityPO universityPO =
+            statePO.createGraphRootPO().instanceOf(new UniversityPO());
+      StudentPO studentPO =
+            universityPO.createStudentsPO().createMotivationCondition(0);
+      RoomPO roomPO = studentPO.createInPO().createTopicCondition("exam");
 
       ReachableState currentMatch = statePO.getCurrentMatch();
 

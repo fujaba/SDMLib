@@ -125,6 +125,31 @@
       },
       {
          "typ":"node",
+         "id":"AssignmentSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "getNewList(boolean p0) AssignmentSet",
+            "createAssignmentPO() AssignmentPO",
+            "getEntryType() String",
+            "with(Object p0) AssignmentSet",
+            "without(Assignment p0) AssignmentSet",
+            "getContent() ObjectSet",
+            "createContentCondition(String p0) AssignmentSet",
+            "withContent(String p0) AssignmentSet",
+            "getPoints() NumberList",
+            "createPointsCondition(int p0) AssignmentSet",
+            "withPoints(int p0) AssignmentSet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) AssignmentSet",
+            "withStudents(Student p0) AssignmentSet",
+            "withoutStudents(Student p0) AssignmentSet",
+            "getRoom() RoomSet",
+            "filterRoom(Object p0) AssignmentSet",
+            "withRoom(Room p0) AssignmentSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"RoomCreator",
          "methods":[
             "getSendableInstance(boolean p0) Object",
@@ -132,6 +157,48 @@
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
             "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RoomSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "filter(Condition<Room> p0) RoomSet",
+            "createRoomPO() RoomPO",
+            "getEntryType() String",
+            "with(Object p0) RoomSet",
+            "without(Room p0) RoomSet",
+            "findPath(int p0) StringList",
+            "getName() ObjectSet",
+            "createNameCondition(String p0) RoomSet",
+            "withName(String p0) RoomSet",
+            "getTopic() ObjectSet",
+            "createTopicCondition(String p0) RoomSet",
+            "withTopic(String p0) RoomSet",
+            "getCredits() NumberList",
+            "createCreditsCondition(int p0) RoomSet",
+            "withCredits(int p0) RoomSet",
+            "getUniversity() UniversitySet",
+            "filterUniversity(Object p0) RoomSet",
+            "withUniversity(University p0) RoomSet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) RoomSet",
+            "withStudents(Student p0) RoomSet",
+            "withoutStudents(Student p0) RoomSet",
+            "getDoors() RoomSet",
+            "filterDoors(Object p0) RoomSet",
+            "getDoorsTransitive() RoomSet",
+            "withDoors(Room p0) RoomSet",
+            "withoutDoors(Room p0) RoomSet",
+            "getAssignments() AssignmentSet",
+            "filterAssignments(Object p0) RoomSet",
+            "withAssignments(Assignment p0) RoomSet",
+            "withoutAssignments(Assignment p0) RoomSet",
+            "getTas() TeachingAssistantSet",
+            "filterTas(Object p0) RoomSet",
+            "withTas(TeachingAssistant p0) RoomSet",
+            "withoutTas(TeachingAssistant p0) RoomSet"
          ]
       },
       {
@@ -158,6 +225,53 @@
       },
       {
          "typ":"node",
+         "id":"TeachingAssistantSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createTeachingAssistantPO() TeachingAssistantPO",
+            "getEntryType() String",
+            "with(Object p0) TeachingAssistantSet",
+            "without(TeachingAssistant p0) TeachingAssistantSet",
+            "getCertified() BooleanList",
+            "createCertifiedCondition(boolean p0) TeachingAssistantSet",
+            "withCertified(boolean p0) TeachingAssistantSet",
+            "getName() ObjectSet",
+            "createNameCondition(String p0) TeachingAssistantSet",
+            "withName(String p0) TeachingAssistantSet",
+            "getId() ObjectSet",
+            "createIdCondition(String p0) TeachingAssistantSet",
+            "withId(String p0) TeachingAssistantSet",
+            "getAssignmentPoints() NumberList",
+            "createAssignmentPointsCondition(int p0) TeachingAssistantSet",
+            "withAssignmentPoints(int p0) TeachingAssistantSet",
+            "getMotivation() NumberList",
+            "createMotivationCondition(int p0) TeachingAssistantSet",
+            "withMotivation(int p0) TeachingAssistantSet",
+            "getCredits() NumberList",
+            "createCreditsCondition(int p0) TeachingAssistantSet",
+            "withCredits(int p0) TeachingAssistantSet",
+            "getUniversity() UniversitySet",
+            "filterUniversity(Object p0) TeachingAssistantSet",
+            "withUniversity(University p0) TeachingAssistantSet",
+            "getIn() RoomSet",
+            "filterIn(Object p0) TeachingAssistantSet",
+            "withIn(Room p0) TeachingAssistantSet",
+            "getFriends() StudentSet",
+            "filterFriends(Object p0) TeachingAssistantSet",
+            "getFriendsTransitive() StudentSet",
+            "withFriends(Student p0) TeachingAssistantSet",
+            "withoutFriends(Student p0) TeachingAssistantSet",
+            "getDone() AssignmentSet",
+            "filterDone(Object p0) TeachingAssistantSet",
+            "withDone(Assignment p0) TeachingAssistantSet",
+            "withoutDone(Assignment p0) TeachingAssistantSet",
+            "getRoom() RoomSet",
+            "filterRoom(Object p0) TeachingAssistantSet",
+            "withRoom(Room p0) TeachingAssistantSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"UniversityCreator",
          "methods":[
             "getSendableInstance(boolean p0) Object",
@@ -169,11 +283,37 @@
       },
       {
          "typ":"node",
+         "id":"UniversitySet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createUniversityPO() UniversityPO",
+            "getEntryType() String",
+            "with(Object p0) UniversitySet",
+            "without(University p0) UniversitySet",
+            "getName() ObjectSet",
+            "createNameCondition(String p0) UniversitySet",
+            "withName(String p0) UniversitySet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) UniversitySet",
+            "withStudents(Student p0) UniversitySet",
+            "withoutStudents(Student p0) UniversitySet",
+            "getRooms() RoomSet",
+            "filterRooms(Object p0) UniversitySet",
+            "withRooms(Room p0) UniversitySet",
+            "withoutRooms(Room p0) UniversitySet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"SendableEntity"
       },
       {
          "typ":"node",
          "id":"SendableEntityCreator"
+      },
+      {
+         "typ":"node",
+         "id":"SimpleSet"
       }
    ],
    "edges":[
@@ -349,6 +489,19 @@
       {
          "typ":"GENERALISATION",
          "source":{
+            "id":"AssignmentSet",
+            "cardinality":"one",
+            "property":"assignmentset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"RoomCreator",
             "cardinality":"one",
             "property":"roomcreator"
@@ -357,6 +510,19 @@
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"RoomSet",
+            "cardinality":"one",
+            "property":"roomset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
          }
       },
       {
@@ -388,6 +554,19 @@
       {
          "typ":"GENERALISATION",
          "source":{
+            "id":"TeachingAssistantSet",
+            "cardinality":"one",
+            "property":"teachingassistantset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"UniversityCreator",
             "cardinality":"one",
             "property":"universitycreator"
@@ -396,6 +575,19 @@
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"UniversitySet",
+            "cardinality":"one",
+            "property":"universityset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
          }
       }
    ]
@@ -886,14 +1078,14 @@
    g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
-      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
 
-      int donePoints = university.getStudents().getDone().getPoints().sum();
+      double donePoints = university.getStudents().getDone().getPoints().sum();
 
 </pre><p>Results in:</p>
-<pre>      Sum of assignment points: 23. 
-      Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points:  23 actual 23</p>
-<p>Check: donePoints:  15 actual 15</p>
+<pre>      Sum of assignment points: 23.0. 
+      Sum of points of assignments that have been done by at least one students: 15.0.</pre><p>Check: Assignment points:  23.0 actual 23.0</p>
+<p>Check: donePoints:  15.0 actual 15.0</p>
 <p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
 
@@ -902,8 +1094,8 @@
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
 <p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>
-      RoomSet rooms17 = university.getRooms().filterCredits(17);
-      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
 <pre>      rooms17: (senate math 17)
@@ -969,7 +1161,7 @@
 
       StudentPO stud1PO = roomPO.createStudentsPO();
 
-      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -1044,7 +1236,7 @@
 
       final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
 
-      stud2PO.createFriendsPO(stud1PO);
+      stud2PO.createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -1119,11 +1311,11 @@
 
       stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
 
-      roomPO.createStudentsPO().createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createFriendsLink(stud1PO);
 
-      roomPO.filterTas(null);
+      roomPO.createTasLink(null);
 
-      roomPO.createTas();
+      roomPO.createTasPO();
 
       rooms = roomPO.allMatches();
 
@@ -1171,9 +1363,7 @@
       {
          "typ":"patternObject",
          "id":"t6 : TeachingAssistantPO",
-         "attributes":[
-            "<< create>>"
-         ]
+         "attributes":[]
       }
    ],
    "edges":[
@@ -1253,95 +1443,12 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T14 : TeachingAssistant",
-         "attributes":[
-            "certified=false",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"teachingassistant",
-            "id":"T14 : TeachingAssistant"
-         }
-      }
-   ]
+   "nodes":null
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries47", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>
+<pre>      ()</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>
       roomPO = university.getRooms().createRoomPO();
 
       stud1PO = roomPO.createStudentsPO();
@@ -1608,7 +1715,7 @@
 
       stud1PO.startCreate();
 
-      stud1PO.filterIn(roomPO);
+      stud1PO.createInLink(roomPO);
 
       stud1PO.allMatches();
 

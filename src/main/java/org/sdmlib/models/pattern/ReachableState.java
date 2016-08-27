@@ -40,6 +40,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.RuleApplication;
 
 /**
  * 
@@ -286,7 +288,9 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       removeAllFromResultOf();
       withoutRuleapplications(this.getRuleapplications().toArray(new RuleApplication[this.getRuleapplications().size()]));
       withoutResultOf(this.getResultOf().toArray(new RuleApplication[this.getResultOf().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setGraphRoot(null);
+      getPropertyChangeSupport();
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    public static final ReachableStateSet EMPTY_SET = new ReachableStateSet();
@@ -358,32 +362,32 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return node2certificates;
    }
 
-   // ==========================================================================
-   public static final String PROPERTY_GRAPHROOT = "graphRoot";
-
-   private Object graphRoot;
-
-   public Object getGraphRoot()
-   {
-      return this.graphRoot;
-   }
-
-   public void setGraphRoot(Object value)
-   {
-      if (this.graphRoot != value)
-      {
-         Object oldValue = this.graphRoot;
-         this.graphRoot = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPHROOT, oldValue, value);
-      }
-   }
-
-   public ReachableState withGraphRoot(Object value)
-   {
-      setGraphRoot(value);
-      return this;
-   }
-
+//   // ==========================================================================
+//   public static final String PROPERTY_GRAPHROOT = "graphRoot";
+//
+//   private Object graphRoot;
+//
+//   public Object getGraphRoot()
+//   {
+//      return this.graphRoot;
+//   }
+//
+//   public void setGraphRoot(Object value)
+//   {
+//      if (this.graphRoot != value)
+//      {
+//         Object oldValue = this.graphRoot;
+//         this.graphRoot = value;
+//         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPHROOT, oldValue, value);
+//      }
+//   }
+//
+//   public ReachableState withGraphRoot(Object value)
+//   {
+//      setGraphRoot(value);
+//      return this;
+//   }
+//
    // ==========================================================================
 
    public static final String PROPERTY_NUMBER = "number";
@@ -698,4 +702,63 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    {
       return failureState;
    }
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * ReachableState ----------------------------------- Object
+    *              reachablestate                   graphRoot
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GRAPHROOT = "graphRoot";
+
+   private Object graphRoot = null;
+
+   public Object getGraphRoot()
+   {
+      return this.graphRoot;
+   }
+
+   public boolean setGraphRoot(Object value)
+   {
+      boolean changed = false;
+      
+      if (this.graphRoot != value)
+      {
+         Object oldValue = this.graphRoot;
+         
+         
+         this.graphRoot = value;
+         
+         
+         firePropertyChange(PROPERTY_GRAPHROOT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public ReachableState withGraphRoot(Object value)
+   {
+      setGraphRoot(value);
+      return this;
+   } 
+
+   public Object createGraphRoot()
+   {
+      Object value = new Object();
+      withGraphRoot(value);
+      return value;
+   } 
 }

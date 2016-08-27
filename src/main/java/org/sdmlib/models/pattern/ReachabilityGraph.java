@@ -46,6 +46,10 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.ReachableState;
 
 /**
  * 
@@ -166,7 +170,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       withoutStates(this.getStates().toArray(new ReachableState[this.getStates().size()]));
       withoutTodo(this.getTodo().toArray(new ReachableState[this.getTodo().size()]));
       withoutRules(this.getRules().toArray(new Pattern[this.getRules().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      withoutFinalStates(this.getFinalStates().toArray(new ReachableState[this.getFinalStates().size()]));
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    /********************************************************************
@@ -1086,4 +1091,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
    }
 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

@@ -46,6 +46,21 @@ import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternElement;
 /**
  * 
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -296,7 +311,8 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       setPattern(null);
       setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setCurrentSubPattern(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    /********************************************************************
@@ -1556,4 +1572,17 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       withElements(value);
       return value;
    }
+   public PatternSet getCurrentSubPatternTransitive()
+   {
+      PatternSet result = new PatternSet().with(this);
+      return result.getCurrentSubPatternTransitive();
+   }
+
+
+   public Pattern createCurrentSubPattern()
+   {
+      Pattern value = new Pattern();
+      withCurrentSubPattern(value);
+      return value;
+   } 
 }
