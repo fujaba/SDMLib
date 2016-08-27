@@ -542,6 +542,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+   public boolean addToRules(PatternObject po)
+   {
+      return addToRules(po.getPattern());
+   }
+
+
    public boolean addToRules(Pattern value)
    {
       boolean changed = false;
@@ -1371,6 +1377,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+   /**
+    * 
+    * @param GraphPattern with concrete object model root
+    */
    public void verify(Pattern... pattern)
    {
       for (ReachableState reachableState : states)
@@ -1398,6 +1408,24 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
 
       }
+   }
+
+
+   /**
+    * @param GraphPattern with ReachabilityGraph as root
+    * @return true if no match could be found
+    */
+   public boolean verifyPath(Pattern pattern)
+   {
+
+      PatternObject firstPO = (PatternObject) pattern.getElements().first();
+
+      pattern.resetSearch();
+      firstPO.withModifier(Pattern.BOUND);
+      firstPO.setCurrentMatch(this);
+
+      return pattern.getHasMatch();
+
    }
 
 
