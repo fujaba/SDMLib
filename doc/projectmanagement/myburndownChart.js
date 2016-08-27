@@ -163,7 +163,8 @@ var computeBurndown = function()
             },
             {
                 label: "Time Spent",
-                data: myTimeSpentData
+                data: myTimeSpentData,
+                fill: false
             },]
         },
         options: {
