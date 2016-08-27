@@ -212,15 +212,6 @@ public class GenClassModel implements ClassModelAdapter
       }
     	  
       
-//      for (Enumeration enumeration : model.getEnumerations())
-//      {
-//         getOrCreate(enumeration).generate(rootDir, rootDir);
-//      }
-//
-//      for (Clazz clazz : model.getClazzes())
-//      {
-//         getOrCreate(clazz).generate(rootDir, rootDir);
-//      }
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);

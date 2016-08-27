@@ -23,6 +23,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
@@ -76,6 +77,12 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
    }
 
 
+   public TeachingAssistantSet filter(Condition<TeachingAssistant> condition) {
+      TeachingAssistantSet filterList = new TeachingAssistantSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
    @SuppressWarnings("unchecked")
    public TeachingAssistantSet with(Object value)
    {
@@ -127,7 +134,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createCertifiedCondition(boolean value)
+   public TeachingAssistantSet filterCertified(boolean value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -186,7 +193,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createNameCondition(String value)
+   public TeachingAssistantSet filterName(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -210,7 +217,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createNameCondition(String lower, String upper)
+   public TeachingAssistantSet filterName(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -269,7 +276,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createIdCondition(String value)
+   public TeachingAssistantSet filterId(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -293,7 +300,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createIdCondition(String lower, String upper)
+   public TeachingAssistantSet filterId(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -352,7 +359,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createAssignmentPointsCondition(int value)
+   public TeachingAssistantSet filterAssignmentPoints(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -376,7 +383,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createAssignmentPointsCondition(int lower, int upper)
+   public TeachingAssistantSet filterAssignmentPoints(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -435,7 +442,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createMotivationCondition(int value)
+   public TeachingAssistantSet filterMotivation(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -459,7 +466,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createMotivationCondition(int lower, int upper)
+   public TeachingAssistantSet filterMotivation(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -518,7 +525,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createCreditsCondition(int value)
+   public TeachingAssistantSet filterCredits(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
@@ -542,7 +549,7 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
     * 
     * @return Subset of TeachingAssistant objects that match the parameter
     */
-   public TeachingAssistantSet createCreditsCondition(int lower, int upper)
+   public TeachingAssistantSet filterCredits(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       

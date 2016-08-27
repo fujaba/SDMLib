@@ -140,7 +140,7 @@ public class StudyRightWithAssignmentsModel
       //============================================================
       story.add("6. generate class source files.");
 
-      // model.removeAllGeneratedCode("src/test/java");
+      model.removeAllGeneratedCode("src/test/java");
       
       model.withAuthorName("zuendorf");
       story.markCodeStart();

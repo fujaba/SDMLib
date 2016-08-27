@@ -475,8 +475,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
-      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().filterCredits(17);
+      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
       story.addCode();
 
@@ -505,7 +505,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
 
       story.addCode();
 
@@ -1033,7 +1033,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       UniversitySet interestingUniversities = CGUtil.instanceOf(interestingStates.getGraphRoot(), new UniversitySet());
 
-      StudentSet studentsSet = CGUtil.instanceOf(allStates.getGraphRoot(), new UniversitySet()).getStudents().createMotivationCondition(0);
+      StudentSet studentsSet = CGUtil.instanceOf(allStates.getGraphRoot(), new UniversitySet()).getStudents().filterMotivation(0);
 
       story.addObjectDiagramOnlyWith(
          interestingStates,

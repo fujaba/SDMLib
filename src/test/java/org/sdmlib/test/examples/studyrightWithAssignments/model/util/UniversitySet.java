@@ -23,6 +23,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
@@ -69,6 +70,12 @@ public class UniversitySet extends SimpleSet<University>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.University";
    }
 
+
+   public UniversitySet filter(Condition<University> condition) {
+      UniversitySet filterList = new UniversitySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
@@ -121,7 +128,7 @@ public class UniversitySet extends SimpleSet<University>
     * 
     * @return Subset of University objects that match the parameter
     */
-   public UniversitySet createNameCondition(String value)
+   public UniversitySet filterName(String value)
    {
       UniversitySet result = new UniversitySet();
       
@@ -145,7 +152,7 @@ public class UniversitySet extends SimpleSet<University>
     * 
     * @return Subset of University objects that match the parameter
     */
-   public UniversitySet createNameCondition(String lower, String upper)
+   public UniversitySet filterName(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();
       

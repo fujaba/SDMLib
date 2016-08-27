@@ -23,6 +23,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.NumberList;
@@ -50,11 +51,6 @@ public class AssignmentSet extends SimpleSet<Assignment>
          this.add(obj);
       }
    }
-   
-   @Override
-   public AssignmentSet getNewList(boolean keyValue) {
-      return new AssignmentSet();
-   }
 
    public AssignmentSet(Collection<Assignment> objects)
    {
@@ -75,6 +71,12 @@ public class AssignmentSet extends SimpleSet<Assignment>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment";
    }
 
+
+   public AssignmentSet filter(Condition<Assignment> condition) {
+      AssignmentSet filterList = new AssignmentSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
@@ -127,7 +129,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet createContentCondition(String value)
+   public AssignmentSet filterContent(String value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -151,7 +153,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet createContentCondition(String lower, String upper)
+   public AssignmentSet filterContent(String lower, String upper)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -210,7 +212,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet createPointsCondition(int value)
+   public AssignmentSet filterPoints(int value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -234,7 +236,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet createPointsCondition(int lower, int upper)
+   public AssignmentSet filterPoints(int lower, int upper)
    {
       AssignmentSet result = new AssignmentSet();
       

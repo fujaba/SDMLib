@@ -396,7 +396,7 @@ public class GenAttribute extends Generator<Attribute>
             + "   }\n"
             + "\n");
 
-      Template templateFilter = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}})");
+      Template templateFilter = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}})");
       templateFilter.withTemplate("\n" + 
             "   /**\n" + 
             "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute matches the parameter value. \n" + 
@@ -405,7 +405,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} create{{Name}}Condition({{AttrType}} value)\n" +
+            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} value)\n" +
             "   {\n" +
             "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
             "      \n" +
@@ -421,7 +421,7 @@ public class GenAttribute extends Generator<Attribute>
             "   }\n" +
             "\n");
 
-      Template templateFilterUpper = new Template(Parser.METHOD + ":create{{Name}}Condition({{AttrType}},{{AttrType}})");
+      Template templateFilterUpper = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}},{{AttrType}})");
       templateFilterUpper.withCondition(" int long float double String ".indexOf(" " + model.getType().getName(false) + " ") >= 0);
       templateFilterUpper.withTemplate("\n" + 
             "   /**\n" + 
@@ -432,7 +432,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} create{{Name}}Condition({{AttrType}} lower, {{AttrType}} upper)\n" +
+            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
             "   {\n" +
             "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
             "      \n" +

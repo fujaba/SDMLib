@@ -23,10 +23,10 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -62,15 +62,6 @@ public class RoomSet extends SimpleSet<Room>
    {
       this.addAll(objects);
    }
-   
-   @Override
-   public RoomSet filter(Condition<Room> newValue) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
-
-
 
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
@@ -86,6 +77,12 @@ public class RoomSet extends SimpleSet<Room>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.Room";
    }
 
+
+   public RoomSet filter(Condition<Room> condition) {
+      RoomSet filterList = new RoomSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
@@ -153,7 +150,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createNameCondition(String value)
+   public RoomSet filterName(String value)
    {
       RoomSet result = new RoomSet();
       
@@ -177,7 +174,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createNameCondition(String lower, String upper)
+   public RoomSet filterName(String lower, String upper)
    {
       RoomSet result = new RoomSet();
       
@@ -236,7 +233,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createTopicCondition(String value)
+   public RoomSet filterTopic(String value)
    {
       RoomSet result = new RoomSet();
       
@@ -260,7 +257,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createTopicCondition(String lower, String upper)
+   public RoomSet filterTopic(String lower, String upper)
    {
       RoomSet result = new RoomSet();
       
@@ -319,7 +316,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createCreditsCondition(int value)
+   public RoomSet filterCredits(int value)
    {
       RoomSet result = new RoomSet();
       
@@ -343,7 +340,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet createCreditsCondition(int lower, int upper)
+   public RoomSet filterCredits(int lower, int upper)
    {
       RoomSet result = new RoomSet();
       

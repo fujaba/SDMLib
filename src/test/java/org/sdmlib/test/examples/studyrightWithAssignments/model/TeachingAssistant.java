@@ -27,10 +27,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  */
    public  class TeachingAssistant extends Student
 {
@@ -41,9 +38,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setUniversity(null);
       setIn(null);
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
@@ -70,7 +64,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       
          boolean oldValue = this.certified;
          this.certified = value;
-         firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
+         this.firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
       }
    }
    
