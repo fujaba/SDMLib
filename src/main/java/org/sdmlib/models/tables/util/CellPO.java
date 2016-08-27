@@ -169,4 +169,34 @@ public class CellPO extends PatternObject<CellPO, Cell>
       return null;
    }
 
+   public ObjectPO createValuePO()
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Cell.PROPERTY_VALUE, result);
+      
+      return result;
+   }
+
+   public ObjectPO createValuePO(String modifier)
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Cell.PROPERTY_VALUE, result);
+      
+      return result;
+   }
+
+   public CellPO createValueLink(ObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, Cell.PROPERTY_VALUE);
+   }
+
+   public CellPO createValueLink(ObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Cell.PROPERTY_VALUE, modifier);
+   }
+
 }

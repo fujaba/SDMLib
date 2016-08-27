@@ -11,7 +11,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/main/java/org/sdmlib/models/tables/TableModel.java' type='text/x-java'>TableModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/SDMLib/TableModel.java' type='text/x-java'>TableModel</a></p>
 <script>
    var json = {
    "typ":"class",
@@ -41,10 +41,11 @@
       },
       {
          "typ":"node",
-         "id":"Cell",
-         "attributes":[
-            "value : Object"
-         ]
+         "id":"Cell"
+      },
+      {
+         "typ":"node",
+         "id":"Object"
       }
    ],
    "edges":[
@@ -98,6 +99,19 @@
             "id":"Cell",
             "cardinality":"many",
             "property":"cells"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "id":"Object",
+            "cardinality":"one",
+            "property":"value"
+         },
+         "target":{
+            "id":"Cell",
+            "cardinality":"one",
+            "property":"cell"
          }
       }
    ]

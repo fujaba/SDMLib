@@ -29,6 +29,7 @@ import org.sdmlib.models.tables.Column;
    /**
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/TableModel.java'>TableModel.java</a>
  */
    public  class Cell implements SendableEntity
 {
@@ -85,6 +86,7 @@ import org.sdmlib.models.tables.Column;
    {
       setRow(null);
       setColumn(null);
+      setValue(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -238,4 +240,11 @@ import org.sdmlib.models.tables.Column;
       return value;
    } 
 
+
+   public Object createValue()
+   {
+      Object value = new Object();
+      withValue(value);
+      return value;
+   } 
 }

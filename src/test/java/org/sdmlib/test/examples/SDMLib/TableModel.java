@@ -1,4 +1,4 @@
-package org.sdmlib.models.tables;
+package org.sdmlib.test.examples.SDMLib;
 
 import static org.junit.Assert.*;
 
@@ -14,8 +14,7 @@ import static de.uniks.networkparser.graph.DataType.*;
 public class TableModel
 {
    /**
-    * 
-    * @see <a href='../../../../../../../doc/TableModel.html'>TableModel.html</a>
+    * @see <a href='../../../../../../../../doc/TableModel.html'>TableModel.html</a>
     */
    @Test
    public void testTableModel() throws Exception
@@ -35,9 +34,12 @@ public class TableModel
          .withAttribute("tdCssClass", STRING)
          .withAttribute("thCssClass", STRING);
 
-      Clazz cellClass = model.createClazz("Cell")
-         .withAttribute("value", OBJECT);
-
+      Clazz cellClass = model.createClazz("Cell");
+      
+      Clazz objectClass = model.createClazz(Object.class.getName()).withExternal(true);
+      
+      cellClass.withUniDirectional(objectClass, "value", ONE);
+      
       tableClass.withBidirectional(columnClass, "columns", MANY, "table", ONE);
       tableClass.withBidirectional(rowClass, "rows", MANY, "table", ONE);
       columnClass.withBidirectional(cellClass, "cells", MANY, "column", ONE);
@@ -45,7 +47,7 @@ public class TableModel
 
       story.addClassDiagram(model);
 
-      model.generate();
+      model.generate("src/main/java");
 
       story.dumpHTML();
    }

@@ -15,6 +15,8 @@ class CreatorCreator{
       jsonIdMap.with(new ColumnPOCreator());
       jsonIdMap.with(new CellCreator());
       jsonIdMap.with(new CellPOCreator());
+      jsonIdMap.with(new ObjectCreator());
+      jsonIdMap.with(new ObjectPOCreator());
       return jsonIdMap;
    }
 }

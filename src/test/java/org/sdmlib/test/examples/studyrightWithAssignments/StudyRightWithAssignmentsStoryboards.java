@@ -851,7 +851,7 @@ public class StudyRightWithAssignmentsStoryboards
 
          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
          cell3PO.createCondition(cell -> cell.withValue(roomsPO.getStudents().size()) != null);
-
+         
          universityPO.doAllMatches();
 
          story.addCode();
