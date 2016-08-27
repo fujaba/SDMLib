@@ -660,7 +660,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             try
             {
-               hasPOMethod = setClass.getMethod("filter" + CGUtil.shortClassName(className) + "PO");
+               hasPOMethod = setClass.getMethod("create" + CGUtil.shortClassName(className) + "PO");
                patternObject = (PatternObject) hasPOMethod.invoke(setObject);
 
                patternObjectClass = patternObject.getClass();
