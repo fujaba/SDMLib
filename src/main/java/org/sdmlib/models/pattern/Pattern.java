@@ -513,6 +513,18 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
             role = new JsonObject();
             edge.put("target", role);
 
+            String modifier = link.getModifier();
+            if (Pattern.CREATE.equals(modifier))
+            {
+               edge.put("style", "create");
+
+            }
+            else if (Pattern.DESTROY.equals(modifier))
+            {
+               edge.put("style", Pattern.DESTROY);
+
+            }
+
             // role.put("cardinality", "one");
             role.put("property", link.getTgtRoleName());
             role.put("id", nameMap.get(tgt));
@@ -538,6 +550,18 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
             JsonObject node = new JsonObject();
             node.put("typ", "patternObject");
+
+            String modifier = po.getModifier();
+            if (Pattern.CREATE.equals(modifier))
+            {
+               node.put("style", Pattern.CREATE);
+
+            }
+            else if (Pattern.DESTROY.equals(modifier))
+            {
+               node.put("style", Pattern.DESTROY);
+
+            }
 
             String shortClassName = CGUtil.shortClassName(po.getClass().getName());
             String firstChar = shortClassName.substring(0, 1).toLowerCase();
