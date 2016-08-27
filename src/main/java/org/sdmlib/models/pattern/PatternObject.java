@@ -435,6 +435,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
+
    public Table createResultTable()
    {
       return this.getPattern().createResultTable();
@@ -1087,10 +1088,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return value;
    }
 
+
    public POC hasLinkConstraint(PatternObject tgt, String roleName)
    {
       return this.hasLinkConstraint(tgt, roleName, this.getPattern().getModifier());
    }
+
 
    public POC hasLinkConstraint(PatternObject tgt, String roleName, String modifier)
    {
@@ -1435,5 +1438,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       AttributeConstraint value = new AttributeConstraint();
       withAttrConstraints(value);
       return value;
+   }
+
+
+   public CloneOp createCloneOP()
+   {
+      return getPattern().createCloneOp();
    }
 }
