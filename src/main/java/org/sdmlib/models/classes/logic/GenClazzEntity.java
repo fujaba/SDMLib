@@ -17,6 +17,7 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
 import de.uniks.networkparser.EntityUtil;
@@ -429,6 +430,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
+         insertGetNewListMethod(modelSetParser);
          insertFilterMethod(modelSetParser);
          insertInstanceOfMethods(modelSetParser);
          insertSetWithWithout(modelSetParser);
@@ -714,6 +716,35 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                
             parser.insertImport(helperClassName);
          }
+      }
+   }
+
+
+   private void insertGetNewListMethod(Parser parser)
+   {
+      String shortClassName = CGUtil.shortClassName(model.getName(false));
+      String searchString = Parser.METHOD + ":getNewList(boolean)";
+      int pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+               "\n\n" +
+                  "   @Override\n" + 
+                  "   public ModelSetType getNewList(boolean keyValue)\n" + 
+                  "   {\n" + 
+                  "      return new ModelSetType();\n" + 
+                  "   }\n" + 
+                  "");
+
+         CGUtil.replaceAll(text,
+            "ModelSetType", shortClassName + "Set");
+
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+
+         parser.insertImport(Condition.class.getName());
       }
    }
 

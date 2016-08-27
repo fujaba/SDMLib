@@ -11,8 +11,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-
-public class UniversityPO extends PatternObject<UniversityPO, University>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
+   public class UniversityPO extends PatternObject<UniversityPO, University>
 {
 
     public UniversitySet allMatches()
@@ -32,10 +35,18 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public UniversityPO(){
       newInstance(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
@@ -43,6 +54,10 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       newInstance(null, hostGraphObject);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public UniversityPO(String modifier)
    {
       this.setModifier(modifier);
@@ -147,6 +162,10 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public RoomPO createRoomsPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
@@ -157,6 +176,10 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return result;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public RoomPO createRoomsPO(String modifier)
    {
       RoomPO result = new RoomPO(new Room[]{});

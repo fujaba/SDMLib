@@ -72,6 +72,13 @@ public class AssignmentSet extends SimpleSet<Assignment>
    }
 
 
+   @Override
+   public AssignmentSet getNewList(boolean keyValue)
+   {
+      return new AssignmentSet();
+   }
+
+
    public AssignmentSet filter(Condition<Assignment> condition) {
       AssignmentSet filterList = new AssignmentSet();
       filterItems(filterList, condition);

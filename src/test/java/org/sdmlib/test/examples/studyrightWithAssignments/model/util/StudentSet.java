@@ -77,6 +77,13 @@ public class StudentSet extends SimpleSet<Student>
    }
 
 
+   @Override
+   public StudentSet getNewList(boolean keyValue)
+   {
+      return new StudentSet();
+   }
+
+
    public StudentSet filter(Condition<Student> condition) {
       StudentSet filterList = new StudentSet();
       filterItems(filterList, condition);

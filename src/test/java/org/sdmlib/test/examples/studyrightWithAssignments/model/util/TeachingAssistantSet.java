@@ -77,6 +77,13 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
    }
 
 
+   @Override
+   public TeachingAssistantSet getNewList(boolean keyValue)
+   {
+      return new TeachingAssistantSet();
+   }
+
+
    public TeachingAssistantSet filter(Condition<TeachingAssistant> condition) {
       TeachingAssistantSet filterList = new TeachingAssistantSet();
       filterItems(filterList, condition);

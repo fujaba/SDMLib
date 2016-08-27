@@ -78,6 +78,13 @@ public class RoomSet extends SimpleSet<Room>
    }
 
 
+   @Override
+   public RoomSet getNewList(boolean keyValue)
+   {
+      return new RoomSet();
+   }
+
+
    public RoomSet filter(Condition<Room> condition) {
       RoomSet filterList = new RoomSet();
       filterItems(filterList, condition);

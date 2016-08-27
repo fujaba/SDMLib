@@ -134,7 +134,7 @@
 
          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
          cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
-
+         
          universityPO.doAllMatches();
 
 </pre><p>Results in:</p>

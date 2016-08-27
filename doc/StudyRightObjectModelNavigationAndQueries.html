@@ -70,9 +70,9 @@
          "typ":"node",
          "id":"Student",
          "methods":[
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
             "getFriendsTransitive() StudentSet",
-            "createFriendsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "createFriendsTeachingAssistant() TeachingAssistant"
          ]
       },
       {
@@ -80,9 +80,9 @@
          "id":"Room",
          "methods":[
             "findPath(int p0) String",
-            "getDoorsTransitive() RoomSet",
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
             "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "getDoorsTransitive() RoomSet"
          ]
       },
       {
@@ -93,8 +93,8 @@
          "typ":"node",
          "id":"Assignment",
          "methods":[
-            "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
+            "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
       {
@@ -108,8 +108,8 @@
          "typ":"node",
          "id":"University",
          "methods":[
-            "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
+            "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
       {
@@ -128,16 +128,17 @@
          "id":"AssignmentSet",
          "methods":[
             "getTypClass() Class<?>",
-            "getNewList(boolean p0) AssignmentSet",
             "createAssignmentPO() AssignmentPO",
             "getEntryType() String",
+            "getNewList(boolean p0) AssignmentSet",
+            "filter(Condition<Assignment> p0) AssignmentSet",
             "with(Object p0) AssignmentSet",
             "without(Assignment p0) AssignmentSet",
             "getContent() ObjectSet",
-            "createContentCondition(String p0) AssignmentSet",
+            "filterContent(String p0) AssignmentSet",
             "withContent(String p0) AssignmentSet",
             "getPoints() NumberList",
-            "createPointsCondition(int p0) AssignmentSet",
+            "filterPoints(int p0) AssignmentSet",
             "withPoints(int p0) AssignmentSet",
             "getStudents() StudentSet",
             "filterStudents(Object p0) AssignmentSet",
@@ -164,20 +165,21 @@
          "id":"RoomSet",
          "methods":[
             "getTypClass() Class<?>",
-            "filter(Condition<Room> p0) RoomSet",
             "createRoomPO() RoomPO",
             "getEntryType() String",
+            "getNewList(boolean p0) RoomSet",
+            "filter(Condition<Room> p0) RoomSet",
             "with(Object p0) RoomSet",
             "without(Room p0) RoomSet",
             "findPath(int p0) StringList",
             "getName() ObjectSet",
-            "createNameCondition(String p0) RoomSet",
+            "filterName(String p0) RoomSet",
             "withName(String p0) RoomSet",
             "getTopic() ObjectSet",
-            "createTopicCondition(String p0) RoomSet",
+            "filterTopic(String p0) RoomSet",
             "withTopic(String p0) RoomSet",
             "getCredits() NumberList",
-            "createCreditsCondition(int p0) RoomSet",
+            "filterCredits(int p0) RoomSet",
             "withCredits(int p0) RoomSet",
             "getUniversity() UniversitySet",
             "filterUniversity(Object p0) RoomSet",
@@ -214,6 +216,50 @@
       },
       {
          "typ":"node",
+         "id":"StudentSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createStudentPO() StudentPO",
+            "getEntryType() String",
+            "getNewList(boolean p0) StudentSet",
+            "filter(Condition<Student> p0) StudentSet",
+            "instanceOfTeachingAssistant() TeachingAssistantSet",
+            "with(Object p0) StudentSet",
+            "without(Student p0) StudentSet",
+            "getName() ObjectSet",
+            "filterName(String p0) StudentSet",
+            "withName(String p0) StudentSet",
+            "getId() ObjectSet",
+            "filterId(String p0) StudentSet",
+            "withId(String p0) StudentSet",
+            "getAssignmentPoints() NumberList",
+            "filterAssignmentPoints(int p0) StudentSet",
+            "withAssignmentPoints(int p0) StudentSet",
+            "getMotivation() NumberList",
+            "filterMotivation(int p0) StudentSet",
+            "withMotivation(int p0) StudentSet",
+            "getCredits() NumberList",
+            "filterCredits(int p0) StudentSet",
+            "withCredits(int p0) StudentSet",
+            "getUniversity() UniversitySet",
+            "filterUniversity(Object p0) StudentSet",
+            "withUniversity(University p0) StudentSet",
+            "getIn() RoomSet",
+            "filterIn(Object p0) StudentSet",
+            "withIn(Room p0) StudentSet",
+            "getFriends() StudentSet",
+            "filterFriends(Object p0) StudentSet",
+            "getFriendsTransitive() StudentSet",
+            "withFriends(Student p0) StudentSet",
+            "withoutFriends(Student p0) StudentSet",
+            "getDone() AssignmentSet",
+            "filterDone(Object p0) StudentSet",
+            "withDone(Assignment p0) StudentSet",
+            "withoutDone(Assignment p0) StudentSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"TeachingAssistantCreator",
          "methods":[
             "getSendableInstance(boolean p0) Object",
@@ -230,25 +276,27 @@
             "getTypClass() Class<?>",
             "createTeachingAssistantPO() TeachingAssistantPO",
             "getEntryType() String",
+            "getNewList(boolean p0) TeachingAssistantSet",
+            "filter(Condition<TeachingAssistant> p0) TeachingAssistantSet",
             "with(Object p0) TeachingAssistantSet",
             "without(TeachingAssistant p0) TeachingAssistantSet",
             "getCertified() BooleanList",
-            "createCertifiedCondition(boolean p0) TeachingAssistantSet",
+            "filterCertified(boolean p0) TeachingAssistantSet",
             "withCertified(boolean p0) TeachingAssistantSet",
             "getName() ObjectSet",
-            "createNameCondition(String p0) TeachingAssistantSet",
+            "filterName(String p0) TeachingAssistantSet",
             "withName(String p0) TeachingAssistantSet",
             "getId() ObjectSet",
-            "createIdCondition(String p0) TeachingAssistantSet",
+            "filterId(String p0) TeachingAssistantSet",
             "withId(String p0) TeachingAssistantSet",
             "getAssignmentPoints() NumberList",
-            "createAssignmentPointsCondition(int p0) TeachingAssistantSet",
+            "filterAssignmentPoints(int p0) TeachingAssistantSet",
             "withAssignmentPoints(int p0) TeachingAssistantSet",
             "getMotivation() NumberList",
-            "createMotivationCondition(int p0) TeachingAssistantSet",
+            "filterMotivation(int p0) TeachingAssistantSet",
             "withMotivation(int p0) TeachingAssistantSet",
             "getCredits() NumberList",
-            "createCreditsCondition(int p0) TeachingAssistantSet",
+            "filterCredits(int p0) TeachingAssistantSet",
             "withCredits(int p0) TeachingAssistantSet",
             "getUniversity() UniversitySet",
             "filterUniversity(Object p0) TeachingAssistantSet",
@@ -288,10 +336,12 @@
             "getTypClass() Class<?>",
             "createUniversityPO() UniversityPO",
             "getEntryType() String",
+            "getNewList(boolean p0) UniversitySet",
+            "filter(Condition<University> p0) UniversitySet",
             "with(Object p0) UniversitySet",
             "without(University p0) UniversitySet",
             "getName() ObjectSet",
-            "createNameCondition(String p0) UniversitySet",
+            "filterName(String p0) UniversitySet",
             "withName(String p0) UniversitySet",
             "getStudents() StudentSet",
             "filterStudents(Object p0) UniversitySet",
@@ -536,6 +586,19 @@
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"StudentSet",
+            "cardinality":"one",
+            "property":"studentset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
          }
       },
       {
@@ -1094,8 +1157,8 @@
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
 <p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>
-      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
-      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().filterCredits(17);
+      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
 <pre>      rooms17: (senate math 17)
@@ -1107,7 +1170,7 @@
 
 </pre><p>Results in:</p>
 <pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>
-      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
 
 </pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>
       university.getStudents().withMotivation(42);

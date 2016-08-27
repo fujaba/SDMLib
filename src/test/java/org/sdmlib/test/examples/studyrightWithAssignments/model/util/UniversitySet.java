@@ -71,6 +71,13 @@ public class UniversitySet extends SimpleSet<University>
    }
 
 
+   @Override
+   public UniversitySet getNewList(boolean keyValue)
+   {
+      return new UniversitySet();
+   }
+
+
    public UniversitySet filter(Condition<University> condition) {
       UniversitySet filterList = new UniversitySet();
       filterItems(filterList, condition);
