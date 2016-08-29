@@ -29,6 +29,7 @@ import org.sdmlib.models.tables.util.RowSet;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.util.ColumnSet;
 import org.sdmlib.models.tables.Column;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class CellSet extends SDMSet<Cell>
 {
@@ -280,4 +281,17 @@ public class CellSet extends SDMSet<Cell>
       return this;
    }
 
-}
+
+
+   @Override
+   public CellSet getNewList(boolean keyValue)
+   {
+      return new CellSet();
+   }
+
+
+   public CellSet filter(Condition<Cell> condition) {
+      CellSet filterList = new CellSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

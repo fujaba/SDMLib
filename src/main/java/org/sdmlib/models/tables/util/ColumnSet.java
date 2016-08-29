@@ -31,6 +31,7 @@ import org.sdmlib.models.tables.Table;
 import java.util.Collections;
 import org.sdmlib.models.tables.util.CellSet;
 import org.sdmlib.models.tables.Cell;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ColumnSet extends SDMSet<Column>
 {
@@ -485,6 +486,160 @@ public class ColumnSet extends SDMSet<Column>
       }
       
       return this;
+   }
+
+
+
+   @Override
+   public ColumnSet getNewList(boolean keyValue)
+   {
+      return new ColumnSet();
+   }
+
+
+   public ColumnSet filter(Condition<Column> condition) {
+      ColumnSet filterList = new ColumnSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterName(String value)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterName(String lower, String upper)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the tdCssClass attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterTdCssClass(String value)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (value.equals(obj.getTdCssClass()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the tdCssClass attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterTdCssClass(String lower, String upper)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (lower.compareTo(obj.getTdCssClass()) <= 0 && obj.getTdCssClass().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the thCssClass attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterThCssClass(String value)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (value.equals(obj.getThCssClass()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Column objects and collect those Column objects where the thCssClass attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Column objects that match the parameter
+    */
+   public ColumnSet filterThCssClass(String lower, String upper)
+   {
+      ColumnSet result = new ColumnSet();
+      
+      for (Column obj : this)
+      {
+         if (lower.compareTo(obj.getThCssClass()) <= 0 && obj.getThCssClass().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

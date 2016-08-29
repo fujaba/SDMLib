@@ -45,7 +45,7 @@ public class POCreatorTest
    public void testPOCreatorLargeModel()
    {
       StoryboardImpl storyboard = new StoryboardImpl();
-      storyboard.addStep("At first we instanciate a Model");
+      storyboard.addStep("At first we instantiate a Model");
 
       storyboard.markCodeStart();
       University university = new University().withName("StudyRight University");

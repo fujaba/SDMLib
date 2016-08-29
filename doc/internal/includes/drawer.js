@@ -36,6 +36,9 @@ Drawer.prototype.getColor = function (style, defaultColor) {
 		if (style.toLowerCase() === "create") {
 			return "#008000";
 		}
+		if (style.toLowerCase() === "destroy") {
+			return "#a00000";
+		}
 		if (style.toLowerCase() === "nac") {
 			return "#FE3E3E";
 		}

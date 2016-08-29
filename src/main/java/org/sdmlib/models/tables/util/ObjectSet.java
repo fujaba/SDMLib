@@ -24,6 +24,7 @@ package org.sdmlib.models.tables.util;
 import de.uniks.networkparser.list.SimpleSet;
 import java.lang.Object;
 import java.util.Collection;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ObjectSet extends SimpleSet<Object>
 {
@@ -89,4 +90,17 @@ public class ObjectSet extends SimpleSet<Object>
       return this;
    }
 
-}
+
+
+   @Override
+   public ObjectSet getNewList(boolean keyValue)
+   {
+      return new ObjectSet();
+   }
+
+
+   public ObjectSet filter(Condition<Object> condition) {
+      ObjectSet filterList = new ObjectSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -32,6 +32,7 @@ import java.util.Collections;
 import org.sdmlib.models.tables.util.CellSet;
 import org.sdmlib.models.tables.Cell;
 import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class RowSet extends SDMSet<Row>
 {
@@ -320,6 +321,66 @@ public class RowSet extends SDMSet<Row>
       }
       
       return this;
+   }
+
+
+
+   @Override
+   public RowSet getNewList(boolean keyValue)
+   {
+      return new RowSet();
+   }
+
+
+   public RowSet filter(Condition<Row> condition) {
+      RowSet filterList = new RowSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Row objects and collect those Row objects where the number attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Row objects that match the parameter
+    */
+   public RowSet filterNumber(int value)
+   {
+      RowSet result = new RowSet();
+      
+      for (Row obj : this)
+      {
+         if (value == obj.getNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Row objects and collect those Row objects where the number attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Row objects that match the parameter
+    */
+   public RowSet filterNumber(int lower, int upper)
+   {
+      RowSet result = new RowSet();
+      
+      for (Row obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

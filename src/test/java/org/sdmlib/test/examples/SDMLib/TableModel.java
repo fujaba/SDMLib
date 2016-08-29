@@ -19,7 +19,7 @@ public class TableModel
    @Test
    public void testTableModel() throws Exception
    {
-      StoryboardImpl story = new StoryboardImpl();
+      StoryboardImpl story = new StoryboardImpl().withDocDirName("doc/internal");
 
       ClassModel model = new ClassModel("org.sdmlib.models.tables");
 
