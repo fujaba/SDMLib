@@ -205,12 +205,8 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
    /**
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>
-    *      JsonPersistency.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
- */
+    */
    @Test
    public void testJsonPersistency()
    {
