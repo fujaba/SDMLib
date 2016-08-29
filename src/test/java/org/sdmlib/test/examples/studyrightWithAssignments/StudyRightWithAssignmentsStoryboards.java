@@ -67,10 +67,8 @@ import de.uniks.networkparser.json.JsonArray;
 public class StudyRightWithAssignmentsStoryboards
 {
    /**
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
- */
+    */
    @Test
    public void testStudyRightWithAssignmentsStoryboard()
    {

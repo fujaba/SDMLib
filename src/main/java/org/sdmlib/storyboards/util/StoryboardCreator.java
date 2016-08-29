@@ -6,6 +6,7 @@ import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.IdMap;
 
+@SuppressWarnings("deprecation")
 public class StoryboardCreator extends EntityFactory
 {
    private final String[] properties = new String[]

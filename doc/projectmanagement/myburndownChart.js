@@ -40,6 +40,10 @@ var computeBurndown = function()
 	var done = false;
 	var logList = [];
     
+	var releaseStartDate = "1970"; 
+	var releaseEndDate = "9999";
+
+
     for (var i = 0; i < bodyKids.length && ! done; i++)
     {
     	var current = bodyKids[i];
@@ -48,9 +52,11 @@ var computeBurndown = function()
     	
     	if (current.tagName == "DIV")
     	{
+    		// new issue
     		// look into it
     		var issueEstimated = {};
-    		var issueRemain = 64000;
+    		issueEstimated.estimated = 0;
+    		// var issueRemain = 64000;
     		var issueTimeSpent = 0;
     		var logEntry = {};
 
@@ -65,6 +71,20 @@ var computeBurndown = function()
 		    		var duration = text.split(" ")[1];
 		    		
 		    		issueEstimated.estimated = parseEffort(duration);
+		    	}
+		    	else if (text.startsWith("Start:"))
+		    	{
+		    		var split = text.split(" ");
+		    		var date = split[1];
+		    		
+		    		releaseStartDate = date;
+		    	}
+		    	else if (text.startsWith("End:"))
+		    	{
+		    		var split = text.split(" ");
+		    		var date = split[1];
+		    		
+		    		releaseEndDate = date;
 		    	}
 		    	else if (text.startsWith("Date:"))
 		    	{
