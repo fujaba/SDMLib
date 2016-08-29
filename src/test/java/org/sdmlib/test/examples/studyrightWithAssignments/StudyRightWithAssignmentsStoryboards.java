@@ -204,6 +204,7 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
+
    /**
     * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     */
