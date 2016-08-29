@@ -60,7 +60,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldConstantTransformation1()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("A constant transformation that creates a Greeting object");
 
       //==========================================================================
@@ -130,7 +130,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldConstantTransformation2WithReferences()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("A constant transformation that creates a Greeting object structure with references");
 
       //==========================================================================
@@ -210,7 +210,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldModelToText()
    {  
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("For model to text transformation we provide a simple template mechanism. ");
       
       storyboard.add("The model transformation that builds our object model looks like: ");
@@ -270,7 +270,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldCountNumberOfNodes()
    {  
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       //==========================================================================
 
@@ -488,7 +488,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldReverseEdges()
    {  
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       //==========================================================================
 
@@ -897,7 +897,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       storyboard.add("<hr/>");
       storyboard.add("Delete node with name n1 and its incidemnt edges.");

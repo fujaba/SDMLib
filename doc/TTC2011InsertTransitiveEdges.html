@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -677,28 +680,28 @@
          "attributes":[]
       },
       {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
          "typ":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
                "typ":"patternObject",
-               "id":"e6 : EdgePO",
+               "id":"e7 : EdgePO",
                "attributes":[]
             }
          ]
       },
       {
          "typ":"patternObject",
-         "id":"e7 : EdgePO",
+         "id":"e8 : EdgePO",
          "attributes":[
             "<< create>>"
          ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"n8 : NodePO",
-         "attributes":[]
       }
    ],
    "edges":[
@@ -765,29 +768,7 @@
          },
          "target":{
             "property":"tgt",
-            "id":"n8 : NodePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"n5 : NodePO"
-         },
-         "target":{
-            "property":"outEdges",
-            "id":"e6 : EdgePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"e6 : EdgePO"
-         },
-         "target":{
-            "property":"tgt",
-            "id":"n8 : NodePO"
+            "id":"n6 : NodePO"
          }
       },
       {
@@ -809,7 +790,29 @@
          },
          "target":{
             "property":"tgt",
-            "id":"n8 : NodePO"
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e8 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e8 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
          }
       }
    ]
@@ -851,28 +854,28 @@
          "attributes":[]
       },
       {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
          "typ":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
                "typ":"patternObject",
-               "id":"e6 : EdgePO",
+               "id":"e7 : EdgePO",
                "attributes":[]
             }
          ]
       },
       {
          "typ":"patternObject",
-         "id":"e7 : EdgePO",
+         "id":"e8 : EdgePO",
          "attributes":[
             "<< create>>"
          ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"n8 : NodePO",
-         "attributes":[]
       }
    ],
    "edges":[
@@ -939,29 +942,7 @@
          },
          "target":{
             "property":"tgt",
-            "id":"n8 : NodePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"n5 : NodePO"
-         },
-         "target":{
-            "property":"outEdges",
-            "id":"e6 : EdgePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"e6 : EdgePO"
-         },
-         "target":{
-            "property":"tgt",
-            "id":"n8 : NodePO"
+            "id":"n6 : NodePO"
          }
       },
       {
@@ -983,7 +964,29 @@
          },
          "target":{
             "property":"tgt",
-            "id":"n8 : NodePO"
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e8 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e8 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
          }
       }
    ]
@@ -991,7 +994,7 @@
    json["options"]={"canvasid":"canvasTTC2011InsertTransitiveEdgesPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>We have inserted 4 new transitive edges. Result graph:</p>
+<p>We have inserted 8 new transitive edges. Result graph:</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -1137,7 +1140,7 @@
       },
       {
          "typ":"clazz",
-         "id":"E23 : Edge"
+         "id":"E26 : Edge"
       },
       {
          "typ":"clazz",
@@ -1145,7 +1148,19 @@
       },
       {
          "typ":"clazz",
+         "id":"E23 : Edge"
+      },
+      {
+         "typ":"clazz",
          "id":"E24 : Edge"
+      },
+      {
+         "typ":"clazz",
+         "id":"E25 : Edge"
+      },
+      {
+         "typ":"clazz",
+         "id":"E27 : Edge"
       }
    ],
    "edges":[
@@ -1439,6 +1454,19 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
+            "property":"inEdges",
+            "id":"E26 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
             "property":"outEdges",
             "id":"E13 : Edge"
          },
@@ -1465,8 +1493,34 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
+            "property":"outEdges",
+            "id":"E22 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N3 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
             "property":"inEdges",
             "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N3 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E23 : Edge"
          },
          "target":{
             "cardinality":"one",
@@ -1504,6 +1558,32 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
+            "property":"outEdges",
+            "id":"E23 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E24 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
             "property":"inEdges",
             "id":"E13 : Edge"
          },
@@ -1531,7 +1611,20 @@
          "source":{
             "cardinality":"many",
             "property":"inEdges",
-            "id":"E23 : Edge"
+            "id":"E20 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E25 : Edge"
          },
          "target":{
             "cardinality":"one",
@@ -1557,20 +1650,7 @@
          "source":{
             "cardinality":"many",
             "property":"outEdges",
-            "id":"E22 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N5 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E23 : Edge"
+            "id":"E25 : Edge"
          },
          "target":{
             "cardinality":"one",
@@ -1584,6 +1664,32 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N5 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E22 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N5 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E27 : Edge"
          },
          "target":{
             "cardinality":"one",
@@ -1621,6 +1727,32 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
+            "property":"outEdges",
+            "id":"E26 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E27 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
             "property":"inEdges",
             "id":"E11 : Edge"
          },
@@ -1647,6 +1779,19 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
+            "property":"inEdges",
+            "id":"E24 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
             "property":"outEdges",
             "id":"E18 : Edge"
          },
@@ -1673,19 +1818,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"E24 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N9 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
             "property":"inEdges",
             "id":"E18 : Edge"
          },
@@ -1701,19 +1833,6 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"E19 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N9 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E24 : Edge"
          },
          "target":{
             "cardinality":"one",

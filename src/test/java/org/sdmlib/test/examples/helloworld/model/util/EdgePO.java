@@ -347,6 +347,97 @@ public class EdgePO extends PatternObject<EdgePO, Edge>
       return this;
    }
    
+
+   public EdgePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public EdgePO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public EdgePO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public EdgePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public EdgePO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public EdgePO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public EdgePO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 
 

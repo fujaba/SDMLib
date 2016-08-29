@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -718,102 +721,8 @@
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate per pattern: </h2><pre>   private Graph simpleMigrationPerPattern(Graph graph, StoryPage storyboard)
-   {
-      &#x2F;&#x2F;==========================================================================
-      &#x2F;&#x2F; create target graph
-      srcGraphPO = new GraphPO(graph);
-
-      GraphPO tgtGraphPO = (GraphPO) new GraphPO().withPattern(srcGraphPO.getPattern()).withModifier(Pattern.CREATE);
-      tgtGraphPO.findNextMatch();
-
-      Graph result = tgtGraphPO.getCurrentMatch();
-
-      storyboard.addPattern(srcGraphPO, false);
-
-      &#x2F;&#x2F;==========================================================================
-      &#x2F;&#x2F; copy nodes
-      int noOfMatches = 0;
-
-      srcGraphPO = new GraphPO(graph);
-
-      NodePO srcNodePO = srcGraphPO.hasNodes();
-
-      tgtGraphPO = (GraphPO) new GraphPO(tgtGraphPO.getCurrentMatch())
-      .withPattern(srcGraphPO.getPattern());
-
-      srcGraphPO.startCreate();
-
-      NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
-
-      tgtNodePO.hasOrig(srcNodePO);
-
-      while (srcGraphPO.getPattern().getHasMatch())
-      {
-         tgtNodePO.withText(srcNodePO.getName());
-
-         noOfMatches++;
-
-         srcGraphPO.getPattern().findNextMatch();
-      }
-
-      systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
-
-      storyboard.addPattern(srcGraphPO, false);
-
-      &#x2F;&#x2F;==========================================================================
-      noOfMatches = 0;
-
-      srcGraphPO = new GraphPO(graph);
-
-      EdgePO srcEdgePO = srcGraphPO.hasEdges();
-
-      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern());
-
-      tgtGraphPO.startCreate();
-
-      EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
-
-      boolean done = false;
-
-      while (tgtEdgePO.getPattern().getHasMatch())
-      {
-         tgtEdgePO.withText(srcEdgePO.getName());
-
-         copySrcNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
-         .hasSrc()
-         .hasCopy();
-
-         EdgePO copyEdgePO = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copySrcNodePO.getPattern());
-
-         copySrcNodePO.startCreate();
-
-         copyEdgePO.hasSrc(copySrcNodePO);
-
-
-         copyTgtNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
-         .hasTgt()
-         .hasCopy();
-
-         EdgePO copyEdgePO2 = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copyTgtNodePO.getPattern());
-
-         copyTgtNodePO.startCreate();
-
-         copyEdgePO2.hasTgt(copyTgtNodePO);
-
-         noOfMatches++;
-
-         tgtEdgePO.getPattern().findNextMatch();
-      }
-
-      systemout += &quot;\nNumber of migrated Edges: &quot; + noOfMatches;
-
-      storyboard.addPattern(tgtEdgePO, false);
-      storyboard.addPattern(copySrcNodePO, false);
-      storyboard.addPattern(copyTgtNodePO, false);
-
-      return result;
-   }</pre><script>
+<hr/><h2>Migrate per pattern: </h2><p>did not find method simpleMigrationPerPattern(Graph,StoryPage) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
+<script>
    var json = {
    "typ":"object",
    "nodes":[
@@ -3679,58 +3588,8 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration39", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
-   {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
-
-      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-
-      &#x2F;&#x2F; rename name to text attributes
-      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
-      graphPO.hasObjects()
-      .hasAttrs()
-      .hasName(Node.PROPERTY_NAME)
-      .startCreate()
-      .hasName(Node.PROPERTY_TEXT)
-      .allMatches();
-
-      storyboard.addPattern(graphPO, false);
-
-      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-
-      &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
-      graphPO = new GenericGraphPO(genGraph);
-      graphPO
-      .hasLinks()
-      .hasTgtLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasTgtLabel(Node.PROPERTY_PARENT)
-      .hasSrcLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-
-      storyboard.addPattern(graphPO, false);
-
-      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-
-      &#x2F;&#x2F; rename graph--edges links to parent--gcs links
-      graphPO = new GenericGraphPO(genGraph);
-      graphPO
-      .hasLinks()
-      .hasSrcLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasSrcLabel(Node.PROPERTY_PARENT)
-      .hasTgtLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-
-      storyboard.addPattern(graphPO, false);
-
-      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-
-      return tgtGraph;
-   }</pre><script>
+<hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,StoryPage) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
+<script>
    var json = {
    "typ":"objectdiagram",
    "style":null,
@@ -8662,63 +8521,8 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration53", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
-   {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
-
-      &#x2F;&#x2F; rename name to text attributes
-      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
-      graphPO
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Node.PROPERTY_NAME)
-      .startCreate()
-      .hasName(Node.PROPERTY_TEXT)
-      .allMatches();
-
-      storyboard.addPattern(graphPO, false);
-
-      &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
-      GenericObjectPO edgePO = new GenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Edge.class.getName());
-
-      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_SRC);
-
-      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
-
-      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
-
-      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
-
-      edgePO.destroy(); 
-
-      srcLinkPO.destroy();
-
-      GenericLinkSet allMatches = tgtLinkPO.startCreate()
-            .hasSrc(srcNodePO)
-            .hasSrcLabel(Node.PROPERTY_LINKSFROM)
-            .hasTgtLabel(Node.PROPERTY_LINKSTO)
-            .allMatches();
-
-      storyboard.addPattern(edgePO, false);
-
-      &#x2F;&#x2F; destroy dangling edges
-      GenericObjectPO danglingPO = new GenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Edge.class.getName());
-
-      danglingPO.destroy();
-
-      danglingPO.allMatches();
-
-      storyboard.addPattern(danglingPO, false);
-
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-
-      return tgtGraph;
-   }</pre><script>
+<p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,StoryPage) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
+<script>
    var json = {
    "typ":"object",
    "nodes":[

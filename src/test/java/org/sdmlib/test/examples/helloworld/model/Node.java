@@ -768,5 +768,12 @@ import org.sdmlib.test.examples.helloworld.model.Graph;
    	}
    	return false;
    }
+   
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
+}
 

@@ -161,5 +161,53 @@ public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphCompo
       return this;
    }
    
+
+   public GraphComponentPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GraphComponentPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphComponentPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphComponentPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }
 

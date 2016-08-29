@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class EdgeSet extends SimpleSet<Edge>
 {
@@ -483,7 +484,26 @@ public class EdgeSet extends SimpleSet<Edge>
    {
       this.addAll(objects);
    }
-}
+
+
+   public EdgePO createEdgePO()
+   {
+      return new EdgePO(this.toArray(new Edge[this.size()]));
+   }
+
+
+   @Override
+   public EdgeSet getNewList(boolean keyValue)
+   {
+      return new EdgeSet();
+   }
+
+
+   public EdgeSet filter(Condition<Edge> condition) {
+      EdgeSet filterList = new EdgeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

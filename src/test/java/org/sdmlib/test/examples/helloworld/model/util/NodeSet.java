@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -815,4 +816,23 @@ public class NodeSet extends SimpleSet<Node>
    {
       this.addAll(objects);
    }
-}
+
+
+   public NodePO createNodePO()
+   {
+      return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   @Override
+   public NodeSet getNewList(boolean keyValue)
+   {
+      return new NodeSet();
+   }
+
+
+   public NodeSet filter(Condition<Node> condition) {
+      NodeSet filterList = new NodeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
