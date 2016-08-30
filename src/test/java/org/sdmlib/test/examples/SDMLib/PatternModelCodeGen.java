@@ -1,3 +1,4 @@
+package org.sdmlib.test.examples.SDMLib;
 
 /*
    Copyright (c) 2012 zuendorf 
