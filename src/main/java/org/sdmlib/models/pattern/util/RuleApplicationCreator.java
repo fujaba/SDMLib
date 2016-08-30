@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern.util;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.RuleApplication;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachableState;
 
 public class RuleApplicationCreator implements SendableEntityCreator
@@ -31,6 +32,7 @@ public class RuleApplicationCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       RuleApplication.PROPERTY_DESCRIPTION,
+      RuleApplication.PROPERTY_RULE,
       RuleApplication.PROPERTY_SRC,
       RuleApplication.PROPERTY_TGT,
    };
@@ -63,6 +65,11 @@ public class RuleApplicationCreator implements SendableEntityCreator
          return ((RuleApplication) target).getDescription();
       }
 
+      if (RuleApplication.PROPERTY_RULE.equalsIgnoreCase(attribute))
+      {
+         return ((RuleApplication) target).getRule();
+      }
+
       if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attribute))
       {
          return ((RuleApplication) target).getSrc();
@@ -88,6 +95,12 @@ public class RuleApplicationCreator implements SendableEntityCreator
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (RuleApplication.PROPERTY_RULE.equalsIgnoreCase(attrName))
+      {
+         ((RuleApplication) target).setRule((Pattern) value);
+         return true;
       }
 
       if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attrName))

@@ -622,7 +622,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
             addNodesToDiagram(subPattern.getElements(), subNodes, nameMap);
 
-            System.out.println("");
          }
 
       }

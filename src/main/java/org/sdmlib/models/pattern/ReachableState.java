@@ -43,8 +43,7 @@ import de.uniks.networkparser.json.JsonTokener;
 
 /**
  * 
- * @see <a href=
- *      '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
 public class ReachableState implements PropertyChangeInterface, SendableEntity
 {
@@ -63,15 +62,18 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private String certificate = null;
 
+
    public String getCertificate()
    {
       return certificate;
    }
 
+
    public void setCertificate(String certificate)
    {
       this.certificate = certificate;
    }
+
 
    public String computeCertificate(IdMap map)
    {
@@ -220,6 +222,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return this.certificate;
    }
 
+
    // ==========================================================================
 
    private long countBlanks(String str)
@@ -241,11 +244,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
+
 
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
@@ -253,11 +258,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return true;
    }
 
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
+
 
    public boolean removePropertyChangeListener(PropertyChangeListener listener)
    {
@@ -267,6 +274,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
       return true;
    }
+
 
    public boolean removePropertyChangeListener(String property,
          PropertyChangeListener listener)
@@ -278,6 +286,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return true;
    }
    // ==========================================================================
+
 
    public void removeYou()
    {
@@ -303,10 +312,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private ReachabilityGraph parent = null;
 
+
    public ReachabilityGraph getParent()
    {
       return this.parent;
    }
+
 
    public boolean setParent(ReachabilityGraph value)
    {
@@ -336,11 +347,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return changed;
    }
 
+
    public ReachableState withParent(ReachabilityGraph value)
    {
       setParent(value);
       return this;
    }
+
 
    public ReachabilityGraph createParent()
    {
@@ -353,6 +366,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private HashMap<String, String> node2certificates;
 
+
    public HashMap<String, String> getNode2certificates()
    {
       return node2certificates;
@@ -363,10 +377,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private Object graphRoot;
 
+
    public Object getGraphRoot()
    {
       return this.graphRoot;
    }
+
 
    public void setGraphRoot(Object value)
    {
@@ -377,6 +393,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
          getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPHROOT, oldValue, value);
       }
    }
+
 
    public ReachableState withGraphRoot(Object value)
    {
@@ -390,10 +407,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private long number;
 
+
    public long getNumber()
    {
       return this.number;
    }
+
 
    public void setNumber(long value)
    {
@@ -405,11 +424,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
    }
 
+
    public ReachableState withNumber(long value)
    {
       setNumber(value);
       return this;
    }
+
 
    @Override
    public String toString()
@@ -433,15 +454,17 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private RuleApplicationSet ruleapplications = null;
 
+
    public RuleApplicationSet getRuleapplications()
    {
       if (this.ruleapplications == null)
       {
-         return RuleApplication.EMPTY_SET;
+         return RuleApplicationSet.EMPTY_SET;
       }
 
       return this.ruleapplications;
    }
+
 
    public boolean addToRuleapplications(RuleApplication value)
    {
@@ -466,6 +489,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return changed;
    }
 
+
    public boolean removeFromRuleapplications(RuleApplication value)
    {
       boolean changed = false;
@@ -484,17 +508,20 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return changed;
    }
 
+
    public ReachableState withRuleapplications(RuleApplication value)
    {
       addToRuleapplications(value);
       return this;
    }
 
+
    public ReachableState withoutRuleapplications(RuleApplication value)
    {
       removeFromRuleapplications(value);
       return this;
    }
+
 
    public void removeAllFromRuleapplications()
    {
@@ -505,6 +532,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
          this.removeFromRuleapplications(value);
       }
    }
+
 
    public RuleApplication createRuleapplications()
    {
@@ -525,15 +553,17 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private RuleApplicationSet resultOf = null;
 
+
    public RuleApplicationSet getResultOf()
    {
       if (this.resultOf == null)
       {
-         return RuleApplication.EMPTY_SET;
+         return RuleApplicationSet.EMPTY_SET;
       }
 
       return this.resultOf;
    }
+
 
    public boolean addToResultOf(RuleApplication value)
    {
@@ -558,6 +588,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return changed;
    }
 
+
    public boolean removeFromResultOf(RuleApplication value)
    {
       boolean changed = false;
@@ -576,17 +607,20 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return changed;
    }
 
+
    public ReachableState withResultOf(RuleApplication value)
    {
       addToResultOf(value);
       return this;
    }
 
+
    public ReachableState withoutResultOf(RuleApplication value)
    {
       removeFromResultOf(value);
       return this;
    }
+
 
    public void removeAllFromResultOf()
    {
@@ -598,12 +632,14 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
    }
 
+
    public RuleApplication createResultOf()
    {
       RuleApplication value = new RuleApplication();
       withResultOf(value);
       return value;
    }
+
 
    public ReachableState withRuleapplications(RuleApplication... value)
    {
@@ -618,6 +654,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return this;
    }
 
+
    public ReachableState withoutRuleapplications(RuleApplication... value)
    {
       for (RuleApplication item : value)
@@ -626,6 +663,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
       return this;
    }
+
 
    public ReachableState withResultOf(RuleApplication... value)
    {
@@ -639,6 +677,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
       return this;
    }
+
 
    public ReachableState withoutResultOf(RuleApplication... value)
    {
@@ -655,10 +694,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private double metricValue;
 
+
    public double getMetricValue()
    {
       return this.metricValue;
    }
+
 
    public void setMetricValue(double value)
    {
@@ -671,6 +712,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
    }
 
+
    public ReachableState withMetricValue(double value)
    {
       setMetricValue(value);
@@ -680,6 +722,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    public static String PROPERTY_FAILURE_STATE = "failureState";
 
    private boolean failureState;
+
 
    public void setFailureState(boolean b)
    {
@@ -693,6 +736,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       this.failureState = b;
 
    }
+
 
    public boolean isFailureState()
    {

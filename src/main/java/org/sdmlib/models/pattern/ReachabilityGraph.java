@@ -779,7 +779,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      // newReachableState is isomorphic to oldState. Just add a
                      // link from first to oldState
-                     current.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                     current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(oldState);
                      break;
                   }
                }
@@ -789,7 +789,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // no isomorphic old state, add new state
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate,
                      newReachableState);
-                  current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
                   // progress bar, 30 steps
                   if (maxNoOfNewStates < 30 || size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
@@ -979,7 +979,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                            // add
                            // a
                            // link from first to oldState
-                           current.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                           current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(oldState);
                            break;
                         }
                      }
@@ -992,7 +992,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                      threadPool.submit(new Worker(hostgraph, newReachableState, threadPool));
 
-                     current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                     current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(newReachableState);
                      int size = hostgraph.getStates().size();
 
                   }
