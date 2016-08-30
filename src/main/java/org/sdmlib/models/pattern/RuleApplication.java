@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,62 +21,75 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachableState;
    /**
     * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class RuleApplication implements PropertyChangeInterface, SendableEntity
+    * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+   public  class RuleApplication implements SendableEntity
 {
+
+   
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
-
+   
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
-
+   
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
    
    //==========================================================================
+   
    
    public void removeYou()
    {
+      setRule(null);
       setSrc(null);
       setTgt(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -93,11 +106,11 @@ import org.sdmlib.models.pattern.ReachableState;
    
    public void setDescription(String value)
    {
-      if ( ! StrUtil.stringEquals(this.description, value))
-      {
+      if ( ! EntityUtil.stringEquals(this.description, value)) {
+      
          String oldValue = this.description;
          this.description = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DESCRIPTION, oldValue, value);
+         this.firePropertyChange(PROPERTY_DESCRIPTION, oldValue, value);
       }
    }
    
@@ -107,18 +120,66 @@ import org.sdmlib.models.pattern.ReachableState;
       return this;
    } 
 
+
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getDescription());
-      return s.substring(1);
+      result.append(" ").append(this.getDescription());
+      return result.substring(1);
    }
 
 
    
-   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet();
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * RuleApplication ----------------------------------- Pattern
+    *              ruleapplication                   rule
+    * </pre>
+    */
+   
+   public static final String PROPERTY_RULE = "rule";
+
+   private Pattern rule = null;
+
+   public Pattern getRule()
+   {
+      return this.rule;
+   }
+
+   public boolean setRule(Pattern value)
+   {
+      boolean changed = false;
+      
+      if (this.rule != value)
+      {
+         Pattern oldValue = this.rule;
+         
+         
+         this.rule = value;
+         
+         
+         firePropertyChange(PROPERTY_RULE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public RuleApplication withRule(Pattern value)
+   {
+      setRule(value);
+      return this;
+   } 
+
+   public Pattern createRule()
+   {
+      Pattern value = new Pattern();
+      withRule(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -130,14 +191,14 @@ import org.sdmlib.models.pattern.ReachableState;
     */
    
    public static final String PROPERTY_SRC = "src";
-   
+
    private ReachableState src = null;
-   
+
    public ReachableState getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(ReachableState value)
    {
       boolean changed = false;
@@ -159,19 +220,19 @@ import org.sdmlib.models.pattern.ReachableState;
             value.withRuleapplications(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+         firePropertyChange(PROPERTY_SRC, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
-   
+
    public RuleApplication withSrc(ReachableState value)
    {
       setSrc(value);
       return this;
    } 
-   
+
    public ReachableState createSrc()
    {
       ReachableState value = new ReachableState();
@@ -189,14 +250,14 @@ import org.sdmlib.models.pattern.ReachableState;
     */
    
    public static final String PROPERTY_TGT = "tgt";
-   
+
    private ReachableState tgt = null;
-   
+
    public ReachableState getTgt()
    {
       return this.tgt;
    }
-   
+
    public boolean setTgt(ReachableState value)
    {
       boolean changed = false;
@@ -218,33 +279,23 @@ import org.sdmlib.models.pattern.ReachableState;
             value.withResultOf(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);
+         firePropertyChange(PROPERTY_TGT, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
-   
+
    public RuleApplication withTgt(ReachableState value)
    {
       setTgt(value);
       return this;
    } 
-   
+
    public ReachableState createTgt()
    {
       ReachableState value = new ReachableState();
       withTgt(value);
       return value;
    } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
-
+}
