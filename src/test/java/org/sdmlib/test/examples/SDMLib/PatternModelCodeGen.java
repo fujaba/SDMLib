@@ -1,3 +1,4 @@
+
 /*
    Copyright (c) 2012 zuendorf 
    
@@ -19,29 +20,25 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package org.sdmlib.test.examples.SDMLib;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.GraphList;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class PatternModelCodeGen
 {
    /**
     * 
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
-    * @see <a href=
-    *      '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href= '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href= '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href= '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href= '../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href='../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
     */
    @Test
    public void testPatternModelCodegen()
@@ -104,7 +101,8 @@ public class PatternModelCodeGen
 
       patternObject.withBidirectional(attrConstraint, "attrConstraints", Cardinality.MANY, "src", Cardinality.ONE);
       // new Association(patternObject).with("src").with(Cardinality.ONE)
-//      	.with(new Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
+      // .with(new
+      // Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
 
       model.createClazz("LinkConstraint")
          .withSuperClazz(patternLink);
@@ -142,6 +140,8 @@ public class PatternModelCodeGen
          .withBidirectional(patternObject, "forbidden", Cardinality.ONE, "excluders", Cardinality.MANY);
 
       model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)
+         .withUniDirectional(patternObject, "src", Cardinality.ONE)
+         .withAttribute("condition", DataType.create(Condition.class))
          .withSuperClazz(patternElement);
 
       Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
@@ -161,14 +161,16 @@ public class PatternModelCodeGen
 
       ruleApplication.withBidirectional(rState, "tgt", Cardinality.ONE, "resultOf", Cardinality.MANY);
 
+      ruleApplication.withUniDirectional(pattern, "rule", Cardinality.ONE);
+
       reachabilityGraph.withUniDirectional(rState, "todo", Cardinality.MANY);
 
-      reachabilityGraph.withBidirectional(pattern, "rules", Cardinality.MANY, "rgraph", Cardinality.ONE);
+      reachabilityGraph.withUniDirectional(pattern, "rules", Cardinality.MANY);
 
-      model.getGenerator().withShowDiff(DIFF.FULL);
-      GraphList list = new GraphList();
-      list.with(model.getClazzes().toArray());
-      model.generate("src/main/java");
+      // model.getGenerator().withShowDiff(DIFF.FULL);
+      // GraphList list = new GraphList();
+      // list.with(model.getClazzes().toArray());
+      // model.generate("src/main/java");
 
       storyboard.addClassDiagram(model);
 
