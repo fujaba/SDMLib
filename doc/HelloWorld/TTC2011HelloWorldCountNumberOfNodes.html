@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldCountNumberOfNodes</a></p>
+<hr/><p>Simple Graph application classes: </p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Graph"
+      },
+      {
+         "typ":"node",
+         "id":"Edge",
+         "attributes":[
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Node",
+         "attributes":[
+            "name : String"
+         ]
+      }
+   ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+<hr/><p>create example graph: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"S1 : SDMLibJsonIdMap"
+      },
+      {
+         "typ":"clazz",
+         "id":"G2 : Graph"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodes6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<hr/><h2>Count nodes in graph direct: </h2><pre>   public void countNodesInJava(Graph graph)
+   {
+      int noOfNodes = graph.getNodes().size();
+
+      systemout = &quot;Number of nodes: &quot; + noOfNodes;
+   }</pre><p>systemout: Number of nodes: 8</p>
+<p>Count nodes in graph per pattern: </p>
+<pre>   public void countNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+
+      NodePO nodePO = graphPO.hasNodes();
+
+      int noOfNodes = graphPO.getPattern().allMatches();
+
+      systemout = &quot;Number of nodes: &quot; + noOfNodes;
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Number of nodes: 8</p>
+<p>Retrieve set of matching nodes per pattern and count its elements: </p>
+<pre>   public void countNodesPerNodeSet(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+
+      NodeSet allMatches = graphPO
+            .hasNodes()
+            .allMatches();
+
+      systemout = &quot;Nodes: &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; Number of nodes: &quot; + allMatches.size();      
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram18", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Nodes: n1, n2, n3, n4, n5, n6, n7, n8 Number of nodes: 8</p>
+<hr/><h2>Retrieve set of looping edges per pattern and count its elements: </h2><pre>   public void countLoopingEdgesPerPattern(Graph graph)
+   {
+      edgesPO = new GraphPO(graph)
+      .hasEdges();
+
+      NodePO srcPO = edgesPO.hasSrc();
+
+      edgesPO.hasTgt(srcPO);
+
+      EdgeSet loopingEdges = edgesPO.allMatches();
+
+      systemout = &quot;Looping Edges: &quot; + loopingEdges.getName().concat(&quot;, &quot;) + &quot; Number of looping edges: &quot; + loopingEdges.size();
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram23", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram24", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Looping Edges: e16, e17 Number of looping edges: 2</p>
+<p>For comparison a Java solution: </p>
+<pre>   public void countLoopingEdgesInJava(Graph graph)
+   {
+      String sysout = &quot;Looping Edges: &quot;;
+
+      int noOfLoopingEdges = 0;
+
+      for (Edge edge : graph.getEdges())
+      {
+         if (edge.getSrc() != null &amp;&amp; edge.getSrc() == edge.getTgt())
+         {
+            noOfLoopingEdges++;
+
+            sysout += edge.getName() + &quot;, &quot;;
+         }
+      }
+
+      systemout = sysout.substring(0, sysout.length() - 2) + &quot; Number of looping edges: &quot; + noOfLoopingEdges;
+   }</pre><p>systemout: Looping Edges: e16, e17 Number of looping edges: 2</p>
+<hr/><h2>Retrieve isolated nodes and count them: </h2><pre>   public void countIsolatedNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+
+      NodePO nodePO = graphPO.hasNodes();
+
+      nodePO.startNAC().hasOutEdges().endNAC();
+
+      nodePO.startNAC().hasInEdges().endNAC();
+
+      NodeSet isolatedNodes = nodePO.allMatches();
+
+      systemout = &quot;Isolated nodes: &quot; + isolatedNodes.getName().concat(&quot;, &quot;) + &quot; Number of isolated nodes: &quot; + isolatedNodes.size();
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e3 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e4 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"inEdges",
+            "id":"e4 : EdgePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram32", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e3 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e4 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"inEdges",
+            "id":"e4 : EdgePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram33", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</p>
+<p>For comparison a Java solution: </p>
+<pre>   public void countIsolatedNodesInJava(Graph graph)
+   {
+      systemout = &quot;Isolated nodes: &quot;;
+
+      int noOfIsolatedNodes = 0;
+
+      for (Node isoNode : graph.getNodes())
+      {
+         if (isoNode.getOutEdges().size() == 0 
+               &amp;&amp; isoNode.getInEdges().size() == 0)
+         {
+            noOfIsolatedNodes++;
+
+            systemout += isoNode.getName() + &quot;, &quot;;
+         }
+      }
+
+      systemout = systemout.substring(0, systemout.length() - 2) + &quot; Number of isolated nodes: &quot; + noOfIsolatedNodes;
+   }</pre><p>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</p>
+<hr/><h2>Count circles of three nodes: </h2><pre>   public void countCirclesOfThreeNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+
+      NodePO firstCircleNodePO = graphPO.hasNodes();
+
+      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+
+      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+
+      graphPO.getPattern().matchIsomorphic();
+
+      int noOfCircles = graphPO.getPattern().allMatches();
+
+      systemout = &quot;Circles found: &quot; + noOfCircles;
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e5 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e7 : EdgePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n4 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e5 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e5 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n6 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram41", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e5 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e7 : EdgePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n4 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e5 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e5 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n6 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram42", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Circles found: 6</p>
+<p>If you want to print the matched nodes for each circle, you need to iterate through the matches: </p>
+<pre>   public void countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+
+      NodePO firstCircleNodePO = graphPO.hasNodes();
+
+      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+
+      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+
+      graphPO.getPattern().matchIsomorphic();
+
+      systemout = &quot;Circles found: \n&quot;;
+      int noOfCircles = 0;
+
+      while (graphPO.getPattern().getHasMatch())
+      {
+         systemout += firstCircleNodePO.getName() + &quot; --&gt; &quot;
+               + secondCircleNodePO.getName() + &quot; --&gt; &quot; 
+               + thirdCircleNodePO.getName() + &quot; --&gt; \n&quot;;
+
+         noOfCircles++; 
+
+         graphPO.getPattern().findNextMatch();
+      }
+
+      systemout += &quot;&quot; + noOfCircles + &quot; circles found&quot;;
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e5 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e7 : EdgePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n4 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e5 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e5 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n6 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e5 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e7 : EdgePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n4 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e5 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e5 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n6 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram47", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Circles found: 
+n1 --> n2 --> n3 --> 
+n2 --> n3 --> n1 --> 
+n3 --> n1 --> n2 --> 
+n3 --> n4 --> n5 --> 
+n4 --> n5 --> n3 --> 
+n5 --> n3 --> n4 --> 
+6 circles found</p>
+<p>Just for comparison, a plain java implementation: </p>
+<pre>   public void countCirclesOfThreeNodesInJava(Graph graph)
+   {
+      int noOfCircles = 0;
+
+      systemout = &quot;Circles found: \n&quot;;
+
+      for (Node firstNode : graph.getNodes())
+      {
+         for (Edge firstEdge : firstNode.getOutEdges())
+         {
+            Node secondNode = firstEdge.getTgt();
+
+            if (secondNode != null &amp;&amp; secondNode != firstNode)
+            {
+               for (Edge secondEdge : secondNode.getOutEdges())
+               {
+                  Node thirdNode = secondEdge.getTgt();
+
+                  if (thirdNode != null &amp;&amp; thirdNode != secondNode &amp;&amp; thirdNode != firstNode)
+                  {
+                     for (Edge thirdEdge : thirdNode.getOutEdges())
+                     {
+                        if (thirdEdge.getTgt() == firstNode)
+                        {
+                           &#x2F;&#x2F; found match
+                           systemout += firstNode.getName() + &quot; --&gt; &quot;
+                                 + secondNode.getName() + &quot; --&gt; &quot; 
+                                 + thirdNode.getName() + &quot; --&gt; \n&quot;;
+
+                           noOfCircles++;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+
+      systemout += &quot;&quot; + noOfCircles + &quot; circles found&quot;;
+   }</pre><p>systemout: Circles found: 
+n1 --> n2 --> n3 --> 
+n2 --> n3 --> n1 --> 
+n3 --> n1 --> n2 --> 
+n3 --> n4 --> n5 --> 
+n4 --> n5 --> n3 --> 
+n5 --> n3 --> n4 --> 
+6 circles found</p>
+<hr/><h2>Count dangling edges per pattern: </h2><pre>   public void countDanglingEdgesPerPattern(Graph graph)
+   {
+      edgesPO = new GraphPO(graph).hasEdges();
+
+      edgesPO.startNAC().hasTgt();
+
+      edgesPO.hasSrc().endNAC();
+
+      EdgeSet allMatches = edgesPO.allMatches();
+
+      systemout = &quot;Dangling edges &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; number: &quot; + allMatches.size();
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"n3 : NodePO",
+               "attributes":[]
+            },
+            {
+               "typ":"patternObject",
+               "id":"n4 : NodePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram55", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"n3 : NodePO",
+               "attributes":[]
+            },
+            {
+               "typ":"patternObject",
+               "id":"n4 : NodePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodesPatternDiagram56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>systemout: Dangling edges e18, e19 number: 2</p>
+<p>Count dangling edges in Java: </p>
+<pre>   public void countDanglingEdgesInJava(Graph graph)
+   {
+      systemout = &quot;Dangling edges &quot;; 
+
+      int noOfMatches = 0;
+
+      for (Edge edge : graph.getEdges())
+      {
+         if (edge.getSrc() == null
+               || edge.getTgt() == null)
+         {
+            systemout += edge.getName() + &quot;, &quot;;
+
+            noOfMatches++;
+         }
+      }
+
+      systemout = systemout.substring(0, systemout.length() - 2) + &quot; number: &quot; + noOfMatches;
+   }</pre><p>systemout: Dangling edges e18, e19 number: 2</p>
+
+</body>
+</html>
