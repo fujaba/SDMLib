@@ -51,7 +51,7 @@ public class LudoStoryboard
    public void testLudoStoryboard()
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
       
       storyboard.add("Start situation: ");
       
@@ -142,7 +142,7 @@ public class LudoStoryboard
    @Test
    public void testLudoStoryboardManual()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
       
       storyboard.add("Start situation: ");
       

@@ -37,6 +37,8 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class FieldSet extends SimpleSet<Field>
 {
@@ -1106,4 +1108,23 @@ public class FieldSet extends SimpleSet<Field>
    {
       this.addAll(objects);
    }
-}
+
+
+   public FieldPO createFieldPO()
+   {
+      return new FieldPO(this.toArray(new Field[this.size()]));
+   }
+
+
+   @Override
+   public FieldSet getNewList(boolean keyValue)
+   {
+      return new FieldSet();
+   }
+
+
+   public FieldSet filter(Condition<Field> condition) {
+      FieldSet filterList = new FieldSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
