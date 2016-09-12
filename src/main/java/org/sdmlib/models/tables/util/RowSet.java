@@ -229,7 +229,7 @@ public class RowSet extends SDMSet<Row>
 
    /**
     * Loop through current set of ModelType objects and attach the Row object passed as parameter to the Table attribute of each of it. 
-    * 
+    * @param value add Table
     * @return The original set of ModelType objects now with the new neighbor attached to their Table attributes.
     */
    public RowSet withTable(Table value)
@@ -294,7 +294,7 @@ public class RowSet extends SDMSet<Row>
 
    /**
     * Loop through current set of ModelType objects and attach the Row object passed as parameter to the Cells attribute of each of it. 
-    * 
+    * @param value add Row
     * @return The original set of ModelType objects now with the new neighbor attached to their Cells attributes.
     */
    public RowSet withCells(Cell value)
@@ -309,7 +309,7 @@ public class RowSet extends SDMSet<Row>
 
    /**
     * Loop through current set of ModelType objects and remove the Row object passed as parameter from the Cells attribute of each of it. 
-    * 
+    * @param value remove Cell
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public RowSet withoutCells(Cell value)

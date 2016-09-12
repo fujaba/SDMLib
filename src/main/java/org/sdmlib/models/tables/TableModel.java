@@ -1,7 +1,5 @@
 package org.sdmlib.models.tables;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryboardImpl;
@@ -14,7 +12,7 @@ import static de.uniks.networkparser.graph.DataType.*;
 public class TableModel
 {
    /**
-    * 
+    * @throws Exception Any Exception
     * @see <a href='../../../../../../../doc/TableModel.html'>TableModel.html</a>
     */
    @Test

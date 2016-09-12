@@ -19,7 +19,7 @@ public class POCreator
     * If Enabled, Properties that are null aren't considered in the
     * PatternObjects
     * 
-    * @param nullFilter
+    * @param nullFilter boolean for NullFilter
     */
    public void setNullFilter(boolean nullFilter)
    {

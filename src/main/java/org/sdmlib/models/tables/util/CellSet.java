@@ -202,7 +202,7 @@ public class CellSet extends SDMSet<Cell>
 
    /**
     * Loop through current set of ModelType objects and attach the Cell object passed as parameter to the Row attribute of each of it. 
-    * 
+    * @param value add Row
     * @return The original set of ModelType objects now with the new neighbor attached to their Row attributes.
     */
    public CellSet withRow(Row value)
@@ -267,7 +267,7 @@ public class CellSet extends SDMSet<Cell>
 
    /**
     * Loop through current set of ModelType objects and attach the Cell object passed as parameter to the Column attribute of each of it. 
-    * 
+    * @param value add Column
     * @return The original set of ModelType objects now with the new neighbor attached to their Column attributes.
     */
    public CellSet withColumn(Column value)

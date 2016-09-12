@@ -1379,7 +1379,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    /**
     * 
-    * @param GraphPattern with concrete object model root
+    * @param pattern with concrete object model root
     */
    public void verify(Pattern... pattern)
    {
@@ -1412,7 +1412,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
 
    /**
-    * @param GraphPattern with ReachabilityGraph as root
+    * @param pattern with ReachabilityGraph as root
     * @return true if no match could be found
     */
    public boolean verifyPath(Pattern pattern)
