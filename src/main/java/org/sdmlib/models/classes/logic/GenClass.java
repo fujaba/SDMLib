@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.templates.Template;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzImport;
@@ -407,8 +408,10 @@ public class GenClass extends GenClazzEntity
             }
           
             for (Association assoc : interfaze.getAssociations()) {
-            	assoc.with(new Annotation("Override"));
-            	getGenerator(assoc).generate(clazz, rootDir, helpersDir, assoc.getOther(), false);
+            	if (assoc.getOther().getType().equals(AssociationTypes.IMPLEMENTS) == false) {
+            		assoc.with(new Annotation("Override"));
+            		getGenerator(assoc).generate(clazz, rootDir, helpersDir, assoc.getOther(), false);
+            	}
             }
             
          }
