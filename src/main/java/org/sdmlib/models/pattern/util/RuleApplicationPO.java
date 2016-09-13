@@ -4,9 +4,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.util.RuleApplicationPO;
 import org.sdmlib.models.pattern.util.ReachableStatePO;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.util.RuleApplicationPO;
 
 public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleApplication>
 {
@@ -104,6 +105,45 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return this;
    }
    
+   public PatternPO createRulePO()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(RuleApplication.PROPERTY_RULE, result);
+      
+      return result;
+   }
+
+   public PatternPO createRulePO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(RuleApplication.PROPERTY_RULE, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO createRuleLink(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_RULE);
+   }
+
+   public RuleApplicationPO createRuleLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_RULE, modifier);
+   }
+
+   public Pattern getRule()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((RuleApplication) this.getCurrentMatch()).getRule();
+      }
+      return null;
+   }
+
    public ReachableStatePO createSrcPO()
    {
       ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});

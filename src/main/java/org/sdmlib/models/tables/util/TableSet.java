@@ -229,7 +229,7 @@ public class TableSet extends SDMSet<Table>
 
    /**
     * Loop through current set of ModelType objects and attach the Table object passed as parameter to the Columns attribute of each of it. 
-    * 
+    * @param value add Column
     * @return The original set of ModelType objects now with the new neighbor attached to their Columns attributes.
     */
    public TableSet withColumns(Column value)
@@ -245,6 +245,7 @@ public class TableSet extends SDMSet<Table>
    /**
     * Loop through current set of ModelType objects and remove the Table object passed as parameter from the Columns attribute of each of it. 
     * 
+    * @param value remove Column
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public TableSet withoutColumns(Column value)
@@ -309,7 +310,7 @@ public class TableSet extends SDMSet<Table>
 
    /**
     * Loop through current set of ModelType objects and attach the Table object passed as parameter to the Rows attribute of each of it. 
-    * 
+    * @param value add Row
     * @return The original set of ModelType objects now with the new neighbor attached to their Rows attributes.
     */
    public TableSet withRows(Row value)
@@ -324,7 +325,7 @@ public class TableSet extends SDMSet<Table>
 
    /**
     * Loop through current set of ModelType objects and remove the Table object passed as parameter from the Rows attribute of each of it. 
-    * 
+    * @param value remove Row
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public TableSet withoutRows(Row value)

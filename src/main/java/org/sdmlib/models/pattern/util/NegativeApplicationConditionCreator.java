@@ -18,50 +18,52 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.ReachabilityGraph;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class NegativeApplicationConditionCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Pattern.PROPERTY_DEBUGMODE,
-      Pattern.PROPERTY_NAME,
-      PatternElement.PROPERTY_MODIFIER,
-      PatternElement.PROPERTY_HASMATCH,
-      PatternElement.PROPERTY_PATTERNOBJECTNAME,
-      PatternElement.PROPERTY_DOALLMATCHES,
-      PatternElement.PROPERTY_PATTERN,
-      Pattern.PROPERTY_ELEMENTS,
-      Pattern.PROPERTY_CURRENTSUBPATTERN,
-      Pattern.PROPERTY_RGRAPH,
+         Pattern.PROPERTY_DEBUGMODE,
+         Pattern.PROPERTY_NAME,
+         PatternElement.PROPERTY_MODIFIER,
+         PatternElement.PROPERTY_HASMATCH,
+         PatternElement.PROPERTY_PATTERNOBJECTNAME,
+         PatternElement.PROPERTY_DOALLMATCHES,
+         PatternElement.PROPERTY_PATTERN,
+         Pattern.PROPERTY_ELEMENTS,
+         Pattern.PROPERTY_CURRENTSUBPATTERN,
    };
-   
+
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new NegativeApplicationCondition();
    }
-   
+
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -112,14 +114,10 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          return ((NegativeApplicationCondition) target).getCurrentSubPattern();
       }
 
-      if (NegativeApplicationCondition.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
-      {
-         return ((NegativeApplicationCondition) target).getRgraph();
-      }
-      
       return null;
    }
-   
+
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -175,7 +173,7 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          ((NegativeApplicationCondition) target).withElements((PatternElement) value);
          return true;
       }
-      
+
       if ((NegativeApplicationCondition.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((NegativeApplicationCondition) target).withoutElements((PatternElement) value);
@@ -188,21 +186,18 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          return true;
       }
 
-      if (NegativeApplicationCondition.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
-      {
-         ((NegativeApplicationCondition) target).setRgraph((ReachabilityGraph) value);
-         return true;
-      }
-      
       return false;
    }
+
+
    public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-      public void removeObject(Object entity)
+
+
+   // ==========================================================================
+   public void removeObject(Object entity)
    {
       ((NegativeApplicationCondition) entity).removeYou();
    }

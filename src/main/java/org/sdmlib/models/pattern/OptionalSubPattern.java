@@ -18,56 +18,56 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements PropertyChangeInterface
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class OptionalSubPattern extends Pattern<OptionalSubPattern>implements PropertyChangeInterface
 {
    public OptionalSubPattern()
    {
       this.setHasMatch(true);
    }
-   
+
+
    @Override
    public boolean findMatch()
    {
-      if ( ! this.getPattern().getHasMatch())
+      if (!this.getPattern().getHasMatch())
       {
          this.setHasMatch(false);
-         
+
          return false;
       }
-      
+
       return super.findMatch();
    }
-   
+
+
    @Override
    public boolean findNextMatch()
    {
-      
+
       if (matchForward)
       {
          // last time this subpattern has run backward thus we run forward now
          // thus some earlier pattern elements have been rematched.
          // check the subpattern / NAC again
          resetSearch();
-         
+
          if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// (re)startSubPattern " + getPatternObjectName() + ";");
          }
-         
+
          boolean nacHasMatch = findMatch();
-         
+
          if (getDoAllMatches())
          {
             while (getHasMatch())
@@ -76,25 +76,26 @@ import org.sdmlib.models.pattern.PatternElement;
                {
                   getTopPattern().addLogMsg("// " + getPatternObjectName() + " allMatches?");
                }
-               
+
                findMatch();
             }
          }
-         
+
          // next time backtrack
          setMatchForward(false);
-         
+
          // optional sub pattern are always successful
          return true;
       }
       else
       {
-         // backtracking, 
+         // backtracking,
          setMatchForward(true);
-         
+
          return false;
       }
    }
+
 
    @Override
    public boolean addToElements(PatternElement value)
@@ -103,9 +104,10 @@ import org.sdmlib.models.pattern.PatternElement;
       this.setMatchForward(true);
       return super.addToElements(value);
    }
-   
-   //==========================================================================
-   
+
+
+   // ==========================================================================
+
    @Override
    public void removeYou()
    {
@@ -113,24 +115,24 @@ import org.sdmlib.models.pattern.PatternElement;
 
       removeAllFromElements();
       setPattern(null);
-      setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       setCurrentSubPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_MATCHFORWARD = "matchForward";
-   
+
    private boolean matchForward = true;
+
 
    public boolean getMatchForward()
    {
       return this.matchForward;
    }
-   
+
+
    public void setMatchForward(boolean value)
    {
       if (this.matchForward != value)
@@ -140,13 +142,15 @@ import org.sdmlib.models.pattern.PatternElement;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHFORWARD, oldValue, value);
       }
    }
-   
+
+
    public OptionalSubPattern withMatchForward(boolean value)
    {
       setMatchForward(value);
       return this;
-   } 
-   
+   }
+
+
    @Override
    public void resetSearch()
    {
@@ -155,11 +159,12 @@ import org.sdmlib.models.pattern.PatternElement;
       super.resetSearch();
    }
 
+
    @Override
    public String toString()
    {
       StringBuilder s = new StringBuilder();
-      
+
       s.append(" ").append(this.getDebugMode());
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
@@ -168,12 +173,10 @@ import org.sdmlib.models.pattern.PatternElement;
    }
 
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean isMatchForward()
    {
       return this.matchForward;
    }
-   }
-
+}

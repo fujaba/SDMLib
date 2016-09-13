@@ -54,7 +54,7 @@ public class TestModelCreation {
 		teacher.withSuperClazz(person);
 		
 		// implemented Intefaces
-		room.withImplements(roomInterface);
+		room.withSuperClazz(roomInterface);
 		
 		// Associations
 		room.withBidirectional(person, "persons", Cardinality.MANY, "room", Cardinality.ONE);

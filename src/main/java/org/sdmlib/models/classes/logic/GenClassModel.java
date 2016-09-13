@@ -905,7 +905,7 @@ public class GenClassModel implements ClassModelAdapter
       Parser modelCreationClassParser = getOrCreateClazz(modelCreationClass).getParser();
 
       // check has superclass
-      if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClazz"))
+      if (clazz.getSuperClazzes(false).first() != null && !checkSuper(clazz, entry, "withSuperClazz"))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
          int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(),
@@ -918,7 +918,7 @@ public class GenClassModel implements ClassModelAdapter
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
          StringBuilder text = new StringBuilder("      .withSuperClazz(superClassName)");
          CGUtil.replaceAll(text, "superClassName",
-               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getName(false))) + "Class");
+               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClazzes(false).first().getName(false))) + "Class");
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass);
          currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -1567,7 +1567,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       // insert code for superclass
-      Clazz superClass = clazz.getSuperClass();
+      Clazz superClass = clazz.getSuperClazzes(false).first();
       if (superClass != null)
       {
          currentInsertPos = insertCreationSuperClassCode(currentInsertPos, superClass.getName(false),
@@ -1770,8 +1770,8 @@ public class GenClassModel implements ClassModelAdapter
    private boolean checkDependencies(Clazz clazz)
    {
       ArrayList<Clazz> dependencies = new ArrayList<Clazz>();
-      if (clazz.getSuperClass() != null)
-         dependencies.add(clazz.getSuperClass());
+      if (clazz.getSuperClazzes(false).first() != null)
+         dependencies.add(clazz.getSuperClazzes(false).first());
       if (clazz.getInterfaces(false) != null)
          dependencies.addAll(clazz.getInterfaces(false));
 

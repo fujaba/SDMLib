@@ -65,9 +65,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
    /**
-    * 
+    * Constructor
+    * @param packageName PackageName of ClassModel 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- */
+    */
    public ClassModel(String packageName)
 	   {
 		  this();

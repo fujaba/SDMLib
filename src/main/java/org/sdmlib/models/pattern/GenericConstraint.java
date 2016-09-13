@@ -28,17 +28,17 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.pattern.Pattern;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class GenericConstraint extends PatternElement<GenericConstraint>implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
    {
-      if ( ! this.getPattern().getHasMatch())
+      if (!this.getPattern().getHasMatch())
       {
          return false;
       }
@@ -51,11 +51,11 @@ import org.sdmlib.models.pattern.Pattern;
       }
       else
       {
-         // forward 
+         // forward
          boolean ok = condition.update(getSrc().getCurrentMatch());
-         
+
          this.setHasMatch(ok);
-         
+
          if (ok && getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
@@ -65,9 +65,8 @@ import org.sdmlib.models.pattern.Pattern;
       }
    }
 
-   Condition<Object> condition;
-   
-   //==========================================================================
+
+   // ==========================================================================
 
    @Override
    public void resetSearch()
@@ -75,95 +74,151 @@ import org.sdmlib.models.pattern.Pattern;
       setHasMatch(false);
    }
 
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
       return true;
    }
 
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
 
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
       getPropertyChangeSupport().removePropertyChangeListener(listener);
       return true;
    }
 
 
-   //==========================================================================
+   // ==========================================================================
 
    @Override
    public void removeYou()
-   {      
+   {
       super.removeYou();
 
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+
    @Override
    public String toString()
    {
       StringBuilder s = new StringBuilder();
-      
+
       s.append(" ").append(this.getText());
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);
    }
 
+   public static final String PROPERTY_CONDITION = "condition";
+
+   private Condition condition;
 
 
-
-   public GenericConstraint withCondition(Condition<Object> newCondition)
+   public Condition getCondition()
    {
-      this.condition = newCondition;
+      return this.condition;
+   }
+
+
+   public void setCondition(Condition value)
+   {
+      if (this.condition != value)
+      {
+
+         Condition oldValue = this.condition;
+         this.condition = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CONDITION, oldValue, value);
+      }
+   }
+
+
+   public GenericConstraint withCondition(Condition value)
+   {
+      setCondition(value);
       return this;
    }
 
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * PatternLink ----------------------------------- PatternObject
+    *              outgoing                   src
+    * </pre>
+    */
+
+   public static final String PROPERTY_SRC = "src";
+
    private PatternObject src = null;
-   
+
+
    public PatternObject getSrc()
    {
       return this.src;
    }
-    
+
+
+   public boolean setSrc(PatternObject value)
+   {
+      boolean changed = false;
+
+      if (this.src != value)
+      {
+         PatternObject oldValue = this.src;
+
+         this.src = value;
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+         changed = true;
+      }
+
+      return changed;
+   }
+
+
    public GenericConstraint withSrc(PatternObject value)
    {
-	   if(value != this.src) {
-		   this.src = value;
-	   }
+      setSrc(value);
       return this;
-   } 
-   
-   //==========================================================================
-   
+   }
+
+   // ==========================================================================
+
    public static final String PROPERTY_TEXT = "text";
-   
+
    private String text;
+
 
    public String getText()
    {
       return this.text;
    }
-   
+
+
    public void setText(String value)
    {
-      if ( ! StrUtil.stringEquals(this.text, value))
+      if (!StrUtil.stringEquals(this.text, value))
       {
          String oldValue = this.text;
          this.text = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
       }
    }
-   
+
+
    public GenericConstraint withText(String value)
    {
       setText(value);
       return this;
-   } 
+   }
 
 }
-

@@ -25,6 +25,8 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.pattern.RuleApplication;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.ReachableState;
 
@@ -176,6 +178,71 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication>
    }
 
    /**
+    * Loop through the current set of RuleApplication objects and collect a set of the Pattern objects reached via rule. 
+    * 
+    * @return Set of Pattern objects reachable via rule
+    */
+   public PatternSet getRule()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (RuleApplication obj : this)
+      {
+         result.with(obj.getRule());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of RuleApplication objects and collect all contained objects with reference rule pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as rule neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via rule
+    */
+   public RuleApplicationSet filterRule(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RuleApplicationSet answer = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (neighbors.contains(obj.getRule()) || (neighbors.isEmpty() && obj.getRule() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Rule attribute of each of it. 
+    * @param value Pattern 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Rule attributes.
+    */
+   public RuleApplicationSet withRule(Pattern value)
+   {
+      for (RuleApplication obj : this)
+      {
+         obj.withRule(value);
+      }
+      
+      return this;
+   }
+
+   /**
     * Loop through the current set of RuleApplication objects and collect a set of the ReachableState objects reached via src. 
     * 
     * @return Set of ReachableState objects reachable via src
@@ -292,7 +359,7 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication>
 
    /**
     * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Tgt attribute of each of it. 
-    * 
+    * @param value ReachableState
     * @return The original set of ModelType objects now with the new neighbor attached to their Tgt attributes.
     */
    public RuleApplicationSet withTgt(ReachableState value)

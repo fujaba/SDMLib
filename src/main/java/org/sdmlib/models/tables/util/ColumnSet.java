@@ -395,7 +395,7 @@ public class ColumnSet extends SDMSet<Column>
 
    /**
     * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Table attribute of each of it. 
-    * 
+    * @param value add Table
     * @return The original set of ModelType objects now with the new neighbor attached to their Table attributes.
     */
    public ColumnSet withTable(Table value)
@@ -460,7 +460,7 @@ public class ColumnSet extends SDMSet<Column>
 
    /**
     * Loop through current set of ModelType objects and attach the Column object passed as parameter to the Cells attribute of each of it. 
-    * 
+    * @param value add Cell
     * @return The original set of ModelType objects now with the new neighbor attached to their Cells attributes.
     */
    public ColumnSet withCells(Cell value)
@@ -475,7 +475,7 @@ public class ColumnSet extends SDMSet<Column>
 
    /**
     * Loop through current set of ModelType objects and remove the Column object passed as parameter from the Cells attribute of each of it. 
-    * 
+    * @param value remove Cell
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ColumnSet withoutCells(Cell value)

@@ -24,16 +24,23 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
@@ -53,9 +60,7 @@ import org.sdmlib.models.pattern.ReachableState;
 
 /**
  * 
- * @see <a href=
- *      '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>
- *      PatternModelCodeGen.java</a>
+ * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'> PatternModelCodeGen.java</a>
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
@@ -64,10 +69,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       private Object root;
 
+
       public OmitRootCondition(Object root)
       {
          this.root = root;
       }
+
 
       @Override
       public boolean update(Object event)
@@ -76,6 +83,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          return evt.getNewValue() != root;
       }
    }
+
 
    public String dumpDiagram(String name)
    {
@@ -104,12 +112,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private Metric metric = null;
 
+
    public void setMetric(Metric metric)
    {
       this.metric = metric;
    }
 
    private GuiAdapter adapter;
+
 
    public GuiAdapter getAdapter()
    {
@@ -124,11 +134,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
+
 
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
@@ -136,11 +148,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
+
 
    public boolean removePropertyChangeListener(PropertyChangeListener listener)
    {
@@ -151,6 +165,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return true;
    }
 
+
    public boolean removePropertyChangeListener(String property, PropertyChangeListener listener)
    {
       if (listeners != null)
@@ -159,6 +174,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return true;
    }
+
 
    // ==========================================================================
 
@@ -186,6 +202,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private ReachableStateSet finalStates = null;
 
+
    public ReachableStateSet getFinalStates()
    {
       if (this.finalStates == null)
@@ -195,6 +212,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.finalStates;
    }
+
 
    public ReachabilityGraph withFinalStates(ReachableState... value)
    {
@@ -222,6 +240,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutFinalStates(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -236,6 +255,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachableState createFinalStates()
    {
@@ -255,6 +275,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public static final String PROPERTY_STATES = "states";
 
    private TreeMap<String, Object> stateMap = new TreeMap<String, Object>();
+
 
    public ReachabilityGraph withStateMap(String certificate, ReachableState newState)
    {
@@ -282,7 +303,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
    private static ReachableStateSet emptyStatesSet = new ReachableStateSet();
+
    private ReachableStateSet oneElemSet = new ReachableStateSet();
+
 
    public ReachableStateSet getStateMap(String certificate)
    {
@@ -306,6 +329,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private ReachableStateSet states = null;
 
+
    public ReachableStateSet getStates()
    {
       if (this.states == null)
@@ -315,6 +339,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.states;
    }
+
 
    public boolean addToStates(ReachableState value)
    {
@@ -339,6 +364,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public boolean removeFromStates(ReachableState value)
    {
       boolean changed = false;
@@ -357,17 +383,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withStates(ReachableState value)
    {
       addToStates(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutStates(ReachableState value)
    {
       removeFromStates(value);
       return this;
    }
+
 
    public void removeAllFromStates()
    {
@@ -378,6 +407,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          this.removeFromStates(value);
       }
    }
+
 
    public ReachableState createStates()
    {
@@ -396,17 +426,26 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public static final String PROPERTY_TODO = "todo";
 
-   private ArrayList<ReachableState> todo = null;
+   private BlockingQueue<ReachableState> todo = null;
 
-   public ArrayList<ReachableState> getTodo()
+
+   public BlockingQueue<ReachableState> getTodo()
    {
       if (this.todo == null)
       {
-         this.todo = new ArrayList<ReachableState>();
+         if (metric != null)
+         {
+            this.todo = new PriorityBlockingQueue<ReachableState>(11, (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+         }
+         else
+         {
+            this.todo = new LinkedBlockingQueue<>();
+         }
       }
 
       return this.todo;
    }
+
 
    public boolean addToTodo(ReachableState value)
    {
@@ -416,16 +455,24 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       {
          if (this.todo == null)
          {
-            this.todo = new ArrayList<ReachableState>();
+            if (metric != null)
+            {
+               this.todo = new PriorityBlockingQueue<ReachableState>(11, (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+            }
+            else
+            {
+               this.todo = new LinkedBlockingQueue<>();
+            }
          }
 
-         changed = this.todo.add(value);
+         changed = this.todo.offer(value);
 
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null, value);
       }
 
       return changed;
    }
+
 
    public boolean removeFromTodo(ReachableState value)
    {
@@ -441,17 +488,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withTodo(ReachableState value)
    {
       addToTodo(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutTodo(ReachableState value)
    {
       removeFromTodo(value);
       return this;
    }
+
 
    public void removeAllFromTodo()
    {
@@ -462,6 +512,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          this.removeFromTodo(value);
       }
    }
+
 
    public ReachableState createTodo()
    {
@@ -482,6 +533,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private PatternSet rules = null;
 
+   private long maxNoOfNewStates;
+
+
    public PatternSet getRules()
    {
       if (this.rules == null)
@@ -491,6 +545,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this.rules;
    }
+
+
+   public boolean addToRules(PatternObject po)
+   {
+      return addToRules(po.getPattern());
+   }
+
 
    public boolean addToRules(Pattern value)
    {
@@ -507,13 +568,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          if (changed)
          {
-            value.withRgraph(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, null, value);
          }
       }
 
       return changed;
    }
+
 
    public boolean removeFromRules(Pattern value)
    {
@@ -525,7 +586,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          if (changed)
          {
-            value.setRgraph(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, value, null);
          }
       }
@@ -533,17 +593,20 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return changed;
    }
 
+
    public ReachabilityGraph withRules(Pattern value)
    {
       addToRules(value);
       return this;
    }
 
+
    public ReachabilityGraph withoutRules(Pattern value)
    {
       removeFromRules(value);
       return this;
    }
+
 
    public void removeAllFromRules()
    {
@@ -555,12 +618,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
    }
 
+
    public Pattern createRules()
    {
       Pattern value = new Pattern();
       withRules(value);
       return value;
    }
+
 
    public long explore()
    {
@@ -571,6 +636,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       DEFAULT, DEPTH, IGNORE, DEPTHIGNORE
    }
+
 
    public long explore(long maxNoOfNewStates, Searchmode mode)
    {
@@ -608,10 +674,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          if (metric != null)
          {
             // sort todo list
-            Collections.sort(getTodo(), (s1, s2) -> Double.compare(s2.getMetricValue(), s1.getMetricValue()));
+            // Collections.sort(getTodo(), (s1, s2) ->
+            // Double.compare(s2.getMetricValue(), s1.getMetricValue()));
          }
 
-         ReachableState current = getTodo().get(0);
+         ReachableState current = null;
+         try
+         {
+            current = getTodo().take();
+         }
+         catch (InterruptedException e)
+         {
+            e.printStackTrace();
+         }
 
          if (current.getNumber() == 0)
          {
@@ -709,7 +784,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   {
                      // newReachableState is isomorphic to oldState. Just add a
                      // link from first to oldState
-                     current.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                     current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(oldState);
                      break;
                   }
                }
@@ -719,7 +794,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // no isomorphic old state, add new state
                   this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate,
                      newReachableState);
-                  current.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(newReachableState);
                   int size = this.getStates().size();
                   // progress bar, 30 steps
                   if (maxNoOfNewStates < 30 || size % (maxNoOfNewStates / 30) == 0 || changedIgnoreString)
@@ -756,6 +831,189 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return currentStateNum;
    }
+
+
+   public long exploreParallel()
+   {
+      this.maxNoOfNewStates = Long.MAX_VALUE;
+
+      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
+
+      // inital states get certificates
+      for (ReachableState s : this.getStates())
+      {
+         String newCertificate = s.computeCertificate(newJsonIdMap);
+         this.withStateMap(newCertificate, s);
+      }
+      ExecutorService threadPool = Executors.newFixedThreadPool(12);
+
+      while (!getTodo().isEmpty())
+      {
+         if (!getTodo().isEmpty())
+         {
+            try
+            {
+               ReachableState current = getTodo().take();
+               Worker worker = new Worker(this, current, threadPool);
+               threadPool.submit(worker);
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+         }
+         else
+         {
+            try
+            {
+               Thread.sleep(10);
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+         }
+
+      }
+      try
+      {
+         // wait for all task finished
+         while (workercount > 0)
+         {
+            Thread.sleep(5);
+         }
+
+         threadPool.shutdown();
+         threadPool.awaitTermination(20, TimeUnit.SECONDS);
+
+      }
+      catch (InterruptedException e)
+      {
+         e.printStackTrace();
+      }
+
+      return states.size();
+   }
+
+   private long workercount = 0;
+
+   private class Worker implements Callable<Void>
+   {
+      private ReachabilityGraph hostgraph;
+
+      private ReachableState current;
+
+      private ExecutorService threadPool;
+
+
+      public Worker(ReachabilityGraph hostgraph, ReachableState current, ExecutorService threadPool)
+      {
+         this.threadPool = threadPool;
+         synchronized (hostgraph)
+         {
+            hostgraph.workercount++;
+         }
+         this.current = current;
+
+         this.hostgraph = hostgraph;
+      }
+
+
+      @Override
+      public Void call() throws Exception
+      {
+         try
+         {
+            long alreadyKnownMatches = current.noOfRuleMatchesDone;
+            long noOfRuleMatchesDone = 0;
+            for (Pattern rule : getRules())
+            {
+
+               rule = getMyRuleCopy(rule);
+
+               PatternObject firstPO = (PatternObject) rule.getElements().first();
+
+               rule.resetSearch();
+
+               ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(current.getGraphRoot());
+
+               while (rule.findMatch())
+               {
+                  // count matches found on this graph
+                  noOfRuleMatchesDone++;
+
+                  if (noOfRuleMatchesDone <= alreadyKnownMatches)
+                  {
+                     // has been considered in previous expansions of this
+                     // state.
+                     // Those previous expansions have been aborted in order to
+                     // expand more promising state.
+                     // Now it is reconsidered. But we do not need to go through
+                     // the already done expansions.
+
+                     continue;
+                  }
+                  current.noOfRuleMatchesDone = noOfRuleMatchesDone;
+                  // for each match get the new reachable state and add it to
+                  // the
+                  // reachability graph
+                  Object newGraphRoot = firstPO.getCurrentMatch();
+
+                  ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
+
+                  // is the new graph already known?
+                  IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
+                  newJsonIdMap.withSessionId("s");
+                  String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
+
+                  LinkedHashMap<String, String> match;
+
+                  synchronized (hostgraph.stateMap)
+                  {
+                     ReachableStateSet candidateStates = hostgraph.getStateMap(newCertificate);
+                     match = null;
+                     for (ReachableState oldState : candidateStates)
+                     {
+                        match = match(oldState, newReachableState);
+
+                        if (match != null)
+                        {
+                           // newReachableState is isomorphic to oldState. Just
+                           // add
+                           // a
+                           // link from first to oldState
+                           current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(oldState);
+                           break;
+                        }
+                     }
+                  }
+                  if (match == null)
+                  {
+                     // no isomorphic old state, add new state
+                     hostgraph.withStates(newReachableState.withNumber(hostgraph.getStates().size()));
+                     hostgraph.withStateMap(newCertificate, newReachableState);
+
+                     threadPool.submit(new Worker(hostgraph, newReachableState, threadPool));
+
+                     current.createRuleapplications().withRule(rule).withDescription("" + rule.getName()).withTgt(newReachableState);
+                     int size = hostgraph.getStates().size();
+
+                  }
+               }
+            }
+            hostgraph.workercount--;
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+         return null;
+      }
+
+   }
+
 
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
@@ -807,6 +1065,58 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return match ? fwdmapping : null;
    }
+
+   HashMap<Long, HashMap<Pattern, Pattern>> ruleClones;
+
+
+   public Pattern getMyRuleCopy(Pattern rule)
+   {
+      long threadId = Thread.currentThread().getId();
+
+      if (ruleClones == null)
+      {
+         ruleClones = new HashMap<>();
+      }
+
+      HashMap<Pattern, Pattern> patternMap = ruleClones.get(threadId);
+      if (patternMap == null)
+      {
+         patternMap = new HashMap<>();
+         ruleClones.put(threadId, patternMap);
+      }
+      Pattern myClone = patternMap.get(rule);
+
+      if (myClone == null)
+      {
+         IdMap origMap = (IdMap) new SDMLibIdMap("om").with(rule.getIdMap());
+         IdMap cloneMap = (IdMap) new SDMLibIdMap("cm").with(rule.getIdMap());
+         JsonArray jsonArray = origMap.toJsonArray(rule);
+         myClone = (Pattern) cloneMap.decode(jsonArray);
+
+         setIdMap(myClone, cloneMap);
+
+         patternMap.put(rule, myClone);
+      }
+
+      return myClone;
+   }
+
+
+   private void setIdMap(Pattern pattern, IdMap idMap)
+   {
+      pattern.setIdMap(idMap);
+
+      PatternElementSet elements = pattern.getElements();
+      for (PatternElement patternElement : elements)
+      {
+         if (patternElement instanceof Pattern)
+         {
+            setIdMap((Pattern) patternElement, idMap);
+         }
+      }
+
+   }
+
 
    public boolean match(ReachableState s1, JsonArray ja1, LinkedHashMap<String, JsonObject> joMap1,
          ReachableState s2, JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2,
@@ -947,15 +1257,18 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private IdMap masterMap = null;
 
+
    public IdMap getMasterMap()
    {
       return masterMap;
    }
 
+
    public void setMasterMap(IdMap newMasterMap)
    {
       masterMap = newMasterMap;
    }
+
 
    public ReachabilityGraph withMasterMap(IdMap map)
    {
@@ -963,6 +1276,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       return this;
    }
+
 
    public ReachabilityGraph withStates(ReachableState... value)
    {
@@ -977,6 +1291,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutStates(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -985,6 +1300,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachabilityGraph withTodo(ReachableState... value)
    {
@@ -999,6 +1315,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutTodo(ReachableState... value)
    {
       for (ReachableState item : value)
@@ -1007,6 +1324,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       return this;
    }
+
 
    public ReachabilityGraph withRules(Pattern... value)
    {
@@ -1021,6 +1339,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public ReachabilityGraph withoutRules(Pattern... value)
    {
       for (Pattern item : value)
@@ -1030,12 +1349,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
 
+
    public Pattern createRulesNegativeApplicationCondition()
    {
       Pattern value = new NegativeApplicationCondition();
       withRules(value);
       return value;
    }
+
 
    public Pattern createRulesOptionalSubPattern()
    {
@@ -1044,12 +1365,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return value;
    }
 
+
    public NegativeApplicationCondition createNegativeApplicationCondition()
    {
       NegativeApplicationCondition value = new NegativeApplicationCondition();
       withRules(value);
       return value;
    }
+
 
    public OptionalSubPattern createOptionalSubPattern()
    {
@@ -1058,34 +1381,68 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return value;
    }
 
+
+   /**
+    * 
+    * @param pattern with concrete object model root
+    */
    public void verify(Pattern... pattern)
    {
-
-      for (Pattern rule : pattern)
+      for (ReachableState reachableState : states)
       {
-
-         for (ReachableState reachableState : states)
+         for (Pattern rule : pattern)
          {
+
+            if (reachableState.isFailureState())
+            {
+               continue;
+            }
+
             Object graphRoot = reachableState.getGraphRoot();
 
             PatternObject firstPO = (PatternObject) rule.getElements().first();
 
             rule.resetSearch();
-
-            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(graphRoot);
-
+            firstPO.withModifier(Pattern.BOUND);
+            firstPO.setCurrentMatch(graphRoot);
             if (rule.findMatch())
             {
                reachableState.setFailureState(true);
             }
 
-            RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
-            if (ruleapplications.size() == 0)
-            {
-               // find a final State
-               withFinalStates(reachableState);
-            }
+         }
 
+      }
+   }
+
+
+   /**
+    * @param pattern with ReachabilityGraph as root
+    * @return true if no match could be found
+    */
+   public boolean verifyPath(Pattern pattern)
+   {
+
+      PatternObject firstPO = (PatternObject) pattern.getElements().first();
+
+      pattern.resetSearch();
+      firstPO.withModifier(Pattern.BOUND);
+      firstPO.setCurrentMatch(this);
+
+      return pattern.getHasMatch();
+
+   }
+
+
+   public void lookUpForEndStates()
+   {
+      for (ReachableState reachableState : states)
+      {
+         RuleApplicationSet ruleapplications = reachableState.getRuleapplications();
+         if (ruleapplications.size() == 0)
+         {
+            // find a final State
+            withFinalStates(reachableState);
          }
 
       }

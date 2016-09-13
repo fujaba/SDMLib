@@ -7,7 +7,6 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
-
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
@@ -18,6 +17,7 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
@@ -326,6 +326,7 @@ public class GenMethod extends Generator<Method>
          if ("void".equals(type))
          {
             type =  clazz2.getName(true) + "Set";
+            body = "return "+type+".EMPTY_SET;";
          }
          else
          {
@@ -336,6 +337,9 @@ public class GenMethod extends Generator<Method>
         	 } else if ("String".indexOf(type) >= 0) {
         		 type = "StringList";
         		 importType = StringList.class.getName();
+        	 } else if ("boolean".indexOf(type) >= 0) {
+        		 type = BooleanList.class.getName();
+        		 importType = BooleanList.class.getSimpleName();
         	 } else if ("Object".indexOf(type) >= 0) {
                type = "LinkedHashSet<Object>";
                importType = LinkedHashSet.class.getName();
