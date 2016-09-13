@@ -213,10 +213,11 @@ public class GenClass extends GenClazzEntity
          
          getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
       }
+      ClazzSet superClazzes = model.getSuperClazzes(false);
 
-      if (model.getSuperClass() != null)
+      if (superClazzes.size()>0)
       {
-         gernerateSuperAttributes(model.getSuperClass(), rootDir, helpersDir);
+         gernerateSuperAttributes(superClazzes.first(), rootDir, helpersDir);
       }
 
       for (Clazz interfaze : model.getInterfaces(false))
@@ -238,9 +239,10 @@ public class GenClass extends GenClazzEntity
             generator.generate(model, rootDir, helpersDir, true);
          }
       }
-      if (superClazz.getSuperClass() != null)
+      ClazzSet superClazzes = model.getSuperClazzes(false);
+      if (superClazzes.size()>0)
       {
-         gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
+         gernerateSuperAttributes(superClazzes.first(), rootDir, helpersDir);
       }
 
       for (Clazz interfaze : superClazz.getInterfaces(false))
@@ -460,7 +462,8 @@ public class GenClass extends GenClazzEntity
 
    private void insertSuperClass()
    {
-      if (model.getSuperClass() == null)
+	   ClazzSet superClazzes = model.getSuperClazzes(false);
+      if (superClazzes.size()<1)
       {
          return;
       }
@@ -473,9 +476,9 @@ public class GenClass extends GenClazzEntity
          extendsPos = parser.getEndOfClassName();
 
          parser.insert(extendsPos + 1,
-            " extends " + CGUtil.shortClassName(model.getSuperClass().getName(false)));
+            " extends " + CGUtil.shortClassName(superClazzes.first().getName(false)));
 
-         insertImport(model.getSuperClass().getName(false));
+         insertImport(superClazzes.first().getName(false));
       }
    }
 

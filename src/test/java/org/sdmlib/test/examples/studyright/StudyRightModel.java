@@ -151,7 +151,7 @@ public class StudyRightModel implements PropertyChangeInterface
       	.with(new Association(universityClass).with("uni").with(Cardinality.ONE));
 
       Clazz femaleClass = model.createClazz("org.sdmlib.test.examples.studyright.model.Female")
-      .withImplements(personClass)
+      .withSuperClazz(personClass)
       .withAttribute("name", DataType.STRING);
 
       new Method("findMyPosition").with(femaleClass);
