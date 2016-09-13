@@ -239,7 +239,7 @@ public class GenClass extends GenClazzEntity
             generator.generate(model, rootDir, helpersDir, true);
          }
       }
-      ClazzSet superClazzes = model.getSuperClazzes(false);
+      ClazzSet superClazzes = superClazz.getSuperClazzes(false);
       if (superClazzes.size()>0)
       {
          gernerateSuperAttributes(superClazzes.first(), rootDir, helpersDir);
