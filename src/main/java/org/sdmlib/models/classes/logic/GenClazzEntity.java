@@ -14,12 +14,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
