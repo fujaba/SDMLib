@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Sebastian Copei
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,17 @@
    
 package org.sdmlib.simple.model.methods_h.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.methods_h.Person;
+import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
-public class PersonSet extends SDMSet<Person>
+public class PersonSet extends SimpleSet<Person>
 {
+	protected Class<?> getTypClass() {
+		return Person.class;
+	}
 
    public PersonSet()
    {
@@ -47,10 +51,10 @@ public class PersonSet extends SDMSet<Person>
       this.addAll(objects);
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet();
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
-   public PersonPO filterPersonPO()
+   public PersonPO createPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
@@ -61,6 +65,19 @@ public class PersonSet extends SDMSet<Person>
       return "org.sdmlib.simple.model.methods_h.Person";
    }
 
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
@@ -92,11 +109,7 @@ public class PersonSet extends SDMSet<Person>
    
    public PersonSet think(SimpleKeyValueList<String,String> values)
    {
-      for (Person obj : this)
-      {
-         obj.think(values);
-      }
-      return this;
+      return PersonSet.EMPTY_SET;
    }
 
 }

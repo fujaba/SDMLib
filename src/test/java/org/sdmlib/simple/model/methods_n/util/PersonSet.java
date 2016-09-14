@@ -19,13 +19,12 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.methods_f.util;
+package org.sdmlib.simple.model.methods_n.util;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.methods_f.Person;
+import org.sdmlib.simple.model.methods_n.Person;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import org.sdmlib.simple.model.methods_f.Room;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -62,7 +61,7 @@ public class PersonSet extends SimpleSet<Person>
 
    public String getEntryType()
    {
-      return "org.sdmlib.simple.model.methods_f.Person";
+      return "org.sdmlib.simple.model.methods_n.Person";
    }
 
 
@@ -107,17 +106,16 @@ public class PersonSet extends SimpleSet<Person>
    
    //==========================================================================
    
-   public PersonSet think(Room room)
+   public de.uniks.networkparser.list.BooleanList checkSomething()
    {
-      return PersonSet.EMPTY_SET;
-   }
-
-   
-   //==========================================================================
-   
-   public PersonSet read(Room room)
-   {
-      return PersonSet.EMPTY_SET;
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Person obj : this)
+      {
+         result.add( obj.checkSomething() );
+      }
+      return result;
    }
 
 }

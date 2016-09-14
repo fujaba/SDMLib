@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.methods_e;
+package org.sdmlib.simple.model.methods_n;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
@@ -28,8 +28,15 @@ import java.beans.PropertyChangeListener;
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestMethods.java'>TestMethods.java</a>
  */
-   public  class Room implements SendableEntity
+   public  class Person implements SendableEntity
 {
+
+   
+   //==========================================================================
+   public boolean checkSomething(  )
+   {
+      return false;
+   }
 
    
    //==========================================================================

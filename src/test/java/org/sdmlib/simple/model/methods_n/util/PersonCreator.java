@@ -19,10 +19,10 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.methods_h.util;
+package org.sdmlib.simple.model.methods_n.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.simple.model.methods_h.Person;
+import org.sdmlib.simple.model.methods_n.Person;
 import de.uniks.networkparser.IdMap;
 
 public class PersonCreator implements SendableEntityCreator
@@ -69,7 +69,7 @@ public class PersonCreator implements SendableEntityCreator
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.simple.model.methods_h.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.simple.model.methods_n.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
