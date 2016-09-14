@@ -199,10 +199,68 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(association, gen);
       return (GenAssociation) gen;
    }
+   
+   private void fixClassModel(String rootDir)
+   {
+      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
+      HashSet<Clazz> visited = new HashSet<Clazz>();
+      for (Clazz item : classes)
+      {
+         fixClassModel(item, visited, rootDir);
+      }
+   }
+   
+   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir) {
+	      if(item.getType() ==  ClazzType.ENUMERATION) {
+	          SimpleSet<Literal> literals = item.getValues();
+	          SimpleSet<Attribute> attributes = item.getAttributes();
+	          for(Literal literal : literals) {
+	              int no = 0;
+	              SimpleList<Object> values = literal.getValues();
+	              if(values != null) {
+	                  for(Object value : values) {
+	                      if(value != null) {
+	                          String type = value.getClass().getName();
+	                          if(attributes.size()>no) {
+	                              Attribute attribute = attributes.get(no);
+	                              if(attribute.getType().getName(false).equals(type)) {
+	                                  // Everthing is ok
+	                              } else {
+	                                  attribute.with(DataType.OBJECT);
+	                              }
+	                          } else {
+	                              Attribute attribute = new Attribute("value"+no, DataType.create(type));
+	                              attributes.add(attribute);
+	                              item.with(attribute);
+	                          }
+	                      }
+	                      no++;
+	                  }
+	              }
+	          }
+	          GenClazzEntity orCreate = getOrCreate(item);
+	          Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
+	          orCreateParser.indexOf(Parser.CLASS_END);
+	          Method constructor = new Method(item.getName()).with(DataType.create(""));
+	          String constructorBody = "";
+	          for(Attribute attribute : attributes) {
+	              constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
+	              constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
+	          }
+	          constructor.withBody(constructorBody);
+	          constructor.with(Modifier.PACKAGE);
+	          item.with(constructor);
+	      }
+   }
+
+
 
    public boolean generate(String rootDir)
    {
       resetParsers();
+      
+      this.model.fixClassModel();
+      
 
       fixClassModel(rootDir);
 
@@ -298,111 +356,6 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
-   private void fixClassModel(String rootDir)
-   {
-      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
-      HashSet<Clazz> visited = new HashSet<Clazz>();
-      for (Clazz item : classes)
-      {
-         fixClassModel(item, visited, rootDir);
-      }
-   }
-
-   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir)
-   {
-      for (Clazz entity : item.getInterfaces(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getSuperClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getKidClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            entity.setClassModel(model);
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-         }
-      }
-
-      for (Association role : item.getAssociations())
-      {
-         Clazz clazz = role.getOtherClazz();
-         if (clazz.getClassModel() == null)
-         {
-            clazz.setClassModel(model);
-            if (visited.add(clazz))
-            {
-               fixClassModel(clazz, visited, rootDir);
-            }
-         }
-       	 this.addToAssociations(role);
-      }
-      
-      // Fix the Clazz
-      if(item.getType() ==  ClazzType.ENUMERATION) {
-    	  SimpleSet<Literal> literals = item.getValues();
-    	  SimpleSet<Attribute> attributes = item.getAttributes();
-		  for(Literal literal : literals) {
-			  int no = 0;
-			  SimpleList<Object> values = literal.getValues();
-			  if(values != null) {
-				  for(Object value : values) {
-					  if(value != null) {
-						  String type = value.getClass().getName();
-						  if(attributes.size()>no) {
-							  Attribute attribute = attributes.get(no);
-							  if(attribute.getType().getName(false).equals(type)) {
-								  // Everthing is ok
-							  } else {
-								  attribute.with(DataType.OBJECT);
-							  }
-						  } else {
-							  Attribute attribute = new Attribute("value"+no, DataType.create(type));
-							  attributes.add(attribute);
-							  item.with(attribute);
-						  }
-					  }
-					  no++;
-				  }
-			  }
-		  }
-		  GenClazzEntity orCreate = getOrCreate(item);
-		  Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
-		  orCreateParser.indexOf(Parser.CLASS_END);
-		  Method constructor = new Method(item.getName()).with(DataType.create(""));
-		  String constructorBody = "";
-		  for(Attribute attribute : attributes) {
-			  constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
-			  constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
-		  }
-		  constructor.withBody(constructorBody);
-		  constructor.with(Modifier.PACKAGE);
-		  item.with(constructor);
-      }
-      
-   }
    
    private SimpleSet<DataType> getAllTypes() {
 	   SimpleSet<DataType> collection = new SimpleSet<DataType>();
