@@ -104,6 +104,10 @@ public class GenMethod extends Generator<Method>
          {
             returnClause = "return 0;";
          }
+         else if ("boolean".indexOf(name) >= 0) 
+         {
+    	    returnClause = "return false;";
+         }
          else if ("void".indexOf(name) >= 0)
          {
             returnClause = "";
