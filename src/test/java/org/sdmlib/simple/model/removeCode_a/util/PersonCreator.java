@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.removeCode_a.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.removeCode_a.Person;
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator implements SendableEntityCreator
 {
@@ -32,33 +32,7 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
    };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -100,87 +74,9 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
       return null;
    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -206,104 +102,13 @@ public class PersonCreator implements SendableEntityCreator
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
       
       return false;
    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

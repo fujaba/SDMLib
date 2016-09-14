@@ -23,8 +23,8 @@ package org.sdmlib.test.examples.m2m.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
@@ -467,4 +467,22 @@ public class RelationSet extends SimpleSet<Relation>
       return result;
    }
 
+
+   public RelationSet()
+   {
+      // empty
+   }
+
+   public RelationSet(Relation... objects)
+   {
+      for (Relation obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RelationSet(Collection<Relation> objects)
+   {
+      this.addAll(objects);
+   }
 }

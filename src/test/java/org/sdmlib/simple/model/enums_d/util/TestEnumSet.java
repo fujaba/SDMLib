@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,9 +23,6 @@ package org.sdmlib.simple.model.enums_d.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.enums_d.TestEnum;
-import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import java.lang.Integer;
 
 public class TestEnumSet extends SDMSet<TestEnum>
 {
@@ -33,48 +30,9 @@ public class TestEnumSet extends SDMSet<TestEnum>
    public static final TestEnumSet EMPTY_SET = new TestEnumSet().withFlag(TestEnumSet.READONLY);
 
 
-   public TestEnumPO filterTestEnumPO()
-   {
-      return new TestEnumPO(this.toArray(new TestEnum[this.size()]));
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.simple.model.enums_d.TestEnum";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public TestEnumSet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<TestEnum>)value);
-      }
-      else if (value != null)
-      {
-         this.add((TestEnum) value);
-      }
-      
-      return this;
-   }
-   
-   public TestEnumSet without(TestEnum value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-   @Override
-   public TestEnumSet filter(Condition<TestEnum> newValue) {
-      TestEnumSet filterList = new TestEnumSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**
@@ -102,7 +60,7 @@ public class TestEnumSet extends SDMSet<TestEnum>
     * 
     * @return Subset of TestEnum objects that match the parameter
     */
-   public TestEnumSet filterValue0(Integer value)
+   public TestEnumSet createValue0Condition(Integer value)
    {
       TestEnumSet result = new TestEnumSet();
       

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -44,13 +44,10 @@ import org.sdmlib.simple.model.modelling_a.Teacher;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setRoom(null);
       setCurrentRoom(null);
       setTeacher(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -71,7 +68,7 @@ import org.sdmlib.simple.model.modelling_a.Teacher;
       
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+         this.firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
    
@@ -133,7 +130,7 @@ import org.sdmlib.simple.model.modelling_a.Teacher;
             value.withCurrentPupils(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTROOM, oldValue, value);
+         firePropertyChange(PROPERTY_CURRENTROOM, oldValue, value);
          changed = true;
       }
       
@@ -192,7 +189,7 @@ import org.sdmlib.simple.model.modelling_a.Teacher;
             value.withPupils(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEACHER, oldValue, value);
+         firePropertyChange(PROPERTY_TEACHER, oldValue, value);
          changed = true;
       }
       

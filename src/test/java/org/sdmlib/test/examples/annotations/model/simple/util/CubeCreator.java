@@ -22,8 +22,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import de.uniks.networkparser.IdMap;
 
 public class CubeCreator implements SendableEntityCreator
 {
@@ -60,7 +60,7 @@ public class CubeCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

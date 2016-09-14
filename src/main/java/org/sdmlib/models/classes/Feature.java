@@ -1,76 +1,39 @@
 package org.sdmlib.models.classes;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.graph.Clazz;
+import org.sdmlib.models.modelsets.SDMSet;
 
-public enum Feature
-{
-   PropertyChangeSupport(new FeatureProperty()),
-   PatternObject(new FeatureProperty()),
-   Serialization(new FeatureProperty()),
-   ALBERTsSets(new FeatureProperty()),
-   REMOVEYOUMETHOD(new FeatureProperty());
-   
-   private FeatureProperty feature;
-   
-   Feature(FeatureProperty value) {
-	   this.feature = value;
-   }
-   
-   
-   public static final HashSet<Feature> getNone(){
-      return new HashSet<Feature>();
-   }
-   
-   public static HashSet<Feature> getAll(){
-      HashSet<Feature> result = new HashSet<Feature>();
-      result.add(PropertyChangeSupport);
-      result.add(PatternObject);
-      result.add(Serialization);
-      result.add(ALBERTsSets);
-      result.add(REMOVEYOUMETHOD);
-      return result;
-   }
-   
-   public FeatureProperty getFeature() {
-	   return feature;
-   }
+import de.uniks.networkparser.list.SimpleSet;
 
-
-	public Feature withIncludeClazz(String... value) {
-		getFeature().withInclude(value);
-		return this;
-	}
-	public Feature withExcludeClazz(String... value) {
-		getFeature().withExclude(value);
-		return this;
-	}
-	public Feature withExcludeClazz(Clazz... value) {
-		getFeature().withExclude(value);
-		return this;
-	}
-	
-	public Feature withPath(String... value) {
-		getFeature().withPath(value);
-		return this;
-	}
-
-
-	public boolean match(Clazz clazz) {
-		return getFeature().match(clazz.getName(false));
-	}
-
-
-	public HashSet<String> getPath() {
-		return getFeature().getPath();
-	}
-	
-	public static void reset()
-	{
-	   for (Feature f : Feature.values())
-      {
-         f.feature = new FeatureProperty();
-      }
+public enum Feature {
+	PROPERTYCHANGESUPPORT, PATTERNOBJECT, SERIALIZATION, SETCLASS, REMOVEYOUMETHOD, STANDALONE,EMFSTYLE;
+	public static final HashSet<FeatureProperty> getNone(){
+	      return new HashSet<FeatureProperty>();
+	   }
+	   
+	   public static HashSet<FeatureProperty> getAll(){
+	      HashSet<FeatureProperty> result = new HashSet<FeatureProperty>();
+	      result.add(PROPERTYCHANGESUPPORT.create());
+	      result.add(PATTERNOBJECT.create());
+	      result.add(SERIALIZATION.create());
+	      result.add(SETCLASS.create().withClazzValue(SimpleSet.class));
+	      result.add(REMOVEYOUMETHOD.create());
+	      return result;
+	   }
+	   
+	   public static HashSet<FeatureProperty> getStandAlone(){
+	      HashSet<FeatureProperty> result = new HashSet<FeatureProperty>();
+	      result.add(PROPERTYCHANGESUPPORT.create());
+//	      result.add(SERIALIZATION.create());
+	      result.add(SETCLASS.create().withClazzValue(LinkedHashSet.class));
+	      result.add(REMOVEYOUMETHOD.create());
+	      result.add(STANDALONE.create());
+	      return result;
+	   }
+	   
+	public final FeatureProperty create() {
+		return new FeatureProperty(this); 
 	}
 }

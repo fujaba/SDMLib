@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.features.model.all.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
 
@@ -121,5 +121,23 @@ public class WindowSet extends SimpleSet<Window>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.features.model.all.Window";
+   }
+
+   public WindowSet()
+   {
+      // empty
+   }
+
+   public WindowSet(Window... objects)
+   {
+      for (Window obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public WindowSet(Collection<Window> objects)
+   {
+      this.addAll(objects);
    }
 }

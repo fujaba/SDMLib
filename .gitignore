@@ -25,5 +25,4 @@ atlassian-ide-plugin.xml
 /.idea/
 /gen/
 
-/SDMLib-2.0.0-SNAPSHOT.jar
-/SDMLib.jar
+*.jar

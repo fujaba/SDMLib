@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.maumau.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
@@ -295,4 +295,22 @@ public class CardSet extends SimpleSet<Card>
       return result;
    }
 
+
+   public CardSet()
+   {
+      // empty
+   }
+
+   public CardSet(Card... objects)
+   {
+      for (Card obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CardSet(Collection<Card> objects)
+   {
+      this.addAll(objects);
+   }
 }

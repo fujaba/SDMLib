@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
 
@@ -132,5 +132,23 @@ public class RemoteTaskBoardSet extends SimpleSet<RemoteTaskBoard>
    public String getEntryType()
    {
       return "org.sdmlib.replication.RemoteTaskBoard";
+   }
+
+   public RemoteTaskBoardSet()
+   {
+      // empty
+   }
+
+   public RemoteTaskBoardSet(RemoteTaskBoard... objects)
+   {
+      for (RemoteTaskBoard obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RemoteTaskBoardSet(Collection<RemoteTaskBoard> objects)
+   {
+      this.addAll(objects);
    }
 }

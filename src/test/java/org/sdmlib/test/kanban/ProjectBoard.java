@@ -23,7 +23,7 @@ package org.sdmlib.test.kanban;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
@@ -40,7 +40,7 @@ public class ProjectBoard
    @Test
    public void testStoryboardInfrastructure()
    {
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
 
       story.add("This storyboard tests the storyboard infrastructure. ");
       story.addStep("At first creating the html file just with text should work. ");
@@ -62,7 +62,7 @@ public class ProjectBoard
       
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
 
-      Clazz storyboardClass = model.createClazz(Storyboard.class.getName()) 
+      Clazz storyboardClass = model.createClazz(StoryboardImpl.class.getName()) 
             .withAttribute("rootDir", DataType.STRING)
             .withAttribute("stepCounter", DataType.INT) 
             .withAttribute("stepDoneCounter", DataType.INT);

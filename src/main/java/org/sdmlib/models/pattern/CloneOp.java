@@ -26,6 +26,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -56,13 +57,25 @@ import de.uniks.networkparser.IdMap;
             origMap = (IdMap) new SDMLibIdMap("om").with(origMap);
             cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap);
             
-            firstPO = (PatternObject) this.getPattern().getElements().first();
+            for (PatternElement pe : this.getPattern().getElements())
+            {
+            	if (pe instanceof PatternObject)
+            	{
+            		firstPO = (PatternObject) pe;
+            		break;
+            	}
+            }
             
-            origGraph = firstPO.getCurrentMatch();
+            //firstPO = (PatternObject) this.getPattern().getElements().first();
             
-            JsonArray jsonArray = origMap.toJsonArray(origGraph);
-            
-            cloneGraph = cloneMap.decode(jsonArray);
+            if (firstPO != null)
+            {
+            	origGraph = firstPO.getCurrentMatch();
+
+            	JsonArray jsonArray = origMap.toJsonArray(origGraph);
+
+            	cloneGraph = cloneMap.decode(jsonArray);
+            }
             
             // change matches to point to the new nodes
             for (PatternElement pe : this.getPattern().getElements())

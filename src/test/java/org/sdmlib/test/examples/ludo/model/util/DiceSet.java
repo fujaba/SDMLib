@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.ludo.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Ludo;
@@ -32,6 +32,8 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class DiceSet extends SimpleSet<Dice>
 {
@@ -272,4 +274,41 @@ public class DiceSet extends SimpleSet<Dice>
       return result;
    }
 
-}
+
+   public DiceSet()
+   {
+      // empty
+   }
+
+   public DiceSet(Dice... objects)
+   {
+      for (Dice obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DiceSet(Collection<Dice> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public DicePO createDicePO()
+   {
+      return new DicePO(this.toArray(new Dice[this.size()]));
+   }
+
+
+   @Override
+   public DiceSet getNewList(boolean keyValue)
+   {
+      return new DiceSet();
+   }
+
+
+   public DiceSet filter(Condition<Dice> condition) {
+      DiceSet filterList = new DiceSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

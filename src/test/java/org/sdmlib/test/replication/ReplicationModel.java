@@ -5,8 +5,8 @@ import java.net.Socket;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -24,7 +24,7 @@ public class ReplicationModel
    @Test
    public void MinChangeModel()
    {
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
       
       ClassModel model = new ClassModel("org.sdmlib.replication");
       
@@ -56,7 +56,7 @@ public class ReplicationModel
    @Test
    public void testSeppelModel()
    {
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
 
       ClassModel model = new ClassModel("org.sdmlib.replication");
       
@@ -124,7 +124,7 @@ public class ReplicationModel
    public static void main(String[] args)
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/ReplicationModel.html
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       ClassModel model = new ClassModel("org.sdmlib.replication");
 

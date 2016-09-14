@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -257,4 +257,22 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
       return this;
    }
 
+
+   public BombermanStrategySet()
+   {
+      // empty
+   }
+
+   public BombermanStrategySet(BombermanStrategy... objects)
+   {
+      for (BombermanStrategy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BombermanStrategySet(Collection<BombermanStrategy> objects)
+   {
+      this.addAll(objects);
+   }
 }

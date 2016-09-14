@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,17 +21,38 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
 import de.uniks.networkparser.list.SimpleSet;
+import java.lang.Object;
+import java.util.Collection;
 
 public class ObjectSet extends SimpleSet<Object>
 {
+	protected Class<?> getTypClass() {
+		return Object.class;
+	}
+
+   public ObjectSet()
+   {
+      // empty
+   }
+
+   public ObjectSet(Object... objects)
+   {
+      for (Object obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ObjectSet(Collection<Object> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
 
 
-   public ObjectPO hasObjectPO()
+   public ObjectPO createObjectPO()
    {
       return new ObjectPO(this.toArray(new Object[this.size()]));
    }
@@ -46,7 +67,11 @@ public class ObjectSet extends SimpleSet<Object>
    @SuppressWarnings("unchecked")
    public ObjectSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Object>)value);
       }

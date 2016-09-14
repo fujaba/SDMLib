@@ -33,4 +33,9 @@ public class LudoColorPO extends PatternObject<LudoColorPO, LudoColor>
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public LudoColorPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

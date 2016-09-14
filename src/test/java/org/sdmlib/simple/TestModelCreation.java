@@ -2,7 +2,7 @@ package org.sdmlib.simple;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -20,7 +20,7 @@ public class TestModelCreation {
    @Test
 	public void testCreateEntireModel() {
 		
-		Storyboard story = new Storyboard();
+		StoryboardImpl story = new StoryboardImpl();
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.modelling_a");
 
@@ -54,7 +54,7 @@ public class TestModelCreation {
 		teacher.withSuperClazz(person);
 		
 		// implemented Intefaces
-		room.withImplements(roomInterface);
+		room.withSuperClazz(roomInterface);
 		
 		// Associations
 		room.withBidirectional(person, "persons", Cardinality.MANY, "room", Cardinality.ONE);

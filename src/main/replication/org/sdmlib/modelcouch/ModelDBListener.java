@@ -74,7 +74,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Connection", "Keep-Alive"); 
 
-			couch.getCouchDBAdapter().authenticate(con);
+//			couch.getCouchDBAdapter().authenticate(con);
+			// the default cookie handler uses the cookie...
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -97,11 +98,13 @@ public  class ModelDBListener implements SendableEntity, Runnable
 					}
 					
 				} else {
-					while (couch != null && (changeLine = in.readLine()) != null)
+					// FIXME  if not (in.ready()), then a BogusChunkSize can occur...
+					while (couch != null)
 					{
+					   changeLine = in.readLine();
 						final String localChangeLine = changeLine;
 						//handle changes
-						if(!changeLine.equals("") && !changeLine.contains("last_seq"))
+						if(changeLine != null && !changeLine.equals("") && !changeLine.contains("last_seq"))
 						{
 							if(couch != null && couch.getApplicationType() == ApplicationType.JavaFX)
 							{
@@ -143,7 +146,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			con.setUseCaches(false);
 			con.addRequestProperty("Content-Type", "application/json"); 
 			
-			couch.getCouchDBAdapter().authenticate(con);
+//			couch.getCouchDBAdapter().authenticate(con);
 
 			int responseCode = con.getResponseCode();
 			if(responseCode == RESPONSE_CODE_OK)
@@ -348,10 +351,18 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	}
 
 	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		getPropertyChangeSupport().removePropertyChangeListener(listener);
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
 		return true;
 	}
 
+	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
 
 	//==========================================================================
 
@@ -439,4 +450,13 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	public boolean isContinuous() {
 		return continuous;
 	}
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

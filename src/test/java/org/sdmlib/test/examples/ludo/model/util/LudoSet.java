@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 
 import org.sdmlib.models.modelsets.DateList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
@@ -36,6 +36,7 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 import org.sdmlib.test.examples.ludo.model.util.DiceSet;
 import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -306,4 +307,41 @@ public class LudoSet extends SimpleSet<Ludo>
       return result;
    }
 
-}
+
+   public LudoSet()
+   {
+      // empty
+   }
+
+   public LudoSet(Ludo... objects)
+   {
+      for (Ludo obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LudoSet(Collection<Ludo> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public LudoPO createLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+
+   @Override
+   public LudoSet getNewList(boolean keyValue)
+   {
+      return new LudoSet();
+   }
+
+
+   public LudoSet filter(Condition<Ludo> condition) {
+      LudoSet filterList = new LudoSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -25,8 +25,8 @@ import java.util.Collection;
 
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -406,4 +406,22 @@ public class ModelCouchSet extends SimpleSet<ModelCouch>
       return result;
    }
 
+
+   public ModelCouchSet()
+   {
+      // empty
+   }
+
+   public ModelCouchSet(ModelCouch... objects)
+   {
+      for (ModelCouch obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelCouchSet(Collection<ModelCouch> objects)
+   {
+      this.addAll(objects);
+   }
 }

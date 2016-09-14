@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
@@ -291,4 +291,22 @@ public class UniversitySet extends SimpleSet<University>
       return result;
    }
 
+
+   public UniversitySet()
+   {
+      // empty
+   }
+
+   public UniversitySet(University... objects)
+   {
+      for (University obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UniversitySet(Collection<University> objects)
+   {
+      this.addAll(objects);
+   }
 }

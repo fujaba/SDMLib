@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 import de.uniks.networkparser.graph.Attribute;
@@ -63,8 +64,10 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withBidirectional(player, "player", Cardinality.ONE, "stone", Cardinality.ONE);
         
-        Feature.Serialization.withPath("org.sdmlib.test.examples.mancala.referencemodel.util");
-        Feature.Serialization.withExcludeClazz(stone);
+        FeatureProperty feature = model.getFeature(Feature.SERIALIZATION);
+        if(feature != null) {
+        	feature.withPath("org.sdmlib.test.examples.mancala.referencemodel.util").withExcludeClazz(stone);
+        }
 		
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);

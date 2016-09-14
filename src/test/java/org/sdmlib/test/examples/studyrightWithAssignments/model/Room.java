@@ -24,19 +24,18 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  */
    public  class Room implements SendableEntity
 {
@@ -51,27 +50,47 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
    
@@ -80,13 +99,12 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    
    public void removeYou()
    {
-   
       setUniversity(null);
-      withoutDoors(this.getDoors().toArray(new Room[this.getDoors().size()]));
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
+      withoutDoors(this.getDoors().toArray(new Room[this.getDoors().size()]));
       withoutAssignments(this.getAssignments().toArray(new Assignment[this.getAssignments().size()]));
       withoutTas(this.getTas().toArray(new TeachingAssistant[this.getTas().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -103,11 +121,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value)) {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
@@ -144,11 +162,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    
    public void setTopic(String value)
    {
-      if ( ! StrUtil.stringEquals(this.topic, value)) {
+      if ( ! EntityUtil.stringEquals(this.topic, value)) {
       
          String oldValue = this.topic;
          this.topic = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
+         this.firePropertyChange(PROPERTY_TOPIC, oldValue, value);
       }
    }
    
@@ -176,7 +194,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+         this.firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
    
@@ -225,7 +243,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             value.withRooms(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
+         firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
          changed = true;
       }
       
@@ -242,6 +260,85 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    {
       University value = new University();
       withUniversity(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Room ----------------------------------- Student
+    *              in                   students
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STUDENTS = "students";
+
+   private StudentSet students = null;
+   
+   public StudentSet getStudents()
+   {
+      if (this.students == null)
+      {
+         return StudentSet.EMPTY_SET;
+      }
+   
+      return this.students;
+   }
+
+   public Room withStudents(Student... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Student item : value)
+      {
+         if (item != null)
+         {
+            if (this.students == null)
+            {
+               this.students = new StudentSet();
+            }
+            
+            boolean changed = this.students.add (item);
+
+            if (changed)
+            {
+               item.withIn(this);
+               firePropertyChange(PROPERTY_STUDENTS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Room withoutStudents(Student... value)
+   {
+      for (Student item : value)
+      {
+         if ((this.students != null) && (item != null))
+         {
+            if (this.students.remove(item))
+            {
+               item.setIn(null);
+               firePropertyChange(PROPERTY_STUDENTS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Student createStudents()
+   {
+      Student value = new Student();
+      withStudents(value);
+      return value;
+   } 
+
+   public TeachingAssistant createStudentsTeachingAssistant()
+   {
+      TeachingAssistant value = new TeachingAssistant();
+      withStudents(value);
       return value;
    } 
 
@@ -293,7 +390,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withDoors(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null, item);
+               firePropertyChange(PROPERTY_DOORS, null, item);
             }
          }
       }
@@ -309,7 +406,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.doors.remove(item))
             {
                item.withoutDoors(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
+               firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
       }
@@ -320,85 +417,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
    {
       Room value = new Room();
       withDoors(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Room ----------------------------------- Student
-    *              in                   students
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STUDENTS = "students";
-
-   private StudentSet students = null;
-   
-   public StudentSet<Student> getStudents()
-   {
-      if (this.students == null)
-      {
-         return StudentSet.EMPTY_SET;
-      }
-   
-      return this.students;
-   }
-
-   public Room withStudents(Student... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Student item : value)
-      {
-         if (item != null)
-         {
-            if (this.students == null)
-            {
-               this.students = new StudentSet();
-            }
-            
-            boolean changed = this.students.add (item);
-
-            if (changed)
-            {
-               item.withIn(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Room withoutStudents(Student... value)
-   {
-      for (Student item : value)
-      {
-         if ((this.students != null) && (item != null))
-         {
-            if (this.students.remove(item))
-            {
-               item.setIn(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Student createStudents()
-   {
-      Student value = new Student();
-      withStudents(value);
-      return value;
-   } 
-
-   public TeachingAssistant createStudentsTeachingAssistant()
-   {
-      TeachingAssistant value = new TeachingAssistant();
-      withStudents(value);
       return value;
    } 
 
@@ -444,7 +462,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, null, item);
+               firePropertyChange(PROPERTY_ASSIGNMENTS, null, item);
             }
          }
       }
@@ -460,7 +478,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.assignments.remove(item))
             {
                item.setRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
+               firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
             }
          }
       }
@@ -469,8 +487,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Assignment createAssignments()
    {
@@ -521,7 +538,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (changed)
             {
                item.withRoom(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null, item);
+               firePropertyChange(PROPERTY_TAS, null, item);
             }
          }
       }
@@ -537,7 +554,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
             if (this.tas.remove(item))
             {
                item.setRoom(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, item, null);
+               firePropertyChange(PROPERTY_TAS, item, null);
             }
          }
       }

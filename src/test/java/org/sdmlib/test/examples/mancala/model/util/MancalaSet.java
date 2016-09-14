@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
@@ -262,5 +262,23 @@ public class MancalaSet extends SimpleSet<Mancala>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.mancala.model.Mancala";
+   }
+
+   public MancalaSet()
+   {
+      // empty
+   }
+
+   public MancalaSet(Mancala... objects)
+   {
+      for (Mancala obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MancalaSet(Collection<Mancala> objects)
+   {
+      this.addAll(objects);
    }
 }

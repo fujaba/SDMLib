@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Lecture;
@@ -597,4 +597,22 @@ public class RoomSet extends SimpleSet<Room>
       return result;
    }
 
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -56,17 +56,22 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.concurrent.Task;
 
 import org.sdmlib.modelcouch.ModelDBListener;
-import org.sdmlib.modelcouch.authentication.Authenticator;
-import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
+import org.sdmlib.modelcouch.connection.authentication.Authenticator;
+import org.sdmlib.modelcouch.connection.authentication.BasicAuthenticator;
 
 /**
  * 
@@ -91,7 +96,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 	private String databaseName;
 	private String userName = "couchdb";
 
-	private ExecutorService executor = Executors.newFixedThreadPool(2);
+	private ExecutorService executor; // = Executors.newFixedThreadPool(2);
 	private long lastChangeId = 0;
 
 	private ConcurrentLinkedQueue<Task<Boolean>> queue = new ConcurrentLinkedQueue<>();
@@ -108,6 +113,8 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 
 	public ModelCouch(CouchDBAdapter couchAdapter) {
 		this.couchDBAdapter = couchAdapter;
+		this.hostName = couchAdapter.getHostName();
+		this.port = couchAdapter.getPort();
 	}
 
 	public ModelCouch registerAtIdMap() {
@@ -129,6 +136,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 	// try to open connection to an existing database
 	// create new if database was not existing
 	public ModelCouch open(String databaseName) {
+		executor = Executors.newFixedThreadPool(2);
 		this.databaseName = databaseName;
 
 		String urlString = "http://" + hostName + ":" + port + "/" + databaseName + "/";
@@ -202,24 +210,20 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 
 				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/";
 				try {
-					URL obj = new URL(url);
-					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+					HTTPConnectionHandler connectionHandler = couchDBAdapter.getConnectionHandler();
+					RequestObject send = connectionHandler.createRequestObject(url);
+					
+					
+//					URL obj = new URL(url);
+//					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 					String urlParameters = jsonObject.toString();
-
 					urlParameters = entityUtil.encode(urlParameters);
-
-					con.setRequestMethod("POST");
-					con.setDoOutput(true);
-					con.setDoInput(true);
-					couchDBAdapter.authenticate(con);
-					con.addRequestProperty("Content-Type", "application/json");
-					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-					wr.writeBytes(urlParameters);
-					wr.flush();
-					wr.close();
-
-					responsecode = con.getResponseCode();
-					con.disconnect();
+					
+					send.setOutput(urlParameters, "UTF-8");
+					send.setRequestType(RequestType.POST);
+					send.setContentType(ContentType.APPLICATION_JSON);
+					ReturnObject sendResult = send.send();
+					responsecode = sendResult.getResponseCode();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -260,15 +264,19 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 				String url = "http://" + hostName + ":" + port + "/" + databaseName + "/" + objId + "?"
 						+ rev.getKeyByIndex(0) + "=" + rev.getValueByIndex(0);
 				try {
-					URL obj = new URL(url);
-					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-					con.setRequestMethod("DELETE");
-					con.addRequestProperty("Content-Type", "application/json");
-					couchDBAdapter.authenticate(con);
-
-					responsecode = con.getResponseCode();
-					con.disconnect();
+					RequestObject delete = couchDBAdapter.getConnectionHandler().createRequestObject(url);
+					delete.setRequestType(RequestType.DELETE);
+					delete.send();
+					
+//					URL obj = new URL(url);
+//					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//
+//					con.setRequestMethod("DELETE");
+//					con.addRequestProperty("Content-Type", "application/json");
+//					couchDBAdapter.authenticate(con);
+//
+//					responsecode = con.getResponseCode();
+//					con.disconnect();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -318,7 +326,10 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 			// ignore
 			return true;
 		}
-		SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+		SimpleEvent simpleEvent = (SimpleEvent) event;
+		if(simpleEvent.isNewEvent() == false) {
+			return true;
+		}
 		JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
 		String opCode = IdMap.UPDATE;
@@ -448,7 +459,16 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 	}
 
 	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		getPropertyChangeSupport().removePropertyChangeListener(listener);
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
+
+	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
 		return true;
 	}
 
@@ -624,4 +644,13 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 		return continuous;
 	}
 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

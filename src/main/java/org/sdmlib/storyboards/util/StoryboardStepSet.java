@@ -23,8 +23,8 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.storyboards.Storyboard;
+import de.uniks.networkparser.list.StringList;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -98,7 +98,7 @@ public class StoryboardStepSet extends SimpleSet<StoryboardStep> implements org.
       return result;
    }
 
-   public StoryboardStepSet withStoryboard(Storyboard value)
+   public StoryboardStepSet withStoryboard(StoryboardImpl value)
    {
       for (StoryboardStep obj : this)
       {

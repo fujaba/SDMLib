@@ -28,7 +28,11 @@ public class TemplateResult {
 		return imports;
 	}
 	public void addImports(String... values) {
-		this.imports.with(values);
+		if(values != null) {
+			for(String string : values) {
+				this.imports.with(string);
+			}
+		}
 	}
 	public void addImports(Collection<String> values) {
 		this.imports.withList(values);

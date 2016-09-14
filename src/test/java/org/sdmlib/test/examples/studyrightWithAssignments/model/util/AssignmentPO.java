@@ -3,12 +3,13 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
 public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 {
@@ -40,7 +41,12 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       }
       newInstance(null, hostGraphObject);
    }
-   public AssignmentPO filterContent(String value)
+
+   public AssignmentPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public AssignmentPO createContentCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Assignment.PROPERTY_CONTENT)
@@ -54,7 +60,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public AssignmentPO filterContent(String lower, String upper)
+   public AssignmentPO createContentCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Assignment.PROPERTY_CONTENT)
@@ -69,9 +75,17 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public AssignmentPO createContent(String value)
+   public AssignmentPO createContentAssignment(String value)
    {
-      this.startCreate().filterContent(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_CONTENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -93,7 +107,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public AssignmentPO filterPoints(int value)
+   public AssignmentPO createPointsCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Assignment.PROPERTY_POINTS)
@@ -107,7 +121,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public AssignmentPO filterPoints(int lower, int upper)
+   public AssignmentPO createPointsCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Assignment.PROPERTY_POINTS)
@@ -122,9 +136,17 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public AssignmentPO createPoints(int value)
+   public AssignmentPO createPointsAssignment(int value)
    {
-      this.startCreate().filterPoints(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_POINTS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -146,41 +168,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public RoomPO filterRoom()
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Assignment.PROPERTY_ROOM, result);
-      
-      return result;
-   }
-
-   public RoomPO createRoom()
-   {
-      return this.startCreate().filterRoom().endCreate();
-   }
-
-   public AssignmentPO filterRoom(RoomPO tgt)
-   {
-      return hasLinkConstraint(tgt, Assignment.PROPERTY_ROOM);
-   }
-
-   public AssignmentPO createRoom(RoomPO tgt)
-   {
-      return this.startCreate().filterRoom(tgt).endCreate();
-   }
-
-   public Room getRoom()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Assignment) this.getCurrentMatch()).getRoom();
-      }
-      return null;
-   }
-
-   public StudentPO filterStudents()
+   public StudentPO createStudentsPO()
    {
       StudentPO result = new StudentPO(new Student[]{});
       
@@ -190,26 +178,70 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return result;
    }
 
-   public StudentPO createStudents()
+   public StudentPO createStudentsPO(String modifier)
    {
-      return this.startCreate().filterStudents().endCreate();
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
+      
+      return result;
    }
 
-   public AssignmentPO filterStudents(StudentPO tgt)
+   public AssignmentPO createStudentsLink(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
    }
 
-   public AssignmentPO createStudents(StudentPO tgt)
+   public AssignmentPO createStudentsLink(StudentPO tgt, String modifier)
    {
-      return this.startCreate().filterStudents(tgt).endCreate();
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS, modifier);
    }
 
-   public StudentSet<Student> getStudents()
+   public StudentSet getStudents()
    {
       if (this.getPattern().getHasMatch())
       {
          return ((Assignment) this.getCurrentMatch()).getStudents();
+      }
+      return null;
+   }
+
+   public RoomPO createRoomPO()
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Assignment.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public RoomPO createRoomPO(String modifier)
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Assignment.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public AssignmentPO createRoomLink(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_ROOM);
+   }
+
+   public AssignmentPO createRoomLink(RoomPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_ROOM, modifier);
+   }
+
+   public Room getRoom()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Assignment) this.getCurrentMatch()).getRoom();
       }
       return null;
    }

@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.maumau.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.OpenStack;
@@ -279,5 +279,23 @@ public class OpenStackSet extends SimpleSet<OpenStack>
    public OpenStackPO filterOpenStackPO()
    {
       return new OpenStackPO(this.toArray(new OpenStack[this.size()]));
+   }
+
+   public OpenStackSet()
+   {
+      // empty
+   }
+
+   public OpenStackSet(OpenStack... objects)
+   {
+      for (OpenStack obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public OpenStackSet(Collection<OpenStack> objects)
+   {
+      this.addAll(objects);
    }
 }

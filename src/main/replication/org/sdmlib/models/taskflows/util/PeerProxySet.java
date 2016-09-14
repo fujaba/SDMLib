@@ -23,7 +23,7 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
@@ -332,4 +332,22 @@ public class PeerProxySet extends SimpleSet<PeerProxy>
       return result;
    }
 
+
+   public PeerProxySet()
+   {
+      // empty
+   }
+
+   public PeerProxySet(PeerProxy... objects)
+   {
+      for (PeerProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PeerProxySet(Collection<PeerProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

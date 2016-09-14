@@ -15,7 +15,7 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.replication.util.SeppelScopePO;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
@@ -328,7 +328,7 @@ public class ReplicationChatClientApp extends Application
                
                // add to story
                
-               Storyboard story = (Storyboard) task.getFromTaskObjects("story");
+               StoryboardImpl story = (StoryboardImpl) task.getFromTaskObjects("story");
                story.addImage("SeppelChatTomGUI1.png");
                final SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
                cmdScope.withObservedObjects(story.getStoryboardSteps().last());

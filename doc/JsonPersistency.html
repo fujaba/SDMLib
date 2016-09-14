@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -11,15 +14,340 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>JsonPersistency</a></p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
-<p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"artsRoom : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"sportsRoom : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"examRoom : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"placeToBe : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A1 : Assignment",
+         "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A2 : Assignment",
+         "head":{"src":"{\"src\":\"icons/limes.png\"}"},
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A3 : Assignment",
+         "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A3 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasJsonPersistency3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>
       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-      
+
       JsonArray jsonArray = idMap.toJsonArray(university);
-      
+
       String jsonText = jsonArray.toString(3);
-      
+
       &#x2F;&#x2F; you might write jsonText into a file
-      
+
 </pre><p>Results in:</p>
 <pre>[
    {
@@ -84,6 +412,12 @@
             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
             "id":"demo.U1"
          },
+         "students":[
+            {
+               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+               "id":"demo.S2"
+            }
+         ],
          "doors":[
             {
                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
@@ -92,12 +426,6 @@
             {
                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Room",
                "id":"demo.R5"
-            }
-         ],
-         "students":[
-            {
-               "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-               "id":"demo.S2"
             }
          ],
          "assignments":[
@@ -259,13 +587,333 @@
          }
       }
    }
-]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
+]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>
       &#x2F;&#x2F; read jsonText from file
       IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-      
+
       Object rootObject = readerMap.decode(jsonText);
 
       University readUniversity = (University) rootObject;
-</pre>
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U4 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S5 : Student",
+         "attributes":[
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R8 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R10 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A11 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A12 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Assignment",
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S5 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R10 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S5 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A11 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A12 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A13 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R10 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R10 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasJsonPersistency10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
 </body>
 </html>

@@ -25,8 +25,8 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
@@ -694,4 +694,22 @@ public class SharedSpaceSet extends SimpleSet<SharedSpace>
       return result;
    }
 
+
+   public SharedSpaceSet()
+   {
+      // empty
+   }
+
+   public SharedSpaceSet(SharedSpace... objects)
+   {
+      for (SharedSpace obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SharedSpaceSet(Collection<SharedSpace> objects)
+   {
+      this.addAll(objects);
+   }
 }

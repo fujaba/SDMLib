@@ -23,8 +23,8 @@ package org.sdmlib.test.examples.ludo.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
@@ -33,6 +33,8 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class PawnSet extends SimpleSet<Pawn>
 {
@@ -471,4 +473,41 @@ public class PawnSet extends SimpleSet<Pawn>
       return result;
    }
 
-}
+
+   public PawnSet()
+   {
+      // empty
+   }
+
+   public PawnSet(Pawn... objects)
+   {
+      for (Pawn obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PawnSet(Collection<Pawn> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public PawnPO createPawnPO()
+   {
+      return new PawnPO(this.toArray(new Pawn[this.size()]));
+   }
+
+
+   @Override
+   public PawnSet getNewList(boolean keyValue)
+   {
+      return new PawnSet();
+   }
+
+
+   public PawnSet filter(Condition<Pawn> condition) {
+      PawnSet filterList = new PawnSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -135,4 +135,22 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
 }

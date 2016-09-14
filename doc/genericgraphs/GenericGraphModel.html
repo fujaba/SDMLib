@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"GenericGraph"
+      },
+      {
+         "typ":"node",
+         "id":"GenericObject",
+         "attributes":[
+            "name : String",
+            "type : String",
+            "icon : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericAttribute",
+         "attributes":[
+            "name : String",
+            "value : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericLink",
+         "attributes":[
+            "tgtLabel : String",
+            "srcLabel : String"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"GenericGraph",
+            "cardinality":"one",
+            "property":"graph"
+         },
+         "target":{
+            "id":"GenericObject",
+            "cardinality":"many",
+            "property":"objects"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"GenericGraph",
+            "cardinality":"one",
+            "property":"graph"
+         },
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"links"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"owner"
+         },
+         "target":{
+            "id":"GenericAttribute",
+            "cardinality":"many",
+            "property":"attrs"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"src"
+         },
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"outgoingLinks"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"tgt"
+         },
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"incommingLinks"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasGenericGraphModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>

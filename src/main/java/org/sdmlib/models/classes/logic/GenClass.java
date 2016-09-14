@@ -18,18 +18,22 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzImport;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -53,7 +57,7 @@ public class GenClass extends GenClazzEntity
    {
       // first generate the class itself
 	  ClassModel classModel = (ClassModel) model.getClassModel();
-      if (!model.isExternal())
+      if (!model.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
       {
          getOrCreateParser(rootDir);
 
@@ -75,7 +79,7 @@ public class GenClass extends GenClazzEntity
             if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
 
-            if (classModel.hasFeature(Feature.Serialization, model))
+            if (classModel.hasFeature(Feature.SERIALIZATION, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -88,10 +92,10 @@ public class GenClass extends GenClazzEntity
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if (classModel.hasFeature(Feature.Serialization, model))
+      if (classModel.hasFeature(Feature.SERIALIZATION, model))
       { 
          // now generate the corresponding creator class
-         if (getRepairClassModel().hasFeature(Feature.Serialization))
+         if (getRepairClassModel().hasFeature(Feature.SERIALIZATION))
          {
             getOrCreateParserForCreatorClass(helpersDir);
 
@@ -105,12 +109,12 @@ public class GenClass extends GenClazzEntity
       }
 
       // now generate the corresponding ModelSet class
-      if (classModel.hasFeature(Feature.Serialization, model))
+      if (classModel.hasFeature(Feature.SERIALIZATION, model))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
 
-         if (getRepairClassModel().hasFeature(Feature.PatternObject))
+         if (getRepairClassModel().hasFeature(Feature.PATTERNOBJECT))
          {
 
             // now generate the corresponding PatterObject class
@@ -209,10 +213,11 @@ public class GenClass extends GenClazzEntity
          
          getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
       }
+      ClazzSet superClazzes = model.getSuperClazzes(false);
 
-      if (model.getSuperClass() != null)
+      if (superClazzes.size()>0)
       {
-         gernerateSuperAttributes(model.getSuperClass(), rootDir, helpersDir);
+         gernerateSuperAttributes(superClazzes.first(), rootDir, helpersDir);
       }
 
       for (Clazz interfaze : model.getInterfaces(false))
@@ -234,9 +239,10 @@ public class GenClass extends GenClazzEntity
             generator.generate(model, rootDir, helpersDir, true);
          }
       }
-      if (superClazz.getSuperClass() != null)
+      ClazzSet superClazzes = superClazz.getSuperClazzes(false);
+      if (superClazzes.size()>0)
       {
-         gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
+         gernerateSuperAttributes(superClazzes.first(), rootDir, helpersDir);
       }
 
       for (Clazz interfaze : superClazz.getInterfaces(false))
@@ -267,7 +273,8 @@ public class GenClass extends GenClazzEntity
 
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
-		if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
+		ClassModel model = (ClassModel) clazz.getClassModel();
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -300,7 +307,7 @@ public class GenClass extends GenClazzEntity
 			}
 			StringBuilder creators=new StringBuilder();
 			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
-			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject)) {
+			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PATTERNOBJECT)) {
 				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
@@ -379,6 +386,7 @@ public class GenClass extends GenClazzEntity
 	                           "   }\n" +
 	                           "}\n")
 	               );
+	    	 creatorCreator.insertImport(IdMap.class.getName());
 	      }
 	      return creatorCreator;
 	}
@@ -400,7 +408,14 @@ public class GenClass extends GenClazzEntity
                method.with(new Annotation("Override"));
                getGenerator(method).generateClazz(model, rootDir, helpersDir);
             }
-
+          
+            for (Association assoc : interfaze.getAssociations()) {
+            	if (assoc.getOther().getType().equals(AssociationTypes.IMPLEMENTS) == false) {
+            		assoc.with(new Annotation("Override"));
+            		getGenerator(assoc).generate(clazz, rootDir, helpersDir, assoc.getOther(), false);
+            	}
+            }
+            
          }
 
          insertInterfaceMethods(interfaze, rootDir, helpersDir);
@@ -447,7 +462,8 @@ public class GenClass extends GenClazzEntity
 
    private void insertSuperClass()
    {
-      if (model.getSuperClass() == null)
+	   ClazzSet superClazzes = model.getSuperClazzes(false);
+      if (superClazzes.size()<1)
       {
          return;
       }
@@ -460,15 +476,15 @@ public class GenClass extends GenClazzEntity
          extendsPos = parser.getEndOfClassName();
 
          parser.insert(extendsPos + 1,
-            " extends " + CGUtil.shortClassName(model.getSuperClass().getName(false)));
+            " extends " + CGUtil.shortClassName(superClazzes.first().getName(false)));
 
-         insertImport(model.getSuperClass().getName(false));
+         insertImport(superClazzes.first().getName(false));
       }
    }
 
    private void insertRemoveObjectInCreatorClass()
    {
-	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) 
+	  if (GraphUtil.isInterface(model) == true || !getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT)) 
 //      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
       {
          return;
@@ -491,15 +507,17 @@ public class GenClass extends GenClazzEntity
    private void insertRemoveYouMethod(String rootDir)
    {
 	   // TODO : alternative removeYou() 
-		String propChSupport = "getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);";
-		if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) {
+		String propChSupport = "firePropertyChange(\"REMOVE_YOU\", this, null);";
+		if (!getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT)) {
 			// return;
 			propChSupport = "";
 		}
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
+		ClazzSet superClazzes = model.getSuperClazzes(true);
+		superClazzes.without(model);
+		for (Clazz clazz : superClazzes) {
 			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
@@ -511,34 +529,30 @@ public class GenClass extends GenClazzEntity
 				break;
 			}
 		}
-		String superReplacement = "";
-		if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
-			superReplacement = "\n      super.removeYou();\n";
-		}
 		template.withTemplate("\n   " +
 	               "\n   //==========================================================================" +
 	               "\n   " +
 	               "\n   {{Override}}" +
 	               "\n   public void removeYou()" +
 	               "\n   {" +
-	               "\n   {{Super}}" +
 	               "\n      " + propChSupport +              
 	               "\n   }" +
 	               "\n");
-		template.insert(parser, "Override",  overrideText, "Super", superReplacement);
+		template.insert(parser, "Override",  overrideText);
    }
 
    private void insertPropertyChangeSupport(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport))
+      if (!getRepairClassModel().hasFeature(Feature.PROPERTYCHANGESUPPORT))
       {
          return;
       }
 
-      String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
+      String searchString = Parser.METHOD + ":firePropertyChange(String,Object,Object)";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzes(true).without(model))
-      {
+      ClazzSet superClazzes = model.getSuperClazzes(true);
+      superClazzes.without(model);
+      for (Clazz clazz : superClazzes) {
          if (GraphUtil.isInterface(clazz))
          {
             continue;
@@ -557,6 +571,7 @@ public class GenClass extends GenClazzEntity
 
       // does it implement PropertyChangeSupportClient?
 
+      searchString = Parser.ATTRIBUTE + ":listeners";
       int pos = parser.indexOf(searchString);
 //TODO CHANGE
       if (pos < 0)
@@ -566,41 +581,103 @@ public class GenClass extends GenClazzEntity
             "\n   " +
                "\n   //==========================================================================" +
                "\n   " +
-               "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
-               "\n   " +
-               "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
-               "\n   {" +
-               "\n      return listeners;" +
-               "\n   }" +
-               "\n   " +
-               "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
-               "\n   {" +
-               "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" +
-               "\n      return true;" +
-               "\n   }" +
-               "\n   " +
-               "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
-               "\n      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);" +
-               "\n      return true;" +
-               "\n   }"+
-               "\n   " +
-               "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
-               "\n      getPropertyChangeSupport().removePropertyChangeListener(listener);" +
-               "\n      return true;" +
-               "\n   }"+
-               "\n"
-            );
+               "\n   protected PropertyChangeSupport listeners = null;" +
+               "\n   "
+        	);
+         
+      }
+      
+      searchString = Parser.METHOD + ":firePropertyChange(String,Object,Object)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)" +
+                  "\n   {" +
+                  "\n      if (listeners != null) {" +
+                  "\n   		listeners.firePropertyChange(propertyName, oldValue, newValue);" +
+                  "\n   		return true;" +
+                  "\n   	}" +
+                  "\n   	return false;" +
+                  "\n   }" +
+                  "\n   "
+    		);
+      }
+      
+      searchString = Parser.METHOD + ":addPropertyChangeListener(PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
+    		      "\n   {" +
+    		      "\n   	if (listeners == null) {" +
+    		      "\n   		listeners = new PropertyChangeSupport(this);" +
+    		      "\n   	}" +
+    		      "\n   	listeners.addPropertyChangeListener(listener);" +
+    		      "\n   	return true;" +
+    		      "\n   }" +
+    		      "\n   "
+    		);
+      }
+    	
+      searchString = Parser.METHOD + ":addPropertyChangeListener(String,PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners == null) {" +
+    					  "\n   		listeners = new PropertyChangeSupport(this);" +
+    					  "\n   	}" +
+    					  "\n   	listeners.addPropertyChangeListener(propertyName, listener);" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n   "
+    		);
       }
 
+      searchString = Parser.METHOD + ":removePropertyChangeListener(PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners == null) {" +
+    					  "\n   		listeners.removePropertyChangeListener(listener);" +
+    					  "\n   	}" +
+    					  "\n   	listeners.removePropertyChangeListener(listener);" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n"
+    			  );
+      }
+      searchString = Parser.METHOD + ":removePropertyChangeListener(String,PropertyChangeListener)";
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0) {
+    	  parser.replaceAll(
+    			  "\n   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {" +
+    					  "\n   	if (listeners != null) {" +
+    					  "\n   		listeners.removePropertyChangeListener(propertyName, listener);" +
+    					  "\n   	}" +
+    					  "\n   	return true;" +
+    					  "\n   }"+
+    					  "\n"
+    			  );
+      }
+      
       insertImport(PropertyChangeSupport.class.getName());
       insertImport(PropertyChangeListener.class.getName());
    }
 
    private void insertImplementsClauseForPropertyChangeInterface()
    {
+	   if(getRepairClassModel().hasFeature(Feature.STANDALONE)) {
+		   return;
+	   }
       String searchString = Parser.IMPLEMENTS;
       int implementsPos = parser.indexOf(searchString);
-
       String propertyChangeInterface = SendableEntity.class.getSimpleName();
 
       if (implementsPos < 0)
@@ -707,7 +784,7 @@ public class GenClass extends GenClazzEntity
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.Serialization))
+      if (!getRepairClassModel().hasFeature(Feature.SERIALIZATION))
       {
          return null;
       }
@@ -737,9 +814,10 @@ public class GenClass extends GenClazzEntity
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
+         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         if (!patternObjectCreatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = Feature.Serialization.getPath();
+            HashSet<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {

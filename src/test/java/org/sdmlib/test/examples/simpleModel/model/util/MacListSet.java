@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -255,4 +255,22 @@ public class MacListSet extends SimpleSet<MacList>
       return result;
    }
 
+
+   public MacListSet()
+   {
+      // empty
+   }
+
+   public MacListSet(MacList... objects)
+   {
+      for (MacList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MacListSet(Collection<MacList> objects)
+   {
+      this.addAll(objects);
+   }
 }

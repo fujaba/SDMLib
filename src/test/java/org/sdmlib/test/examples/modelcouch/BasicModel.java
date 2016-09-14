@@ -1,7 +1,7 @@
 package org.sdmlib.test.examples.modelcouch;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import static de.uniks.networkparser.graph.DataType.*;
 import static de.uniks.networkparser.graph.Cardinality.*;
 
@@ -16,7 +16,7 @@ public class BasicModel
 
    private void basicModel()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
 
       ClassModel model = new ClassModel("org.sdmlib.test.examples.modelcouch");
 
@@ -87,7 +87,7 @@ public class BasicModel
       story.dumpHTML();
    }
 
-   private void addExample(StoryPage story)
+   private void addExample(Storyboard story)
    {
       story.add(""
          + "A basic data set for a software story may look like: ");

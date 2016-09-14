@@ -23,8 +23,8 @@ package org.sdmlib.modelspace.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
@@ -323,4 +323,22 @@ public class CloudModelFileSet extends SimpleSet<CloudModelFile>
       return result;
    }
 
+
+   public CloudModelFileSet()
+   {
+      // empty
+   }
+
+   public CloudModelFileSet(CloudModelFile... objects)
+   {
+      for (CloudModelFile obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CloudModelFileSet(Collection<CloudModelFile> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -76,32 +76,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"Task",
-            "cardinality":"many",
-            "property":"tasks"
-         },
-         "target":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskFlow"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"firstTasks"
-         },
-         "target":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskFlowFirst"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
             "cardinality":"one",
             "property":"transitionSource"
          },
@@ -142,51 +116,12 @@
          "source":{
             "id":"UserGroup",
             "cardinality":"many",
-            "property":"responsibles"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"responsible"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"UserGroup",
-            "cardinality":"many",
             "property":"groups"
          },
          "target":{
             "id":"User",
             "cardinality":"many",
             "property":"members"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"User",
-            "cardinality":"one",
-            "property":"handledBy"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"handledTasks"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"User",
-            "cardinality":"many",
-            "property":"members"
-         },
-         "target":{
-            "id":"UserGroup",
-            "cardinality":"many",
-            "property":"groups"
          }
       }
    ]

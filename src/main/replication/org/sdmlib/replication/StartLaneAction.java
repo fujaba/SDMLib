@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.junit.Assert;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 public class StartLaneAction
 {
 
-   private Storyboard storyboard;
+   private StoryboardImpl storyboard;
    private Process child;
 
    public StartLaneAction()
@@ -20,7 +20,7 @@ public class StartLaneAction
 
    }
 
-   public StartLaneAction(Storyboard storyboard)
+   public StartLaneAction(StoryboardImpl storyboard)
    {
       this.storyboard = storyboard;
 

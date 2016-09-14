@@ -23,7 +23,7 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeEventList;
@@ -386,4 +386,22 @@ public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
       return result;
    }
 
+
+   public SeppelSpaceSet()
+   {
+      // empty
+   }
+
+   public SeppelSpaceSet(SeppelSpace... objects)
+   {
+      for (SeppelSpace obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelSpaceSet(Collection<SeppelSpace> objects)
+   {
+      this.addAll(objects);
+   }
 }

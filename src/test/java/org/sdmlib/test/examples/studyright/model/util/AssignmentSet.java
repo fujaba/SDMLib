@@ -24,16 +24,14 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
@@ -383,4 +381,22 @@ public class AssignmentSet extends SimpleSet<Assignment>
       return result;
    }
 
+
+   public AssignmentSet()
+   {
+      // empty
+   }
+
+   public AssignmentSet(Assignment... objects)
+   {
+      for (Assignment obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public AssignmentSet(Collection<Assignment> objects)
+   {
+      this.addAll(objects);
+   }
 }

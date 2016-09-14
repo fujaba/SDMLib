@@ -7,7 +7,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
-
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,8 +17,10 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.util.ParameterSet;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GenMethod extends Generator<Method>
 {
@@ -41,7 +43,7 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (clazzModel.hasFeature(Feature.PatternObject)) {
+      if (clazzModel.hasFeature(Feature.PATTERNOBJECT)) {
 	      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
 	      insertMethodInPatternObject(clazz, patternObjectParser);
 	      generator.printFile(patternObjectParser);
@@ -101,6 +103,10 @@ public class GenMethod extends Generator<Method>
          else if ("int float double".indexOf(name) >= 0)
          {
             returnClause = "return 0;";
+         }
+         else if ("boolean".indexOf(name) >= 0) 
+         {
+    	    returnClause = "return false;";
          }
          else if ("void".indexOf(name) >= 0)
          {
@@ -296,12 +302,7 @@ public class GenMethod extends Generator<Method>
                   "\n   " +
                   "\n   modifiers returnType methodName(formalParameter)" +
                   "\n   {" +
-                  "\n      returnSetCreate" +
-                  "\n      for (memberType obj : this)" +
-                  "\n      {" +
-                  "\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;" +
-                  "\n      }" +
-                  "\n      returnStat" +
+                  "\n      body" +
                   "\n   }" +
                   "\n\n"
                );
@@ -310,10 +311,6 @@ public class GenMethod extends Generator<Method>
          StringBuilder actualParameter = new StringBuilder();
          calculateParameters(parser, formalParameter, actualParameter);
 
-         String returnSetCreate = "";
-         String returnSetAdd = "";
-         String returnSetAddEnd = "";
-         String returnStat = "return this;";
 
          String type = model.getReturnType().getName(false);
          if (type == null)
@@ -329,24 +326,31 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 3);
          }
          String importType = type;
+         String body="";
          if ("void".equals(type))
          {
             type =  clazz2.getName(true) + "Set";
+            body = "return "+type+".EMPTY_SET;";
          }
          else
          {
-            if ("String int double long boolean".indexOf(type) >= 0)
-            {
-               type = type + "List";
-               importType = "org.sdmlib.models.modelsets." + type;
-            }
-            else if ("Object".indexOf(type) >= 0)
-            {
+        	 String returnStat = "return this;";
+        	 if (EntityUtil.isNumericType(type)) {
+        		 type = "NumberList";
+                 importType = NumberList.class.getName();
+        	 } else if ("String".indexOf(type) >= 0) {
+        		 type = "StringList";
+        		 importType = StringList.class.getName();
+        	 } else if ("boolean".indexOf(type) >= 0) {
+        		 type = BooleanList.class.getName();
+        		 importType = BooleanList.class.getSimpleName();
+        	 } else if ("Object".indexOf(type) >= 0) {
                type = "LinkedHashSet<Object>";
                importType = LinkedHashSet.class.getName();
             }
             else
             {
+            	
                type = type + "Set";
                importType = model.getClazz().getName(false);
                int dotpos = importType.lastIndexOf('.');
@@ -354,32 +358,40 @@ public class GenMethod extends Generator<Method>
                type = type.substring(typePos + 1);
                importType = importType.substring(0, dotpos) + GenClassModel.UTILPATH + "." + type;
             }
+        	 returnStat = "return result;";
 
             parser.insertImport(importType);
-
-            returnSetCreate = type + " result = new " + type + "();\n      ";
-
-            returnSetAdd = "result.add(";
-            returnSetAddEnd = ")";
-            returnStat = "return result;";
-         }
-
-         if (model.getModifier().has(Modifier.STATIC))
-         {
-            returnStat = "";
+            if (model.getModifier().has(Modifier.STATIC))
+            {
+               returnStat = "";
+            }
+//            if(model.getBody()!=null &&model.getBody().length()>0) {
+////            	body = model.getBody();
+//            } else {
+            	body = 	"\n      returnSetCreate" +
+            			"\n      for (memberType obj : this)" +
+            			"\n      {" +
+            			"\n         returnSetAdd obj.methodName(actualParameter) returnSetEnd;" +
+            			"\n      }" +
+            			"\n      returnStat";
+//            }
+            body = CGUtil.replaceAll(body,
+            		"returnSetCreate", type + " result = new " + type + "();\n      ",
+            		"returnStat", returnStat,
+            		"returnSetAdd", "result.add(",
+            		"returnSetEnd", ")",
+            		"methodName", model.getName(),
+                    "memberType", clazz2.getName(true),
+                    "actualParameter", actualParameter.toString()
+            		);
          }
 
          CGUtil.replaceAll(text,
-            "returnSetCreate\n      ", returnSetCreate,
-            "returnSetAdd ", returnSetAdd,
-            " returnSetAddEnd", returnSetAddEnd,
-            "returnStat", returnStat,
+        	"body", body,
             "modifiers", model.getModifier().getName(),
-            "returnType", type,
             "methodName", model.getName(),
-            "memberType", clazz2.getName(true),
             "formalParameter", formalParameter.toString(),
-            "actualParameter", actualParameter.toString()
+            "returnType", type
             );
 
          int pos = parser.indexOf(Parser.CLASS_END);

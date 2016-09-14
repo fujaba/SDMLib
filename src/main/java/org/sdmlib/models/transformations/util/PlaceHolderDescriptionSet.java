@@ -24,8 +24,8 @@ package org.sdmlib.models.transformations.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
@@ -698,4 +698,22 @@ public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
       return result;
    }
 
+
+   public PlaceHolderDescriptionSet()
+   {
+      // empty
+   }
+
+   public PlaceHolderDescriptionSet(PlaceHolderDescription... objects)
+   {
+      for (PlaceHolderDescription obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlaceHolderDescriptionSet(Collection<PlaceHolderDescription> objects)
+   {
+      this.addAll(objects);
+   }
 }

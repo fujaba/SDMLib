@@ -33,4 +33,9 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public PupilPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

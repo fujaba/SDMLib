@@ -24,13 +24,18 @@ public class ObjectPO extends PatternObject<ObjectPO, Object>
 
 
    public ObjectPO(){
-      newInstance(org.sdmlib.models.pattern.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public ObjectPO(Object... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.models.pattern.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(null, hostGraphObject);
+   }
+
+   public ObjectPO(String modifier)
+   {
+      this.setModifier(modifier);
    }
 }

@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.SimpleMapEvent;
 
 public class Specific2Generic
 {
@@ -21,7 +21,7 @@ public class Specific2Generic
       public String secondPropName = null;
 
   	public boolean update(Object event) {
-    	  SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+    	  SimpleEvent simpleEvent = (SimpleEvent) event;
   			Object tmp = simpleEvent.getEntity().getValue(IdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)

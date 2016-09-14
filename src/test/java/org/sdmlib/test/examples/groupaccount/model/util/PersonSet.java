@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
@@ -393,4 +393,22 @@ public class PersonSet extends SimpleSet<Person>
       return result;
    }
 
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
 }

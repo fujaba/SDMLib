@@ -22,8 +22,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
@@ -132,41 +132,41 @@ public class TeachingAssistantCreator implements SendableEntityCreator
    {
       if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withCredits(Integer.parseInt(value.toString()));
+         ((Student) target).setCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withMotivation(Integer.parseInt(value.toString()));
+         ((Student) target).setMotivation(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withAssignmentPoints(Integer.parseInt(value.toString()));
+         ((Student) target).setAssignmentPoints(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withId((String) value);
+         ((Student) target).setId((String) value);
          return true;
       }
 
       if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Student) target).withName((String) value);
+         ((Student) target).setName((String) value);
          return true;
       }
 
       if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
       {
-         ((TeachingAssistant) target).withCertified((Boolean) value);
+         ((TeachingAssistant) target).setCertified((Boolean) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -189,7 +189,7 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TeachingAssistant.PROPERTY_FRIENDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TeachingAssistant.PROPERTY_FRIENDS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withoutFriends((Student) value);
          return true;
@@ -201,7 +201,7 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TeachingAssistant.PROPERTY_DONE + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TeachingAssistant.PROPERTY_DONE + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((TeachingAssistant) target).withoutDone((Assignment) value);
          return true;

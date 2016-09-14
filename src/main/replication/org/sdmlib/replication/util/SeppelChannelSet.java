@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
@@ -244,4 +244,22 @@ public class SeppelChannelSet extends SimpleSet<SeppelChannel>
       return result;
    }
 
+
+   public SeppelChannelSet()
+   {
+      // empty
+   }
+
+   public SeppelChannelSet(SeppelChannel... objects)
+   {
+      for (SeppelChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelChannelSet(Collection<SeppelChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

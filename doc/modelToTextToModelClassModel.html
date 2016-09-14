@@ -125,19 +125,6 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"PlaceHolderDescription",
-            "cardinality":"many",
-            "property":"placeholders"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"many",
-            "property":"owners"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"PlaceHolderDescription",
             "cardinality":"one",
             "property":"placeholder"
          },
@@ -145,58 +132,6 @@
             "id":"Match",
             "cardinality":"many",
             "property":"matches"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"PlaceHolderDescription",
-            "cardinality":"many",
-            "property":"parents"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"one",
-            "property":"subTemplate"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChoiceTemplate",
-            "cardinality":"one",
-            "property":"chooser"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"many",
-            "property":"choices"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Match",
-            "cardinality":"many",
-            "property":"matches"
-         },
-         "target":{
-            "id":"Template",
-            "cardinality":"one",
-            "property":"template"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Match",
-            "cardinality":"many",
-            "property":"matches"
-         },
-         "target":{
-            "id":"PlaceHolderDescription",
-            "cardinality":"one",
-            "property":"placeholder"
          }
       },
       {

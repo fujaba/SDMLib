@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -53,19 +56,6 @@
             "cardinality":"many",
             "property":"tas"
          }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"TeachingAssistant",
-            "cardinality":"many",
-            "property":"tas"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         }
       }
    ]
 }   ;
@@ -80,6 +70,7 @@
          "typ":"node",
          "id":"Student",
          "methods":[
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
             "getFriendsTransitive() StudentSet",
             "createFriendsTeachingAssistant() TeachingAssistant"
          ]
@@ -89,8 +80,9 @@
          "id":"Room",
          "methods":[
             "findPath(int p0) String",
-            "getDoorsTransitive() RoomSet",
-            "createStudentsTeachingAssistant() TeachingAssistant"
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "getDoorsTransitive() RoomSet"
          ]
       },
       {
@@ -101,6 +93,7 @@
          "typ":"node",
          "id":"Assignment",
          "methods":[
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
             "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
@@ -115,6 +108,7 @@
          "typ":"node",
          "id":"University",
          "methods":[
+            "firePropertyChange(String p0, Object p1, Object p2) boolean",
             "createStudentsTeachingAssistant() TeachingAssistant"
          ]
       },
@@ -131,6 +125,32 @@
       },
       {
          "typ":"node",
+         "id":"AssignmentSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createAssignmentPO() AssignmentPO",
+            "getEntryType() String",
+            "getNewList(boolean p0) AssignmentSet",
+            "filter(Condition<Assignment> p0) AssignmentSet",
+            "with(Object p0) AssignmentSet",
+            "without(Assignment p0) AssignmentSet",
+            "getContent() ObjectSet",
+            "filterContent(String p0) AssignmentSet",
+            "withContent(String p0) AssignmentSet",
+            "getPoints() NumberList",
+            "filterPoints(int p0) AssignmentSet",
+            "withPoints(int p0) AssignmentSet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) AssignmentSet",
+            "withStudents(Student p0) AssignmentSet",
+            "withoutStudents(Student p0) AssignmentSet",
+            "getRoom() RoomSet",
+            "filterRoom(Object p0) AssignmentSet",
+            "withRoom(Room p0) AssignmentSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"RoomCreator",
          "methods":[
             "getSendableInstance(boolean p0) Object",
@@ -142,6 +162,49 @@
       },
       {
          "typ":"node",
+         "id":"RoomSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createRoomPO() RoomPO",
+            "getEntryType() String",
+            "getNewList(boolean p0) RoomSet",
+            "filter(Condition<Room> p0) RoomSet",
+            "with(Object p0) RoomSet",
+            "without(Room p0) RoomSet",
+            "findPath(int p0) StringList",
+            "getName() ObjectSet",
+            "filterName(String p0) RoomSet",
+            "withName(String p0) RoomSet",
+            "getTopic() ObjectSet",
+            "filterTopic(String p0) RoomSet",
+            "withTopic(String p0) RoomSet",
+            "getCredits() NumberList",
+            "filterCredits(int p0) RoomSet",
+            "withCredits(int p0) RoomSet",
+            "getUniversity() UniversitySet",
+            "filterUniversity(Object p0) RoomSet",
+            "withUniversity(University p0) RoomSet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) RoomSet",
+            "withStudents(Student p0) RoomSet",
+            "withoutStudents(Student p0) RoomSet",
+            "getDoors() RoomSet",
+            "filterDoors(Object p0) RoomSet",
+            "getDoorsTransitive() RoomSet",
+            "withDoors(Room p0) RoomSet",
+            "withoutDoors(Room p0) RoomSet",
+            "getAssignments() AssignmentSet",
+            "filterAssignments(Object p0) RoomSet",
+            "withAssignments(Assignment p0) RoomSet",
+            "withoutAssignments(Assignment p0) RoomSet",
+            "getTas() TeachingAssistantSet",
+            "filterTas(Object p0) RoomSet",
+            "withTas(TeachingAssistant p0) RoomSet",
+            "withoutTas(TeachingAssistant p0) RoomSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"StudentCreator",
          "methods":[
             "getSendableInstance(boolean p0) Object",
@@ -149,6 +212,50 @@
             "setValue(Object p0, String p1, Object p2, String p3) boolean",
             "createIdMap(String p0) IdMap",
             "removeObject(Object p0) void"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"StudentSet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createStudentPO() StudentPO",
+            "getEntryType() String",
+            "getNewList(boolean p0) StudentSet",
+            "filter(Condition<Student> p0) StudentSet",
+            "instanceOfTeachingAssistant() TeachingAssistantSet",
+            "with(Object p0) StudentSet",
+            "without(Student p0) StudentSet",
+            "getName() ObjectSet",
+            "filterName(String p0) StudentSet",
+            "withName(String p0) StudentSet",
+            "getId() ObjectSet",
+            "filterId(String p0) StudentSet",
+            "withId(String p0) StudentSet",
+            "getAssignmentPoints() NumberList",
+            "filterAssignmentPoints(int p0) StudentSet",
+            "withAssignmentPoints(int p0) StudentSet",
+            "getMotivation() NumberList",
+            "filterMotivation(int p0) StudentSet",
+            "withMotivation(int p0) StudentSet",
+            "getCredits() NumberList",
+            "filterCredits(int p0) StudentSet",
+            "withCredits(int p0) StudentSet",
+            "getUniversity() UniversitySet",
+            "filterUniversity(Object p0) StudentSet",
+            "withUniversity(University p0) StudentSet",
+            "getIn() RoomSet",
+            "filterIn(Object p0) StudentSet",
+            "withIn(Room p0) StudentSet",
+            "getFriends() StudentSet",
+            "filterFriends(Object p0) StudentSet",
+            "getFriendsTransitive() StudentSet",
+            "withFriends(Student p0) StudentSet",
+            "withoutFriends(Student p0) StudentSet",
+            "getDone() AssignmentSet",
+            "filterDone(Object p0) StudentSet",
+            "withDone(Assignment p0) StudentSet",
+            "withoutDone(Assignment p0) StudentSet"
          ]
       },
       {
@@ -166,27 +273,29 @@
          "typ":"node",
          "id":"TeachingAssistantSet",
          "methods":[
-            "filterTeachingAssistantPO() TeachingAssistantPO",
+            "getTypClass() Class<?>",
+            "createTeachingAssistantPO() TeachingAssistantPO",
             "getEntryType() String",
+            "getNewList(boolean p0) TeachingAssistantSet",
+            "filter(Condition<TeachingAssistant> p0) TeachingAssistantSet",
             "with(Object p0) TeachingAssistantSet",
             "without(TeachingAssistant p0) TeachingAssistantSet",
-            "filter(Condition<TeachingAssistant> p0) TeachingAssistantSet",
-            "getCertified() booleanList",
+            "getCertified() BooleanList",
             "filterCertified(boolean p0) TeachingAssistantSet",
             "withCertified(boolean p0) TeachingAssistantSet",
-            "getName() StringList",
+            "getName() ObjectSet",
             "filterName(String p0) TeachingAssistantSet",
             "withName(String p0) TeachingAssistantSet",
-            "getId() StringList",
+            "getId() ObjectSet",
             "filterId(String p0) TeachingAssistantSet",
             "withId(String p0) TeachingAssistantSet",
-            "getAssignmentPoints() intList",
+            "getAssignmentPoints() NumberList",
             "filterAssignmentPoints(int p0) TeachingAssistantSet",
             "withAssignmentPoints(int p0) TeachingAssistantSet",
-            "getMotivation() intList",
+            "getMotivation() NumberList",
             "filterMotivation(int p0) TeachingAssistantSet",
             "withMotivation(int p0) TeachingAssistantSet",
-            "getCredits() intList",
+            "getCredits() NumberList",
             "filterCredits(int p0) TeachingAssistantSet",
             "withCredits(int p0) TeachingAssistantSet",
             "getUniversity() UniversitySet",
@@ -197,7 +306,7 @@
             "withIn(Room p0) TeachingAssistantSet",
             "getFriends() StudentSet",
             "filterFriends(Object p0) TeachingAssistantSet",
-            "getFriendsTransitive() StudentSet<Student>",
+            "getFriendsTransitive() StudentSet",
             "withFriends(Student p0) TeachingAssistantSet",
             "withoutFriends(Student p0) TeachingAssistantSet",
             "getDone() AssignmentSet",
@@ -222,11 +331,39 @@
       },
       {
          "typ":"node",
+         "id":"UniversitySet",
+         "methods":[
+            "getTypClass() Class<?>",
+            "createUniversityPO() UniversityPO",
+            "getEntryType() String",
+            "getNewList(boolean p0) UniversitySet",
+            "filter(Condition<University> p0) UniversitySet",
+            "with(Object p0) UniversitySet",
+            "without(University p0) UniversitySet",
+            "getName() ObjectSet",
+            "filterName(String p0) UniversitySet",
+            "withName(String p0) UniversitySet",
+            "getStudents() StudentSet",
+            "filterStudents(Object p0) UniversitySet",
+            "withStudents(Student p0) UniversitySet",
+            "withoutStudents(Student p0) UniversitySet",
+            "getRooms() RoomSet",
+            "filterRooms(Object p0) UniversitySet",
+            "withRooms(Room p0) UniversitySet",
+            "withoutRooms(Room p0) UniversitySet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"SendableEntity"
       },
       {
          "typ":"node",
          "id":"SendableEntityCreator"
+      },
+      {
+         "typ":"node",
+         "id":"SimpleSet"
       }
    ],
    "edges":[
@@ -241,6 +378,19 @@
             "id":"Student",
             "cardinality":"many",
             "property":"friends"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
          }
       },
       {
@@ -296,6 +446,19 @@
          }
       },
       {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
          "typ":"ASSOCIATION",
          "source":{
             "id":"Room",
@@ -309,16 +472,16 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"GENERALISATION",
          "source":{
-            "id":"TeachingAssistant",
-            "cardinality":"many",
-            "property":"tas"
+            "id":"Assignment",
+            "cardinality":"one",
+            "property":"assignment"
          },
          "target":{
-            "id":"Room",
+            "id":"SendableEntity",
             "cardinality":"one",
-            "property":"room"
+            "property":"sendableentity"
          }
       },
       {
@@ -376,118 +539,14 @@
       {
          "typ":"GENERALISATION",
          "source":{
-            "id":"RoomCreator",
+            "id":"AssignmentSet",
             "cardinality":"one",
-            "property":"roomcreator"
+            "property":"assignmentset"
          },
          "target":{
-            "id":"SendableEntityCreator",
+            "id":"SimpleSet",
             "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"StudentCreator",
-            "cardinality":"one",
-            "property":"studentcreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"TeachingAssistantCreator",
-            "cardinality":"one",
-            "property":"teachingassistantcreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"UniversityCreator",
-            "cardinality":"one",
-            "property":"universitycreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Assignment",
-            "cardinality":"one",
-            "property":"assignment"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"university"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"AssignmentCreator",
-            "cardinality":"one",
-            "property":"assignmentcreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
+            "property":"simpleset"
          }
       },
       {
@@ -506,6 +565,19 @@
       {
          "typ":"GENERALISATION",
          "source":{
+            "id":"RoomSet",
+            "cardinality":"one",
+            "property":"roomset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"StudentCreator",
             "cardinality":"one",
             "property":"studentcreator"
@@ -514,6 +586,19 @@
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"StudentSet",
+            "cardinality":"one",
+            "property":"studentset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
          }
       },
       {
@@ -532,6 +617,19 @@
       {
          "typ":"GENERALISATION",
          "source":{
+            "id":"TeachingAssistantSet",
+            "cardinality":"one",
+            "property":"teachingassistantset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
             "id":"UniversityCreator",
             "cardinality":"one",
             "property":"universitycreator"
@@ -540,6 +638,19 @@
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"GENERALISATION",
+         "source":{
+            "id":"UniversitySet",
+            "cardinality":"one",
+            "property":"universityset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
          }
       }
    ]
@@ -548,41 +659,522 @@
 </script>
 <p>How to navigate and query an object model.</p>
 <p>Start: Example object structure:</p>
-<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
-      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
-      
-      int donePoints = university.getStudents().getDone().getPoints().sum();
-      
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "certified=true",
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R8 : Room",
+         "attributes":[
+            "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : Room",
+         "attributes":[
+            "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A10 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A11 : Assignment",
+         "attributes":[
+            "content=Pushups",
+            "points=4"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A12 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Assignment",
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A11 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A12 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A12 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A13 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A11 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+
+      double donePoints = university.getStudents().getDone().getPoints().sum();
+
 </pre><p>Results in:</p>
-<pre>      Sum of assignment points: 23. 
-      Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points:  23 actual 23</p>
-<p>Check: donePoints:  15 actual 15</p>
-<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
+<pre>      Sum of assignment points: 23.0. 
+      Sum of points of assignments that have been done by at least one students: 15.0.</pre><p>Check: Assignment points:  23.0 actual 23.0</p>
+<p>Check: donePoints:  15.0 actual 15.0</p>
+<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
-      
+
       RoomSet rooms = availableAssignments.getRoom();
-      
+
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
-<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
+<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>
       RoomSet rooms17 = university.getRooms().filterCredits(17);
       RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
 <pre>      rooms17: (senate math 17)
-      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
-      
+
       RoomSet roomsEven = university.getRooms().filter(value -&gt; value.getCredits() % 2 == 0);
-      
+
 </pre><p>Results in:</p>
-<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
-      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
-      
-</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
+
+</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>
       university.getStudents().withMotivation(42);
-      
+
 </pre><script>
    var json = {
    "typ":"objectdiagram",
@@ -590,7 +1182,7 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"S1 : Student",
+         "id":"S2 : Student",
          "attributes":[
             "name=Abu",
             "id=1337",
@@ -601,7 +1193,7 @@
       },
       {
          "typ":"clazz",
-         "id":"T2 : TeachingAssistant",
+         "id":"T3 : TeachingAssistant",
          "attributes":[
             "certified=true",
             "name=Karli",
@@ -613,7 +1205,7 @@
       },
       {
          "typ":"clazz",
-         "id":"S3 : Student",
+         "id":"S4 : Student",
          "attributes":[
             "name=Alice",
             "id=2323",
@@ -624,18 +1216,18 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries31", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries32", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
-      RoomPO roomPO = university.getRooms().filterRoomPO();
-            
-      StudentPO stud1PO = roomPO.filterStudents();      
-      
-      roomPO.filterStudents().filterMotivation(42).filterFriends(stud1PO);
-      
+<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>
+      RoomPO roomPO = university.getRooms().createRoomPO();
+
+      StudentPO stud1PO = roomPO.createStudentsPO();
+
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsLink(stud1PO);
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -696,21 +1288,21 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram33", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram34", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-            
-      stud1PO = roomPO.filterStudents();      
-      
-      final StudentPO stud2PO = roomPO.filterStudents().filterMotivation(0, 50);
-      
-      stud2PO.filterFriends(stud1PO);
-      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
+
+      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
+
+      stud2PO.createFriendsLink(stud1PO);
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -771,25 +1363,25 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram38", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram39", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>
       UniversityPO uniPO = new UniversityPO(university);
-      
-      roomPO = uniPO.filterRooms();
-            
-      stud1PO = roomPO.filterStudents().filterMotivation(0, 42);      
-      
-      roomPO.filterStudents().filterFriends(stud1PO);
-      
-      roomPO.filterTas(null);
-      
-      roomPO.createTas();
-      
+
+      roomPO = uniPO.createRoomsPO();
+
+      stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
+
+      roomPO.createStudentsPO().createFriendsLink(stud1PO);
+
+      roomPO.createTasLink(null);
+
+      roomPO.createTasPO();
+
       rooms = roomPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -834,9 +1426,7 @@
       {
          "typ":"patternObject",
          "id":"t6 : TeachingAssistantPO",
-         "attributes":[
-            "<< create>>"
-         ]
+         "attributes":[]
       }
    ],
    "edges":[
@@ -908,7 +1498,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram43", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in:</p>
@@ -916,103 +1506,20 @@
    var json = {
    "typ":"objectdiagram",
    "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"R1 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S3 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T4 : TeachingAssistant",
-         "attributes":[
-            "certified=false",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R1 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R1 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S3 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R1 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"teachingassistant",
-            "id":"T4 : TeachingAssistant"
-         }
-      }
-   ]
+   "nodes":null
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries46", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries47", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-      
-      stud1PO = roomPO.filterStudents();
-      
+<pre>      ()</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
+
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
-      
+
       TeachingAssistantSet taSet = taPO.allMatches();
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1060,7 +1567,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram49", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1070,7 +1577,7 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"T1 : TeachingAssistant",
+         "id":"T3 : TeachingAssistant",
          "attributes":[
             "certified=true",
             "name=Karli",
@@ -1082,45 +1589,51 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries51", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries52", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
-      roomPO = university.getRooms().filterRoomPO();
-      
-      stud1PO = roomPO.filterStudents();
+<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>
+      roomPO = university.getRooms().createRoomPO();
+
+      stud1PO = roomPO.createStudentsPO();
 
       for (Match match : (Iterable&lt;Match&gt;) roomPO.getPattern())
       {
          Student currentMatch = stud1PO.getCurrentMatch();
-         
+
          currentMatch.withMotivation(currentMatch.getMotivation() * 2);
-         
+
          &#x2F;&#x2F; or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
-        
+
          Room assertMatch = roomPO.getCurrentMatch();
-         
-         if (match.number == 1) {
-        	 Assert.assertEquals(&quot;Karli&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;senate&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;math&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(17, assertMatch.getCredits());
-         } else if (match.number == 2) {
-        	 Assert.assertEquals(&quot;Abu&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(25, assertMatch.getCredits());
-         } else if (match.number == 3) {
-        	 Assert.assertEquals(&quot;Alice&quot;, currentMatch.getName());
-        	 Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
-        	 Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
-        	 Assert.assertEquals(25, assertMatch.getCredits());
+
+         if (match.number == 1)
+         {
+            Assert.assertEquals(&quot;Karli&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;senate&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;math&quot;, assertMatch.getTopic());
+            Assert.assertEquals(17, assertMatch.getCredits());
          }
-         
-&#x2F;&#x2F;         System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
+         else if (match.number == 2)
+         {
+            Assert.assertEquals(&quot;Abu&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
+            Assert.assertEquals(25, assertMatch.getCredits());
+         }
+         else if (match.number == 3)
+         {
+            Assert.assertEquals(&quot;Alice&quot;, currentMatch.getName());
+            Assert.assertEquals(&quot;gymnasium&quot;, assertMatch.getName());
+            Assert.assertEquals(&quot;sports&quot;, assertMatch.getTopic());
+            Assert.assertEquals(25, assertMatch.getCredits());
+         }
+
+         &#x2F;&#x2F; System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot;
+         &#x2F;&#x2F; in room &quot; + roomPO.getCurrentMatch());
       }
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -1152,7 +1665,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram53", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1162,7 +1675,7 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"S1 : Student",
+         "id":"S2 : Student",
          "attributes":[
             "name=Abu",
             "id=1337",
@@ -1173,7 +1686,7 @@
       },
       {
          "typ":"clazz",
-         "id":"R2 : Room",
+         "id":"R7 : Room",
          "attributes":[
             "name=gymnasium",
             "topic=sports",
@@ -1194,7 +1707,7 @@
       },
       {
          "typ":"clazz",
-         "id":"R4 : Room",
+         "id":"R5 : Room",
          "attributes":[
             "name=senate",
             "topic=math",
@@ -1203,7 +1716,7 @@
       },
       {
          "typ":"clazz",
-         "id":"S5 : Student",
+         "id":"S4 : Student",
          "attributes":[
             "name=Alice",
             "id=2323",
@@ -1219,12 +1732,12 @@
          "source":{
             "cardinality":"one",
             "property":"in",
-            "id":"R2 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S1 : Student"
+            "id":"S2 : Student"
          }
       },
       {
@@ -1232,7 +1745,7 @@
          "source":{
             "cardinality":"one",
             "property":"in",
-            "id":"R4 : Room"
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"one",
@@ -1245,19 +1758,189 @@
          "source":{
             "cardinality":"one",
             "property":"in",
-            "id":"R2 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S5 : Student"
+            "id":"S4 : Student"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries55", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries56", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
+<p><a name = 'step_12'>Step 12: lure students from other rooms into math room: </a></p><pre>
+      roomPO = new RoomPO(mathRoom);
+
+      stud1PO = roomPO.createPath(r -&gt; ((Room) r).getDoors().getStudents(), new StudentPO());
+
+      stud1PO.startCreate();
+
+      stud1PO.createInLink(roomPO);
+
+      stud1PO.allMatches();
+
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":null,
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r1 : RoomPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram58", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "certified=true",
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=168",
+            "credits=0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries60", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: New students in math room:  3 actual 3</p>
 
 </body>
 </html>

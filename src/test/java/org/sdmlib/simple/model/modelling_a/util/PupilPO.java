@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.modelling_a.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.modelling_a.Pupil;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.simple.model.modelling_a.util.RoomPO;
 import org.sdmlib.simple.model.modelling_a.Person;
 import org.sdmlib.simple.model.modelling_a.Room;
@@ -40,6 +41,11 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public PupilPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    
@@ -52,7 +58,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return null;
    }
 
-   public PupilPO filterCredits(int value)
+   public PupilPO createCreditsCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_CREDITS)
@@ -66,7 +72,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterCredits(int lower, int upper)
+   public PupilPO createCreditsCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_CREDITS)
@@ -81,9 +87,17 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO createCredits(int value)
+   public PupilPO createCreditsAssignment(int value)
    {
-      this.startCreate().filterCredits(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Pupil.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -105,7 +119,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterName(String value)
+   public PupilPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_NAME)
@@ -119,7 +133,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterName(String lower, String upper)
+   public PupilPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_NAME)
@@ -134,9 +148,17 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO createName(String value)
+   public PupilPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Pupil.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -158,7 +180,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterAge(int value)
+   public PupilPO createAgeCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_AGE)
@@ -172,7 +194,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO filterAge(int lower, int upper)
+   public PupilPO createAgeCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(Pupil.PROPERTY_AGE)
@@ -187,9 +209,17 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public PupilPO createAge(int value)
+   public PupilPO createAgeAssignment(int value)
    {
-      this.startCreate().filterAge(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Pupil.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -211,7 +241,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return this;
    }
    
-   public RoomPO filterRoom()
+   public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -221,19 +251,24 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return result;
    }
 
-   public RoomPO createRoom()
+   public RoomPO createRoomPO(String modifier)
    {
-      return this.startCreate().filterRoom().endCreate();
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
    }
 
-   public PupilPO filterRoom(RoomPO tgt)
+   public PupilPO createRoomLink(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
    }
 
-   public PupilPO createRoom(RoomPO tgt)
+   public PupilPO createRoomLink(RoomPO tgt, String modifier)
    {
-      return this.startCreate().filterRoom(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
    }
 
    public Room getRoom()
@@ -245,7 +280,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return null;
    }
 
-   public RoomPO filterCurrentRoom()
+   public RoomPO createCurrentRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
       
@@ -255,19 +290,24 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return result;
    }
 
-   public RoomPO createCurrentRoom()
+   public RoomPO createCurrentRoomPO(String modifier)
    {
-      return this.startCreate().filterCurrentRoom().endCreate();
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Pupil.PROPERTY_CURRENTROOM, result);
+      
+      return result;
    }
 
-   public PupilPO filterCurrentRoom(RoomPO tgt)
+   public PupilPO createCurrentRoomLink(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Pupil.PROPERTY_CURRENTROOM);
    }
 
-   public PupilPO createCurrentRoom(RoomPO tgt)
+   public PupilPO createCurrentRoomLink(RoomPO tgt, String modifier)
    {
-      return this.startCreate().filterCurrentRoom(tgt).endCreate();
+      return hasLinkConstraint(tgt, Pupil.PROPERTY_CURRENTROOM, modifier);
    }
 
    public Room getCurrentRoom()
@@ -279,7 +319,7 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return null;
    }
 
-   public TeacherPO filterTeacher()
+   public TeacherPO createTeacherPO()
    {
       TeacherPO result = new TeacherPO(new Teacher[]{});
       
@@ -289,19 +329,24 @@ public class PupilPO extends PatternObject<PupilPO, Pupil>
       return result;
    }
 
-   public TeacherPO createTeacher()
+   public TeacherPO createTeacherPO(String modifier)
    {
-      return this.startCreate().filterTeacher().endCreate();
+      TeacherPO result = new TeacherPO(new Teacher[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Pupil.PROPERTY_TEACHER, result);
+      
+      return result;
    }
 
-   public PupilPO filterTeacher(TeacherPO tgt)
+   public PupilPO createTeacherLink(TeacherPO tgt)
    {
       return hasLinkConstraint(tgt, Pupil.PROPERTY_TEACHER);
    }
 
-   public PupilPO createTeacher(TeacherPO tgt)
+   public PupilPO createTeacherLink(TeacherPO tgt, String modifier)
    {
-      return this.startCreate().filterTeacher(tgt).endCreate();
+      return hasLinkConstraint(tgt, Pupil.PROPERTY_TEACHER, modifier);
    }
 
    public Teacher getTeacher()

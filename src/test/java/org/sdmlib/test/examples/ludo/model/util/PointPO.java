@@ -141,4 +141,9 @@ public class PointPO extends PatternObject<PointPO, Point>
       return this;
    }
    
+
+   public PointPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

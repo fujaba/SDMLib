@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,38 @@
    
 package org.sdmlib.simple.model.enums_d.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import java.lang.Integer;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class IntegerSet extends SDMSet<Integer>
+public class IntegerSet extends SimpleSet<Integer>
 {
+	protected Class<?> getTypClass() {
+		return Integer.class;
+	}
+
+   public IntegerSet()
+   {
+      // empty
+   }
+
+   public IntegerSet(Integer... objects)
+   {
+      for (Integer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public IntegerSet(Collection<Integer> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final IntegerSet EMPTY_SET = new IntegerSet().withFlag(IntegerSet.READONLY);
 
 
-   public IntegerPO filterIntegerPO()
+   public IntegerPO createIntegerPO()
    {
       return new IntegerPO(this.toArray(new Integer[this.size()]));
    }
@@ -69,10 +89,4 @@ public class IntegerSet extends SDMSet<Integer>
       return this;
    }
 
-   @Override
-   public IntegerSet filter(Condition<Integer> newValue) {
-      IntegerSet filterList = new IntegerSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

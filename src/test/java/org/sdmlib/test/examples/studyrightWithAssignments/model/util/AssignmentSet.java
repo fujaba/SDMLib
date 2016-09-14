@@ -21,26 +21,46 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
-public class AssignmentSet extends SDMSet<Assignment>
+public class AssignmentSet extends SimpleSet<Assignment>
 {
+	protected Class<?> getTypClass() {
+		return Assignment.class;
+	}
+
+   public AssignmentSet()
+   {
+      // empty
+   }
+
+   public AssignmentSet(Assignment... objects)
+   {
+      for (Assignment obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public AssignmentSet(Collection<Assignment> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
 
 
-   public AssignmentPO filterAssignmentPO()
+   public AssignmentPO createAssignmentPO()
    {
       return new AssignmentPO(this.toArray(new Assignment[this.size()]));
    }
@@ -51,6 +71,19 @@ public class AssignmentSet extends SDMSet<Assignment>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment";
    }
 
+
+   @Override
+   public AssignmentSet getNewList(boolean keyValue)
+   {
+      return new AssignmentSet();
+   }
+
+
+   public AssignmentSet filter(Condition<Assignment> condition) {
+      AssignmentSet filterList = new AssignmentSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
@@ -77,21 +110,15 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
-   @Override
-   public AssignmentSet filter(Condition<Assignment> newValue) {
-      AssignmentSet filterList = new AssignmentSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Assignment objects and collect a list of the content attribute values. 
     * 
     * @return List of String objects reachable via content attribute
     */
-   public StringList getContent()
+   public ObjectSet getContent()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Assignment obj : this)
       {
@@ -172,9 +199,9 @@ public class AssignmentSet extends SDMSet<Assignment>
     * 
     * @return List of int objects reachable via points attribute
     */
-   public intList getPoints()
+   public NumberList getPoints()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Assignment obj : this)
       {
@@ -244,71 +271,6 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          obj.setPoints(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Assignment objects and collect a set of the Room objects reached via room. 
-    * 
-    * @return Set of Room objects reachable via room
-    */
-   public RoomSet getRoom()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Assignment obj : this)
-      {
-         result.with(obj.getRoom());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Assignment objects and collect all contained objects with reference room pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as room neighbor of the collected results. 
-    * 
-    * @return Set of Room objects referring to value via room
-    */
-   public AssignmentSet filterRoom(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AssignmentSet answer = new AssignmentSet();
-      
-      for (Assignment obj : this)
-      {
-         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Room attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
-    */
-   public AssignmentSet withRoom(Room value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withRoom(value);
       }
       
       return this;
@@ -389,6 +351,71 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          obj.withoutStudents(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Assignment objects and collect a set of the Room objects reached via room. 
+    * 
+    * @return Set of Room objects reachable via room
+    */
+   public RoomSet getRoom()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Assignment obj : this)
+      {
+         result.with(obj.getRoom());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Assignment objects and collect all contained objects with reference room pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as room neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via room
+    */
+   public AssignmentSet filterRoom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AssignmentSet answer = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Room attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    */
+   public AssignmentSet withRoom(Room value)
+   {
+      for (Assignment obj : this)
+      {
+         obj.withRoom(value);
       }
       
       return this;

@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.Blast;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
@@ -148,5 +148,23 @@ public class BlastSet extends SimpleSet<Blast>
    public BlastPO filterBlastPO()
    {
       return new BlastPO(this.toArray(new Blast[this.size()]));
+   }
+
+   public BlastSet()
+   {
+      // empty
+   }
+
+   public BlastSet(Blast... objects)
+   {
+      for (Blast obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BlastSet(Collection<Blast> objects)
+   {
+      this.addAll(objects);
    }
 }

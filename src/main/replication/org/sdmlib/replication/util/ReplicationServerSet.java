@@ -24,8 +24,8 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
@@ -366,5 +366,23 @@ public class ReplicationServerSet extends SimpleSet<ReplicationServer>
    public String getEntryType()
    {
       return "org.sdmlib.replication.ReplicationServer";
+   }
+
+   public ReplicationServerSet()
+   {
+      // empty
+   }
+
+   public ReplicationServerSet(ReplicationServer... objects)
+   {
+      for (ReplicationServer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationServerSet(Collection<ReplicationServer> objects)
+   {
+      this.addAll(objects);
    }
 }

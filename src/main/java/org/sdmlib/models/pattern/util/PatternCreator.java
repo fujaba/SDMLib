@@ -1,27 +1,44 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.PatternElement;
 
-public class PatternCreator extends EntityFactory
+public class PatternCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Pattern.PROPERTY_ELEMENTS,
-      Pattern.PROPERTY_HASMATCH,
-      Pattern.PROPERTY_MODIFIER,
-      Pattern.PROPERTY_PATTERNOBJECTNAME,
-      Pattern.PROPERTY_DOALLMATCHES,
-      Pattern.PROPERTY_CURRENTSUBPATTERN,
       Pattern.PROPERTY_DEBUGMODE,
-      PatternElement.PROPERTY_PATTERN,
-      Pattern.PROPERTY_TRACE,
-      Pattern.PROPERTY_RGRAPH,
       Pattern.PROPERTY_NAME,
+      PatternElement.PROPERTY_MODIFIER,
+      PatternElement.PROPERTY_HASMATCH,
+      PatternElement.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
+      PatternElement.PROPERTY_PATTERN,
+      Pattern.PROPERTY_ELEMENTS,
+      Pattern.PROPERTY_CURRENTSUBPATTERN,
    };
    
    @Override
@@ -33,7 +50,7 @@ public class PatternCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Pattern<Object>();
+      return new Pattern();
    }
    
    @Override
@@ -47,86 +64,96 @@ public class PatternCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attribute))
-      {
-         return ((Pattern<?>)target).getElements();
-      }
-
-      if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
-      {
-         return ((Pattern<?>)target).getCurrentSubPattern();
-      }
-
       if (Pattern.PROPERTY_DEBUGMODE.equalsIgnoreCase(attribute))
       {
-         return ((Pattern<?>)target).getDebugMode();
-      }
-
-      if (Pattern.PROPERTY_TRACE.equalsIgnoreCase(attribute))
-      {
-         return ((Pattern<?>)target).getTrace();
-      }
-
-      if (Pattern.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
-      {
-         return ((Pattern<?>)target).getRgraph();
+         return ((Pattern) target).getDebugMode();
       }
 
       if (Pattern.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Pattern<?>)target).getName();
+         return ((Pattern) target).getName();
+      }
+
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getModifier();
+      }
+
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isHasMatch();
+      }
+
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getPatternObjectName();
+      }
+
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isDoAllMatches();
       }
 
       if (Pattern.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
       {
          return ((Pattern) target).getPattern();
       }
-      return super.getValue(target, attribute);
+
+      if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attribute))
+      {
+         return ((Pattern) target).getElements();
+      }
+
+      if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((Pattern) target).getCurrentSubPattern();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
-         ((Pattern<?>)target).addToElements((PatternElement<?>) value);
-         return true;
-      }
-      
-      if ((Pattern.PROPERTY_ELEMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Pattern<?>)target).removeFromElements((PatternElement<?>) value);
+         ((PatternElement) target).setDoAllMatches((Boolean) value);
          return true;
       }
 
-      if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
       {
-         ((Pattern<?>)target).setCurrentSubPattern((Pattern<?>) value);
+         ((PatternElement) target).setPatternObjectName((String) value);
          return true;
       }
 
-      if (Pattern.PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
-         ((Pattern<?>)target).setDebugMode(Integer.parseInt(value.toString()));
+         ((PatternElement) target).setHasMatch((Boolean) value);
          return true;
       }
 
-      if (Pattern.PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
       {
-         ((Pattern<?>)target).setTrace((StringBuilder) value);
-         return true;
-      }
-
-      if (Pattern.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
-      {
-         ((Pattern<?>)target).setRgraph((ReachabilityGraph) value);
+         ((PatternElement) target).setModifier((String) value);
          return true;
       }
 
       if (Pattern.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Pattern<?>)target).setName((String) value);
+         ((Pattern) target).setName((String) value);
          return true;
+      }
+
+      if (Pattern.PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).setDebugMode(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (Pattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
@@ -134,20 +161,35 @@ public class PatternCreator extends EntityFactory
          ((Pattern) target).setPattern((Pattern) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+
+      if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).withElements((PatternElement) value);
+         return true;
+      }
+      
+      if ((Pattern.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).withoutElements((PatternElement) value);
+         return true;
+      }
+
+      if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).setCurrentSubPattern((Pattern) value);
+         return true;
+      }
+      
+      return false;
    }
-   
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
-      ((Pattern<?>) entity).removeYou();
+      ((Pattern) entity).removeYou();
    }
 }

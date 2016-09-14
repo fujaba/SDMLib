@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.maumau.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.Duty;
@@ -747,4 +747,22 @@ public class PlayerSet extends SimpleSet<Player>
       return result;
    }
 
+
+   public PlayerSet()
+   {
+      // empty
+   }
+
+   public PlayerSet(Player... objects)
+   {
+      for (Player obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlayerSet(Collection<Player> objects)
+   {
+      this.addAll(objects);
+   }
 }

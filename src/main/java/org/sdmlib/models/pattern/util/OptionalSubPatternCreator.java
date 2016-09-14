@@ -1,28 +1,46 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.OptionalSubPattern;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
-import de.uniks.networkparser.IdMap;
-
-public class OptionalSubPatternCreator extends PatternCreator
+public class OptionalSubPatternCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      OptionalSubPattern.PROPERTY_MODIFIER,
-      OptionalSubPattern.PROPERTY_HASMATCH,
-      OptionalSubPattern.PROPERTY_PATTERNOBJECTNAME,
-      OptionalSubPattern.PROPERTY_DOALLMATCHES,
       OptionalSubPattern.PROPERTY_MATCHFORWARD,
-      OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN,
       Pattern.PROPERTY_DEBUGMODE,
-      Pattern.PROPERTY_ELEMENTS,
-      PatternElement.PROPERTY_PATTERN,
-      Pattern.PROPERTY_TRACE,
-      Pattern.PROPERTY_RGRAPH,
       Pattern.PROPERTY_NAME,
+      PatternElement.PROPERTY_MODIFIER,
+      PatternElement.PROPERTY_HASMATCH,
+      PatternElement.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
+      PatternElement.PROPERTY_PATTERN,
+      Pattern.PROPERTY_ELEMENTS,
+      Pattern.PROPERTY_CURRENTSUBPATTERN,
    };
    
    @Override
@@ -47,19 +65,40 @@ public class OptionalSubPatternCreator extends PatternCreator
       {
          attribute = attrName.substring(0, pos);
       }
+
       if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attribute))
       {
-         return ((OptionalSubPattern)target).getMatchForward();
+         return ((OptionalSubPattern) target).isMatchForward();
       }
 
-      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attribute))
+      if (Pattern.PROPERTY_DEBUGMODE.equalsIgnoreCase(attribute))
       {
-         return ((OptionalSubPattern) target).getElements();
+         return ((Pattern) target).getDebugMode();
       }
 
-      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
+      if (Pattern.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((OptionalSubPattern) target).getRgraph();
+         return ((Pattern) target).getName();
+      }
+
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getModifier();
+      }
+
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isHasMatch();
+      }
+
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).getPatternObjectName();
+      }
+
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return ((PatternElement) target).isDoAllMatches();
       }
 
       if (OptionalSubPattern.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
@@ -67,37 +106,67 @@ public class OptionalSubPatternCreator extends PatternCreator
          return ((OptionalSubPattern) target).getPattern();
       }
 
+      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getElements();
+      }
+
       if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
       {
          return ((OptionalSubPattern) target).getCurrentSubPattern();
       }
-      return super.getValue(target, attrName);
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attrName)){
-         ((OptionalSubPattern)target).setMatchForward((Boolean) value);
+      if (PatternElement.PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setDoAllMatches((Boolean) value);
          return true;
       }
 
-      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
       {
-         ((OptionalSubPattern) target).addToElements((PatternElement) value);
-         return true;
-      }
-      
-      if ((OptionalSubPattern.PROPERTY_ELEMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((OptionalSubPattern) target).removeFromElements((PatternElement) value);
+         ((PatternElement) target).setPatternObjectName((String) value);
          return true;
       }
 
-      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      if (PatternElement.PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
-         ((OptionalSubPattern) target).setRgraph((ReachabilityGraph) value);
+         ((PatternElement) target).setHasMatch((Boolean) value);
          return true;
+      }
+
+      if (PatternElement.PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         ((PatternElement) target).setModifier((String) value);
+         return true;
+      }
+
+      if (Pattern.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).setName((String) value);
+         return true;
+      }
+
+      if (Pattern.PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).setDebugMode(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).setMatchForward((Boolean) value);
+         return true;
+      }
+
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
       }
 
       if (OptionalSubPattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
@@ -106,24 +175,33 @@ public class OptionalSubPatternCreator extends PatternCreator
          return true;
       }
 
+      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).withElements((PatternElement) value);
+         return true;
+      }
+      
+      if ((OptionalSubPattern.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).withoutElements((PatternElement) value);
+         return true;
+      }
+
       if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
       {
          ((OptionalSubPattern) target).setCurrentSubPattern((Pattern) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-   
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((OptionalSubPattern) entity).removeYou();
    }

@@ -533,7 +533,7 @@ public class Parser
          skip(">");
       }
 
-      if (currentRealTokenEquals(CLASS))
+      if (currentRealTokenEquals(CLASS) || currentRealTokenEquals(INTERFACE))
       {
          // parse nested class
          // throw new RuntimeException("class " + className +
@@ -2300,6 +2300,9 @@ public class Parser
 
    public void insertImport(String className)
    {
+	   if(className == null || className.indexOf(".")<0) {
+		   return;
+	   }
 	   int genericType = className.indexOf("<");
 	   String[] strings;
       if (genericType > 0)

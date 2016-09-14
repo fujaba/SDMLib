@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
 
@@ -132,5 +132,23 @@ public class ChangeHistorySet extends SimpleSet<ChangeHistory>
    public String getEntryType()
    {
       return "org.sdmlib.replication.ChangeHistory";
+   }
+
+   public ChangeHistorySet()
+   {
+      // empty
+   }
+
+   public ChangeHistorySet(ChangeHistory... objects)
+   {
+      for (ChangeHistory obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChangeHistorySet(Collection<ChangeHistory> objects)
+   {
+      this.addAll(objects);
    }
 }

@@ -10,7 +10,7 @@ import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.SeppelTaskHandler;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
 
@@ -26,7 +26,7 @@ public class SeppelChatTest
    //Test
    public void testSeppelChat()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
 
       story.addStep("Test a family chat server and an SE chat server and clients attached to one of those or to both.");
       

@@ -71,4 +71,22 @@ public class PropertyChangeEventSet extends SimpleSet<PropertyChangeEvent>
    {
       return new PropertyChangeEventPO(this.toArray(new PropertyChangeEvent[this.size()]));
    }
+
+   public PropertyChangeEventSet()
+   {
+      // empty
+   }
+
+   public PropertyChangeEventSet(PropertyChangeEvent... objects)
+   {
+      for (PropertyChangeEvent obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PropertyChangeEventSet(Collection<PropertyChangeEvent> objects)
+   {
+      this.addAll(objects);
+   }
 }

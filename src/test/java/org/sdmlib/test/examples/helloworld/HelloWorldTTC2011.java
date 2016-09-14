@@ -13,7 +13,7 @@ import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
@@ -53,14 +53,14 @@ public class HelloWorldTTC2011
    private NodePO copyTgtNodePO;
 
 
-     /**
-    * 
+   /**
+    *
     * @see <a href='../../../../../../../../doc/TTC2011HelloWorldConstantTransformation1.html'>TTC2011HelloWorldConstantTransformation1.html</a>
-*/
+    */
    @Test
    public void testTTC2011HelloWorldConstantTransformation1()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("A constant transformation that creates a Greeting object");
 
       //==========================================================================
@@ -130,7 +130,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldConstantTransformation2WithReferences()
    {
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("A constant transformation that creates a Greeting object structure with references");
 
       //==========================================================================
@@ -210,7 +210,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldModelToText()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
       storyboard.add("For model to text transformation we provide a simple template mechanism. ");
       
       storyboard.add("The model transformation that builds our object model looks like: ");
@@ -270,7 +270,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldCountNumberOfNodes()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       //==========================================================================
 
@@ -488,7 +488,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldReverseEdges()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       //==========================================================================
 
@@ -542,7 +542,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigration()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
@@ -763,7 +763,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigrationViaGenericGraphs()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
@@ -897,7 +897,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/HelloWorld");
 
       storyboard.add("<hr/>");
       storyboard.add("Delete node with name n1 and its incidemnt edges.");
@@ -931,7 +931,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011InsertTransitiveEdges()
    {  
-      StoryPage storyboard = new StoryPage();
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("<hr/>");
       storyboard.add("Insert transitive edges.");
@@ -1015,7 +1015,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g1"), origGraph);
@@ -1074,7 +1074,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g1"), origGraph);
@@ -1262,7 +1262,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationPerPattern(Graph graph, StoryPage storyboard)
+   private Graph simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       //==========================================================================
       // create target graph

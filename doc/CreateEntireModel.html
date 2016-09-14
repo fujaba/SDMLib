@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
@@ -148,58 +151,6 @@
             "id":"Room",
             "cardinality":"one",
             "property":"currentRoom"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Teacher",
-            "cardinality":"one",
-            "property":"teacher"
-         },
-         "target":{
-            "id":"Pupil",
-            "cardinality":"many",
-            "property":"pupils"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"persons"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"currentRoom"
-         },
-         "target":{
-            "id":"Pupil",
-            "cardinality":"many",
-            "property":"currentPupils"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"currentRoom"
-         },
-         "target":{
-            "id":"Teacher",
-            "cardinality":"one",
-            "property":"currentTeacher"
          }
       },
       {

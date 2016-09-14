@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.modelspace.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 
@@ -234,4 +234,22 @@ public class MSChatChannelSet extends SimpleSet<MSChatChannel>
       return result;
    }
 
+
+   public MSChatChannelSet()
+   {
+      // empty
+   }
+
+   public MSChatChannelSet(MSChatChannel... objects)
+   {
+      for (MSChatChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MSChatChannelSet(Collection<MSChatChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

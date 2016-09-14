@@ -37,13 +37,26 @@ public class SDMLibIdMap extends IdMap
          }
          else
          {
-            int splitPos = clazz.lastIndexOf('.');
-            if (splitPos >= 0)
+            // EMF Impl class?
+            int implPos = clazz.lastIndexOf(".impl.");
+
+            if (implPos > 0 && clazz.endsWith("Impl") )
             {
-               creatorName = clazz.substring(0, splitPos+1)
-                  + "util." 
-                  + clazz.substring(splitPos+1)
-                  + "Creator";
+               creatorName = clazz.replace(".impl.", ".util.");
+               creatorName = creatorName.substring(0, creatorName.length()-"Impl".length());
+               creatorName = creatorName + "Creator";
+            }
+            else
+            {
+
+               int splitPos = clazz.lastIndexOf('.');
+               if (splitPos >= 0)
+               {
+                  creatorName = clazz.substring(0, splitPos+1)
+                        + "util." 
+                        + clazz.substring(splitPos+1)
+                        + "Creator";
+               }
             }
          }
          

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Sebastian Copei
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,39 @@
    
 package org.sdmlib.simple.model.methods_e.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.methods_e.Room;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 
-public class RoomSet extends SDMSet<Room>
+public class RoomSet extends SimpleSet<Room>
 {
+	protected Class<?> getTypClass() {
+		return Room.class;
+	}
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
 
-   public RoomPO filterRoomPO()
+   public RoomPO createRoomPO()
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }
@@ -43,6 +64,19 @@ public class RoomSet extends SDMSet<Room>
       return "org.sdmlib.simple.model.methods_e.Room";
    }
 
+
+   @Override
+   public RoomSet getNewList(boolean keyValue)
+   {
+      return new RoomSet();
+   }
+
+
+   public RoomSet filter(Condition<Room> condition) {
+      RoomSet filterList = new RoomSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
@@ -69,10 +103,4 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   @Override
-   public RoomSet filter(Condition<Room> newValue) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

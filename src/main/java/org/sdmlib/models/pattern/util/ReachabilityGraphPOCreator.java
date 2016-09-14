@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.ReachabilityGraph;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class ReachabilityGraphPOCreator extends PatternObjectCreator
 {
@@ -10,14 +10,13 @@ public class ReachabilityGraphPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new ReachabilityGraphPO(new ReachabilityGraph[]{});
+          return new ReachabilityGraphPO(new ReachabilityGraph[]{});
       } else {
-         return new ReachabilityGraphPO();
+          return new ReachabilityGraphPO();
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.association_c.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_c.Person;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_c.Room;
 
 public class PersonCreator implements SendableEntityCreator
@@ -32,7 +32,6 @@ public class PersonCreator implements SendableEntityCreator
    {
       Person.PROPERTY_ROOM,
       Person.PROPERTY_PREVPERSON,
-      Person.PROPERTY_PERSON,
       Person.PROPERTY_NEXTPERSON,
    };
    
@@ -69,11 +68,6 @@ public class PersonCreator implements SendableEntityCreator
          return ((Person) target).getPrevPerson();
       }
 
-      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attribute))
-      {
-         return ((Person) target).getPerson();
-      }
-
       if (Person.PROPERTY_NEXTPERSON.equalsIgnoreCase(attribute))
       {
          return ((Person) target).getNextPerson();
@@ -85,7 +79,7 @@ public class PersonCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -99,12 +93,6 @@ public class PersonCreator implements SendableEntityCreator
       if (Person.PROPERTY_PREVPERSON.equalsIgnoreCase(attrName))
       {
          ((Person) target).setPrevPerson((Person) value);
-         return true;
-      }
-
-      if (Person.PROPERTY_PERSON.equalsIgnoreCase(attrName))
-      {
-         ((Person) target).setPerson((Person) value);
          return true;
       }
 

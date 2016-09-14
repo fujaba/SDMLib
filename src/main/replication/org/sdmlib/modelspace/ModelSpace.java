@@ -57,9 +57,9 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
-import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
 import de.uniks.networkparser.interfaces.SendableEntity;
 
@@ -134,12 +134,20 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return true;
    }
    
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
 
-
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
 
    //==========================================================================
 
@@ -561,7 +569,14 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
       
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
+      
+      if (simpleEvent.getEntity() == null) 
+      {
+         // looks like a bug in IDMap. It fires an empty property change within 
+         // Filter.isPropertyRegard 
+         return false;
+      }
 
       JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
@@ -700,4 +715,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
       return true;
    }
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

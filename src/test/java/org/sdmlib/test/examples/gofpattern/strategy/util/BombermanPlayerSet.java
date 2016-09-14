@@ -504,4 +504,22 @@ public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
       return result;
    }
 
+
+   public BombermanPlayerSet()
+   {
+      // empty
+   }
+
+   public BombermanPlayerSet(BombermanPlayer... objects)
+   {
+      for (BombermanPlayer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BombermanPlayerSet(Collection<BombermanPlayer> objects)
+   {
+      this.addAll(objects);
+   }
 }

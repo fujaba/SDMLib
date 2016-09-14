@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,38 @@
    
 package org.sdmlib.simple.model.interface_c.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.interface_c.Secretary;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class SecretarySet extends SDMSet<Secretary>
+public class SecretarySet extends SimpleSet<Secretary>
 {
+	protected Class<?> getTypClass() {
+		return Secretary.class;
+	}
+
+   public SecretarySet()
+   {
+      // empty
+   }
+
+   public SecretarySet(Secretary... objects)
+   {
+      for (Secretary obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SecretarySet(Collection<Secretary> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final SecretarySet EMPTY_SET = new SecretarySet().withFlag(SecretarySet.READONLY);
 
 
-   public SecretaryPO filterSecretaryPO()
+   public SecretaryPO createSecretaryPO()
    {
       return new SecretaryPO(this.toArray(new Secretary[this.size()]));
    }
@@ -69,10 +89,4 @@ public class SecretarySet extends SDMSet<Secretary>
       return this;
    }
 
-   @Override
-   public SecretarySet filter(Condition<Secretary> newValue) {
-      SecretarySet filterList = new SecretarySet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

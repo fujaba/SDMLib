@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
@@ -32,10 +32,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  */
    public  class University implements SendableEntity
 {
@@ -43,27 +41,47 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
    
@@ -72,10 +90,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    
    public void removeYou()
    {
-   
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -92,11 +109,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value)) {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
@@ -132,10 +149,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
-   public StudentSet<Student> getStudents()
+   public StudentSet getStudents()
    {
       if (this.students == null)
       {
@@ -147,8 +163,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public University withStudents(Student... value)
    {
@@ -169,7 +184,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
             if (changed)
             {
                item.withUniversity(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, item);
+               firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
       }
@@ -185,7 +200,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
             if (this.students.remove(item))
             {
                item.setUniversity(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
+               firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
       }
@@ -194,8 +209,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Student createStudents()
    {
@@ -206,8 +220,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public TeachingAssistant createStudentsTeachingAssistant()
    {
@@ -231,8 +244,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public RoomSet getRooms()
    {
@@ -263,7 +275,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
             if (changed)
             {
                item.withUniversity(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, item);
+               firePropertyChange(PROPERTY_ROOMS, null, item);
             }
          }
       }
@@ -279,7 +291,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
             if (this.rooms.remove(item))
             {
                item.setUniversity(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, item, null);
+               firePropertyChange(PROPERTY_ROOMS, item, null);
             }
          }
       }
@@ -288,8 +300,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public Room createRooms()
    {

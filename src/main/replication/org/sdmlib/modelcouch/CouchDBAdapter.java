@@ -1,19 +1,24 @@
 package org.sdmlib.modelcouch;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Map.Entry;
 
-import org.sdmlib.modelcouch.authentication.Authenticator;
-import org.sdmlib.modelcouch.authentication.BasicAuthenticator;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
+import org.sdmlib.modelcouch.connection.authentication.Authenticator;
+import org.sdmlib.modelcouch.connection.authentication.BasicAuthenticator;
+import org.sdmlib.modelcouch.connection.authentication.CookieAuthenticator;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
@@ -22,7 +27,19 @@ public class CouchDBAdapter {
 	private String userName = "";
 	private String hostName = "localhost";
 	private int port = 5984;
-	
+	HTTPConnectionHandler connectionHandler;
+
+	public HTTPConnectionHandler getConnectionHandler() {
+		if (connectionHandler == null) {
+			connectionHandler = new HTTPConnectionHandler(getURL());
+		}
+		return connectionHandler;
+	}
+
+	private String getURL() {
+		return "http://" + getHostName() + ":" + getPort() + "/";
+	}
+
 	public String getHostName() {
 		return hostName;
 	}
@@ -30,38 +47,38 @@ public class CouchDBAdapter {
 	public int getPort() {
 		return port;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
-	
-	public CouchDBAdapter withHostName(String hostName){
+
+	public CouchDBAdapter withHostName(String hostName) {
 		this.hostName = hostName;
 		return this;
 	}
-	
+
 	public void setPort(int port) {
 		this.port = port;
 	}
-	
+
 	public CouchDBAdapter withPort(int port) {
 		this.port = port;
 		return this;
 	}
-	
+
 	public void setUserName(String username) {
 		this.userName = username;
 	}
-	
+
 	public CouchDBAdapter withUserName(String username) {
 		this.userName = username;
 		return this;
 	}
-	
+
 	public ReturnObject replicate(ModelCouch modelCouch, String source, String target) {
 		RequestObject request = createRequestObject();
 		request.setPath("_replicate");
@@ -81,6 +98,10 @@ public class CouchDBAdapter {
 		request.setOutput(replicateObject.toString().getBytes());
 
 		return send(request);
+	}
+
+	private ReturnObject send(RequestObject request) {
+		return request.send();
 	}
 
 	public ReturnObject setUserPrivileges(String database, Collection<String> adminNames, Collection<String> adminRoles,
@@ -114,76 +135,159 @@ public class CouchDBAdapter {
 	}
 
 	public RequestObject createRequestObject() {
-		return new RequestObject(this);
+		return getConnectionHandler().createRequestObject();
 	}
 
-	public ReturnObject send(RequestObject request) {
-		ReturnObject res = new ReturnObject();
-		try {
-			URL obj = new URL(request.getServer() + request.getPath());
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			// try to delete database
-			con.setRequestMethod(request.getRequestType().toString());
-			con.setDoInput(true);
-			if (request.getRequestProperties() == null) {
-				con.addRequestProperty("Content-Type", "application/json");
-			} else {
-				for (Entry<String, String> entry : request.getRequestProperties().entrySet()) {
-					con.addRequestProperty(entry.getKey(), entry.getValue());
-				}
-			}
-			authenticate(con);
-			if ((request.getOutput() != null && request.getOutput().length > 0)) {
-				con.setDoOutput(true);
-				con.getOutputStream().write(request.getOutput());
-			}
-			res.responseCode = con.getResponseCode();
+	public ReturnObject createEmptyDocument(String path) {
+		RequestObject newDoc = createRequestObject();
+		newDoc.setPath(path);
+		newDoc.setShouldHandleInput(true);
+		newDoc.setRequestType(RequestType.POST);
+		JsonObject jsonObject = new JsonObject();
+		newDoc.setOutput(jsonObject.toString().getBytes());
 
-			if (res.responseCode >= 400 && con.getErrorStream() != null) {
-				InputStream errorStream = (InputStream) con.getErrorStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
-				try {
-					LinkedList<String> lines = new LinkedList<>();
-					String readLine = null;
-					do {
-						readLine = reader.readLine();
-						if (readLine == null) {
-							break;
-						}
-						lines.add(readLine);
-					} while (readLine != null);
-					res.error = lines;
-				} catch (IOException e) {
-					// e.printStackTrace();
-				}
-			} else {
-				if (request.isShouldHandleInput()) {
-					InputStream content = (InputStream) con.getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-					try {
-						LinkedList<String> lines = new LinkedList<>();
-						String readLine = null;
-						do {
-							readLine = reader.readLine();
-							if (readLine == null) {
-								break;
-							}
-							lines.add(readLine);
-						} while (readLine != null);
-						res.setContent(lines);
-					} catch (IOException e) {
-						// e.printStackTrace();
-					}
-				}
-			}
+		return send(newDoc);
+	}
 
-			con.disconnect();
-		} catch (Exception e) {
-			res.responseCode = 400;
-			// e.printStackTrace();
+	public ReturnObject addAttachment(ReturnObject lastRes, Path path, ContentType contentType) {
+		ReturnObject res = null;
+		byte[] content = lastRes.getContentAsBytes();
+		if (content != null && content.length > 0) {
+			JsonObject jsonObject = new JsonObject();
+			try {
+				jsonObject.withValue(new String(content, "UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			// ...
+
+			RequestObject attachRequest = createRequestObject();
+			attachRequest.setShouldHandleInput(true);
+			attachRequest.setContentType(contentType);
+			attachRequest.setRequestType(RequestType.PUT);
+
+			String id = (String) jsonObject.getValue("id");
+			String rev = (String) jsonObject.getValue("rev");
+
+			attachRequest.setServer(lastRes.getHeaderFields().get("Location").get(0));
+
+			String filename = path.getFileName().toString();
+
+			attachRequest.setPath("/" + filename + "?rev=" + rev);
+
+			try {
+				attachRequest.setOutput(Files.readAllBytes(path));
+				res = send(attachRequest);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		if (res == null)
+			res = new ReturnObject();
 		return res;
 	}
+
+	public byte[] getAttachment(String location) {
+		byte[] res = null;
+
+		RequestObject attachRequest = createRequestObject();
+		attachRequest.setShouldHandleInput(true);
+		attachRequest.setRequestType(RequestType.GET);
+
+		attachRequest.setServer(location);
+		attachRequest.setPath("");
+		ReturnObject send = getConnectionHandler().send(attachRequest);
+
+		// FIXME: We don't want Strings...
+		res = send.getContentAsBytes();
+
+		if (res == null)
+			res = new byte[0];
+		return res;
+	}
+
+	public byte[] getAttachment(ReturnObject lastRes) {
+		byte[] res = null;
+		LinkedList<String> content = lastRes.getContentAsString();
+		if (content != null && content.size() > 0) {
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.withValue(content.toArray(new String[content.size()]));
+			String rev = (String) jsonObject.getValue("rev");
+
+			return getAttachment(lastRes.getHeaderFields().get("Location").get(0) + "?rev=" + rev);
+		}
+		return new byte[0];
+	}
+
+	// public ReturnObject send(RequestObject request) {
+	// ReturnObject res = new ReturnObject();
+	// try {
+	// URL obj = new URL(request.getServer() + request.getPath());
+	// HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	// con.setRequestMethod(request.getRequestType().toString());
+	// con.setDoInput(true);
+	//
+	// con.addRequestProperty("Content-Type",
+	// request.getContentType().getValue());
+	//
+	// for (Entry<String, String> entry :
+	// request.getRequestProperties().entrySet()) {
+	// con.addRequestProperty(entry.getKey(), entry.getValue());
+	// }
+	// authenticate(con);
+	// // Write to DB
+	// if ((request.getOutput() != null && request.getOutput().length > 0)) {
+	// con.setDoOutput(true);
+	// con.getOutputStream().write(request.getOutput());
+	// }
+	//
+	// // Get the Results
+	// res.setResponseCode(con.getResponseCode());
+	// res.setResponseMessage(con.getResponseMessage());
+	// res.setHeaderFields(con.getHeaderFields());
+	//
+	// if (res.getResponseCode() >= 400 && con.getErrorStream() != null) {
+	// InputStream errorStream = (InputStream) con.getErrorStream();
+	// BufferedReader reader = new BufferedReader(new
+	// InputStreamReader(errorStream));
+	// try {
+	// LinkedList<String> lines = new LinkedList<>();
+	// String readLine = null;
+	// do {
+	// readLine = reader.readLine();
+	// if (readLine == null) {
+	// break;
+	// }
+	// lines.add(readLine);
+	// // System.out.println(readLine);
+	// } while (readLine != null);
+	// res.setError(lines);
+	// } catch (IOException e) {
+	// // e.printStackTrace();
+	// }
+	// } else {
+	// if (request.isShouldHandleInput()) {
+	// InputStream content = (InputStream) con.getContent();
+	// ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+	// int nRead;
+	// byte[] data = new
+	// byte[Integer.parseInt(res.getHeaderFields().get("Content-Length").get(0))];
+	// while ((nRead = content.read(data, 0, data.length)) != -1) {
+	// buffer.write(data, 0, nRead);
+	// }
+	// buffer.flush();
+	// BufferedInputStream reader = new BufferedInputStream(content);
+	// byte[] bytes = buffer.toByteArray();
+	// res.setContent(bytes);
+	// }
+	// }
+	// con.disconnect();
+	// } catch (Exception e) {
+	// res.setResponseCode(400);
+	// e.printStackTrace();
+	// }
+	// return res;
+	// }
 
 	public boolean testConnection() {
 		String urlString = "http://" + getHostName() + ":" + port;
@@ -198,27 +302,7 @@ public class CouchDBAdapter {
 	}
 
 	public boolean testConnection(String databaseName) {
-		String urlString = "http://" + hostName + ":" + port + "/" + databaseName + "/";
-		try {
-			// first check, if host is available..
-			URL urlObj = new URL(urlString);
-			URLConnection openConnection = urlObj.openConnection();
-			openConnection.connect();
-
-			// now check for existence of DataBase
-			RequestObject check = createRequestObject();
-			check.setRequestType(RequestType.GET);
-			check.setPath(databaseName);
-			check.setShouldHandleInput(true);
-
-			ReturnObject send = send(check);
-			if (send.getResponseCode() >= 400) {
-				return false;
-			}
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
+		return getConnectionHandler().testConnection(this.getHostName(), this.getPort(), databaseName);
 	}
 
 	public ReturnObject createDB(String dbName) {
@@ -235,41 +319,26 @@ public class CouchDBAdapter {
 		return send(delete);
 	}
 
-	private Authenticator authenticator;
-
-	public CouchDBAdapter withAuthenticator(Authenticator autheticator) {
-		this.authenticator = autheticator;
-		return this;
-	}
-
-	public Authenticator getAutheticator() {
-		return authenticator;
-	}
-	
 	/**
 	 * Must be called after setting credentials (and authenticator)
 	 * 
-	 * You can get the Return from the Server by asking the Authenticator for the loginRequest
+	 * You can get the Return from the Server by asking the Authenticator for
+	 * the loginRequest
 	 * 
-	 * @param password The Password
+	 * @param password
+	 *            The Password
 	 * @return ThisComponent
-	 * @throws Exception any Errors for login
+	 * @throws Exception
+	 *             any Errors for login
 	 */
-	public CouchDBAdapter login(String password) throws Exception{
-		if(this.authenticator == null){
-			this.authenticator = new BasicAuthenticator();
-		}
-		if(this.authenticator.login(getUserName(), password , this)){
-			return this;
-		}else{
-			throw new Exception("Couldn't log in...");
-		}
+	public CouchDBAdapter login(String password) throws Exception {
+		getConnectionHandler().login(getUserName(), password);
+		return this;
 	}
-	
-	protected void authenticate(HttpURLConnection connection) {
-		if(authenticator != null){
-			authenticator.authenticate(connection);
-		}
+
+	public CouchDBAdapter withAuthenticator(CookieAuthenticator authenticator) {
+		getConnectionHandler().setAuthenticator(authenticator);
+		return this;
 	}
 
 }

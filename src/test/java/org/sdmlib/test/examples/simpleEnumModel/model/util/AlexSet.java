@@ -23,10 +23,11 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class AlexSet extends SimpleSet<Alex>
 {
@@ -157,6 +158,77 @@ public class AlexSet extends SimpleSet<Alex>
     * @return Subset of Alex objects that match the parameter
     */
    public AlexSet filterName(String lower, String upper)
+   {
+      AlexSet result = new AlexSet();
+      
+      for (Alex obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   public AlexSet()
+   {
+      // empty
+   }
+
+   public AlexSet(Alex... objects)
+   {
+      for (Alex obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public AlexSet(Collection<Alex> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public AlexPO createAlexPO()
+   {
+      return new AlexPO(this.toArray(new Alex[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Alex objects and collect those Alex objects where the Name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Alex objects that match the parameter
+    */
+   public AlexSet createNameCondition(String value)
+   {
+      AlexSet result = new AlexSet();
+      
+      for (Alex obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Alex objects and collect those Alex objects where the Name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Alex objects that match the parameter
+    */
+   public AlexSet createNameCondition(String lower, String upper)
    {
       AlexSet result = new AlexSet();
       

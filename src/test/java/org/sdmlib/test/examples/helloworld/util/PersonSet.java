@@ -23,13 +23,14 @@ package org.sdmlib.test.examples.helloworld.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.Person;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.util.GreetingSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -225,7 +226,44 @@ public class PersonSet extends SimpleSet<Person>
       return result;
    }
 
-}
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

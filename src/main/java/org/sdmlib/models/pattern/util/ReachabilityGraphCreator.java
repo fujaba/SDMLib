@@ -1,19 +1,40 @@
+/*
+   Copyright (c) 2016 christoph
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.ReachableState;
 
-public class ReachabilityGraphCreator extends EntityFactory
+public class ReachabilityGraphCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      ReachabilityGraph.PROPERTY_RULES,
+      ReachabilityGraph.PROPERTY_FINALSTATES,
       ReachabilityGraph.PROPERTY_STATES,
       ReachabilityGraph.PROPERTY_TODO,
-      // ReachabilityGraph.PROPERTY_RULES,
    };
    
    @Override
@@ -31,78 +52,103 @@ public class ReachabilityGraphCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (ReachabilityGraph.PROPERTY_STATES.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((ReachabilityGraph)target).getStates();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (ReachabilityGraph.PROPERTY_TODO.equalsIgnoreCase(attrName))
+      if (ReachabilityGraph.PROPERTY_RULES.equalsIgnoreCase(attribute))
       {
-         return ((ReachabilityGraph)target).getTodo();
+         return ((ReachabilityGraph) target).getRules();
       }
 
-      if (ReachabilityGraph.PROPERTY_RULES.equalsIgnoreCase(attrName))
+      if (ReachabilityGraph.PROPERTY_FINALSTATES.equalsIgnoreCase(attribute))
       {
-         return ((ReachabilityGraph)target).getRules();
+         return ((ReachabilityGraph) target).getFinalStates();
       }
-      return super.getValue(target, attrName);
+
+      if (ReachabilityGraph.PROPERTY_STATES.equalsIgnoreCase(attribute))
+      {
+         return ((ReachabilityGraph) target).getStates();
+      }
+
+      if (ReachabilityGraph.PROPERTY_TODO.equalsIgnoreCase(attribute))
+      {
+         return ((ReachabilityGraph) target).getTodo();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (ReachabilityGraph.PROPERTY_STATES.equalsIgnoreCase(attrName))
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
-         ((ReachabilityGraph)target).addToStates((ReachableState) value);
+         attrName = attrName + type;
+      }
+
+      if (ReachabilityGraph.PROPERTY_RULES.equalsIgnoreCase(attrName))
+      {
+         ((ReachabilityGraph) target).withRules((Pattern) value);
+         return true;
+      }
+      
+      if ((ReachabilityGraph.PROPERTY_RULES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ReachabilityGraph) target).withoutRules((Pattern) value);
          return true;
       }
 
-      if ((ReachabilityGraph.PROPERTY_STATES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if (ReachabilityGraph.PROPERTY_FINALSTATES.equalsIgnoreCase(attrName))
       {
-         ((ReachabilityGraph)target).removeFromStates((ReachableState) value);
+         ((ReachabilityGraph) target).withFinalStates((ReachableState) value);
+         return true;
+      }
+      
+      if ((ReachabilityGraph.PROPERTY_FINALSTATES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ReachabilityGraph) target).withoutFinalStates((ReachableState) value);
+         return true;
+      }
+
+      if (ReachabilityGraph.PROPERTY_STATES.equalsIgnoreCase(attrName))
+      {
+         ((ReachabilityGraph) target).withStates((ReachableState) value);
+         return true;
+      }
+      
+      if ((ReachabilityGraph.PROPERTY_STATES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ReachabilityGraph) target).withoutStates((ReachableState) value);
          return true;
       }
 
       if (ReachabilityGraph.PROPERTY_TODO.equalsIgnoreCase(attrName))
       {
-         ((ReachabilityGraph)target).addToTodo((ReachableState) value);
+         ((ReachabilityGraph) target).withTodo((ReachableState) value);
          return true;
       }
-
-      if ((ReachabilityGraph.PROPERTY_TODO + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      
+      if ((ReachabilityGraph.PROPERTY_TODO + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ReachabilityGraph)target).removeFromTodo((ReachableState) value);
+         ((ReachabilityGraph) target).withoutTodo((ReachableState) value);
          return true;
       }
-
-      if (ReachabilityGraph.PROPERTY_RULES.equalsIgnoreCase(attrName))
-      {
-         ((ReachabilityGraph)target).addToRules((Pattern<?>) value);
-         return true;
-      }
-
-      if ((ReachabilityGraph.PROPERTY_RULES + IdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ReachabilityGraph)target).removeFromRules((Pattern<?>) value);
-         return true;
-      }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-   
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((ReachabilityGraph) entity).removeYou();
    }
 }
-
-
-

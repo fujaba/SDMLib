@@ -12,6 +12,7 @@ import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
 import org.sdmlib.test.examples.ludo.model.util.LudoPO;
 import org.sdmlib.test.examples.ludo.model.util.DicePO;
 import org.sdmlib.test.examples.ludo.model.util.FieldPO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -240,6 +241,129 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
    public LudoPO filterFields(FieldPO tgt)
    {
       return hasLinkConstraint(tgt, Ludo.PROPERTY_FIELDS);
+   }
+
+
+   public LudoPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LudoPO createDateCondition(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_DATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createDateAssignment(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_DATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createPlayersPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayersPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public LudoPO createPlayersLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS);
+   }
+
+   public LudoPO createPlayersLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS, modifier);
+   }
+
+   public DicePO createDicePO()
+   {
+      DicePO result = new DicePO(new Dice[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_DICE, result);
+      
+      return result;
+   }
+
+   public DicePO createDicePO(String modifier)
+   {
+      DicePO result = new DicePO(new Dice[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Ludo.PROPERTY_DICE, result);
+      
+      return result;
+   }
+
+   public LudoPO createDiceLink(DicePO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_DICE);
+   }
+
+   public LudoPO createDiceLink(DicePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_DICE, modifier);
+   }
+
+   public FieldPO createFieldsPO()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_FIELDS, result);
+      
+      return result;
+   }
+
+   public FieldPO createFieldsPO(String modifier)
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Ludo.PROPERTY_FIELDS, result);
+      
+      return result;
+   }
+
+   public LudoPO createFieldsLink(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_FIELDS);
+   }
+
+   public LudoPO createFieldsLink(FieldPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_FIELDS, modifier);
    }
 
 }

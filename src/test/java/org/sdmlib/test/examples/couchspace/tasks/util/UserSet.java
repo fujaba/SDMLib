@@ -25,8 +25,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.couchspace.tasks.User;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
@@ -325,4 +325,22 @@ public class UserSet extends SDMSet<User>
       return this;
    }
 
+
+   public UserSet()
+   {
+      // empty
+   }
+
+   public UserSet(User... objects)
+   {
+      for (User obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UserSet(Collection<User> objects)
+   {
+      this.addAll(objects);
+   }
 }

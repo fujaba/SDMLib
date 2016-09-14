@@ -63,19 +63,6 @@
          "source":{
             "id":"Station",
             "cardinality":"one",
-            "property":"station"
-         },
-         "target":{
-            "id":"Train",
-            "cardinality":"many",
-            "property":"trains"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Station",
-            "cardinality":"one",
             "property":"next"
          },
          "target":{
@@ -108,45 +95,6 @@
             "id":"SignalFlag",
             "cardinality":"one",
             "property":"flag"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"people"
-         },
-         "target":{
-            "id":"Station",
-            "cardinality":"one",
-            "property":"station"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"passengers"
-         },
-         "target":{
-            "id":"Train",
-            "cardinality":"one",
-            "property":"train"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SignalFlag",
-            "cardinality":"one",
-            "property":"flag"
-         },
-         "target":{
-            "id":"Station",
-            "cardinality":"many",
-            "property":"station"
          }
       }
    ]

@@ -54,10 +54,19 @@ import org.sdmlib.test.examples.roombook.Building;
       return true;
    }
    
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
+
+	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
 
    
    //==========================================================================
@@ -225,4 +234,13 @@ import org.sdmlib.test.examples.roombook.Building;
       withBuildings(value);
       return value;
    } 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

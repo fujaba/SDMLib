@@ -72,4 +72,22 @@ public class LaneSet extends SimpleSet<Lane>
    {
       return new LanePO(this.toArray(new Lane[this.size()]));
    }
+
+   public LaneSet()
+   {
+      // empty
+   }
+
+   public LaneSet(Lane... objects)
+   {
+      for (Lane obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LaneSet(Collection<Lane> objects)
+   {
+      this.addAll(objects);
+   }
 }

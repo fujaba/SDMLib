@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.features.model.all.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.all.Door;
 import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
@@ -192,5 +192,23 @@ public class HouseSet extends SimpleSet<House>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.features.model.all.House";
+   }
+
+   public HouseSet()
+   {
+      // empty
+   }
+
+   public HouseSet(House... objects)
+   {
+      for (House obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public HouseSet(Collection<House> objects)
+   {
+      this.addAll(objects);
    }
 }

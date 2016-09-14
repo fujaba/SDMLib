@@ -232,4 +232,22 @@ public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThr
       return result;
    }
 
+
+   public ServerSocketAcceptThreadSet()
+   {
+      // empty
+   }
+
+   public ServerSocketAcceptThreadSet(ServerSocketAcceptThread... objects)
+   {
+      for (ServerSocketAcceptThread obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ServerSocketAcceptThreadSet(Collection<ServerSocketAcceptThread> objects)
+   {
+      this.addAll(objects);
+   }
 }

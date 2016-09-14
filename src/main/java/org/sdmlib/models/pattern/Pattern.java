@@ -33,19 +33,39 @@ import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.tables.Cell;
+import org.sdmlib.models.tables.Column;
+import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternElement;
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";
@@ -169,9 +189,49 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
       return result;
    }
+   
+   
+   public Table createResultTable()
+   {
+      Table result = new Table();
+      
+      SimpleSet<PatternObject> patternObjects = new SimpleSet<PatternObject>();
+      
+      // add columns for pattern objects
+      for (PatternElement elem : this.getElements())
+      {
+         if (elem instanceof PatternObject)
+         {
+            Column newCol = result.createColumns();
+            patternObjects.add((PatternObject) elem);
+         }
+      }
+      
+      while(this.getHasMatch())
+      {
+         Row newRow = result.createRows();
+         
+         Iterator<Column> colIter = result.getColumns().iterator();
+         for (PatternObject po : patternObjects)
+         {
+            Column col = colIter.next();
+            Cell newCell = newRow.createCells()
+                  .withColumn(col)
+                  .withValue(po.getCurrentMatch());
+            
+         }
+         
+         this.findNextMatch();
+      }
+      
+      return result;
+   }
 
    public boolean rebind(PatternObject boundObject, Object value)
    {
+	  // set Modifier
+	  boundObject.setModifier(BOUND);
+	  
       boundObject.setCurrentMatch(value);
       this.resetSearch();
       return this.findMatch();
@@ -251,7 +311,8 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
       setPattern(null);
       setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setCurrentSubPattern(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    /********************************************************************
@@ -1511,4 +1572,17 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
       withElements(value);
       return value;
    }
+   public PatternSet getCurrentSubPatternTransitive()
+   {
+      PatternSet result = new PatternSet().with(this);
+      return result.getCurrentSubPatternTransitive();
+   }
+
+
+   public Pattern createCurrentSubPattern()
+   {
+      Pattern value = new Pattern();
+      withCurrentSubPattern(value);
+      return value;
+   } 
 }

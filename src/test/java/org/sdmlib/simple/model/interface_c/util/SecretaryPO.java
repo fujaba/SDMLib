@@ -33,4 +33,9 @@ public class SecretaryPO extends PatternObject<SecretaryPO, Secretary>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public SecretaryPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

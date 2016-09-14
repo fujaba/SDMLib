@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternElement;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class PatternElementPOCreator extends PatternObjectCreator
 {
@@ -10,15 +10,13 @@ public class PatternElementPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new PatternElementPO(new PatternElement[]{});
+          return new PatternElementPO(new PatternElement[]{});
       } else {
-         return new PatternElementPO();
+          return new PatternElementPO();
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }
-

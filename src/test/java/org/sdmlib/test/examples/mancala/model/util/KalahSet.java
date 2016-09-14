@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.mancala.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
@@ -544,4 +544,22 @@ public class KalahSet extends SimpleSet<Kalah>
       return result;
    }
 
+
+   public KalahSet()
+   {
+      // empty
+   }
+
+   public KalahSet(Kalah... objects)
+   {
+      for (Kalah obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public KalahSet(Collection<Kalah> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -83,4 +83,22 @@ public class SDMTimerSet extends SimpleSet<SDMTimer>
    {
       return "org.sdmlib.models.taskflows.SDMTimer";
    }
+
+   public SDMTimerSet()
+   {
+      // empty
+   }
+
+   public SDMTimerSet(SDMTimer... objects)
+   {
+      for (SDMTimer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SDMTimerSet(Collection<SDMTimer> objects)
+   {
+      this.addAll(objects);
+   }
 }

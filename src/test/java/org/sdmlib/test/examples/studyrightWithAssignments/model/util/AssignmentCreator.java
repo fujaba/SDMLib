@@ -22,10 +22,10 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
 public class AssignmentCreator implements SendableEntityCreator
 {
@@ -33,8 +33,8 @@ public class AssignmentCreator implements SendableEntityCreator
    {
       Assignment.PROPERTY_CONTENT,
       Assignment.PROPERTY_POINTS,
-      Assignment.PROPERTY_ROOM,
       Assignment.PROPERTY_STUDENTS,
+      Assignment.PROPERTY_ROOM,
    };
    
    @Override
@@ -70,14 +70,14 @@ public class AssignmentCreator implements SendableEntityCreator
          return ((Assignment) target).getPoints();
       }
 
-      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attribute))
-      {
-         return ((Assignment) target).getRoom();
-      }
-
       if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return ((Assignment) target).getStudents();
+      }
+
+      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attribute))
+      {
+         return ((Assignment) target).getRoom();
       }
       
       return null;
@@ -88,25 +88,19 @@ public class AssignmentCreator implements SendableEntityCreator
    {
       if (Assignment.PROPERTY_POINTS.equalsIgnoreCase(attrName))
       {
-         ((Assignment) target).withPoints(Integer.parseInt(value.toString()));
+         ((Assignment) target).setPoints(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Assignment.PROPERTY_CONTENT.equalsIgnoreCase(attrName))
       {
-         ((Assignment) target).withContent((String) value);
+         ((Assignment) target).setContent((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attrName))
-      {
-         ((Assignment) target).setRoom((Room) value);
-         return true;
       }
 
       if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
@@ -115,9 +109,15 @@ public class AssignmentCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Assignment.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Assignment.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Assignment) target).withoutStudents((Student) value);
+         return true;
+      }
+
+      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attrName))
+      {
+         ((Assignment) target).setRoom((Room) value);
          return true;
       }
       

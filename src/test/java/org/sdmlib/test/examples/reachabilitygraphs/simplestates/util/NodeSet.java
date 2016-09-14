@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
@@ -387,4 +387,22 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
+
+   public NodeSet()
+   {
+      // empty
+   }
+
+   public NodeSet(Node... objects)
+   {
+      for (Node obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public NodeSet(Collection<Node> objects)
+   {
+      this.addAll(objects);
+   }
 }

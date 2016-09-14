@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.ludo.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
@@ -40,6 +40,8 @@ import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 import org.sdmlib.test.examples.ludo.model.util.DiceSet;
 import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -989,4 +991,41 @@ public class PlayerSet extends SimpleSet<Player>
       return result;
    }
 
-}
+
+   public PlayerSet()
+   {
+      // empty
+   }
+
+   public PlayerSet(Player... objects)
+   {
+      for (Player obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlayerSet(Collection<Player> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public PlayerPO createPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
+
+
+   @Override
+   public PlayerSet getNewList(boolean keyValue)
+   {
+      return new PlayerSet();
+   }
+
+
+   public PlayerSet filter(Condition<Player> condition) {
+      PlayerSet filterList = new PlayerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

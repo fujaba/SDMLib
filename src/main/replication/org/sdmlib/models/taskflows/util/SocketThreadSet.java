@@ -23,8 +23,8 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
@@ -393,4 +393,22 @@ public class SocketThreadSet extends SimpleSet<SocketThread>
       return result;
    }
 
+
+   public SocketThreadSet()
+   {
+      // empty
+   }
+
+   public SocketThreadSet(SocketThread... objects)
+   {
+      for (SocketThread obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SocketThreadSet(Collection<SocketThread> objects)
+   {
+      this.addAll(objects);
+   }
 }

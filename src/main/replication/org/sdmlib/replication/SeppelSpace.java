@@ -49,9 +49,9 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.ChangeEventList;
@@ -330,10 +330,10 @@ import org.sdmlib.replication.ChangeEventList;
 
       @Override
       public boolean update(Object event) {
-    	  SimpleMapEvent evt=(SimpleMapEvent) event;
+    	  SimpleEvent evt=(SimpleEvent) event;
          if (evt.getNewValue() != null)
          {
-            if (evt.getDeep() >= 3)
+            if (evt.getDepth() >= 3)
             {
                return false;
             }
@@ -357,7 +357,7 @@ import org.sdmlib.replication.ChangeEventList;
          // ignore
          return true;
       }
-      SimpleMapEvent simpleEvent = (SimpleMapEvent) event;
+      SimpleEvent simpleEvent = (SimpleEvent) event;
       JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
       // {"id":"testerProxy",
@@ -571,12 +571,20 @@ import org.sdmlib.replication.ChangeEventList;
       return true;
    }
    
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
-   }
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(listener);
+		}
+		return true;
+	}
 
-
+	public boolean removePropertyChangeListener(String property,
+			PropertyChangeListener listener) {
+		if (listeners != null) {
+			listeners.removePropertyChangeListener(property, listener);
+		}
+		return true;
+	}
    
    //==========================================================================
    
@@ -1213,4 +1221,13 @@ import org.sdmlib.replication.ChangeEventList;
       return this;
    } 
 
-}
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

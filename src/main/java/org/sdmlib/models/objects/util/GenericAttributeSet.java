@@ -23,12 +23,14 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
+
 import org.sdmlib.models.objects.util.GenericObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class GenericAttributeSet extends SimpleSet<GenericAttribute>
 {
@@ -300,6 +302,124 @@ public class GenericAttributeSet extends SimpleSet<GenericAttribute>
     * @return Subset of GenericAttribute objects that match the parameter
     */
    public GenericAttributeSet filterValue(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   public GenericAttributeSet()
+   {
+      // empty
+   }
+
+   public GenericAttributeSet(GenericAttribute... objects)
+   {
+      for (GenericAttribute obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericAttributeSet(Collection<GenericAttribute> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public GenericAttributePO createGenericAttributePO()
+   {
+      return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet createNameCondition(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet createNameCondition(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet createValueCondition(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericAttribute objects and collect those GenericAttribute objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericAttribute objects that match the parameter
+    */
+   public GenericAttributeSet createValueCondition(String lower, String upper)
    {
       GenericAttributeSet result = new GenericAttributeSet();
       

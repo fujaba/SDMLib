@@ -72,19 +72,6 @@
             "property":"boat"
          },
          "target":{
-            "id":"River",
-            "cardinality":"one",
-            "property":"river"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Boat",
-            "cardinality":"one",
-            "property":"boat"
-         },
-         "target":{
             "id":"Bank",
             "cardinality":"one",
             "property":"bank"
@@ -111,61 +98,9 @@
             "property":"bank"
          },
          "target":{
-            "id":"Boat",
-            "cardinality":"one",
-            "property":"boat"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Bank",
-            "cardinality":"many",
-            "property":"banks"
-         },
-         "target":{
-            "id":"River",
-            "cardinality":"one",
-            "property":"river"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Bank",
-            "cardinality":"one",
-            "property":"bank"
-         },
-         "target":{
             "id":"Cargo",
             "cardinality":"many",
             "property":"cargos"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Cargo",
-            "cardinality":"many",
-            "property":"cargos"
-         },
-         "target":{
-            "id":"Bank",
-            "cardinality":"one",
-            "property":"bank"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Cargo",
-            "cardinality":"one",
-            "property":"cargo"
-         },
-         "target":{
-            "id":"Boat",
-            "cardinality":"one",
-            "property":"boat"
          }
       }
    ]

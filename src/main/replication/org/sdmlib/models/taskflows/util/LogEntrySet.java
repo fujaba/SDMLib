@@ -24,8 +24,8 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
 
@@ -479,4 +479,22 @@ public class LogEntrySet extends SimpleSet<LogEntry>
       return result;
    }
 
+
+   public LogEntrySet()
+   {
+      // empty
+   }
+
+   public LogEntrySet(LogEntry... objects)
+   {
+      for (LogEntry obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LogEntrySet(Collection<LogEntry> objects)
+   {
+      this.addAll(objects);
+   }
 }

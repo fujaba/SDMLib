@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.features.model.all.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.all.Door;
 import org.sdmlib.test.examples.features.model.all.House;
 
@@ -121,5 +121,23 @@ public class DoorSet extends SimpleSet<Door>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.features.model.all.Door";
+   }
+
+   public DoorSet()
+   {
+      // empty
+   }
+
+   public DoorSet(Door... objects)
+   {
+      for (Door obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DoorSet(Collection<Door> objects)
+   {
+      this.addAll(objects);
    }
 }

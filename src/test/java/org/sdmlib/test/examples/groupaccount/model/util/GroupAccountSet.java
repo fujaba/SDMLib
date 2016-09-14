@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
@@ -281,4 +281,22 @@ public class GroupAccountSet extends SimpleSet<GroupAccount>
       return result;
    }
 
+
+   public GroupAccountSet()
+   {
+      // empty
+   }
+
+   public GroupAccountSet(GroupAccount... objects)
+   {
+      for (GroupAccount obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GroupAccountSet(Collection<GroupAccount> objects)
+   {
+      this.addAll(objects);
+   }
 }

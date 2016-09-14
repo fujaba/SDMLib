@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.replication.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
@@ -191,5 +191,23 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.replication.chat.ChatChannel";
+   }
+
+   public ChatChannelSet()
+   {
+      // empty
+   }
+
+   public ChatChannelSet(ChatChannel... objects)
+   {
+      for (ChatChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatChannelSet(Collection<ChatChannel> objects)
+   {
+      this.addAll(objects);
    }
 }

@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 import de.uniks.networkparser.list.SimpleSet;

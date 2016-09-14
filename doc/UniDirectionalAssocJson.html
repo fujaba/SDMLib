@@ -16,6 +16,102 @@
       BigBrother bigBrother = new BigBrother();
       idMap.put(&quot;#bb&quot;, bigBrother);
 </pre><p>extend uni directional assco with objects and check flipbook for change protocol</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"B1 : BigBrother"
+      },
+      {
+         "typ":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "name=Tom"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=Jessica"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "name=Albert"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "name=Sabine"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"kids",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"B1 : BigBrother"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"kids",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"B1 : BigBrother"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"noOne",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"B1 : BigBrother"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"suspects",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"B1 : BigBrother"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirectionalAssocJson4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

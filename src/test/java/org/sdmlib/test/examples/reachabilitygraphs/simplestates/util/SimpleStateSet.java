@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
@@ -132,5 +132,23 @@ public class SimpleStateSet extends SimpleSet<SimpleState>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
+   }
+
+   public SimpleStateSet()
+   {
+      // empty
+   }
+
+   public SimpleStateSet(SimpleState... objects)
+   {
+      for (SimpleState obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SimpleStateSet(Collection<SimpleState> objects)
+   {
+      this.addAll(objects);
    }
 }

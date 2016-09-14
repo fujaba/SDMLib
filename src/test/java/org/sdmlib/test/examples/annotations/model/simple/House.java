@@ -46,12 +46,9 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       withoutDoors(this.getDoors().toArray(new Door[this.getDoors().size()]));
       withoutWindows(this.getWindows().toArray(new Window[this.getWindows().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -96,7 +93,7 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
             if (changed)
             {
                item.withHouse(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null, item);
+               firePropertyChange(PROPERTY_DOORS, null, item);
             }
          }
       }
@@ -112,7 +109,7 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
             if (this.doors.remove(item))
             {
                item.setHouse(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
+               firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
       }
@@ -168,7 +165,7 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
             if (changed)
             {
                item.withHouse(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_WINDOWS, null, item);
+               firePropertyChange(PROPERTY_WINDOWS, null, item);
             }
          }
       }
@@ -184,7 +181,7 @@ import org.sdmlib.test.examples.annotations.model.simple.Window;
             if (this.windows.remove(item))
             {
                item.setHouse(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_WINDOWS, item, null);
+               firePropertyChange(PROPERTY_WINDOWS, item, null);
             }
          }
       }

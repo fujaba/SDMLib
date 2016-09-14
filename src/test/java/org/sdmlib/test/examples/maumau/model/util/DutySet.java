@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.maumau.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.DutyType;
@@ -284,4 +284,22 @@ public class DutySet extends SimpleSet<Duty>
       return result;
    }
 
+
+   public DutySet()
+   {
+      // empty
+   }
+
+   public DutySet(Duty... objects)
+   {
+      for (Duty obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DutySet(Collection<Duty> objects)
+   {
+      this.addAll(objects);
+   }
 }

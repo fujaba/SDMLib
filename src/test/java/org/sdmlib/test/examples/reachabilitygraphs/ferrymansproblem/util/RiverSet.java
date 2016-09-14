@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
@@ -191,5 +191,35 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
+   }
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public RiverSet()
+   {
+      // empty
+   }
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public RiverSet(River... objects)
+   {
+      for (River obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public RiverSet(Collection<River> objects)
+   {
+      this.addAll(objects);
    }
 }

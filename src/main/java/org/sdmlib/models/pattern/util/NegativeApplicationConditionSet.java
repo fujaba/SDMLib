@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2016 christoph
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,155 +21,50 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import java.util.Collection;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
 import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.Pattern;
+import java.util.Collections;
+import org.sdmlib.models.pattern.util.PatternElementSet;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {
-   public booleanSet getHasMatch()
+	protected Class<?> getTypClass() {
+		return NegativeApplicationCondition.class;
+	}
+
+   public NegativeApplicationConditionSet()
    {
-      booleanSet result = new booleanSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getHasMatch());
-      }
-      
-      return result;
+      // empty
    }
 
-   public NegativeApplicationConditionSet withHasMatch(boolean value)
+   public NegativeApplicationConditionSet(NegativeApplicationCondition... objects)
    {
-      for (NegativeApplicationCondition obj : this)
+      for (NegativeApplicationCondition obj : objects)
       {
-         obj.withHasMatch(value);
+         this.add(obj);
       }
-      
-      return this;
    }
 
-   public NegativeApplicationConditionSet withCurrentNAC(NegativeApplicationCondition value)
+   public NegativeApplicationConditionSet(Collection<NegativeApplicationCondition> objects)
    {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withCurrentSubPattern(value);
-      }
-      
-      return this;
+      this.addAll(objects);
    }
 
-   public StringList getModifier()
+   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withFlag(NegativeApplicationConditionSet.READONLY);
+
+
+   public NegativeApplicationConditionPO createNegativeApplicationConditionPO()
    {
-      StringList result = new StringList();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getModifier());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withModifier(String value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withModifier(value);
-      }
-      
-      return this;
-   }
-
-   public booleanList getDoAllMatches()
-   {
-      booleanList result = new booleanList();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getDoAllMatches());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withDoAllMatches(boolean value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withDoAllMatches(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getPatternObjectName()
-   {
-      StringList result = new StringList();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getPatternObjectName());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withPatternObjectName(String value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withPatternObjectName(value);
-      }
-      
-      return this;
-   }
-
-   public PatternSet getCurrentSubPattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getCurrentSubPattern());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withCurrentSubPattern(Pattern value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withCurrentSubPattern(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (NegativeApplicationCondition elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
+      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
 
 
@@ -179,161 +74,16 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
    }
 
 
-   public intList getDebugMode()
-   {
-      intList result = new intList();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getDebugMode());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withDebugMode(int value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.setDebugMode(value);
-      }
-      
-      return this;
-   }
-
-   public PatternElementSet getElements()
-   {
-      PatternElementSet result = new PatternElementSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.addAll(obj.getElements());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withElements(PatternElement value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withElements(value);
-      }
-      
-      return this;
-   }
-
-   public NegativeApplicationConditionSet withoutElements(PatternElement value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withoutElements(value);
-      }
-      
-      return this;
-   }
-
-   public PatternSet getPattern()
-   {
-      PatternSet result = new PatternSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getPattern());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withPattern(Pattern value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withPattern(value);
-      }
-      
-      return this;
-   }
-
-   public StringBuilderSet getTrace()
-   {
-      StringBuilderSet result = new StringBuilderSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getTrace());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withTrace(StringBuilder value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.setTrace(value);
-      }
-      
-      return this;
-   }
-
-   public ReachabilityGraphSet getRgraph()
-   {
-      ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getRgraph());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withRgraph(ReachabilityGraph value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.withRgraph(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet withName(String value)
-   {
-      for (NegativeApplicationCondition obj : this)
-      {
-         obj.setName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public NegativeApplicationConditionPO startModelPattern()
-   {
-      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
-   }
-
-
+   @SuppressWarnings("unchecked")
    public NegativeApplicationConditionSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-         this.withList((Collection<?>)value);
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<NegativeApplicationCondition>)value);
       }
       else if (value != null)
       {
@@ -350,184 +100,23 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
    }
 
 
-
-   public NegativeApplicationConditionPO hasNegativeApplicationConditionPO()
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the debugMode attribute values. 
+    * 
+    * @return List of int objects reachable via debugMode attribute
+    */
+   public NumberList getDebugMode()
    {
-      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
-   }
-
-   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withFlag(NegativeApplicationConditionSet.READONLY);
-   public NegativeApplicationConditionSet hasCurrentSubPattern(Pattern value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      NumberList result = new NumberList();
       
       for (NegativeApplicationCondition obj : this)
       {
-         if (value == obj.getCurrentSubPattern())
-         {
-            result.add(obj);
-         }
+         result.add(obj.getDebugMode());
       }
       
       return result;
    }
 
-   public NegativeApplicationConditionSet hasDebugMode(int value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value == obj.getDebugMode())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasDebugMode(int lower, int upper)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (lower <= obj.getDebugMode() && obj.getDebugMode() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasName(String value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasName(String lower, String upper)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasModifier(String value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value.equals(obj.getModifier()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasModifier(String lower, String upper)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasHasMatch(boolean value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value == obj.isHasMatch())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasPatternObjectName(String value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value.equals(obj.getPatternObjectName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasPatternObjectName(String lower, String upper)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet hasDoAllMatches(boolean value)
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         if (value == obj.isDoAllMatches())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-
-   public NegativeApplicationConditionPO filterNegativeApplicationConditionPO()
-   {
-      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
-   }
 
    /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the debugMode attribute matches the parameter value. 
@@ -536,7 +125,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterDebugMode(int value)
+   public NegativeApplicationConditionSet createDebugModeCondition(int value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -560,7 +149,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterDebugMode(int lower, int upper)
+   public NegativeApplicationConditionSet createDebugModeCondition(int lower, int upper)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -577,13 +166,49 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
 
    /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the debugMode attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withDebugMode(int value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setDebugMode(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public ObjectSet getName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the name attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterName(String value)
+   public NegativeApplicationConditionSet createNameCondition(String value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -607,7 +232,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterName(String lower, String upper)
+   public NegativeApplicationConditionSet createNameCondition(String lower, String upper)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -624,13 +249,49 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
 
    /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withName(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the modifier attribute values. 
+    * 
+    * @return List of String objects reachable via modifier attribute
+    */
+   public ObjectSet getModifier()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the modifier attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterModifier(String value)
+   public NegativeApplicationConditionSet createModifierCondition(String value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -654,7 +315,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterModifier(String lower, String upper)
+   public NegativeApplicationConditionSet createModifierCondition(String lower, String upper)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -671,13 +332,49 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
 
    /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the modifier attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withModifier(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setModifier(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the hasMatch attribute values. 
+    * 
+    * @return List of boolean objects reachable via hasMatch attribute
+    */
+   public BooleanList getHasMatch()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.isHasMatch());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the hasMatch attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterHasMatch(boolean value)
+   public NegativeApplicationConditionSet createHasMatchCondition(boolean value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -694,13 +391,49 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
 
    /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the hasMatch attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withHasMatch(boolean value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setHasMatch(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the patternObjectName attribute values. 
+    * 
+    * @return List of String objects reachable via patternObjectName attribute
+    */
+   public ObjectSet getPatternObjectName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the patternObjectName attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterPatternObjectName(String value)
+   public NegativeApplicationConditionSet createPatternObjectNameCondition(String value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -724,7 +457,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterPatternObjectName(String lower, String upper)
+   public NegativeApplicationConditionSet createPatternObjectNameCondition(String lower, String upper)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -741,13 +474,49 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
 
    /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the patternObjectName attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withPatternObjectName(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a list of the doAllMatches attribute values. 
+    * 
+    * @return List of boolean objects reachable via doAllMatches attribute
+    */
+   public BooleanList getDoAllMatches()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.isDoAllMatches());
+      }
+      
+      return result;
+   }
+
+
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect those NegativeApplicationCondition objects where the doAllMatches attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of NegativeApplicationCondition objects that match the parameter
     */
-   public NegativeApplicationConditionSet filterDoAllMatches(boolean value)
+   public NegativeApplicationConditionSet createDoAllMatchesCondition(boolean value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
       
@@ -760,6 +529,219 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
       }
       
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and assign value to the doAllMatches attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of NegativeApplicationCondition objects now with new attribute values.
+    */
+   public NegativeApplicationConditionSet withDoAllMatches(boolean value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a set of the Pattern objects reached via pattern. 
+    * 
+    * @return Set of Pattern objects reachable via pattern
+    */
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.with(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as pattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via pattern
+    */
+   public NegativeApplicationConditionSet filterPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NegativeApplicationConditionSet answer = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (neighbors.contains(obj.getPattern()) || (neighbors.isEmpty() && obj.getPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the Pattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
+    */
+   public NegativeApplicationConditionSet withPattern(Pattern value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a set of the PatternElement objects reached via elements. 
+    * 
+    * @return Set of PatternElement objects reachable via elements
+    */
+   public PatternElementSet getElements()
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.with(obj.getElements());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect all contained objects with reference elements pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as elements neighbor of the collected results. 
+    * 
+    * @return Set of PatternElement objects referring to value via elements
+    */
+   public NegativeApplicationConditionSet filterElements(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NegativeApplicationConditionSet answer = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getElements()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the Elements attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Elements attributes.
+    */
+   public NegativeApplicationConditionSet withElements(PatternElement value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withElements(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the NegativeApplicationCondition object passed as parameter from the Elements attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public NegativeApplicationConditionSet withoutElements(PatternElement value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withoutElements(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect a set of the Pattern objects reached via currentSubPattern. 
+    * 
+    * @return Set of Pattern objects reachable via currentSubPattern
+    */
+   public PatternSet getCurrentSubPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.with(obj.getCurrentSubPattern());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of NegativeApplicationCondition objects and collect all contained objects with reference currentSubPattern pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as currentSubPattern neighbor of the collected results. 
+    * 
+    * @return Set of Pattern objects referring to value via currentSubPattern
+    */
+   public NegativeApplicationConditionSet filterCurrentSubPattern(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NegativeApplicationConditionSet answer = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (neighbors.contains(obj.getCurrentSubPattern()) || (neighbors.isEmpty() && obj.getCurrentSubPattern() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    /**
@@ -792,5 +774,21 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
       
       return result;
    }
+
+   /**
+    * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the CurrentSubPattern attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their CurrentSubPattern attributes.
+    */
+   public NegativeApplicationConditionSet withCurrentSubPattern(Pattern value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withCurrentSubPattern(value);
+      }
+      
+      return this;
+   }
+
 
 }

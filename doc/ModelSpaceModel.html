@@ -108,51 +108,12 @@
          "source":{
             "id":"ModelCloudProxy",
             "cardinality":"many",
-            "property":"servers"
-         },
-         "target":{
-            "id":"ModelCloud",
-            "cardinality":"one",
-            "property":"root"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelCloudProxy",
-            "cardinality":"many",
             "property":"providingClouds"
          },
          "target":{
             "id":"ModelSpaceProxy",
             "cardinality":"many",
             "property":"providedSpaces"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelSpaceProxy",
-            "cardinality":"many",
-            "property":"modelSpaces"
-         },
-         "target":{
-            "id":"ModelCloud",
-            "cardinality":"one",
-            "property":"cloud"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelSpaceProxy",
-            "cardinality":"many",
-            "property":"providedSpaces"
-         },
-         "target":{
-            "id":"ModelCloudProxy",
-            "cardinality":"many",
-            "property":"providingClouds"
          }
       },
       {
@@ -171,19 +132,6 @@
       {
          "typ":"ASSOCIATION",
          "source":{
-            "id":"CloudModelFile",
-            "cardinality":"many",
-            "property":"files"
-         },
-         "target":{
-            "id":"CloudModelDirectory",
-            "cardinality":"one",
-            "property":"dir"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
             "id":"TaskBoard",
             "cardinality":"one",
             "property":"board"
@@ -192,19 +140,6 @@
             "id":"TaskLane",
             "cardinality":"many",
             "property":"lanes"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"TaskLane",
-            "cardinality":"many",
-            "property":"lanes"
-         },
-         "target":{
-            "id":"TaskBoard",
-            "cardinality":"one",
-            "property":"board"
          }
       },
       {
@@ -231,32 +166,6 @@
             "id":"Task",
             "cardinality":"many",
             "property":"myRequests"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"tasks"
-         },
-         "target":{
-            "id":"TaskLane",
-            "cardinality":"one",
-            "property":"lane"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"myRequests"
-         },
-         "target":{
-            "id":"TaskLane",
-            "cardinality":"one",
-            "property":"fileTargetCloud"
          }
       }
    ]

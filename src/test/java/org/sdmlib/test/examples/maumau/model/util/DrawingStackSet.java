@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.maumau.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.MauMau;
@@ -279,5 +279,23 @@ public class DrawingStackSet extends SimpleSet<DrawingStack>
    public DrawingStackPO filterDrawingStackPO()
    {
       return new DrawingStackPO(this.toArray(new DrawingStack[this.size()]));
+   }
+
+   public DrawingStackSet()
+   {
+      // empty
+   }
+
+   public DrawingStackSet(DrawingStack... objects)
+   {
+      for (DrawingStack obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public DrawingStackSet(Collection<DrawingStack> objects)
+   {
+      this.addAll(objects);
    }
 }

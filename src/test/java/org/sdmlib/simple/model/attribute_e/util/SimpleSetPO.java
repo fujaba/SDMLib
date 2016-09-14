@@ -33,4 +33,9 @@ public class SimpleSetPO extends PatternObject<SimpleSetPO, SimpleSet>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public SimpleSetPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.mancala.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
@@ -507,4 +507,22 @@ public class PitSet extends SimpleSet<Pit>
       return result;
    }
 
+
+   public PitSet()
+   {
+      // empty
+   }
+
+   public PitSet(Pit... objects)
+   {
+      for (Pit obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PitSet(Collection<Pit> objects)
+   {
+      this.addAll(objects);
+   }
 }

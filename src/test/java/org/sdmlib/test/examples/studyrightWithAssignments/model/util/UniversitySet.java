@@ -21,25 +21,45 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
-public class UniversitySet extends SDMSet<University>
+public class UniversitySet extends SimpleSet<University>
 {
+	protected Class<?> getTypClass() {
+		return University.class;
+	}
+
+   public UniversitySet()
+   {
+      // empty
+   }
+
+   public UniversitySet(University... objects)
+   {
+      for (University obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public UniversitySet(Collection<University> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
 
 
-   public UniversityPO filterUniversityPO()
+   public UniversityPO createUniversityPO()
    {
       return new UniversityPO(this.toArray(new University[this.size()]));
    }
@@ -50,6 +70,19 @@ public class UniversitySet extends SDMSet<University>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.University";
    }
 
+
+   @Override
+   public UniversitySet getNewList(boolean keyValue)
+   {
+      return new UniversitySet();
+   }
+
+
+   public UniversitySet filter(Condition<University> condition) {
+      UniversitySet filterList = new UniversitySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
@@ -76,21 +109,15 @@ public class UniversitySet extends SDMSet<University>
       return this;
    }
 
-   @Override
-   public UniversitySet filter(Condition<University> newValue) {
-      UniversitySet filterList = new UniversitySet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of University objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (University obj : this)
       {

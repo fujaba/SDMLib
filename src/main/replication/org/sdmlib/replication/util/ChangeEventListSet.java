@@ -72,4 +72,22 @@ public class ChangeEventListSet extends SimpleSet<ChangeEventList>
    {
       return new ChangeEventListPO(this.toArray(new ChangeEventList[this.size()]));
    }
+
+   public ChangeEventListSet()
+   {
+      // empty
+   }
+
+   public ChangeEventListSet(ChangeEventList... objects)
+   {
+      for (ChangeEventList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChangeEventListSet(Collection<ChangeEventList> objects)
+   {
+      this.addAll(objects);
+   }
 }

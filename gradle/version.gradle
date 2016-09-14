@@ -12,7 +12,7 @@ task printVersion {
 }
 
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), branch: getWorkingBranch(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
+	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), branch: getWorkingBranch(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release'), latest: project.hasProperty('latest') )
 }
 version = gitVersion
 group = 'org.sdmlib'
@@ -33,13 +33,16 @@ public class GITVersion {
     // also change version above to accept release property
     boolean release = false
     boolean lecture
+	boolean latest
 	
 
     String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-		if(!isRelease() && !isMaster()) {
+		if(latest) {
+			""
+		} else if(!isRelease() && !isMaster()) {
 			"$major.$minor.$revision${'-SNAPSHOT'}"
 		} else {
 			"$major.$minor.$revision"

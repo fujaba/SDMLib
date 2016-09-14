@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
@@ -171,6 +171,24 @@ public class PersonSet extends SimpleSet<Person>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.Person";
+   }
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
    }
 }
 

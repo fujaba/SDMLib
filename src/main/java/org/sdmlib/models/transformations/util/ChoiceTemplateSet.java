@@ -24,8 +24,8 @@ package org.sdmlib.models.transformations.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
@@ -1174,4 +1174,22 @@ public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
       return result;
    }
 
+
+   public ChoiceTemplateSet()
+   {
+      // empty
+   }
+
+   public ChoiceTemplateSet(ChoiceTemplate... objects)
+   {
+      for (ChoiceTemplate obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChoiceTemplateSet(Collection<ChoiceTemplate> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,8 +22,8 @@
 package org.sdmlib.simple.model.association_k.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_k.Task;
+import de.uniks.networkparser.IdMap;
 
 public class TaskCreator implements SendableEntityCreator
 {
@@ -80,11 +80,11 @@ public class TaskCreator implements SendableEntityCreator
    {
       if (Task.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Task) target).withName((String) value);
+         ((Task) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -95,7 +95,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_PARENTTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_PARENTTASKS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutParentTasks((Task) value);
          return true;
@@ -107,7 +107,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_SUBTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_SUBTASKS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutSubTasks((Task) value);
          return true;

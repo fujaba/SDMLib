@@ -63,12 +63,21 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-	compile 'de.uniks:NetworkParser:[4.2,):sources'
+   	if ( ! project.hasProperty('useLocalDependencies'))
+   	{
+		compile 'de.uniks:NetworkParser:[4,):sources'
+	}
+	else
+	{
+		println "using local networkparser"
+		compile fileTree(dir: "../NetworkParser", include: ['NetworkParser.jar'])
+	}
 }
 
 jacoco {
 	toolVersion = "0.7.5.201505241946"
 }
+
 jacocoTestReport {
 	group = "Reporting"
 	description = "Generate Jacoco coverage reports after running tests."

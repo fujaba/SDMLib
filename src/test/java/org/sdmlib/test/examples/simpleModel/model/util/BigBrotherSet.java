@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
@@ -238,5 +238,23 @@ public class BigBrotherSet extends SimpleSet<BigBrother>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
+   }
+
+   public BigBrotherSet()
+   {
+      // empty
+   }
+
+   public BigBrotherSet(BigBrother... objects)
+   {
+      for (BigBrother obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BigBrotherSet(Collection<BigBrother> objects)
+   {
+      this.addAll(objects);
    }
 }

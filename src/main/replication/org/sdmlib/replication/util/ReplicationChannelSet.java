@@ -24,8 +24,8 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
 
@@ -283,4 +283,22 @@ public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
       return result;
    }
 
+
+   public ReplicationChannelSet()
+   {
+      // empty
+   }
+
+   public ReplicationChannelSet(ReplicationChannel... objects)
+   {
+      for (ReplicationChannel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationChannelSet(Collection<ReplicationChannel> objects)
+   {
+      this.addAll(objects);
+   }
 }

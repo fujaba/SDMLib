@@ -1,24 +1,17 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.CloneOpPO;
 
 public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
 {
-   public CloneOpPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
-   }
 
-   public CloneOpPO(CloneOp... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   public CloneOpSet allMatches()
+    public CloneOpSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -33,8 +26,24 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       
       return matches;
    }
-   
-   public CloneOpPO hasModifier(String value)
+
+
+   public CloneOpPO(){
+      newInstance(null);
+   }
+
+   public CloneOpPO(CloneOp... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
+
+   public CloneOpPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CloneOpPO createModifierCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_MODIFIER)
@@ -43,7 +52,36 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createModifierCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createModifierAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -66,7 +104,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return this;
    }
    
-   public CloneOpPO hasHasMatch(boolean value)
+   public CloneOpPO createHasMatchCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_HASMATCH)
@@ -75,7 +113,21 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createHasMatchAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -84,7 +136,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((CloneOp) getCurrentMatch()).getHasMatch();
+         return ((CloneOp) getCurrentMatch()).isHasMatch();
       }
       return false;
    }
@@ -98,7 +150,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return this;
    }
    
-   public CloneOpPO hasPatternObjectName(String value)
+   public CloneOpPO createPatternObjectNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
@@ -107,7 +159,36 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createPatternObjectNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createPatternObjectNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -130,7 +211,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return this;
    }
    
-   public CloneOpPO hasDoAllMatches(boolean value)
+   public CloneOpPO createDoAllMatchesCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
@@ -139,7 +220,21 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloneOpPO createDoAllMatchesAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -148,7 +243,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((CloneOp) getCurrentMatch()).getDoAllMatches();
+         return ((CloneOp) getCurrentMatch()).isDoAllMatches();
       }
       return false;
    }
@@ -162,9 +257,9 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return this;
    }
    
-   public PatternPO hasPattern()
+   public PatternPO createPatternPO()
    {
-      PatternPO result = new PatternPO();
+      PatternPO result = new PatternPO(new Pattern[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
@@ -172,201 +267,33 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return result;
    }
 
-   public CloneOpPO hasPattern(PatternPO tgt)
+   public PatternPO createPatternPO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public CloneOpPO createPatternLink(PatternPO tgt)
    {
       return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
+   public CloneOpPO createPatternLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN, modifier);
+   }
+
    public Pattern getPattern()
    {
-      if (super.getPattern().getHasMatch())
+      if (this.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return super.getPattern();
+      return null;
    }
 
-   public CloneOpPO hasModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public CloneOpPO hasHasMatch(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public CloneOpPO hasPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public CloneOpPO hasDoAllMatches(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public CloneOpPO createModifier(String value)
-   {
-      this.startCreate().hasModifier(value).endCreate();
-      return this;
-   }
-   
-   public CloneOpPO createHasMatch(boolean value)
-   {
-      this.startCreate().hasHasMatch(value).endCreate();
-      return this;
-   }
-   
-   public CloneOpPO createPatternObjectName(String value)
-   {
-      this.startCreate().hasPatternObjectName(value).endCreate();
-      return this;
-   }
-   
-   public CloneOpPO createDoAllMatches(boolean value)
-   {
-      this.startCreate().hasDoAllMatches(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createPattern()
-   {
-      return (PatternPO) this.startCreate().hasPattern().endCreate();
-   }
-
-   public CloneOpPO createPattern(PatternPO tgt)
-   {
-      return this.startCreate().hasPattern(tgt).endCreate();
-   }
-
-   public CloneOpPO filterModifier(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public CloneOpPO filterModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public CloneOpPO filterHasMatch(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public CloneOpPO filterPatternObjectName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public CloneOpPO filterPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public CloneOpPO filterDoAllMatches(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
 }
-
-
-

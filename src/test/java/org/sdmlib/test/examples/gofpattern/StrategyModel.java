@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.gofpattern;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -19,7 +19,7 @@ public class StrategyModel
    @Test
    public void GofStrategyModel() 
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       ClassModel cm = new ClassModel("org.sdmlib.test.examples.gofpattern.strategy");
 

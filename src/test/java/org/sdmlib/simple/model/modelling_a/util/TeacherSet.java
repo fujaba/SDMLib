@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,26 +21,46 @@
    
 package org.sdmlib.simple.model.modelling_a.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.modelling_a.Teacher;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 import org.sdmlib.simple.model.modelling_a.util.RoomSet;
 import org.sdmlib.simple.model.modelling_a.Room;
 import java.util.Collections;
 import org.sdmlib.simple.model.modelling_a.util.PupilSet;
 import org.sdmlib.simple.model.modelling_a.Pupil;
 
-public class TeacherSet extends SDMSet<Teacher>
+public class TeacherSet extends SimpleSet<Teacher>
 {
+	protected Class<?> getTypClass() {
+		return Teacher.class;
+	}
+
+   public TeacherSet()
+   {
+      // empty
+   }
+
+   public TeacherSet(Teacher... objects)
+   {
+      for (Teacher obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TeacherSet(Collection<Teacher> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final TeacherSet EMPTY_SET = new TeacherSet().withFlag(TeacherSet.READONLY);
 
 
-   public TeacherPO filterTeacherPO()
+   public TeacherPO createTeacherPO()
    {
       return new TeacherPO(this.toArray(new Teacher[this.size()]));
    }
@@ -77,21 +97,17 @@ public class TeacherSet extends SDMSet<Teacher>
       return this;
    }
 
-   @Override
-   public TeacherSet filter(Condition<Teacher> newValue) {
-      TeacherSet filterList = new TeacherSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    
    //==========================================================================
    
    public StringList teach()
    {
+      
       StringList result = new StringList();
+      
       for (Teacher obj : this)
       {
-         result.add(obj.teach());
+         result.add( obj.teach() );
       }
       return result;
    }
@@ -102,9 +118,9 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return List of String objects reachable via rank attribute
     */
-   public StringList getRank()
+   public ObjectSet getRank()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Teacher obj : this)
       {
@@ -122,7 +138,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterRank(String value)
+   public TeacherSet createRankCondition(String value)
    {
       TeacherSet result = new TeacherSet();
       
@@ -146,7 +162,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterRank(String lower, String upper)
+   public TeacherSet createRankCondition(String lower, String upper)
    {
       TeacherSet result = new TeacherSet();
       
@@ -185,9 +201,9 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Teacher obj : this)
       {
@@ -205,7 +221,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterName(String value)
+   public TeacherSet createNameCondition(String value)
    {
       TeacherSet result = new TeacherSet();
       
@@ -229,7 +245,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterName(String lower, String upper)
+   public TeacherSet createNameCondition(String lower, String upper)
    {
       TeacherSet result = new TeacherSet();
       
@@ -268,9 +284,9 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return List of int objects reachable via age attribute
     */
-   public intList getAge()
+   public NumberList getAge()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Teacher obj : this)
       {
@@ -288,7 +304,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterAge(int value)
+   public TeacherSet createAgeCondition(int value)
    {
       TeacherSet result = new TeacherSet();
       
@@ -312,7 +328,7 @@ public class TeacherSet extends SDMSet<Teacher>
     * 
     * @return Subset of Teacher objects that match the parameter
     */
-   public TeacherSet filterAge(int lower, int upper)
+   public TeacherSet createAgeCondition(int lower, int upper)
    {
       TeacherSet result = new TeacherSet();
       
@@ -411,71 +427,6 @@ public class TeacherSet extends SDMSet<Teacher>
    }
 
    /**
-    * Loop through the current set of Teacher objects and collect a set of the Room objects reached via currentRoom. 
-    * 
-    * @return Set of Room objects reachable via currentRoom
-    */
-   public RoomSet getCurrentRoom()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Teacher obj : this)
-      {
-         result.with(obj.getCurrentRoom());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Teacher objects and collect all contained objects with reference currentRoom pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as currentRoom neighbor of the collected results. 
-    * 
-    * @return Set of Room objects referring to value via currentRoom
-    */
-   public TeacherSet filterCurrentRoom(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TeacherSet answer = new TeacherSet();
-      
-      for (Teacher obj : this)
-      {
-         if (neighbors.contains(obj.getCurrentRoom()) || (neighbors.isEmpty() && obj.getCurrentRoom() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Teacher object passed as parameter to the CurrentRoom attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their CurrentRoom attributes.
-    */
-   public TeacherSet withCurrentRoom(Room value)
-   {
-      for (Teacher obj : this)
-      {
-         obj.withCurrentRoom(value);
-      }
-      
-      return this;
-   }
-
-   /**
     * Loop through the current set of Teacher objects and collect a set of the Pupil objects reached via pupils. 
     * 
     * @return Set of Pupil objects reachable via pupils
@@ -550,6 +501,71 @@ public class TeacherSet extends SDMSet<Teacher>
       for (Teacher obj : this)
       {
          obj.withoutPupils(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Teacher objects and collect a set of the Room objects reached via currentRoom. 
+    * 
+    * @return Set of Room objects reachable via currentRoom
+    */
+   public RoomSet getCurrentRoom()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Teacher obj : this)
+      {
+         result.with(obj.getCurrentRoom());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Teacher objects and collect all contained objects with reference currentRoom pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as currentRoom neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via currentRoom
+    */
+   public TeacherSet filterCurrentRoom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeacherSet answer = new TeacherSet();
+      
+      for (Teacher obj : this)
+      {
+         if (neighbors.contains(obj.getCurrentRoom()) || (neighbors.isEmpty() && obj.getCurrentRoom() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Teacher object passed as parameter to the CurrentRoom attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their CurrentRoom attributes.
+    */
+   public TeacherSet withCurrentRoom(Room value)
+   {
+      for (Teacher obj : this)
+      {
+         obj.withCurrentRoom(value);
       }
       
       return this;

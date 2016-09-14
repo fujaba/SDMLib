@@ -23,7 +23,7 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -964,4 +964,22 @@ public class ChangeEventSet extends SimpleSet<ChangeEvent>
       return result;
    }
 
+
+   public ChangeEventSet()
+   {
+      // empty
+   }
+
+   public ChangeEventSet(ChangeEvent... objects)
+   {
+      for (ChangeEvent obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChangeEventSet(Collection<ChangeEvent> objects)
+   {
+      this.addAll(objects);
+   }
 }

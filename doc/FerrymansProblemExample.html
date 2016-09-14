@@ -4,12 +4,163 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java' type='text/x-java'>FerrymansProblemExample</a></p>
 <p>initial situation:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R1 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"B2 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"B3 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"B4 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C5 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C6 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"C7 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"B2 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"B3 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"B4 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B3 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"B2 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C5 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B3 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C6 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B3 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C7 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B3 : Bank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasFerrymansProblemExample2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>compute certificates</p>
 <p>{
   "class":"org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank",
@@ -168,11 +319,6 @@
                "attributes":[]
             }
          ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"p8 : PatternObject",
-         "attributes":[]
       }
    ],
    "edges":[
@@ -266,7 +412,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -325,11 +471,6 @@
                "attributes":[]
             }
          ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"p8 : PatternObject",
-         "attributes":[]
       }
    ],
    "edges":[
@@ -445,10 +586,10 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExamplePatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Number of States: 2</p>
+<p>Check: Number of Reachable States:  27 actual 27</p>
 <p>Small reachbility graph with hyperlinks to states: </p>
 <script>
    var json = {
@@ -457,11 +598,11 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"s.R32 : ReachabilityGraph"
+         "id":"s.R31 : ReachabilityGraph"
       },
       {
          "typ":"clazz",
-         "id":"s.R33 : ReachableState",
+         "id":"s.R32 : ReachableState",
          "attributes":[
             "number=1",
             "metricValue=0.0"
@@ -469,7 +610,559 @@
       },
       {
          "typ":"clazz",
+         "id":"s.R40 : ReachableState",
+         "attributes":[
+            "number=2",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R42 : ReachableState",
+         "attributes":[
+            "number=3",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R55 : ReachableState",
+         "attributes":[
+            "number=4",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R57 : ReachableState",
+         "attributes":[
+            "number=5",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R72 : ReachableState",
+         "attributes":[
+            "number=6",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R81 : ReachableState",
+         "attributes":[
+            "number=7",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R84 : ReachableState",
+         "attributes":[
+            "number=8",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R87 : ReachableState",
+         "attributes":[
+            "number=9",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R101 : ReachableState",
+         "attributes":[
+            "number=10",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R110 : ReachableState",
+         "attributes":[
+            "number=11",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R123 : ReachableState",
+         "attributes":[
+            "number=12",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R132 : ReachableState",
+         "attributes":[
+            "number=13",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R134 : ReachableState",
+         "attributes":[
+            "number=14",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R138 : ReachableState",
+         "attributes":[
+            "number=15",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R153 : ReachableState",
+         "attributes":[
+            "number=16",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R162 : ReachableState",
+         "attributes":[
+            "number=17",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R175 : ReachableState",
+         "attributes":[
+            "number=18",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R184 : ReachableState",
+         "attributes":[
+            "number=19",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R186 : ReachableState",
+         "attributes":[
+            "number=20",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R203 : ReachableState",
+         "attributes":[
+            "number=21",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R212 : ReachableState",
+         "attributes":[
+            "number=22",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R214 : ReachableState",
+         "attributes":[
+            "number=23",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R229 : ReachableState",
+         "attributes":[
+            "number=24",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R232 : ReachableState",
+         "attributes":[
+            "number=25",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R247 : ReachableState",
+         "attributes":[
+            "number=26",
+            "metricValue=0.0"
+         ]
+      },
+      {
+         "typ":"clazz",
          "id":"s.R1 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R41 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R60 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R33 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R44 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R43 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R56 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R59 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R83 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R48 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R58 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R73 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R82 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R137 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R141 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R65 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R86 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R74 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R89 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R85 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R102 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R111 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R189 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R88 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R124 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R133 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R191 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R94 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R136 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R103 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R116 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R140 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R125 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R135 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R154 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R163 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R218 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R139 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R176 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R185 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R217 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R146 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R188 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R155 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R168 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R190 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R177 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R187 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R204 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R213 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R216 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R231 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R196 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R205 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R215 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R230 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R249 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R222 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R234 : RuleApplication",
+         "attributes":[
+            "description=move"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R233 : River"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R248 : RuleApplication",
+         "attributes":[
+            "description=load"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.R240 : River"
       },
       {
          "typ":"clazz",
@@ -485,7 +1178,7 @@
       },
       {
          "typ":"clazz",
-         "id":"s.B7 : Bank",
+         "id":"s.B4 : Bank",
          "attributes":[
             "name=right",
             "age=0"
@@ -493,21 +1186,1046 @@
       },
       {
          "typ":"clazz",
-         "id":"s.C4 : Cargo",
+         "id":"s.B34 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B35 : Bank",
          "attributes":[
-            "name=cabbage"
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B39 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B45 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B250 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B46 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B49 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B50 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B53 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B61 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B62 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B251 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B66 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B67 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B70 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B75 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B76 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B79 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B90 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B252 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B91 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B112 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B253 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B113 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B95 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B96 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B98 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B104 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B105 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B107 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B117 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B118 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B120 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B126 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B127 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B129 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B142 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B143 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B254 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B164 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B165 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B255 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B147 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B148 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B151 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B156 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B157 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B160 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B169 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B170 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B173 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B178 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B179 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B182 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B192 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B256 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B193 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B197 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B198 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B200 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B206 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B207 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B209 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B219 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B220 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B257 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B223 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B224 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B226 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B235 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B258 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B236 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B241 : Boat"
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B242 : Bank",
+         "attributes":[
+            "name=left",
+            "age=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.B243 : Bank",
+         "attributes":[
+            "name=right",
+            "age=0"
          ]
       },
       {
          "typ":"clazz",
          "id":"s.C5 : Cargo",
          "attributes":[
-            "name=goat"
+            "name=cabbage"
          ]
       },
       {
          "typ":"clazz",
          "id":"s.C6 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C7 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C37 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C36 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C38 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C259 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C260 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C47 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C54 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C51 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C52 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C63 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C64 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C261 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C68 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C69 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C71 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C78 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C77 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C80 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C262 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C92 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C93 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C263 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C114 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C115 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C99 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C97 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C100 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C109 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C106 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C108 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C121 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C119 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C122 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C131 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C128 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C130 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C144 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C145 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C264 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C166 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C167 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C265 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C149 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C150 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C152 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C159 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C158 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C161 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C171 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C172 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C174 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C181 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C180 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C183 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C266 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C194 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C195 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C201 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C199 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C202 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C211 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C208 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C210 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C221 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C267 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C268 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C225 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C227 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C228 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C237 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C238 : Cargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C239 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C246 : Cargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C244 : Cargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"s.C245 : Cargo",
          "attributes":[
             "name=wolf"
          ]
@@ -519,12 +2237,337 @@
          "source":{
             "cardinality":"many",
             "property":"states",
-            "id":"s.R33 : ReachableState"
+            "id":"s.R32 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"reachabilitygraph",
-            "id":"s.R32 : ReachabilityGraph"
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R40 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R42 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R55 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R57 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R72 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R81 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R84 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R87 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R101 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R110 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R123 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R132 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R134 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R138 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R153 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R162 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R175 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R184 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R186 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R203 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R212 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R214 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R229 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R232 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"s.R247 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachabilitygraph",
+            "id":"s.R31 : ReachabilityGraph"
          }
       },
       {
@@ -537,7 +2580,1268 @@
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"s.R33 : ReachableState"
+            "id":"s.R32 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R41 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R32 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R60 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R32 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R33 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R40 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R44 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R40 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R41 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R40 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R43 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R42 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R56 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R42 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R59 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R42 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R44 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R42 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R83 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R42 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R48 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R55 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R60 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R55 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R56 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R55 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R58 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R73 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R82 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R83 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R59 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R137 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R141 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R57 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R65 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R72 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R86 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R72 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R73 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R72 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R74 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R81 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R89 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R81 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R82 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R81 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R85 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R84 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R102 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R84 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R111 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R84 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R86 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R84 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R189 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R84 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R88 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R87 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R124 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R87 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R133 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R87 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R89 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R87 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R191 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R87 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R94 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R101 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R136 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R101 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R102 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R101 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R103 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R110 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R137 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R110 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R111 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R110 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R116 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R123 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R140 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R123 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R124 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R123 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R125 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R132 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R141 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R132 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R133 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R132 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R135 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R134 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R154 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R134 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R163 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R134 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R136 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R134 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R218 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R134 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R139 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R138 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R176 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R138 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R185 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R138 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R140 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R138 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R217 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R138 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R146 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R153 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R188 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R153 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R154 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R153 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R155 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R162 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R189 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R162 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R163 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R162 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R168 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R175 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R190 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R175 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R176 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R175 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R177 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R184 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R191 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R184 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R185 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R184 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R187 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R204 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R213 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R216 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R188 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R190 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R231 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R186 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R196 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R203 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R217 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R203 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R204 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R203 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R205 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R212 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R218 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R212 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R213 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R212 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R215 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R214 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R230 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R214 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R231 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R214 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R216 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R214 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R249 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R214 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R222 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R229 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R234 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R229 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R230 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R229 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R233 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R232 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R248 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R232 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R234 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R232 : ReachableState"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"s.R240 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"s.R247 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"s.R249 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"s.R247 : ReachableState"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"s.R248 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"s.R247 : ReachableState"
          }
       },
       {
@@ -571,12 +3875,987 @@
          "source":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B7 : Bank"
+            "id":"s.B4 : Bank"
          },
          "target":{
             "cardinality":"one",
             "property":"river",
             "id":"s.R1 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B34 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R33 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B35 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R33 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B39 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R33 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B45 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R43 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B250 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R43 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B46 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R43 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B49 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R48 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B50 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R48 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B53 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R48 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B61 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R58 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B62 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R58 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B251 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R58 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B66 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R65 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B67 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R65 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B70 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R65 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B75 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R74 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B76 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R74 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B79 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R74 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B90 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R85 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B252 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R85 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B91 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R85 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B112 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R88 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B253 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R88 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B113 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R88 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B95 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R94 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B96 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R94 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B98 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R94 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B104 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R103 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B105 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R103 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B107 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R103 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B117 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R116 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B118 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R116 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B120 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R116 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B126 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R125 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B127 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R125 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B129 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R125 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B142 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R135 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B143 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R135 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B254 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R135 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B164 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R139 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B165 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R139 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B255 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R139 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B147 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R146 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B148 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R146 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B151 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R146 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B156 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R155 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B157 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R155 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B160 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R155 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B169 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R168 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B170 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R168 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B173 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R168 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B178 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R177 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B179 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R177 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B182 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R177 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B192 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R187 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B256 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R187 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B193 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R187 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B197 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R196 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B198 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R196 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B200 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R196 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B206 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R205 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B207 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R205 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B209 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R205 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B219 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R215 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B220 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R215 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B257 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R215 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B223 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R222 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B224 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R222 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B226 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R222 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B235 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R233 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B258 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R233 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B236 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R233 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R240 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B242 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R240 : River"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B243 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R240 : River"
          }
       },
       {
@@ -590,19 +4869,6 @@
             "cardinality":"one",
             "property":"boat",
             "id":"s.B2 : Boat"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C4 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
          }
       },
       {
@@ -630,6 +4896,1319 @@
             "property":"bank",
             "id":"s.B3 : Bank"
          }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C7 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B3 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B35 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B34 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C37 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B34 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C36 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B35 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C38 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B35 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B46 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B45 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C259 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B250 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C260 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B250 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C47 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B46 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B53 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B49 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C54 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B49 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C51 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B50 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C52 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B50 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B62 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B61 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C63 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B62 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C64 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B62 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C261 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B251 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B67 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B66 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C68 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B66 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C69 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B67 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C71 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B70 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B76 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B75 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C78 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B75 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C77 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B76 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C80 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B79 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B91 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B90 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C262 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B252 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C92 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B91 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C93 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B91 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B113 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B112 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C263 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B253 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C114 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B113 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C115 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B113 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B98 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B95 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C99 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B95 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C97 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B96 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C100 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B98 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B107 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B104 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C109 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B104 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C106 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B105 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C108 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B107 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B120 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B117 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C121 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B117 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C119 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B118 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C122 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B120 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B129 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B126 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C131 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B126 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C128 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B127 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C130 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B129 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B143 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B142 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C144 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B143 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C145 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B143 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C264 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B254 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B165 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B164 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C166 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B165 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C167 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B165 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C265 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B255 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B148 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B147 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C149 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B147 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C150 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B148 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C152 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B151 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B157 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B156 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C159 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B156 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C158 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B157 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C161 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B160 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B170 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B169 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C171 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B169 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C172 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B170 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C174 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B173 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B179 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B178 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C181 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B178 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C180 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B179 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C183 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B182 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B193 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B192 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C266 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B256 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C194 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B193 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C195 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B193 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B200 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B197 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C201 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B197 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C199 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B198 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C202 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B200 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B209 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B206 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C211 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B206 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C208 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B207 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C210 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B209 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B220 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B219 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C221 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B220 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C267 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B257 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C268 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B257 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B224 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B223 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C225 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B223 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C227 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B226 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C228 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B226 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B236 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B235 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C237 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B236 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C238 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B236 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C239 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B236 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B243 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C246 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C244 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B243 : Bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C245 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B243 : Bank"
+         }
       }
    ]
 }   ;
@@ -644,17 +6223,18 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"S1 : SDMLibJsonIdMap"
+         "id":"S8 : SDMLibJsonIdMap"
       },
       {
          "typ":"clazz",
-         "id":"R2 : ReachabilityGraph"
+         "id":"R9 : ReachabilityGraph"
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerrymansProblemExample10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFerrymansProblemExample11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
+<p>Found a solution.</p>
 
 </body>
 </html>

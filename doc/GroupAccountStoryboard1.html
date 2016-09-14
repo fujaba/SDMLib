@@ -10,6 +10,151 @@
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountStoryboard1</a></p>
 <p>Check: Groupaccount person set size should now be  1 actual 1</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : GroupAccount",
+         "attributes":[
+            "task="
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "name=Albert",
+            "balance=5.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "name=Artjom",
+            "balance=-1.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I5 : Item",
+         "attributes":[
+            "description=Beer",
+            "value=12.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I6 : Item",
+         "attributes":[
+            "description=Bread",
+            "value=3.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I7 : Item",
+         "attributes":[
+            "description=Meat",
+            "value=6.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I6 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P3 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P4 : Person"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasGroupAccountStoryboard12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>We call updateBalances() to compute the correct balances.
 </p>
 <pre>      g1.updateBalances();
@@ -27,6 +172,151 @@
       
       Assert.assertEquals(&quot;Balance should sum up to zero&quot;, 0.0, this.getPersons().getBalance().sum(), 0.00001);
    }</pre><p>The effects of executing updateBalances() is shown in: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : GroupAccount",
+         "attributes":[
+            "task="
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "name=Albert",
+            "balance=5.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "name=Artjom",
+            "balance=-1.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I5 : Item",
+         "attributes":[
+            "description=Beer",
+            "value=12.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I6 : Item",
+         "attributes":[
+            "description=Bread",
+            "value=3.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"I7 : Item",
+         "attributes":[
+            "description=Meat",
+            "value=6.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I6 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P3 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P4 : Person"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasGroupAccountStoryboard18", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Check: Balance for Albert is now  5.0 actual 5.0</p>
 <p>Check: The sum of all balances is  0.0 actual 0.0</p>
 <p>Check: Found one person with name Albert  1.0 actual 1.0</p>

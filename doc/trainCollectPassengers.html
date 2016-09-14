@@ -11,6 +11,209 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java' type='text/x-java'>trainCollectPassengers</a></p>
 <script>
    var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"T1 : Train"
+      },
+      {
+         "typ":"clazz",
+         "id":"S2 : Station"
+      },
+      {
+         "typ":"clazz",
+         "id":"S3 : Station"
+      },
+      {
+         "typ":"clazz",
+         "id":"P4 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P5 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P6 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"S7 : SignalFlag"
+      },
+      {
+         "typ":"clazz",
+         "id":"S8 : Station"
+      },
+      {
+         "typ":"clazz",
+         "id":"S9 : Station"
+      },
+      {
+         "typ":"clazz",
+         "id":"P10 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P11 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"S12 : SignalFlag"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S7 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S8 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S3 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S9 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P10 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P11 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S12 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S8 : Station"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengers1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
    "typ":"object",
    "nodes":[
       {
@@ -202,34 +405,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -237,44 +422,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -288,34 +451,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -323,44 +468,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -375,34 +498,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -410,49 +515,27 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -648,34 +731,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -683,44 +748,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -734,34 +777,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -769,44 +794,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -821,34 +824,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -856,49 +841,27 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1094,34 +1057,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1129,44 +1074,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -1180,34 +1103,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1215,44 +1120,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -1267,34 +1150,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1302,49 +1167,27 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram20", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram21", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1540,34 +1383,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1575,44 +1400,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -1626,34 +1429,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1661,44 +1446,22 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
@@ -1713,34 +1476,16 @@
    "nodes":[
       {
          "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "id":"p1 : PersonPO",
          "attributes":[
-            "<< start >>"
+            "<< start >>",
+            "<< destroy>>"
          ]
       },
       {
          "typ":"patternObject",
-         "id":"s2 : StationPO",
+         "id":"t2 : TrainPO",
          "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
       }
    ],
    "edges":[
@@ -1748,49 +1493,27 @@
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":null
          },
          "target":{
             "property":"people",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "property":" ",
-            "id":"p4 : PersonPO"
+            "id":"p1 : PersonPO"
          },
          "target":{
             "property":"train",
-            "id":"t1 : TrainPO"
+            "id":"t2 : TrainPO"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram27", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram28", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

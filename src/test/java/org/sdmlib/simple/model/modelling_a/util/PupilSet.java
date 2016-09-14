@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,25 +21,45 @@
    
 package org.sdmlib.simple.model.modelling_a.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.modelling_a.Pupil;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.simple.model.modelling_a.util.RoomSet;
 import org.sdmlib.simple.model.modelling_a.Room;
 import org.sdmlib.simple.model.modelling_a.util.TeacherSet;
 import org.sdmlib.simple.model.modelling_a.Teacher;
 
-public class PupilSet extends SDMSet<Pupil>
+public class PupilSet extends SimpleSet<Pupil>
 {
+	protected Class<?> getTypClass() {
+		return Pupil.class;
+	}
+
+   public PupilSet()
+   {
+      // empty
+   }
+
+   public PupilSet(Pupil... objects)
+   {
+      for (Pupil obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PupilSet(Collection<Pupil> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final PupilSet EMPTY_SET = new PupilSet().withFlag(PupilSet.READONLY);
 
 
-   public PupilPO filterPupilPO()
+   public PupilPO createPupilPO()
    {
       return new PupilPO(this.toArray(new Pupil[this.size()]));
    }
@@ -76,21 +96,17 @@ public class PupilSet extends SDMSet<Pupil>
       return this;
    }
 
-   @Override
-   public PupilSet filter(Condition<Pupil> newValue) {
-      PupilSet filterList = new PupilSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    
    //==========================================================================
    
    public StringList read()
    {
+      
       StringList result = new StringList();
+      
       for (Pupil obj : this)
       {
-         result.add(obj.read());
+         result.add( obj.read() );
       }
       return result;
    }
@@ -101,9 +117,9 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return List of int objects reachable via credits attribute
     */
-   public intList getCredits()
+   public NumberList getCredits()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Pupil obj : this)
       {
@@ -121,7 +137,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterCredits(int value)
+   public PupilSet createCreditsCondition(int value)
    {
       PupilSet result = new PupilSet();
       
@@ -145,7 +161,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterCredits(int lower, int upper)
+   public PupilSet createCreditsCondition(int lower, int upper)
    {
       PupilSet result = new PupilSet();
       
@@ -184,9 +200,9 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Pupil obj : this)
       {
@@ -204,7 +220,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterName(String value)
+   public PupilSet createNameCondition(String value)
    {
       PupilSet result = new PupilSet();
       
@@ -228,7 +244,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterName(String lower, String upper)
+   public PupilSet createNameCondition(String lower, String upper)
    {
       PupilSet result = new PupilSet();
       
@@ -267,9 +283,9 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return List of int objects reachable via age attribute
     */
-   public intList getAge()
+   public NumberList getAge()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Pupil obj : this)
       {
@@ -287,7 +303,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterAge(int value)
+   public PupilSet createAgeCondition(int value)
    {
       PupilSet result = new PupilSet();
       
@@ -311,7 +327,7 @@ public class PupilSet extends SDMSet<Pupil>
     * 
     * @return Subset of Pupil objects that match the parameter
     */
-   public PupilSet filterAge(int lower, int upper)
+   public PupilSet createAgeCondition(int lower, int upper)
    {
       PupilSet result = new PupilSet();
       

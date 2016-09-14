@@ -15,7 +15,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 public class SDMLibMetaModelObjectDiagramsForCoverage
 {
@@ -26,7 +26,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
    @Test
    public void testPatternModelObjectsForCoverage()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       
@@ -88,7 +88,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
    @Test
    public void testSDMLibCodeGenObjectsForCoverage()
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       

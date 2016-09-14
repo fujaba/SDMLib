@@ -28,7 +28,7 @@ public class FeatureTest {
 	@Test
 	public void testFeaturesAlbertSets() {
 		ClassModel model = new ClassModel("org.sdmlib.test.examples.features.model.albertsets")
-								.withFeature(Feature.ALBERTsSets);
+								.withFeature(Feature.SETCLASS);
 		
 		Clazz house = model.createClazz("House");
 		Clazz door = model.createClazz("Door");

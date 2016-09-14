@@ -24,8 +24,7 @@ package org.sdmlib.simple.model.removeCode_d.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.removeCode_d.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.simple.model.removeCode_d.util.PupilSet;
 import org.sdmlib.simple.model.removeCode_d.Pupil;
@@ -33,7 +32,25 @@ import org.sdmlib.simple.model.removeCode_d.Pupil;
 public class PersonSet extends SDMSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
 
    public PersonPO filterPersonPO()
@@ -72,116 +89,6 @@ public class PersonSet extends SDMSet<Person>
       this.remove(value);
       return this;
    }
-
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
 
    
 

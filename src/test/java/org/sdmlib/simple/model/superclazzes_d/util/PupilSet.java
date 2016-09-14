@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,38 @@
    
 package org.sdmlib.simple.model.superclazzes_d.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.superclazzes_d.Pupil;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class PupilSet extends SDMSet<Pupil>
+public class PupilSet extends SimpleSet<Pupil>
 {
+	protected Class<?> getTypClass() {
+		return Pupil.class;
+	}
+
+   public PupilSet()
+   {
+      // empty
+   }
+
+   public PupilSet(Pupil... objects)
+   {
+      for (Pupil obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PupilSet(Collection<Pupil> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final PupilSet EMPTY_SET = new PupilSet().withFlag(PupilSet.READONLY);
 
 
-   public PupilPO filterPupilPO()
+   public PupilPO createPupilPO()
    {
       return new PupilPO(this.toArray(new Pupil[this.size()]));
    }
@@ -69,10 +89,4 @@ public class PupilSet extends SDMSet<Pupil>
       return this;
    }
 
-   @Override
-   public PupilSet filter(Condition<Pupil> newValue) {
-      PupilSet filterList = new PupilSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 }

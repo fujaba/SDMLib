@@ -24,7 +24,7 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
 
@@ -133,5 +133,23 @@ public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
    public CloudModelDirectoryPO filterCloudModelDirectoryPO()
    {
       return new CloudModelDirectoryPO(this.toArray(new CloudModelDirectory[this.size()]));
+   }
+
+   public CloudModelDirectorySet()
+   {
+      // empty
+   }
+
+   public CloudModelDirectorySet(CloudModelDirectory... objects)
+   {
+      for (CloudModelDirectory obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public CloudModelDirectorySet(Collection<CloudModelDirectory> objects)
+   {
+      this.addAll(objects);
    }
 }

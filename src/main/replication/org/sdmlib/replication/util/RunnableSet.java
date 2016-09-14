@@ -70,4 +70,22 @@ public class RunnableSet extends SimpleSet<Runnable>
    {
       return "java.lang.Runnable";
    }
+
+   public RunnableSet()
+   {
+      // empty
+   }
+
+   public RunnableSet(Runnable... objects)
+   {
+      for (Runnable obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RunnableSet(Collection<Runnable> objects)
+   {
+      this.addAll(objects);
+   }
 }

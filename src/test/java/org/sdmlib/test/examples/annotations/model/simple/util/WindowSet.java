@@ -24,15 +24,32 @@ package org.sdmlib.test.examples.annotations.model.simple.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
 public class WindowSet extends SDMSet<Window>
 {
 
-   public static final WindowSet EMPTY_SET = new WindowSet().withFlag(WindowSet.READONLY);
+   public WindowSet()
+   {
+      // empty
+   }
+
+   public WindowSet(Window... objects)
+   {
+      for (Window obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public WindowSet(Collection<Window> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final WindowSet EMPTY_SET = new WindowSet();
 
 
    public WindowPO filterWindowPO()
@@ -72,12 +89,6 @@ public class WindowSet extends SDMSet<Window>
       return this;
    }
 
-   @Override
-   public WindowSet filter(Condition<Window> newValue) {
-      WindowSet filterList = new WindowSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    /**
     * Loop through the current set of Window objects and collect a set of the House objects reached via house. 
     * 

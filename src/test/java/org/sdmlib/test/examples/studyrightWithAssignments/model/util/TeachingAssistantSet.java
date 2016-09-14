@@ -21,31 +21,51 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-
 import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
-public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
+public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
 {
+	protected Class<?> getTypClass() {
+		return TeachingAssistant.class;
+	}
+
+   public TeachingAssistantSet()
+   {
+      // empty
+   }
+
+   public TeachingAssistantSet(TeachingAssistant... objects)
+   {
+      for (TeachingAssistant obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TeachingAssistantSet(Collection<TeachingAssistant> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withFlag(TeachingAssistantSet.READONLY);
 
 
-   public TeachingAssistantPO filterTeachingAssistantPO()
+   public TeachingAssistantPO createTeachingAssistantPO()
    {
       return new TeachingAssistantPO(this.toArray(new TeachingAssistant[this.size()]));
    }
@@ -56,6 +76,19 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant";
    }
 
+
+   @Override
+   public TeachingAssistantSet getNewList(boolean keyValue)
+   {
+      return new TeachingAssistantSet();
+   }
+
+
+   public TeachingAssistantSet filter(Condition<TeachingAssistant> condition) {
+      TeachingAssistantSet filterList = new TeachingAssistantSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public TeachingAssistantSet with(Object value)
@@ -82,21 +115,15 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
       return this;
    }
 
-   @Override
-   public TeachingAssistantSet filter(Condition<TeachingAssistant> newValue) {
-      TeachingAssistantSet filterList = new TeachingAssistantSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of TeachingAssistant objects and collect a list of the certified attribute values. 
     * 
     * @return List of boolean objects reachable via certified attribute
     */
-   public booleanList getCertified()
+   public BooleanList getCertified()
    {
-      booleanList result = new booleanList();
+      BooleanList result = new BooleanList();
       
       for (TeachingAssistant obj : this)
       {
@@ -153,9 +180,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (TeachingAssistant obj : this)
       {
@@ -236,9 +263,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return List of String objects reachable via id attribute
     */
-   public StringList getId()
+   public ObjectSet getId()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (TeachingAssistant obj : this)
       {
@@ -319,9 +346,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return List of int objects reachable via assignmentPoints attribute
     */
-   public intList getAssignmentPoints()
+   public NumberList getAssignmentPoints()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (TeachingAssistant obj : this)
       {
@@ -402,9 +429,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return List of int objects reachable via motivation attribute
     */
-   public intList getMotivation()
+   public NumberList getMotivation()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (TeachingAssistant obj : this)
       {
@@ -485,9 +512,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return List of int objects reachable via credits attribute
     */
-   public intList getCredits()
+   public NumberList getCredits()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (TeachingAssistant obj : this)
       {
@@ -747,9 +774,9 @@ public class TeachingAssistantSet extends StudentSet<TeachingAssistant>
     * 
     * @return Set of Student objects reachable via friends transitively (including the start set)
     */
-   public StudentSet<Student> getFriendsTransitive()
+   public StudentSet getFriendsTransitive()
    {
-      StudentSet<Student> todo = new StudentSet<Student>().with(this);
+      StudentSet todo = new StudentSet().with(this);
       
       StudentSet result = new StudentSet();
       

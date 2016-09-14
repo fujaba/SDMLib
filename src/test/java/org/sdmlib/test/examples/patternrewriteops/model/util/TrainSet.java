@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
@@ -182,6 +182,24 @@ public class TrainSet extends SimpleSet<Train>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.Train";
+   }
+
+   public TrainSet()
+   {
+      // empty
+   }
+
+   public TrainSet(Train... objects)
+   {
+      for (Train obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TrainSet(Collection<Train> objects)
+   {
+      this.addAll(objects);
    }
 }
 

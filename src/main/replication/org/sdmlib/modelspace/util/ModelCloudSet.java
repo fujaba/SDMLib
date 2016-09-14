@@ -24,8 +24,8 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
@@ -394,4 +394,22 @@ public class ModelCloudSet extends SimpleSet<ModelCloud>
       return result;
    }
 
+
+   public ModelCloudSet()
+   {
+      // empty
+   }
+
+   public ModelCloudSet(ModelCloud... objects)
+   {
+      for (ModelCloud obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelCloudSet(Collection<ModelCloud> objects)
+   {
+      this.addAll(objects);
+   }
 }

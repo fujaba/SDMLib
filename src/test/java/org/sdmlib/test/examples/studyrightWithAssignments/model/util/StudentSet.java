@@ -21,13 +21,14 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
@@ -37,23 +38,34 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
-public class StudentSet<T extends Student> extends SDMSet<T>
+public class StudentSet extends SimpleSet<Student>
 {
+	protected Class<?> getTypClass() {
+		return Student.class;
+	}
+
    public StudentSet()
    {
       // empty
    }
 
-   public StudentSet(Object value)
+   public StudentSet(Student... objects)
    {
-      this();
-      this.with(value);
+      for (Student obj : objects)
+      {
+         this.add(obj);
+      }
    }
 
-   public static final StudentSet EMPTY_SET = new StudentSet<Student>().withFlag(StudentSet.READONLY);
+   public StudentSet(Collection<Student> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
 
 
-   public StudentPO filterStudentPO()
+   public StudentPO createStudentPO()
    {
       return new StudentPO(this.toArray(new Student[this.size()]));
    }
@@ -65,6 +77,34 @@ public class StudentSet<T extends Student> extends SDMSet<T>
    }
 
 
+   @Override
+   public StudentSet getNewList(boolean keyValue)
+   {
+      return new StudentSet();
+   }
+
+
+   public StudentSet filter(Condition<Student> condition) {
+      StudentSet filterList = new StudentSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public TeachingAssistantSet instanceOfTeachingAssistant()
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof TeachingAssistant)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
    @SuppressWarnings("unchecked")
    public StudentSet with(Object value)
    {
@@ -74,11 +114,11 @@ public class StudentSet<T extends Student> extends SDMSet<T>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<T>)value);
+         this.addAll((Collection<Student>)value);
       }
       else if (value != null)
       {
-         this.add((T) value);
+         this.add((Student) value);
       }
       
       return this;
@@ -90,21 +130,15 @@ public class StudentSet<T extends Student> extends SDMSet<T>
       return this;
    }
 
-   @Override
-   public StudentSet filter(Condition<T> newValue) {
-      StudentSet filterList = new StudentSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Student objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Student obj : this)
       {
@@ -185,9 +219,9 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     * 
     * @return List of String objects reachable via id attribute
     */
-   public StringList getId()
+   public ObjectSet getId()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Student obj : this)
       {
@@ -268,9 +302,9 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     * 
     * @return List of int objects reachable via assignmentPoints attribute
     */
-   public intList getAssignmentPoints()
+   public NumberList getAssignmentPoints()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -351,9 +385,9 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     * 
     * @return List of int objects reachable via motivation attribute
     */
-   public intList getMotivation()
+   public NumberList getMotivation()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -434,9 +468,9 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     * 
     * @return List of int objects reachable via credits attribute
     */
-   public intList getCredits()
+   public NumberList getCredits()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Student obj : this)
       {
@@ -698,7 +732,7 @@ public class StudentSet<T extends Student> extends SDMSet<T>
     */
    public StudentSet getFriendsTransitive()
    {
-      StudentSet<T> todo = new StudentSet<T>().with(this);
+      StudentSet todo = new StudentSet().with(this);
       
       StudentSet result = new StudentSet();
       

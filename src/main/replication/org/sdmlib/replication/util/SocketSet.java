@@ -70,4 +70,22 @@ public class SocketSet extends SimpleSet<Socket>
    {
       return "java.net.Socket";
    }
+
+   public SocketSet()
+   {
+      // empty
+   }
+
+   public SocketSet(Socket... objects)
+   {
+      for (Socket obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SocketSet(Collection<Socket> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -23,13 +23,14 @@ package org.sdmlib.test.examples.helloworld.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class EdgeSet extends SimpleSet<Edge>
 {
@@ -465,7 +466,44 @@ public class EdgeSet extends SimpleSet<Edge>
       return result;
    }
 
-}
+
+   public EdgeSet()
+   {
+      // empty
+   }
+
+   public EdgeSet(Edge... objects)
+   {
+      for (Edge obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public EdgeSet(Collection<Edge> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public EdgePO createEdgePO()
+   {
+      return new EdgePO(this.toArray(new Edge[this.size()]));
+   }
+
+
+   @Override
+   public EdgeSet getNewList(boolean keyValue)
+   {
+      return new EdgeSet();
+   }
+
+
+   public EdgeSet filter(Condition<Edge> condition) {
+      EdgeSet filterList = new EdgeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

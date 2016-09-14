@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -172,4 +172,22 @@ public class PersonSet extends SimpleSet<Person>
       return result;
    }
 
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
 }

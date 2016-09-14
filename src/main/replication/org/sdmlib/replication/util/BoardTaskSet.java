@@ -25,8 +25,8 @@ import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
@@ -730,4 +730,22 @@ public class BoardTaskSet extends SimpleSet<BoardTask>
       return result;
    }
 
+
+   public BoardTaskSet()
+   {
+      // empty
+   }
+
+   public BoardTaskSet(BoardTask... objects)
+   {
+      for (BoardTask obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BoardTaskSet(Collection<BoardTask> objects)
+   {
+      this.addAll(objects);
+   }
 }

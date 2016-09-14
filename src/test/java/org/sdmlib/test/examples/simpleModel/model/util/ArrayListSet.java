@@ -70,4 +70,25 @@ public class ArrayListSet extends SimpleSet<ArrayList<?>>
    {
       return "java.util.ArrayList";
    }
+
+   public ArrayListSet()
+   {
+      // empty
+   }
+
+   public ArrayListSet(ArrayList... objects)
+   {
+      for (ArrayList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ArrayListSet(Collection<ArrayList> objects)
+   {
+      for (ArrayList obj : objects)
+      {
+         this.add(obj);
+      }
+   }
 }

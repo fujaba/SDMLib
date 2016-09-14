@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
@@ -132,6 +132,24 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
+   }
+
+   public SignalFlagSet()
+   {
+      // empty
+   }
+
+   public SignalFlagSet(SignalFlag... objects)
+   {
+      for (SignalFlag obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SignalFlagSet(Collection<SignalFlag> objects)
+   {
+      this.addAll(objects);
    }
 }
 

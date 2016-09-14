@@ -24,7 +24,7 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
 
@@ -133,5 +133,23 @@ public class TaskBoardSet extends SimpleSet<TaskBoard>
    public TaskBoardPO filterTaskBoardPO()
    {
       return new TaskBoardPO(this.toArray(new TaskBoard[this.size()]));
+   }
+
+   public TaskBoardSet()
+   {
+      // empty
+   }
+
+   public TaskBoardSet(TaskBoard... objects)
+   {
+      for (TaskBoard obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskBoardSet(Collection<TaskBoard> objects)
+   {
+      this.addAll(objects);
    }
 }

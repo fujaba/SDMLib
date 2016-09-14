@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.replication.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
@@ -283,4 +283,22 @@ public class ChatUserSet extends SimpleSet<ChatUser>
       return result;
    }
 
+
+   public ChatUserSet()
+   {
+      // empty
+   }
+
+   public ChatUserSet(ChatUser... objects)
+   {
+      for (ChatUser obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ChatUserSet(Collection<ChatUser> objects)
+   {
+      this.addAll(objects);
+   }
 }

@@ -24,8 +24,8 @@ package org.sdmlib.test.model.refactoring.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
@@ -314,4 +314,22 @@ public class LudoSet extends SimpleSet<Ludo>
       return result;
    }
 
+
+   public LudoSet()
+   {
+      // empty
+   }
+
+   public LudoSet(Ludo... objects)
+   {
+      for (Ludo obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public LudoSet(Collection<Ludo> objects)
+   {
+      this.addAll(objects);
+   }
 }

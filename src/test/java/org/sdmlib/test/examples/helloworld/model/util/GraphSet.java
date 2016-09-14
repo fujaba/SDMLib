@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.helloworld.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class GraphSet extends SimpleSet<Graph>
 {
@@ -254,4 +255,41 @@ public class GraphSet extends SimpleSet<Graph>
    {
       return "org.sdmlib.test.examples.helloworld.model.Graph";
    }
-}
+
+   public GraphSet()
+   {
+      // empty
+   }
+
+   public GraphSet(Graph... objects)
+   {
+      for (Graph obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GraphSet(Collection<Graph> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public GraphPO createGraphPO()
+   {
+      return new GraphPO(this.toArray(new Graph[this.size()]));
+   }
+
+
+   @Override
+   public GraphSet getNewList(boolean keyValue)
+   {
+      return new GraphSet();
+   }
+
+
+   public GraphSet filter(Condition<Graph> condition) {
+      GraphSet filterList = new GraphSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

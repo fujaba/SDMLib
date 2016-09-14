@@ -23,7 +23,7 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
@@ -381,4 +381,22 @@ public class TaskFlowSet extends SimpleSet<TaskFlow>
       return result;
    }
 
+
+   public TaskFlowSet()
+   {
+      // empty
+   }
+
+   public TaskFlowSet(TaskFlow... objects)
+   {
+      for (TaskFlow obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskFlowSet(Collection<TaskFlow> objects)
+   {
+      this.addAll(objects);
+   }
 }

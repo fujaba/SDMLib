@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -22,7 +22,7 @@ public class TaskFlowModel
    @Test
    public void taskFlowModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryboardImpl storyboard = new StoryboardImpl();
 
       ClassModel model = new ClassModel("org.sdmlib.models.taskflows");
 

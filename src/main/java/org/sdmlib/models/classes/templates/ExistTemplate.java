@@ -17,11 +17,15 @@ public class ExistTemplate extends TemplateTask{
 	}
 	
 	public ExistTemplate withTemplates(Template... values) {
-		templates.with(values);
+		if(values == null) {
+			return this;
+		}
+		for(Template template : values) {
+			templates.with(template);
+		}
 		return this;
 	}
 	
-
 	@Override
 	public TemplateResult execute(String searchString, Parser parser, ClassModel model, String... values) {
 		TemplateResult text=new TemplateResult(template);

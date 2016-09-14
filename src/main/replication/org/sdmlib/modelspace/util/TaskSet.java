@@ -23,8 +23,8 @@ package org.sdmlib.modelspace.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskLane;
@@ -569,4 +569,22 @@ public class TaskSet extends SimpleSet<Task>
       return result;
    }
 
+
+   public TaskSet()
+   {
+      // empty
+   }
+
+   public TaskSet(Task... objects)
+   {
+      for (Task obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskSet(Collection<Task> objects)
+   {
+      this.addAll(objects);
+   }
 }

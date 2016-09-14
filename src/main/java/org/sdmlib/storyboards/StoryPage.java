@@ -7,13 +7,13 @@ import org.sdmlib.models.pattern.PatternObject;
  * A StoryPage allows the use of the most important functionalities
  * of Storyboards.
  * 
- * @see Storyboard
+ * @see StoryboardImpl
 */
 public class StoryPage {
 
-	private Storyboard storyboard;
+	private StoryboardImpl storyboard;
 	
-	public Storyboard getStoryboard()
+	public StoryboardImpl getStoryboard()
    {
       return storyboard;
    }
@@ -24,7 +24,7 @@ public class StoryPage {
 	 * of the Storyboard class.
 	*/
 	public StoryPage() {
-		this.storyboard = new Storyboard();
+		this.storyboard = new StoryboardImpl();
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class StoryPage {
 	 * @param txt text, that is added to the new step
 	 * @return return the Storyboard
 	*/
-	public Storyboard addStep(String txt) {
+	public StoryboardImpl addStep(String txt) {
 		return storyboard.addStep(txt);
 	}
 	

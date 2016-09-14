@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Female;
 
 import de.uniks.networkparser.list.SimpleSet;
@@ -205,4 +205,22 @@ public class FemaleSet extends SimpleSet<Female>
       return result;
    }
 
+
+   public FemaleSet()
+   {
+      // empty
+   }
+
+   public FemaleSet(Female... objects)
+   {
+      for (Female obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FemaleSet(Collection<Female> objects)
+   {
+      this.addAll(objects);
+   }
 }

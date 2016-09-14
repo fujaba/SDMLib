@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.MoveRight;
 
@@ -148,5 +148,23 @@ public class MoveRightSet extends SimpleSet<MoveRight>
    public MoveRightPO filterMoveRightPO()
    {
       return new MoveRightPO(this.toArray(new MoveRight[this.size()]));
+   }
+
+   public MoveRightSet()
+   {
+      // empty
+   }
+
+   public MoveRightSet(MoveRight... objects)
+   {
+      for (MoveRight obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MoveRightSet(Collection<MoveRight> objects)
+   {
+      this.addAll(objects);
    }
 }

@@ -23,12 +23,12 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 
@@ -154,6 +154,30 @@ public class GenericGraphSet extends SimpleSet<GenericGraph>
 
 
    public GenericGraphPO filterGenericGraphPO()
+   {
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
+   }
+
+   public GenericGraphSet()
+   {
+      // empty
+   }
+
+   public GenericGraphSet(GenericGraph... objects)
+   {
+      for (GenericGraph obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericGraphSet(Collection<GenericGraph> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public GenericGraphPO createGenericGraphPO()
    {
       return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }

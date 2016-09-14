@@ -26,10 +26,11 @@ import org.sdmlib.test.examples.roombook.Floor;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.roombook.util.BuildingSet;
 import org.sdmlib.test.examples.roombook.Building;
+import de.uniks.networkparser.list.NumberList;
 
 public class FloorSet extends SDMSet<Floor>
 {
@@ -392,6 +393,171 @@ public class FloorSet extends SDMSet<Floor>
       }
       
       return this;
+   }
+
+
+   public FloorSet()
+   {
+      // empty
+   }
+
+   public FloorSet(Floor... objects)
+   {
+      for (Floor obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FloorSet(Collection<Floor> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public FloorPO createFloorPO()
+   {
+      return new FloorPO(this.toArray(new Floor[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the level attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createLevelCondition(int value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value == obj.getLevel())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the level attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createLevelCondition(int lower, int upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower <= obj.getLevel() && obj.getLevel() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createNameCondition(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createNameCondition(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the guest attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createGuestCondition(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getGuest()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Floor objects and collect those Floor objects where the guest attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Floor objects that match the parameter
+    */
+   public FloorSet createGuestCondition(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getGuest()) <= 0 && obj.getGuest().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.ReachableState;
-
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachableStatePOCreator extends PatternObjectCreator
 {
@@ -16,9 +16,7 @@ public class ReachableStatePOCreator extends PatternObjectCreator
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
 }
-

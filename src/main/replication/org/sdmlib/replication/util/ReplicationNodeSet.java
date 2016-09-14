@@ -24,8 +24,8 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
@@ -366,5 +366,23 @@ public class ReplicationNodeSet extends SimpleSet<ReplicationNode>
    public String getEntryType()
    {
       return "org.sdmlib.replication.ReplicationNode";
+   }
+
+   public ReplicationNodeSet()
+   {
+      // empty
+   }
+
+   public ReplicationNodeSet(ReplicationNode... objects)
+   {
+      for (ReplicationNode obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ReplicationNodeSet(Collection<ReplicationNode> objects)
+   {
+      this.addAll(objects);
    }
 }

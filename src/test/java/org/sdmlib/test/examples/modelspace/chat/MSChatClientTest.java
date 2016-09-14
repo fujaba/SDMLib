@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
 import de.uniks.networkparser.IdMap;
@@ -19,7 +19,7 @@ public class MSChatClientTest
    private String userName;
    private String channelName;
    private ModelSpace space;
-   private StoryPage story;
+   private Storyboard story;
 
      /**
     * 
@@ -33,7 +33,7 @@ public class MSChatClientTest
 		   return;
 	   }
 
-      story = new StoryPage();
+      story = new Storyboard();
       
       // remove old json files
       File file = new File("modeldata/ZuenFamily");

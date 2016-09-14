@@ -24,8 +24,8 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.replication.BoardTask;
@@ -883,4 +883,22 @@ public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
       return result;
    }
 
+
+   public SeppelSpaceProxySet()
+   {
+      // empty
+   }
+
+   public SeppelSpaceProxySet(SeppelSpaceProxy... objects)
+   {
+      for (SeppelSpaceProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SeppelSpaceProxySet(Collection<SeppelSpaceProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

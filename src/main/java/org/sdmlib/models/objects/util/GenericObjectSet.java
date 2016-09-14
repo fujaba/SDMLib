@@ -23,7 +23,7 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
@@ -33,6 +33,7 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.models.objects.util.GenericGraphSet;
 import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericLinkSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class GenericObjectSet extends SimpleSet<GenericObject>
 {
@@ -492,6 +493,171 @@ public class GenericObjectSet extends SimpleSet<GenericObject>
     * @return Subset of GenericObject objects that match the parameter
     */
    public GenericObjectSet filterIcon(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getIcon()) <= 0 && obj.getIcon().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   public GenericObjectSet()
+   {
+      // empty
+   }
+
+   public GenericObjectSet(GenericObject... objects)
+   {
+      for (GenericObject obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GenericObjectSet(Collection<GenericObject> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public GenericObjectPO createGenericObjectPO()
+   {
+      return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
+   }
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createNameCondition(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createNameCondition(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createTypeCondition(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the type attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createTypeCondition(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createIconCondition(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getIcon()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericObject objects and collect those GenericObject objects where the icon attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GenericObject objects that match the parameter
+    */
+   public GenericObjectSet createIconCondition(String lower, String upper)
    {
       GenericObjectSet result = new GenericObjectSet();
       

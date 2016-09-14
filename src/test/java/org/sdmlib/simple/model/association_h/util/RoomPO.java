@@ -39,7 +39,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       newInstance(null, hostGraphObject);
    }
-   public PersonPO filterPerson()
+
+   public RoomPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createPersonPO()
    {
       PersonPO result = new PersonPO(new Person[]{});
       
@@ -49,19 +54,24 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
-   public PersonPO createPerson()
+   public PersonPO createPersonPO(String modifier)
    {
-      return this.startCreate().filterPerson().endCreate();
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_PERSON, result);
+      
+      return result;
    }
 
-   public RoomPO filterPerson(PersonPO tgt)
+   public RoomPO createPersonLink(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_PERSON);
    }
 
-   public RoomPO createPerson(PersonPO tgt)
+   public RoomPO createPersonLink(PersonPO tgt, String modifier)
    {
-      return this.startCreate().filterPerson(tgt).endCreate();
+      return hasLinkConstraint(tgt, Room.PROPERTY_PERSON, modifier);
    }
 
    public Person getPerson()
@@ -73,7 +83,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public TeacherPO filterTeachers()
+   public TeacherPO createTeachersPO()
    {
       TeacherPO result = new TeacherPO(new Teacher[]{});
       
@@ -83,19 +93,24 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
-   public TeacherPO createTeachers()
+   public TeacherPO createTeachersPO(String modifier)
    {
-      return this.startCreate().filterTeachers().endCreate();
+      TeacherPO result = new TeacherPO(new Teacher[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_TEACHERS, result);
+      
+      return result;
    }
 
-   public RoomPO filterTeachers(TeacherPO tgt)
+   public RoomPO createTeachersLink(TeacherPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_TEACHERS);
    }
 
-   public RoomPO createTeachers(TeacherPO tgt)
+   public RoomPO createTeachersLink(TeacherPO tgt, String modifier)
    {
-      return this.startCreate().filterTeachers(tgt).endCreate();
+      return hasLinkConstraint(tgt, Room.PROPERTY_TEACHERS, modifier);
    }
 
    public TeacherSet getTeachers()

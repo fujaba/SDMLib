@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
@@ -221,5 +221,23 @@ public class BoatSet extends SimpleSet<Boat>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
+   }
+
+   public BoatSet()
+   {
+      // empty
+   }
+
+   public BoatSet(Boat... objects)
+   {
+      for (Boat obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public BoatSet(Collection<Boat> objects)
+   {
+      this.addAll(objects);
    }
 }

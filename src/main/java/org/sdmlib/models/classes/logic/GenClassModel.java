@@ -34,10 +34,11 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Annotation;
@@ -198,10 +199,68 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(association, gen);
       return (GenAssociation) gen;
    }
+   
+   private void fixClassModel(String rootDir)
+   {
+      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
+      HashSet<Clazz> visited = new HashSet<Clazz>();
+      for (Clazz item : classes)
+      {
+         fixClassModel(item, visited, rootDir);
+      }
+   }
+   
+   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir) {
+	      if(item.getType() ==  ClazzType.ENUMERATION) {
+	          SimpleSet<Literal> literals = item.getValues();
+	          SimpleSet<Attribute> attributes = item.getAttributes();
+	          for(Literal literal : literals) {
+	              int no = 0;
+	              SimpleList<Object> values = literal.getValues();
+	              if(values != null) {
+	                  for(Object value : values) {
+	                      if(value != null) {
+	                          String type = value.getClass().getName();
+	                          if(attributes.size()>no) {
+	                              Attribute attribute = attributes.get(no);
+	                              if(attribute.getType().getName(false).equals(type)) {
+	                                  // Everthing is ok
+	                              } else {
+	                                  attribute.with(DataType.OBJECT);
+	                              }
+	                          } else {
+	                              Attribute attribute = new Attribute("value"+no, DataType.create(type));
+	                              attributes.add(attribute);
+	                              item.with(attribute);
+	                          }
+	                      }
+	                      no++;
+	                  }
+	              }
+	          }
+	          GenClazzEntity orCreate = getOrCreate(item);
+	          Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
+	          orCreateParser.indexOf(Parser.CLASS_END);
+	          Method constructor = new Method(item.getName()).with(DataType.create(""));
+	          String constructorBody = "";
+	          for(Attribute attribute : attributes) {
+	              constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
+	              constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
+	          }
+	          constructor.withBody(constructorBody);
+	          constructor.with(Modifier.PACKAGE);
+	          item.with(constructor);
+	      }
+   }
+
+
 
    public boolean generate(String rootDir)
    {
       resetParsers();
+      
+      this.model.fixClassModel();
+      
 
       fixClassModel(rootDir);
 
@@ -211,15 +270,6 @@ public class GenClassModel implements ClassModelAdapter
       }
     	  
       
-//      for (Enumeration enumeration : model.getEnumerations())
-//      {
-//         getOrCreate(enumeration).generate(rootDir, rootDir);
-//      }
-//
-//      for (Clazz clazz : model.getClazzes())
-//      {
-//         getOrCreate(clazz).generate(rootDir, rootDir);
-//      }
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
@@ -286,7 +336,7 @@ public class GenClassModel implements ClassModelAdapter
       // execution directory and search for the subdi
       File projectDir = new File(".");
       
-      Storyboard story = new Storyboard();
+      StoryboardImpl story = new StoryboardImpl();
       
       story.setJavaTestFileName(classModelConstructionClass.replaceAll("\\.", "/") + ".java");
       
@@ -306,111 +356,6 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
-   private void fixClassModel(String rootDir)
-   {
-      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
-      HashSet<Clazz> visited = new HashSet<Clazz>();
-      for (Clazz item : classes)
-      {
-         fixClassModel(item, visited, rootDir);
-      }
-   }
-
-   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir)
-   {
-      for (Clazz entity : item.getInterfaces(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getSuperClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getKidClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            entity.setClassModel(model);
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-         }
-      }
-
-      for (Association role : item.getAssociations())
-      {
-         Clazz clazz = role.getOtherClazz();
-         if (clazz.getClassModel() == null)
-         {
-            clazz.setClassModel(model);
-            if (visited.add(clazz))
-            {
-               fixClassModel(clazz, visited, rootDir);
-            }
-         }
-       	 this.addToAssociations(role);
-      }
-      
-      // Fix the Clazz
-      if(item.getType() ==  ClazzType.ENUMERATION) {
-    	  SimpleSet<Literal> literals = item.getValues();
-    	  SimpleSet<Attribute> attributes = item.getAttributes();
-		  for(Literal literal : literals) {
-			  int no = 0;
-			  SimpleList<Object> values = literal.getValues();
-			  if(values != null) {
-				  for(Object value : values) {
-					  if(value != null) {
-						  String type = value.getClass().getName();
-						  if(attributes.size()>no) {
-							  Attribute attribute = attributes.get(no);
-							  if(attribute.getType().getName(false).equals(type)) {
-								  // Everthing is ok
-							  } else {
-								  attribute.with(DataType.OBJECT);
-							  }
-						  } else {
-							  Attribute attribute = new Attribute("value"+no, DataType.create(type));
-							  attributes.add(attribute);
-							  item.with(attribute);
-						  }
-					  }
-					  no++;
-				  }
-			  }
-		  }
-		  GenClazzEntity orCreate = getOrCreate(item);
-		  Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
-		  orCreateParser.indexOf(Parser.CLASS_END);
-		  Method constructor = new Method(item.getName()).with(DataType.create(""));
-		  String constructorBody = "";
-		  for(Attribute attribute : attributes) {
-			  constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
-			  constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
-		  }
-		  constructor.withBody(constructorBody);
-		  constructor.with(Modifier.PACKAGE);
-		  item.with(constructor);
-      }
-      
-   }
    
    private SimpleSet<DataType> getAllTypes() {
 	   SimpleSet<DataType> collection = new SimpleSet<DataType>();
@@ -913,7 +858,7 @@ public class GenClassModel implements ClassModelAdapter
       Parser modelCreationClassParser = getOrCreateClazz(modelCreationClass).getParser();
 
       // check has superclass
-      if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClazz"))
+      if (clazz.getSuperClazzes(false).first() != null && !checkSuper(clazz, entry, "withSuperClazz"))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
          int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(),
@@ -926,7 +871,7 @@ public class GenClassModel implements ClassModelAdapter
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
          StringBuilder text = new StringBuilder("      .withSuperClazz(superClassName)");
          CGUtil.replaceAll(text, "superClassName",
-               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getName(false))) + "Class");
+               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClazzes(false).first().getName(false))) + "Class");
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass);
          currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -1575,7 +1520,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       // insert code for superclass
-      Clazz superClass = clazz.getSuperClass();
+      Clazz superClass = clazz.getSuperClazzes(false).first();
       if (superClass != null)
       {
          currentInsertPos = insertCreationSuperClassCode(currentInsertPos, superClass.getName(false),
@@ -1778,8 +1723,8 @@ public class GenClassModel implements ClassModelAdapter
    private boolean checkDependencies(Clazz clazz)
    {
       ArrayList<Clazz> dependencies = new ArrayList<Clazz>();
-      if (clazz.getSuperClass() != null)
-         dependencies.add(clazz.getSuperClass());
+      if (clazz.getSuperClazzes(false).first() != null)
+         dependencies.add(clazz.getSuperClazzes(false).first());
       if (clazz.getInterfaces(false) != null)
          dependencies.addAll(clazz.getInterfaces(false));
 
@@ -3255,9 +3200,14 @@ public class GenClassModel implements ClassModelAdapter
       int pos = className.lastIndexOf('.');
       packageName = className.substring(0, pos);
 
+      ClassModel classModel = (ClassModel) clazz.getClassModel();
+      
       // class file
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
-      deleteFile(fileName);
+      if (! clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      {
+         deleteFile(fileName);
+      }
 
       String path = helpersDir + "/" + (packageName + UTILPATH).replaceAll("\\.", "/") + "/";
 
@@ -3318,15 +3268,9 @@ public class GenClassModel implements ClassModelAdapter
    {
       // try to create example object structure and use storyboard to do
       // coverage
-      Clazz firstClazz = this.getModel().getClazzes().first();
-
       try
       {
          // try to load creator class
-         String creatorClassName = CGUtil.helperClassName(firstClazz.getName(false), "Creator");
-         Class<?> creatorClass = Class.forName(creatorClassName);
-         java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
-         // IdMap map = (IdMap) method.invoke(null, "t");
          IdMap map = new SDMLibIdMap("t");
 
          Object largestModelRoot = null;
@@ -3390,7 +3334,7 @@ public class GenClassModel implements ClassModelAdapter
          }
 
          // now ask the storyboad to do the coverage things
-         Storyboard story = new Storyboard("coverage");
+         StoryboardImpl story = new StoryboardImpl("coverage");
          story.coverSetAndPOClasses(map);
          story.coverSeldomModelMethods(map);
          story.coverage4GeneratedModelCode(largestModelRoot);

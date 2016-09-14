@@ -33,4 +33,9 @@ public class IntegerPO extends PatternObject<IntegerPO, Integer>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public IntegerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

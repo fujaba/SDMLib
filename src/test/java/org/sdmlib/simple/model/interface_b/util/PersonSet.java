@@ -24,13 +24,30 @@ package org.sdmlib.simple.model.interface_b.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.simple.model.interface_b.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.StringList;
 
 public class PersonSet extends SDMSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
 
    public PersonPO filterPersonPO()
@@ -70,12 +87,6 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    
    //==========================================================================
    

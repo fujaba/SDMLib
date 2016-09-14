@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,40 @@
    
 package org.sdmlib.simple.model.attribute_c.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.attribute_c.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
-public class PersonSet extends SDMSet<Person>
+public class PersonSet extends SimpleSet<Person>
 {
+	protected Class<?> getTypClass() {
+		return Person.class;
+	}
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
-   public PersonPO filterPersonPO()
+   public PersonPO createPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
@@ -71,21 +91,15 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Person objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Person obj : this)
       {
@@ -103,7 +117,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterName(String value)
+   public PersonSet createNameCondition(String value)
    {
       PersonSet result = new PersonSet();
       
@@ -127,7 +141,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterName(String lower, String upper)
+   public PersonSet createNameCondition(String lower, String upper)
    {
       PersonSet result = new PersonSet();
       
@@ -166,9 +180,9 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return List of int objects reachable via age attribute
     */
-   public intList getAge()
+   public NumberList getAge()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Person obj : this)
       {
@@ -186,7 +200,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterAge(int value)
+   public PersonSet createAgeCondition(int value)
    {
       PersonSet result = new PersonSet();
       
@@ -210,7 +224,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterAge(int lower, int upper)
+   public PersonSet createAgeCondition(int lower, int upper)
    {
       PersonSet result = new PersonSet();
       

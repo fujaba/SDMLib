@@ -1,25 +1,18 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternPO;
 import org.sdmlib.models.pattern.util.RuleApplicationPO;
+import org.sdmlib.models.pattern.util.ReachableStatePO;
+import org.sdmlib.models.pattern.ReachableState;
 
 public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleApplication>
 {
-   public RuleApplicationPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
-   }
 
-   public RuleApplicationPO(RuleApplication... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   public RuleApplicationSet allMatches()
+    public RuleApplicationSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -34,8 +27,24 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       
       return matches;
    }
-   
-   public RuleApplicationPO hasDescription(String value)
+
+
+   public RuleApplicationPO(){
+      newInstance(null);
+   }
+
+   public RuleApplicationPO(RuleApplication... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
+
+   public RuleApplicationPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public RuleApplicationPO createDescriptionCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
@@ -44,7 +53,36 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RuleApplicationPO createDescriptionCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RuleApplicationPO createDescriptionAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
@@ -67,7 +105,46 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return this;
    }
    
-   public ReachableStatePO hasSrc()
+   public PatternPO createRulePO()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(RuleApplication.PROPERTY_RULE, result);
+      
+      return result;
+   }
+
+   public PatternPO createRulePO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(RuleApplication.PROPERTY_RULE, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO createRuleLink(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_RULE);
+   }
+
+   public RuleApplicationPO createRuleLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_RULE, modifier);
+   }
+
+   public Pattern getRule()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((RuleApplication) this.getCurrentMatch()).getRule();
+      }
+      return null;
+   }
+
+   public ReachableStatePO createSrcPO()
    {
       ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
       
@@ -77,9 +154,24 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return result;
    }
 
-   public RuleApplicationPO hasSrc(ReachableStatePO tgt)
+   public ReachableStatePO createSrcPO(String modifier)
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(RuleApplication.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO createSrcLink(ReachableStatePO tgt)
    {
       return hasLinkConstraint(tgt, RuleApplication.PROPERTY_SRC);
+   }
+
+   public RuleApplicationPO createSrcLink(ReachableStatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_SRC, modifier);
    }
 
    public ReachableState getSrc()
@@ -91,7 +183,7 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return null;
    }
 
-   public ReachableStatePO hasTgt()
+   public ReachableStatePO createTgtPO()
    {
       ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
       
@@ -101,9 +193,24 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return result;
    }
 
-   public RuleApplicationPO hasTgt(ReachableStatePO tgt)
+   public ReachableStatePO createTgtPO(String modifier)
+   {
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(RuleApplication.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public RuleApplicationPO createTgtLink(ReachableStatePO tgt)
    {
       return hasLinkConstraint(tgt, RuleApplication.PROPERTY_TGT);
+   }
+
+   public RuleApplicationPO createTgtLink(ReachableStatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_TGT, modifier);
    }
 
    public ReachableState getTgt()
@@ -115,107 +222,4 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return null;
    }
 
-   public RuleApplicationPO hasDescription(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RuleApplicationPO createDescription(String value)
-   {
-      this.startCreate().hasDescription(value).endCreate();
-      return this;
-   }
-   
-   public ReachableStatePO createSrc()
-   {
-      return this.startCreate().hasSrc().endCreate();
-   }
-
-   public RuleApplicationPO createSrc(ReachableStatePO tgt)
-   {
-      return this.startCreate().hasSrc(tgt).endCreate();
-   }
-
-   public ReachableStatePO createTgt()
-   {
-      return this.startCreate().hasTgt().endCreate();
-   }
-
-   public RuleApplicationPO createTgt(ReachableStatePO tgt)
-   {
-      return this.startCreate().hasTgt(tgt).endCreate();
-   }
-
-   public RuleApplicationPO filterDescription(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public RuleApplicationPO filterDescription(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public ReachableStatePO filterSrc()
-   {
-      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(RuleApplication.PROPERTY_SRC, result);
-      
-      return result;
-   }
-
-   public RuleApplicationPO filterSrc(ReachableStatePO tgt)
-   {
-      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_SRC);
-   }
-
-   public ReachableStatePO filterTgt()
-   {
-      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(RuleApplication.PROPERTY_TGT, result);
-      
-      return result;
-   }
-
-   public RuleApplicationPO filterTgt(ReachableStatePO tgt)
-   {
-      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_TGT);
-   }
-
 }
-
-
-

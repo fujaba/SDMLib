@@ -23,7 +23,7 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.Stay;
 
@@ -148,5 +148,23 @@ public class StaySet extends SimpleSet<Stay>
    public StayPO filterStayPO()
    {
       return new StayPO(this.toArray(new Stay[this.size()]));
+   }
+
+   public StaySet()
+   {
+      // empty
+   }
+
+   public StaySet(Stay... objects)
+   {
+      for (Stay obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public StaySet(Collection<Stay> objects)
+   {
+      this.addAll(objects);
    }
 }

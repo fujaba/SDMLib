@@ -24,7 +24,7 @@ package org.sdmlib.test.examples.m2m.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
@@ -252,5 +252,23 @@ public class GraphSet extends SimpleSet<Graph>
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.m2m.model.Graph";
+   }
+
+   public GraphSet()
+   {
+      // empty
+   }
+
+   public GraphSet(Graph... objects)
+   {
+      for (Graph obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public GraphSet(Collection<Graph> objects)
+   {
+      this.addAll(objects);
    }
 }

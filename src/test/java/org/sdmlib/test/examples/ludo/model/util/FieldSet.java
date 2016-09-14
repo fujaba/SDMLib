@@ -25,8 +25,8 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
@@ -37,6 +37,8 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class FieldSet extends SimpleSet<Field>
 {
@@ -1088,4 +1090,41 @@ public class FieldSet extends SimpleSet<Field>
       return result;
    }
 
-}
+
+   public FieldSet()
+   {
+      // empty
+   }
+
+   public FieldSet(Field... objects)
+   {
+      for (Field obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FieldSet(Collection<Field> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public FieldPO createFieldPO()
+   {
+      return new FieldPO(this.toArray(new Field[this.size()]));
+   }
+
+
+   @Override
+   public FieldSet getNewList(boolean keyValue)
+   {
+      return new FieldSet();
+   }
+
+
+   public FieldSet filter(Condition<Field> condition) {
+      FieldSet filterList = new FieldSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

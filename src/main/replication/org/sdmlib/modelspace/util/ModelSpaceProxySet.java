@@ -24,8 +24,8 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
@@ -284,4 +284,22 @@ public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
       return result;
    }
 
+
+   public ModelSpaceProxySet()
+   {
+      // empty
+   }
+
+   public ModelSpaceProxySet(ModelSpaceProxy... objects)
+   {
+      for (ModelSpaceProxy obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelSpaceProxySet(Collection<ModelSpaceProxy> objects)
+   {
+      this.addAll(objects);
+   }
 }

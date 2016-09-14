@@ -25,7 +25,7 @@ import java.util.Collection;
 
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.modelcouch.util.ModelCouchSet;
@@ -144,5 +144,23 @@ public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
    public ModelDBListenerPO filterModelDBListenerPO()
    {
       return new ModelDBListenerPO(this.toArray(new ModelDBListener[this.size()]));
+   }
+
+   public ModelDBListenerSet()
+   {
+      // empty
+   }
+
+   public ModelDBListenerSet(ModelDBListener... objects)
+   {
+      for (ModelDBListener obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ModelDBListenerSet(Collection<ModelDBListener> objects)
+   {
+      this.addAll(objects);
    }
 }

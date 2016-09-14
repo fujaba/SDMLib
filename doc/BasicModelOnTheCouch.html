@@ -10,7 +10,313 @@
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksTest.java' type='text/x-java'>BasicModelOnTheCouch</a></p>
 <p>This is a test for writing objects to the CouchDB instance https://docker.cs.uni-kassel.de:5984/ and read from it. First a database is created, the following objects get persisted and the connection gets closed.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"P1 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P2 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : DocumentData",
+         "attributes":[
+            "value=segroup",
+            "type=list of person",
+            "lastEditor=zuendorf",
+            "lastModified=29.12.2015 19:18:42:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Task"
+      },
+      {
+         "typ":"clazz",
+         "id":"D5 : DocumentData",
+         "attributes":[
+            "value=tobi",
+            "type=person",
+            "lastModified=29.12.2015 20:05:23:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D6 : DocumentData",
+         "attributes":[
+            "tag=test model replication on CouchDB",
+            "type=task"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D7 : DocumentData",
+         "attributes":[
+            "tag=login",
+            "value=lowrider",
+            "type=login",
+            "lastEditor=tobi",
+            "lastModified=29.12.2015 20:05:23:124 CEST"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"members",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"groups",
+            "id":"P1 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D3 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P1 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T4 : Task"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D5 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D6 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"taskData",
+            "id":"D6 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T4 : Task"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"subData",
+            "id":"D7 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parentData",
+            "id":"D5 : DocumentData"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBasicModelOnTheCouch2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Afterwards the objects get reconstructed by reading all persisted documents from the same CouchDB instance.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"P8 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P9 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"D10 : DocumentData",
+         "attributes":[
+            "value=segroup",
+            "type=list of person",
+            "lastEditor=zuendorf",
+            "lastModified=29.12.2015 19:18:42:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T11 : Task"
+      },
+      {
+         "typ":"clazz",
+         "id":"D12 : DocumentData",
+         "attributes":[
+            "value=tobi",
+            "type=person",
+            "lastModified=29.12.2015 20:05:23:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D13 : DocumentData",
+         "attributes":[
+            "tag=test model replication on CouchDB",
+            "type=task"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : DocumentData",
+         "attributes":[
+            "tag=login",
+            "value=lowrider",
+            "type=login",
+            "lastEditor=tobi",
+            "lastModified=29.12.2015 20:05:23:124 CEST"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"members",
+            "id":"P9 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"groups",
+            "id":"P8 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D10 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P8 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T11 : Task"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P9 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D12 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P9 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D13 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P9 : Person"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"taskData",
+            "id":"D13 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T11 : Task"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"subData",
+            "id":"D14 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parentData",
+            "id":"D12 : DocumentData"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBasicModelOnTheCouch4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Finally the database is deleted.</p>
 
 </body>

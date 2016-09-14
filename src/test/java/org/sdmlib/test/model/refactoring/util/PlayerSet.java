@@ -23,7 +23,7 @@ package org.sdmlib.test.model.refactoring.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
@@ -139,5 +139,23 @@ public class PlayerSet extends SimpleSet<Player>
    public PlayerPO filterPlayerPO()
    {
       return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
+
+   public PlayerSet()
+   {
+      // empty
+   }
+
+   public PlayerSet(Player... objects)
+   {
+      for (Player obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PlayerSet(Collection<Player> objects)
+   {
+      this.addAll(objects);
    }
 }

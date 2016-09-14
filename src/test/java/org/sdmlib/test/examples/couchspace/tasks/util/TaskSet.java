@@ -25,8 +25,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskFlowSet;
 import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
@@ -813,4 +813,22 @@ public class TaskSet extends SDMSet<Task>
       return this;
    }
 
+
+   public TaskSet()
+   {
+      // empty
+   }
+
+   public TaskSet(Task... objects)
+   {
+      for (Task obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TaskSet(Collection<Task> objects)
+   {
+      this.addAll(objects);
+   }
 }

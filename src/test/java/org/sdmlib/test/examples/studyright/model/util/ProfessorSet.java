@@ -24,8 +24,8 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
@@ -382,4 +382,22 @@ public class ProfessorSet extends SimpleSet<Professor>
       return result;
    }
 
+
+   public ProfessorSet()
+   {
+      // empty
+   }
+
+   public ProfessorSet(Professor... objects)
+   {
+      for (Professor obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ProfessorSet(Collection<Professor> objects)
+   {
+      this.addAll(objects);
+   }
 }

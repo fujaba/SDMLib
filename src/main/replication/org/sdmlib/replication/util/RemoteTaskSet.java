@@ -24,7 +24,7 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
@@ -199,4 +199,22 @@ public class RemoteTaskSet extends SimpleSet<RemoteTask>
       return result;
    }
 
+
+   public RemoteTaskSet()
+   {
+      // empty
+   }
+
+   public RemoteTaskSet(RemoteTask... objects)
+   {
+      for (RemoteTask obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RemoteTaskSet(Collection<RemoteTask> objects)
+   {
+      this.addAll(objects);
+   }
 }

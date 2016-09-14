@@ -1,209 +1,49 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.PatternElementPO;
+import org.sdmlib.models.pattern.util.PatternElementSet;
 
-public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
+public class PatternPO extends PatternObject<PatternPO, Pattern>
 {
+
+    public PatternSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      PatternSet matches = new PatternSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Pattern) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+
+
    public PatternPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
    public PatternPO(Pattern... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   public PatternPO hasModifier(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      newInstance(null, hostGraphObject);
    }
-   
-   public PatternPO withModifier(String value)
+
+   public PatternPO(String modifier)
    {
-      if (super.getCurrentMatch() != null)
-      {
-         ((Pattern) getCurrentMatch()).withModifier(value);
-      }
-      return this;
+      this.setModifier(modifier);
    }
-   
-   public PatternPO hasHasMatch(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO withHasMatch(boolean value)
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         ((Pattern) getCurrentMatch()).withHasMatch(value);
-      }
-      return this;
-   }
-   
-   public PatternElementPO hasElements()
-   {
-      PatternElementPO result = new PatternElementPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Pattern.PROPERTY_ELEMENTS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
-   
-   
-   public PatternPO hasElements(PatternElementPO tgt)
-   {
-      return hasLinkConstraint(tgt, Pattern.PROPERTY_ELEMENTS);
-   }
-   
-   
-   public PatternPO withElements(PatternElementPO tgtPO)
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         ((Pattern) this.getCurrentMatch()).withElements((PatternElement) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public PatternPO withoutElements(PatternElementPO tgtPO)
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         ((Pattern) this.getCurrentMatch()).withoutElements((PatternElement) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public String getModifier()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getModifier();
-      }
-      return null;
-   }
-   
-   public boolean getHasMatch()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getHasMatch();
-      }
-      return false;
-   }
-   
-   public PatternElementSet getElements()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) this.getCurrentMatch()).getElements();
-      }
-      return null;
-   }
-   
-   public PatternPO hasDoAllMatches(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public boolean getDoAllMatches()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getDoAllMatches();
-      }
-      return false;
-   }
-   
-   public PatternPO hasPatternObjectName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public String getPatternObjectName()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getPatternObjectName();
-      }
-      return null;
-   }
-   
-   public PatternPO hasCurrentSubPattern(Pattern value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_CURRENTSUBPATTERN)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public Pattern getCurrentSubPattern()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getCurrentSubPattern();
-      }
-      return null;
-   }
-   
-   public PatternPO hasDebugMode(int value)
+   public PatternPO createDebugModeCondition(int value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_DEBUGMODE)
@@ -212,14 +52,43 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternPO createDebugModeCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternPO createDebugModeAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
    
    public int getDebugMode()
    {
-      if (super.getCurrentMatch() != null)
+      if (this.getPattern().getHasMatch())
       {
          return ((Pattern) getCurrentMatch()).getDebugMode();
       }
@@ -228,94 +97,14 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withDebugMode(int value)
    {
-      if (super.getCurrentMatch() != null)
+      if (this.getPattern().getHasMatch())
       {
          ((Pattern) getCurrentMatch()).setDebugMode(value);
       }
       return this;
    }
    
-   public PatternPO hasPattern()
-   {
-      PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
-      
-      return result;
-   }
-
-   public PatternPO hasPattern(PatternPO tgt)
-   {
-      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
-   }
-
-   public Pattern<PatternElement<?>> getPattern()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((PatternElement) this.getCurrentMatch()).getPattern();
-      }
-      return super.getPattern();
-   }
-
-   public PatternPO hasTrace(StringBuilder value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_TRACE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public StringBuilder getTrace()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) getCurrentMatch()).getTrace();
-      }
-      return null;
-   }
-   
-   public PatternPO withTrace(StringBuilder value)
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         ((Pattern) getCurrentMatch()).setTrace(value);
-      }
-      return this;
-   }
-   
-   public ReachabilityGraphPO hasRgraph()
-   {
-      ReachabilityGraphPO result = new ReachabilityGraphPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Pattern.PROPERTY_RGRAPH, result);
-      
-      return result;
-   }
-
-   public PatternPO hasRgraph(ReachabilityGraphPO tgt)
-   {
-      return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
-   }
-
-   public ReachabilityGraph getRgraph()
-   {
-      if (super.getCurrentMatch() != null)
-      {
-         return ((Pattern) this.getCurrentMatch()).getRgraph();
-      }
-      return null;
-   }
-
-   public PatternPO hasName(String value)
+   public PatternPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_NAME)
@@ -324,14 +113,43 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PatternPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
       
       return this;
    }
    
    public String getName()
    {
-      if (super.getCurrentMatch() != null)
+      if (this.getPattern().getHasMatch())
       {
          return ((Pattern) getCurrentMatch()).getName();
       }
@@ -340,270 +158,14 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withName(String value)
    {
-      if (super.getCurrentMatch() != null)
+      if (this.getPattern().getHasMatch())
       {
          ((Pattern) getCurrentMatch()).setName(value);
       }
       return this;
    }
    
-   public PatternPO hasCurrentSubPattern(Pattern lower, Pattern upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_CURRENTSUBPATTERN)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasDebugMode(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasTrace(StringBuilder lower, StringBuilder upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_TRACE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasModifier(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasHasMatch(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasPatternObjectName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO hasDoAllMatches(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO createCurrentSubPattern(Pattern value)
-   {
-      this.startCreate().hasCurrentSubPattern(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createDebugMode(int value)
-   {
-      this.startCreate().hasDebugMode(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createTrace(StringBuilder value)
-   {
-      this.startCreate().hasTrace(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createName(String value)
-   {
-      this.startCreate().hasName(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createModifier(String value)
-   {
-      this.startCreate().hasModifier(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createHasMatch(boolean value)
-   {
-      this.startCreate().hasHasMatch(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createPatternObjectName(String value)
-   {
-      this.startCreate().hasPatternObjectName(value).endCreate();
-      return this;
-   }
-   
-   public PatternPO createDoAllMatches(boolean value)
-   {
-      this.startCreate().hasDoAllMatches(value).endCreate();
-      return this;
-   }
-   
-   public PatternElementPO createElements()
-   {
-      return this.startCreate().hasElements().endCreate();
-   }
-
-   public PatternPO createElements(PatternElementPO tgt)
-   {
-      return this.startCreate().hasElements(tgt).endCreate();
-   }
-
-   public PatternPO createPattern()
-   {
-      return this.startCreate().hasPattern().endCreate();
-   }
-
-   public PatternPO createPattern(PatternPO tgt)
-   {
-      return this.startCreate().hasPattern(tgt).endCreate();
-   }
-
-   public ReachabilityGraphPO createRgraph()
-   {
-      return this.startCreate().hasRgraph().endCreate();
-   }
-
-   public PatternPO createRgraph(ReachabilityGraphPO tgt)
-   {
-      return this.startCreate().hasRgraph(tgt).endCreate();
-   }
-
-   public PatternPO filterDebugMode(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PatternPO filterDebugMode(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PatternPO filterName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PatternPO filterName(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PatternPO filterModifier(String value)
+   public PatternPO createModifierCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_MODIFIER)
@@ -617,7 +179,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public PatternPO filterModifier(String lower, String upper)
+   public PatternPO createModifierCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_MODIFIER)
@@ -632,7 +194,39 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public PatternPO filterHasMatch(boolean value)
+   public PatternPO createModifierAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_MODIFIER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public PatternPO withModifier(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setModifier(value);
+      }
+      return this;
+   }
+   
+   public PatternPO createHasMatchCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_HASMATCH)
@@ -646,7 +240,39 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public PatternPO filterPatternObjectName(String value)
+   public PatternPO createHasMatchAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_HASMATCH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).isHasMatch();
+      }
+      return false;
+   }
+   
+   public PatternPO withHasMatch(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setHasMatch(value);
+      }
+      return this;
+   }
+   
+   public PatternPO createPatternObjectNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
@@ -660,7 +286,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public PatternPO filterPatternObjectName(String lower, String upper)
+   public PatternPO createPatternObjectNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
@@ -675,7 +301,39 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public PatternPO filterDoAllMatches(boolean value)
+   public PatternPO createPatternObjectNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getPatternObjectName();
+      }
+      return null;
+   }
+   
+   public PatternPO withPatternObjectName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setPatternObjectName(value);
+      }
+      return this;
+   }
+   
+   public PatternPO createDoAllMatchesCondition(boolean value)
    {
       new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_DOALLMATCHES)
@@ -689,31 +347,153 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
    
-   public ReachabilityGraphPO filterRgraph()
+   public PatternPO createDoAllMatchesAssignment(boolean value)
    {
-      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getDoAllMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).isDoAllMatches();
+      }
+      return false;
+   }
+   
+   public PatternPO withDoAllMatches(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setDoAllMatches(value);
+      }
+      return this;
+   }
+   
+   public PatternPO createPatternPO()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Pattern.PROPERTY_RGRAPH, result);
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
    }
 
-   public PatternPO filterRgraph(ReachabilityGraphPO tgt)
+   public PatternPO createPatternPO(String modifier)
    {
-      return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO createPatternLink(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
+   }
+
+   public PatternPO createPatternLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN, modifier);
+   }
+
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+
+   public PatternElementPO createElementsPO()
+   {
+      PatternElementPO result = new PatternElementPO(new PatternElement[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pattern.PROPERTY_ELEMENTS, result);
+      
+      return result;
+   }
+
+   public PatternElementPO createElementsPO(String modifier)
+   {
+      PatternElementPO result = new PatternElementPO(new PatternElement[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Pattern.PROPERTY_ELEMENTS, result);
+      
+      return result;
+   }
+
+   public PatternPO createElementsLink(PatternElementPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_ELEMENTS);
+   }
+
+   public PatternPO createElementsLink(PatternElementPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_ELEMENTS, modifier);
+   }
+
+   public PatternElementSet getElements()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getElements();
+      }
+      return null;
+   }
+
+   public PatternPO createCurrentSubPatternPO()
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Pattern.PROPERTY_CURRENTSUBPATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO createCurrentSubPatternPO(String modifier)
+   {
+      PatternPO result = new PatternPO(new Pattern[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Pattern.PROPERTY_CURRENTSUBPATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO createCurrentSubPatternLink(PatternPO tgt)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_CURRENTSUBPATTERN);
+   }
+
+   public PatternPO createCurrentSubPatternLink(PatternPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_CURRENTSUBPATTERN, modifier);
+   }
+
+   public Pattern getCurrentSubPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getCurrentSubPattern();
+      }
+      return null;
    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

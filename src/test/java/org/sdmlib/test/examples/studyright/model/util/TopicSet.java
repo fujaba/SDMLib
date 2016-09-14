@@ -23,8 +23,8 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
 
@@ -222,4 +222,22 @@ public class TopicSet extends SimpleSet<Topic>
       return result;
    }
 
+
+   public TopicSet()
+   {
+      // empty
+   }
+
+   public TopicSet(Topic... objects)
+   {
+      for (Topic obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TopicSet(Collection<Topic> objects)
+   {
+      this.addAll(objects);
+   }
 }

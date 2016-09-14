@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.modelcouch;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
@@ -17,7 +17,7 @@ public class ModelCouchTasksModel
    @Test
 	public void couchSpaceTasksModel() throws Exception
 	{
-		StoryPage story = new StoryPage();
+		Storyboard story = new Storyboard();
 
 		story.add("Exchange tasks via couch space, i.e. couch databases");
 

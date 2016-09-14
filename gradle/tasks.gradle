@@ -17,6 +17,9 @@ ext.sharedManifest = manifest {
 }
 
 task sourceJar(type: Jar) {
+	def file = new File("build/libs")
+        file.mkdirs()
+
     from sourceSets.main.allSource;
     classifier = 'sources'
 	manifest = project.manifest {from sharedManifest}
@@ -73,10 +76,9 @@ jar {
 }
 
 task pmJar(type: Jar) {
-	from {(
-		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
-		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("source")<0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) 
-		)}
+	from {files(sourceSets.main.output, sourceSets.main.allSource,
+		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}))
+	}
 	manifest = project.manifest {from sharedManifest}
 	exclude('META-INF/MANIFEST.MF')
 	exclude('org/sdmlib/models/transformations/**')

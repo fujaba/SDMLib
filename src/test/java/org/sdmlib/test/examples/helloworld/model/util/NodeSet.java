@@ -24,14 +24,15 @@ package org.sdmlib.test.examples.helloworld.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -797,4 +798,41 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
-}
+
+   public NodeSet()
+   {
+      // empty
+   }
+
+   public NodeSet(Node... objects)
+   {
+      for (Node obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public NodeSet(Collection<Node> objects)
+   {
+      this.addAll(objects);
+   }
+
+
+   public NodePO createNodePO()
+   {
+      return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   @Override
+   public NodeSet getNewList(boolean keyValue)
+   {
+      return new NodeSet();
+   }
+
+
+   public NodeSet filter(Condition<Node> condition) {
+      NodeSet filterList = new NodeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

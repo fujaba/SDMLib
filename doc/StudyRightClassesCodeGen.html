@@ -174,32 +174,6 @@
             "cardinality":"one",
             "property":"room"
          }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Assignment",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"assignments"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Assignment",
-            "cardinality":"many",
-            "property":"done"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"students"
-         }
       }
    ]
 }   ;

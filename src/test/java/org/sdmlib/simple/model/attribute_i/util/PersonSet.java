@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,39 @@
    
 package org.sdmlib.simple.model.attribute_i.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.attribute_i.Person;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
-public class PersonSet extends SDMSet<Person>
+public class PersonSet extends SimpleSet<Person>
 {
+	protected Class<?> getTypClass() {
+		return Person.class;
+	}
+
+   public PersonSet()
+   {
+      // empty
+   }
+
+   public PersonSet(Person... objects)
+   {
+      for (Person obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public PersonSet(Collection<Person> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
-   public PersonPO filterPersonPO()
+   public PersonPO createPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
@@ -70,12 +90,6 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Person objects and collect a list of the namesMap attribute values. 
@@ -102,7 +116,7 @@ public class PersonSet extends SDMSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet filterNamesMap(SimpleKeyValueList<String,SimpleKeyValueList> value)
+   public PersonSet createNamesMapCondition(SimpleKeyValueList<String,SimpleKeyValueList> value)
    {
       PersonSet result = new PersonSet();
       

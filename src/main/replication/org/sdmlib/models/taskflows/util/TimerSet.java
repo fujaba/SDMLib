@@ -70,4 +70,22 @@ public class TimerSet extends SimpleSet<Timer>
    {
       return "java.util.Timer";
    }
+
+   public TimerSet()
+   {
+      // empty
+   }
+
+   public TimerSet(Timer... objects)
+   {
+      for (Timer obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public TimerSet(Collection<Timer> objects)
+   {
+      this.addAll(objects);
+   }
 }

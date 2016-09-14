@@ -34,7 +34,7 @@ public class TestInterface {
 		person.withMethod("sayName", DataType.VOID, new Parameter(DataType.STRING));
 		person.withAttribute("name", DataType.STRING);
 		
-		pupil.withImplements(person);
+		pupil.withSuperClazz(person);
 		
 		model.getGenerator().testGeneratedCode();
 		
@@ -52,10 +52,10 @@ public class TestInterface {
 		person.enableInterface();
 		pupil.enableInterface();
 		
-		teacher.withImplements(person);
-		teacher.withImplements(pupil);
-		secretary.withImplements(person);
-		secretary.withImplements(pupil);
+		teacher.withSuperClazz(person);
+		teacher.withSuperClazz(pupil);
+		secretary.withSuperClazz(person);
+		secretary.withSuperClazz(pupil);
 		
 		model.getGenerator().testGeneratedCode();
 
