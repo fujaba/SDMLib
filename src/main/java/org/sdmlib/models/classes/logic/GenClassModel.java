@@ -56,7 +56,6 @@ import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.Throws;
-import de.uniks.networkparser.graph.util.AssociationSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
@@ -65,8 +64,6 @@ public class GenClassModel implements ClassModelAdapter
 {
    public static final String UTILPATH = ".util";
    ClassModel model;
-   private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
-   private AssociationSet associations = null;
    private HashMap<GraphMember, Generator<?>> generators = new HashMap<GraphMember, Generator<?>>();
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
@@ -75,45 +72,6 @@ public class GenClassModel implements ClassModelAdapter
    {
       NONE, DIFF, FULL
    };
-
-   public boolean addToAssociations(Association value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.associations == null)
-         {
-            this.associations = new AssociationSet();
-         }
-
-         changed = this.associations.add(value);
-      }
-
-      return changed;
-   }
-
-   public boolean removeFromAssociations(Association value)
-   {
-      boolean changed = false;
-
-      if ((this.associations != null) && (value != null))
-      {
-         changed = this.associations.remove(value);
-      }
-
-      return changed;
-   }
-
-   public AssociationSet getAssociations()
-   {
-      if (this.associations == null)
-      {
-         return new AssociationSet();
-      }
-
-      return this.associations;
-   }
 
    public GenClazzEntity getOrCreate(Clazz clazz) {
 	   if(clazz.getType()==ClazzType.ENUMERATION) {
@@ -270,7 +228,7 @@ public class GenClassModel implements ClassModelAdapter
       }
     	  
       
-      for (Association assoc : getAssociations())
+      for (Association assoc : model.getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
          getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
@@ -706,8 +664,9 @@ public class GenClassModel implements ClassModelAdapter
          }
 
       });
-      currentInsertPos = insertNewCreationClasses(modelCreationClass, signature, currentInsertPos,
-            rootDir, sortedClazz);
+      LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
+      currentInsertPos = insertNewCreationClasses("", modelCreationClass, signature, currentInsertPos,
+            rootDir, sortedClazz, handledClazzes);
 
       completeImports();
 
@@ -772,11 +731,14 @@ public class GenClassModel implements ClassModelAdapter
                "      ClassModel clazzModel = new ClassModel(\"" + model.getName() + "\");");
       }
 
+	  LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
+
+      
       currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos,
-            rootDir);
+            rootDir, handledClazzes);
 
       currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos,
-            rootDir);
+            rootDir,new LinkedHashSet<Clazz>(), handledClazzes);
 
       completeImports();
 
@@ -794,7 +756,7 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
+         int currentInsertPos, String rootDir, Map<String, Clazz> handledClazzes)
    {
 
       refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -852,7 +814,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName,
          Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
-         LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
+         Map<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
    {
       // rescanCode(modelCreationClass, rootDir);
       Parser modelCreationClassParser = getOrCreateClazz(modelCreationClass).getParser();
@@ -1497,7 +1459,7 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int createAndInsertCodeForNewClazz(Clazz modelCreationClass, SymTabEntry symTabEntry,
-         Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
+         Clazz clazz, Map<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
 
@@ -1636,7 +1598,7 @@ public class GenClassModel implements ClassModelAdapter
    // }
 
    private int handleAssocs(TreeSet<Association> assoc, int currentInsertPos, Clazz modelCreationClass,
-         SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+         SymTabEntry symTabEntry, Map<String, Clazz> handledClazzes)
    {
       ArrayList<Association> handledAssocs = new ArrayList<Association>();
 
@@ -1663,16 +1625,8 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
+         int currentInsertPos, String rootDir, Set<Clazz> clazzQueue, Map<String, Clazz> handledClazzes)
    {
-      return insertNewCreationClasses(modelCreationClass, signature, currentInsertPos, rootDir,
-            new LinkedHashSet<Clazz>());
-   }
-
-   private int insertNewCreationClasses(Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir, Set<Clazz> clazzQueue)
-   {
-
       // find last creation code position
       for (Clazz clazz : model.getClazzes())
       {
@@ -1698,7 +1652,7 @@ public class GenClassModel implements ClassModelAdapter
          if (entry == null)
          {
             // insert code for new Clazz()
-            if (!checkDependencies(clazz))
+            if (!checkDependencies(clazz, handledClazzes))
             {
                clazzQueue.add(clazz);
             }
@@ -1720,7 +1674,7 @@ public class GenClassModel implements ClassModelAdapter
       return currentInsertPos;
    }
 
-   private boolean checkDependencies(Clazz clazz)
+   private boolean checkDependencies(Clazz clazz, Map<String,Clazz> handledClazzes)
    {
       ArrayList<Clazz> dependencies = new ArrayList<Clazz>();
       if (clazz.getSuperClazzes(false).first() != null)
@@ -2112,7 +2066,7 @@ public class GenClassModel implements ClassModelAdapter
          // search for an assoc with similar srcClazz, srcLabel, tgtClass,
          // tgtLabel
          Association currentAssoc = null;
-         for (Association assoc : this.getAssociations())
+         for (Association assoc : model.getAssociations())
          {
             if (sourceType.equals(CGUtil.shortClassName(assoc.getClazz().getName()))
                   && targetType.equals(CGUtil.shortClassName(assoc.getOtherClazz().getName()))
@@ -2135,7 +2089,7 @@ public class GenClassModel implements ClassModelAdapter
             		.with(Cardinality.ONE)
             		.with(sourceLabel)
             		.with(other);
-            this.addToAssociations(currentAssoc);
+            model.with(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
@@ -2635,7 +2589,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private boolean assocWithRolesExists(Association source, Association target)
    {
-      for (Association assoc : getAssociations())
+      for (Association assoc : model.getAssociations())
       {
          if (compareRoles(source, target, assoc) || compareRoles(target, source, assoc))
             return true;
