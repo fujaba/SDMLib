@@ -269,8 +269,13 @@ public class GenMethod extends Generator<Method>
          // StatementEntry entry = (StatementEntry) array[0];
          // startPos = returnStatements.get(entry);
          // }
+         // Workaround for Check Valid Body
+         if(model.isValidReturn()) {
+        	 parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
+         } else {
+        	 parser.replace(symTabEntry.getBodyStartPos() + 1, symTabEntry.getBodyStartPos() + 1, "\n" + model.getBody() + "   ");
+         }
 
-         parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
       }
    }
 
