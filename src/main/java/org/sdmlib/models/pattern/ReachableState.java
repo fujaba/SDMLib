@@ -40,10 +40,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.RuleApplication;
 
 /**
  * 
  * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
 public class ReachableState implements PropertyChangeInterface, SendableEntity
 {
@@ -742,4 +745,80 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    {
       return failureState;
    }
+
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_FAILURESTATE = "failureState";
+   
+   public ReachableState withFailureState(boolean value)
+   {
+      setFailureState(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_FINALSTATE = "finalState";
+   
+   private boolean finalState;
+
+   public boolean isFinalState()
+   {
+      return this.finalState;
+   }
+   
+   public void setFinalState(boolean value)
+   {
+      if (this.finalState != value) {
+      
+         boolean oldValue = this.finalState;
+         this.finalState = value;
+         this.firePropertyChange(PROPERTY_FINALSTATE, oldValue, value);
+      }
+   }
+   
+   public ReachableState withFinalState(boolean value)
+   {
+      setFinalState(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STARTSTATE = "startState";
+   
+   private boolean startState;
+
+   public boolean isStartState()
+   {
+      return this.startState;
+   }
+   
+   public void setStartState(boolean value)
+   {
+      if (this.startState != value) {
+      
+         boolean oldValue = this.startState;
+         this.startState = value;
+         this.firePropertyChange(PROPERTY_STARTSTATE, oldValue, value);
+      }
+   }
+   
+   public ReachableState withStartState(boolean value)
+   {
+      setStartState(value);
+      return this;
+   } 
 }

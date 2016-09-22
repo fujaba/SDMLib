@@ -18,47 +18,51 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.Pattern;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.PatternElement;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class PatternCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Pattern.PROPERTY_DEBUGMODE,
-      Pattern.PROPERTY_NAME,
-      PatternElement.PROPERTY_MODIFIER,
-      PatternElement.PROPERTY_HASMATCH,
-      PatternElement.PROPERTY_PATTERNOBJECTNAME,
-      PatternElement.PROPERTY_DOALLMATCHES,
-      PatternElement.PROPERTY_PATTERN,
-      Pattern.PROPERTY_ELEMENTS,
-      Pattern.PROPERTY_CURRENTSUBPATTERN,
+         Pattern.PROPERTY_DEBUGMODE,
+         Pattern.PROPERTY_NAME,
+         PatternElement.PROPERTY_MODIFIER,
+         PatternElement.PROPERTY_HASMATCH,
+         PatternElement.PROPERTY_PATTERNOBJECTNAME,
+         PatternElement.PROPERTY_DOALLMATCHES,
+         PatternElement.PROPERTY_PATTERN,
+         Pattern.PROPERTY_ELEMENTS,
+         Pattern.PROPERTY_CURRENTSUBPATTERN,
    };
-   
+
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Pattern();
    }
-   
+
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -108,10 +112,11 @@ public class PatternCreator implements SendableEntityCreator
       {
          return ((Pattern) target).getCurrentSubPattern();
       }
-      
+
       return null;
    }
-   
+
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -164,10 +169,10 @@ public class PatternCreator implements SendableEntityCreator
 
       if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
       {
-         ((Pattern) target).withElements((PatternElement) value);
+         ((Pattern) target).addToElementsInCool((PatternElement) value);
          return true;
       }
-      
+
       if ((Pattern.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Pattern) target).withoutElements((PatternElement) value);
@@ -179,16 +184,19 @@ public class PatternCreator implements SendableEntityCreator
          ((Pattern) target).setCurrentSubPattern((Pattern) value);
          return true;
       }
-      
+
       return false;
    }
+
+
    public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.models.pattern.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-      public void removeObject(Object entity)
+
+
+   // ==========================================================================
+   public void removeObject(Object entity)
    {
       ((Pattern) entity).removeYou();
    }

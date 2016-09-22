@@ -31,6 +31,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import java.util.Collections;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.models.pattern.RuleApplication;
+import de.uniks.networkparser.list.BooleanList;
 
 public class ReachableStateSet extends SimpleSet<ReachableState>
 {
@@ -541,6 +542,183 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
       for (ReachableState obj : this)
       {
          obj.withoutResultOf(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the failureState attribute values. 
+    * 
+    * @return List of boolean objects reachable via failureState attribute
+    */
+   public BooleanList getFailureState()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.isFailureState());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the failureState attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet createFailureStateCondition(boolean value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.isFailureState())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and assign value to the failureState attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ReachableState objects now with new attribute values.
+    */
+   public ReachableStateSet withFailureState(boolean value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setFailureState(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the finalState attribute values. 
+    * 
+    * @return List of boolean objects reachable via finalState attribute
+    */
+   public BooleanList getFinalState()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.isFinalState());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the finalState attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet createFinalStateCondition(boolean value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.isFinalState())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and assign value to the finalState attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ReachableState objects now with new attribute values.
+    */
+   public ReachableStateSet withFinalState(boolean value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setFinalState(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect a list of the startState attribute values. 
+    * 
+    * @return List of boolean objects reachable via startState attribute
+    */
+   public BooleanList getStartState()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.isStartState());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and collect those ReachableState objects where the startState attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReachableState objects that match the parameter
+    */
+   public ReachableStateSet createStartStateCondition(boolean value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.isStartState())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReachableState objects and assign value to the startState attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of ReachableState objects now with new attribute values.
+    */
+   public ReachableStateSet withStartState(boolean value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setStartState(value);
       }
       
       return this;

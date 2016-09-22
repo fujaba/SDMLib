@@ -37,6 +37,9 @@ public class ReachableStateCreator implements SendableEntityCreator
       ReachableState.PROPERTY_PARENT,
       ReachableState.PROPERTY_RULEAPPLICATIONS,
       ReachableState.PROPERTY_RESULTOF,
+      ReachableState.PROPERTY_FAILURESTATE,
+      ReachableState.PROPERTY_FINALSTATE,
+      ReachableState.PROPERTY_STARTSTATE,
    };
    
    @Override
@@ -91,6 +94,21 @@ public class ReachableStateCreator implements SendableEntityCreator
       {
          return ((ReachableState) target).getResultOf();
       }
+
+      if (ReachableState.PROPERTY_FAILURESTATE.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).isFailureState();
+      }
+
+      if (ReachableState.PROPERTY_FINALSTATE.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).isFinalState();
+      }
+
+      if (ReachableState.PROPERTY_STARTSTATE.equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).isStartState();
+      }
       
       return null;
    }
@@ -98,6 +116,24 @@ public class ReachableStateCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (ReachableState.PROPERTY_STARTSTATE.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).setStartState((Boolean) value);
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_FINALSTATE.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).setFinalState((Boolean) value);
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_FAILURESTATE.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState) target).setFailureState((Boolean) value);
+         return true;
+      }
+
       if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
       {
          ((ReachableState) target).setGraphRoot((Object) value);

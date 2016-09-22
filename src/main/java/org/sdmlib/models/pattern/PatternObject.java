@@ -43,6 +43,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 /**
  * 
  * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a >
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -270,7 +271,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       if (Pattern.DESTROY.equals(getModifier()) && this.getCurrentMatch() != null)
       {
          Object currentMatch = this.getCurrentMatch();
-
+         // FIXME: well thats quite old stuff
          EntityFactory creatorClass = (EntityFactory) this.getPattern().getIdMap().getCreatorClass(currentMatch);
 
          creatorClass.removeObject(currentMatch);
@@ -1225,13 +1226,16 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
 
 
-   public POC hasMatchOtherThen(PatternObject forbidden)
+   public POC hasMatchOtherThen(PatternObject... forbiddenObjects)
    {
-      MatchOtherThen otherThen = createMatchOtherThen()
-         .withForbidden(forbidden)
-         .withPattern(getPattern());
+      for (PatternObject forbidden : forbiddenObjects)
+      {
+         MatchOtherThen otherThen = createMatchOtherThen()
+            .withForbidden(forbidden)
+            .withPattern(getPattern());
 
-      getPattern().findMatch();
+         getPattern().findMatch();
+      }
 
       return (POC) this;
    }
@@ -1444,5 +1448,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    public CloneOp createCloneOP()
    {
       return getPattern().createCloneOp();
+   }
+
+
+   final public POC withRuleName(String name)
+   {
+      setRuleName(name);
+      return (POC) this;
+   }
+
+
+   final public void setRuleName(String name)
+   {
+      getPattern().setName(name);
+
    }
 }

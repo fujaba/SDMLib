@@ -162,27 +162,27 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          attrName = attrName + type;
       }
 
-      if (NegativeApplicationCondition.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      if (Pattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((NegativeApplicationCondition) target).setPattern((Pattern) value);
+         ((Pattern) target).setPattern((Pattern) value);
          return true;
       }
 
-      if (NegativeApplicationCondition.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
       {
-         ((NegativeApplicationCondition) target).withElements((PatternElement) value);
+         ((Pattern) target).addToElementsInCool((PatternElement) value);
          return true;
       }
 
-      if ((NegativeApplicationCondition.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((Pattern.PROPERTY_ELEMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((NegativeApplicationCondition) target).withoutElements((PatternElement) value);
+         ((Pattern) target).withoutElements((PatternElement) value);
          return true;
       }
 
-      if (NegativeApplicationCondition.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
+      if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
       {
-         ((NegativeApplicationCondition) target).setCurrentSubPattern((Pattern) value);
+         ((Pattern) target).setCurrentSubPattern((Pattern) value);
          return true;
       }
 

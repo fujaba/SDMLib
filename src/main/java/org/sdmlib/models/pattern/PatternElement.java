@@ -18,171 +18,208 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 
 import org.sdmlib.StrUtil;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
-   public class PatternElement<PEC> implements PropertyChangeInterface, SendableEntity
+import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.pattern.Pattern;
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ */
+public class PatternElement<PEC> implements PropertyChangeInterface, SendableEntity, Serializable
 {
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
    public static final PatternElementSet EMPTY_SET = new PatternElementSet();
+
    public static final String PROPERTY_PATTERN = "pattern";
+
    public static final String PROPERTY_MODIFIER = "modifier";
+
    public static final String PROPERTY_HASMATCH = "hasMatch";
+
    public static final String PROPERTY_DOALLMATCHES = "doAllMatches";
+
    public static final String PROPERTY_PATTERNOBJECTNAME = "patternObjectName";
-   
+
    private String patternObjectName;
+
    private boolean doAllMatches;
+
    protected boolean hasMatch = false;
+
    private String modifier;
+
    private Pattern<PatternElement<?>> pattern = null;
-  
+
+
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
       return true;
    }
 
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
       return true;
    }
 
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
-   //==========================================================================
-   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(listener);
+      }
+      return true;
+   }
+
+
+   public boolean removePropertyChangeListener(String property,
+         PropertyChangeListener listener)
+   {
+      if (listeners != null)
+      {
+         listeners.removePropertyChangeListener(property, listener);
+      }
+      return true;
+   }
+   // ==========================================================================
+
+
    public void removeYou()
    {
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-   
+
+
    /********************************************************************
     * <pre>
     *              many                       one
     * PatternElement ----------------------------------- Pattern
     *              elements                   pattern
     * </pre>
+    * 
     * @return Pattern&lt;PatternElement&lt;?&gt;&gt;
-	*/
+    */
    public Pattern<PatternElement<?>> getPattern()
    {
       return this.pattern;
    }
-   
+
+
    public boolean setPattern(Pattern value)
    {
       boolean changed = false;
-      
+
       if (this.pattern != value)
       {
          Pattern<?> oldValue = this.pattern;
-         
+
          if (this.pattern != null)
          {
             this.pattern = null;
             oldValue.withoutElements(this);
          }
-         
+
          this.pattern = value;
-         
+
          if (value != null)
          {
-            value.withElements(this);
+            value.addToElementsInCool(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_PATTERN, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
+
    public PEC withPattern(Pattern value)
    {
       setPattern(value);
-      return (PEC)this;
+      return (PEC) this;
    }
-   
+
+
    public Pattern<PatternElement<?>> getTopPattern()
    {
       Pattern<PatternElement<?>> result = this.getPattern();
-      if(this instanceof Pattern<?>){
-         result = (Pattern<PatternElement<?>>)this;
+      if (this instanceof Pattern<?>)
+      {
+         result = (Pattern<PatternElement<?>>) this;
       }
       while (result.getPattern() != null)
       {
          result = result.getPattern();
       }
-      
+
       return result;
    }
 
 
-   public boolean findNextMatch(){
+   public boolean findNextMatch()
+   {
       return false;
    }
-   
-   //==========================================================================
-   
+
+
+   // ==========================================================================
+
    public String getModifier()
    {
       return this.modifier;
    }
-   
+
+
    public void setModifier(String value)
    {
-      if ( ! StrUtil.stringEquals(this.modifier, value))
+      if (!StrUtil.stringEquals(this.modifier, value))
       {
          String oldValue = this.modifier;
          this.modifier = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_MODIFIER, oldValue, value);
       }
    }
-   
+
+
    public PEC withModifier(String value)
    {
       setModifier(value);
       return (PEC) this;
-   } 
-   
-   //==========================================================================
+   }
+
+
+   // ==========================================================================
    public boolean getHasMatch()
    {
       return this.hasMatch;
    }
-   
+
+
    public void setHasMatch(boolean value)
    {
       if (this.hasMatch != value)
@@ -192,26 +229,28 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_HASMATCH, oldValue, value);
       }
    }
-   
+
+
    public PatternElement withHasMatch(boolean value)
    {
       setHasMatch(value);
       return this;
    }
 
+
    public void resetSearch()
    {
       // please override
-   } 
+   }
 
-   
 
-   //==========================================================================
+   // ==========================================================================
    public boolean getDoAllMatches()
    {
       return this.doAllMatches;
    }
-   
+
+
    public void setDoAllMatches(boolean value)
    {
       if (this.doAllMatches != value)
@@ -221,38 +260,41 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DOALLMATCHES, oldValue, value);
       }
    }
-   
+
+
    public PatternElement withDoAllMatches(boolean value)
    {
       setDoAllMatches(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public String getPatternObjectName()
    {
       return this.patternObjectName;
    }
-   
+
+
    public void setPatternObjectName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.patternObjectName, value))
+      if (!StrUtil.stringEquals(this.patternObjectName, value))
       {
          String oldValue = this.patternObjectName;
          this.patternObjectName = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_PATTERNOBJECTNAME, oldValue, value);
       }
    }
-   
+
+
    public PEC withPatternObjectName(String value)
    {
       setPatternObjectName(value);
       return (PEC) this;
-   } 
-   
-   
+   }
+
+
    public String valueSetString(Object value)
    {
       StringList valueList = new StringList();
@@ -264,6 +306,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return valueSet;
    }
 
+
    public String dumpHostGraphObject(Object hostGraphObject)
    {
       return getTopPattern().getIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
@@ -274,7 +317,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public String toString()
    {
       StringBuilder s = new StringBuilder();
-      
+
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);
@@ -286,30 +329,38 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       Pattern value = new Pattern();
       withPattern(value);
       return value;
-   } 
+   }
+
 
    public Object createPattern()
    {
       Pattern value = new Pattern();
       withPattern(value);
       return value;
-   } 
+   }
 
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean isHasMatch()
    {
       return this.hasMatch;
    }
-   
-   
-   //==========================================================================
-   
+
+
+   // ==========================================================================
+
    public boolean isDoAllMatches()
    {
       return this.doAllMatches;
    }
-   }
 
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   }

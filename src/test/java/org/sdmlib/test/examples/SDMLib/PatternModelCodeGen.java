@@ -40,6 +40,7 @@ public class PatternModelCodeGen
     * @see <a href= '../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
     * @see <a href= '../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
     * @see <a href='../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+    * @see <a href='../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
     */
    @Test
    public void testPatternModelCodegen()
@@ -150,7 +151,10 @@ public class PatternModelCodeGen
       Clazz rState = model.createClazz("ReachableState")
          .withAttribute("number", DataType.LONG)
          .withAttribute("metricValue", DataType.DOUBLE)
-         .withAttribute("graphRoot", DataType.OBJECT);
+         .withAttribute("graphRoot", DataType.OBJECT)
+         .withAttribute("failureState", DataType.BOOLEAN)
+         .withAttribute("finalState", DataType.BOOLEAN)
+         .withAttribute("startState", DataType.BOOLEAN);
 
       reachabilityGraph.withUniDirectional(rState, "finalStates", Cardinality.MANY);
       reachabilityGraph.withBidirectional(rState, "states", Cardinality.MANY, "parent", Cardinality.ONE);
@@ -171,7 +175,7 @@ public class PatternModelCodeGen
       // model.getGenerator().withShowDiff(DIFF.FULL);
       // GraphList list = new GraphList();
       // list.with(model.getClazzes().toArray());
-      // model.generate("src/main/java");
+      model.generate("src/main/java");
 
       storyboard.addClassDiagram(model);
 

@@ -28,6 +28,9 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.BooleanList;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternObjectSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 {
@@ -520,6 +523,130 @@ public class GenericConstraintSet extends SimpleSet<GenericConstraint>
       for (GenericConstraint obj : this)
       {
          obj.withPattern(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect a list of the condition attribute values. 
+    * 
+    * @return List of de.uniks.networkparser.interfaces.Condition objects reachable via condition attribute
+    */
+   public ConditionSet getCondition()
+   {
+      ConditionSet result = new ConditionSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         result.add(obj.getCondition());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect those GenericConstraint objects where the condition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GenericConstraint objects that match the parameter
+    */
+   public GenericConstraintSet createConditionCondition(Condition value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value == obj.getCondition())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GenericConstraint objects and assign value to the condition attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of GenericConstraint objects now with new attribute values.
+    */
+   public GenericConstraintSet withCondition(Condition value)
+   {
+      for (GenericConstraint obj : this)
+      {
+         obj.setCondition(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect a set of the PatternObject objects reached via src. 
+    * 
+    * @return Set of PatternObject objects reachable via src
+    */
+   public PatternObjectSet getSrc()
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         result.with(obj.getSrc());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of GenericConstraint objects and collect all contained objects with reference src pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as src neighbor of the collected results. 
+    * 
+    * @return Set of PatternObject objects referring to value via src
+    */
+   public GenericConstraintSet filterSrc(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GenericConstraintSet answer = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (neighbors.contains(obj.getSrc()) || (neighbors.isEmpty() && obj.getSrc() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the GenericConstraint object passed as parameter to the Src attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
+    */
+   public GenericConstraintSet withSrc(PatternObject value)
+   {
+      for (GenericConstraint obj : this)
+      {
+         obj.withSrc(value);
       }
       
       return this;

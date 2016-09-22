@@ -28,6 +28,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 /**
  * 
@@ -104,7 +106,8 @@ public class GenericConstraint extends PatternElement<GenericConstraint>implemen
       super.removeYou();
 
       setPattern(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setSrc(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -221,4 +224,11 @@ public class GenericConstraint extends PatternElement<GenericConstraint>implemen
       return this;
    }
 
+
+   public PatternObject createSrc()
+   {
+      PatternObject value = new PatternObject();
+      withSrc(value);
+      return value;
+   }
 }
