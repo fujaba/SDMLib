@@ -7,7 +7,6 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
-
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
@@ -18,6 +17,7 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
@@ -103,6 +103,10 @@ public class GenMethod extends Generator<Method>
          else if ("int float double".indexOf(name) >= 0)
          {
             returnClause = "return 0;";
+         }
+         else if ("boolean".indexOf(name) >= 0) 
+         {
+    	    returnClause = "return false;";
          }
          else if ("void".indexOf(name) >= 0)
          {
@@ -265,8 +269,13 @@ public class GenMethod extends Generator<Method>
          // StatementEntry entry = (StatementEntry) array[0];
          // startPos = returnStatements.get(entry);
          // }
+         // Workaround for Check Valid Body
+         if(model.isValidReturn()) {
+        	 parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
+         } else {
+        	 parser.replace(symTabEntry.getBodyStartPos() + 1, symTabEntry.getBodyStartPos() + 1, "\n" + model.getBody() + "   ");
+         }
 
-         parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
       }
    }
 
@@ -326,6 +335,7 @@ public class GenMethod extends Generator<Method>
          if ("void".equals(type))
          {
             type =  clazz2.getName(true) + "Set";
+            body = "return "+type+".EMPTY_SET;";
          }
          else
          {
@@ -336,6 +346,9 @@ public class GenMethod extends Generator<Method>
         	 } else if ("String".indexOf(type) >= 0) {
         		 type = "StringList";
         		 importType = StringList.class.getName();
+        	 } else if ("boolean".indexOf(type) >= 0) {
+        		 type = BooleanList.class.getName();
+        		 importType = BooleanList.class.getSimpleName();
         	 } else if ("Object".indexOf(type) >= 0) {
                type = "LinkedHashSet<Object>";
                importType = LinkedHashSet.class.getName();

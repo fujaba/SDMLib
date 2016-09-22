@@ -333,7 +333,7 @@ import org.sdmlib.replication.ChangeEventList;
     	  SimpleEvent evt=(SimpleEvent) event;
          if (evt.getNewValue() != null)
          {
-            if (evt.getDeep() >= 3)
+            if (evt.getDepth() >= 3)
             {
                return false;
             }

@@ -12,6 +12,7 @@ import org.sdmlib.test.examples.ludo.model.util.LudoPO;
 import org.sdmlib.test.examples.ludo.model.util.FieldPO;
 import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
 import org.sdmlib.test.examples.ludo.model.util.PawnPO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class FieldPO extends PatternObject<FieldPO, Field>
 {
@@ -862,6 +863,481 @@ public class FieldPO extends PatternObject<FieldPO, Field>
    public FieldPO filterLanding(FieldPO tgt)
    {
       return hasLinkConstraint(tgt, Field.PROPERTY_LANDING);
+   }
+
+
+   public FieldPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public FieldPO createColorCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createColorCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createColorAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createKindCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_KIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createKindCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_KIND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createKindAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_KIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createXCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_X)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createXCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_X)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createXAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_X)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createYCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_Y)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createYCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_Y)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createYAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_Y)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createPointCondition(Point value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_POINT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FieldPO createPointAssignment(Point value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_POINT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createGamePO()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public LudoPO createGamePO(String modifier)
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public FieldPO createGameLink(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_GAME);
+   }
+
+   public FieldPO createGameLink(LudoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_GAME, modifier);
+   }
+
+   public PlayerPO createStarterPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_STARTER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createStarterPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_STARTER, result);
+      
+      return result;
+   }
+
+   public FieldPO createStarterLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_STARTER);
+   }
+
+   public FieldPO createStarterLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_STARTER, modifier);
+   }
+
+   public PlayerPO createBaseownerPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_BASEOWNER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createBaseownerPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_BASEOWNER, result);
+      
+      return result;
+   }
+
+   public FieldPO createBaseownerLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_BASEOWNER);
+   }
+
+   public FieldPO createBaseownerLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_BASEOWNER, modifier);
+   }
+
+   public PlayerPO createLanderPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_LANDER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createLanderPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_LANDER, result);
+      
+      return result;
+   }
+
+   public FieldPO createLanderLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_LANDER);
+   }
+
+   public FieldPO createLanderLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_LANDER, modifier);
+   }
+
+   public FieldPO createPrevPO()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public FieldPO createPrevPO(String modifier)
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public FieldPO createPrevLink(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_PREV);
+   }
+
+   public FieldPO createPrevLink(FieldPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_PREV, modifier);
+   }
+
+   public FieldPO createNextPO()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public FieldPO createNextPO(String modifier)
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public FieldPO createNextLink(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_NEXT);
+   }
+
+   public FieldPO createNextLink(FieldPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_NEXT, modifier);
+   }
+
+   public FieldPO createEntryPO()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_ENTRY, result);
+      
+      return result;
+   }
+
+   public FieldPO createEntryPO(String modifier)
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_ENTRY, result);
+      
+      return result;
+   }
+
+   public FieldPO createEntryLink(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_ENTRY);
+   }
+
+   public FieldPO createEntryLink(FieldPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_ENTRY, modifier);
+   }
+
+   public FieldPO createLandingPO()
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_LANDING, result);
+      
+      return result;
+   }
+
+   public FieldPO createLandingPO(String modifier)
+   {
+      FieldPO result = new FieldPO(new Field[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_LANDING, result);
+      
+      return result;
+   }
+
+   public FieldPO createLandingLink(FieldPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_LANDING);
+   }
+
+   public FieldPO createLandingLink(FieldPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_LANDING, modifier);
+   }
+
+   public PawnPO createPawnsPO()
+   {
+      PawnPO result = new PawnPO(new Pawn[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Field.PROPERTY_PAWNS, result);
+      
+      return result;
+   }
+
+   public PawnPO createPawnsPO(String modifier)
+   {
+      PawnPO result = new PawnPO(new Pawn[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Field.PROPERTY_PAWNS, result);
+      
+      return result;
+   }
+
+   public FieldPO createPawnsLink(PawnPO tgt)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_PAWNS);
+   }
+
+   public FieldPO createPawnsLink(PawnPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Field.PROPERTY_PAWNS, modifier);
    }
 
 }

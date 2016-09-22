@@ -14,14 +14,13 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-import org.sdmlib.models.modelsets.SDMSet;
-
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
@@ -94,8 +93,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          parser
             .replaceAll(0,
                "/*\n" +
-                  "   Copyright (c) <year> <developer>\r\n" +
-                  "   \r\n" +
+                  "   Copyright (c) <year> <developer>\n" +
+                  "   \n" +
                   "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
                   "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
                   "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
@@ -425,7 +424,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
+         insertGetNewListMethod(modelSetParser);
          insertFilterMethod(modelSetParser);
+         insertInstanceOfMethods(modelSetParser);
          insertSetWithWithout(modelSetParser);
       }
 
@@ -664,23 +665,95 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-   private void insertFilterMethod(Parser parser)
+   private void insertInstanceOfMethods(Parser parser)
    {
-      FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+      // add an instanceOfXY method for each (direct) subclass
+      ClazzSet kidClazzes = model.getKidClazzes(false);
 
-      if (feature.getClass() != null && feature.getClass().isInstance(SimpleSet.class) == false)
+      for (Clazz kid : kidClazzes)
       {
-         return;
+         String shortClassName = CGUtil.shortClassName(kid.getName(false));
+         String searchString = Parser.METHOD + ":instanceOf" + shortClassName +"()";
+         int pos = parser.indexOf(searchString);
+
+         if (pos < 0)
+         {
+            StringBuilder text = new StringBuilder(
+               "\n\n" +
+                     "   public ModelSetType instanceOfModelType()\n" + 
+                     "   {\n" + 
+                     "      ModelSetType result = new ModelSetType();\n" + 
+                     "      \n" + 
+                     "      for(Object obj : this)\n" + 
+                     "      {\n" + 
+                     "         if (obj instanceof ModelType)\n" + 
+                     "         {\n" + 
+                     "            result.with(obj);\n" + 
+                     "         }\n" + 
+                     "      }\n" + 
+                     "      \n" + 
+                     "      return result;\n" + 
+                     "   }"
+                     );
+
+            CGUtil.replaceAll(text,
+               "ModelType", shortClassName,
+               "ModelSetType", shortClassName + "Set");
+
+            pos = parser.indexOf(Parser.CLASS_END);
+
+            parser.insert(pos, text.toString());
+
+            parser.insertImport(kid.getName(false));
+            
+            String helperClassName = CGUtil.helperClassName(kid.getName(false), "Set");
+               
+            parser.insertImport(helperClassName);
+         }
       }
+   }
+
+
+   private void insertGetNewListMethod(Parser parser)
+   {
       String shortClassName = CGUtil.shortClassName(model.getName(false));
-      String searchString = Parser.METHOD + ":create(Condition<" + shortClassName + ">)";
+      String searchString = Parser.METHOD + ":getNewList(boolean)";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
                "\n\n" +
-                  "   public ModelSetType create(Condition<ModelType> condition) {\n" +
+                  "   @Override\n" + 
+                  "   public ModelSetType getNewList(boolean keyValue)\n" + 
+                  "   {\n" + 
+                  "      return new ModelSetType();\n" + 
+                  "   }\n" + 
+                  "");
+
+         CGUtil.replaceAll(text,
+            "ModelSetType", shortClassName + "Set");
+
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.insert(pos, text.toString());
+
+         parser.insertImport(Condition.class.getName());
+      }
+   }
+
+
+   private void insertFilterMethod(Parser parser)
+   {
+      String shortClassName = CGUtil.shortClassName(model.getName(false));
+      String searchString = Parser.METHOD + ":filter(Condition<" + shortClassName + ">)";
+      int pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+               "\n\n" +
+                  "   public ModelSetType filter(Condition<ModelType> condition) {\n" +
                   "      ModelSetType filterList = new ModelSetType();\n" +
                   "      filterItems(filterList, condition);\n" +
                   "      return filterList;\n" +

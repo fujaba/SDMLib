@@ -429,7 +429,7 @@ public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
 
    /**
     * Loop through current set of ModelType objects and attach the UnifyGraphsOp object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    * @param value Pattern
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public UnifyGraphsOpSet withPattern(Pattern value)

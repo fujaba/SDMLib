@@ -56,7 +56,6 @@ import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.Throws;
-import de.uniks.networkparser.graph.util.AssociationSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
@@ -65,8 +64,6 @@ public class GenClassModel implements ClassModelAdapter
 {
    public static final String UTILPATH = ".util";
    ClassModel model;
-   private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
-   private AssociationSet associations = null;
    private HashMap<GraphMember, Generator<?>> generators = new HashMap<GraphMember, Generator<?>>();
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
@@ -75,45 +72,6 @@ public class GenClassModel implements ClassModelAdapter
    {
       NONE, DIFF, FULL
    };
-
-   public boolean addToAssociations(Association value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.associations == null)
-         {
-            this.associations = new AssociationSet();
-         }
-
-         changed = this.associations.add(value);
-      }
-
-      return changed;
-   }
-
-   public boolean removeFromAssociations(Association value)
-   {
-      boolean changed = false;
-
-      if ((this.associations != null) && (value != null))
-      {
-         changed = this.associations.remove(value);
-      }
-
-      return changed;
-   }
-
-   public AssociationSet getAssociations()
-   {
-      if (this.associations == null)
-      {
-         return new AssociationSet();
-      }
-
-      return this.associations;
-   }
 
    public GenClazzEntity getOrCreate(Clazz clazz) {
 	   if(clazz.getType()==ClazzType.ENUMERATION) {
@@ -199,10 +157,68 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(association, gen);
       return (GenAssociation) gen;
    }
+   
+   private void fixClassModel(String rootDir)
+   {
+      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
+      HashSet<Clazz> visited = new HashSet<Clazz>();
+      for (Clazz item : classes)
+      {
+         fixClassModel(item, visited, rootDir);
+      }
+   }
+   
+   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir) {
+	      if(item.getType() ==  ClazzType.ENUMERATION) {
+	          SimpleSet<Literal> literals = item.getValues();
+	          SimpleSet<Attribute> attributes = item.getAttributes();
+	          for(Literal literal : literals) {
+	              int no = 0;
+	              SimpleList<Object> values = literal.getValues();
+	              if(values != null) {
+	                  for(Object value : values) {
+	                      if(value != null) {
+	                          String type = value.getClass().getName();
+	                          if(attributes.size()>no) {
+	                              Attribute attribute = attributes.get(no);
+	                              if(attribute.getType().getName(false).equals(type)) {
+	                                  // Everthing is ok
+	                              } else {
+	                                  attribute.with(DataType.OBJECT);
+	                              }
+	                          } else {
+	                              Attribute attribute = new Attribute("value"+no, DataType.create(type));
+	                              attributes.add(attribute);
+	                              item.with(attribute);
+	                          }
+	                      }
+	                      no++;
+	                  }
+	              }
+	          }
+	          GenClazzEntity orCreate = getOrCreate(item);
+	          Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
+	          orCreateParser.indexOf(Parser.CLASS_END);
+	          Method constructor = new Method(item.getName()).with(DataType.create(""));
+	          String constructorBody = "";
+	          for(Attribute attribute : attributes) {
+	              constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
+	              constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
+	          }
+	          constructor.withBody(constructorBody);
+	          constructor.with(Modifier.PACKAGE);
+	          item.with(constructor);
+	      }
+   }
+
+
 
    public boolean generate(String rootDir)
    {
       resetParsers();
+      
+      this.model.fixClassModel();
+      
 
       fixClassModel(rootDir);
 
@@ -212,16 +228,7 @@ public class GenClassModel implements ClassModelAdapter
       }
     	  
       
-//      for (Enumeration enumeration : model.getEnumerations())
-//      {
-//         getOrCreate(enumeration).generate(rootDir, rootDir);
-//      }
-//
-//      for (Clazz clazz : model.getClazzes())
-//      {
-//         getOrCreate(clazz).generate(rootDir, rootDir);
-//      }
-      for (Association assoc : getAssociations())
+      for (Association assoc : model.getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
          getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
@@ -307,111 +314,6 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
-   private void fixClassModel(String rootDir)
-   {
-      Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
-      HashSet<Clazz> visited = new HashSet<Clazz>();
-      for (Clazz item : classes)
-      {
-         fixClassModel(item, visited, rootDir);
-      }
-   }
-
-   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir)
-   {
-      for (Clazz entity : item.getInterfaces(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getSuperClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-            entity.setClassModel(model);
-         }
-      }
-
-      for (Clazz entity : item.getKidClazzes(false))
-      {
-         if (entity.getClassModel() == null)
-         {
-            entity.setClassModel(model);
-            if (visited.add(entity))
-            {
-               fixClassModel(entity, visited, rootDir);
-            }
-         }
-      }
-
-      for (Association role : item.getAssociations())
-      {
-         Clazz clazz = role.getOtherClazz();
-         if (clazz.getClassModel() == null)
-         {
-            clazz.setClassModel(model);
-            if (visited.add(clazz))
-            {
-               fixClassModel(clazz, visited, rootDir);
-            }
-         }
-       	 this.addToAssociations(role);
-      }
-      
-      // Fix the Clazz
-      if(item.getType() ==  ClazzType.ENUMERATION) {
-    	  SimpleSet<Literal> literals = item.getValues();
-    	  SimpleSet<Attribute> attributes = item.getAttributes();
-		  for(Literal literal : literals) {
-			  int no = 0;
-			  SimpleList<Object> values = literal.getValues();
-			  if(values != null) {
-				  for(Object value : values) {
-					  if(value != null) {
-						  String type = value.getClass().getName();
-						  if(attributes.size()>no) {
-							  Attribute attribute = attributes.get(no);
-							  if(attribute.getType().getName(false).equals(type)) {
-								  // Everthing is ok
-							  } else {
-								  attribute.with(DataType.OBJECT);
-							  }
-						  } else {
-							  Attribute attribute = new Attribute("value"+no, DataType.create(type));
-							  attributes.add(attribute);
-							  item.with(attribute);
-						  }
-					  }
-					  no++;
-				  }
-			  }
-		  }
-		  GenClazzEntity orCreate = getOrCreate(item);
-		  Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
-		  orCreateParser.indexOf(Parser.CLASS_END);
-		  Method constructor = new Method(item.getName()).with(DataType.create(""));
-		  String constructorBody = "";
-		  for(Attribute attribute : attributes) {
-			  constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
-			  constructorBody += "      this." + attribute.getName() + " = " + attribute.getName() + ";\n" ;
-		  }
-		  constructor.withBody(constructorBody);
-		  constructor.with(Modifier.PACKAGE);
-		  item.with(constructor);
-      }
-      
-   }
    
    private SimpleSet<DataType> getAllTypes() {
 	   SimpleSet<DataType> collection = new SimpleSet<DataType>();
@@ -762,8 +664,9 @@ public class GenClassModel implements ClassModelAdapter
          }
 
       });
-      currentInsertPos = insertNewCreationClasses(modelCreationClass, signature, currentInsertPos,
-            rootDir, sortedClazz);
+      LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
+      currentInsertPos = insertNewCreationClasses("", modelCreationClass, signature, currentInsertPos,
+            rootDir, sortedClazz, handledClazzes);
 
       completeImports();
 
@@ -828,11 +731,14 @@ public class GenClassModel implements ClassModelAdapter
                "      ClassModel clazzModel = new ClassModel(\"" + model.getName() + "\");");
       }
 
+	  LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
+
+      
       currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos,
-            rootDir);
+            rootDir, handledClazzes);
 
       currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos,
-            rootDir);
+            rootDir,new LinkedHashSet<Clazz>(), handledClazzes);
 
       completeImports();
 
@@ -850,7 +756,7 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
+         int currentInsertPos, String rootDir, Map<String, Clazz> handledClazzes)
    {
 
       refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -908,13 +814,13 @@ public class GenClassModel implements ClassModelAdapter
 
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName,
          Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
-         LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
+         Map<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
    {
       // rescanCode(modelCreationClass, rootDir);
       Parser modelCreationClassParser = getOrCreateClazz(modelCreationClass).getParser();
 
       // check has superclass
-      if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClazz"))
+      if (clazz.getSuperClazzes(false).first() != null && !checkSuper(clazz, entry, "withSuperClazz"))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
          int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(),
@@ -927,7 +833,7 @@ public class GenClassModel implements ClassModelAdapter
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
          StringBuilder text = new StringBuilder("      .withSuperClazz(superClassName)");
          CGUtil.replaceAll(text, "superClassName",
-               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getName(false))) + "Class");
+               StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClazzes(false).first().getName(false))) + "Class");
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass);
          currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -1553,7 +1459,7 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int createAndInsertCodeForNewClazz(Clazz modelCreationClass, SymTabEntry symTabEntry,
-         Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
+         Clazz clazz, Map<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
 
@@ -1576,7 +1482,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       // insert code for superclass
-      Clazz superClass = clazz.getSuperClass();
+      Clazz superClass = clazz.getSuperClazzes(false).first();
       if (superClass != null)
       {
          currentInsertPos = insertCreationSuperClassCode(currentInsertPos, superClass.getName(false),
@@ -1692,7 +1598,7 @@ public class GenClassModel implements ClassModelAdapter
    // }
 
    private int handleAssocs(TreeSet<Association> assoc, int currentInsertPos, Clazz modelCreationClass,
-         SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+         SymTabEntry symTabEntry, Map<String, Clazz> handledClazzes)
    {
       ArrayList<Association> handledAssocs = new ArrayList<Association>();
 
@@ -1719,16 +1625,8 @@ public class GenClassModel implements ClassModelAdapter
    }
 
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
+         int currentInsertPos, String rootDir, Set<Clazz> clazzQueue, Map<String, Clazz> handledClazzes)
    {
-      return insertNewCreationClasses(modelCreationClass, signature, currentInsertPos, rootDir,
-            new LinkedHashSet<Clazz>());
-   }
-
-   private int insertNewCreationClasses(Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir, Set<Clazz> clazzQueue)
-   {
-
       // find last creation code position
       for (Clazz clazz : model.getClazzes())
       {
@@ -1754,7 +1652,7 @@ public class GenClassModel implements ClassModelAdapter
          if (entry == null)
          {
             // insert code for new Clazz()
-            if (!checkDependencies(clazz))
+            if (!checkDependencies(clazz, handledClazzes))
             {
                clazzQueue.add(clazz);
             }
@@ -1776,11 +1674,11 @@ public class GenClassModel implements ClassModelAdapter
       return currentInsertPos;
    }
 
-   private boolean checkDependencies(Clazz clazz)
+   private boolean checkDependencies(Clazz clazz, Map<String,Clazz> handledClazzes)
    {
       ArrayList<Clazz> dependencies = new ArrayList<Clazz>();
-      if (clazz.getSuperClass() != null)
-         dependencies.add(clazz.getSuperClass());
+      if (clazz.getSuperClazzes(false).first() != null)
+         dependencies.add(clazz.getSuperClazzes(false).first());
       if (clazz.getInterfaces(false) != null)
          dependencies.addAll(clazz.getInterfaces(false));
 
@@ -2168,7 +2066,7 @@ public class GenClassModel implements ClassModelAdapter
          // search for an assoc with similar srcClazz, srcLabel, tgtClass,
          // tgtLabel
          Association currentAssoc = null;
-         for (Association assoc : this.getAssociations())
+         for (Association assoc : model.getAssociations())
          {
             if (sourceType.equals(CGUtil.shortClassName(assoc.getClazz().getName()))
                   && targetType.equals(CGUtil.shortClassName(assoc.getOtherClazz().getName()))
@@ -2191,7 +2089,7 @@ public class GenClassModel implements ClassModelAdapter
             		.with(Cardinality.ONE)
             		.with(sourceLabel)
             		.with(other);
-            this.addToAssociations(currentAssoc);
+            model.with(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
@@ -2691,7 +2589,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private boolean assocWithRolesExists(Association source, Association target)
    {
-      for (Association assoc : getAssociations())
+      for (Association assoc : model.getAssociations())
       {
          if (compareRoles(source, target, assoc) || compareRoles(target, source, assoc))
             return true;

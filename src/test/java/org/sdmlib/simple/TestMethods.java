@@ -176,4 +176,14 @@ public class TestMethods {
 		
 	}
 	
+	@Test
+	public void testClassWithBooleanMethod() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_n");
+		Clazz person = model.createClazz("Person");
+		
+		person.with(new Method("checkSomething", DataType.BOOLEAN));
+		model.getGenerator().testGeneratedCode();
+		
+	}
 }

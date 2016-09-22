@@ -5,7 +5,8 @@ public enum ContentType {
 	IMAGE_JPEG("image/jpeg"),
 	IMAGE("image"),
 	APPLICATION_X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded"),
-	TEXT_PLAIN("text/plain");
+	TEXT_PLAIN("text/plain"), 
+	APPLICATION_PDF("application/pdf");
 
 	private String value;
 

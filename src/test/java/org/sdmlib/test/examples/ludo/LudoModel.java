@@ -36,7 +36,7 @@ public class LudoModel
    @Test
    public void testLudoModel()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard storyboard = new Storyboard().withDocDirName("doc/internal");
       
       storyboard.add("The model: ");
       

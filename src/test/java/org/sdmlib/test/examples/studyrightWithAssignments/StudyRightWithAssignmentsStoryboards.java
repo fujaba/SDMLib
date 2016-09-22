@@ -67,7 +67,6 @@ import de.uniks.networkparser.json.JsonArray;
 public class StudyRightWithAssignmentsStoryboards
 {
    /**
-    * @see <a href= '../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     */
    @Test
@@ -207,8 +206,6 @@ public class StudyRightWithAssignmentsStoryboards
 
 
    /**
-    * @see <a href='../../../../../../../../doc/JsonPersistency.html'> JsonPersistency.html</a>
-    * @see <a href= '../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
     */
    @Test
@@ -318,12 +315,14 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
-
    /**
-    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'> StudyRightObjectModelNavigationAndQueries.html</a>
-    * @see <a href= '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>
+    *      StudyRightObjectModelNavigationAndQueries.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
-    */
+ */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
@@ -431,9 +430,9 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
 
-      int donePoints = university.getStudents().getDone().getPoints().sum();
+      double donePoints = university.getStudents().getDone().getPoints().sum();
 
       story.addCode();
 
@@ -447,8 +446,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted(text);
 
-      story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 15, donePoints);
+      story.assertEquals("Assignment points: ", 23.0, assignmentPoints);
+      story.assertEquals("donePoints: ", 15.0, donePoints);
 
       // =====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");
@@ -501,7 +500,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
 
       story.addCode();
 
@@ -527,7 +526,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       StudentPO stud1PO = roomPO.createStudentsPO();
 
-      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -550,7 +549,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
 
-      stud2PO.createFriendsPO(stud1PO);
+      stud2PO.createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -573,11 +572,11 @@ public class StudyRightWithAssignmentsStoryboards
 
       stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
 
-      roomPO.createStudentsPO().createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createFriendsLink(stud1PO);
 
-      roomPO.filterTas(null);
+      roomPO.createTasLink(null);
 
-      roomPO.createTas();
+      roomPO.createTasPO();
 
       rooms = roomPO.allMatches();
 
@@ -678,7 +677,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       stud1PO.startCreate();
 
-      stud1PO.filterIn(roomPO);
+      stud1PO.createInLink(roomPO);
 
       stud1PO.allMatches();
 
@@ -693,12 +692,12 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
-
    /**
     * 
-    * @see <a href= '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
-    */
+ */
    @Test
    public void testStudyRightTablesAndReports()
    {
@@ -847,7 +846,7 @@ public class StudyRightWithAssignmentsStoryboards
 
          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
          cell3PO.createCondition(cell -> cell.withValue(roomsPO.getStudents().size()) != null);
-
+         
          universityPO.doAllMatches();
 
          story.addCode();
@@ -882,7 +881,6 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
-
    public Table addAssignments(Row row)
    {
       Room room = (Room) row.getCellValue("B");
@@ -901,12 +899,12 @@ public class StudyRightWithAssignmentsStoryboards
       return table;
    }
 
-
    /**
     * 
-    * @see <a href= '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
+    * @see <a href=
+    *      '../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightReachabilityGraph.html'>StudyRightReachabilityGraph.html</a>
-    */
+ */
    @Test
    public void testStudyRightReachabilityGraph()
    {
@@ -968,15 +966,15 @@ public class StudyRightWithAssignmentsStoryboards
 
       StudentPO studPO = uniPO.createStudentsPO();
 
-      RoomPO currentRoomPO = studPO.filterIn();
+      RoomPO currentRoomPO = studPO.createInPO();
 
-      RoomPO nextRoomPO = currentRoomPO.filterDoors();
+      RoomPO nextRoomPO = currentRoomPO.createDoorsPO();
 
       studPO.createCondition(s -> studPO.getMotivation() >= nextRoomPO.getCredits());
 
-      uniPO.getPattern().createCloneOp();
+      uniPO.getPattern().clone(reachabilityGraph);
 
-      studPO.startCreate().filterIn(nextRoomPO).endCreate();
+      studPO.startCreate().createInLink(nextRoomPO).endCreate();
 
       studPO.createCondition(s -> {
          studPO.withMotivation(studPO.getMotivation() - nextRoomPO.getCredits());
@@ -1042,11 +1040,11 @@ public class StudyRightWithAssignmentsStoryboards
       // ok do it with search pattern
       ReachabilityGraphPO reachabilityGraphPO = new ReachabilityGraphPO(reachabilityGraph);
       ReachableStatePO statePO = reachabilityGraphPO.createStatesPO();
-      // FIXME: UniversityPO universityPO =
-      // statePO.filterGraphRoot().instanceOf(new UniversityPO());
-      // StudentPO studentPO =
-      // universityPO.createStudentsPO().createMotivationCondition(0);
-      // RoomPO roomPO = studentPO.filterIn().filterTopic("exam");
+      UniversityPO universityPO =
+            statePO.createGraphRootPO().instanceOf(new UniversityPO());
+      StudentPO studentPO =
+            universityPO.createStudentsPO().createMotivationCondition(0);
+      RoomPO roomPO = studentPO.createInPO().createTopicCondition("exam");
 
       ReachableState currentMatch = statePO.getCurrentMatch();
 

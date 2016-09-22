@@ -8,6 +8,7 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import org.sdmlib.test.examples.ludo.model.util.LudoPO;
 import org.sdmlib.test.examples.ludo.model.util.DicePO;
 import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class DicePO extends PatternObject<DicePO, Dice>
 {
@@ -217,6 +218,114 @@ public class DicePO extends PatternObject<DicePO, Dice>
    public DicePO filterPlayer(PlayerPO tgt)
    {
       return hasLinkConstraint(tgt, Dice.PROPERTY_PLAYER);
+   }
+
+
+   public DicePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public DicePO createValueCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Dice.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DicePO createValueCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Dice.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DicePO createValueAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Dice.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createGamePO()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Dice.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public LudoPO createGamePO(String modifier)
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Dice.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public DicePO createGameLink(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_GAME);
+   }
+
+   public DicePO createGameLink(LudoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_GAME, modifier);
+   }
+
+   public PlayerPO createPlayerPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Dice.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayerPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Dice.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public DicePO createPlayerLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_PLAYER);
+   }
+
+   public DicePO createPlayerLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Dice.PROPERTY_PLAYER, modifier);
    }
 
 }

@@ -519,7 +519,7 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the ResultOf attribute of each of it. 
-    * 
+    * @param value {@link RuleApplication}
     * @return The original set of ModelType objects now with the new neighbor attached to their ResultOf attributes.
     */
    public ReachableStateSet withResultOf(RuleApplication value)
@@ -534,7 +534,7 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachableState object passed as parameter from the ResultOf attribute of each of it. 
-    * 
+    * @param value RuleApplication
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachableStateSet withoutResultOf(RuleApplication value)

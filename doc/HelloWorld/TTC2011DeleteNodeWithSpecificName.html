@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
+<hr/><p>Delete node with name n1 and its incidemnt edges.</p>
+<p>Start graph:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : Graph"
+      },
+      {
+         "typ":"clazz",
+         "id":"N2 : Node",
+         "attributes":[
+            "name=n1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N3 : Node",
+         "attributes":[
+            "name=n2"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N4 : Node",
+         "attributes":[
+            "name=n1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N5 : Node",
+         "attributes":[
+            "name=n4"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N6 : Node",
+         "attributes":[
+            "name=n5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N7 : Node",
+         "attributes":[
+            "name=n6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N8 : Node",
+         "attributes":[
+            "name=n7"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N9 : Node",
+         "attributes":[
+            "name=n8"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E10 : Edge",
+         "attributes":[
+            "name=e18"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E11 : Edge",
+         "attributes":[
+            "name=e19"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E12 : Edge",
+         "attributes":[
+            "name=e10"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E13 : Edge",
+         "attributes":[
+            "name=e11"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E14 : Edge",
+         "attributes":[
+            "name=e12"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E15 : Edge",
+         "attributes":[
+            "name=e13"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E16 : Edge",
+         "attributes":[
+            "name=e14"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E17 : Edge",
+         "attributes":[
+            "name=e15"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E18 : Edge",
+         "attributes":[
+            "name=e16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E19 : Edge",
+         "attributes":[
+            "name=e17"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N4 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N5 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N9 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E13 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E14 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E18 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E19 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E14 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E13 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N3 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N3 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E14 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E13 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N5 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N5 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E18 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N9 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E19 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N9 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E18 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N9 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E19 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N9 : Node"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011DeleteNodeWithSpecificName4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Transformation:</p>
+<pre>   private NodePO deleteNodeWithNameN1(Graph graph)
+   {
+      &#x2F;&#x2F; find node
+      NodePO nodeN1PO = new GraphPO(graph)
+      .hasNodes()
+      .hasName(&quot;n1&quot;);
+
+      &#x2F;&#x2F; destroy all leaving edges
+      nodeN1PO.startSubPattern()
+      .hasOutEdges()
+      .destroy()
+      .endSubPattern()
+      .allMatches();
+
+      &#x2F;&#x2F; destroy all incoming edges
+      nodeN1PO.startSubPattern()
+      .hasInEdges()
+      .destroy()
+      .endSubPattern()
+      .allMatches();
+
+      &#x2F;&#x2F; destroy the node
+      nodeN1PO.destroy().allMatches();
+
+      return nodeN1PO;
+   }</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[
+            "name == n1"
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e3 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"e4 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"inEdges",
+            "id":"e4 : EdgePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011DeleteNodeWithSpecificNamePatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"G1 : Graph"
+      },
+      {
+         "typ":"clazz",
+         "id":"N6 : Node",
+         "attributes":[
+            "name=n2"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"N9 : Node",
+         "attributes":[
+            "name=n4"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E10 : Node",
+         "attributes":[
+            "name=n5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E11 : Node",
+         "attributes":[
+            "name=n6"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E13 : Node",
+         "attributes":[
+            "name=n7"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E14 : Node",
+         "attributes":[
+            "name=n8"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E16 : Edge",
+         "attributes":[
+            "name=e18"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E17 : Edge",
+         "attributes":[
+            "name=e19"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E22 : Edge",
+         "attributes":[
+            "name=e14"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E23 : Edge",
+         "attributes":[
+            "name=e15"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E24 : Edge",
+         "attributes":[
+            "name=e16"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"E25 : Edge",
+         "attributes":[
+            "name=e17"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N9 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"E10 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"E11 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"E13 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"E14 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E22 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E23 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E24 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E25 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E22 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N9 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"E10 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E23 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"E10 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"E10 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E22 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"E10 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E24 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"E14 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E25 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"E14 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E24 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"E14 : Node"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E25 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"E14 : Node"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011DeleteNodeWithSpecificName9", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>
