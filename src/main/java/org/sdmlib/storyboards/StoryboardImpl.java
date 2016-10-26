@@ -209,7 +209,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             callEntry = stackTrace[i];
 
             if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
-               || callEntry.getClassName().equals(Storyboard.class.getName()))
+               || callEntry.getClassName().equals(Storyboard.class.getName())
+               || callEntry.getClassName().equals(StoryPage.class.getName()))
             {
                i++;
                continue;
