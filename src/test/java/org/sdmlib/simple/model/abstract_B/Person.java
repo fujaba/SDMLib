@@ -19,12 +19,13 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.abstract_A;
+package org.sdmlib.simple.model.abstract_B;
 
-import org.sdmlib.simple.model.abstract_A.Human;
+import org.sdmlib.simple.model.abstract_B.Human;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.simple.model.abstract_B.Flower;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
@@ -82,27 +83,27 @@ import java.beans.PropertyChangeListener;
    /********************************************************************
     * <pre>
     *              one                       one
-    * Human ----------------------------------- Person
+    * Human ----------------------------------- Flower
     *              owner                   has
     * </pre>
     */
    
    public static final String PROPERTY_HAS = "has";
 
-   private Person has = null;
+   private Flower has = null;
 
-   public Person getHas()
+   public Flower getHas()
    {
       return this.has;
    }
 
-   public boolean setHas(Person value)
+   public boolean setHas(Flower value)
    {
       boolean changed = false;
       
       if (this.has != value)
       {
-         Person oldValue = this.has;
+         Flower oldValue = this.has;
          
          if (this.has != null)
          {
@@ -124,10 +125,17 @@ import java.beans.PropertyChangeListener;
       return changed;
    }
 
-   public Human withHas(Person value)
+   public Human withHas(Flower value)
    {
       setHas(value);
       return this;
+   } 
+
+   public Flower createHas()
+   {
+      Flower value = new Flower();
+      withHas(value);
+      return value;
    } 
 
    
@@ -136,59 +144,6 @@ import java.beans.PropertyChangeListener;
    
    public void removeYou()
    {
-      setOwner(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Person ----------------------------------- Human
-    *              has                   owner
-    * </pre>
-    */
-   
-   public static final String PROPERTY_OWNER = "owner";
-
-   private Human owner = null;
-
-   public Human getOwner()
-   {
-      return this.owner;
-   }
-
-   public boolean setOwner(Human value)
-   {
-      boolean changed = false;
-      
-      if (this.owner != value)
-      {
-         Human oldValue = this.owner;
-         
-         if (this.owner != null)
-         {
-            this.owner = null;
-            oldValue.setHas(null);
-         }
-         
-         this.owner = value;
-         
-         if (value != null)
-         {
-            value.withHas(this);
-         }
-         
-         firePropertyChange(PROPERTY_OWNER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Person withOwner(Human value)
-   {
-      setOwner(value);
-      return this;
-   } 
 }

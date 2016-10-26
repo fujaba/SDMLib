@@ -259,6 +259,10 @@ public class GenClassModel implements ClassModelAdapter
 
       return true;
    }
+   
+   ClassModel getClazz() {
+	   return this.model;
+   }
 
    private void addJavadocReferences(String rootDir)
    {

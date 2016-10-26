@@ -19,9 +19,9 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.abstract_A;
+package org.sdmlib.simple.model.abstract_B;
 
-import org.sdmlib.simple.model.abstract_A.Person;
+import org.sdmlib.simple.model.abstract_B.Flower;
 
 public  interface Human
 {
@@ -30,16 +30,18 @@ public  interface Human
    /********************************************************************
     * <pre>
     *              one                       one
-    * Human ----------------------------------- Person
+    * Human ----------------------------------- Flower
     *              owner                   has
     * </pre>
     */
    
    public static final String PROPERTY_HAS = "has";
 
-   public Person getHas();
+   public Flower getHas();
 
-   public boolean setHas(Person value);
+   public boolean setHas(Flower value);
 
-   public Human withHas(Person value);
+   public Human withHas(Flower value);
+
+   public Flower createHas();
 }

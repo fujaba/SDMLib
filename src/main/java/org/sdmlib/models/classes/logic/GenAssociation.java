@@ -9,6 +9,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
@@ -1664,40 +1665,37 @@ public class GenAssociation extends Generator<Association>
 //		}
 
 		// also for subclasses
-		Clazz clazz = model.getClazz();
-		ClazzSet kids = clazz.getKidClazzes(true);
-		// Other subClasses
-		kids.addAll(model.getOtherClazz().getKidClazzes(true));
-		for (Clazz kidClass : kids) {
-			if (GraphUtil.isInterface(kidClass)) {
-				continue;
-			}
-
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getClazz());
-			// GenAssociation otherGen = this.getGenerator(model.getOther());
-			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
-		}
+		fixSubclasses(model, rootDir, helperDir);
+		// Other subClasses		
+		fixSubclasses(model.getOther(), rootDir, helperDir);
 
 		if (model.getName() == null || model.getType()==AssociationTypes.EDGE) {
 			// uni directional assoc, do not generate reverse direction
 			return this;
 		}
-
-//		GenRole targetGenRole = generator.getOrCreate(model.getTarget());
-		// open target class and get or insert role implementation
-//		this.generate(rootDir, helperDir, model);
-//		targetGenRole.generate(rootDir, helperDir, model.getSource());
-
-		// also for subclasses
-		for (Clazz kidClass : model.getOtherClazz().getKidClazzes(true)) {
-			if (GraphUtil.isInterface(kidClass)) {
-				continue;
-			}
-
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getOtherClazz());
-			GenAssociation otherGen = this.getGenerator(model.getOther());
-			otherGen.generate(kidClass, rootDir, helperDir, model, !needsImplementation);
-		}
 		return this;
 	}
+	
+	void fixSubclasses(Association assoc, String rootDir, String helperDir) {
+		Clazz clazz = assoc.getClazz();
+		ClazzSet allClazzes = new ClazzSet();
+		if(GraphUtil.isInterface(clazz)) {
+			allClazzes.addAll(clazz.getImplements());
+		} else {
+			allClazzes.add(clazz);
+		}
+		for(Clazz child : allClazzes) {
+			ClazzSet kids = child.getKidClazzes(true);
+	
+			for (Clazz kidClass : kids) {
+				if (GraphUtil.isInterface(kidClass)) {
+					continue;
+				}
+				boolean needsImplementation = kidClass.getInterfaces(false).contains(assoc.getClazz());
+				// GenAssociation otherGen = this.getGenerator(model.getOther());
+				this.generate(kidClass, rootDir, helperDir, assoc.getOther(), !needsImplementation);
+			}
+		}
+	}
+	
 }

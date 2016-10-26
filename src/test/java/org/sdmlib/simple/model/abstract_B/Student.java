@@ -19,10 +19,10 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.simple.model.abstract_A;
+package org.sdmlib.simple.model.abstract_B;
 
-import org.sdmlib.simple.model.abstract_A.Person;
-import org.sdmlib.simple.model.abstract_A.Human;
+import org.sdmlib.simple.model.abstract_B.Flower;
+import org.sdmlib.simple.model.abstract_B.Person;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
@@ -36,7 +36,6 @@ import org.sdmlib.simple.model.abstract_A.Human;
    @Override
    public void removeYou()
    {
-      setOwner(null);
       setHas(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }

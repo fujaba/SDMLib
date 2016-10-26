@@ -412,7 +412,9 @@ public class GenClass extends GenClazzEntity
             for (Association assoc : interfaze.getAssociations()) {
             	if (assoc.getOther().getType().equals(AssociationTypes.IMPLEMENTS) == false) {
             		assoc.with(new Annotation("Override"));
-            		getGenerator(assoc).generate(clazz, rootDir, helpersDir, assoc.getOther(), false);
+            		GenAssociation generator = getGenerator(assoc);
+            		generator.generate(clazz, rootDir, helpersDir, assoc.getOther(), false);
+            		generator.fixSubclasses(assoc, rootDir, helpersDir);
             	}
             }
             

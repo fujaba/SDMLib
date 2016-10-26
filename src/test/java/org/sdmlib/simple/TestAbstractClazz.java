@@ -25,5 +25,24 @@ public class TestAbstractClazz {
 		
 		model.getGenerator().testGeneratedCode();
 	}
+	
+	@Test
+	public void testAbstractClazzB() {
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.abstract_B");
+		Clazz person = model.createClazz("Person");
+		Clazz flower = model.createClazz("Flower");
+		
+		Clazz human = model.createClazz("Human");
+		human.enableInterface();
+		human.withBidirectional(flower, "has", Cardinality.ONE, "owner", Cardinality.ONE);
+		
+		person.withSuperClazz(human);
+		person.with(Modifier.ABSTRACT);
+		
+		Clazz student = model.createClazz("Student");
+		student.withSuperClazz(person);
+		
+		model.getGenerator().testGeneratedCode();
+	}
 }
 
