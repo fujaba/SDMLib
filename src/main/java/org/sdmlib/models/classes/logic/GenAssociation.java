@@ -1665,7 +1665,10 @@ public class GenAssociation extends Generator<Association>
 
 		// also for subclasses
 		Clazz clazz = model.getClazz();
-		for (Clazz kidClass : clazz.getKidClazzes(true)) {
+		ClazzSet kids = clazz.getKidClazzes(true);
+		// Other subClasses
+		kids.addAll(model.getOtherClazz().getKidClazzes(true));
+		for (Clazz kidClass : kids) {
 			if (GraphUtil.isInterface(kidClass)) {
 				continue;
 			}

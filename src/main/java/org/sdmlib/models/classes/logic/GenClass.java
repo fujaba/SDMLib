@@ -120,7 +120,7 @@ public class GenClass extends GenClazzEntity
             // now generate the corresponding PatterObject class
             getOrCreateParserForPatternObjectFile(helpersDir);
             printFile(patternObjectParser);
-
+            
             // now generate the corresponding PatterObjectCreator class
             getOrCreateParserForPatternObjectCreatorFile(helpersDir);
             printFile(patternObjectCreatorParser);
