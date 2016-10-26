@@ -293,11 +293,17 @@ Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 	if (node.attributes) {
 		first = true;
 		for (z = 0; z < node.attributes.length; z += 1) {
-			cell = this.createCell(item, "td", node, node.attributes[z], "attribute");
+			var color="";
+			var attr = node.attributes[z];
+			if(attr.indexOf("[")>=0){
+				color = " " + attr.substring(attr.indexOf("[")+1, attr.indexOf("]"));
+				attr = attr.substring(0, attr.indexOf("["))+attr.substring(attr.indexOf("]")+1);
+			}
+			cell = this.createCell(item, "td", node, attr, "attribute");
 			if (!first) {
-				cell.className = 'attributes';
+				cell.className = 'attributes'+color;
 			} else {
-				cell.className = 'attributes first';
+				cell.className = 'attributes first'+color;
 				first = false;
 			}
 		}

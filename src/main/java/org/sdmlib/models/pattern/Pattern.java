@@ -40,39 +40,28 @@ import org.sdmlib.models.tables.Table;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternElement;
+
 /**
  * 
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
-public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
+public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInterface, Iterable<Match>
 {
    public static final String CREATE = "create";
+
    public static final String DESTROY = "destroy";
+
    public static final String BOUND = "bound";
 
    private IdMap idMap;
+
    private GuiAdapter adapter;
+
 
    public GuiAdapter getAdapter()
    {
@@ -84,10 +73,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return adapter;
    }
 
+
    public IdMap getIdMap()
    {
       return idMap;
    }
+
 
    public void setIdMap(IdMap idMap)
    {
@@ -112,6 +103,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       this.findMatch();
    }
 
+
    // ==========================================================================
 
    public Pattern(IdMap createIdMap)
@@ -120,10 +112,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       setHasMatch(true);
    }
 
+
    public Pattern()
    {
       hasMatch = true;
    }
+
 
    public MP startCreate()
    {
@@ -131,11 +125,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return (MP) this;
    }
 
+
    public MP endCreate()
    {
       this.setModifier(null);
       return (MP) this;
    }
+
 
    public MP startNAC()
    {
@@ -151,17 +147,20 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return (MP) this;
    }
 
+
    public MP startDestroy()
    {
       this.setModifier(Pattern.DESTROY);
       return (MP) this;
    }
 
+
    public MP endDestroy()
    {
       this.setModifier(null);
       return (MP) this;
    }
+
 
    public MP matchIsomorphic()
    {
@@ -173,6 +172,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       return (MP) this;
    }
+
 
    // ==========================================================================
    public int allMatches()
@@ -189,14 +189,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       return result;
    }
-   
-   
+
+
    public Table createResultTable()
    {
       Table result = new Table();
-      
+
       SimpleSet<PatternObject> patternObjects = new SimpleSet<PatternObject>();
-      
+
       // add columns for pattern objects
       for (PatternElement elem : this.getElements())
       {
@@ -206,36 +206,38 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             patternObjects.add((PatternObject) elem);
          }
       }
-      
-      while(this.getHasMatch())
+
+      while (this.getHasMatch())
       {
          Row newRow = result.createRows();
-         
+
          Iterator<Column> colIter = result.getColumns().iterator();
          for (PatternObject po : patternObjects)
          {
             Column col = colIter.next();
             Cell newCell = newRow.createCells()
-                  .withColumn(col)
-                  .withValue(po.getCurrentMatch());
-            
+               .withColumn(col)
+               .withValue(po.getCurrentMatch());
+
          }
-         
+
          this.findNextMatch();
       }
-      
+
       return result;
    }
 
+
    public boolean rebind(PatternObject boundObject, Object value)
    {
-	  // set Modifier
-	  boundObject.setModifier(BOUND);
-	  
+      // set Modifier
+      boundObject.setModifier(BOUND);
+
       boundObject.setCurrentMatch(value);
       this.resetSearch();
       return this.findMatch();
    }
+
 
    public boolean findMatch()
    {
@@ -284,12 +286,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return getHasMatch();
    }
 
+
    public boolean findNextMatch()
    {
       return findMatch();
    }
 
    private boolean restartSearchAtIndex0 = false;
+
 
    public void resetSearch()
    {
@@ -303,16 +307,15 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    // ==========================================================================
 
    public void removeYou()
    {
       removeAllFromElements();
       setPattern(null);
-      setRgraph(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
-      setCurrentSubPattern(null);
-      firePropertyChange("REMOVE_YOU", this, null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    /********************************************************************
@@ -326,7 +329,9 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    public static final String PROPERTY_ELEMENTS = "elements";
 
    private PatternElementSet elements = null;
+
    private int objNo;
+
 
    public PatternElementSet getElements()
    {
@@ -337,6 +342,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       return this.elements;
    }
+
 
    public boolean addToElements(PatternElement value)
    {
@@ -364,7 +370,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
 
                if (value instanceof PatternObject || value instanceof Pattern)
-               {  
+               {
                   getTopPattern().incrementPatternObjectCount();
                }
             }
@@ -379,6 +385,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       return changed;
    }
+
 
    public boolean removeFromElements(PatternElement value)
    {
@@ -398,17 +405,20 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return changed;
    }
 
+
    public MP withElements(PatternElement value)
    {
       addToElements(value);
       return (MP) this;
    }
 
+
    public MP withoutElements(PatternElement value)
    {
       removeFromElements(value);
       return (MP) this;
    }
+
 
    public void removeAllFromElements()
    {
@@ -420,12 +430,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    public String getPOClassName(String modelClassName)
    {
       int pos = modelClassName.lastIndexOf('.');
       return modelClassName.substring(0, pos + 1) + "creators."
          + modelClassName.substring(pos + 1, modelClassName.length()) + "PO";
    }
+
 
    public PatternObject bind(Object hostGraphObject)
    {
@@ -441,46 +453,47 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return po;
    }
 
+
    public String dumpDiagram(String diagramName)
    {
       return dumpDiagram(diagramName, true);
    }
 
+
    public String dumpDiagram(String diagramName, boolean showMatch)
    {
       JsonObject result = new JsonObject();
-      
+
       result.put("typ", "object");
-      
+
       JsonArray nodes = new JsonArray();
-      
+
       result.put("nodes", nodes);
-      
+
       JsonArray edges = new JsonArray();
-      
+
       result.put("edges", edges);
-      
+
       LinkedHashMap<PatternObject, String> nameMap = new LinkedHashMap<PatternObject, String>();
-      
+
       addNodesToDiagram(this.elements, nodes, nameMap);
 
       addEdgesToDiagram(this.elements, edges, nameMap);
 
-      
-      String text =
-            "<script>\n" +
-               "   var json = " +
-               result.toString(3) +
-               "   ;\n" +
-               "   json[\"options\"]={\"canvasid\":\"canvas" + diagramName + "\", "
-               + "\"display\":\"html\", "
-               + "\"fontsize\":10,"
-               + "\"bar\":true};" +
-               "   var g = new Graph(json);\n" +
-               "   g.layout(100,100);\n" +
-               "</script>\n";      
+      String text = "<script>\n" +
+         "   var json = " +
+         result.toString(3) +
+         "   ;\n" +
+         "   json[\"options\"]={\"canvasid\":\"canvas" + diagramName + "\", "
+         + "\"display\":\"html\", "
+         + "\"fontsize\":10,"
+         + "\"bar\":true};" +
+         "   var g = new Graph(json);\n" +
+         "   g.layout(100,100);\n" +
+         "</script>\n";
       return text;
    }
+
 
    private void addEdgesToDiagram(PatternElementSet elements, JsonArray edges, LinkedHashMap<PatternObject, String> nameMap)
    {
@@ -489,38 +502,51 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          if (elem instanceof PatternLink)
          {
             PatternLink link = (PatternLink) elem;
-            
+
             PatternObject src = link.getSrc();
             PatternObject tgt = link.getTgt();
-            
+
             JsonObject edge = new JsonObject();
             edges.add(edge);
-            
+
             edge.put("typ", "EDGE");
-            
+
             JsonObject role = new JsonObject();
             edge.put("source", role);
-            
+
             // role.put("cardinality", "one");
             role.put("property", " ");
             role.put("id", nameMap.get(src));
-            
+
             role = new JsonObject();
             edge.put("target", role);
+
+            String modifier = link.getModifier();
+            if (Pattern.CREATE.equals(modifier))
+            {
+               edge.put("style", "create");
+
+            }
+            else if (Pattern.DESTROY.equals(modifier))
+            {
+               edge.put("style", Pattern.DESTROY);
+
+            }
 
             // role.put("cardinality", "one");
             role.put("property", link.getTgtRoleName());
             role.put("id", nameMap.get(tgt));
-            
-         } 
+
+         }
          else if (elem instanceof Pattern)
          {
             Pattern subPattern = (Pattern) elem;
             addEdgesToDiagram(subPattern.getElements(), edges, nameMap);
          }
-         
+
       }
    }
+
 
    private void addNodesToDiagram(PatternElementSet elements, JsonArray nodes, LinkedHashMap<PatternObject, String> nameMap)
    {
@@ -529,35 +555,45 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          if (elem instanceof PatternObject)
          {
             PatternObject po = (PatternObject) elem;
-            
+
             JsonObject node = new JsonObject();
             node.put("typ", "patternObject");
-            
+
+            String modifier = po.getModifier();
+            if (Pattern.CREATE.equals(modifier))
+            {
+               node.put("style", Pattern.CREATE);
+
+            }
+            else if (Pattern.DESTROY.equals(modifier))
+            {
+               node.put("style", Pattern.DESTROY);
+
+            }
+
             String shortClassName = CGUtil.shortClassName(po.getClass().getName());
             String firstChar = shortClassName.substring(0, 1).toLowerCase();
-            
+
             int num = nameMap.size() + 1;
-            
+
             String jsonId = firstChar + num + " : " + shortClassName;
-            
-            
+
             node.put("id", jsonId);
-            
-            
+
             nameMap.put(po, jsonId);
-            
+
             JsonArray attrs = new JsonArray();
-            
+
             if (num == 1)
             {
                attrs.add("<< start >>");
             }
-            
+
             if (po.getModifier() != null)
             {
                attrs.add("<< " + po.getModifier() + ">>");
             }
-            
+
             for (AttributeConstraint attr : po.getAttrConstraints())
             {
                if (attr.getUpperTgtValue() != null)
@@ -569,39 +605,37 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                   attrs.add("" + attr.getAttrName() + " == " + attr.getTgtValue());
                }
             }
-            
-            
+
             node.put("attributes", attrs);
-            
+
             nodes.add(node);
-         } 
+         }
          else if (elem instanceof Pattern)
          {
             Pattern subPattern = (Pattern) elem;
-            
+
             // add subgraph
             JsonObject node = new JsonObject();
             node.put("typ", "objectdiagram");
             node.put("style", "nac");
             node.put("info", CGUtil.shortClassName(subPattern.getClass().getName()));
             nodes.add(node);
-            
+
             JsonArray subNodes = new JsonArray();
-            
+
             node.put("nodes", subNodes);
-            
+
             // JsonArray edges = new JsonArray();
             // node.put("edges", edges);
-            
-            
+
             addNodesToDiagram(subPattern.getElements(), subNodes, nameMap);
-            
-            System.out.println("");
+
          }
-         
+
       }
    }
-   
+
+
    public String dumpDiagramOld(String diagramName, boolean showMatch)
    {
       objNo = 0;
@@ -650,8 +684,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             }
 
             StringBuilder oneEdgeLine = new StringBuilder(
-                  "<srcId> -- <tgtId> [headlabel = \"headText\" taillabel = \"tailText\" color=\"black\" fontcolor=\"black\"];\n"
-                  );
+                  "<srcId> -- <tgtId> [headlabel = \"headText\" taillabel = \"tailText\" color=\"black\" fontcolor=\"black\"];\n");
 
             String tgtRoleName = patLink.getTgtRoleName();
             if (tgtRoleName == null)
@@ -670,8 +703,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                "<tgtId>", nameForPatElem(patLink.getTgt()),
                "headText", tgtRoleName,
                "tailText", srcRoleName,
-               "black", color
-               );
+               "black", color);
 
             edgeBuilder.append(oneEdgeLine.toString());
          }
@@ -693,6 +725,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       return imgLink;
    }
+
 
    public PatternElementSet getElementsTransitive(PatternElementSet result)
    {
@@ -716,6 +749,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    private GenericConstraint previousConstraint = null;
 
+
    public void dumpPatternObjects(StringBuilder nodeBuilder,
          StringBuilder edgeBuilder, boolean showMatch,
          LinkedHashSet<Object> matchedObjects)
@@ -728,13 +762,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          {
             PatternObject patObject = (PatternObject) patElem;
 
-            StringBuilder nodeLine = new StringBuilder
-                  (
-                        "<id> [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> "
-                           +
-                           "<modifier> <tr> <td align='center'> <font color='black'> <id> :<classname> </font></td></tr> "
-                           +
-                           "<tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];\n");
+            StringBuilder nodeLine = new StringBuilder(
+                  "<id> [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> "
+                     +
+                     "<modifier> <tr> <td align='center'> <font color='black'> <id> :<classname> </font></td></tr> "
+                     +
+                     "<tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];\n");
 
             String id = nameForPatElem(patObject);
 
@@ -755,8 +788,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                "<id>", id,
                "<classname>", CGUtil.shortClassName(patElem.getClass().getName()),
                "black", color,
-               "<modifier>", modifier
-               );
+               "<modifier>", modifier);
 
             if (!patObject.getAttrConstraints().isEmpty())
             {
@@ -766,8 +798,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                for (AttributeConstraint attrConstr : patObject.getAttrConstraints())
                {
                   StringBuilder oneAttrLine = new StringBuilder(
-                        "<tr><td><font color='black'> attrName Op value </font></td></tr>"
-                        );
+                        "<tr><td><font color='black'> attrName Op value </font></td></tr>");
 
                   String op = "==";
                   color = "black";
@@ -784,9 +815,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                   }
 
                   Object tgtValue = attrConstr.getTgtValue();
-                  String value = "" + (tgtValue instanceof String ?
-                        "\"" + tgtValue + "\"" :
-                        tgtValue);
+                  String value = "" + (tgtValue instanceof String ? "\"" + tgtValue + "\"" : tgtValue);
 
                   if (attrConstr.getUpperTgtValue() != null)
                   {
@@ -798,8 +827,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                      "attrName", attrConstr.getAttrName(),
                      "black", color,
                      "Op", op,
-                     "value", value
-                     );
+                     "value", value);
 
                   allAttrLines.append(oneAttrLine.toString());
                }
@@ -813,8 +841,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             {
                // add an "allMatches" node and a link to the current patObject
                StringBuilder allMatchesBuilder = new StringBuilder(
-                     "allMatches_patElemId [label=allMatches];\n"
-                     );
+                     "allMatches_patElemId [label=allMatches];\n");
 
                CGUtil.replaceAll(allMatchesBuilder,
                   "patElemId", id);
@@ -1027,6 +1054,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    private String nameForPatElem(Object patElem)
    {
       if (patElem instanceof PatternObject)
@@ -1040,6 +1068,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
       return getIdMap().getId(patElem).split("\\.")[1].toLowerCase();
    }
+
 
    private void dumpDiagram(String diagramName, String fileText)
    {
@@ -1057,10 +1086,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    private Pattern currentSubPattern;
 
+
    public Pattern getCurrentSubPattern()
    {
       return this.currentSubPattern;
    }
+
 
    public void setCurrentSubPattern(Pattern value)
    {
@@ -1071,6 +1102,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTSUBPATTERN, oldValue, value);
       }
    }
+
 
    public MP withCurrentSubPattern(Pattern value)
    {
@@ -1084,10 +1116,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    private int debugMode;
 
+
    public int getDebugMode()
    {
       return this.debugMode;
    }
+
 
    public void setDebugMode(int value)
    {
@@ -1104,11 +1138,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    public MP withDebugMode(int value)
    {
       setDebugMode(value);
       return (MP) this;
    }
+
 
    public String toString()
    {
@@ -1125,10 +1161,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    // ==========================================================================
    private int patternObjectCount = 0;
 
+
    public int getPatternObjectCount()
    {
       return patternObjectCount;
    }
+
 
    public void incrementPatternObjectCount()
    {
@@ -1136,6 +1174,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    }
 
    private LinkedHashSet<String> variablesAlreadyInTrace;
+
 
    public LinkedHashSet<String> getVariablesAlreadyInTrace()
    {
@@ -1150,10 +1189,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    private StringBuilder trace;
 
+
    public StringBuilder getTrace()
    {
       return this.trace;
    }
+
 
    public void setTrace(StringBuilder value)
    {
@@ -1165,6 +1206,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    public MP withTrace(StringBuilder value)
    {
       setTrace(value);
@@ -1172,6 +1214,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    }
 
    public static int traceLength = 0;
+
 
    public MP addLogMsg(String msg)
    {
@@ -1203,80 +1246,26 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public static final PatternSet EMPTY_SET = new PatternSet();
 
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Pattern ----------------------------------- ReachabilityGraph
-    *              rules                   rgraph
-    * </pre>
-    */
-
-   public static final String PROPERTY_RGRAPH = "rgraph";
-
-   private ReachabilityGraph rgraph = null;
-
-   public ReachabilityGraph getRgraph()
-   {
-      return this.rgraph;
-   }
-
-   public boolean setRgraph(ReachabilityGraph value)
-   {
-      boolean changed = false;
-
-      if (this.rgraph != value)
-      {
-         ReachabilityGraph oldValue = this.rgraph;
-
-         if (this.rgraph != null)
-         {
-            this.rgraph = null;
-            oldValue.withoutRules(this);
-         }
-
-         this.rgraph = value;
-
-         if (value != null)
-         {
-            value.withRules(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_RGRAPH, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Pattern withRgraph(ReachabilityGraph value)
-   {
-      setRgraph(value);
-      return this;
-   }
-
-   public ReachabilityGraph createRgraph()
-   {
-      ReachabilityGraph value = new ReachabilityGraph();
-      withRgraph(value);
-      return value;
-   }
-
    // ==========================================================================
 
    public static final String PROPERTY_NAME = "name";
 
    private String name;
+
    private boolean riskConcurrentModification;
+
 
    public boolean getRiskConcurrentModification()
    {
       return this.riskConcurrentModification;
    }
 
+
    public String getName()
    {
       return this.name;
    }
+
 
    public void setName(String value)
    {
@@ -1288,11 +1277,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       }
    }
 
+
    public Pattern withName(String value)
    {
       setName(value);
       return this;
    }
+
 
    @Override
    public Iterator<Match> iterator()
@@ -1303,6 +1294,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          private boolean needsNewMatch = false;
 
          int i = 0;
+
 
          @Override
          public boolean hasNext()
@@ -1316,6 +1308,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             return getHasMatch();
          }
 
+
          @Override
          public Match next()
          {
@@ -1323,6 +1316,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             i++;
             return new Match().withNumber(i);
          }
+
 
          @Override
          public void remove()
@@ -1332,6 +1326,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
       };
    }
+
 
    public Pattern withElements(PatternElement... value)
    {
@@ -1346,6 +1341,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return this;
    }
 
+
    public Pattern withoutElements(PatternElement... value)
    {
       for (PatternElement item : value)
@@ -1355,6 +1351,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return this;
    }
 
+
    public PatternElement createElements()
    {
       PatternElement value = new PatternElement();
@@ -1362,11 +1359,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public MP withRiskConcurrentModification(boolean riskConcurrentModification)
    {
       this.riskConcurrentModification = riskConcurrentModification;
       return (MP) this;
    }
+
 
    public PatternObject has(PatternObject po)
    {
@@ -1377,12 +1376,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return (PatternObject) po;
    }
 
+
    public PatternElement createElementsPattern()
    {
       PatternElement value = new Pattern();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsPatternObject()
    {
@@ -1391,12 +1392,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsPatternLink()
    {
       PatternElement value = new PatternLink();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsAttributeConstraint()
    {
@@ -1405,12 +1408,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsMatchIsomorphicConstraint()
    {
       PatternElement value = new MatchIsomorphicConstraint();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsCloneOp()
    {
@@ -1419,12 +1424,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsUnifyGraphsOp()
    {
       PatternElement value = new UnifyGraphsOp();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsDestroyObjectElem()
    {
@@ -1433,12 +1440,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsCardinalityConstraint()
    {
       PatternElement value = new CardinalityConstraint();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsMatchOtherThen()
    {
@@ -1447,12 +1456,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsGenericConstraint()
    {
       PatternElement value = new GenericConstraint();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsNegativeApplicationCondition()
    {
@@ -1461,12 +1472,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternElement createElementsOptionalSubPattern()
    {
       PatternElement value = new OptionalSubPattern();
       withElements(value);
       return value;
    }
+
 
    public PatternElement createElementsLinkConstraint()
    {
@@ -1475,12 +1488,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public Pattern createPattern()
    {
       Pattern value = new Pattern();
       withElements(value);
       return value;
    }
+
 
    public PatternObject createPatternObject()
    {
@@ -1489,12 +1504,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public PatternLink createPatternLink()
    {
       PatternLink value = new PatternLink();
       withElements(value);
       return value;
    }
+
 
    public AttributeConstraint createAttributeConstraint()
    {
@@ -1503,6 +1520,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public MatchIsomorphicConstraint createMatchIsomorphicConstraint()
    {
       MatchIsomorphicConstraint value = new MatchIsomorphicConstraint();
@@ -1510,12 +1528,15 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public CloneOp createCloneOp()
    {
       CloneOp value = new CloneOp();
       withElements(value);
+      this.findMatch();
       return value;
    }
+
 
    public UnifyGraphsOp createUnifyGraphsOp()
    {
@@ -1524,12 +1545,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public DestroyObjectElem createDestroyObjectElem()
    {
       DestroyObjectElem value = new DestroyObjectElem();
       withElements(value);
       return value;
    }
+
 
    public CardinalityConstraint createCardinalityConstraint()
    {
@@ -1538,12 +1561,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public MatchOtherThen createMatchOtherThen()
    {
       MatchOtherThen value = new MatchOtherThen();
       withElements(value);
       return value;
    }
+
 
    public GenericConstraint createGenericConstraint()
    {
@@ -1552,12 +1577,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public NegativeApplicationCondition createNegativeApplicationCondition()
    {
       NegativeApplicationCondition value = new NegativeApplicationCondition();
       withElements(value);
       return value;
    }
+
 
    public OptionalSubPattern createOptionalSubPattern()
    {
@@ -1566,23 +1593,11 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return value;
    }
 
+
    public LinkConstraint createLinkConstraint()
    {
       LinkConstraint value = new LinkConstraint();
       withElements(value);
       return value;
    }
-   public PatternSet getCurrentSubPatternTransitive()
-   {
-      PatternSet result = new PatternSet().with(this);
-      return result.getCurrentSubPatternTransitive();
-   }
-
-
-   public Pattern createCurrentSubPattern()
-   {
-      Pattern value = new Pattern();
-      withCurrentSubPattern(value);
-      return value;
-   } 
 }

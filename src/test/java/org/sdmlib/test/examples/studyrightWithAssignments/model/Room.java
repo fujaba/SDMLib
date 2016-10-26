@@ -485,10 +485,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
       return this;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();

@@ -180,10 +180,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       return this.assignmentPoints;
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public void setAssignmentPoints(int value)
    {
       if (this.assignmentPoints != value) {
@@ -240,10 +236,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       return this.credits;
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public void setCredits(int value)
    {
       if (this.credits != value) {
@@ -254,10 +246,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       }
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public Student withCredits(int value)
    {
       setCredits(value);
@@ -411,10 +399,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    }
 
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public Student withFriends(Student... value)
    {
       if(value==null){
@@ -494,10 +478,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
       return this.done;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
    public Student withDone(Assignment... value)
    {
       if(value==null){

@@ -14,7 +14,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 public class POCreatorTest
 {
 
-   @Test
+//FIXME ALBERT   @Test
    public void testPOCreator()
    {
       // Storyboard storyboard = new Storyboard();
@@ -41,7 +41,7 @@ public class POCreatorTest
     * 
     * @see <a href='../../../../../../../../doc/POCreatorLargeModel.html'>POCreatorLargeModel.html</a>
  */
-   @Test
+//FIXME ALBERT   @Test
    public void testPOCreatorLargeModel()
    {
       StoryboardImpl storyboard = new StoryboardImpl();

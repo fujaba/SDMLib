@@ -215,6 +215,9 @@ public class Javascript implements GuiAdapter
 	   		  } else {
 	   			  assoc = child;
 	   		  }
+	    	  if(assoc.getOtherClazz() == null) {
+	    		  continue;
+	    	  }
 	         JsonObject jsonAssoc = new JsonObject();
 	         jsonAssoc.put("typ", assoc.getType().toString());
 	         

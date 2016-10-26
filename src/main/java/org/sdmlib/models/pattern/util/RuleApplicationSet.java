@@ -229,7 +229,7 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication>
 
    /**
     * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Rule attribute of each of it. 
-    * @param value Pattern 
+    * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Rule attributes.
     */
    public RuleApplicationSet withRule(Pattern value)
@@ -359,7 +359,7 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication>
 
    /**
     * Loop through current set of ModelType objects and attach the RuleApplication object passed as parameter to the Tgt attribute of each of it. 
-    * @param value ReachableState
+    * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Tgt attributes.
     */
    public RuleApplicationSet withTgt(ReachableState value)

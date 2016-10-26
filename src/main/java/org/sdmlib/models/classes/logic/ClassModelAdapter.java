@@ -15,9 +15,9 @@ public interface ClassModelAdapter {
 
 	public Clazz getOrCreateClazz(String className);
 
-	public boolean removeFromAssociations(Association association);
+//	public boolean removeFromAssociations(Association association);
 
-	public boolean addToAssociations(Association association);
+//	public boolean addToAssociations(Association association);
 
 	public void setModel(ClassModel object);
 	
