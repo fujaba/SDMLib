@@ -1031,7 +1031,7 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "TargetType", targetType,
-            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser),
+            "ModelClass", getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser),
             "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
@@ -1070,7 +1070,7 @@ public class GenAssociation extends Generator<Association>
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
          
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
          if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
@@ -1127,7 +1127,7 @@ public class GenAssociation extends Generator<Association>
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
          
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
          if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
@@ -1176,7 +1176,7 @@ public class GenAssociation extends Generator<Association>
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
@@ -1218,7 +1218,7 @@ public class GenAssociation extends Generator<Association>
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
@@ -1377,7 +1377,7 @@ public class GenAssociation extends Generator<Association>
          
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
-         String shortClassName = CGUtil.shortClassName(model.getClazz().getName(false));
+         String shortClassName = CGUtil.shortClassName(clazz.getName(false));
          
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
@@ -1691,7 +1691,7 @@ public class GenAssociation extends Generator<Association>
 				if (GraphUtil.isInterface(kidClass)) {
 					continue;
 				}
-				boolean needsImplementation = kidClass.getInterfaces(false).contains(assoc.getClazz());
+				boolean needsImplementation = kidClass.getInterfaces(false).contains(child);
 				// GenAssociation otherGen = this.getGenerator(model.getOther());
 				this.generate(kidClass, rootDir, helperDir, assoc.getOther(), !needsImplementation);
 			}
