@@ -645,7 +645,6 @@ public class GenClassModel implements ClassModelAdapter
                + "() {\n"
                + "      	ClassModel clazzModel = new ClassModel(\"" + model.getName() + "\");\n");
          modelCreationParser.insert(currentInsertPos, "      }\n");
-
       }
       else
       {
@@ -671,7 +670,10 @@ public class GenClassModel implements ClassModelAdapter
       completeImports();
 
       writeToFile(modelCreationClass);
+      modelCreationParser.insertImport("org.junit.Test");
+      modelCreationParser.insertImport(ClassModel.class.getName());
 
+      writeToFile(modelCreationClass);
    }
 
    public void insertModelCreationCodeHere(String rootDir)
@@ -853,7 +855,7 @@ public class GenClassModel implements ClassModelAdapter
          // set interface
          currentInsertPos = insertCreationCode("\n       /*set interface*/", currentInsertPos, modelCreationClass);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
-         StringBuilder text = new StringBuilder("      .withInterface(true)");
+         StringBuilder text = new StringBuilder("      .enableInterface()");
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass);
          currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
@@ -864,7 +866,7 @@ public class GenClassModel implements ClassModelAdapter
       // check has interfaces
       for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (!checkSuper(interfaze, entry, "withInterfaces"))
+         if (!checkSuper(interfaze, entry, "enableInterfaces"))
          {
             // writeToFile(modelCreationClass);
             // find insert position
@@ -900,7 +902,7 @@ public class GenClassModel implements ClassModelAdapter
 
             // find insert position
             String tokenString = entry.getInitSequence().get(0).get(0);
-            if (tokenString.endsWith(".withAssoc"))
+            if (tokenString.endsWith(".withBidirectional"))
             {
                boolean found = false;
                // attributes belong to a separate
@@ -1074,7 +1076,7 @@ public class GenClassModel implements ClassModelAdapter
 
             for (ArrayList<String> subSequence : sequence)
             {
-               if ("withAssoc".equals(subSequence.get(0)))
+               if ("withBidirectional".equals(subSequence.get(0)))
                {
 
                   String className = sequence.get(0).get(1);
@@ -1098,7 +1100,7 @@ public class GenClassModel implements ClassModelAdapter
 
       for (StatementEntry stat : getOrCreateClazz(modelCreationClass).getParser().getStatementList().getBodyStats())
       {
-         if (stat.getTokenList().get(0).endsWith(".withAssoc")
+         if (stat.getTokenList().get(0).endsWith(".withBidirectional")
                || stat.getTokenList().get(0).endsWith(".createClassAndAssoc"))
          {
             // looks like sourceClass.withAssoc(targetClass, "targetRole",
@@ -1116,7 +1118,7 @@ public class GenClassModel implements ClassModelAdapter
                classVar = stat.getTokenList().get(2);
                localVarTableEntry = localVarTable.get(classVar);
 
-               if (stat.getTokenList().get(0).endsWith(".withAssoc"))
+               if (stat.getTokenList().get(0).endsWith(".withBidirectional"))
                   classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
                else
                   classNameFromText = stat.getTokenList().get(2).replaceAll("\"", ""); //
@@ -1387,7 +1389,7 @@ public class GenClassModel implements ClassModelAdapter
                      token = init.get(j);
                      if (!token.equals(searchParam.getType().toString()))
                      {
-                        if (!token.equals("DataType.ref")
+                        if (!token.equals("DataType.create")
                               || !init.get(j + 1).equals(("\"" + searchParam.getType().getName(false) + "\"")))
                            return false;
                         else
@@ -1423,10 +1425,10 @@ public class GenClassModel implements ClassModelAdapter
 
       String type = "";
 
-      if (typeString.startsWith("DataType.ref"))
+      if (typeString.startsWith("DataType.create"))
       {
 
-         String typeSplit = typeString.substring("DataType.ref".length() + 1, typeString.length() - 1);
+         String typeSplit = typeString.substring("DataType.create".length() + 1, typeString.length() - 1);
 
          // DataType.create("String")
          if (typeSplit.startsWith("\""))
@@ -1634,7 +1636,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       boolean format = false;
-
+      HashSet<Clazz> parkingClazz=new HashSet<Clazz>();
       while (!clazzQueue.isEmpty())
       {
          Clazz clazz = clazzQueue.iterator().next();
@@ -1654,7 +1656,8 @@ public class GenClassModel implements ClassModelAdapter
             // insert code for new Clazz()
             if (!checkDependencies(clazz, handledClazzes))
             {
-               clazzQueue.add(clazz);
+            	parkingClazz.add(clazz);
+            	continue;
             }
             else
             {
@@ -1669,6 +1672,10 @@ public class GenClassModel implements ClassModelAdapter
                      refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos);
             }
             writeToFile(modelCreationClass);
+            if(parkingClazz.size()>0) {
+            	clazzQueue.addAll(parkingClazz);
+            	parkingClazz.clear();
+            }
          }
       }
       return currentInsertPos;
@@ -1733,8 +1740,11 @@ public class GenClassModel implements ClassModelAdapter
       CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
             "className", modelClassName);
 
-      currentInsertPos = checkImport(Clazz.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
-      return insertCreationCode(text, currentInsertPos, modelCreationClass);
+      int result = insertCreationCode(text, currentInsertPos, modelCreationClass);
+      GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
+      addImportForClazz(Clazz.class.getName(), genCreationClass);
+      writeToFile(modelCreationClass);
+      return result;
    }
 
    private int insertCreationSuperClassCode(int currentInsertPos, String superClassName, Clazz modelCreationClass,
@@ -1757,7 +1767,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private int insertCreationIsInterfaceCode(int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
-      StringBuilder text = new StringBuilder("      .withInterface(true)");
+      StringBuilder text = new StringBuilder("      .enableInterface()");
       return insertCreationCode(text, currentInsertPos, modelCreationClass);
    }
 
@@ -1785,6 +1795,8 @@ public class GenClassModel implements ClassModelAdapter
             "attributeInit", initialization);
 
       addImportForClazz(Attribute.class.getName(), genCreationClass);
+      addImportForClazz(DataType.class.getName(), genCreationClass);
+      writeToFile(modelCreationClass);
       return currentInsertPos + result.length();
    }
 
@@ -1812,7 +1824,7 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      Parser parser = getOrCreateClazz(modelCreationClass).getParser();
+      GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
 
       String clazzName = method.getClazz().getName(false);
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
@@ -1823,7 +1835,7 @@ public class GenClassModel implements ClassModelAdapter
          paString.append(", new Parameter(" + parameter.getType().toString() + ")");
       }
 
-      StringBuilder result = parser.replaceAll(currentInsertPos - 2, "\n" +
+      StringBuilder result = genCreationClass.getParser().replaceAll(currentInsertPos - 2, "\n" +
             "      .withMethod(\"METHODNAME\", Return_TypePARAMETERS)",
             "Return_Type", method.getReturnType().toString(),
             "PARAMETERS", paString.toString(),
@@ -1833,8 +1845,12 @@ public class GenClassModel implements ClassModelAdapter
       currentInsertPos += result.length();
       if (paString.length() > 0)
       {
-         currentInsertPos = checkImport(Parameter.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
+          addImportForClazz(Parameter.class.getName(), genCreationClass);
+          addImportForClazz(DataType.class.getName(), genCreationClass);
+//         currentInsertPos = checkImport(Parameter.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
+//         currentInsertPos = checkImport(DataType.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
       }
+      writeToFile(modelCreationClass);
       return currentInsertPos;
    }
 
@@ -1877,7 +1893,7 @@ public class GenClassModel implements ClassModelAdapter
          SymTabEntry symTabEntry)
    {
       StringBuilder text = new StringBuilder(
-            "\n      sourceClazz.withAssoc(targetClazz, \"targetName\", targetCard, \"sourceName\", sourceCard);\n");
+            "\n      sourceClazz.withBidirectional(targetClazz, \"targetName\", targetCard, \"sourceName\", sourceCard);\n");
 
       Association source = assoc;
       Association target = assoc.getOther();
@@ -1889,11 +1905,11 @@ public class GenClassModel implements ClassModelAdapter
          target = tempRole;
       }
 
-      String sourceCard = "Card." + source.getCardinality().getValue().toUpperCase();
+      String sourceCard = Cardinality.class.getSimpleName()+"." + source.getCardinality().toString().toUpperCase();
       String sourceName = source.getName();
       String sourceClazz = StrUtil.downFirstChar(source.getClazz().getName(true)) + "Class";
 
-      String targetCard = "Card." + target.getCardinality().getValue().toUpperCase();
+      String targetCard = Cardinality.class.getSimpleName()+"." + source.getCardinality().toString().toUpperCase();
       String targetName = target.getName();
       String targetClazz = StrUtil.downFirstChar(target.getClazz().getName(true)) + "Class";
 
@@ -1910,7 +1926,9 @@ public class GenClassModel implements ClassModelAdapter
       GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
       addImportForClazz(Cardinality.class.getName(), genCreationClass);
 
-      return insertCreationCode(text, currentInsertPos, modelCreationClass);
+      int result = insertCreationCode(text, currentInsertPos, modelCreationClass);
+      writeToFile(modelCreationClass);
+      return result;
    }
 
    private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classType)
@@ -1931,7 +1949,7 @@ public class GenClassModel implements ClassModelAdapter
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
       for (ArrayList<String> sequencePart : initSequence)
       {
-         if ("withInterface".equals(sequencePart.get(0)))
+         if ("enableInterface".equals(sequencePart.get(0)))
          {
             return true;
          }
