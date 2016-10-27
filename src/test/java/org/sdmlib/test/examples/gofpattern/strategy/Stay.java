@@ -38,6 +38,6 @@ import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
       super.removeYou();
 
       setSuccessor(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 }
