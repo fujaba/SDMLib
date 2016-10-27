@@ -83,7 +83,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
       setSuccessor(null);
       setBombermanstrategy(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
