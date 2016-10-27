@@ -46,7 +46,7 @@ import org.sdmlib.test.examples.studyright.model.Topic;
       super.removeYou();
       withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setTopic(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

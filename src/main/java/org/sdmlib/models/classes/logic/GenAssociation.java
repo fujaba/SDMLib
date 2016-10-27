@@ -524,7 +524,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
 
-            if (this.model.getType()==AssociationTypes.EDGE)
+            if (this.model.getType()==AssociationTypes.EDGE || GraphUtil.isInterface(partnerRole.getClazz()))
             {
                // uni directional assoc, do not call reverse
                setMeth = CGUtil.replaceAll(setMeth, 
@@ -594,14 +594,15 @@ public class GenAssociation extends Generator<Association>
       {
          if (!GraphUtil.isInterface(clazz))
          {
-            text.append 
-            (     "\n   public partnerClassName createPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      partnerClassName value = new realPartnerClassName();" +
-                  "\n      withPartnerRoleName(value);" +
-                  "\n      return value;" +
-                  "\n   } " +
-                  "\n");
+        	 if(GraphUtil.isInterface(partnerRole.getClazz()) == false) {
+	            text.append(     "\n   public partnerClassName createPartnerRoleName()" +
+	                  "\n   {" +
+	                  "\n      partnerClassName value = new realPartnerClassName();" +
+	                  "\n      withPartnerRoleName(value);" +
+	                  "\n      return value;" +
+	                  "\n   } " +
+	                  "\n");
+        	 }
          }
          else
          {
