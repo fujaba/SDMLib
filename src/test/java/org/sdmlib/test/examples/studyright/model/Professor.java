@@ -67,7 +67,7 @@ import org.sdmlib.test.examples.studyright.model.Topic;
       {
          int oldValue = this.PersNr;
          this.PersNr = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSNR, oldValue, value);
+         firePropertyChange(PROPERTY_PERSNR, oldValue, value);
       }
    }
    
