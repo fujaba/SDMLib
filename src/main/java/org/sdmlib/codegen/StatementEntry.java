@@ -98,7 +98,7 @@ import java.beans.PropertyChangeListener;
    {
       withoutBodyStats(this.getBodyStats().toArray(new StatementEntry[this.getBodyStats().size()]));
       setParent(null);
-      firePropertyChange("REMOVE_YOU", this, null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
