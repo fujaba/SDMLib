@@ -78,7 +78,7 @@ import org.sdmlib.models.objects.GenericLink;
    {
       withoutObjects(this.getObjects().toArray(new GenericObject[this.getObjects().size()]));
       withoutLinks(this.getLinks().toArray(new GenericLink[this.getLinks().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

@@ -83,7 +83,7 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
       setPlaceholder(null);
       setParentMatch(null);
        withoutSubMatches(this.getSubMatches().toArray(new Match[this.getSubMatches().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

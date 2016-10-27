@@ -111,7 +111,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       setCurrentSubPattern(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 

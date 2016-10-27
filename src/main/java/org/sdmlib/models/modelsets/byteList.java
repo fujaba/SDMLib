@@ -104,7 +104,7 @@ public class byteList extends ArrayList<Byte> implements PropertyChangeInterface
    //==========================================================================
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
 

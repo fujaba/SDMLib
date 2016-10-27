@@ -104,7 +104,7 @@ public class GenericConstraint extends PatternElement<GenericConstraint>implemen
       super.removeYou();
 
       setPattern(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 

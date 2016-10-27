@@ -83,7 +83,7 @@ import org.sdmlib.models.transformations.Match;
       setSubTemplate(null);
       withoutOwners(this.getOwners().toArray(new Template[this.getOwners().size()]));
       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    // ==========================================================================

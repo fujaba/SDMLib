@@ -78,7 +78,7 @@ import org.sdmlib.models.objects.GenericGraph;
       setSrc(null);
       setTgt(null);
       setGraph(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

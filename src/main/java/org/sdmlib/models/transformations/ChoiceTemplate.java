@@ -70,7 +70,7 @@ import org.sdmlib.models.transformations.Template;
       withoutChoices(this.getChoices().toArray(new Template[this.getChoices().size()]));
       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
 

@@ -223,7 +223,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
