@@ -74,7 +74,7 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
       setUni(null);
       setIn(null);
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

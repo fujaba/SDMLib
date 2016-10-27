@@ -315,7 +315,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       removeAllFromElements();
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    /********************************************************************

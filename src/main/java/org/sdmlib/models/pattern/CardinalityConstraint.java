@@ -137,7 +137,7 @@ import org.sdmlib.models.pattern.Pattern;
 
       setPattern(null);
       setSrc(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 

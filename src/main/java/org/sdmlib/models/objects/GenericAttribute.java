@@ -75,7 +75,7 @@ import org.sdmlib.models.objects.GenericObject;
    public void removeYou()
    {
       setOwner(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

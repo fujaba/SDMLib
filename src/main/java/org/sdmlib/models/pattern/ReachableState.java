@@ -295,7 +295,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       removeAllFromResultOf();
       withoutRuleapplications(this.getRuleapplications().toArray(new RuleApplication[this.getRuleapplications().size()]));
       withoutResultOf(this.getResultOf().toArray(new RuleApplication[this.getResultOf().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    public static final ReachableStateSet EMPTY_SET = new ReachableStateSet();
@@ -741,5 +741,14 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    public boolean isFailureState()
    {
       return failureState;
+   }
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+	   if (listeners != null) {
+		   listeners.firePropertyChange(propertyName, oldValue, newValue);
+		   return true;
+	   }
+	   return false;
    }
 }

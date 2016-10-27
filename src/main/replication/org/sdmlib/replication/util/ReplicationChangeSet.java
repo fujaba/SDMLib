@@ -35,6 +35,9 @@ import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ReplicationChange;
 import org.sdmlib.replication.util.LogEntrySet;
 import org.sdmlib.replication.util.ChangeHistorySet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.BooleanList;
 
 public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements ModelSet
 {
@@ -761,4 +764,22 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
    {
       this.addAll(objects);
    }
-}
+
+
+   public ReplicationChangePO createReplicationChangePO()
+   {
+      return new ReplicationChangePO(this.toArray(new ReplicationChange[this.size()]));
+   }
+
+
+   public ReplicationChangeSet getNewList(boolean keyValue)
+   {
+      return new ReplicationChangeSet();
+   }
+
+
+   public ReplicationChangeSet filter(Condition<ReplicationChange> condition) {
+      ReplicationChangeSet filterList = new ReplicationChangeSet();
+//      filterItems(filterList, condition);
+      return filterList;
+   }}

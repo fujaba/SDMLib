@@ -424,8 +424,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
-         insertGetNewListMethod(modelSetParser);
-         insertFilterMethod(modelSetParser);
+         if (((ClassModel) model.getClassModel()).getFeature(Feature.SETCLASS).getClassValue().equals(SimpleSet.class)) 
+         {
+        	 insertGetNewListMethod(modelSetParser);
+        	 insertFilterMethod(modelSetParser);
+         }
          insertInstanceOfMethods(modelSetParser);
          insertSetWithWithout(modelSetParser);
       }
