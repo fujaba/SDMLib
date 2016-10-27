@@ -107,7 +107,7 @@ public class StudyRightModel implements PropertyChangeInterface
     * 
     * @see <a href='../../../../../../../../doc/StudyRightExtendsReverseClassModel.html'>StudyRightExtendsReverseClassModel.html</a>
 */
-   @Test
+//   @Test
    public void testStudyRightExtendsReverseClassModel()
    {
 

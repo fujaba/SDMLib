@@ -1378,7 +1378,9 @@ public class GenAssociation extends Generator<Association>
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          String shortClassName = CGUtil.shortClassName(clazz.getName(false));
-         
+//         if(GraphUtil.isInterface(partnerRole.getClazz())) {
+//        	 shortClassName = CGUtil.shortClassName(partnerRole.getClazz().getName(false));
+//         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
          if (classModel.hasFeature(Feature.EMFSTYLE))
