@@ -79,14 +79,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  */
-   public ClassModel generate() {
-		File srcDir = new File("src/main/java");
-
-		if (srcDir.exists()) {
-			return generate("src/main/java");
-		} else {
-			return generate("src");
-		}
+   public ClassModel generate() 
+   {
+      getGenerator().generate();
+      return this;
 	}
 
    /**

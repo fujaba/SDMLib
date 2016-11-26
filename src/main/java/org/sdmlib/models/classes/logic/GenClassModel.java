@@ -212,6 +212,23 @@ public class GenClassModel implements ClassModelAdapter
    }
 
 
+   public boolean generate()
+   {
+      String rootDir = getRootDir();
+      
+      return generate(rootDir);
+   }
+
+   private String getRootDir()
+   {
+      File srcDir = new File("src/main/java");
+
+      if (srcDir.exists()) {
+         return "src/main/java";
+      } else {
+         return "src";
+      }
+   }
 
    public boolean generate(String rootDir)
    {
@@ -3165,9 +3182,21 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
    }
+   
+   public void removeAllCodeForAttribute(Clazz clazz, String attrName)
+   {
+      String rootDir = getRootDir();
+      
+      Attribute attribute = clazz.getAttributes((Attribute attr) -> attr.getName().equals(attrName)).first();
+      
+      if (attribute != null)
+      {
+         GenAttribute attrGen = getOrCreate(attribute);
+         attrGen.removeGeneratedCode(rootDir);
+      }
+   }
 
-   public void removeAllCodeForClass(String srcDir, String helpersDir,
-         Clazz clazz)
+   public void removeAllCodeForClass(String srcDir, String helpersDir, Clazz clazz)
    {
       String className;
       String fileName;
@@ -3202,10 +3231,6 @@ public class GenClassModel implements ClassModelAdapter
       // pattern object creator file
       fileName = path + CGUtil.shortClassName(className) + "POCreator.java";
       deleteFile(fileName);
-
-//      // CreatorCreator in that package
-//      fileName = path + "CreatorCreator.java";
-//      deleteFile(fileName);
    }
 
    private void deleteFile(String fileName)

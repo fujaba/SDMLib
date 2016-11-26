@@ -693,11 +693,8 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
    /**
-    * 
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
- */
+    */
    @Test
    public void testStudyRightTablesAndReports()
    {

@@ -672,7 +672,6 @@ public class GenAssociation extends Generator<Association>
 
             if (partnerRole.getCardinality() == Cardinality.MANY) {
                generateToManyRole(myParser, clazz, partnerRole, text);
-//               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
             }
             else
             {
@@ -687,11 +686,6 @@ public class GenAssociation extends Generator<Association>
             	System.out.println("FILEBODY: " +myParser.getFileBody());
             	throw e;
             }
-
-//         if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
-//         {
-//            generateEmptySetInPartnerClass(rootDir, partnerRole);
-//         }
       }
       
       if (! classModel.hasFeature(Feature.EMFSTYLE))
@@ -762,6 +756,12 @@ public class GenAssociation extends Generator<Association>
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Association partnerRole)
    {
+      if (partnerRole.getOther().getType() == AssociationTypes.UNDIRECTIONAL)
+      {
+         // no reverse link, nothing to delete
+         return;
+      }
+      
       if (GraphUtil.isInterface(clazz))
       {
          return;
@@ -1678,8 +1678,15 @@ public class GenAssociation extends Generator<Association>
 		return this;
 	}
 	
-	void fixSubclasses(Association assoc, String rootDir, String helperDir) {
-		Clazz clazz = assoc.getClazz();
+	void fixSubclasses(Association assoc, String rootDir, String helperDir) 
+	{
+	   if (assoc.getType() == AssociationTypes.UNDIRECTIONAL)
+	   {
+	      // nothing generated for the reverse direction
+	      return;
+	   }
+
+	   Clazz clazz = assoc.getClazz();
 		ClazzSet allClazzes = new ClazzSet();
 		if(GraphUtil.isInterface(clazz)) {
 			allClazzes.addAll(clazz.getImplements());
