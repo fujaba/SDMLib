@@ -262,5 +262,10 @@ public class Storyboard {
    public void addTable(Table table)
    {
       storyboard.addTable(table);
+   }
+
+   public void addLineChart(Table table)
+   {
+      storyboard.addLineChart(table);
    }	
 }

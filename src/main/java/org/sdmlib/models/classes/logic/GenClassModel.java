@@ -3196,6 +3196,24 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
+   public void removeAllCodeForAssoc(Clazz clazz, String assocName)
+   {
+      String rootDir = getRootDir();
+      
+      Association assoc = clazz.getAssociations().filter((Association a) -> a.getName().equals(assocName)).first();
+
+      if (assoc != null)
+      {
+         GenAssociation assocGen = getOrCreate(assoc);
+         assocGen.removeGeneratedCode(rootDir);
+         
+         // and the reverse direction
+         assoc = assoc.getOther();
+         assocGen = getOrCreate(assoc);
+         assocGen.removeGeneratedCode(rootDir);
+      }
+   }
+
    public void removeAllCodeForClass(String srcDir, String helpersDir, Clazz clazz)
    {
       String className;

@@ -1601,6 +1601,12 @@ public class GenAssociation extends Generator<Association>
 	   
 	   genClass.removeFragment(parser, Parser.METHOD + ":create" + roleName + "()");
 	   
+	   for (Clazz kidClass : this.getModel().getOther().getClazz().getKidClazzes(true))
+	   {
+	      String createName = roleName + kidClass.getName(true);
+	      genClass.removeFragment(parser, Parser.METHOD + ":create" + createName + "()");
+	   }
+	   
 	   genClass.removeLineFromFragment(parser, Parser.METHOD + ":removeYou()", roleName, roleName);
 	   
 	   CGUtil.printFile(parser);
@@ -1619,15 +1625,15 @@ public class GenAssociation extends Generator<Association>
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
+      
+      genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
+      
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(String)");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "()");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ")");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(" + partnerPO + ")");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "(" + partnerPO + ")");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ",String)");
 	   
 	   CGUtil.printFile(poParser);
 	   

@@ -474,6 +474,15 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       this.add(tableText);
    }
+   
+   public void addLineChart(Table table)
+   {
+      String tableText = table.getHtmlLineChart("tableChart"+getStoryboardSteps().size());
+
+      this.add(tableText);
+   }
+
+
 
 
    public StoryboardImpl withMap(IdMap map)
@@ -1372,13 +1381,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
          "\n" +
          "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
+         "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" + 
+         "" +
          "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
          "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
          "\n" +
          "<script src=\"includes/dagre.min.js\"></script>\n" +
          "<script src=\"includes/drawer.js\"></script>\n" +
          "<script src=\"includes/graph.js\"></script>\n" +
-         "</head>" +
+         "<style>\n" + 
+         "    canvas{\n" + 
+         "        -moz-user-select: none;\n" + 
+         "        -webkit-user-select: none;\n" + 
+         "        -ms-user-select: none;\n" + 
+         "    }\n" + 
+         "</style>\n" +
+         "</head>\n" +
          "<body>\n" +
          "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
          "$text\n" +
