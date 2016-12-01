@@ -5,7 +5,7 @@ import java.util.HashSet;
 import de.uniks.networkparser.graph.Clazz;
 
 public class FeatureProperty implements Comparable<FeatureProperty> {
-	public static final Clazz ALL = new Clazz().with("*");
+	public static final Clazz ALL = new Clazz("*");
 
 	private HashSet<Clazz> includeClazz = new HashSet<Clazz>();
 	private HashSet<Clazz> excludeClazz = new HashSet<Clazz>();
@@ -24,7 +24,7 @@ public class FeatureProperty implements Comparable<FeatureProperty> {
 		}
 		for (String item : value) {
 			if (item != null) {
-				excludeClazz.add(new Clazz().with(item));
+				excludeClazz.add(new Clazz(item));
 			}
 		}
 
@@ -41,7 +41,7 @@ public class FeatureProperty implements Comparable<FeatureProperty> {
 		}
 		for (String item : value) {
 			if (item != null) {
-				includeClazz.add(new Clazz().with(item));
+				includeClazz.add(new Clazz(item));
 			}
 		}
 		return this;

@@ -121,7 +121,7 @@ public class Javascript implements GuiAdapter
 	      
       for (Clazz clazz : model.getClazzes())
       {
-    	  Clazz node = new Clazz().with(CGUtil.shortClassName(clazz.getName()));
+    	  Clazz node = new Clazz(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())
