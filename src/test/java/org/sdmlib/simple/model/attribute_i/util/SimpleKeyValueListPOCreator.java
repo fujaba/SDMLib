@@ -1,6 +1,7 @@
 package org.sdmlib.simple.model.attribute_i.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 

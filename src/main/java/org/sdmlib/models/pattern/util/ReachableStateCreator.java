@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.pattern.ReachableState;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ReachableStateCreator implements SendableEntityCreator
 {

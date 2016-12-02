@@ -21,11 +21,10 @@
    
 package org.sdmlib.simple.model.association_g;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.simple.model.association_g.Room;
-import org.sdmlib.simple.model.association_g.Teacher;
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>

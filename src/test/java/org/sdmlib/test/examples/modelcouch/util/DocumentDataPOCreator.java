@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.modelcouch.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
+
+import de.uniks.networkparser.IdMap;
 
 public class DocumentDataPOCreator extends PatternObjectCreator
 {

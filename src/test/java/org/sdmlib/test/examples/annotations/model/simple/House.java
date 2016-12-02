@@ -21,11 +21,8 @@
    
 package org.sdmlib.test.examples.annotations.model.simple;
 
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
 import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>

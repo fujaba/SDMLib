@@ -23,16 +23,13 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 public class BoatSet extends SimpleSet<Boat>
 {

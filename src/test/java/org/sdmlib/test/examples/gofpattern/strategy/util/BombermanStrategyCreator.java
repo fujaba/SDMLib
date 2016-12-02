@@ -22,8 +22,9 @@
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
+
+import de.uniks.networkparser.IdMap;
 
 public class BombermanStrategyCreator extends EntityFactory
 {

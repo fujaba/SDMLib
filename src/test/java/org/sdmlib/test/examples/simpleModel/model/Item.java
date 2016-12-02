@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Date;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

@@ -26,18 +26,15 @@ import java.util.Collections;
 import java.util.TreeSet;
 
 import org.sdmlib.models.modelsets.ModelSet;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.ChangeHistorySet;
+
 import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements ModelSet
 {

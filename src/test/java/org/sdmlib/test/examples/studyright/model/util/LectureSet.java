@@ -23,14 +23,14 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class LectureSet extends SimpleSet<Lecture>
 {

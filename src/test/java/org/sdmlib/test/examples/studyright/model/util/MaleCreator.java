@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.examples.studyright.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyright.model.Male;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class MaleCreator implements SendableEntityCreator
 {

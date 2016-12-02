@@ -29,9 +29,6 @@ import org.sdmlib.models.objects.GenericObject;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
 
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import de.uniks.networkparser.list.ObjectSet;
-
 public class GenericAttributeSet extends SimpleSet<GenericAttribute>
 {
    public StringList getName()

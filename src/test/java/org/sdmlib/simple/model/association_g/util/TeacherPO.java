@@ -1,12 +1,9 @@
 package org.sdmlib.simple.model.association_g.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.association_g.Teacher;
-import org.sdmlib.simple.model.association_g.util.PersonPO;
 import org.sdmlib.simple.model.association_g.Person;
-import org.sdmlib.simple.model.association_g.util.TeacherPO;
-import org.sdmlib.simple.model.association_g.util.RoomPO;
 import org.sdmlib.simple.model.association_g.Room;
+import org.sdmlib.simple.model.association_g.Teacher;
 
 public class TeacherPO extends PatternObject<TeacherPO, Teacher>
 {

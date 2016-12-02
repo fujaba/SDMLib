@@ -21,12 +21,13 @@
    
 package org.sdmlib.test.examples.couchspace.tasks;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
-import org.sdmlib.test.examples.couchspace.tasks.Task;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksModel.java'>ModelCouchTasksModel.java</a>

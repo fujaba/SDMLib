@@ -1,12 +1,9 @@
 package org.sdmlib.storyboards;
 
-import java.lang.reflect.Method;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 
 public class GenericIdMap extends SDMLibJsonIdMap
 {

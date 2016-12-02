@@ -23,13 +23,13 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.replication.SeppelSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
 {

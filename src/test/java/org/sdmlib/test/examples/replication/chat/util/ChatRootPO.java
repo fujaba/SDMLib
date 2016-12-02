@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.replication.chat.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
-import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
 
 public class ChatRootPO extends PatternObject<ChatRootPO, ChatRoot>
 {

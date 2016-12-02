@@ -1,6 +1,5 @@
 package org.sdmlib.models.objects;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 

@@ -21,9 +21,10 @@
    
 package org.sdmlib.simple.model.association_k.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.simple.model.association_k.Task;
+
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class TaskCreator implements SendableEntityCreator
 {

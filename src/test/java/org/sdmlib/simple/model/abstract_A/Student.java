@@ -21,9 +21,7 @@
    
 package org.sdmlib.simple.model.abstract_A;
 
-import org.sdmlib.simple.model.abstract_A.Person;
-import org.sdmlib.simple.model.abstract_A.Human;
-   /**
+/**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
  */

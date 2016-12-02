@@ -25,8 +25,8 @@ import java.util.Collection;
 
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 
-import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LudoColorSet extends SimpleSet<LudoColor>
 {

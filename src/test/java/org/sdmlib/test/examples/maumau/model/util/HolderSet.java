@@ -24,14 +24,12 @@ package org.sdmlib.test.examples.maumau.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class HolderSet extends SimpleSet<Holder>
 {

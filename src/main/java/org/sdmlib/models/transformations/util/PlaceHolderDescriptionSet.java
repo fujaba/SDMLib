@@ -24,16 +24,14 @@ package org.sdmlib.models.transformations.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
+import de.uniks.networkparser.list.StringList;
 
 public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
 {

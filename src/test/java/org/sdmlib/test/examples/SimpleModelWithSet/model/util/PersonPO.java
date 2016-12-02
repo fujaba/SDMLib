@@ -1,9 +1,10 @@
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
+
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

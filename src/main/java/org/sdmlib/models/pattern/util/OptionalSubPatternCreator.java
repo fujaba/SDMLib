@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.OptionalSubPattern;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class OptionalSubPatternCreator implements SendableEntityCreator
 {

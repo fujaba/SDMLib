@@ -1,87 +1,90 @@
 /*
    Copyright (c) 2016 zuendorf
-   
+
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
    furnished to do so, subject to the following conditions: 
-   
+
    The above copyright notice and this permission notice shall be included in all copies or 
    substantial portions of the Software. 
-   
+
    The Software shall be used for Good, not Evil. 
-   
+
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.tables;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.models.tables.Row;
-import org.sdmlib.models.tables.Column;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
+/**
+ * 
+ * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/TableModel.java'>TableModel.java</a>
  */
-   public  class Cell implements SendableEntity
+public  class Cell implements SendableEntity
 {
+   @Override
+   public String toString()
+   {
+      return "" + value;
+   }
 
-   
    //==========================================================================
-   
+
    protected PropertyChangeSupport listeners = null;
-   
+
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
       if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
+         listeners.firePropertyChange(propertyName, oldValue, newValue);
+         return true;
+      }
+      return false;
    }
-   
+
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(listener);
+      return true;
    }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
-   }
-   
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
-   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      if (listeners != null) {
+         listeners.removePropertyChangeListener(listener);
+      }
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
+      if (listeners != null) {
+         listeners.removePropertyChangeListener(property, listener);
+      }
+      return true;
+   }
+
    //==========================================================================
-   
-   
+
+
    public void removeYou()
    {
       setRow(null);
@@ -90,35 +93,35 @@ import org.sdmlib.models.tables.Column;
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_VALUE = "value";
-   
+
    private Object value;
 
    public Object getValue()
    {
       return this.value;
    }
-   
+
    public void setValue(Object value)
    {
       if (this.value != value) {
-      
+
          Object oldValue = this.value;
          this.value = value;
          this.firePropertyChange(PROPERTY_VALUE, oldValue, value);
       }
    }
-   
+
    public Cell withValue(Object value)
    {
       setValue(value);
       return this;
    } 
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -126,7 +129,7 @@ import org.sdmlib.models.tables.Column;
     *              cells                   row
     * </pre>
     */
-   
+
    public static final String PROPERTY_ROW = "row";
 
    private Row row = null;
@@ -139,28 +142,28 @@ import org.sdmlib.models.tables.Column;
    public boolean setRow(Row value)
    {
       boolean changed = false;
-      
+
       if (this.row != value)
       {
          Row oldValue = this.row;
-         
+
          if (this.row != null)
          {
             this.row = null;
             oldValue.withoutCells(this);
          }
-         
+
          this.row = value;
-         
+
          if (value != null)
          {
             value.withCells(this);
          }
-         
+
          firePropertyChange(PROPERTY_ROW, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -177,7 +180,7 @@ import org.sdmlib.models.tables.Column;
       return value;
    } 
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -185,7 +188,7 @@ import org.sdmlib.models.tables.Column;
     *              cells                   column
     * </pre>
     */
-   
+
    public static final String PROPERTY_COLUMN = "column";
 
    private Column column = null;
@@ -198,19 +201,19 @@ import org.sdmlib.models.tables.Column;
    public boolean setColumn(Column value)
    {
       boolean changed = false;
-      
+
       if (this.column != value)
       {
          Column oldValue = this.column;
-         
+
          if (this.column != null)
          {
             this.column = null;
             oldValue.withoutCells(this);
          }
-         
+
          this.column = value;
-         
+
          if (value != null)
          {
             value.withCells(this);
@@ -219,11 +222,11 @@ import org.sdmlib.models.tables.Column;
          {
             this.removeYou();
          }
-         
+
          firePropertyChange(PROPERTY_COLUMN, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 

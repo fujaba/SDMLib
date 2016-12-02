@@ -21,10 +21,12 @@
    
 package org.sdmlib.simple.model.annotation_b.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.simple.model.annotation_b.Person;
-import de.uniks.networkparser.IdMap;
 
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+
+@SuppressWarnings(value = { "deprecation" })
 public class PersonCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]

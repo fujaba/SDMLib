@@ -6,8 +6,6 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.AssignmentPO;
-import org.sdmlib.test.examples.studyright.model.util.StudentPO;
 
 public class StudentPO extends PatternObject<StudentPO, Student>
 {

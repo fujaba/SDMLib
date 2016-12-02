@@ -28,8 +28,8 @@ import java.util.Date;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>

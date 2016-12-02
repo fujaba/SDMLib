@@ -21,15 +21,14 @@
    
 package org.sdmlib.test.examples.features.model.albertsets;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.features.model.albertsets.util.DoorSet;
 import org.sdmlib.test.examples.features.model.albertsets.util.WindowSet;
 
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.features.model.albertsets.Door;
-import org.sdmlib.test.examples.features.model.albertsets.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

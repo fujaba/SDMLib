@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.roombook.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.roombook.Floor;
+
+import de.uniks.networkparser.IdMap;
 
 public class FloorPOCreator extends PatternObjectCreator
 {

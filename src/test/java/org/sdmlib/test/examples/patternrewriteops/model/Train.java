@@ -28,9 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
-import org.sdmlib.test.examples.patternrewriteops.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>

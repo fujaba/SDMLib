@@ -21,15 +21,16 @@
    
 package org.sdmlib.test.examples.couchspace.tasks.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
+
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
+import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class TaskFlowSet extends SDMSet<TaskFlow>
 {

@@ -24,15 +24,13 @@ package org.sdmlib.test.examples.modelspace.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
 import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
+import de.uniks.networkparser.list.StringList;
 
 public class MSChatMemberSet extends SimpleSet<MSChatMember>
 {

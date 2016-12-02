@@ -30,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
 /**
  * 

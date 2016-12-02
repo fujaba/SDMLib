@@ -1,11 +1,9 @@
 package org.sdmlib.simple.model.abstract_B.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.abstract_B.Person;
-import org.sdmlib.simple.model.abstract_B.util.FlowerPO;
-import org.sdmlib.simple.model.abstract_B.Human;
 import org.sdmlib.simple.model.abstract_B.Flower;
-import org.sdmlib.simple.model.abstract_B.util.PersonPO;
+import org.sdmlib.simple.model.abstract_B.Human;
+import org.sdmlib.simple.model.abstract_B.Person;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
+
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class CubeCreator implements SendableEntityCreator
 {

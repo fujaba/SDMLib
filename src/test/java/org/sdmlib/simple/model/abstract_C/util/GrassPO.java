@@ -1,10 +1,8 @@
 package org.sdmlib.simple.model.abstract_C.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.abstract_C.Grass;
-import org.sdmlib.simple.model.abstract_C.util.GamePO;
 import org.sdmlib.simple.model.abstract_C.Game;
-import org.sdmlib.simple.model.abstract_C.util.GrassPO;
+import org.sdmlib.simple.model.abstract_C.Grass;
 
 public class GrassPO extends PatternObject<GrassPO, Grass>
 {

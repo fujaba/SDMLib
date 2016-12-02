@@ -27,9 +27,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.Field;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>

@@ -21,9 +21,7 @@
    
 package org.sdmlib.simple.model.abstract_C;
 
-import org.sdmlib.simple.model.abstract_C.Ground;
-import org.sdmlib.simple.model.abstract_C.Game;
-   /**
+/**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
  */

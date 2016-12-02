@@ -1,6 +1,7 @@
 package org.sdmlib.models.tables.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
 import de.uniks.networkparser.IdMap;
 
 public class ObjectPOCreator extends PatternObjectCreator

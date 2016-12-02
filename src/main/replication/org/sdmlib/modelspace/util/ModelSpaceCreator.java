@@ -21,9 +21,10 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelSpace;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.IdMap;
 
 public class ModelSpaceCreator extends EntityFactory
 {

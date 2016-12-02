@@ -21,10 +21,11 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.IdMap;
 
 public class CloudModelDirectoryCreator extends EntityFactory
 {

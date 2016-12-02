@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 {

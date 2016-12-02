@@ -1,12 +1,10 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.UnifyGraphsOpPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsOp>
 {

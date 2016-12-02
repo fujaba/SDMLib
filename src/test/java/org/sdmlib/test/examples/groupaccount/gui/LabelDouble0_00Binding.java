@@ -4,9 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
 
-import javafx.scene.control.Label;
-
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+import javafx.scene.control.Label;
 
 class LabelDouble0_00Binding implements PropertyChangeListener
 {

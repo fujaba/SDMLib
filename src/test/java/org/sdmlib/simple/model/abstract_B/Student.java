@@ -21,9 +21,7 @@
    
 package org.sdmlib.simple.model.abstract_B;
 
-import org.sdmlib.simple.model.abstract_B.Flower;
-import org.sdmlib.simple.model.abstract_B.Person;
-   /**
+/**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
  */

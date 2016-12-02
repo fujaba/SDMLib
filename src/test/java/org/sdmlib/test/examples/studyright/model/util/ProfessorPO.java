@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
-import org.sdmlib.test.examples.studyright.model.util.TopicPO;
-import org.sdmlib.test.examples.studyright.model.util.ProfessorPO;
 
 public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
 {

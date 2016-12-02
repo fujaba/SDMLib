@@ -23,10 +23,10 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class ChangeEventSet extends SimpleSet<ChangeEvent>
 {

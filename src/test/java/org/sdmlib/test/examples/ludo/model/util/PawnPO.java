@@ -1,14 +1,11 @@
 package org.sdmlib.test.examples.ludo.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
-import org.sdmlib.test.examples.ludo.model.util.PawnPO;
-import org.sdmlib.test.examples.ludo.model.util.FieldPO;
-import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>

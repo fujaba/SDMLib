@@ -21,17 +21,17 @@
    
 package org.sdmlib.models.tables.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.tables.Table;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.models.tables.util.ColumnSet;
+
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.tables.Column;
-import org.sdmlib.models.tables.util.RowSet;
 import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
+
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class TableSet extends SDMSet<Table>
 {

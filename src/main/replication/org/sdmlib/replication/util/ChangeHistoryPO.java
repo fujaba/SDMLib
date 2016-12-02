@@ -3,8 +3,6 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.util.ReplicationChangePO;
-import org.sdmlib.replication.util.ChangeHistoryPO;
 
 public class ChangeHistoryPO extends PatternObject<ChangeHistoryPO, ChangeHistory>
 {

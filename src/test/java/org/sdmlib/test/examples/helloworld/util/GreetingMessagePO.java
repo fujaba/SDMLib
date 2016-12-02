@@ -1,12 +1,10 @@
 package org.sdmlib.test.examples.helloworld.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
-import org.sdmlib.test.examples.helloworld.util.GreetingPO;
-import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
-import org.sdmlib.models.pattern.Pattern;
 
 public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
 {

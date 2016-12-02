@@ -23,11 +23,11 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class TaskFlowSet extends SimpleSet<TaskFlow>

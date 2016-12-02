@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelScopePO;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 
 public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
 {

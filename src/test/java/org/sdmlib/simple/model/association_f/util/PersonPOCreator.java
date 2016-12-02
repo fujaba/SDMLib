@@ -1,8 +1,9 @@
 package org.sdmlib.simple.model.association_f.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_f.Person;
+
+import de.uniks.networkparser.IdMap;
 
 public class PersonPOCreator extends PatternObjectCreator
 {

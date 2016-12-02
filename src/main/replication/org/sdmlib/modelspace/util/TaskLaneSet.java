@@ -24,16 +24,14 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.modelspace.util.TaskBoardSet;
-import org.sdmlib.modelspace.util.TaskSet;
+import de.uniks.networkparser.list.StringList;
 
 public class TaskLaneSet extends SimpleSet<TaskLane>
 {

@@ -23,11 +23,11 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.modelsets.longList;
+import de.uniks.networkparser.list.StringList;
 
 public class MacListSet extends SimpleSet<MacList>
 {

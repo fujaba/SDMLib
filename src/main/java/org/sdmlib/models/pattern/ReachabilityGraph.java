@@ -53,10 +53,6 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.ReachableState;
 
 /**
  * 

@@ -27,10 +27,10 @@ import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
+import org.sdmlib.test.examples.mancala.model.Stone;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.mancala.model.Stone;
 
 public class PlayerCreator extends EntityFactory
 {

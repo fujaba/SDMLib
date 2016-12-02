@@ -1,8 +1,8 @@
 package org.sdmlib.models.taskflows.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
 import de.uniks.networkparser.IdMap;
-import java.lang.Object;
 
 public class ObjectPOCreator extends PatternObjectCreator
 {

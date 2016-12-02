@@ -1,8 +1,5 @@
 package org.sdmlib.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Test {
 	
 	@org.junit.Test

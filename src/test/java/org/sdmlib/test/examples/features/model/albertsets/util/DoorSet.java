@@ -23,12 +23,11 @@ package org.sdmlib.test.examples.features.model.albertsets.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
 public class DoorSet extends SimpleSet<Door>
 {

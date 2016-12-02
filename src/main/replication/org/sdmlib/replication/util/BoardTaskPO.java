@@ -1,17 +1,14 @@
 package org.sdmlib.replication.util;
 
+import java.beans.PropertyChangeEvent;
+
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.BoardTaskPO;
-import java.beans.PropertyChangeEvent;
-import org.sdmlib.replication.util.LogEntryPO;
-import org.sdmlib.replication.util.LanePO;
+import org.sdmlib.replication.Task;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {

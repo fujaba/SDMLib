@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.TaskPO;
-import org.sdmlib.replication.util.LogEntryPO;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {

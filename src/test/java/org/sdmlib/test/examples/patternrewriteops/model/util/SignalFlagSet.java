@@ -24,12 +24,11 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagSet extends SimpleSet<SignalFlag>
 {

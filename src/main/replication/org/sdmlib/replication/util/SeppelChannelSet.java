@@ -24,13 +24,12 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelChannelSet extends SimpleSet<SeppelChannel>
 {

@@ -7,9 +7,6 @@ import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.taskflows.util.TaskFlowPO;
-import org.sdmlib.models.taskflows.util.LoggerPO;
-import org.sdmlib.models.taskflows.util.LogEntryPO;
 
 public class LoggerPO extends PatternObject<LoggerPO, Logger>
 {

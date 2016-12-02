@@ -32,10 +32,9 @@ import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.replication.SharedSpace;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

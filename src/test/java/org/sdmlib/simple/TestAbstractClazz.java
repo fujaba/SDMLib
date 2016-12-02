@@ -5,9 +5,7 @@ import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.Parameter;
 
 public class TestAbstractClazz {
 	@Test

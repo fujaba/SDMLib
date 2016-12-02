@@ -1,6 +1,5 @@
 package org.sdmlib.simple;
 
-import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClass;
 

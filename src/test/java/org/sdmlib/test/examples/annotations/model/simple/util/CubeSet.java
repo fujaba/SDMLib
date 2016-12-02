@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
+import java.util.Collection;
+
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
-import java.util.Collection;
 
 public class CubeSet extends SDMSet<Cube>
 {

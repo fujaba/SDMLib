@@ -39,13 +39,8 @@ import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import java.lang.Object;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.Match;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 /**
  * 

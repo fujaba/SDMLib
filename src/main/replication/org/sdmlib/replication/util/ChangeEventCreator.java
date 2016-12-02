@@ -21,9 +21,10 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.IdMap;
 
 public class ChangeEventCreator extends EntityFactory
 {

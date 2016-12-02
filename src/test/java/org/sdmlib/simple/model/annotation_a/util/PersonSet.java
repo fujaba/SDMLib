@@ -21,10 +21,13 @@
    
 package org.sdmlib.simple.model.annotation_a.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.annotation_a.Person;
 import java.util.Collection;
 
+import org.sdmlib.simple.model.annotation_a.Person;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+@SuppressWarnings(value = { "deprecation" })
 public class PersonSet extends SimpleSet<Person>
 {
 	protected Class<?> getTypClass() {

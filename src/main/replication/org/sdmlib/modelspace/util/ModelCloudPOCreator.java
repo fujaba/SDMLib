@@ -1,8 +1,9 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelCloud;
+
+import de.uniks.networkparser.IdMap;
 
 public class ModelCloudPOCreator extends PatternObjectCreator
 {

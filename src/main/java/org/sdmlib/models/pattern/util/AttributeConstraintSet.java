@@ -21,15 +21,15 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.models.pattern.util.PatternSet;
+
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 import org.sdmlib.models.pattern.PatternObject;
+
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 {

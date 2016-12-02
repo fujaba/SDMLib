@@ -2,10 +2,7 @@ package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.CloudModelDirectory;
-import org.sdmlib.modelspace.util.CloudModelFilePO;
 import org.sdmlib.modelspace.CloudModelFile;
-import org.sdmlib.modelspace.util.CloudModelDirectoryPO;
-import org.sdmlib.modelspace.util.CloudModelFileSet;
 
 public class CloudModelDirectoryPO extends PatternObject<CloudModelDirectoryPO, CloudModelDirectory>
 {

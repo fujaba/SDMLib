@@ -21,14 +21,15 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.replication.Lane;
+import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
-import org.sdmlib.test.examples.maumau.model.Duty;
+import org.sdmlib.test.examples.maumau.model.Player;
+
+import de.uniks.networkparser.IdMap;
 
 public class PlayerCreator extends EntityFactory
 {

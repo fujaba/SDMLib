@@ -1,7 +1,8 @@
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import java.beans.PropertyChangeEvent;
+
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PropertyChangeEventPO extends PatternObject<PropertyChangeEventPO, PropertyChangeEvent>
 {

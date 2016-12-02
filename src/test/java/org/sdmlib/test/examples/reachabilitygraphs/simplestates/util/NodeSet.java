@@ -24,13 +24,12 @@ package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 public class NodeSet extends SimpleSet<Node>
 {

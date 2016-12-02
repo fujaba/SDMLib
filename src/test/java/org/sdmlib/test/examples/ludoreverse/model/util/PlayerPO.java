@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
-import org.sdmlib.test.examples.ludoreverse.model.util.LudoPO;
-import org.sdmlib.test.examples.ludoreverse.model.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

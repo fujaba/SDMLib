@@ -21,13 +21,14 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.LinkConstraint;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.models.pattern.util.PatternSet;
+
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
+
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 {

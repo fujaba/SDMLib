@@ -21,13 +21,14 @@
    
 package org.sdmlib.simple.model.abstract_C.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.abstract_C.Grass;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.simple.model.abstract_C.util.GameSet;
+
 import org.sdmlib.simple.model.abstract_C.Game;
+import org.sdmlib.simple.model.abstract_C.Grass;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class GrassSet extends SimpleSet<Grass>
 {

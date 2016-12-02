@@ -6,9 +6,6 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ReplicationChange;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.LogEntryPO;
-import org.sdmlib.replication.util.ReplicationChangePO;
-import org.sdmlib.replication.util.ChangeHistoryPO;
 
 public class ReplicationChangePO extends PatternObject<ReplicationChangePO, ReplicationChange>
 {

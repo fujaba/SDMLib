@@ -24,13 +24,12 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GroupAccountSet extends SimpleSet<GroupAccount>
 {

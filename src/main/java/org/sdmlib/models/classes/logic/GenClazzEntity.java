@@ -14,6 +14,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;

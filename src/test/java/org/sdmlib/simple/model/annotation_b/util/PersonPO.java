@@ -3,6 +3,7 @@ package org.sdmlib.simple.model.annotation_b.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.annotation_b.Person;
 
+@SuppressWarnings(value = { "deprecation" })
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
 

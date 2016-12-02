@@ -1,8 +1,9 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.replication.ChangeEventList;
+
+import de.uniks.networkparser.IdMap;
 
 public class ChangeEventListPOCreator extends PatternObjectCreator
 {

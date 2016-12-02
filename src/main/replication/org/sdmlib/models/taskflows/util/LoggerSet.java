@@ -24,7 +24,6 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
@@ -32,8 +31,8 @@ import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SimpleSet<Logger>
 {

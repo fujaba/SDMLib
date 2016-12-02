@@ -7,7 +7,6 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternObject;
 
 public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>
 {

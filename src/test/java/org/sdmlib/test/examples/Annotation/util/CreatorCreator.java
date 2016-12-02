@@ -1,7 +1,8 @@
 package org.sdmlib.test.examples.Annotation.util;
 
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 

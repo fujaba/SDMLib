@@ -25,8 +25,6 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
@@ -34,10 +32,9 @@ import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.ChangeHistorySet;
-import org.sdmlib.replication.util.ReplicationNodeSet;
-import org.sdmlib.replication.util.ReplicationChannelSet;
+import de.uniks.networkparser.list.StringList;
 
 public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {

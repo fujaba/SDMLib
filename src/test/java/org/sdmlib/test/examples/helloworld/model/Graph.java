@@ -26,11 +26,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.helloworld.model.Edge;
-import org.sdmlib.test.examples.helloworld.model.Node;
 import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.test.examples.helloworld.model.util.GraphComponentSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

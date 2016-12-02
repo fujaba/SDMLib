@@ -1,12 +1,9 @@
 package org.sdmlib.test.examples.roombook.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.roombook.Building;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.test.examples.roombook.util.FloorPO;
-import org.sdmlib.test.examples.roombook.util.BuildingPO;
-import org.sdmlib.test.examples.roombook.util.FloorSet;
-import org.sdmlib.models.pattern.Pattern;
 
 public class BuildingPO extends PatternObject<BuildingPO, Building>
 {

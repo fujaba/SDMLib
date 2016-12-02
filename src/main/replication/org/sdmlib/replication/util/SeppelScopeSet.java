@@ -24,13 +24,12 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import de.uniks.networkparser.list.StringList;
 
 public class SeppelScopeSet extends SimpleSet<SeppelScope>
 {

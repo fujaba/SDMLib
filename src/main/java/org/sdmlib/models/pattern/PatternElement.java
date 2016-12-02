@@ -21,15 +21,15 @@
    
 package org.sdmlib.models.pattern;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.list.StringList;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

@@ -21,12 +21,12 @@
    
 package org.sdmlib.simple.model.abstract_C;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.simple.model.abstract_C.Grass;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.simple.model.abstract_C.util.GroundSet;
-import org.sdmlib.simple.model.abstract_C.Ground;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>

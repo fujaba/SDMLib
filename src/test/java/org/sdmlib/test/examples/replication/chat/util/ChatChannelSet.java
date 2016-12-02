@@ -24,13 +24,12 @@ package org.sdmlib.test.examples.replication.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
+
+import de.uniks.networkparser.list.ObjectSet;
 
 public class ChatChannelSet extends SDMSet<ChatChannel>
 {

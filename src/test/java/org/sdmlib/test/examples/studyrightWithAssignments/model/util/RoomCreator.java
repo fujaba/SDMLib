@@ -21,13 +21,14 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class RoomCreator implements SendableEntityCreator
 {

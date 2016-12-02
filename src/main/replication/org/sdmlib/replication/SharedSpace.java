@@ -53,19 +53,16 @@ import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.SimpleIdCounter;
-import de.uniks.networkparser.interfaces.Entity;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
+import de.uniks.networkparser.SimpleIdCounter;
+import de.uniks.networkparser.interfaces.Entity;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import javafx.application.Platform;
-import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.replication.ChangeHistory;
-import org.sdmlib.replication.ReplicationNode;
-import org.sdmlib.replication.ReplicationChannel;
 
 
 /**

@@ -1,8 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.pattern.MatchOtherThen;
+
+import de.uniks.networkparser.IdMap;
 
 public class MatchOtherThenPOCreator extends PatternObjectCreator
 {

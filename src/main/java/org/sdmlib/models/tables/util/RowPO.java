@@ -1,15 +1,11 @@
 package org.sdmlib.models.tables.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.tables.util.TablePO;
-import org.sdmlib.models.tables.Table;
-import org.sdmlib.models.tables.util.RowPO;
-import org.sdmlib.models.tables.util.CellPO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Cell;
-import org.sdmlib.models.tables.util.CellSet;
+import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
 
 public class RowPO extends PatternObject<RowPO, Row>
 {

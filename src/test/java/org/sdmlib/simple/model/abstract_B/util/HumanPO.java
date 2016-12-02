@@ -1,10 +1,8 @@
 package org.sdmlib.simple.model.abstract_B.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.abstract_B.Human;
-import org.sdmlib.simple.model.abstract_B.util.FlowerPO;
 import org.sdmlib.simple.model.abstract_B.Flower;
-import org.sdmlib.simple.model.abstract_B.util.HumanPO;
+import org.sdmlib.simple.model.abstract_B.Human;
 
 public class HumanPO extends PatternObject<HumanPO, Human>
 {

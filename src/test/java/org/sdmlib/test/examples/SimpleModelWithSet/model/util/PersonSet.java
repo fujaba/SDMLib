@@ -21,9 +21,11 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
+import java.util.Collection;
+
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
-import java.util.Collection;
+
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 

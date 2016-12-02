@@ -21,10 +21,12 @@
    
 package org.sdmlib.simple.model.attribute_h.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.attribute_h.Person;
 import java.util.Collection;
+
+import org.sdmlib.simple.model.attribute_h.Person;
+
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class PersonSet extends SimpleSet<Person>
 {

@@ -21,9 +21,10 @@
    
 package org.sdmlib.simple.model.attribute_j.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.simple.model.attribute_j.Person;
+
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class PersonCreator implements SendableEntityCreator
 {

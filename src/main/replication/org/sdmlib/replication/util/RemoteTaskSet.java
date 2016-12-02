@@ -24,13 +24,12 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.LogEntrySet;
 
 public class RemoteTaskSet extends SimpleSet<RemoteTask>
 {

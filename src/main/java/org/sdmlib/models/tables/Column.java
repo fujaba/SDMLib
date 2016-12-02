@@ -21,13 +21,13 @@
 
 package org.sdmlib.models.tables;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.tables.Table;
 import org.sdmlib.models.tables.util.CellSet;
-import org.sdmlib.models.tables.Cell;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 /**
  * 

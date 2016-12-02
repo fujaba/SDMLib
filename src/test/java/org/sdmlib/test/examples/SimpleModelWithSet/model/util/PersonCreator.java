@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class PersonCreator implements SendableEntityCreator
 {

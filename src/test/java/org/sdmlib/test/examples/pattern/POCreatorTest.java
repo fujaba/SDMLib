@@ -3,7 +3,6 @@ package org.sdmlib.test.examples.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
 import org.sdmlib.models.pattern.POCreator;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.StoryboardImpl;

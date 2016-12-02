@@ -23,14 +23,13 @@ package org.sdmlib.test.examples.groupaccount.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+import de.uniks.networkparser.list.StringList;
 
 public class ItemSet extends SimpleSet<Item>
 {

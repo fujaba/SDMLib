@@ -23,10 +23,10 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.Blast;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class BlastSet extends SimpleSet<Blast>

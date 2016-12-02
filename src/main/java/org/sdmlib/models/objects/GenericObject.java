@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.objects;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
@@ -29,11 +30,8 @@ import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericAttribute;
-import org.sdmlib.models.objects.GenericLink;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>

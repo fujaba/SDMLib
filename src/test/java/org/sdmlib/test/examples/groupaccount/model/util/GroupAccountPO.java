@@ -1,12 +1,9 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
-import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
-import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountPO;
 
 public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 {

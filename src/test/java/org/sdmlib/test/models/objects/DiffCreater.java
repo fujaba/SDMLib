@@ -1,16 +1,10 @@
 package org.sdmlib.test.models.objects;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.sdmlib.doc.JavascriptAdapter.Javascript;
-import org.sdmlib.models.classes.ClassModel;
-
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.converter.GraphConverter;
-import de.uniks.networkparser.graph.GraphList;
 
 public class DiffCreater {
 	public static final String CRLF = "\r\n";

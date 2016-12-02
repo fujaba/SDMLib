@@ -1,8 +1,9 @@
 package org.sdmlib.simple.model.abstract_B.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.abstract_B.Human;
+
+import de.uniks.networkparser.IdMap;
 
 public class HumanPOCreator extends PatternObjectCreator
 {

@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

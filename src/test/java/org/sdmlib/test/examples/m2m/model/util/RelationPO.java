@@ -6,9 +6,6 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.test.examples.m2m.model.util.GraphPO;
-import org.sdmlib.test.examples.m2m.model.util.RelationPO;
-import org.sdmlib.test.examples.m2m.model.util.PersonPO;
 
 public class RelationPO extends PatternObject<RelationPO, Relation>
 {

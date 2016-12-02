@@ -21,15 +21,15 @@
    
 package org.sdmlib.models.tables.util;
 
+import java.util.Collection;
+
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.tables.Cell;
-import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.models.tables.util.RowSet;
-import org.sdmlib.models.tables.Row;
-import org.sdmlib.models.tables.util.ColumnSet;
 import org.sdmlib.models.tables.Column;
+import org.sdmlib.models.tables.Row;
+
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class CellSet extends SDMSet<Cell>
 {

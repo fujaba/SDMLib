@@ -21,17 +21,17 @@
 
 package org.sdmlib.models.tables;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Iterator;
-import java.beans.PropertyChangeListener;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.tables.util.CellSet;
 import org.sdmlib.models.tables.util.ColumnSet;
-import org.sdmlib.models.tables.Column;
 import org.sdmlib.models.tables.util.RowSet;
-import org.sdmlib.models.tables.Row;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 /**
  * 
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
@@ -394,6 +394,7 @@ public  class Table implements SendableEntity
             String cellText = "<td cssClass>cellValue</td>\n";
 
             Object value = cell.getValue();
+            
             String cellValue = value.toString();
 
             if (value instanceof Table)
@@ -440,14 +441,16 @@ public  class Table implements SendableEntity
       
       
       StringBuilder labelsText = new StringBuilder("labels: [\"")
-            .append(this.getColumns().first().getCells().getValue().toString("\", \""))
+            .append(this.getColumns().first().getCells().toString("\", \""))
             .append("\"]");
 
       
+      CellSet cells = this.getColumns().last().getCells();
       StringBuilder dataText = new StringBuilder("data: [")
-            .append(this.getColumns().last().getCells().getValue().toString(", "))
+            .append(cells.toString(", "))
             .append("]");
-
+      
+      
 
       StringBuilder chartText = new StringBuilder("" + 
             "    <div style=\"width:75%;\">\n" + 
@@ -490,10 +493,8 @@ public  class Table implements SendableEntity
             "\n" + 
             "       \n" + 
             "\n" + 
-            "        window.onload = function() {\n" + 
-            "            var ctx = document.getElementById(\"canvasid\").getContext(\"2d\");\n" + 
-            "            window.myLine = new Chart(ctx, config);\n" + 
-            "        };\n" + 
+            "        var ctx = document.getElementById(\"canvasid\").getContext(\"2d\");\n" + 
+            "        window.myLine = new Chart(ctx, config);\n" + 
             "\n" + 
             "\n" + 
             "    </script>\n"

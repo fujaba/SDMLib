@@ -23,10 +23,10 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.studyright.model.Female;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class FemaleSet extends SimpleSet<Female>
 {

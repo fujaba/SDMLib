@@ -21,8 +21,6 @@
    
 package org.sdmlib.simple.model.abstract_B;
 
-import org.sdmlib.simple.model.abstract_B.Flower;
-
 public  interface Human
 {
 

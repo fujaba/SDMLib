@@ -24,9 +24,6 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-import java.lang.Object;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

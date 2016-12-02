@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.examples.features.model.albertsets;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.features.model.albertsets.House;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

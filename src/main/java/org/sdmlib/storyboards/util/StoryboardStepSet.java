@@ -23,12 +23,11 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.storyboards.util.StoryboardSet;
+import de.uniks.networkparser.list.StringList;
 
 public class StoryboardStepSet extends SimpleSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {

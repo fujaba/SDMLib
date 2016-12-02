@@ -23,12 +23,12 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class PeerProxySet extends SimpleSet<PeerProxy>
 {

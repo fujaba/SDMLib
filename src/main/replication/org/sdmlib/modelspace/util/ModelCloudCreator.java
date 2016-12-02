@@ -21,11 +21,12 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.IdMap;
 
 public class ModelCloudCreator extends EntityFactory
 {

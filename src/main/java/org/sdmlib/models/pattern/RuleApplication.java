@@ -21,12 +21,11 @@
    
 package org.sdmlib.models.pattern;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.ReachableState;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>

@@ -21,8 +21,6 @@
    
 package org.sdmlib.simple.model.abstract_A;
 
-import org.sdmlib.simple.model.abstract_A.Person;
-
 public  interface Human
 {
 

@@ -2,7 +2,6 @@ package org.sdmlib.modelcouch;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -16,8 +15,6 @@ import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
 import org.sdmlib.modelcouch.connection.RequestObject;
 import org.sdmlib.modelcouch.connection.RequestType;
 import org.sdmlib.modelcouch.connection.ReturnObject;
-import org.sdmlib.modelcouch.connection.authentication.Authenticator;
-import org.sdmlib.modelcouch.connection.authentication.BasicAuthenticator;
 import org.sdmlib.modelcouch.connection.authentication.CookieAuthenticator;
 
 import de.uniks.networkparser.json.JsonArray;

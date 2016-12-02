@@ -21,10 +21,11 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class DoorCreator implements SendableEntityCreator
 {

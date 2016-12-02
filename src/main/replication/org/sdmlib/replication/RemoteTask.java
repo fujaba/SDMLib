@@ -21,11 +21,10 @@
    
 package org.sdmlib.replication;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.LogEntry;
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 /**
     * 

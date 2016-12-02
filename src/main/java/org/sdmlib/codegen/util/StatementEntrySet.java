@@ -26,10 +26,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.StatementEntry;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class StatementEntrySet extends SimpleSet<StatementEntry>
 {

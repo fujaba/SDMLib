@@ -23,14 +23,12 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
 public class PersonSet extends SimpleSet<Person>
 {

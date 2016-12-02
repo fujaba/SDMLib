@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
-import org.sdmlib.models.taskflows.util.LoggerPO;
-import org.sdmlib.models.taskflows.util.LogEntryPO;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {

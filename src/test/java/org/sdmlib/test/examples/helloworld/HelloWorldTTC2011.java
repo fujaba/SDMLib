@@ -29,12 +29,12 @@ import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.test.examples.helloworld.util.GreetingPO;
 import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 

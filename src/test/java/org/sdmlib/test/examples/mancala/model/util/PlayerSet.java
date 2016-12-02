@@ -24,19 +24,18 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
+import org.sdmlib.test.examples.mancala.model.Stone;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 import org.sdmlib.test.examples.mancala.referencemodel.util.ColorSet;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.mancala.model.util.StoneSet;
-import org.sdmlib.test.examples.mancala.model.Stone;
+import de.uniks.networkparser.list.StringList;
 
 public class PlayerSet extends SimpleSet<Player>
 {

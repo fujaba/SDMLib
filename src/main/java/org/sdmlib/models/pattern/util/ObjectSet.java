@@ -21,9 +21,9 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import java.lang.Object;
 import java.util.Collection;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ObjectSet extends SimpleSet<Object>
 {

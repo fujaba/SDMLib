@@ -3,8 +3,6 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.LogEntryPO;
-import org.sdmlib.replication.util.TaskPO;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {

@@ -7,8 +7,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleSet;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;

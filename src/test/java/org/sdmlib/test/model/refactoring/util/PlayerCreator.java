@@ -22,9 +22,10 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.model.refactoring.Player;
 import org.sdmlib.test.model.refactoring.Ludo;
+import org.sdmlib.test.model.refactoring.Player;
+
+import de.uniks.networkparser.IdMap;
 
 public class PlayerCreator extends EntityFactory
 {

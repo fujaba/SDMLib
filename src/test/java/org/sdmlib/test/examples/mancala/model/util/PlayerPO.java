@@ -7,10 +7,8 @@ import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
-import org.sdmlib.test.examples.mancala.referencemodel.Color;
-import org.sdmlib.test.examples.mancala.model.util.StonePO;
 import org.sdmlib.test.examples.mancala.model.Stone;
-import org.sdmlib.test.examples.mancala.model.util.PlayerPO;
+import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

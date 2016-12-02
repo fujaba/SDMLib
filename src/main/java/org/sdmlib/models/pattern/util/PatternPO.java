@@ -1,12 +1,9 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.util.PatternPO;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.PatternElementPO;
-import org.sdmlib.models.pattern.util.PatternElementSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PatternPO extends PatternObject<PatternPO, Pattern>
 {

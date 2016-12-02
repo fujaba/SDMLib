@@ -29,8 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonObject;
-import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.ChangeHistory;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

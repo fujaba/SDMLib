@@ -1,8 +1,10 @@
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import java.beans.PropertyChangeEvent;
+
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.IdMap;
 
 public class PropertyChangeEventPOCreator extends PatternObjectCreator
 {

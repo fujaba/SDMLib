@@ -21,10 +21,11 @@
    
 package org.sdmlib.simple.model.abstract_C.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.simple.model.abstract_C.Game;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.abstract_C.Ground;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class GameCreator implements SendableEntityCreator
 {

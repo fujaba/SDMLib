@@ -21,13 +21,14 @@
    
 package org.sdmlib.simple.model.abstract_B.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.abstract_B.Human;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.simple.model.abstract_B.util.FlowerSet;
+
 import org.sdmlib.simple.model.abstract_B.Flower;
+import org.sdmlib.simple.model.abstract_B.Human;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class HumanSet extends SimpleSet<Human>
 {

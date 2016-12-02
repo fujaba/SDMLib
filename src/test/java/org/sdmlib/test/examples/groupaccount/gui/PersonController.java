@@ -6,6 +6,9 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
+import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.Person;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,9 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import org.sdmlib.test.examples.groupaccount.model.Item;
-import org.sdmlib.test.examples.groupaccount.model.Person;
 
 
 public class PersonController implements PropertyChangeListener

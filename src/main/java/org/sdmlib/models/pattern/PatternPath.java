@@ -21,19 +21,11 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import java.lang.Object;
 
 /**
  * 

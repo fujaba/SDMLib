@@ -21,10 +21,11 @@
    
 package org.sdmlib.modelcouch.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.modelcouch.ModelDBListener;
 import org.sdmlib.modelcouch.ModelCouch;
+import org.sdmlib.modelcouch.ModelDBListener;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ModelDBListenerCreator implements SendableEntityCreator
 {

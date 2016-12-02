@@ -1,22 +1,14 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
 import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
-import org.sdmlib.test.examples.maumau.model.util.CardPO;
-import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.HolderPO;
-import org.sdmlib.test.examples.maumau.model.Holder;
-import org.sdmlib.test.examples.maumau.model.util.PlayerPO;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackPO;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
-import org.sdmlib.test.examples.maumau.model.util.OpenStackPO;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
 
 public class MauMauPO extends PatternObject<MauMauPO, MauMau>
 {

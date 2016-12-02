@@ -21,9 +21,11 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.classes.ClassModel;
 import java.util.Collection;
+
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.modelsets.SDMSet;
+
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.StringList;
 

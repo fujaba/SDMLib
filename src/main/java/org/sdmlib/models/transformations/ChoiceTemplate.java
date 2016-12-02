@@ -25,10 +25,6 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.Template;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
