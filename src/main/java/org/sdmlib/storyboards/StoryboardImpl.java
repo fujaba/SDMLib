@@ -483,6 +483,13 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+   public void addBarChart(Table table)
+   {
+      String tableText = table.getHtmlBarChart("tableChart"+getStoryboardSteps().size());
+
+      this.add(tableText);
+   }
+
 
 
    public StoryboardImpl withMap(IdMap map)

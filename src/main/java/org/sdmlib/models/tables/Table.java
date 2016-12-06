@@ -513,4 +513,80 @@ public  class Table implements SendableEntity
       return chartText.toString();
    }
 
+   public String getHtmlBarChart(String chartName)
+   {
+      
+      
+      StringBuilder labelsText = new StringBuilder("labels: [\"")
+            .append(this.getColumns().first().getCells().toString("\", \""))
+            .append("\"]");
+
+      
+      CellSet cells = this.getColumns().last().getCells();
+      StringBuilder dataText = new StringBuilder("data: [")
+            .append(cells.toString(", "))
+            .append("]");
+      
+      
+
+      StringBuilder chartText = new StringBuilder("" + 
+            "    <div style=\"width:75%;\">\n" + 
+            "        <canvas id=\"canvasid\"></canvas>\n" + 
+            "    </div>\n" +
+            "    <script>\n" + 
+            "        \n" + 
+            "        var config = {\n" + 
+            "            type: 'bar',\n" + 
+            "            data: {\n" + 
+            "                labels: [],\n" + 
+            "                datasets: [{\n" + 
+            "                    label: \"column2Name\",\n" + 
+            "                    data: []\n" + 
+            "                }]\n" + 
+            "            },\n" + 
+            "            options: {\n" + 
+            "                // responsive: true,\n" + 
+            "                hover: {\n" + 
+            "                    mode: 'dataset'\n" + 
+            "                },\n" + 
+            "                scales: {\n" + 
+            "                    xAxes: [{\n" + 
+            "                        display: true,\n" + 
+            "                        scaleLabel: {\n" + 
+            "                            display: true,\n" + 
+            "                            labelString: 'column1Name'\n" + 
+            "                        }\n" + 
+            "                    }],\n" + 
+            "                    yAxes: [{\n" + 
+            "                        display: true,\n" + 
+            "                        scaleLabel: {\n" + 
+            "                            display: true,\n" + 
+            "                            labelString: 'column2Name'\n" + 
+            "                        }\n" + 
+            "                    }]\n" + 
+            "                }" + 
+            "            }\n" + 
+            "        };\n" + 
+            "\n" + 
+            "       \n" + 
+            "\n" + 
+            "        var ctx = document.getElementById(\"canvasid\").getContext(\"2d\");\n" + 
+            "        window.myLine = new Chart(ctx, config);\n" + 
+            "\n" + 
+            "\n" + 
+            "    </script>\n"
+            );
+
+
+      CGUtil.replaceAll(chartText, 
+         "canvasid", chartName,
+         "labels: []", labelsText, 
+         "data: []", dataText, 
+         "column1Name", getColumns().first().getName(), 
+         "column2Name", getColumns().last().getName());
+
+
+
+      return chartText.toString();
+   }
 }

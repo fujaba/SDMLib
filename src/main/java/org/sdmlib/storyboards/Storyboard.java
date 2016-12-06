@@ -268,4 +268,9 @@ public class Storyboard {
    {
       storyboard.addLineChart(table);
    }	
+
+   public void addBarChart(Table table)
+   {
+      storyboard.addBarChart(table);
+   }  
 }
