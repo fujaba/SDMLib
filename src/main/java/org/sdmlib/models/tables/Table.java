@@ -158,6 +158,16 @@ public  class Table implements SendableEntity
 
       return this.columns;
    }
+   
+   public Table withColumns(String... columnNames)
+   {
+      for (String newName : columnNames)
+      {
+         this.createColumns().withName(newName);
+      }
+      return this;
+   }
+   
 
    public Table withColumns(Column... value)
    {
@@ -559,6 +569,9 @@ public  class Table implements SendableEntity
             "                    }],\n" + 
             "                    yAxes: [{\n" + 
             "                        display: true,\n" + 
+            "                        ticks: {\r\n" + 
+            "                            beginAtZero:true\r\n" + 
+            "                        },\n" + 
             "                        scaleLabel: {\n" + 
             "                            display: true,\n" + 
             "                            labelString: 'column2Name'\n" + 
