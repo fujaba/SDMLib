@@ -116,7 +116,7 @@ public class Javascript implements GuiAdapter
    }
    
    public GraphList convertModelToGraphList(ClassModel model) {
-	   GraphList list = new GraphList().withTyp(IdMap.CLASS);
+	   GraphList list = new GraphList().withType(IdMap.CLASS);
 	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
 	      
       for (Clazz clazz : model.getClazzes())
