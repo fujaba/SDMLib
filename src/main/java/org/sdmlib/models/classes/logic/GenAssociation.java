@@ -524,21 +524,21 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
 
-            if (this.model.getType()==AssociationTypes.EDGE || GraphUtil.isInterface(partnerRole.getClazz()))
-            {
-               // uni directional assoc, do not call reverse
-               setMeth = CGUtil.replaceAll(setMeth, 
-                  "\n         if (this.partnerRoleName != null)" +
-                        "\n         {" +
-                        "\n            this.partnerRoleName = null;" +
-                        "\n            oldValue.withoutMethodCall(this);" +
-                        "\n         }", "",
-                        "\n         if (value != null)" +
-                              "\n         {" +
-                              "\n            value.withMyRoleName(this);" +
-                              "\n         }", ""
-                     );
-            }
+//FIXME NESSESSARY??            if (this.model.getType()==AssociationTypes.EDGE || GraphUtil.isInterface(partnerRole.getClazz()))
+//            {
+//               // uni directional assoc, do not call reverse
+//               setMeth = CGUtil.replaceAll(setMeth, 
+//                  "\n         if (this.partnerRoleName != null)" +
+//                        "\n         {" +
+//                        "\n            this.partnerRoleName = null;" +
+//                        "\n            oldValue.withoutMethodCall(this);" +
+//                        "\n         }", "",
+//                        "\n         if (value != null)" +
+//                              "\n         {" +
+//                              "\n            value.withMyRoleName(this);" +
+//                              "\n         }", ""
+//                     );
+//            }
             text.append(setMeth);
          }
          else
