@@ -483,6 +483,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();

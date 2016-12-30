@@ -1612,7 +1612,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {
-      this.add("Check: " + message + " " + expected + " actual " + actual);
+      this.add("Check: " + message + " " + expected + " +-" + delta + " actual " + actual);
+
+      if (Math.abs(expected - actual) > delta)
+      {
+         this.dumpHTML();
+      }
+      Assert.assertEquals("FAILED: " + message, expected, actual, delta);
+   }
+
+
+   public void assertEquals(String message, long expected, long actual, long delta)
+   {
+      this.add("Check: " + message + " " + expected + " +-" + delta + " actual " + actual);
 
       if (Math.abs(expected - actual) > delta)
       {
@@ -1657,6 +1669,17 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    public void assertEquals(String message, int expected, int actual)
+   {
+      this.add("Check: " + message + " " + expected + " actual " + actual);
+      if (expected != actual)
+      {
+         this.dumpHTML();
+      }
+      Assert.assertEquals("FAILED: " + message, expected, actual);
+   }
+
+
+   public void assertEquals(String message, long expected, long actual)
    {
       this.add("Check: " + message + " " + expected + " actual " + actual);
       if (expected != actual)

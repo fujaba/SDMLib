@@ -32,6 +32,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  */
    public  class University implements SendableEntity
 {
@@ -145,6 +146,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
    private StudentSet students = null;
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public StudentSet getStudents()
    {
       if (this.students == null)
@@ -155,6 +160,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this.students;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public University withStudents(Student... value)
    {
       if(value==null){
@@ -197,6 +206,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public Student createStudents()
    {
       Student value = new Student();
@@ -204,6 +217,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return value;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
@@ -224,6 +241,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
    private RoomSet rooms = null;
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public RoomSet getRooms()
    {
       if (this.rooms == null)
@@ -276,6 +297,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public Room createRooms()
    {
       Room value = new Room();

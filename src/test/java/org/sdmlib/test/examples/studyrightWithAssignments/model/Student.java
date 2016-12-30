@@ -397,6 +397,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public Student withFriends(Student... value)
    {
       if(value==null){
@@ -476,6 +480,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this.done;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public Student withDone(Assignment... value)
    {
       if(value==null){

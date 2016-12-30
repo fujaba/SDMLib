@@ -576,7 +576,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       roomPO.createTasLink(null);
 
-      roomPO.createTasPO();
+      roomPO.createTasPO(CREATE);
 
       rooms = roomPO.allMatches();
 
