@@ -1597,4 +1597,17 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
       }
    }
+
+
+   public long explore(long i, ReachableState startState)
+   {
+      String s1cert = startState.computeCertificate(masterMap);
+
+      this.withStates(startState);
+
+      this.withTodo(startState);
+
+      this.withStateMap(s1cert, startState);
+      return explore(i, Searchmode.DEPTH);
+   }
 }

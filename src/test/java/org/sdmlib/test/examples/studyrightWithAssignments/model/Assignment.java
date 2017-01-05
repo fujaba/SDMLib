@@ -24,28 +24,72 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  */
    public  class Assignment implements SendableEntity
 {
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = null;
+   
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   {
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
+   }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
+   
    //==========================================================================
    
    
    public void removeYou()
    {
-   
-      setRoom(null);
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
+      setRoom(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -63,11 +107,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    
    public void setContent(String value)
    {
-      if ( ! StrUtil.stringEquals(this.content, value)) {
+      if ( ! EntityUtil.stringEquals(this.content, value)) {
       
          String oldValue = this.content;
          this.content = value;
-         firePropertyChange(PROPERTY_CONTENT, oldValue, value);
+         this.firePropertyChange(PROPERTY_CONTENT, oldValue, value);
       }
    }
    
@@ -107,7 +151,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
       
          int oldValue = this.points;
          this.points = value;
-         firePropertyChange(PROPERTY_POINTS, oldValue, value);
+         this.firePropertyChange(PROPERTY_POINTS, oldValue, value);
       }
    }
    
@@ -115,65 +159,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    {
       setPoints(value);
       return this;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Assignment ----------------------------------- Room
-    *              assignments                   room
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ROOM = "room";
-
-   private Room room = null;
-
-   public Room getRoom()
-   {
-      return this.room;
-   }
-
-   public boolean setRoom(Room value)
-   {
-      boolean changed = false;
-      
-      if (this.room != value)
-      {
-         Room oldValue = this.room;
-         
-         if (this.room != null)
-         {
-            this.room = null;
-            oldValue.withoutAssignments(this);
-         }
-         
-         this.room = value;
-         
-         if (value != null)
-         {
-            value.withAssignments(this);
-         }
-         
-         firePropertyChange(PROPERTY_ROOM, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Assignment withRoom(Room value)
-   {
-      setRoom(value);
-      return this;
-   } 
-
-   public Room createRoom()
-   {
-      Room value = new Room();
-      withRoom(value);
-      return value;
    } 
 
    
@@ -256,47 +241,61 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    } 
 
    
-   //==========================================================================
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Assignment ----------------------------------- Room
+    *              assignments                   room
+    * </pre>
+    */
    
-   protected PropertyChangeSupport listeners = null;
-   
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
-   }
-   
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public static final String PROPERTY_ROOM = "room";
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   private Room room = null;
+
+   public Room getRoom()
+   {
+      return this.room;
+   }
+
+   public boolean setRoom(Room value)
+   {
+      boolean changed = false;
+      
+      if (this.room != value)
+      {
+         Room oldValue = this.room;
+         
+         if (this.room != null)
+         {
+            this.room = null;
+            oldValue.withoutAssignments(this);
+         }
+         
+         this.room = value;
+         
+         if (value != null)
+         {
+            value.withAssignments(this);
+         }
+         
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Assignment withRoom(Room value)
+   {
+      setRoom(value);
+      return this;
+   } 
+
+   public Room createRoom()
+   {
+      Room value = new Room();
+      withRoom(value);
+      return value;
+   } 
 }
