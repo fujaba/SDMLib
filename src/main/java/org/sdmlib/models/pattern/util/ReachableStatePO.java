@@ -1,15 +1,11 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.ReachableStatePO;
-import org.sdmlib.models.pattern.util.RuleApplicationPO;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
 public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableState>
 {

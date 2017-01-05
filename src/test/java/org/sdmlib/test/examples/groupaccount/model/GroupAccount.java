@@ -29,7 +29,7 @@ import org.junit.Assert;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
-import org.sdmlib.test.examples.groupaccount.model.Person;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
 /**
  * 

@@ -1,15 +1,9 @@
 package org.sdmlib.test.examples.modelcouch.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.modelcouch.Person;
-import org.sdmlib.test.examples.modelcouch.util.PersonPO;
-import org.sdmlib.test.examples.modelcouch.util.PersonSet;
-import org.sdmlib.test.examples.modelcouch.util.TaskPO;
-import org.sdmlib.test.examples.modelcouch.Task;
-import org.sdmlib.test.examples.modelcouch.util.TaskSet;
-import org.sdmlib.test.examples.modelcouch.util.DocumentDataPO;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
-import org.sdmlib.test.examples.modelcouch.util.DocumentDataSet;
+import org.sdmlib.test.examples.modelcouch.Person;
+import org.sdmlib.test.examples.modelcouch.Task;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

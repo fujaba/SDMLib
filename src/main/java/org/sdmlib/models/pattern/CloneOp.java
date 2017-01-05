@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.SDMLibIdMap;
@@ -26,26 +26,23 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonArray;
-import org.sdmlib.models.pattern.Pattern;
-
-/**
- * 
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- */
-public class CloneOp extends PatternElement implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class CloneOp extends PatternElement implements PropertyChangeInterface
 {
    private IdMap origMap;
 
    private IdMap cloneMap;
 
    private PatternObject firstPO;
-
+   
    private Object origGraph;
 
    private Object cloneGraph;
 
-
-   // ==========================================================================
+   //==========================================================================
    @Override
    public boolean findNextMatch()
    {
@@ -54,31 +51,31 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
          if (!getHasMatch())
          {
             this.setHasMatch(true);
-
+            
             origMap = this.getPattern().getIdMap();
             origMap = (IdMap) new SDMLibIdMap("om").with(origMap);
             cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap);
-
+            
             for (PatternElement pe : this.getPattern().getElements())
             {
-               if (pe instanceof PatternObject)
-               {
-                  firstPO = (PatternObject) pe;
-                  break;
-               }
+            	if (pe instanceof PatternObject)
+            	{
+            		firstPO = (PatternObject) pe;
+            		break;
+            	}
             }
-
-            // firstPO = (PatternObject) this.getPattern().getElements().first();
-
+            
+            //firstPO = (PatternObject) this.getPattern().getElements().first();
+            
             if (firstPO != null)
             {
-               origGraph = firstPO.getCurrentMatch();
+            	origGraph = firstPO.getCurrentMatch();
 
-               JsonArray jsonArray = origMap.toJsonArray(origGraph);
+            	JsonArray jsonArray = origMap.toJsonArray(origGraph);
 
-               cloneGraph = cloneMap.decode(jsonArray);
+            	cloneGraph = cloneMap.decode(jsonArray);
             }
-
+            
             // change matches to point to the new nodes
             for (PatternElement pe : this.getPattern().getElements())
             {
@@ -97,8 +94,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
                   break;
                }
             }
-            // cloning works fine
-
+            
             // go on
             return true;
          }
@@ -124,7 +120,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
                   break;
                }
             }
-
+            
             return false;
          }
       }
@@ -134,58 +130,32 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
       }
    }
 
-
    @Override
    public void resetSearch()
    {
       this.setHasMatch(false);
-   }
+   } 
 
-
-   // ==========================================================================
-
+   //==========================================================================
+   
    @Override
    public void removeYou()
    {
       super.removeYou();
 
       setPattern(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
-
 
    @Override
    public String toString()
    {
       StringBuilder s = new StringBuilder();
-
+      
       s.append(" ").append(this.getModifier());
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);
    }
 
-
-   public IdMap getOrigMap()
-   {
-      return origMap;
-   }
-
-
-   public void setOrigMap(IdMap origMap)
-   {
-      this.origMap = origMap;
-   }
-
-
-   public IdMap getCloneMap()
-   {
-      return cloneMap;
-   }
-
-
-   public void setCloneMap(IdMap cloneMap)
-   {
-      this.cloneMap = cloneMap;
-   }
-
 }
+

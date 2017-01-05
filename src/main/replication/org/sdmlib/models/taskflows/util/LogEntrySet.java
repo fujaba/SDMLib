@@ -24,13 +24,12 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.taskflows.util.LoggerSet;
+import de.uniks.networkparser.list.StringList;
 
 public class LogEntrySet extends SimpleSet<LogEntry>
 {

@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.util.TemplatePO;
-import org.sdmlib.models.transformations.util.MatchPO;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
 
 public class MatchPO extends PatternObject<MatchPO, Match>
 {

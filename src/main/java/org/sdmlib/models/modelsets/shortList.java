@@ -97,7 +97,7 @@ public class shortList extends SimpleSet<Short> implements PropertyChangeInterfa
    //==========================================================================
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
 

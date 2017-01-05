@@ -21,13 +21,14 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class RoomCreator implements SendableEntityCreator
 {
@@ -37,8 +38,8 @@ public class RoomCreator implements SendableEntityCreator
       Room.PROPERTY_TOPIC,
       Room.PROPERTY_CREDITS,
       Room.PROPERTY_UNIVERSITY,
-      Room.PROPERTY_DOORS,
       Room.PROPERTY_STUDENTS,
+      Room.PROPERTY_DOORS,
       Room.PROPERTY_ASSIGNMENTS,
       Room.PROPERTY_TAS,
    };
@@ -86,14 +87,14 @@ public class RoomCreator implements SendableEntityCreator
          return ((Room) target).getUniversity();
       }
 
-      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attribute))
-      {
-         return ((Room) target).getDoors();
-      }
-
       if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getStudents();
+      }
+
+      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attribute))
+      {
+         return ((Room) target).getDoors();
       }
 
       if (Room.PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attribute))
@@ -114,23 +115,23 @@ public class RoomCreator implements SendableEntityCreator
    {
       if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         ((Room) target).withCredits(Integer.parseInt(value.toString()));
+         ((Room) target).setCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Room.PROPERTY_TOPIC.equalsIgnoreCase(attrName))
       {
-         ((Room) target).withTopic((String) value);
+         ((Room) target).setTopic((String) value);
          return true;
       }
 
       if (Room.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Room) target).withName((String) value);
+         ((Room) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -141,27 +142,27 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attrName))
-      {
-         ((Room) target).withDoors((Room) value);
-         return true;
-      }
-      
-      if ((Room.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Room) target).withoutDoors((Room) value);
-         return true;
-      }
-
       if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
       {
          ((Room) target).withStudents((Student) value);
          return true;
       }
       
-      if ((Room.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutStudents((Student) value);
+         return true;
+      }
+
+      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attrName))
+      {
+         ((Room) target).withDoors((Room) value);
+         return true;
+      }
+      
+      if ((Room.PROPERTY_DOORS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Room) target).withoutDoors((Room) value);
          return true;
       }
 
@@ -171,7 +172,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_ASSIGNMENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_ASSIGNMENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutAssignments((Assignment) value);
          return true;
@@ -183,7 +184,7 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Room.PROPERTY_TAS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_TAS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutTas((TeachingAssistant) value);
          return true;

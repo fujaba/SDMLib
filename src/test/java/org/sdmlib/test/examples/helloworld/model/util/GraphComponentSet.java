@@ -23,12 +23,15 @@ package org.sdmlib.test.examples.helloworld.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
+import org.sdmlib.test.examples.helloworld.model.Node;
 
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GraphComponentSet extends SimpleSet<GraphComponent>
 {
@@ -239,4 +242,53 @@ public class GraphComponentSet extends SimpleSet<GraphComponent>
    {
       this.addAll(objects);
    }
-}
+
+
+   public GraphComponentPO createGraphComponentPO()
+   {
+      return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
+   }
+
+
+   @Override
+   public GraphComponentSet getNewList(boolean keyValue)
+   {
+      return new GraphComponentSet();
+   }
+
+
+   public GraphComponentSet filter(Condition<GraphComponent> condition) {
+      GraphComponentSet filterList = new GraphComponentSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public EdgeSet instanceOfEdge()
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Edge)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet instanceOfNode()
+   {
+      NodeSet result = new NodeSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Node)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

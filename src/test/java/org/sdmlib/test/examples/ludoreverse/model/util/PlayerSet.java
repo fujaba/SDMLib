@@ -24,13 +24,12 @@ package org.sdmlib.test.examples.ludoreverse.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
+import de.uniks.networkparser.list.StringList;
 
 public class PlayerSet extends SimpleSet<Player>
 {

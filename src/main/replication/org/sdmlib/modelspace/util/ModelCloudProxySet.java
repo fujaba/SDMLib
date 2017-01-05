@@ -24,16 +24,14 @@ package org.sdmlib.modelspace.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.modelspace.util.ModelCloudSet;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+import de.uniks.networkparser.list.StringList;
 
 public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
 {

@@ -21,15 +21,16 @@
    
 package org.sdmlib.test.examples.roombook.util;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.roombook.Building;
-import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.roombook.util.FloorSet;
 import org.sdmlib.test.examples.roombook.Floor;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class BuildingSet extends SDMSet<Building>
 {

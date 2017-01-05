@@ -21,10 +21,11 @@
    
 package org.sdmlib.test.examples.roombook.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.roombook.Floor;
 import org.sdmlib.test.examples.roombook.Building;
+import org.sdmlib.test.examples.roombook.Floor;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class FloorCreator implements SendableEntityCreator
 {

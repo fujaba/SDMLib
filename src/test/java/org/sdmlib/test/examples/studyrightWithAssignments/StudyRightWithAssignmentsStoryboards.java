@@ -576,7 +576,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       roomPO.createTasLink(null);
 
-      roomPO.createTasPO();
+      roomPO.createTasPO(CREATE);
 
       rooms = roomPO.allMatches();
 
@@ -693,11 +693,8 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
    /**
-    * 
-    * @see <a href=
-    *      '../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
- */
+    */
    @Test
    public void testStudyRightTablesAndReports()
    {

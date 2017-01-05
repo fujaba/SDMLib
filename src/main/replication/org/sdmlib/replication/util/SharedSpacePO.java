@@ -8,8 +8,6 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.ChangeHistoryPO;
-import org.sdmlib.replication.util.SharedSpacePO;
 
 public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
 {

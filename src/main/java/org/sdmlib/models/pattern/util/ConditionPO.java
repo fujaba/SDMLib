@@ -1,20 +1,19 @@
 package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import de.uniks.networkparser.interfaces.Condition;
 
-public class ConditionPO extends PatternObject<ConditionPO, Condition>
+public class ObjectPO extends PatternObject<ObjectPO, Object>
 {
 
-    public ConditionSet allMatches()
+    public ObjectSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      ConditionSet matches = new ConditionSet();
+      ObjectSet matches = new ObjectSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Condition) this.getCurrentMatch());
+         matches.add((Object) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -23,18 +22,18 @@ public class ConditionPO extends PatternObject<ConditionPO, Condition>
    }
 
 
-   public ConditionPO(){
+   public ObjectPO(){
       newInstance(null);
    }
 
-   public ConditionPO(Condition... hostGraphObject) {
+   public ObjectPO(Object... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(null, hostGraphObject);
    }
 
-   public ConditionPO(String modifier)
+   public ObjectPO(String modifier)
    {
       this.setModifier(modifier);
    }

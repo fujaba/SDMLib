@@ -21,16 +21,17 @@
    
 package org.sdmlib.models.tables.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.tables.Table;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.models.tables.util.ColumnSet;
+
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.tables.Column;
-import org.sdmlib.models.tables.util.RowSet;
 import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class TableSet extends SDMSet<Table>
 {
@@ -335,6 +336,66 @@ public class TableSet extends SDMSet<Table>
       }
       
       return this;
+   }
+
+
+
+   @Override
+   public TableSet getNewList(boolean keyValue)
+   {
+      return new TableSet();
+   }
+
+
+   public TableSet filter(Condition<Table> condition) {
+      TableSet filterList = new TableSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Table objects and collect those Table objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Table objects that match the parameter
+    */
+   public TableSet filterName(String value)
+   {
+      TableSet result = new TableSet();
+      
+      for (Table obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Table objects and collect those Table objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Table objects that match the parameter
+    */
+   public TableSet filterName(String lower, String upper)
+   {
+      TableSet result = new TableSet();
+      
+      for (Table obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

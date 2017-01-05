@@ -119,7 +119,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern>implements Pr
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       setCurrentSubPattern(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    // ==========================================================================

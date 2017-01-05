@@ -21,10 +21,12 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
@@ -83,7 +85,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
       setSuccessor(null);
       setBombermanstrategy(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

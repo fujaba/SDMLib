@@ -22,11 +22,11 @@
 package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
-import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 public class MacCreator extends EntityFactory
 {

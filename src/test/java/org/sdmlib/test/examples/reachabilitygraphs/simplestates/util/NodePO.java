@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {

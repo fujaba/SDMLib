@@ -5,8 +5,8 @@ import java.beans.PropertyChangeListener;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleSet;
 import javafx.application.Application;
 import javafx.scene.layout.HBox;

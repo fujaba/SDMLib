@@ -39,13 +39,8 @@ import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import java.lang.Object;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.Match;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 /**
  * 
@@ -97,7 +92,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
       withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    // ==========================================================================

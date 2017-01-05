@@ -1,12 +1,8 @@
 package org.sdmlib.simple.model.association_i.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.association_i.Room;
-import org.sdmlib.simple.model.association_i.util.PersonPO;
 import org.sdmlib.simple.model.association_i.Person;
-import org.sdmlib.simple.model.association_i.util.RoomPO;
-import org.sdmlib.simple.model.association_i.util.PersonSet;
-import org.sdmlib.simple.model.association_i.util.TeacherPO;
+import org.sdmlib.simple.model.association_i.Room;
 import org.sdmlib.simple.model.association_i.Teacher;
 
 public class RoomPO extends PatternObject<RoomPO, Room>

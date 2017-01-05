@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 christoph
+   Copyright (c) 2016 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,51 +21,51 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 
-public class ConditionSet extends SimpleSet<Condition>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ObjectSet extends SimpleSet<Object>
 {
 	protected Class<?> getTypClass() {
-		return Condition.class;
+		return Object.class;
 	}
 
-   public ConditionSet()
+   public ObjectSet()
    {
       // empty
    }
 
-   public ConditionSet(Condition... objects)
+   public ObjectSet(Object... objects)
    {
-      for (Condition obj : objects)
+      for (Object obj : objects)
       {
          this.add(obj);
       }
    }
 
-   public ConditionSet(Collection<Condition> objects)
+   public ObjectSet(Collection<Object> objects)
    {
       this.addAll(objects);
    }
 
-   public static final ConditionSet EMPTY_SET = new ConditionSet().withFlag(ConditionSet.READONLY);
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
 
 
-   public ConditionPO createConditionPO()
+   public ObjectPO createObjectPO()
    {
-      return new ConditionPO(this.toArray(new Condition[this.size()]));
+      return new ObjectPO(this.toArray(new Object[this.size()]));
    }
 
 
    public String getEntryType()
    {
-      return "de.uniks.networkparser.interfaces.Condition";
+      return "java.lang.Object";
    }
 
 
    @SuppressWarnings("unchecked")
-   public ConditionSet with(Object value)
+   public ObjectSet with(Object value)
    {
       if (value == null)
       {
@@ -73,17 +73,17 @@ public class ConditionSet extends SimpleSet<Condition>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Condition>)value);
+         this.addAll((Collection<Object>)value);
       }
       else if (value != null)
       {
-         this.add((Condition) value);
+         this.add((Object) value);
       }
       
       return this;
    }
    
-   public ConditionSet without(Condition value)
+   public ObjectSet without(Object value)
    {
       this.remove(value);
       return this;

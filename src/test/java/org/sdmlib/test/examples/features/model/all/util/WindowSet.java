@@ -23,12 +23,11 @@ package org.sdmlib.test.examples.features.model.all.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.features.model.all.util.HouseSet;
 
 public class WindowSet extends SimpleSet<Window>
 {

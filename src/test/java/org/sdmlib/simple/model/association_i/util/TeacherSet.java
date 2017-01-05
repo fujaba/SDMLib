@@ -21,15 +21,15 @@
    
 package org.sdmlib.simple.model.association_i.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.association_i.Teacher;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.simple.model.association_i.util.PersonSet;
+
 import org.sdmlib.simple.model.association_i.Person;
-import org.sdmlib.simple.model.association_i.util.RoomSet;
 import org.sdmlib.simple.model.association_i.Room;
+import org.sdmlib.simple.model.association_i.Teacher;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TeacherSet extends SimpleSet<Teacher>
 {

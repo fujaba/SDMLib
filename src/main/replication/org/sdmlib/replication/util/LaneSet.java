@@ -24,15 +24,13 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.RemoteTaskBoardSet;
-import org.sdmlib.replication.util.BoardTaskSet;
+import de.uniks.networkparser.list.StringList;
 
 public class LaneSet extends SimpleSet<Lane>
 {

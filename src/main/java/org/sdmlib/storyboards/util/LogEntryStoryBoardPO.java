@@ -1,10 +1,8 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.LogEntryStoryBoard;
-import org.sdmlib.storyboards.util.KanbanEntryPO;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardPO;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
 public class LogEntryStoryBoardPO extends PatternObject<LogEntryStoryBoardPO, LogEntryStoryBoard>
 {

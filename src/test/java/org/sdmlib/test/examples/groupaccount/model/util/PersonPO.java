@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountPO;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

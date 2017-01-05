@@ -21,15 +21,14 @@
    
 package org.sdmlib.test.examples.features.model.all;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.features.model.all.util.DoorSet;
 import org.sdmlib.test.examples.features.model.all.util.WindowSet;
 
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.features.model.all.Door;
-import org.sdmlib.test.examples.features.model.all.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

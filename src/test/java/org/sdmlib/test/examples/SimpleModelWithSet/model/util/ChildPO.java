@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
-import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class ChildPO extends PatternObject<ChildPO, Child>
 {

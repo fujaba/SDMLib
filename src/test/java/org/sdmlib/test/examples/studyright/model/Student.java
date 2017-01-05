@@ -30,8 +30,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyright.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
@@ -74,7 +74,7 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
       setUni(null);
       setIn(null);
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

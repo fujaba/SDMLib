@@ -1,6 +1,5 @@
 package org.sdmlib.test.examples.m2m;
 
-import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Cardinality;

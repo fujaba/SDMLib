@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
-import org.sdmlib.test.examples.m2m.model.util.GraphPO;
-import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
 
 public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {

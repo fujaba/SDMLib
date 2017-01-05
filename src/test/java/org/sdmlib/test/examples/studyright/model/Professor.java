@@ -28,8 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyright.model.Topic;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
@@ -46,7 +46,7 @@ import org.sdmlib.test.examples.studyright.model.Topic;
       super.removeYou();
       withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setTopic(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -67,7 +67,7 @@ import org.sdmlib.test.examples.studyright.model.Topic;
       {
          int oldValue = this.PersNr;
          this.PersNr = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSNR, oldValue, value);
+         firePropertyChange(PROPERTY_PERSNR, oldValue, value);
       }
    }
    

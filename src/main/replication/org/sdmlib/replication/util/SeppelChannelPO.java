@@ -6,8 +6,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.SeppelChannelPO;
 
 public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChannel>
 {

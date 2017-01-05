@@ -4,11 +4,11 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.PatternObject;
 
 /**
- * A StoryPage allows the use of the most important functionalities
- * of Storyboards.
+ * Replaced by the original Storyboard class.
  * 
- * @see StoryboardImpl
+ * @see Storyboard
 */
+@Deprecated
 public class StoryPage {
 
 	private StoryboardImpl storyboard;

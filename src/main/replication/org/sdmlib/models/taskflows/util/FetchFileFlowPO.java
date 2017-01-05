@@ -6,8 +6,6 @@ import org.sdmlib.models.taskflows.FetchFileFlow;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.taskflows.util.TaskFlowPO;
-import org.sdmlib.models.taskflows.util.FetchFileFlowPO;
 
 public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlow>
 {

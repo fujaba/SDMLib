@@ -25,10 +25,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.SymTabEntry;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class SymTabEntrySet extends SimpleSet<SymTabEntry>
 {

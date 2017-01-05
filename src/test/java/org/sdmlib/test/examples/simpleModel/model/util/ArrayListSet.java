@@ -26,7 +26,7 @@ import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
 
-public class ArrayListSet extends SimpleSet<ArrayList<?>>
+public class ArrayListSet extends SimpleSet<ArrayList>
 {
 
    public static final ArrayListSet EMPTY_SET = new ArrayListSet().withFlag(ArrayListSet.READONLY);

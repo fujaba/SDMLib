@@ -1,8 +1,9 @@
 package org.sdmlib.modelcouch.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.modelcouch.ModelCouch;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.IdMap;
 
 public class ModelCouchPOCreator extends PatternObjectCreator
 {

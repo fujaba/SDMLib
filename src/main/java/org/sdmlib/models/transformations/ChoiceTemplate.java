@@ -25,10 +25,6 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.Template;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
@@ -70,7 +66,7 @@ import org.sdmlib.models.transformations.Template;
       withoutChoices(this.getChoices().toArray(new Template[this.getChoices().size()]));
       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
 

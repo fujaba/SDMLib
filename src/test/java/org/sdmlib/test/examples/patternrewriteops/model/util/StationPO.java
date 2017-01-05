@@ -6,10 +6,6 @@ import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {

@@ -21,9 +21,10 @@
    
 package org.sdmlib.simple.model.attribute_k.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import java.util.Collection;
+
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {

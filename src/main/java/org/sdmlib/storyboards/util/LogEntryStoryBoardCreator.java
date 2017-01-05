@@ -22,9 +22,10 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.KanbanEntry;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
+
+import de.uniks.networkparser.IdMap;
 
 public class LogEntryStoryBoardCreator extends EntityFactory
 {

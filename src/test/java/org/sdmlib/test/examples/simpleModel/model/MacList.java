@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

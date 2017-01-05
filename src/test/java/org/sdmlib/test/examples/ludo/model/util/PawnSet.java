@@ -23,18 +23,15 @@ package org.sdmlib.test.examples.ludo.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class PawnSet extends SimpleSet<Pawn>
 {

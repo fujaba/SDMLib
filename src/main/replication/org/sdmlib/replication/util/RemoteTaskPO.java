@@ -6,8 +6,6 @@ import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.LogEntryPO;
-import org.sdmlib.replication.util.RemoteTaskPO;
 
 public class RemoteTaskPO extends PatternObject<RemoteTaskPO, RemoteTask>
 {

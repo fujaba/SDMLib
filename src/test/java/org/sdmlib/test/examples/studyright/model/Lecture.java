@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

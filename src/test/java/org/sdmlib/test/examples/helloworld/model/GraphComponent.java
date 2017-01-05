@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.helloworld.model.util.GraphComponentSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

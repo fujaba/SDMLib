@@ -23,13 +23,10 @@ package org.sdmlib.test.examples.studyright;
 
 import java.beans.PropertyChangeSupport;
 
-import javax.management.relation.Role;
-
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
@@ -107,7 +104,7 @@ public class StudyRightModel implements PropertyChangeInterface
     * 
     * @see <a href='../../../../../../../../doc/StudyRightExtendsReverseClassModel.html'>StudyRightExtendsReverseClassModel.html</a>
 */
-   @Test
+//   @Test
    public void testStudyRightExtendsReverseClassModel()
    {
 

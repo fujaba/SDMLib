@@ -7,8 +7,6 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.NodePO;
-import org.sdmlib.test.examples.helloworld.model.util.GraphPO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {

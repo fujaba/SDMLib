@@ -21,9 +21,9 @@
    
 package org.sdmlib.simple.model.attribute_j.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.SimpleSet;
 import java.util.Collection;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class SimpleSetSet extends SimpleSet<SimpleSet>
 {

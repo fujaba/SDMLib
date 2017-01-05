@@ -3,8 +3,6 @@ package org.sdmlib.models.classes;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.SDMSet;
-
 import de.uniks.networkparser.list.SimpleSet;
 
 public enum Feature {

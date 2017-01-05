@@ -21,12 +21,13 @@
    
 package org.sdmlib.simple.model.association_k.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.association_k.Task;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.simple.model.association_k.util.TaskSet;
+
+import org.sdmlib.simple.model.association_k.Task;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TaskSet extends SimpleSet<Task>
 {

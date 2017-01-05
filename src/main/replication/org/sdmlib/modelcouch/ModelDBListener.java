@@ -21,14 +21,7 @@
 
 package org.sdmlib.modelcouch;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonObject;
-import javafx.application.Platform;
-
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,8 +34,13 @@ import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
-import java.beans.PropertyChangeListener;
-import org.sdmlib.modelcouch.ModelCouch;
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonObject;
+import javafx.application.Platform;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>

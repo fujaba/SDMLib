@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.modelcouch.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelcouch.Task;
+
+import de.uniks.networkparser.IdMap;
 
 public class TaskPOCreator extends PatternObjectCreator
 {

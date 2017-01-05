@@ -1,8 +1,8 @@
 package org.sdmlib.replication.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeEvent;
-import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
 {

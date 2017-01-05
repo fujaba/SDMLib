@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.features.model.albertsets.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
-import org.sdmlib.test.examples.features.model.albertsets.util.HousePO;
-import org.sdmlib.test.examples.features.model.albertsets.util.WindowPO;
 
 public class WindowPO extends PatternObject<WindowPO, Window>
 {

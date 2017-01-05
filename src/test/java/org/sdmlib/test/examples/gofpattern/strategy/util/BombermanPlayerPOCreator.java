@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
+
+import de.uniks.networkparser.IdMap;
 
 public class BombermanPlayerPOCreator extends PatternObjectCreator
 {

@@ -476,7 +476,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          new CardinalityConstraint[this.getCardConstraints().size()]));
       withoutMatchOtherThen(this.getMatchOtherThen().toArray(new MatchOtherThen[this.getMatchOtherThen().size()]));
       withoutExcluders(this.getExcluders().toArray(new MatchOtherThen[this.getExcluders().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 

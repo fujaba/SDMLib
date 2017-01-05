@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
-import org.sdmlib.test.examples.simpleModel.model.util.PersonPO;
-import org.sdmlib.test.examples.simpleModel.model.util.BigBrotherPO;
 
 public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
 {

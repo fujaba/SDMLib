@@ -26,7 +26,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.studyright.model.Person;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
@@ -103,7 +103,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

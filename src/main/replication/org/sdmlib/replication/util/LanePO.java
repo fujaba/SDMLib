@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.replication.util.RemoteTaskBoardPO;
-import org.sdmlib.replication.util.LanePO;
-import org.sdmlib.replication.util.BoardTaskPO;
 
 public class LanePO extends PatternObject<LanePO, Lane>
 {

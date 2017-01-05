@@ -1,6 +1,7 @@
 package org.sdmlib.simple.model.attribute_i.util;
 
 import org.sdmlib.models.pattern.PatternObject;
+
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class SimpleKeyValueListPO extends PatternObject<SimpleKeyValueListPO, SimpleKeyValueList>

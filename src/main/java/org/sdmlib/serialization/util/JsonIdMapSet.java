@@ -24,9 +24,8 @@ package org.sdmlib.serialization.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.list.StringList;
-
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.list.StringList;
 
 public class JsonIdMapSet extends LinkedHashSet<IdMap>
 {

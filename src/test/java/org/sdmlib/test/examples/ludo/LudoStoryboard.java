@@ -35,8 +35,8 @@ import org.sdmlib.test.examples.ludo.model.util.LudoCreator;
 import org.sdmlib.test.examples.ludo.model.util.PawnPO;
 import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
 
-import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.json.JsonArray;
    
 public class LudoStoryboard
 {

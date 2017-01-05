@@ -24,12 +24,11 @@ package org.sdmlib.test.examples.replication.chat.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
 
 public class ChatRootSet extends SimpleSet<ChatRoot>
 {

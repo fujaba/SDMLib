@@ -2,9 +2,7 @@ package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
-import org.sdmlib.test.examples.annotations.model.simple.util.HousePO;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.util.DoorPO;
 
 public class DoorPO extends PatternObject<DoorPO, Door>
 {

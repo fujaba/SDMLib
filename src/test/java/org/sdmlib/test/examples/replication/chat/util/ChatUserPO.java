@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
-import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
-import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
 
 public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
 {

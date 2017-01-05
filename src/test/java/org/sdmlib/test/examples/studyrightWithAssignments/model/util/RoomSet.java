@@ -21,26 +21,44 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collection;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.modelsets.intList;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 
-public class RoomSet extends SDMSet<Room>
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
+
+public class RoomSet extends SimpleSet<Room>
 {
+	protected Class<?> getTypClass() {
+		return Room.class;
+	}
+
+   public RoomSet()
+   {
+      // empty
+   }
+
+   public RoomSet(Room... objects)
+   {
+      for (Room obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public RoomSet(Collection<Room> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
@@ -56,6 +74,19 @@ public class RoomSet extends SDMSet<Room>
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.Room";
    }
 
+
+   @Override
+   public RoomSet getNewList(boolean keyValue)
+   {
+      return new RoomSet();
+   }
+
+
+   public RoomSet filter(Condition<Room> condition) {
+      RoomSet filterList = new RoomSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
@@ -82,21 +113,17 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   @Override
-   public RoomSet filter(Condition<Room> newValue) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
    
    //==========================================================================
    
    public StringList findPath(int motivation)
    {
+      
       StringList result = new StringList();
+      
       for (Room obj : this)
       {
-         result.add(obj.findPath(motivation));
+         result.add( obj.findPath(motivation) );
       }
       return result;
    }
@@ -107,9 +134,9 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Room obj : this)
       {
@@ -190,9 +217,9 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return List of String objects reachable via topic attribute
     */
-   public StringList getTopic()
+   public ObjectSet getTopic()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Room obj : this)
       {
@@ -273,9 +300,9 @@ public class RoomSet extends SDMSet<Room>
     * 
     * @return List of int objects reachable via credits attribute
     */
-   public intList getCredits()
+   public NumberList getCredits()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Room obj : this)
       {
@@ -416,6 +443,86 @@ public class RoomSet extends SDMSet<Room>
    }
 
    /**
+    * Loop through the current set of Room objects and collect a set of the Student objects reached via students. 
+    * 
+    * @return Set of Student objects reachable via students
+    */
+   public StudentSet getStudents()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Room obj : this)
+      {
+         result.with(obj.getStudents());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Room objects and collect all contained objects with reference students pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as students neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via students
+    */
+   public RoomSet filterStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    */
+   public RoomSet withStudents(Student value)
+   {
+      for (Room obj : this)
+      {
+         obj.withStudents(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public RoomSet withoutStudents(Student value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutStudents(value);
+      }
+      
+      return this;
+   }
+
+   /**
     * Loop through the current set of Room objects and collect a set of the Room objects reached via doors. 
     * 
     * @return Set of Room objects reachable via doors
@@ -518,86 +625,6 @@ public class RoomSet extends SDMSet<Room>
       for (Room obj : this)
       {
          obj.withoutDoors(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect a set of the Student objects reached via students. 
-    * 
-    * @return Set of Student objects reachable via students
-    */
-   public StudentSet getStudents()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getStudents());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect all contained objects with reference students pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as students neighbor of the collected results. 
-    * 
-    * @return Set of Student objects referring to value via students
-    */
-   public RoomSet filterStudents(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
-    */
-   public RoomSet withStudents(Student value)
-   {
-      for (Room obj : this)
-      {
-         obj.withStudents(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public RoomSet withoutStudents(Student value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutStudents(value);
       }
       
       return this;
@@ -763,22 +790,4 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-
-   public RoomSet(Room... objects)
-   {
-      for (Room obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public RoomSet()
-   {
-      // empty
-   }
-
-   public RoomSet(Collection<Room> objects)
-   {
-      this.addAll(objects);
-   }
 }

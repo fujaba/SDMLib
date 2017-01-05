@@ -22,10 +22,11 @@
 package org.sdmlib.test.examples.modelspace.chat.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
 import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
+
+import de.uniks.networkparser.IdMap;
 
 public class MSChatChannelDescriptionCreator extends EntityFactory
 {

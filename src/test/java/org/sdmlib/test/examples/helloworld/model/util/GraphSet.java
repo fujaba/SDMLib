@@ -24,14 +24,14 @@ package org.sdmlib.test.examples.helloworld.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
 public class GraphSet extends SimpleSet<Graph>
 {
@@ -272,4 +272,23 @@ public class GraphSet extends SimpleSet<Graph>
    {
       this.addAll(objects);
    }
-}
+
+
+   public GraphPO createGraphPO()
+   {
+      return new GraphPO(this.toArray(new Graph[this.size()]));
+   }
+
+
+   @Override
+   public GraphSet getNewList(boolean keyValue)
+   {
+      return new GraphSet();
+   }
+
+
+   public GraphSet filter(Condition<Graph> condition) {
+      GraphSet filterList = new GraphSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

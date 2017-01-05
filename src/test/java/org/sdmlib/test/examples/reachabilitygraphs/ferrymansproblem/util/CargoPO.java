@@ -5,9 +5,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
 
 public class CargoPO extends PatternObject<CargoPO, Cargo>
 {

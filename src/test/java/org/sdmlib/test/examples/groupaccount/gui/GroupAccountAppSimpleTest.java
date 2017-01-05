@@ -6,11 +6,7 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.application.Platform;
-import javafx.stage.Stage;
-
 import org.junit.Assert;
-import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
@@ -19,6 +15,8 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 
 import de.uniks.networkparser.IdMap;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class GroupAccountAppSimpleTest
 {

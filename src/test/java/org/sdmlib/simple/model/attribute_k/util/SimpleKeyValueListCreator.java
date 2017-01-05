@@ -21,8 +21,8 @@
    
 package org.sdmlib.simple.model.attribute_k.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SimpleKeyValueListCreator implements SendableEntityCreator
 {

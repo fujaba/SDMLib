@@ -1,14 +1,10 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.GenericConstraintPO;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.pattern.util.PatternObjectPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericConstraintPO extends PatternObject<GenericConstraintPO, GenericConstraint>
 {
@@ -355,91 +351,6 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       if (this.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
-      }
-      return null;
-   }
-
-   public GenericConstraintPO createConditionCondition(Condition value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_CONDITION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public GenericConstraintPO createConditionAssignment(Condition value)
-   {
-      new AttributeConstraint()
-      .withAttrName(GenericConstraint.PROPERTY_CONDITION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public Condition getCondition()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((GenericConstraint) getCurrentMatch()).getCondition();
-      }
-      return null;
-   }
-   
-   public GenericConstraintPO withCondition(Condition value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((GenericConstraint) getCurrentMatch()).setCondition(value);
-      }
-      return this;
-   }
-   
-   public PatternObjectPO createSrcPO()
-   {
-      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(GenericConstraint.PROPERTY_SRC, result);
-      
-      return result;
-   }
-
-   public PatternObjectPO createSrcPO(String modifier)
-   {
-      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(GenericConstraint.PROPERTY_SRC, result);
-      
-      return result;
-   }
-
-   public GenericConstraintPO createSrcLink(PatternObjectPO tgt)
-   {
-      return hasLinkConstraint(tgt, GenericConstraint.PROPERTY_SRC);
-   }
-
-   public GenericConstraintPO createSrcLink(PatternObjectPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, GenericConstraint.PROPERTY_SRC, modifier);
-   }
-
-   public PatternObject getSrc()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((GenericConstraint) this.getCurrentMatch()).getSrc();
       }
       return null;
    }

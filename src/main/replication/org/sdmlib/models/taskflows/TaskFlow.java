@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.taskflows;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,8 +31,8 @@ import org.sdmlib.models.taskflows.util.PeerProxySet;
 import org.sdmlib.models.taskflows.util.TaskFlowSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>

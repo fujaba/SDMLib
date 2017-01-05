@@ -23,13 +23,13 @@ package org.sdmlib.test.examples.helloworld.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.Person;
 
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.helloworld.util.GreetingSet;
+import de.uniks.networkparser.list.StringList;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -243,7 +243,26 @@ public class PersonSet extends SimpleSet<Person>
    {
       this.addAll(objects);
    }
-}
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

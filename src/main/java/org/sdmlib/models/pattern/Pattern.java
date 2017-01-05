@@ -45,21 +45,6 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternElement;
 
 /**
  * 
@@ -100,6 +85,14 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       this.idMap = idMap;
    }
 
+   public void clone(ReachabilityGraph rgraph)
+   {
+      CloneOp cloneOp = new CloneOp();
+
+      this.withElements(cloneOp);
+
+      this.findMatch();
+   }
 
    public void unify(ReachabilityGraph rgraph)
    {
@@ -322,7 +315,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       removeAllFromElements();
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
-      setCurrentSubPattern(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -388,31 +380,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
                this.setCurrentSubPattern((Pattern) value);
                ((Pattern) value).setIdMap(this.getIdMap());
             }
-         }
-      }
-
-      return changed;
-   }
-
-
-   public boolean addToElementsInCool(PatternElement value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.elements == null)
-         {
-            this.elements = new PatternElementSet();
-         }
-
-         if (!this.elements.contains(value))
-         {
-            changed = this.elements.add(value);
-
-            value.withPattern((Pattern<PatternElement<?>>) this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
-
          }
       }
 
@@ -1631,21 +1598,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    {
       LinkConstraint value = new LinkConstraint();
       withElements(value);
-      return value;
-   }
-
-
-   public PatternSet getCurrentSubPatternTransitive()
-   {
-      PatternSet result = new PatternSet().with(this);
-      return result.getCurrentSubPatternTransitive();
-   }
-
-
-   public Pattern createCurrentSubPattern()
-   {
-      Pattern value = new Pattern();
-      withCurrentSubPattern(value);
       return value;
    }
 }

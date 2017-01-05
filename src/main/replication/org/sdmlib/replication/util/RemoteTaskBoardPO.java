@@ -3,8 +3,6 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.replication.util.LanePO;
-import org.sdmlib.replication.util.RemoteTaskBoardPO;
 
 public class RemoteTaskBoardPO extends PatternObject<RemoteTaskBoardPO, RemoteTaskBoard>
 {

@@ -21,11 +21,12 @@
 
 package org.sdmlib.codegen;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
@@ -223,7 +224,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

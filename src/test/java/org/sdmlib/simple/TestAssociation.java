@@ -166,4 +166,21 @@ public class TestAssociation {
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
+	@Test
+	public void testOneToManyInterace() {
+
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.association_l");
+		Clazz lecture = model.createClazz("Lecture");
+		Clazz student = model.createClazz("Student");
+		Clazz uni = model.createClazz("University");
+		uni.enableInterface();
+		lecture.enableInterface();
+
+		student.withBidirectional(lecture, "attended", Cardinality.MANY, "has", Cardinality.MANY);
+		student.withBidirectional(uni, "studs", Cardinality.ONE, "students", Cardinality.MANY);
+		
+
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
+	}
 }

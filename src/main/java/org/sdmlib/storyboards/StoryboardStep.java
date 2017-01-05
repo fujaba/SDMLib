@@ -27,8 +27,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.storyboards.Storyboard;
 /**
  * 
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>

@@ -21,13 +21,13 @@
    
 package org.sdmlib.simple.model.association_c.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.association_c.Person;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.simple.model.association_c.util.RoomSet;
+
+import org.sdmlib.simple.model.association_c.Person;
 import org.sdmlib.simple.model.association_c.Room;
-import org.sdmlib.simple.model.association_c.util.PersonSet;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class PersonSet extends SimpleSet<Person>
 {

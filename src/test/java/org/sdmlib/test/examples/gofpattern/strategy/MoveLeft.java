@@ -21,8 +21,7 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy;
 
-import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
-   /**
+/**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java'>StrategyModel.java</a>
 */
@@ -38,6 +37,6 @@ import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
       super.removeYou();
 
       setSuccessor(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 }

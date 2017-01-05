@@ -24,22 +24,11 @@ package org.sdmlib.modelcouch;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -51,6 +40,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.modelcouch.connection.ContentType;
+import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
+import org.sdmlib.modelcouch.connection.RequestObject;
+import org.sdmlib.modelcouch.connection.RequestType;
+import org.sdmlib.modelcouch.connection.ReturnObject;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
@@ -63,15 +57,6 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.concurrent.Task;
-
-import org.sdmlib.modelcouch.ModelDBListener;
-import org.sdmlib.modelcouch.connection.ContentType;
-import org.sdmlib.modelcouch.connection.HTTPConnectionHandler;
-import org.sdmlib.modelcouch.connection.RequestObject;
-import org.sdmlib.modelcouch.connection.RequestType;
-import org.sdmlib.modelcouch.connection.ReturnObject;
-import org.sdmlib.modelcouch.connection.authentication.Authenticator;
-import org.sdmlib.modelcouch.connection.authentication.BasicAuthenticator;
 
 /**
  * 

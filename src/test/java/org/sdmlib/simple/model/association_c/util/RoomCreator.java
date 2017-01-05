@@ -21,9 +21,10 @@
    
 package org.sdmlib.simple.model.association_c.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.simple.model.association_c.Room;
+
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class RoomCreator implements SendableEntityCreator
 {

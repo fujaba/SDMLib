@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.ludo.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
@@ -8,12 +9,6 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.LudoPO;
-import org.sdmlib.test.examples.ludo.model.util.PlayerPO;
-import org.sdmlib.test.examples.ludo.model.util.DicePO;
-import org.sdmlib.test.examples.ludo.model.util.FieldPO;
-import org.sdmlib.test.examples.ludo.model.util.PawnPO;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

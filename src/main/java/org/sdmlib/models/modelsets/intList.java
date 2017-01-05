@@ -97,7 +97,7 @@ public class intList extends SimpleSet<Integer> implements PropertyChangeInterfa
    //==========================================================================
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
 

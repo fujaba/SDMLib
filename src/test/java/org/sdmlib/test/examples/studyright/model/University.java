@@ -29,6 +29,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.RoomSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 

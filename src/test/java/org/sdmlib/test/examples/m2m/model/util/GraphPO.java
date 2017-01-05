@@ -5,10 +5,6 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
-import org.sdmlib.test.examples.m2m.model.util.GraphPO;
-import org.sdmlib.test.examples.m2m.model.util.PersonPO;
-import org.sdmlib.test.examples.m2m.model.util.RelationPO;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {

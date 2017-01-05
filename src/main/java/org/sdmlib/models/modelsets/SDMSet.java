@@ -1,11 +1,9 @@
 package org.sdmlib.models.modelsets;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
 
 import org.sdmlib.CGUtil;
 
-import de.uniks.networkparser.list.AbstractList;
 import de.uniks.networkparser.list.SimpleSet;
 
 

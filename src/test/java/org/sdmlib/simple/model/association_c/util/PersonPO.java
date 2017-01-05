@@ -2,9 +2,7 @@ package org.sdmlib.simple.model.association_c.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.association_c.Person;
-import org.sdmlib.simple.model.association_c.util.RoomPO;
 import org.sdmlib.simple.model.association_c.Room;
-import org.sdmlib.simple.model.association_c.util.PersonPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

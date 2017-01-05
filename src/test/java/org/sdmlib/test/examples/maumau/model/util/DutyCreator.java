@@ -22,10 +22,11 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.DutyType;
 import org.sdmlib.test.examples.maumau.model.Player;
+
+import de.uniks.networkparser.IdMap;
 
 public class DutyCreator extends EntityFactory
 {

@@ -524,21 +524,21 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
 
-            if (this.model.getType()==AssociationTypes.EDGE)
-            {
-               // uni directional assoc, do not call reverse
-               setMeth = CGUtil.replaceAll(setMeth, 
-                  "\n         if (this.partnerRoleName != null)" +
-                        "\n         {" +
-                        "\n            this.partnerRoleName = null;" +
-                        "\n            oldValue.withoutMethodCall(this);" +
-                        "\n         }", "",
-                        "\n         if (value != null)" +
-                              "\n         {" +
-                              "\n            value.withMyRoleName(this);" +
-                              "\n         }", ""
-                     );
-            }
+//FIXME NESSESSARY??            if (this.model.getType()==AssociationTypes.EDGE || GraphUtil.isInterface(partnerRole.getClazz()))
+//            {
+//               // uni directional assoc, do not call reverse
+//               setMeth = CGUtil.replaceAll(setMeth, 
+//                  "\n         if (this.partnerRoleName != null)" +
+//                        "\n         {" +
+//                        "\n            this.partnerRoleName = null;" +
+//                        "\n            oldValue.withoutMethodCall(this);" +
+//                        "\n         }", "",
+//                        "\n         if (value != null)" +
+//                              "\n         {" +
+//                              "\n            value.withMyRoleName(this);" +
+//                              "\n         }", ""
+//                     );
+//            }
             text.append(setMeth);
          }
          else
@@ -594,14 +594,15 @@ public class GenAssociation extends Generator<Association>
       {
          if (!GraphUtil.isInterface(clazz))
          {
-            text.append 
-            (     "\n   public partnerClassName createPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      partnerClassName value = new realPartnerClassName();" +
-                  "\n      withPartnerRoleName(value);" +
-                  "\n      return value;" +
-                  "\n   } " +
-                  "\n");
+        	 if(GraphUtil.isInterface(partnerRole.getClazz()) == false) {
+	            text.append(     "\n   public partnerClassName createPartnerRoleName()" +
+	                  "\n   {" +
+	                  "\n      partnerClassName value = new realPartnerClassName();" +
+	                  "\n      withPartnerRoleName(value);" +
+	                  "\n      return value;" +
+	                  "\n   } " +
+	                  "\n");
+        	 }
          }
          else
          {
@@ -671,7 +672,6 @@ public class GenAssociation extends Generator<Association>
 
             if (partnerRole.getCardinality() == Cardinality.MANY) {
                generateToManyRole(myParser, clazz, partnerRole, text);
-//               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
             }
             else
             {
@@ -686,11 +686,6 @@ public class GenAssociation extends Generator<Association>
             	System.out.println("FILEBODY: " +myParser.getFileBody());
             	throw e;
             }
-
-//         if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
-//         {
-//            generateEmptySetInPartnerClass(rootDir, partnerRole);
-//         }
       }
       
       if (! classModel.hasFeature(Feature.EMFSTYLE))
@@ -761,6 +756,12 @@ public class GenAssociation extends Generator<Association>
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Association partnerRole)
    {
+      if (partnerRole.getOther().getType() == AssociationTypes.UNDIRECTIONAL)
+      {
+         // no reverse link, nothing to delete
+         return;
+      }
+      
       if (GraphUtil.isInterface(clazz))
       {
          return;
@@ -1030,7 +1031,7 @@ public class GenAssociation extends Generator<Association>
          
          CGUtil.replaceAll(text, 
             "TargetType", targetType,
-            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser),
+            "ModelClass", getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser),
             "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
@@ -1069,7 +1070,7 @@ public class GenAssociation extends Generator<Association>
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
          
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
          if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
@@ -1126,7 +1127,7 @@ public class GenAssociation extends Generator<Association>
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
          
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
          if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
@@ -1175,7 +1176,7 @@ public class GenAssociation extends Generator<Association>
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
@@ -1217,7 +1218,7 @@ public class GenAssociation extends Generator<Association>
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
-         String modelClassName = getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(false), parser);
+         String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
@@ -1376,8 +1377,10 @@ public class GenAssociation extends Generator<Association>
          
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
-         String shortClassName = CGUtil.shortClassName(model.getClazz().getName(false));
-         
+         String shortClassName = CGUtil.shortClassName(clazz.getName(false));
+//         if(GraphUtil.isInterface(partnerRole.getClazz())) {
+//        	 shortClassName = CGUtil.shortClassName(partnerRole.getClazz().getName(false));
+//         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
          if (classModel.hasFeature(Feature.EMFSTYLE))
@@ -1598,6 +1601,12 @@ public class GenAssociation extends Generator<Association>
 	   
 	   genClass.removeFragment(parser, Parser.METHOD + ":create" + roleName + "()");
 	   
+	   for (Clazz kidClass : this.getModel().getOther().getClazz().getKidClazzes(true))
+	   {
+	      String createName = roleName + kidClass.getName(true);
+	      genClass.removeFragment(parser, Parser.METHOD + ":create" + createName + "()");
+	   }
+	   
 	   genClass.removeLineFromFragment(parser, Parser.METHOD + ":removeYou()", roleName, roleName);
 	   
 	   CGUtil.printFile(parser);
@@ -1616,15 +1625,15 @@ public class GenAssociation extends Generator<Association>
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
+      
+      genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
+      
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(String)");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "()");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ")");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(" + partnerPO + ")");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "(" + partnerPO + ")");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ",String)");
 	   
 	   CGUtil.printFile(poParser);
 	   
@@ -1664,37 +1673,44 @@ public class GenAssociation extends Generator<Association>
 //		}
 
 		// also for subclasses
-		Clazz clazz = model.getClazz();
-		for (Clazz kidClass : clazz.getKidClazzes(true)) {
-			if (GraphUtil.isInterface(kidClass)) {
-				continue;
-			}
-
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getClazz());
-			// GenAssociation otherGen = this.getGenerator(model.getOther());
-			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
-		}
+		fixSubclasses(model, rootDir, helperDir);
+		// Other subClasses		
+		fixSubclasses(model.getOther(), rootDir, helperDir);
 
 		if (model.getName() == null || model.getType()==AssociationTypes.EDGE) {
 			// uni directional assoc, do not generate reverse direction
 			return this;
 		}
-
-//		GenRole targetGenRole = generator.getOrCreate(model.getTarget());
-		// open target class and get or insert role implementation
-//		this.generate(rootDir, helperDir, model);
-//		targetGenRole.generate(rootDir, helperDir, model.getSource());
-
-		// also for subclasses
-		for (Clazz kidClass : model.getOtherClazz().getKidClazzes(true)) {
-			if (GraphUtil.isInterface(kidClass)) {
-				continue;
-			}
-
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getOtherClazz());
-			GenAssociation otherGen = this.getGenerator(model.getOther());
-			otherGen.generate(kidClass, rootDir, helperDir, model, !needsImplementation);
-		}
 		return this;
 	}
+	
+	void fixSubclasses(Association assoc, String rootDir, String helperDir) 
+	{
+	   if (assoc.getType() == AssociationTypes.UNDIRECTIONAL)
+	   {
+	      // nothing generated for the reverse direction
+	      return;
+	   }
+
+	   Clazz clazz = assoc.getClazz();
+		ClazzSet allClazzes = new ClazzSet();
+		if(GraphUtil.isInterface(clazz)) {
+			allClazzes.addAll(clazz.getImplements());
+		} else {
+			allClazzes.add(clazz);
+		}
+		for(Clazz child : allClazzes) {
+			ClazzSet kids = child.getKidClazzes(true);
+	
+			for (Clazz kidClass : kids) {
+				if (GraphUtil.isInterface(kidClass)) {
+					continue;
+				}
+				boolean needsImplementation = kidClass.getInterfaces(false).contains(child);
+				// GenAssociation otherGen = this.getGenerator(model.getOther());
+				this.generate(kidClass, rootDir, helperDir, assoc.getOther(), !needsImplementation);
+			}
+		}
+	}
+	
 }

@@ -21,12 +21,13 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
+
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
+
+import de.uniks.networkparser.list.ObjectSet;
 
 public class WindowSet extends SDMSet<Window>
 {

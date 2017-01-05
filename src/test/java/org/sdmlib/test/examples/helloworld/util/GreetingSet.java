@@ -23,16 +23,14 @@ package org.sdmlib.test.examples.helloworld.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import org.sdmlib.test.examples.helloworld.Person;
 
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.helloworld.util.GreetingMessageSet;
-import org.sdmlib.test.examples.helloworld.util.PersonSet;
-import org.sdmlib.test.examples.helloworld.util.GreetingSet;
+import de.uniks.networkparser.list.StringList;
 
 public class GreetingSet extends SimpleSet<Greeting>
 {
@@ -469,7 +467,26 @@ public class GreetingSet extends SimpleSet<Greeting>
    {
       this.addAll(objects);
    }
-}
+
+
+   public GreetingPO createGreetingPO()
+   {
+      return new GreetingPO(this.toArray(new Greeting[this.size()]));
+   }
+
+
+   @Override
+   public GreetingSet getNewList(boolean keyValue)
+   {
+      return new GreetingSet();
+   }
+
+
+   public GreetingSet filter(Condition<Greeting> condition) {
+      GreetingSet filterList = new GreetingSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

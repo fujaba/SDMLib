@@ -21,6 +21,7 @@
 
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -32,10 +33,8 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.replication.SharedSpace;
+import de.uniks.networkparser.json.JsonObject;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

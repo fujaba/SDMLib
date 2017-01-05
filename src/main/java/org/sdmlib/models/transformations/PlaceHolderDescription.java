@@ -30,10 +30,8 @@ import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.models.transformations.ChoiceTemplate;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.Match;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
@@ -83,7 +81,7 @@ import org.sdmlib.models.transformations.Match;
       setSubTemplate(null);
       withoutOwners(this.getOwners().toArray(new Template[this.getOwners().size()]));
       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    // ==========================================================================

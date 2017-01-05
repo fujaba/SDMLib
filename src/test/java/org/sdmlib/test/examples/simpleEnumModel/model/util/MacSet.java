@@ -23,13 +23,12 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.StringList;
 
 public class MacSet extends SimpleSet<Mac>
 {

@@ -22,12 +22,13 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.Value;
-import org.sdmlib.test.examples.maumau.model.MauMau;
-import org.sdmlib.test.examples.maumau.model.Holder;
+
+import de.uniks.networkparser.IdMap;
 
 public class CardCreator extends EntityFactory
 {

@@ -23,14 +23,13 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.replication.util.TaskSet;
+import de.uniks.networkparser.list.StringList;
 
 public class LogEntrySet extends SimpleSet<LogEntry>
 {

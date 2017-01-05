@@ -26,17 +26,14 @@ import java.util.Collections;
 import java.util.Date;
 
 import org.sdmlib.models.modelsets.DateList;
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.util.DiceSet;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {

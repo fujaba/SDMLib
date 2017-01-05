@@ -21,14 +21,14 @@
    
 package org.sdmlib.models.objects;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.objects.GenericObject;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>
@@ -75,7 +75,7 @@ import org.sdmlib.models.objects.GenericObject;
    public void removeYou()
    {
       setOwner(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

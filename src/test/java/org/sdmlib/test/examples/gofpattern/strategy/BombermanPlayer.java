@@ -21,9 +21,11 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
@@ -80,7 +82,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public void removeYou()
    {
    
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

@@ -22,6 +22,7 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.serialization.EntityFactory;
+
 import de.uniks.networkparser.IdMap;
 
 public class PropertyChangeEventCreator extends EntityFactory

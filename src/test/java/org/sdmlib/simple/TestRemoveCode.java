@@ -1,6 +1,5 @@
 package org.sdmlib.simple;
 
-import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClass;
 
@@ -10,7 +9,7 @@ import de.uniks.networkparser.graph.DataType;
 
 public class TestRemoveCode {
 
-	@Test
+//	@Test
 	public void testRemoveAttribute() {
 		
 		String rootDir = "src/test/java";
@@ -27,7 +26,7 @@ public class TestRemoveCode {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testRemoveMethod() {
 		
 		String rootDir = "src/test/java";
@@ -44,7 +43,7 @@ public class TestRemoveCode {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testRemoveClass() {
 		
 		String rootDir = "src/test/java";
@@ -62,7 +61,7 @@ public class TestRemoveCode {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testRemoveAssociation() {
 		
 		String rootDir = "src/test/java";

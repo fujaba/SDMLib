@@ -1,7 +1,6 @@
 package org.sdmlib.models.taskflows.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
 
 public class ObjectPO extends PatternObject<ObjectPO, Object>
 {

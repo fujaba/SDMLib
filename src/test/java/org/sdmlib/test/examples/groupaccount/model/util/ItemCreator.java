@@ -22,7 +22,6 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 

@@ -28,10 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.lang.Object;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
@@ -83,7 +81,7 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
       setPlaceholder(null);
       setParentMatch(null);
        withoutSubMatches(this.getSubMatches().toArray(new Match[this.getSubMatches().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    

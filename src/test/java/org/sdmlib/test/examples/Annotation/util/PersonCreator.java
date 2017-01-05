@@ -22,8 +22,9 @@
 package org.sdmlib.test.examples.Annotation.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.Annotation.Person;
+
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator extends EntityFactory
 {

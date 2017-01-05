@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
+
+import de.uniks.networkparser.IdMap;
 
 public class ChildPOCreator extends PatternObjectCreator
 {

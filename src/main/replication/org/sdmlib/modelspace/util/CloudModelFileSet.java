@@ -23,14 +23,13 @@ package org.sdmlib.modelspace.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.modelspace.util.CloudModelDirectorySet;
+import de.uniks.networkparser.list.StringList;
 
 public class CloudModelFileSet extends SimpleSet<CloudModelFile>
 {

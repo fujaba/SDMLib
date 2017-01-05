@@ -1092,6 +1092,8 @@ public class GenAttribute extends Generator<Attribute>
 
       genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + "," + attributeType + ")");
 
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "Assignment(" + attributeType + ")");
+
       genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "(" + attributeType + ")");
 
       genClass.removeFragment(poParser, Parser.METHOD + ":get" + attributeName + "()");
@@ -1103,10 +1105,10 @@ public class GenAttribute extends Generator<Attribute>
       Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
 
       genClass.removeFragment(setParser, Parser.METHOD + ":get" + attributeName + "()");
+      
+      genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + ")");
 
-      genClass.removeFragment(setParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + ")");
-
-      genClass.removeFragment(setParser, Parser.METHOD + ":create" + attributeName + "Condition(" + attributeType + "," + attributeType + ")");
+      genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + "," + attributeType + ")");
 
       genClass.removeFragment(setParser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
 

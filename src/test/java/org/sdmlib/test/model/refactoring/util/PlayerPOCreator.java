@@ -1,8 +1,9 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.model.refactoring.Player;
+
+import de.uniks.networkparser.IdMap;
 
 public class PlayerPOCreator extends PatternObjectCreator
 {

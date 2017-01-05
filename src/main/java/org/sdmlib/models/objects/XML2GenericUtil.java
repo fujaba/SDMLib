@@ -10,7 +10,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.ClassModelAdapter;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.storyboards.StoryboardImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

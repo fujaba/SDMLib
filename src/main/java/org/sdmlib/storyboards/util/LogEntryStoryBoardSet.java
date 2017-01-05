@@ -23,10 +23,10 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class LogEntryStoryBoardSet extends SimpleSet<LogEntryStoryBoard>

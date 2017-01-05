@@ -33,9 +33,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.replication.SeppelSpaceProxy;
+import de.uniks.networkparser.json.JsonObject;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

@@ -29,8 +29,6 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericGraphSet extends SimpleSet<GenericGraph>
 {

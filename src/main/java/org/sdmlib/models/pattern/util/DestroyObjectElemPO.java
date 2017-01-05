@@ -1,13 +1,10 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.DestroyObjectElemPO;
-import org.sdmlib.models.pattern.util.PatternObjectPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, DestroyObjectElem>
 {

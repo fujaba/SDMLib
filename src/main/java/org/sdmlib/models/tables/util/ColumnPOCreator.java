@@ -1,8 +1,9 @@
 package org.sdmlib.models.tables.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.tables.Column;
+
+import de.uniks.networkparser.IdMap;
 
 public class ColumnPOCreator extends PatternObjectCreator
 {

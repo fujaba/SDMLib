@@ -21,11 +21,12 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.modelspace.TaskLane;
-import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.Task;
+import org.sdmlib.modelspace.TaskBoard;
+import org.sdmlib.modelspace.TaskLane;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.IdMap;
 
 public class TaskLaneCreator extends EntityFactory
 {

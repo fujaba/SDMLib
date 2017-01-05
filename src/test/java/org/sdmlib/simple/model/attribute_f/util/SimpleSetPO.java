@@ -1,6 +1,7 @@
 package org.sdmlib.simple.model.attribute_f.util;
 
 import org.sdmlib.models.pattern.PatternObject;
+
 import de.uniks.networkparser.list.SimpleSet;
 
 public class SimpleSetPO extends PatternObject<SimpleSetPO, SimpleSet>

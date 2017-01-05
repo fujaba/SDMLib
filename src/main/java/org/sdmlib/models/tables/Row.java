@@ -21,12 +21,14 @@
 
 package org.sdmlib.models.tables;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.models.tables.Table;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.models.tables.util.CellSet;
-import org.sdmlib.models.tables.Cell;
+
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 /**
  * 
@@ -128,10 +130,7 @@ public class Row implements SendableEntity
    @Override
    public String toString()
    {
-      StringBuilder result = new StringBuilder();
-
-      result.append(" ").append(this.getNumber());
-      return result.substring(1);
+      return getCells().toString();
    }
 
    /********************************************************************
@@ -298,4 +297,5 @@ public class Row implements SendableEntity
     listeners.removePropertyChangeListener(propertyName, listener);
     return true;
    }
+   
 }

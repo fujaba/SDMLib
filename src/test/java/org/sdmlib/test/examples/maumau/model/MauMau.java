@@ -21,18 +21,14 @@
    
 package org.sdmlib.test.examples.maumau.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.maumau.model.Player;
-import org.sdmlib.test.examples.maumau.model.Suit;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.maumau.model.util.CardSet;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.Holder;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
 
 /**
  * 

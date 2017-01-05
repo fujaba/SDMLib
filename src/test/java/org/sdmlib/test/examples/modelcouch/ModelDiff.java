@@ -1,11 +1,10 @@
 package org.sdmlib.test.examples.modelcouch;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 
-import org.junit.Test;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskCreator;
 

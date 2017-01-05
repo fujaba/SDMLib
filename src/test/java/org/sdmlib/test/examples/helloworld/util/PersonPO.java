@@ -5,8 +5,6 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.Person;
-import org.sdmlib.test.examples.helloworld.util.GreetingPO;
-import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

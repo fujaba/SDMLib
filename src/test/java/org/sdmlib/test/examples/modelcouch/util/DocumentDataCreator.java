@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.examples.modelcouch.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
-import org.sdmlib.test.examples.modelcouch.Task;
 import org.sdmlib.test.examples.modelcouch.Person;
+import org.sdmlib.test.examples.modelcouch.Task;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class DocumentDataCreator implements SendableEntityCreator
 {

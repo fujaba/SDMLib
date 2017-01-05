@@ -1,11 +1,11 @@
 package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
-import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
-import org.sdmlib.models.pattern.Pattern;
 
 public class MacPO extends PatternObject<MacPO, Mac>
 {

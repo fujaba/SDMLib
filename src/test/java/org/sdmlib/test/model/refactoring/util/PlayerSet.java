@@ -23,12 +23,11 @@ package org.sdmlib.test.model.refactoring.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.model.refactoring.util.LudoSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {

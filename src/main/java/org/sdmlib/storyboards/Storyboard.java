@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Table;
 
+
 /**
  * A StoryPage allows the use of the most important functionalities
  * of Storyboards.
@@ -177,7 +178,7 @@ public class Storyboard {
 	
 	/**
 	 * Asserts, that an expected and actual value are equal
-	 * and adds the result to the storyboard.<br>
+	 * within range delta and adds the result to the storyboard.<br>
 	 * If this is not the case, a message will be printed.
 	 * 
 	 * @param message the message, that will be displayed, in case, that the assertion failed
@@ -189,6 +190,20 @@ public class Storyboard {
 		storyboard.assertEquals(message, expected, actual, delta);
 	}
 	
+   /**
+    * Asserts, that an expected and actual value are equal
+    * within range delta and adds the result to the storyboard.<br>
+    * If this is not the case, a message will be printed.
+    * 
+    * @param message the message, that will be displayed, in case, that the assertion failed
+    * @param expected the expected value
+    * @param actual the actual value
+    * @param delta allowed deviation between the two values
+   */
+   public void assertEquals(String message, long expected, long actual, long delta) {
+      storyboard.assertEquals(message, expected, actual, delta);
+   }
+   
 	/**
 	 * Asserts, that an expected and actual value are equal
 	 * and adds the result to the storyboard.<br>
@@ -237,6 +252,19 @@ public class Storyboard {
 		storyboard.assertEquals(message, expected, actual);
 	}	
 	
+   /**
+    * Asserts, that an expected and actual value are equal
+    * and adds the result to the storyboard.<br>
+    * If the assertion fails, a corresponding message will be printed.
+    * 
+    * @param message the message, that will be displayed, in case, that the assertion faile
+    * @param expected the expected value
+    * @param actual the actual value
+   */
+   public void assertEquals(String message, long expected, long actual) {
+      storyboard.assertEquals(message, expected, actual);
+   }  
+   
 	/**
 	 * Asserts, that an object does not equal null and adds the result to the storyboard.<br>
 	 * If the assertion fails, a corresponding message will be printed.
@@ -262,5 +290,20 @@ public class Storyboard {
    public void addTable(Table table)
    {
       storyboard.addTable(table);
+   }
+
+   public void addLineChart(Table table)
+   {
+      storyboard.addLineChart(table);
    }	
+
+   public void addBarChart(Table table)
+   {
+      storyboard.addBarChart(table);
+   }
+
+   public int size()
+   {
+      return storyboard.getStoryboardSteps().size();
+   }  
 }

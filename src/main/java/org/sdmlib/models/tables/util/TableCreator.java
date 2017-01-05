@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.tables.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.tables.Table;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.tables.Column;
 import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class TableCreator implements SendableEntityCreator
 {

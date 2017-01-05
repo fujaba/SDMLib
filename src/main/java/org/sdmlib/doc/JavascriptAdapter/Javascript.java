@@ -116,12 +116,12 @@ public class Javascript implements GuiAdapter
    }
    
    public GraphList convertModelToGraphList(ClassModel model) {
-	   GraphList list = new GraphList().withTyp(IdMap.CLASS);
+	   GraphList list = new GraphList().withType(IdMap.CLASS);
 	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
 	      
       for (Clazz clazz : model.getClazzes())
       {
-    	  Clazz node = new Clazz().with(CGUtil.shortClassName(clazz.getName()));
+    	  Clazz node = new Clazz(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())

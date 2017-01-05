@@ -18,87 +18,71 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.ReachableState;
-
-/**
- * 
- * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+   /**
+    * 
+    * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
-public class RuleApplication implements SendableEntity
+   public  class RuleApplication implements SendableEntity
 {
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    protected PropertyChangeSupport listeners = null;
-
-
+   
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      if (listeners != null)
-      {
-         listeners.firePropertyChange(propertyName, oldValue, newValue);
-         return true;
-      }
-      return false;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
-
-
-   public boolean addPropertyChangeListener(PropertyChangeListener listener)
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      if (listeners == null)
-      {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
-
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
-   {
-      if (listeners == null)
-      {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(propertyName, listener);
-      return true;
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
-
-   public boolean removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      if (listeners == null)
-      {
-         listeners.removePropertyChangeListener(listener);
-      }
-      listeners.removePropertyChangeListener(listener);
-      return true;
-   }
-
-
-   public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener)
-   {
-      if (listeners != null)
-      {
-         listeners.removePropertyChangeListener(propertyName, listener);
-      }
-      return true;
-   }
-
-
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
+   
    public void removeYou()
    {
       setRule(null);
@@ -107,47 +91,46 @@ public class RuleApplication implements SendableEntity
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_DESCRIPTION = "description";
-
+   
    private String description;
-
 
    public String getDescription()
    {
       return this.description;
    }
-
-
+   
    public void setDescription(String value)
    {
-      if (!EntityUtil.stringEquals(this.description, value))
-      {
-
+      if ( ! EntityUtil.stringEquals(this.description, value)) {
+      
          String oldValue = this.description;
          this.description = value;
          this.firePropertyChange(PROPERTY_DESCRIPTION, oldValue, value);
       }
    }
-
-
+   
    public RuleApplication withDescription(String value)
    {
       setDescription(value);
       return this;
-   }
+   } 
 
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
-
+      
       result.append(" ").append(this.getDescription());
       return result.substring(1);
    }
 
+
+   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -155,50 +138,49 @@ public class RuleApplication implements SendableEntity
     *              ruleapplication                   rule
     * </pre>
     */
-
+   
    public static final String PROPERTY_RULE = "rule";
 
    private Pattern rule = null;
-
 
    public Pattern getRule()
    {
       return this.rule;
    }
 
-
    public boolean setRule(Pattern value)
    {
       boolean changed = false;
-
+      
       if (this.rule != value)
       {
          Pattern oldValue = this.rule;
-
+         
+         
          this.rule = value;
-
+         
+         
          firePropertyChange(PROPERTY_RULE, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
-
 
    public RuleApplication withRule(Pattern value)
    {
       setRule(value);
       return this;
-   }
-
+   } 
 
    public Pattern createRule()
    {
       Pattern value = new Pattern();
       withRule(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -206,43 +188,41 @@ public class RuleApplication implements SendableEntity
     *              ruleapplications                   src
     * </pre>
     */
-
+   
    public static final String PROPERTY_SRC = "src";
 
    private ReachableState src = null;
-
 
    public ReachableState getSrc()
    {
       return this.src;
    }
 
-
    public boolean setSrc(ReachableState value)
    {
       boolean changed = false;
-
+      
       if (this.src != value)
       {
          ReachableState oldValue = this.src;
-
+         
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutRuleapplications(this);
          }
-
+         
          this.src = value;
-
+         
          if (value != null)
          {
             value.withRuleapplications(this);
          }
-
+         
          firePropertyChange(PROPERTY_SRC, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -250,14 +230,14 @@ public class RuleApplication implements SendableEntity
    {
       setSrc(value);
       return this;
-   }
+   } 
 
    public ReachableState createSrc()
    {
       ReachableState value = new ReachableState();
       withSrc(value);
       return value;
-   }
+   } 
 
    
    /********************************************************************
@@ -267,7 +247,7 @@ public class RuleApplication implements SendableEntity
     *              resultOf                   tgt
     * </pre>
     */
-
+   
    public static final String PROPERTY_TGT = "tgt";
 
    private ReachableState tgt = null;
@@ -280,103 +260,41 @@ public class RuleApplication implements SendableEntity
    public boolean setTgt(ReachableState value)
    {
       boolean changed = false;
-
+      
       if (this.tgt != value)
       {
          ReachableState oldValue = this.tgt;
-
+         
          if (this.tgt != null)
          {
             this.tgt = null;
             oldValue.withoutResultOf(this);
          }
-
+         
          this.tgt = value;
-
+         
          if (value != null)
          {
             value.withResultOf(this);
          }
-
+         
          firePropertyChange(PROPERTY_TGT, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
-
 
    public RuleApplication withTgt(ReachableState value)
    {
       setTgt(value);
       return this;
-   }
-
+   } 
 
    public ReachableState createTgt()
    {
       ReachableState value = new ReachableState();
       withTgt(value);
       return value;
-   }
-
-   HashMap<PatternElement, Object> srcMatch;
-
-
-   /**
-    * @return the srcMatch
-    */
-   public HashMap<PatternElement, Object> getSrcMatch()
-   {
-      return srcMatch;
-   }
-
-
-   /**
-    * @param srcMatch the srcMatch to set
-    */
-   public void setSrcMatch(HashMap<PatternElement, Object> srcMatch)
-   {
-      this.srcMatch = srcMatch;
-   }
-
-
-   /**
-    * @param srcMatch the srcMatch to set
-    */
-   public RuleApplication withSrcMatch(HashMap<PatternElement, Object> srcMatch)
-   {
-      this.srcMatch = srcMatch;
-      return this;
-   }
-
-   HashMap<PatternElement, Object> tgtMatch;
-
-
-   /**
-    * @return the tgtMatch
-    */
-   public HashMap<PatternElement, Object> getTgtMatch()
-   {
-      return tgtMatch;
-   }
-
-
-   /**
-    * @param tgtMatch the tgtMatch to set
-    */
-   public void setTgtMatch(HashMap<PatternElement, Object> tgtMatch)
-   {
-      this.tgtMatch = tgtMatch;
-   }
-
-
-   /**
-    * @param tgtMatch the tgtMatch to set
-    */
-   public RuleApplication withTgtMatch(HashMap<PatternElement, Object> tgtMatch)
-   {
-      this.tgtMatch = tgtMatch;
-      return this;
-   }
+   } 
 }

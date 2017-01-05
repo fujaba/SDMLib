@@ -34,15 +34,13 @@ import java.util.TreeMap;
 
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.storyboards.GenericIdMap;
 
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.storyboards.GenericIdMap;
-
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 
 public class CGUtil 
 {

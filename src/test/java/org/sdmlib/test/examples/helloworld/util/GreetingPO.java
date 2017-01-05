@@ -1,13 +1,11 @@
 package org.sdmlib.test.examples.helloworld.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import org.sdmlib.test.examples.helloworld.Person;
-import org.sdmlib.test.examples.helloworld.util.GreetingPO;
-import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
-import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -324,6 +322,144 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
          return ((Greeting) this.getCurrentMatch()).getGreeting();
       }
       return null;
+   }
+
+
+   public GreetingPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GreetingMessagePO createGreetingMessagePO()
+   {
+      GreetingMessagePO result = new GreetingMessagePO(new org.sdmlib.test.examples.helloworld.GreetingMessage[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_GREETINGMESSAGE, result);
+      
+      return result;
+   }
+
+   public GreetingMessagePO createGreetingMessagePO(String modifier)
+   {
+      GreetingMessagePO result = new GreetingMessagePO(new org.sdmlib.test.examples.helloworld.GreetingMessage[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Greeting.PROPERTY_GREETINGMESSAGE, result);
+      
+      return result;
+   }
+
+   public GreetingPO createGreetingMessageLink(GreetingMessagePO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE);
+   }
+
+   public GreetingPO createGreetingMessageLink(GreetingMessagePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE, modifier);
+   }
+
+   public PersonPO createPersonPO()
+   {
+      PersonPO result = new PersonPO(new org.sdmlib.test.examples.helloworld.Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_PERSON, result);
+      
+      return result;
+   }
+
+   public PersonPO createPersonPO(String modifier)
+   {
+      PersonPO result = new PersonPO(new org.sdmlib.test.examples.helloworld.Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Greeting.PROPERTY_PERSON, result);
+      
+      return result;
+   }
+
+   public GreetingPO createPersonLink(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON);
+   }
+
+   public GreetingPO createPersonLink(PersonPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON, modifier);
+   }
+
+   public GreetingPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Greeting.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Greeting.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Greeting.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GreetingPO createTgtPO()
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Greeting.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public GreetingPO createTgtPO(String modifier)
+   {
+      GreetingPO result = new GreetingPO(new org.sdmlib.test.examples.helloworld.Greeting[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Greeting.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public GreetingPO createTgtLink(GreetingPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_TGT);
+   }
+
+   public GreetingPO createTgtLink(GreetingPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_TGT, modifier);
    }
 
 }

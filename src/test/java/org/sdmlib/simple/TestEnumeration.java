@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Literal;
 
 public class TestEnumeration {

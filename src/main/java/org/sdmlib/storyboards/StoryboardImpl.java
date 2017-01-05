@@ -209,7 +209,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             callEntry = stackTrace[i];
 
             if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
-               || callEntry.getClassName().equals(Storyboard.class.getName()))
+               || callEntry.getClassName().equals(Storyboard.class.getName())
+               || callEntry.getClassName().equals(StoryPage.class.getName()))
             {
                i++;
                continue;
@@ -473,6 +474,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       this.add(tableText);
    }
+   
+   public void addLineChart(Table table)
+   {
+      String tableText = table.getHtmlLineChart("tableChart"+getStoryboardSteps().size());
+
+      this.add(tableText);
+   }
+
+
+   public void addBarChart(Table table)
+   {
+      String tableText = table.getHtmlBarChart("tableChart"+getStoryboardSteps().size());
+
+      this.add(tableText);
+   }
+
 
 
    public StoryboardImpl withMap(IdMap map)
@@ -1196,7 +1213,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      if (callEntry.getClassName().equals(Storyboard.class.getName()))
+      if (callEntry.getClassName().equals(Storyboard.class.getName()) || callEntry.getClassName().equals(StoryPage.class.getName()))
       {
          callEntry = stackTrace[2];
       }
@@ -1371,13 +1388,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
          "\n" +
          "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
+         "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" + 
+         "" +
          "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
          "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
          "\n" +
          "<script src=\"includes/dagre.min.js\"></script>\n" +
          "<script src=\"includes/drawer.js\"></script>\n" +
          "<script src=\"includes/graph.js\"></script>\n" +
-         "</head>" +
+         "<style>\n" + 
+         "    canvas{\n" + 
+         "        -moz-user-select: none;\n" + 
+         "        -webkit-user-select: none;\n" + 
+         "        -ms-user-select: none;\n" + 
+         "    }\n" + 
+         "</style>\n" +
+         "</head>\n" +
          "<body>\n" +
          "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
          "$text\n" +
@@ -1586,7 +1612,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {
-      this.add("Check: " + message + " " + expected + " actual " + actual);
+      this.add("Check: " + message + " " + expected + " +-" + delta + " actual " + actual);
+
+      if (Math.abs(expected - actual) > delta)
+      {
+         this.dumpHTML();
+      }
+      Assert.assertEquals("FAILED: " + message, expected, actual, delta);
+   }
+
+
+   public void assertEquals(String message, long expected, long actual, long delta)
+   {
+      this.add("Check: " + message + " " + expected + " +-" + delta + " actual " + actual);
 
       if (Math.abs(expected - actual) > delta)
       {
@@ -1631,6 +1669,17 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    public void assertEquals(String message, int expected, int actual)
+   {
+      this.add("Check: " + message + " " + expected + " actual " + actual);
+      if (expected != actual)
+      {
+         this.dumpHTML();
+      }
+      Assert.assertEquals("FAILED: " + message, expected, actual);
+   }
+
+
+   public void assertEquals(String message, long expected, long actual)
    {
       this.add("Check: " + message + " " + expected + " actual " + actual);
       if (expected != actual)

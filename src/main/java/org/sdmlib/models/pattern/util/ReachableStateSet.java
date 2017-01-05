@@ -21,17 +21,17 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.ReachableState;
 import java.util.Collection;
-import de.uniks.networkparser.list.NumberList;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 import java.util.Collections;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
+
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 import de.uniks.networkparser.list.BooleanList;
+
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ReachableStateSet extends SimpleSet<ReachableState>
 {

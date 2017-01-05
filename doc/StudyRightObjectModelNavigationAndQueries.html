@@ -5,12 +5,21 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
 <p>Extend the class model:</p>
 <script>
@@ -19,7 +28,7 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Student"
+         "id":"TeachingAssistant"
       },
       {
          "typ":"node",
@@ -27,34 +36,34 @@
       },
       {
          "typ":"node",
-         "id":"TeachingAssistant"
+         "id":"Student"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"friends"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"friends"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
             "id":"TeachingAssistant",
             "cardinality":"many",
             "property":"tas"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
          }
       }
    ]
@@ -68,33 +77,45 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Student",
-         "methods":[
-            "getFriendsTransitive() StudentSet",
-            "createFriendsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Room",
-         "methods":[
-            "findPath(int p0) String",
-            "getDoorsTransitive() RoomSet",
-            "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"TeachingAssistant"
+      },
+      {
+         "typ":"node",
+         "id":"SendableEntity"
+      },
+      {
+         "typ":"node",
+         "id":"SendableEntityCreator"
+      },
+      {
+         "typ":"node",
+         "id":"SimpleSet"
       },
       {
          "typ":"node",
          "id":"Assignment",
          "methods":[
             "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "firePropertyChange(, Object p1, Object p2, String p3) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "methods":[
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "findPath(, int p1) String",
+            "firePropertyChange(, Object p1, Object p2, String p3) boolean",
+            "getDoorsTransitive() RoomSet"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "methods":[
+            "createFriendsTeachingAssistant() TeachingAssistant",
+            "firePropertyChange(, Object p1, Object p2, String p3) boolean",
+            "getFriendsTransitive() StudentSet"
          ]
       },
       {
@@ -109,154 +130,309 @@
          "id":"University",
          "methods":[
             "createStudentsTeachingAssistant() TeachingAssistant",
-            "firePropertyChange(String p0, Object p1, Object p2) boolean"
+            "firePropertyChange(, Object p1, Object p2, String p3) boolean"
          ]
       },
       {
          "typ":"node",
          "id":"AssignmentCreator",
          "methods":[
-            "getSendableInstance(boolean p0) Object",
-            "getValue(Object p0, String p1) Object",
-            "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) IdMap",
-            "removeObject(Object p0) void"
+            "createIdMap(, String p1) IdMap",
+            "getSendableInstance(, boolean p2) Object",
+            "getValue(, String p2, Object p3) Object",
+            "removeObject(, Object p1) void",
+            "setValue(, String p2, Object p3, String p4, Object p5) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"AssignmentSet",
+         "methods":[
+            "createAssignmentPO() AssignmentPO",
+            "filter(, Condition<Assignment> p1) AssignmentSet",
+            "filterContent(, String p1, String p2) AssignmentSet",
+            "filterContent(, String p1) AssignmentSet",
+            "filterPoints(, int p1, int p2) AssignmentSet",
+            "filterPoints(, int p1) AssignmentSet",
+            "filterRoom(, Object p1) AssignmentSet",
+            "filterStudents(, Object p1) AssignmentSet",
+            "getContent() ObjectSet",
+            "getEntryType() String",
+            "getNewList(, boolean p2) AssignmentSet",
+            "getPoints() NumberList",
+            "getRoom() RoomSet",
+            "getStudents() StudentSet",
+            "getTypClass() Class<?>",
+            "with(, Object p2) AssignmentSet",
+            "withContent(, String p1) AssignmentSet",
+            "withPoints(, int p1) AssignmentSet",
+            "withRoom(, Room p1) AssignmentSet",
+            "withStudents(, Student p1) AssignmentSet",
+            "without(, Assignment p1) AssignmentSet",
+            "withoutStudents(, Student p1) AssignmentSet"
          ]
       },
       {
          "typ":"node",
          "id":"RoomCreator",
          "methods":[
-            "getSendableInstance(boolean p0) Object",
-            "getValue(Object p0, String p1) Object",
-            "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) IdMap",
-            "removeObject(Object p0) void"
+            "createIdMap(, String p1) IdMap",
+            "getSendableInstance(, boolean p2) Object",
+            "getValue(, String p2, Object p3) Object",
+            "removeObject(, Object p1) void",
+            "setValue(, String p2, Object p3, String p4, Object p5) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RoomSet",
+         "methods":[
+            "createRoomPO() RoomPO",
+            "filter(, Condition<Room> p1) RoomSet",
+            "filterAssignments(, Object p1) RoomSet",
+            "filterCredits(, int p1, int p2) RoomSet",
+            "filterCredits(, int p1) RoomSet",
+            "filterDoors(, Object p1) RoomSet",
+            "filterName(, String p1, String p2) RoomSet",
+            "filterName(, String p1) RoomSet",
+            "filterStudents(, Object p1) RoomSet",
+            "filterTas(, Object p1) RoomSet",
+            "filterTopic(, String p1, String p2) RoomSet",
+            "filterTopic(, String p1) RoomSet",
+            "filterUniversity(, Object p1) RoomSet",
+            "findPath(, int p1) StringList",
+            "getAssignments() AssignmentSet",
+            "getCredits() NumberList",
+            "getDoors() RoomSet",
+            "getDoorsTransitive() RoomSet",
+            "getEntryType() String",
+            "getName() ObjectSet",
+            "getNewList(, boolean p2) RoomSet",
+            "getStudents() StudentSet",
+            "getTas() TeachingAssistantSet",
+            "getTopic() ObjectSet",
+            "getTypClass() Class<?>",
+            "getUniversity() UniversitySet",
+            "with(, Object p2) RoomSet",
+            "withAssignments(, Assignment p1) RoomSet",
+            "withCredits(, int p1) RoomSet",
+            "withDoors(, Room p1) RoomSet",
+            "withName(, String p1) RoomSet",
+            "withStudents(, Student p1) RoomSet",
+            "withTas(, TeachingAssistant p1) RoomSet",
+            "withTopic(, String p1) RoomSet",
+            "withUniversity(, University p1) RoomSet",
+            "without(, Room p1) RoomSet",
+            "withoutAssignments(, Assignment p1) RoomSet",
+            "withoutDoors(, Room p1) RoomSet",
+            "withoutStudents(, Student p1) RoomSet",
+            "withoutTas(, TeachingAssistant p1) RoomSet"
          ]
       },
       {
          "typ":"node",
          "id":"StudentCreator",
          "methods":[
-            "getSendableInstance(boolean p0) Object",
-            "getValue(Object p0, String p1) Object",
-            "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) IdMap",
-            "removeObject(Object p0) void"
+            "createIdMap(, String p1) IdMap",
+            "getSendableInstance(, boolean p2) Object",
+            "getValue(, String p2, Object p3) Object",
+            "removeObject(, Object p1) void",
+            "setValue(, String p2, Object p3, String p4, Object p5) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"StudentSet",
+         "methods":[
+            "createStudentPO() StudentPO",
+            "filter(, Condition<Student> p1) StudentSet",
+            "filterAssignmentPoints(, int p1, int p2) StudentSet",
+            "filterAssignmentPoints(, int p1) StudentSet",
+            "filterCredits(, int p1, int p2) StudentSet",
+            "filterCredits(, int p1) StudentSet",
+            "filterDone(, Object p1) StudentSet",
+            "filterFriends(, Object p1) StudentSet",
+            "filterId(, String p1, String p2) StudentSet",
+            "filterId(, String p1) StudentSet",
+            "filterIn(, Object p1) StudentSet",
+            "filterMotivation(, int p1, int p2) StudentSet",
+            "filterMotivation(, int p1) StudentSet",
+            "filterName(, String p1, String p2) StudentSet",
+            "filterName(, String p1) StudentSet",
+            "filterUniversity(, Object p1) StudentSet",
+            "getAssignmentPoints() NumberList",
+            "getCredits() NumberList",
+            "getDone() AssignmentSet",
+            "getEntryType() String",
+            "getFriends() StudentSet",
+            "getFriendsTransitive() StudentSet",
+            "getId() ObjectSet",
+            "getIn() RoomSet",
+            "getMotivation() NumberList",
+            "getName() ObjectSet",
+            "getNewList(, boolean p2) StudentSet",
+            "getTypClass() Class<?>",
+            "getUniversity() UniversitySet",
+            "instanceOfTeachingAssistant() TeachingAssistantSet",
+            "with(, Object p2) StudentSet",
+            "withAssignmentPoints(, int p1) StudentSet",
+            "withCredits(, int p1) StudentSet",
+            "withDone(, Assignment p1) StudentSet",
+            "withFriends(, Student p1) StudentSet",
+            "withId(, String p1) StudentSet",
+            "withIn(, Room p1) StudentSet",
+            "withMotivation(, int p1) StudentSet",
+            "withName(, String p1) StudentSet",
+            "withUniversity(, University p1) StudentSet",
+            "without(, Student p1) StudentSet",
+            "withoutDone(, Assignment p1) StudentSet",
+            "withoutFriends(, Student p1) StudentSet"
          ]
       },
       {
          "typ":"node",
          "id":"TeachingAssistantCreator",
          "methods":[
-            "getSendableInstance(boolean p0) Object",
-            "getValue(Object p0, String p1) Object",
-            "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) IdMap",
-            "removeObject(Object p0) void"
+            "createIdMap(, String p1) IdMap",
+            "getSendableInstance(, boolean p2) Object",
+            "getValue(, String p2, Object p3) Object",
+            "removeObject(, Object p1) void",
+            "setValue(, String p2, Object p3, String p4, Object p5) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TeachingAssistantSet",
+         "methods":[
+            "createTeachingAssistantPO() TeachingAssistantPO",
+            "filter(, Condition<TeachingAssistant> p1) TeachingAssistantSet",
+            "filterAssignmentPoints(, int p1, int p2) TeachingAssistantSet",
+            "filterAssignmentPoints(, int p1) TeachingAssistantSet",
+            "filterCertified(, boolean p1) TeachingAssistantSet",
+            "filterCredits(, int p1, int p2) TeachingAssistantSet",
+            "filterCredits(, int p1) TeachingAssistantSet",
+            "filterDone(, Object p1) TeachingAssistantSet",
+            "filterFriends(, Object p1) TeachingAssistantSet",
+            "filterId(, String p1, String p2) TeachingAssistantSet",
+            "filterId(, String p1) TeachingAssistantSet",
+            "filterIn(, Object p1) TeachingAssistantSet",
+            "filterMotivation(, int p1, int p2) TeachingAssistantSet",
+            "filterMotivation(, int p1) TeachingAssistantSet",
+            "filterName(, String p1, String p2) TeachingAssistantSet",
+            "filterName(, String p1) TeachingAssistantSet",
+            "filterRoom(, Object p1) TeachingAssistantSet",
+            "filterUniversity(, Object p1) TeachingAssistantSet",
+            "getAssignmentPoints() NumberList",
+            "getCertified() BooleanList",
+            "getCredits() NumberList",
+            "getDone() AssignmentSet",
+            "getEntryType() String",
+            "getFriends() StudentSet",
+            "getFriendsTransitive() StudentSet",
+            "getId() ObjectSet",
+            "getIn() RoomSet",
+            "getMotivation() NumberList",
+            "getName() ObjectSet",
+            "getNewList(, boolean p2) TeachingAssistantSet",
+            "getRoom() RoomSet",
+            "getTypClass() Class<?>",
+            "getUniversity() UniversitySet",
+            "with(, Object p2) TeachingAssistantSet",
+            "withAssignmentPoints(, int p1) TeachingAssistantSet",
+            "withCertified(, boolean p1) TeachingAssistantSet",
+            "withCredits(, int p1) TeachingAssistantSet",
+            "withDone(, Assignment p1) TeachingAssistantSet",
+            "withFriends(, Student p1) TeachingAssistantSet",
+            "withId(, String p1) TeachingAssistantSet",
+            "withIn(, Room p1) TeachingAssistantSet",
+            "withMotivation(, int p1) TeachingAssistantSet",
+            "withName(, String p1) TeachingAssistantSet",
+            "withRoom(, Room p1) TeachingAssistantSet",
+            "withUniversity(, University p1) TeachingAssistantSet",
+            "without(, TeachingAssistant p1) TeachingAssistantSet",
+            "withoutDone(, Assignment p1) TeachingAssistantSet",
+            "withoutFriends(, Student p1) TeachingAssistantSet"
          ]
       },
       {
          "typ":"node",
          "id":"UniversityCreator",
          "methods":[
-            "getSendableInstance(boolean p0) Object",
-            "getValue(Object p0, String p1) Object",
-            "setValue(Object p0, String p1, Object p2, String p3) boolean",
-            "createIdMap(String p0) IdMap",
-            "removeObject(Object p0) void"
+            "createIdMap(, String p1) IdMap",
+            "getSendableInstance(, boolean p2) Object",
+            "getValue(, String p2, Object p3) Object",
+            "removeObject(, Object p1) void",
+            "setValue(, String p2, Object p3, String p4, Object p5) boolean"
          ]
       },
       {
          "typ":"node",
-         "id":"SendableEntity"
-      },
-      {
-         "typ":"node",
-         "id":"SendableEntityCreator"
+         "id":"UniversitySet",
+         "methods":[
+            "createUniversityPO() UniversityPO",
+            "filter(, Condition<University> p1) UniversitySet",
+            "filterName(, String p1, String p2) UniversitySet",
+            "filterName(, String p1) UniversitySet",
+            "filterRooms(, Object p1) UniversitySet",
+            "filterStudents(, Object p1) UniversitySet",
+            "getEntryType() String",
+            "getName() ObjectSet",
+            "getNewList(, boolean p2) UniversitySet",
+            "getRooms() RoomSet",
+            "getStudents() StudentSet",
+            "getTypClass() Class<?>",
+            "with(, Object p2) UniversitySet",
+            "withName(, String p1) UniversitySet",
+            "withRooms(, Room p1) UniversitySet",
+            "withStudents(, Student p1) UniversitySet",
+            "without(, University p1) UniversitySet",
+            "withoutRooms(, Room p1) UniversitySet",
+            "withoutStudents(, Student p1) UniversitySet"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"friends"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"friends"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         },
-         "target":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"university"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Student",
-            "cardinality":"many",
-            "property":"students"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"in"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"TeachingAssistant",
-            "cardinality":"one",
-            "property":"teachingassistant"
-         },
-         "target":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         },
-         "target":{
             "id":"TeachingAssistant",
             "cardinality":"many",
             "property":"tas"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         },
+         "target":{
+            "id":"SendableEntity",
+            "cardinality":"one",
+            "property":"sendableentity"
+         }
+      },
+      {
+         "typ":"generalisation",
          "source":{
             "id":"Room",
             "cardinality":"one",
@@ -269,20 +445,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Room",
-            "cardinality":"many",
-            "property":"rooms"
-         },
-         "target":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"university"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
             "id":"Assignment",
             "cardinality":"one",
@@ -295,50 +458,11 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"generalisation",
          "source":{
-            "id":"Assignment",
-            "cardinality":"many",
-            "property":"assignments"
-         },
-         "target":{
-            "id":"Room",
+            "id":"UniversityCreator",
             "cardinality":"one",
-            "property":"room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"TeachingAssistant",
-            "cardinality":"many",
-            "property":"tas"
-         },
-         "target":{
-            "id":"Room",
-            "cardinality":"one",
-            "property":"room"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"University",
-            "cardinality":"one",
-            "property":"university"
-         },
-         "target":{
-            "id":"SendableEntity",
-            "cardinality":"one",
-            "property":"sendableentity"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"AssignmentCreator",
-            "cardinality":"one",
-            "property":"assignmentcreator"
+            "property":"universitycreator"
          },
          "target":{
             "id":"SendableEntityCreator",
@@ -347,33 +471,7 @@
          }
       },
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"RoomCreator",
-            "cardinality":"one",
-            "property":"roomcreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"StudentCreator",
-            "cardinality":"one",
-            "property":"studentcreator"
-         },
-         "target":{
-            "id":"SendableEntityCreator",
-            "cardinality":"one",
-            "property":"sendableentitycreator"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
             "id":"TeachingAssistantCreator",
             "cardinality":"one",
@@ -386,16 +484,198 @@
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
-            "id":"UniversityCreator",
+            "id":"StudentCreator",
             "cardinality":"one",
-            "property":"universitycreator"
+            "property":"studentcreator"
          },
          "target":{
             "id":"SendableEntityCreator",
             "cardinality":"one",
             "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"RoomCreator",
+            "cardinality":"one",
+            "property":"roomcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"AssignmentCreator",
+            "cardinality":"one",
+            "property":"assignmentcreator"
+         },
+         "target":{
+            "id":"SendableEntityCreator",
+            "cardinality":"one",
+            "property":"sendableentitycreator"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"UniversitySet",
+            "cardinality":"one",
+            "property":"universityset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"TeachingAssistantSet",
+            "cardinality":"one",
+            "property":"teachingassistantset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"StudentSet",
+            "cardinality":"one",
+            "property":"studentset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"RoomSet",
+            "cardinality":"one",
+            "property":"roomset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"AssignmentSet",
+            "cardinality":"one",
+            "property":"assignmentset"
+         },
+         "target":{
+            "id":"SimpleSet",
+            "cardinality":"one",
+            "property":"simpleset"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"assignments"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"friends"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"university"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"TeachingAssistant",
+            "cardinality":"one",
+            "property":"teachingassistant"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"student"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"TeachingAssistant",
+            "cardinality":"many",
+            "property":"tas"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
          }
       }
    ]
@@ -406,97 +686,10 @@
 <p>Start: Example object structure:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-            "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R8 : Room",
-         "attributes":[
-            "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : Room",
-         "attributes":[
-            "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A10 : Assignment",
          "attributes":[
             "content=Matrix Multiplication",
@@ -504,7 +697,7 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A11 : Assignment",
          "attributes":[
             "content=Pushups",
@@ -512,7 +705,7 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A12 : Assignment",
          "attributes":[
             "content=Series",
@@ -520,277 +713,117 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A13 : Assignment",
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=16",
+            "name=7522",
+            "topic=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R8 : Room",
+         "attributes":[
+            "credits=0",
+            "name=The End",
+            "topic=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R9 : Room",
+         "attributes":[
+            "credits=42",
+            "name=7422",
+            "topic=Software Engineering"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=0",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=0",
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A10 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
+            "property":"assignments",
             "id":"A11 : Assignment"
          },
          "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A10 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A12 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A10 : Assignment"
-         },
-         "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"R5 : Room"
+            "id":"R7 : Room"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A12 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"assignments",
@@ -803,72 +836,85 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A11 : Assignment"
+            "id":"A12 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"R7 : Room"
+            "id":"R5 : Room"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A12 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A11 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
@@ -878,6 +924,240 @@
             "cardinality":"many",
             "property":"doors",
             "id":"R8 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
          }
       }
    ]
@@ -886,14 +1166,14 @@
    g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
-      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
 
-      int donePoints = university.getStudents().getDone().getPoints().sum();
+      double donePoints = university.getStudents().getDone().getPoints().sum();
 
 </pre><p>Results in:</p>
-<pre>      Sum of assignment points: 23. 
-      Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points:  23 actual 23</p>
-<p>Check: donePoints:  15 actual 15</p>
+<pre>      Sum of assignment points: 23.0. 
+      Sum of points of assignments that have been done by at least one students: 15.0.</pre><p>Check: Assignment points:  23.0 actual 23.0</p>
+<p>Check: donePoints:  15.0 actual 15.0</p>
 <p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
 
@@ -915,48 +1195,48 @@
 
 </pre><p>Results in:</p>
 <pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>
-      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
 
 </pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>
       university.getStudents().withMotivation(42);
 
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S2 : Student",
          "attributes":[
-            "name=Abu",
+            "assignmentPoints=0",
+            "credits=0",
             "id=1337",
-            "assignmentPoints=0",
             "motivation=42",
-            "credits=0"
+            "name=Abu"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S4 : Student",
          "attributes":[
-            "name=Alice",
-            "id=2323",
             "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
             "motivation=42",
-            "credits=0"
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=42",
+            "name=Karli",
+            "room=null"
          ]
       }
    ]
@@ -969,7 +1249,7 @@
 
       StudentPO stud1PO = roomPO.createStudentsPO();
 
-      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createMotivationCondition(42).createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -1044,7 +1324,7 @@
 
       final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
 
-      stud2PO.createFriendsPO(stud1PO);
+      stud2PO.createFriendsLink(stud1PO);
 
       rooms = roomPO.allMatches();
 
@@ -1119,11 +1399,11 @@
 
       stud1PO = roomPO.createStudentsPO().createMotivationCondition(0, 42);
 
-      roomPO.createStudentsPO().createFriendsPO(stud1PO);
+      roomPO.createStudentsPO().createFriendsLink(stud1PO);
 
-      roomPO.filterTas(null);
+      roomPO.createTasLink(null);
 
-      roomPO.createTas();
+      roomPO.createTasPO(CREATE);
 
       rooms = roomPO.allMatches();
 
@@ -1170,6 +1450,7 @@
       },
       {
          "typ":"patternObject",
+         "style":"create",
          "id":"t6 : TeachingAssistantPO",
          "attributes":[
             "<< create>>"
@@ -1241,7 +1522,8 @@
          "target":{
             "property":"tas",
             "id":"t6 : TeachingAssistantPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;
@@ -1251,67 +1533,57 @@
 <p>Results in:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R7 : Room",
          "attributes":[
+            "credits=25",
             "name=gymnasium",
-            "topic=sports",
-            "credits=25"
+            "topic=sports"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S2 : Student",
          "attributes":[
-            "name=Abu",
-            "id=1337",
             "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
             "motivation=42",
-            "credits=0"
+            "name=Abu"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S4 : Student",
          "attributes":[
-            "name=Alice",
-            "id=2323",
             "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
             "motivation=42",
-            "credits=0"
+            "name=Alice"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"T14 : TeachingAssistant",
          "attributes":[
-            "certified=false",
             "assignmentPoints=0",
+            "certified=false",
+            "credits=0",
+            "id=null",
+            "in=null",
             "motivation=0",
-            "credits=0"
+            "name=null",
+            "university=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1324,7 +1596,20 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -1402,19 +1687,19 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"T3 : TeachingAssistant",
          "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
             "motivation=42",
-            "credits=0"
+            "name=Karli",
+            "room=null"
          ]
       }
    ]
@@ -1500,65 +1785,65 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R5 : Room",
          "attributes":[
+            "credits=17",
             "name=senate",
-            "topic=math",
-            "credits=17"
+            "topic=math"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=168",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"S4 : Student",
          "attributes":[
-            "name=Alice",
-            "id=2323",
             "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
             "motivation=168",
-            "credits=0"
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=168",
+            "name=Karli",
+            "room=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1567,11 +1852,11 @@
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S2 : Student"
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1584,7 +1869,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1593,7 +1878,7 @@
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S4 : Student"
+            "id":"S2 : Student"
          }
       }
    ]
@@ -1608,7 +1893,7 @@
 
       stud1PO.startCreate();
 
-      stud1PO.filterIn(roomPO);
+      stud1PO.createInLink(roomPO);
 
       stud1PO.allMatches();
 
@@ -1651,7 +1936,8 @@
          "target":{
             "property":"in",
             "id":"r1 : RoomPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;
@@ -1660,74 +1946,74 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R5 : Room",
          "attributes":[
+            "credits=17",
             "name=senate",
-            "topic=math",
-            "credits=17"
+            "topic=math"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R6 : Room",
          "attributes":[
+            "credits=16",
             "name=7522",
-            "topic=arts",
-            "credits=16"
+            "topic=arts"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R7 : Room",
          "attributes":[
+            "credits=25",
             "name=gymnasium",
-            "topic=sports",
-            "credits=25"
+            "topic=sports"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=168",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S2 : Student",
          "attributes":[
-            "name=Abu",
-            "id=1337",
             "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
             "motivation=168",
-            "credits=0"
+            "name=Abu"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S4 : Student",
          "attributes":[
-            "name=Alice",
-            "id=2323",
             "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
             "motivation=168",
-            "credits=0"
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=168",
+            "name=Karli",
+            "room=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1735,12 +2021,12 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"teachingassistant",
-            "id":"T3 : TeachingAssistant"
+            "property":"student",
+            "id":"S4 : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1753,7 +2039,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -1761,8 +2047,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
          }
       }
    ]

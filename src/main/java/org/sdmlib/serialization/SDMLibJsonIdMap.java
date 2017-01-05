@@ -66,7 +66,7 @@ public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
    
    public void removeYou()
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
    public FlipBook createFlipBook()

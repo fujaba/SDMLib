@@ -24,12 +24,11 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherSet extends SimpleSet<BigBrother>
 {

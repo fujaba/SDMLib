@@ -21,14 +21,14 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.RuleApplication;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.models.pattern.util.PatternSet;
+
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class RuleApplicationSet extends SimpleSet<RuleApplication>
 {

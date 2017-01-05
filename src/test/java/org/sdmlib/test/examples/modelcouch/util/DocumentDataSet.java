@@ -24,13 +24,13 @@ package org.sdmlib.test.examples.modelcouch.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.StringList;
 import org.sdmlib.test.examples.modelcouch.DocumentData;
 import org.sdmlib.test.examples.modelcouch.Person;
 import org.sdmlib.test.examples.modelcouch.Task;
 
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class DocumentDataSet extends SimpleSet<DocumentData>
 {
