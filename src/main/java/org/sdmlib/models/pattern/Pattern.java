@@ -62,6 +62,31 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
    private GuiAdapter adapter;
 
+   public boolean addToElementsInCool(PatternElement value)
+   {
+      boolean changed = false;
+
+      if (value != null)
+      {
+         if (this.elements == null)
+         {
+            this.elements = new PatternElementSet();
+         }
+
+         if (!this.elements.contains(value))
+         {
+            changed = this.elements.add(value);
+
+            value.withPattern((Pattern<PatternElement<?>>) this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
+
+         }
+      }
+
+      return changed;
+   }
+
+
 
    public GuiAdapter getAdapter()
    {

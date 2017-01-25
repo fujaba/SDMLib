@@ -30,10 +30,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.storyboards.GenericIdMap;
 
 import de.uniks.networkparser.IdMap;
@@ -55,7 +57,7 @@ public class CGUtil
       return primitiveTypes.indexOf(" " + type + " ") >= 0;
    }
    
-   public static <ST extends SDMSet<?>> ST instanceOf(SimpleSet<Object> source, ST target)
+   public static <ST extends SimpleSet> ST instanceOf(SimpleSet<Object> source, ST target)
    {
 	   String className;
 	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();

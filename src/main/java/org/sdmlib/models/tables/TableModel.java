@@ -10,6 +10,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class TableModel
 {
@@ -36,7 +37,7 @@ public class TableModel
          .withAttribute("thCssClass", STRING);
 
       Clazz cellClass = model.createClazz("Cell")
-         .withAttribute("value", OBJECT);
+         .withAttribute("value", DataType.OBJECT);
 
       tableClass.withBidirectional(columnClass, "columns", MANY, "table", ONE);
       tableClass.withBidirectional(rowClass, "rows", MANY, "table", ONE);

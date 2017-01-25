@@ -25,18 +25,18 @@ import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
 
-public class ObjectSet extends SimpleSet<Object>
+public class ConditionSet extends SimpleSet<Object>
 {
 	protected Class<?> getTypClass() {
 		return Object.class;
 	}
 
-   public ObjectSet()
+   public ConditionSet()
    {
       // empty
    }
 
-   public ObjectSet(Object... objects)
+   public ConditionSet(Object... objects)
    {
       for (Object obj : objects)
       {
@@ -44,17 +44,17 @@ public class ObjectSet extends SimpleSet<Object>
       }
    }
 
-   public ObjectSet(Collection<Object> objects)
+   public ConditionSet(Collection<Object> objects)
    {
       this.addAll(objects);
    }
 
-   public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
+   public static final ConditionSet EMPTY_SET = new ConditionSet().withFlag(ConditionSet.READONLY);
 
 
-   public ObjectPO createObjectPO()
+   public ConditionPO createObjectPO()
    {
-      return new ObjectPO(this.toArray(new Object[this.size()]));
+      return new ConditionPO(this.toArray(new Object[this.size()]));
    }
 
 
@@ -65,7 +65,7 @@ public class ObjectSet extends SimpleSet<Object>
 
 
    @SuppressWarnings("unchecked")
-   public ObjectSet with(Object value)
+   public ConditionSet with(Object value)
    {
       if (value == null)
       {
@@ -83,7 +83,7 @@ public class ObjectSet extends SimpleSet<Object>
       return this;
    }
    
-   public ObjectSet without(Object value)
+   public ConditionSet without(Object value)
    {
       this.remove(value);
       return this;

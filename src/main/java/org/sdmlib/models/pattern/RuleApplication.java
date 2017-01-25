@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -297,4 +298,65 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       withTgt(value);
       return value;
    } 
+   
+   HashMap<PatternElement, Object> srcMatch;
+
+
+   /**
+    * @return the srcMatch
+    */
+   public HashMap<PatternElement, Object> getSrcMatch()
+   {
+      return srcMatch;
+   }
+
+
+   /**
+    * @param srcMatch the srcMatch to set
+    */
+   public void setSrcMatch(HashMap<PatternElement, Object> srcMatch)
+   {
+      this.srcMatch = srcMatch;
+   }
+
+
+   /**
+    * @param srcMatch the srcMatch to set
+    */
+   public RuleApplication withSrcMatch(HashMap<PatternElement, Object> srcMatch)
+   {
+      this.srcMatch = srcMatch;
+      return this;
+   }
+
+   HashMap<PatternElement, Object> tgtMatch;
+
+
+   /**
+    * @return the tgtMatch
+    */
+   public HashMap<PatternElement, Object> getTgtMatch()
+   {
+      return tgtMatch;
+   }
+
+
+   /**
+    * @param tgtMatch the tgtMatch to set
+    */
+   public void setTgtMatch(HashMap<PatternElement, Object> tgtMatch)
+   {
+      this.tgtMatch = tgtMatch;
+   }
+
+
+   /**
+    * @param tgtMatch the tgtMatch to set
+    */
+   public RuleApplication withTgtMatch(HashMap<PatternElement, Object> tgtMatch)
+   {
+      this.tgtMatch = tgtMatch;
+      return this;
+   }
+
 }

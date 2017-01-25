@@ -169,7 +169,7 @@ public class PatternCreator implements SendableEntityCreator
 
       if (Pattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
       {
-         ((Pattern) target).addToElementsInCool((PatternElement) value);
+         ((Pattern) target).addToElements((PatternElement) value);
          return true;
       }
 

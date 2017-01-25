@@ -842,7 +842,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      .withRule(rule)
                      .withDescription("" + rule.getName())
                      .withTgt(newReachableState)
-                     .withSrcMatch(srcMatch)
+                     //.withSrcMatch(srcMatch)
                      .withTgtMatch(tgtMatch);
 
                   int size = this.getStates().size();

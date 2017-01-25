@@ -2,14 +2,14 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 
-public class ObjectPO extends PatternObject<ObjectPO, Object>
+public class ConditionPO extends PatternObject<ConditionPO, Object>
 {
 
-    public ObjectSet allMatches()
+    public ConditionSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      ObjectSet matches = new ObjectSet();
+      ConditionSet matches = new ConditionSet();
 
       while (this.getPattern().getHasMatch())
       {
@@ -22,18 +22,18 @@ public class ObjectPO extends PatternObject<ObjectPO, Object>
    }
 
 
-   public ObjectPO(){
+   public ConditionPO(){
       newInstance(null);
    }
 
-   public ObjectPO(Object... hostGraphObject) {
+   public ConditionPO(Object... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(null, hostGraphObject);
    }
 
-   public ObjectPO(String modifier)
+   public ConditionPO(String modifier)
    {
       this.setModifier(modifier);
    }

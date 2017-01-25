@@ -723,6 +723,10 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private boolean failureState;
 
+   private boolean finalState;
+
+   private boolean startState;
+
 
    public void setFailureState(boolean b)
    {
@@ -750,5 +754,19 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 		   return true;
 	   }
 	   return false;
+   }
+
+
+   public void setFinalState(boolean b)
+   {
+      finalState = b;
+      
+   }
+
+
+   public void setStartState(boolean b)
+   {
+      startState = b;
+      
    }
 }

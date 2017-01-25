@@ -192,6 +192,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return this;
    }
    
+   
+
+   
    public Object getGraphRoot()
    {
       if (this.getPattern().getHasMatch())
@@ -330,7 +333,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    public ReachableStatePO createFailureStateCondition(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_FAILURESTATE)
+      .withAttrName(ReachableState.PROPERTY_FAILURE_STATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -344,7 +347,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    public ReachableStatePO createFailureStateAssignment(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_FAILURESTATE)
+      .withAttrName(ReachableState.PROPERTY_FAILURE_STATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -371,98 +374,5 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
          ((ReachableState) getCurrentMatch()).setFailureState(value);
       }
       return this;
-   }
-   
-   public ReachableStatePO createFinalStateCondition(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_FINALSTATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public ReachableStatePO createFinalStateAssignment(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_FINALSTATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public boolean getFinalState()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReachableState) getCurrentMatch()).isFinalState();
-      }
-      return false;
-   }
-   
-   public ReachableStatePO withFinalState(boolean value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((ReachableState) getCurrentMatch()).setFinalState(value);
-      }
-      return this;
-   }
-   
-   public ReachableStatePO createStartStateCondition(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_STARTSTATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public ReachableStatePO createStartStateAssignment(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(ReachableState.PROPERTY_STARTSTATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public boolean getStartState()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReachableState) getCurrentMatch()).isStartState();
-      }
-      return false;
-   }
-   
-   public ReachableStatePO withStartState(boolean value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((ReachableState) getCurrentMatch()).setStartState(value);
-      }
-      return this;
-   }
-   
+   }      
 }

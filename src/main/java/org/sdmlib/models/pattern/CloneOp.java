@@ -41,6 +41,16 @@ import de.uniks.networkparser.json.JsonArray;
    private Object origGraph;
 
    private Object cloneGraph;
+   
+   public IdMap getOrigMap()
+   {
+      return origMap;
+   }
+   
+   public IdMap getCloneMap()
+   {
+      return cloneMap;
+   }
 
    //==========================================================================
    @Override
@@ -156,6 +166,7 @@ import de.uniks.networkparser.json.JsonArray;
       s.append(" ").append(this.getPatternObjectName());
       return s.substring(1);
    }
+
 
 }
 
