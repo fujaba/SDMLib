@@ -282,6 +282,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
    public long currentStep = -1;
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
+   
    public boolean update(Object event) {
       if (isReading)
       {

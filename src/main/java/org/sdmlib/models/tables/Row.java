@@ -26,8 +26,6 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.tables.util.CellSet;
 
-import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
 
 /**

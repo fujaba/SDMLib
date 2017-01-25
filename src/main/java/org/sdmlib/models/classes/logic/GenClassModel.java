@@ -3347,7 +3347,7 @@ public class GenClassModel implements ClassModelAdapter
                }
 
             }
-            catch (Exception f)
+            catch (Error f)
             {
             }
          }
@@ -3359,6 +3359,10 @@ public class GenClassModel implements ClassModelAdapter
          story.coverage4GeneratedModelCode(largestModelRoot);
       }
       catch (Exception e)
+      {
+         // e.printStackTrace();
+      }
+      catch (Error e)
       {
          // e.printStackTrace();
       }
