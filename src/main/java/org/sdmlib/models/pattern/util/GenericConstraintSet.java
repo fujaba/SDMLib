@@ -32,6 +32,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 {
@@ -653,4 +654,17 @@ public class GenericConstraintSet extends SimpleSet<GenericConstraint>
       return this;
    }
 
-}
+
+
+   @Override
+   public GenericConstraintSet getNewList(boolean keyValue)
+   {
+      return new GenericConstraintSet();
+   }
+
+
+   public GenericConstraintSet filter(Condition<GenericConstraint> condition) {
+      GenericConstraintSet filterList = new GenericConstraintSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

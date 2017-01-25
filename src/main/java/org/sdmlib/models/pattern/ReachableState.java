@@ -40,10 +40,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 /**
  * 
  * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
 public class ReachableState implements PropertyChangeInterface, SendableEntity
 {
@@ -295,6 +298,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       removeAllFromResultOf();
       withoutRuleapplications(this.getRuleapplications().toArray(new RuleApplication[this.getRuleapplications().size()]));
       withoutResultOf(this.getResultOf().toArray(new RuleApplication[this.getResultOf().size()]));
+      setGraphRoot(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -769,4 +773,11 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       startState = b;
       
    }
+
+   public Object createGraphRoot()
+   {
+      Object value = new Object();
+      withGraphRoot(value);
+      return value;
+   } 
 }

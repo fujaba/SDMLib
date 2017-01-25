@@ -30,6 +30,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternObjectSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 {
@@ -852,4 +855,17 @@ public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
       return this;
    }
 
-}
+
+
+   @Override
+   public AttributeConstraintSet getNewList(boolean keyValue)
+   {
+      return new AttributeConstraintSet();
+   }
+
+
+   public AttributeConstraintSet filter(Condition<AttributeConstraint> condition) {
+      AttributeConstraintSet filterList = new AttributeConstraintSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

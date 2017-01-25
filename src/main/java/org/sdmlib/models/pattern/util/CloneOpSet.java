@@ -29,6 +29,8 @@ import org.sdmlib.models.pattern.Pattern;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class CloneOpSet extends SimpleSet<CloneOp>
 {
@@ -443,4 +445,17 @@ public class CloneOpSet extends SimpleSet<CloneOp>
       return this;
    }
 
-}
+
+
+   @Override
+   public CloneOpSet getNewList(boolean keyValue)
+   {
+      return new CloneOpSet();
+   }
+
+
+   public CloneOpSet filter(Condition<CloneOp> condition) {
+      CloneOpSet filterList = new CloneOpSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

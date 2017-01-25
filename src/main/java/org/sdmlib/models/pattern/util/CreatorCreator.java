@@ -45,6 +45,8 @@ class CreatorCreator{
       jsonIdMap.with(new RuleApplicationPOCreator());
       jsonIdMap.with(new ConditionCreator());
       jsonIdMap.with(new ConditionPOCreator());
+      jsonIdMap.with(new ObjectCreator());
+      jsonIdMap.with(new ObjectPOCreator());
       return jsonIdMap;
    }
 }

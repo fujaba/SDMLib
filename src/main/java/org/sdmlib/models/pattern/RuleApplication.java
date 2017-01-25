@@ -27,9 +27,11 @@ import java.util.HashMap;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.pattern.ReachableState;
    /**
     * 
     * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
    public  class RuleApplication implements SendableEntity
 {

@@ -29,6 +29,8 @@ import org.sdmlib.models.pattern.UnifyGraphsOp;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
 {
@@ -443,4 +445,17 @@ public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
       return this;
    }
 
-}
+
+
+   @Override
+   public UnifyGraphsOpSet getNewList(boolean keyValue)
+   {
+      return new UnifyGraphsOpSet();
+   }
+
+
+   public UnifyGraphsOpSet filter(Condition<UnifyGraphsOp> condition) {
+      UnifyGraphsOpSet filterList = new UnifyGraphsOpSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

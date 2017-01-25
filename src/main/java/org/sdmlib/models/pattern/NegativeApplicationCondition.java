@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 /**
  * 
@@ -112,6 +113,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       setCurrentSubPattern(null);
+      setRgraph(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 

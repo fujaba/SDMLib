@@ -30,6 +30,9 @@ import org.sdmlib.models.pattern.ReachableState;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 {
@@ -415,4 +418,17 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
       return this;
    }
 
-}
+
+
+   @Override
+   public ReachabilityGraphSet getNewList(boolean keyValue)
+   {
+      return new ReachabilityGraphSet();
+   }
+
+
+   public ReachabilityGraphSet filter(Condition<ReachabilityGraph> condition) {
+      ReachabilityGraphSet filterList = new ReachabilityGraphSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

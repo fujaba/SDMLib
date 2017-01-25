@@ -27,6 +27,7 @@ import org.sdmlib.models.pattern.PatternElement;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionCreator implements SendableEntityCreator
 {
@@ -41,6 +42,7 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          PatternElement.PROPERTY_PATTERN,
          Pattern.PROPERTY_ELEMENTS,
          Pattern.PROPERTY_CURRENTSUBPATTERN,
+      NegativeApplicationCondition.PROPERTY_RGRAPH,
    };
 
 
@@ -114,6 +116,11 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
          return ((NegativeApplicationCondition) target).getCurrentSubPattern();
       }
 
+      if (NegativeApplicationCondition.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
+      {
+         return ((NegativeApplicationCondition) target).getRgraph();
+      }
+
       return null;
    }
 
@@ -183,6 +190,12 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
       if (Pattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
       {
          ((Pattern) target).setCurrentSubPattern((Pattern) value);
+         return true;
+      }
+
+      if (NegativeApplicationCondition.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         ((NegativeApplicationCondition) target).setRgraph((ReachabilityGraph) value);
          return true;
       }
 

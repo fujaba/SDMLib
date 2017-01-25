@@ -27,6 +27,7 @@ import org.sdmlib.models.pattern.PatternElement;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class OptionalSubPatternCreator implements SendableEntityCreator
 {
@@ -42,6 +43,7 @@ public class OptionalSubPatternCreator implements SendableEntityCreator
       PatternElement.PROPERTY_PATTERN,
       Pattern.PROPERTY_ELEMENTS,
       Pattern.PROPERTY_CURRENTSUBPATTERN,
+      OptionalSubPattern.PROPERTY_RGRAPH,
    };
    
    @Override
@@ -115,6 +117,11 @@ public class OptionalSubPatternCreator implements SendableEntityCreator
       if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
       {
          return ((OptionalSubPattern) target).getCurrentSubPattern();
+      }
+
+      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getRgraph();
       }
       
       return null;
@@ -191,6 +198,12 @@ public class OptionalSubPatternCreator implements SendableEntityCreator
       if (OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
       {
          ((OptionalSubPattern) target).setCurrentSubPattern((Pattern) value);
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).setRgraph((ReachabilityGraph) value);
          return true;
       }
       

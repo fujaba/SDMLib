@@ -31,6 +31,9 @@ import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
 {
@@ -818,4 +821,17 @@ public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
       return this;
    }
 
-}
+
+
+   @Override
+   public CardinalityConstraintSet getNewList(boolean keyValue)
+   {
+      return new CardinalityConstraintSet();
+   }
+
+
+   public CardinalityConstraintSet filter(Condition<CardinalityConstraint> condition) {
+      CardinalityConstraintSet filterList = new CardinalityConstraintSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

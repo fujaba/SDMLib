@@ -29,6 +29,8 @@ import org.sdmlib.models.pattern.Pattern;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 {
@@ -585,4 +587,17 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
       return this;
    }
 
-}
+
+
+   @Override
+   public LinkConstraintSet getNewList(boolean keyValue)
+   {
+      return new LinkConstraintSet();
+   }
+
+
+   public LinkConstraintSet filter(Condition<LinkConstraint> condition) {
+      LinkConstraintSet filterList = new LinkConstraintSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

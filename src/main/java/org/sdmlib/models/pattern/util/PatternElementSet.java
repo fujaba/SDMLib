@@ -29,6 +29,28 @@ import org.sdmlib.models.pattern.PatternElement;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.util.GenericConstraintSet;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.util.MatchOtherThenSet;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.util.UnifyGraphsOpSet;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.util.CloneOpSet;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.util.MatchIsomorphicConstraintSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.util.AttributeConstraintSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.util.PatternLinkSet;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.util.PatternObjectSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SimpleSet<PatternElement>
 {
@@ -443,4 +465,182 @@ public class PatternElementSet extends SimpleSet<PatternElement>
       return this;
    }
 
-}
+
+
+   @Override
+   public PatternElementSet getNewList(boolean keyValue)
+   {
+      return new PatternElementSet();
+   }
+
+
+   public PatternElementSet filter(Condition<PatternElement> condition) {
+      PatternElementSet filterList = new PatternElementSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public GenericConstraintSet instanceOfGenericConstraint()
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof GenericConstraint)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet instanceOfMatchOtherThen()
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MatchOtherThen)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet instanceOfCardinalityConstraint()
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof CardinalityConstraint)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet instanceOfDestroyObjectElem()
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof DestroyObjectElem)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet instanceOfUnifyGraphsOp()
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof UnifyGraphsOp)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet instanceOfCloneOp()
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof CloneOp)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet instanceOfMatchIsomorphicConstraint()
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MatchIsomorphicConstraint)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet instanceOfAttributeConstraint()
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof AttributeConstraint)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet instanceOfPatternLink()
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof PatternLink)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet instanceOfPatternObject()
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof PatternObject)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet instanceOfPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Pattern)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

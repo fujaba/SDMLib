@@ -45,6 +45,22 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 /**
  * 
@@ -340,6 +356,8 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       removeAllFromElements();
       setPattern(null);
       withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
+      setCurrentSubPattern(null);
+      setRgraph(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1625,4 +1643,76 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       withElements(value);
       return value;
    }
+   public PatternSet getCurrentSubPatternTransitive()
+   {
+      PatternSet result = new PatternSet().with(this);
+      return result.getCurrentSubPatternTransitive();
+   }
+
+
+   public Pattern createCurrentSubPattern()
+   {
+      Pattern value = new Pattern();
+      withCurrentSubPattern(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Pattern ----------------------------------- ReachabilityGraph
+    *              rules                   rgraph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_RGRAPH = "rgraph";
+
+   private ReachabilityGraph rgraph = null;
+
+   public ReachabilityGraph getRgraph()
+   {
+      return this.rgraph;
+   }
+
+   public boolean setRgraph(ReachabilityGraph value)
+   {
+      boolean changed = false;
+      
+      if (this.rgraph != value)
+      {
+         ReachabilityGraph oldValue = this.rgraph;
+         
+         if (this.rgraph != null)
+         {
+            this.rgraph = null;
+            oldValue.withoutRules(this);
+         }
+         
+         this.rgraph = value;
+         
+         if (value != null)
+         {
+            value.withRules(this);
+         }
+         
+         firePropertyChange(PROPERTY_RGRAPH, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Pattern withRgraph(ReachabilityGraph value)
+   {
+      setRgraph(value);
+      return this;
+   } 
+
+   public ReachabilityGraph createRgraph()
+   {
+      ReachabilityGraph value = new ReachabilityGraph();
+      withRgraph(value);
+      return value;
+   } 
 }

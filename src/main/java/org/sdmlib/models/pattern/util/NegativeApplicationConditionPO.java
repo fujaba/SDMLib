@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.util.NegativeApplicationConditionPO;
 
 public class NegativeApplicationConditionPO extends PatternObject<NegativeApplicationConditionPO, NegativeApplicationCondition>
 {
@@ -545,6 +548,45 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
       if (this.getPattern().getHasMatch())
       {
          return ((Pattern) this.getCurrentMatch()).getCurrentSubPattern();
+      }
+      return null;
+   }
+
+   public ReachabilityGraphPO createRgraphPO()
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(NegativeApplicationCondition.PROPERTY_RGRAPH, result);
+      
+      return result;
+   }
+
+   public ReachabilityGraphPO createRgraphPO(String modifier)
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(NegativeApplicationCondition.PROPERTY_RGRAPH, result);
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionPO createRgraphLink(ReachabilityGraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, NegativeApplicationCondition.PROPERTY_RGRAPH);
+   }
+
+   public NegativeApplicationConditionPO createRgraphLink(ReachabilityGraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, NegativeApplicationCondition.PROPERTY_RGRAPH, modifier);
+   }
+
+   public ReachabilityGraph getRgraph()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) this.getCurrentMatch()).getRgraph();
       }
       return null;
    }
