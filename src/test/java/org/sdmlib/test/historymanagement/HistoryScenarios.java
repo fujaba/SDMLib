@@ -55,20 +55,4 @@ public class HistoryScenarios
    }
 
    
-     /**
-    * 
-    * @see <a href='../../../../../../../doc/marketPlace.html'>marketPlace.html</a>
- */
-   @Test
-   public void marketPlace() throws Exception
-   {
-      Storyboard story = new Storyboard();
-
-      MarketManager marketManager = new MarketManager();
-      marketManager.run();
-      
-
-      story.dumpHTML();
-   }
-
 }
