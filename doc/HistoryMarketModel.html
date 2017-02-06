@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/HistoryMarketModel.java' type='text/x-java'>HistoryMarketModel</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Actor",
+         "attributes":[
+            "actorName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Bid",
+         "attributes":[
+            "amount : double"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Market",
+         "attributes":[
+            "marketTime : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Offer",
+         "attributes":[
+            "description : String",
+            "timeLimit : String"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Actor",
+            "cardinality":"one",
+            "property":"bidder"
+         },
+         "target":{
+            "id":"Bid",
+            "cardinality":"many",
+            "property":"bids"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Actor",
+            "cardinality":"one",
+            "property":"owner"
+         },
+         "target":{
+            "id":"Offer",
+            "cardinality":"many",
+            "property":"offers"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Bid",
+            "cardinality":"many",
+            "property":"bids"
+         },
+         "target":{
+            "id":"Offer",
+            "cardinality":"one",
+            "property":"offer"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Market",
+            "cardinality":"one",
+            "property":"market"
+         },
+         "target":{
+            "id":"Offer",
+            "cardinality":"many",
+            "property":"offers"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasHistoryMarketModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>
