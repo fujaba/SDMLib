@@ -90,7 +90,7 @@ public class IdMapRigorousTests
       
       market.removeYou();
       
-      story.assertTrue("change message should contain REMOVE_YOU", buf.indexOf("REMOVE_YOU") >= 0);
+      story.assertTrue("change message should contain \"rem\":{}", buf.indexOf("\"rem\":{}") >= 0);
 
       story.dumpHTML();
    }

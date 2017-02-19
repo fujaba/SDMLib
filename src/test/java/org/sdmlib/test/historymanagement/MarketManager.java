@@ -28,19 +28,19 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java'>HistoryScenarios.java</a>
  */
    public class MarketManager extends Thread
-{
-     /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java'>HistoryScenarios.java</a>
- */
-   @Override
-   public void run()
+   {
+      /**
+       * 
+       * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java'>HistoryScenarios.java</a>
+       */
+      @Override
+      public void run()
    {
       IdMap oldIdMap = MarketCreator.createIdMap("ebay");
       HistoryIdMap idMap = new HistoryIdMap("ebay");
       idMap.withCreator(oldIdMap.getCreators().values());
       idMap.withListener((UpdateListener) update -> handleUpdate(update));
-      idMap.withListener((PropertyChangeListener) e -> handlePopertyChange(e));
+      // idMap.withListener((PropertyChangeListener) e -> handlePopertyChange(e));
 
       Market market = new Market();
       String id = idMap.getId(market);
@@ -56,17 +56,12 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
                .withDescription("Coffee 1 pound")
                .withTimeLimit("12:30");
          
-         //         Actor sturbucks = new Actor()
-         //               .withActorName("Starbucks");
-         //         
-         //         coffeeOffer.withOwner(sturbucks);
-         //               
-         market.withOffers(coffeeOffer);
-         
-         Actor sturbucks = new Actor();
-         sturbucks.withActorName("StarCoffee");
+         Actor sturbucks = new Actor()
+               .withActorName("Starbucks");
 
          coffeeOffer.withOwner(sturbucks);
+
+         market.withOffers(coffeeOffer);
          
          Actor starCoffee = new Actor();
          starCoffee.withActorName("StarCoffee");
@@ -100,12 +95,6 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
    }
    
    
-   private void handlePopertyChange(PropertyChangeEvent e)
-   {
-      System.out.println(e.getSource() + " " + e.getPropertyName() + " " + e.getNewValue());
-   }
-
-
    private boolean handleUpdate(Object update)
    {
       // write change to log file

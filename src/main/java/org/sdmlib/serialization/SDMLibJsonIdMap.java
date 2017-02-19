@@ -32,25 +32,25 @@ public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
 	/** The Constant JSON_PROPS. */
 	public static final String JSON_HYPERREF = "hyperref";
 
-	@Override
-	public boolean addListener(Object object) 
-	{
-		if(super.addListener(object)){
-			return true;
-		}
-		if (object instanceof PropertyChangeSupport) {
-			((PropertyChangeSupport) object).addPropertyChangeListener(
-					IdMap.UPDATE, (PropertyChangeListener)this.listener);
-			return true;
-		} else if (object instanceof PropertyChangeInterface)
-		{
-		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener((PropertyChangeListener)this.listener);
-		   return true;
-		}
-		return false;
-		
-	}
-	
+//	@Override
+//	public boolean addListener(Object object) 
+//	{
+//		if(super.addListener(object)){
+//			return true;
+//		}
+//		if (object instanceof PropertyChangeSupport) {
+//			((PropertyChangeSupport) object).addPropertyChangeListener(
+//					IdMap.UPDATE, (PropertyChangeListener)this.listener);
+//			return true;
+//		} else if (object instanceof PropertyChangeInterface)
+//		{
+//		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener((PropertyChangeListener)this.listener);
+//		   return true;
+//		}
+//		return false;
+//		
+//	}
+//	
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
