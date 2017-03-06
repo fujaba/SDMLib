@@ -690,6 +690,10 @@
    "nodes":[
       {
          "type":"clazz",
+         "id":" : Student"
+      },
+      {
+         "type":"clazz",
          "id":"A10 : Assignment",
          "attributes":[
             "content=Matrix Multiplication",
@@ -700,24 +704,24 @@
          "type":"clazz",
          "id":"A11 : Assignment",
          "attributes":[
-            "content=Pushups",
-            "points=4"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A12 : Assignment",
-         "attributes":[
             "content=Series",
             "points=6"
          ]
       },
       {
          "type":"clazz",
-         "id":"A13 : Assignment",
+         "id":"A12 : Assignment",
          "attributes":[
             "content=Integrals",
             "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"A13 : Assignment",
+         "attributes":[
+            "content=Pushups",
+            "points=4"
          ]
       },
       {
@@ -767,38 +771,15 @@
       },
       {
          "type":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=1337",
-            "motivation=0",
-            "name=Abu"
-         ]
+         "id":"S2 : Student"
       },
       {
          "type":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=0",
-            "name=Alice"
-         ]
+         "id":"S4 : Student"
       },
       {
          "type":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "assignmentPoints=0",
-            "certified=true",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli",
-            "room=null"
-         ]
+         "id":"T3 : TeachingAssistant"
       },
       {
          "type":"clazz",
@@ -814,25 +795,12 @@
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A11 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
             "id":"A13 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"R5 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -853,64 +821,25 @@
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A10 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A12 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A10 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
             "id":"A11 : Assignment"
          },
          "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
          }
       },
       {
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"done",
+            "property":"assignments",
             "id":"A10 : Assignment"
          },
          "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
          }
       },
       {
@@ -1008,58 +937,6 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"friends",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
             "property":"rooms",
             "id":"R9 : Room"
          },
@@ -1122,20 +999,20 @@
          }
       },
       {
-         "type":"assoc",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"students",
-            "id":"S4 : Student"
+            "id":"S2 : Student"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
+            "property":"assignment",
+            "id":"A13 : Assignment"
          }
       },
       {
-         "type":"assoc",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -1143,12 +1020,103 @@
          },
          "target":{
             "cardinality":"one",
+            "property":"assignment",
+            "id":"A11 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A10 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A10 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"university",
             "id":"U1 : University"
          }
       },
       {
-         "type":"assoc",
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -1206,36 +1174,14 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=1337",
-            "motivation=42",
-            "name=Abu"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=42",
-            "name=Alice"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T3 : TeachingAssistant",
+         "id":" : Student",
          "attributes":[
             "assignmentPoints=0",
             "certified=true",
             "credits=0",
-            "id=4242",
+            "id=1337",
             "motivation=42",
-            "name=Karli",
+            "name=Abu",
             "room=null"
          ]
       }
@@ -1537,16 +1483,7 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-            "credits=25",
-            "name=gymnasium",
-            "topic=sports"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S2 : Student",
+         "id":" : Student",
          "attributes":[
             "assignmentPoints=0",
             "credits=0",
@@ -1557,13 +1494,11 @@
       },
       {
          "type":"clazz",
-         "id":"S4 : Student",
+         "id":"R7 : Room",
          "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=42",
-            "name=Alice"
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
          ]
       },
       {
@@ -1592,20 +1527,7 @@
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
+            "id":" : Student"
          }
       },
       {
@@ -1691,7 +1613,7 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"T3 : TeachingAssistant",
+         "id":" : TeachingAssistant",
          "attributes":[
             "assignmentPoints=0",
             "certified=true",
@@ -1789,6 +1711,19 @@
    "nodes":[
       {
          "type":"clazz",
+         "id":" : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=1337",
+            "motivation=168",
+            "name=Abu",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"R5 : Room",
          "attributes":[
             "credits=17",
@@ -1804,57 +1739,9 @@
             "name=gymnasium",
             "topic=sports"
          ]
-      },
-      {
-         "type":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=1337",
-            "motivation=168",
-            "name=Abu"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=168",
-            "name=Alice"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "assignmentPoints=0",
-            "certified=true",
-            "credits=0",
-            "id=4242",
-            "motivation=168",
-            "name=Karli",
-            "room=null"
-         ]
       }
    ],
    "edges":[
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
-         }
-      },
       {
          "type":"edge",
          "source":{
@@ -1864,8 +1751,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"teachingassistant",
-            "id":"T3 : TeachingAssistant"
+            "property":"student",
+            "id":" : Student"
          }
       },
       {
@@ -1878,7 +1765,7 @@
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"S2 : Student"
+            "id":" : Student"
          }
       }
    ]
@@ -1950,6 +1837,19 @@
    "nodes":[
       {
          "type":"clazz",
+         "id":" : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=168",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"R5 : Room",
          "attributes":[
             "credits=17",
@@ -1974,41 +1874,6 @@
             "name=gymnasium",
             "topic=sports"
          ]
-      },
-      {
-         "type":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=1337",
-            "motivation=168",
-            "name=Abu"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=168",
-            "name=Alice"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "assignmentPoints=0",
-            "certified=true",
-            "credits=0",
-            "id=4242",
-            "motivation=168",
-            "name=Karli",
-            "room=null"
-         ]
       }
    ],
    "edges":[
@@ -2021,34 +1886,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"teachingassistant",
-            "id":"T3 : TeachingAssistant"
+            "id":" : TeachingAssistant"
          }
       }
    ]

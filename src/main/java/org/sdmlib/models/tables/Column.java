@@ -35,6 +35,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
  */
 public class Column implements SendableEntity
 {
+   public double getValueSum()
+   {
+      return getCells().getValue().numberList().sum();
+   }
 
    // ==========================================================================
 

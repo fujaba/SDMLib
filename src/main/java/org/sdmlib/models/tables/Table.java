@@ -148,6 +148,18 @@ public  class Table implements SendableEntity
    public static final String PROPERTY_COLUMNS = "columns";
 
    private ColumnSet columns = null;
+   
+   public Column getColumn(String colName)
+   {
+      for (Column result : this.getColumns())
+      {
+         if (result.getName().equals(colName))
+         {
+            return result;
+         }
+      }
+      return null;
+   }
 
    public ColumnSet getColumns()
    {
@@ -601,5 +613,22 @@ public  class Table implements SendableEntity
 
 
       return chartText.toString();
+   }
+
+   public String getCSV()
+   {
+      StringBuffer buf = new StringBuffer();
+      
+      String string = this.getColumns().getName().concat(";");
+      buf.append(string).append("\n");
+      
+      for (Row r : getRows())
+      {
+         string = r.getCells().toString(";");
+         buf.append(string).append("\n");
+      }
+      
+      
+      return buf.toString();
    }
 }

@@ -22,6 +22,12 @@ package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import static org.sdmlib.models.pattern.Pattern.CREATE;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
@@ -63,6 +69,7 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class StudyRightWithAssignmentsStoryboards
 {
@@ -771,7 +778,7 @@ public class StudyRightWithAssignmentsStoryboards
          .withCredits(42)
          .withDoors(artsRoom, examRoom);
 
-      // story.addObjectDiagram(university);
+      story.addObjectDiagram(university);
 
       story.addStep("Query for table");
 
@@ -785,11 +792,32 @@ public class StudyRightWithAssignmentsStoryboards
          Table table = universityPO.createResultTable();
 
          story.addCode();
+         
+         story.addPattern(universityPO, false);
 
          story.add("Results in:");
 
          story.addTable(table);
 
+         // filter row rule
+         TablePO tablePO = new TablePO(table);
+         RowPO rowPO = tablePO.createRowsPO();
+         CellPO cellPO = rowPO.createCellsPO();
+         RoomPO roomPO = new RoomPO();
+         cellPO.hasLink("value", roomPO);
+         roomPO.startNAC();
+         roomPO.createStudentsPO();
+         roomPO.endNAC();
+         rowPO.startSubPattern();
+         CellPO otherCellPO = rowPO.createCellsPO();
+         otherCellPO.destroy();
+         otherCellPO.doAllMatches();
+         rowPO.endSubPattern();
+         rowPO.destroy();
+         rowPO.doAllMatches();
+         
+         story.addPattern(tablePO, false);
+         
          story.markCodeStart();
 
          table.createColumns("Topic", row -> {
@@ -803,8 +831,40 @@ public class StudyRightWithAssignmentsStoryboards
          table.withoutColumns("A", "B");
 
          story.addCode();
-
+         
          story.addTable(table);
+         
+         double creditsSum = table.getColumn("Credits").getValueSum();
+         
+         String csv = table.getCSV();
+         
+         try
+         {
+            Files.write(Paths.get("doc/StudyRight.csv"), csv.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+         }
+         catch (IOException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+         
+         tablePO = new TablePO(table);
+         ColumnPO columnsPO = tablePO.createColumnsPO(CREATE);
+         columnsPO.createNameAssignment("Topic");
+         tablePO.startSubPattern();
+         rowPO = tablePO.createRowsPO();
+         cellPO = rowPO.createCellsPO();
+         roomPO = new RoomPO();
+         cellPO.hasLink("value", roomPO);
+         cellPO.startCreate();
+         CellPO cellPO2 = columnsPO.createCellsPO(CREATE);
+         cellPO2.createValueAssignment("r5.topic");
+         cellPO.endCreate();
+         tablePO.endSubPattern();
+         
+         
+         story.addPattern(tablePO, false);
+         
       }
 
       // =====================================================

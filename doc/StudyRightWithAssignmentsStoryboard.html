@@ -5,12 +5,21 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightWithAssignmentsStoryboard</a></p>
 <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
@@ -65,76 +74,21 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          .withDoors(artsRoom, examRoom);
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"studyRight : University",
+         "type":"clazz",
+         "id":" : Student",
          "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
-         "attributes":[
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=0",
+            "credits=0",
+            "id=4242",
             "motivation=0",
-            "credits=0"
+            "name=Karli"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"artsRoom : Room",
-         "attributes":[
-            "name=7522",
-            "topic=arts",
-            "credits=16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"sportsRoom : Room",
-         "attributes":[
-            "name=gymnasium",
-            "topic=sports",
-            "credits=25"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"examRoom : Room",
-         "attributes":[
-            "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"placeToBe : Room",
-         "attributes":[
-            "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
@@ -143,7 +97,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
@@ -152,161 +106,75 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"artsRoom : Room",
+         "attributes":[
+            "credits=16",
+            "name=7522",
+            "topic=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"examRoom : Room",
+         "attributes":[
+            "credits=0",
+            "name=The End",
+            "topic=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"karli : Student"
+      },
+      {
+         "type":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"placeToBe : Room",
+         "attributes":[
+            "credits=42",
+            "name=7422",
+            "topic=Software Engineering"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"sportsRoom : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"assignments",
@@ -319,20 +187,46 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
-            "id":"sportsRoom : Room"
+            "id":"placeToBe : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"artsRoom : Room"
+            "id":"examRoom : Room"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
@@ -341,11 +235,11 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"artsRoom : Room"
+            "id":"sportsRoom : Room"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
@@ -358,7 +252,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
@@ -367,20 +261,163 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"sportsRoom : Room"
+            "id":"artsRoom : Room"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"doors",
-            "id":"placeToBe : Room"
+            "id":"sportsRoom : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":" : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
             "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":" : Student"
          }
       }
    ]
@@ -396,33 +433,21 @@ Karli's motivation is reduced by 5 points to now 209.
       karli.withDone(matrixMult);
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "type":"clazz",
+         "id":" : Student",
          "attributes":[
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=5",
+            "credits=0",
+            "id=4242",
             "motivation=0",
-            "credits=0"
+            "name=Karli"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
@@ -431,7 +456,7 @@ Karli's motivation is reduced by 5 points to now 209.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
@@ -440,18 +465,28 @@ Karli's motivation is reduced by 5 points to now 209.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -460,11 +495,11 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"karli : Student"
+            "id":" : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -473,11 +508,11 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -490,7 +525,7 @@ Karli's motivation is reduced by 5 points to now 209.
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -499,7 +534,7 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A3 : Assignment"
+            "id":"A1 : Assignment"
          }
       }
    ]
@@ -514,33 +549,21 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       karli.withDone(series);
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "type":"clazz",
+         "id":" : Student",
          "attributes":[
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=11",
+            "credits=0",
+            "id=4242",
             "motivation=0",
-            "credits=0"
+            "name=Karli"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
@@ -549,7 +572,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
@@ -558,18 +581,28 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -578,11 +611,11 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"karli : Student"
+            "id":" : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -591,11 +624,11 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -608,7 +641,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -617,7 +650,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A3 : Assignment"
+            "id":"A1 : Assignment"
          }
       }
    ]
@@ -632,33 +665,21 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       karli.withDone(a3);
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "type":"clazz",
+         "id":" : Student",
          "attributes":[
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=19",
+            "credits=0",
+            "id=4242",
             "motivation=0",
-            "credits=0"
+            "name=Karli"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
@@ -667,7 +688,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
@@ -676,18 +697,28 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -696,11 +727,11 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"karli : Student"
+            "id":" : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -709,11 +740,11 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -726,7 +757,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -735,7 +766,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A3 : Assignment"
+            "id":"A1 : Assignment"
          }
       }
    ]
@@ -755,33 +786,21 @@ the credit points, the credit points will be awarded to the student.)</p>
       }
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"karli : Student",
-         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "type":"clazz",
+         "id":" : Student",
          "attributes":[
-            "name=Karli",
-            "id=4242",
             "assignmentPoints=0",
+            "credits=17",
+            "id=4242",
             "motivation=0",
-            "credits=17"
+            "name=Karli"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"mathRoom : Room",
-         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
-         "attributes":[
-            "name=senate",
-            "topic=math",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
@@ -790,7 +809,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
@@ -799,18 +818,28 @@ the credit points, the credit points will be awarded to the student.)</p>
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"mathRoom : Room",
+         "head":{"src":"{\"src\":\"icons/mathroom.png\"}"},
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -819,11 +848,11 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"karli : Student"
+            "id":" : Student"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -832,11 +861,11 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -849,7 +878,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"room",
@@ -858,7 +887,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A3 : Assignment"
+            "id":"A1 : Assignment"
          }
       }
    ]

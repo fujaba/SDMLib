@@ -5,17 +5,473 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
 </head>
-
 <body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
 <p>How to generate table reports from a model.</p>
 <p>Start: Example object structure:</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":" : Student"
+      },
+      {
+         "type":"clazz",
+         "id":"A10 : Assignment",
+         "attributes":[
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"A11 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"A12 : Assignment",
+         "attributes":[
+            "content=Integrals",
+            "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"A13 : Assignment",
+         "attributes":[
+            "content=Pushups",
+            "points=4"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=16",
+            "name=7522",
+            "topic=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R8 : Room",
+         "attributes":[
+            "credits=0",
+            "name=The End",
+            "topic=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R9 : Room",
+         "attributes":[
+            "credits=42",
+            "name=7422",
+            "topic=Software Engineering"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student"
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student"
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant"
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A13 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A12 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A11 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A10 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A13 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A11 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A10 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A10 : Assignment"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReports3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_1'>Step 1: Query for table</a></p><pre>
          UniversityPO universityPO = new UniversityPO(university);
 
@@ -23,7 +479,42 @@
 
          Table table = universityPO.createResultTable();
 
-</pre><p>Results in:</p>
+</pre><script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"u1 : UniversityPO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"r2 : RoomPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"rooms",
+            "id":"r2 : RoomPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Results in:</p>
 <table class="table table-bordered table-condensed">
 <thead>
 <tr>
@@ -56,12 +547,128 @@
 </tbody>
 
 </table>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"t1 : TablePO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"r2 : RowPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"c3 : CellPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"r4 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"s5 : StudentPO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"c6 : CellPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TablePO"
+         },
+         "target":{
+            "property":"rows",
+            "id":"r2 : RowPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RowPO"
+         },
+         "target":{
+            "property":"cells",
+            "id":"c3 : CellPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c3 : CellPO"
+         },
+         "target":{
+            "property":"value",
+            "id":"r4 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r4 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s5 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RowPO"
+         },
+         "target":{
+            "property":"cells",
+            "id":"c6 : CellPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <pre>
-         table.createColumns(&quot;Topic&quot;, row -&gt; {Room r = row.getCellValue(&quot;B&quot;);return r.getTopic();});
+         table.createColumns(&quot;Topic&quot;, row -&gt; {
+            Room r = row.getCellValue(&quot;B&quot;);
+            return r.getTopic();
+         });
          table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
-         .withTdCssClass(&quot;text-right&quot;);
+            .withTdCssClass(&quot;text-right&quot;);
          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-         .withTdCssClass(&quot;text-right&quot;);
+            .withTdCssClass(&quot;text-right&quot;);
          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
 
 </pre><table class="table table-bordered table-condensed">
@@ -102,6 +709,122 @@
 </tbody>
 
 </table>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"t1 : TablePO",
+         "attributes":[
+            "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "style":"create",
+         "id":"c2 : ColumnPO",
+         "attributes":[
+            "<< create>>",
+            "name == Topic"
+         ]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"r3 : RowPO",
+               "attributes":[]
+            },
+            {
+               "type":"patternObject",
+               "id":"c4 : CellPO",
+               "attributes":[]
+            },
+            {
+               "type":"patternObject",
+               "id":"r5 : RoomPO",
+               "attributes":[]
+            },
+            {
+               "type":"patternObject",
+               "style":"create",
+               "id":"c6 : CellPO",
+               "attributes":[
+                  "<< create>>",
+                  "value == r5.topic"
+               ]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TablePO"
+         },
+         "target":{
+            "property":"columns",
+            "id":"c2 : ColumnPO"
+         },
+         "style":"create"
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TablePO"
+         },
+         "target":{
+            "property":"rows",
+            "id":"r3 : RowPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r3 : RowPO"
+         },
+         "target":{
+            "property":"cells",
+            "id":"c4 : CellPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c4 : CellPO"
+         },
+         "target":{
+            "property":"value",
+            "id":"r5 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c2 : ColumnPO"
+         },
+         "target":{
+            "property":"cells",
+            "id":"c6 : CellPO"
+         },
+         "style":"create"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_2'>Step 2: List all topics:</a></p><pre>
          UniversityPO universityPO = new UniversityPO(university);
 
@@ -133,7 +856,7 @@
 
          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
          cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
-
+         
          universityPO.doAllMatches();
 
 </pre><p>Results in:</p>
@@ -177,27 +900,20 @@
 </table>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"T1 : Table",
-         "attributes":[
-            "name=University"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"C2 : Column",
+         "type":"clazz",
+         "id":"C15 : Column",
          "attributes":[
             "name=Topic",
+            "tdCssClass=null",
             "thCssClass=text-center"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C3 : Column",
+         "type":"clazz",
+         "id":"C16 : Column",
          "attributes":[
             "name=Credits",
             "tdCssClass=text-right",
@@ -205,8 +921,8 @@
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C4 : Column",
+         "type":"clazz",
+         "id":"C17 : Column",
          "attributes":[
             "name=Students",
             "tdCssClass=text-right",
@@ -214,630 +930,299 @@
          ]
       },
       {
-         "typ":"clazz",
-         "id":"R5 : Row",
-         "attributes":[
-            "number=1"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Row",
-         "attributes":[
-            "number=2"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : Row",
-         "attributes":[
-            "number=3"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R8 : Row",
-         "attributes":[
-            "number=4"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : Row",
-         "attributes":[
-            "number=5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"C10 : Cell",
+         "type":"clazz",
+         "id":"C23 : Cell",
          "attributes":[
             "value=math"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C11 : Cell",
+         "type":"clazz",
+         "id":"C24 : Cell",
          "attributes":[
             "value=arts"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C12 : Cell",
+         "type":"clazz",
+         "id":"C25 : Cell",
          "attributes":[
             "value=sports"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C13 : Cell",
+         "type":"clazz",
+         "id":"C26 : Cell",
          "attributes":[
             "value=exam"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C14 : Cell",
+         "type":"clazz",
+         "id":"C27 : Cell",
          "attributes":[
             "value=Software Engineering"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C15 : Cell",
+         "type":"clazz",
+         "id":"C28 : Cell",
          "attributes":[
             "value=17"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C16 : Cell",
+         "type":"clazz",
+         "id":"C29 : Cell",
          "attributes":[
             "value=16"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C17 : Cell",
+         "type":"clazz",
+         "id":"C30 : Cell",
          "attributes":[
             "value=25"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C18 : Cell",
+         "type":"clazz",
+         "id":"C31 : Cell",
          "attributes":[
             "value=0"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C19 : Cell",
+         "type":"clazz",
+         "id":"C32 : Cell",
          "attributes":[
             "value=42"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C20 : Cell",
+         "type":"clazz",
+         "id":"C33 : Cell",
          "attributes":[
             "value=1"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C21 : Cell",
+         "type":"clazz",
+         "id":"C34 : Cell",
          "attributes":[
             "value=0"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C22 : Cell",
+         "type":"clazz",
+         "id":"C35 : Cell",
          "attributes":[
             "value=2"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C23 : Cell",
+         "type":"clazz",
+         "id":"C36 : Cell",
          "attributes":[
             "value=0"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"C24 : Cell",
+         "type":"clazz",
+         "id":"C37 : Cell",
          "attributes":[
             "value=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R18 : Row",
+         "attributes":[
+            "number=1"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R19 : Row",
+         "attributes":[
+            "number=2"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R20 : Row",
+         "attributes":[
+            "number=3"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R21 : Row",
+         "attributes":[
+            "number=4"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R22 : Row",
+         "attributes":[
+            "number=5"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T14 : Table",
+         "attributes":[
+            "name=University"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C2 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C3 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C4 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R5 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R6 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R7 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R8 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R9 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T1 : Table"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C10 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C2 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C11 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C2 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C12 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C2 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C13 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C2 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C14 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C2 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C15 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C3 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C16 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C3 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C17 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C3 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C18 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C3 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C19 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C3 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C20 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C4 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C21 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C4 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C22 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C4 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C23 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C4 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C24 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C4 : Column"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C10 : Cell"
+            "id":"C37 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R5 : Row"
+            "id":"R22 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C15 : Cell"
+            "id":"C32 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R5 : Row"
+            "id":"R22 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C20 : Cell"
+            "id":"C27 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R5 : Row"
+            "id":"R22 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C11 : Cell"
+            "id":"C36 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R6 : Row"
+            "id":"R21 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C16 : Cell"
+            "id":"C31 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R6 : Row"
+            "id":"R21 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C21 : Cell"
+            "id":"C26 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R6 : Row"
+            "id":"R21 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C12 : Cell"
+            "id":"C35 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R7 : Row"
+            "id":"R20 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C17 : Cell"
+            "id":"C30 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R7 : Row"
+            "id":"R20 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C22 : Cell"
+            "id":"C25 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R7 : Row"
+            "id":"R20 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C13 : Cell"
+            "id":"C34 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R8 : Row"
+            "id":"R19 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C18 : Cell"
+            "id":"C29 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R8 : Row"
+            "id":"R19 : Row"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C23 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R8 : Row"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C14 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R9 : Row"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C19 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R9 : Row"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"cells",
@@ -846,12 +1231,350 @@
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R9 : Row"
+            "id":"R19 : Row"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C33 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R18 : Row"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C28 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R18 : Row"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C23 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"row",
+            "id":"R18 : Row"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C37 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C17 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C36 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C17 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C35 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C17 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C34 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C17 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C33 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C17 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C32 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C16 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C31 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C16 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C30 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C16 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C29 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C16 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C28 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C16 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C27 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C15 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C26 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C15 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C25 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C15 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C24 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C15 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C23 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C15 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C17 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C16 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"columns",
+            "id":"C15 : Column"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R22 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R21 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R20 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R19 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rows",
+            "id":"R18 : Row"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"table",
+            "id":"T14 : Table"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightTablesAndReports13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRightTablesAndReports17", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p><a name = 'step_3'>Step 3: Do a nested table</a></p><pre>
@@ -864,7 +1587,7 @@
          table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
          table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-         .withTdCssClass(&quot;text-right&quot;);
+            .withTdCssClass(&quot;text-right&quot;);
          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
 
 </pre><table class="table table-bordered table-condensed">

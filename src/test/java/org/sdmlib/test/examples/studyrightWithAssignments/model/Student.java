@@ -178,6 +178,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this.assignmentPoints;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public void setAssignmentPoints(int value)
    {
       if (this.assignmentPoints != value) {
@@ -234,6 +238,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this.credits;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ */
    public void setCredits(int value)
    {
       if (this.credits != value) {

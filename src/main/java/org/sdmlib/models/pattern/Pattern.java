@@ -507,7 +507,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    {
       JsonObject result = new JsonObject();
 
-      result.put("typ", "object");
+      result.put("type", "object");
 
       JsonArray nodes = new JsonArray();
 
@@ -600,7 +600,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
             PatternObject po = (PatternObject) elem;
 
             JsonObject node = new JsonObject();
-            node.put("typ", "patternObject");
+            node.put("type", "patternObject");
 
             String modifier = po.getModifier();
             if (Pattern.CREATE.equals(modifier))
@@ -659,7 +659,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
             // add subgraph
             JsonObject node = new JsonObject();
-            node.put("typ", "objectdiagram");
+            node.put("type", "objectdiagram");
             node.put("style", "nac");
             node.put("info", CGUtil.shortClassName(subPattern.getClass().getName()));
             nodes.add(node);
