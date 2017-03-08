@@ -137,7 +137,7 @@ UpdateListener, SendableEntity
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
       
-      map.withTimeStamp((int)this.lastChangeId);
+      map.withTimeStamp(this.lastChangeId);
 //      if (map.getCounter() instanceof SimpleIdCounter)
 //      {
 //         ((SimpleIdCounter) map.getCounter()).withNumber(this.lastChangeId);

@@ -9,10 +9,6 @@ import java.util.logging.Logger;
 
 import org.sdmlib.replication.ChangeEvent;
 
-import de.uniks.networkparser.HistoryIdMap.AttrTimeStampMap;
-import de.uniks.networkparser.HistoryIdMap.RefTime;
-import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
-import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
 import de.uniks.networkparser.interfaces.IdMapCounter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
