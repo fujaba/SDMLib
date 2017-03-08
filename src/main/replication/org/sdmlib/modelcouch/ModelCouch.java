@@ -342,7 +342,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 			while (iter.hasNext()) {
 				prop = iter.next();
 
-				ChangeEvent change = new ChangeEvent().withSessionId(((IdMap) idMap).getCounter().getPrefixId())
+				ChangeEvent change = new ChangeEvent().withSessionId(((IdMap) idMap).getSession())
 						.withObjectId(jsonObject.getString(IdMap.ID)).withChangeNo("" + getNewHistoryIdNumber())
 						.withObjectType(jsonObject.getString(IdMap.CLASS)).withProperty(prop);
 

@@ -762,7 +762,7 @@ import javafx.application.Platform;
    //==============================================================================
    public SeppelSpace init(IdMap userModelIdMap, boolean javaFXApplication, String hostName, int portNo)
    {
-      String userName = userModelIdMap.getCounter().getPrefixId();
+      String userName = userModelIdMap.getSession();
       
       this.setName(userName+"Thread");
       

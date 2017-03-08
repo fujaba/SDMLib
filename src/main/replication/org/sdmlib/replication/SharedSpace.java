@@ -137,10 +137,11 @@ UpdateListener, SendableEntity
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
       
-      if (map.getCounter() instanceof SimpleIdCounter)
-      {
-         ((SimpleIdCounter) map.getCounter()).withNumber(this.lastChangeId);
-      }
+      map.withTimeStamp((int)this.lastChangeId);
+//      if (map.getCounter() instanceof SimpleIdCounter)
+//      {
+//         ((SimpleIdCounter) map.getCounter()).withNumber(this.lastChangeId);
+//      }
       
       remoteTaskBoard = new RemoteTaskBoard();
       map.put(REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
@@ -1654,7 +1655,7 @@ UpdateListener, SendableEntity
 
    public SharedSpace init(IdMap userModelIdMap, boolean javaFXApplication)
    {
-      String userName = userModelIdMap.getCounter().getPrefixId();
+      String userName = userModelIdMap.getSession();
       
       this.withSpaceId(userName + "Space")
       .withNodeId(userName + "Node")

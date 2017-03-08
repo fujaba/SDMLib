@@ -13,6 +13,7 @@ import de.uniks.networkparser.HistoryIdMap.AttrTimeStampMap;
 import de.uniks.networkparser.HistoryIdMap.RefTime;
 import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
 import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
+import de.uniks.networkparser.interfaces.IdMapCounter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
@@ -32,7 +33,25 @@ public class HistoryIdMap extends IdMap
 
    private UpdateListener updateListenerFromUser;
 
+   private IdMapCounter counter;
+   
+	public IdMapCounter getCounter() {
+		return counter;
+	}
+	
+	public HistoryIdMap withCounter(IdMapCounter counter) {
+		this.counter = counter;
+		return this;
+	}
 
+	@Override
+	public String getSession() {
+		if(this.counter != null) {
+			return this.counter.getSession();
+		}
+		return super.getSession();
+	}
+	
    public long decodeChanges(String value)
    {
       long noOfChangesApplied = 0;
@@ -507,8 +526,9 @@ public class HistoryIdMap extends IdMap
          Object object = this.getObject(id);
          if (object != null)
          {
-            SendableEntityCreator creator = this.getCreatorClass(object);
-            creator.removeObject(object);
+        	 this.removeObj(object, true);
+//            SendableEntityCreator creator = this.getCreatorClass(object);
+//            creator.removeObject(object);
          }
 
          Logger.getGlobal().info(dumpHistory() + "");
@@ -759,7 +779,7 @@ public class HistoryIdMap extends IdMap
          // split object number without life counter from id
          String baseId = baseId(id);
          RefTime refTime = new RefTime(id, nanoTime);
-         TimeStampMap timeStampMap = removedObjects.getOrCreate(this.getCounter().getPrefixId());
+         TimeStampMap timeStampMap = removedObjects.getOrCreate(this.getSession());
          timeStampMap.put(baseId, refTime);
 
          // remove old timestamps

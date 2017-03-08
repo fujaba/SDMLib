@@ -29,8 +29,8 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzImport;
 import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
@@ -176,7 +176,7 @@ public class GenClass extends GenClazzEntity
 
    private void insertImports()
    {
-      for (ClazzImport importClazz : model.getImports())
+      for (Import importClazz : model.getImports())
       {
          insertImport(importClazz.getName());
       }
