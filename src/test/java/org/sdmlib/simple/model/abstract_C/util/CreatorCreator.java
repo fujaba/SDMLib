@@ -4,9 +4,9 @@ import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static IdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String session)
    {
-      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = new IdMap().withSession(session);
       jsonIdMap.with(new GameCreator());
       jsonIdMap.with(new GamePOCreator());
       jsonIdMap.with(new GrassCreator());

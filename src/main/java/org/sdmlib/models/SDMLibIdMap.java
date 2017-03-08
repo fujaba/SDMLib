@@ -7,9 +7,9 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SDMLibIdMap extends IdMap
 {
-   public SDMLibIdMap(String sessionId)
+   public SDMLibIdMap(String session)
    {
-      this.withSessionId(sessionId);
+      this.withSession(session);
    }
 
    @Override

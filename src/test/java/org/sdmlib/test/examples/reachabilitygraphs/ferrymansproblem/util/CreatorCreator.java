@@ -6,9 +6,9 @@ import de.uniks.networkparser.IdMap;
 
 class CreatorCreator{
 
-   public static IdMap createIdMap(String sessionID)
+   public static IdMap createIdMap(String session)
    {
-      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      IdMap jsonIdMap = (IdMap) new SDMLibJsonIdMap().withSession(session);
       jsonIdMap.with(new RiverCreator());
       jsonIdMap.with(new RiverPOCreator());
       jsonIdMap.with(new BoatCreator());

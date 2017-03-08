@@ -810,7 +810,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                // is the new graph already known?
                newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
-               newJsonIdMap.withSessionId("s");
+               newJsonIdMap.withSession("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
 
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
@@ -1101,7 +1101,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
                   // is the new graph already known?
                   IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
-                  newJsonIdMap.withSessionId("s");
+                  newJsonIdMap.withSession("s");
                   String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
 
                   RuleApplication newRuleApplication = newState.createRuleapplications()
@@ -1129,8 +1129,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       IdMap map1 = (IdMap) new IdMap().with(masterMap);
       IdMap map2 = (IdMap) new IdMap().with(masterMap);
 
-      map1.withSessionId("s");
-      map2.withSessionId("s");
+      map1.withSession("s");
+      map2.withSession("s");
 
       LinkedHashMap<String, String> fwdmapping = new LinkedHashMap<String, String>();
       LinkedHashMap<String, String> bwdmapping = new LinkedHashMap<String, String>();
@@ -1587,7 +1587,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public void findFinalStates(ReachableState finalState)
    {
       IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(masterMap);
-      newJsonIdMap.withSessionId("s");
+      newJsonIdMap.withSession("s");
       String s1cert = finalState.computeCertificate(newJsonIdMap);
       ReachableStateSet candidateStates = this.getStateMap(finalState.getCertificate());
       for (ReachableState oldState : candidateStates)

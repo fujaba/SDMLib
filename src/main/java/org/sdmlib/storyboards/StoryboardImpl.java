@@ -1041,7 +1041,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (jsonIdMap == null)
       {
          // jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
-         jsonIdMap = (IdMap) new SDMLibIdMap("s").withSessionId(null);
+         jsonIdMap = (IdMap) new SDMLibIdMap("s").withSession(null);
          // FIXME TRY IF NESSESSARY jsonIdMap.getLogger().withError(false);
       }
 

@@ -304,7 +304,7 @@ public class HistoryIdMap extends IdMap
    public HistoryIdMap(String owner)
    {
       this.withCounter(new NanoCounter());
-      this.withSessionId(owner);
+      this.withSession(owner);
    }
 
 
