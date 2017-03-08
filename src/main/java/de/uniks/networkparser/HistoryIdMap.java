@@ -29,25 +29,6 @@ public class HistoryIdMap extends IdMap
 
    private UpdateListener updateListenerFromUser;
 
-   private IdMapCounter counter;
-   
-	public IdMapCounter getCounter() {
-		return counter;
-	}
-	
-	public HistoryIdMap withCounter(IdMapCounter counter) {
-		this.counter = counter;
-		return this;
-	}
-
-	@Override
-	public String getSession() {
-		if(this.counter != null) {
-			return this.counter.getSession();
-		}
-		return super.getSession();
-	}
-	
    public long decodeChanges(String value)
    {
       long noOfChangesApplied = 0;
@@ -318,7 +299,6 @@ public class HistoryIdMap extends IdMap
 
    public HistoryIdMap(String owner)
    {
-      this.withCounter(new NanoCounter());
       this.withSession(owner);
    }
 
@@ -954,72 +934,56 @@ public class HistoryIdMap extends IdMap
       }
 
    }
-
-   private class NanoCounter extends SimpleIdCounter
+   
+   private long sessionStartTime = System.currentTimeMillis();
+   private long number = 1;
+   
+   @Override
+   public String createId(Object obj)
    {
-
-      private long sessionStartTime;
-      private long number = 1;
-
-
-      public NanoCounter()
+      String key;
+      
+      if (obj == null)
       {
-         sessionStartTime = System.currentTimeMillis();
+         return "";
       }
 
+      String className = obj.getClass().getName();
+      char firstChar = className.charAt(className.lastIndexOf(".") + 1);
 
-      /**
-       * Get a new Id
-       */
-      @Override
-      public String getId(Object obj)
+      if (this.session != null)
       {
-         String key;
-
-         // new object generate key and add to tables
-         // <session id>.<first char><running number>
-         if (obj == null)
+         // try to reuse removed id
+         TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
+         if (timeStampMap != null && timeStampMap.size() > 0)
          {
-            return "";
-         }
-
-         String className = obj.getClass().getName();
-         char firstChar = className.charAt(className.lastIndexOf(".") + 1);
-
-         if (this.session != null)
-         {
-            // try to reuse removed id
-            TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
-            if (timeStampMap != null && timeStampMap.size() > 0)
-            {
-               String oldKey = timeStampMap.keySet().iterator().next();
-               RefTime refTime = timeStampMap.get(oldKey);
-               String fullOldKey = refTime.objId;
-               String baseId = baseId(fullOldKey);
-               long lifeNum = lifeCountFromId(fullOldKey);
-               lifeNum++;
-               key = baseId + "#" + lifeNum + ":" + className;
-               timeStampMap.remove(oldKey);
-               rebirthCounters.put(baseId, lifeNum);
-            }
-            else
-            {
-               // generate new first life key
-               key = this.session
-                  + "." + sessionStartTime
-                  + "." + firstChar + this.number
-                  + "#1"
-                  + ":" + className;
-            }
+            String oldKey = timeStampMap.keySet().iterator().next();
+            RefTime refTime = timeStampMap.get(oldKey);
+            String fullOldKey = refTime.objId;
+            String baseId = baseId(fullOldKey);
+            long lifeNum = lifeCountFromId(fullOldKey);
+            lifeNum++;
+            key = baseId + "#" + lifeNum + ":" + className;
+            timeStampMap.remove(oldKey);
+            rebirthCounters.put(baseId, lifeNum);
          }
          else
          {
-            key = "" + firstChar + this.number;
+            // generate new first life key
+            key = this.session
+               + "." + sessionStartTime
+               + "." + firstChar + this.number
+               + "#1"
+               + ":" + className;
          }
-         this.number++;
-         return key;
       }
-
+      else
+      {
+         key = "" + firstChar + this.number;
+      }
+      
+      this.number++;
+      put(key, obj);
+      return key;
    }
-
 }
