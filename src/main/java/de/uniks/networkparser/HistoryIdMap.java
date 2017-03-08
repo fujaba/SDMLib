@@ -522,9 +522,11 @@ public class HistoryIdMap extends IdMap
          Object object = this.getObject(id);
          if (object != null)
          {
-        	 this.removeObj(object, true);
+//        	 this.removeObj(object, true);
 //            SendableEntityCreator creator = this.getCreatorClass(object);
 //            creator.removeObject(object);
+            SendableEntityCreator creator = this.getCreatorClass(object);
+            creator.setValue(object, "this", null, REMOVE_YOU);
          }
 
          Logger.getGlobal().info(dumpHistory() + "");
@@ -957,6 +959,7 @@ public class HistoryIdMap extends IdMap
    {
 
       private long sessionStartTime;
+      private long number = 1;
 
 
       public NanoCounter()
@@ -983,10 +986,10 @@ public class HistoryIdMap extends IdMap
          String className = obj.getClass().getName();
          char firstChar = className.charAt(className.lastIndexOf(".") + 1);
 
-         if (this.prefixId != null)
+         if (this.session != null)
          {
             // try to reuse removed id
-            TimeStampMap timeStampMap = getRemovedObjects().get(this.prefixId);
+            TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
             if (timeStampMap != null && timeStampMap.size() > 0)
             {
                String oldKey = timeStampMap.keySet().iterator().next();
@@ -1002,9 +1005,9 @@ public class HistoryIdMap extends IdMap
             else
             {
                // generate new first life key
-               key = this.prefixId
-                  + this.getSplitter() + sessionStartTime
-                  + this.getSplitter() + firstChar + this.number
+               key = this.session
+                  + "." + sessionStartTime
+                  + "." + firstChar + this.number
                   + "#1"
                   + ":" + className;
             }
