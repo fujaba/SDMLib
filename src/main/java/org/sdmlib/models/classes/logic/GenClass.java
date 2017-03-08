@@ -379,9 +379,9 @@ public class GenClass extends GenClazzEntity
 	                           +
 	                           "class CreatorCreator{\n" +
 	                           "\n" +
-	                           "   public static IdMap createIdMap(String sessionID)\n" +
+	                           "   public static IdMap createIdMap(String session)\n" +
 	                           "   {\n" +
-	                           "      IdMap jsonIdMap = new IdMap().withSessionId(sessionID);\n" +
+	                           "      IdMap jsonIdMap = new IdMap().withSession(session);\n" +
 	                           "      return jsonIdMap;\n" +
 	                           "   }\n" +
 	                           "}\n")
