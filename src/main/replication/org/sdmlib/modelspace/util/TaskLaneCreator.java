@@ -93,7 +93,7 @@ public class TaskLaneCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -122,7 +122,7 @@ public class TaskLaneCreator extends EntityFactory
          return true;
       }
       
-      if ((TaskLane.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskLane.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskLane) target).withoutTasks((Task) value);
          return true;
@@ -134,7 +134,7 @@ public class TaskLaneCreator extends EntityFactory
          return true;
       }
       
-      if ((TaskLane.PROPERTY_MYREQUESTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskLane.PROPERTY_MYREQUESTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskLane) target).withoutMyRequests((Task) value);
          return true;

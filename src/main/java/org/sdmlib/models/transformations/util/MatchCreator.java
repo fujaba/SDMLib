@@ -117,7 +117,7 @@ public class MatchCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -170,7 +170,7 @@ public class MatchCreator extends EntityFactory
          return true;
       }
       
-      if ((Match.PROPERTY_SUBMATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Match.PROPERTY_SUBMATCHES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Match) target).withoutSubMatches((Match) value);
          return true;

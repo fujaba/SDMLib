@@ -86,7 +86,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -97,7 +97,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TaskFlow.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskFlow.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskFlow) target).withoutTasks((Task) value);
          return true;
@@ -109,7 +109,7 @@ public class TaskFlowCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((TaskFlow.PROPERTY_FIRSTTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskFlow.PROPERTY_FIRSTTASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((TaskFlow) target).withoutFirstTasks((Task) value);
          return true;

@@ -68,7 +68,7 @@ public class SimpleStateCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +79,7 @@ public class SimpleStateCreator extends EntityFactory
          return true;
       }
       
-      if ((SimpleState.PROPERTY_NODES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SimpleState.PROPERTY_NODES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SimpleState) target).withoutNodes((Node) value);
          return true;

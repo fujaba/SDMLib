@@ -19,7 +19,7 @@ import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
 import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
-import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -68,7 +68,7 @@ public class HistoryScenarios
       HistoryIdMap idMap = new HistoryIdMap("ebay");
       idMap.withCreator(oldIdMap.getCreators().values());
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       long nanoTime = System.nanoTime();
       
@@ -224,7 +224,7 @@ public class HistoryScenarios
       HistoryIdMap idMap = new HistoryIdMap("ebay");
       idMap.withCreator(oldIdMap.getCreators().values());
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       Market market = new Market();
       market.withMarketTime("00:00");
@@ -251,7 +251,7 @@ public class HistoryScenarios
       HistoryIdMap idMap = new HistoryIdMap("ebay");
       idMap.withCreator(oldIdMap.getCreators().values());
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       long nanoTime = System.nanoTime();
       

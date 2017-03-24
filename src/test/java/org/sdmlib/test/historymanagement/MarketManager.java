@@ -1,13 +1,9 @@
 package org.sdmlib.test.historymanagement;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Collection;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
@@ -17,12 +13,9 @@ import org.sdmlib.test.historymanagement.marketmodel.util.MarketCreator;
 
 import de.uniks.networkparser.HistoryIdMap;
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.SimpleEvent;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.list.SimpleKeyValueList;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java'>HistoryScenarios.java</a>
@@ -39,7 +32,7 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
       IdMap oldIdMap = MarketCreator.createIdMap("ebay");
       HistoryIdMap idMap = new HistoryIdMap("ebay");
       idMap.withCreator(oldIdMap.getCreators().values());
-      idMap.withListener((UpdateListener) update -> handleUpdate(update));
+      idMap.withListener((ObjectCondition) update -> handleUpdate(update));
       // idMap.withListener((PropertyChangeListener) e -> handlePopertyChange(e));
 
       Market market = new Market();

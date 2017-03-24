@@ -77,7 +77,7 @@ public class GenericObjectCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -112,7 +112,7 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_ATTRS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_ATTRS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromAttrs((GenericAttribute) value);
          return true;
@@ -124,7 +124,7 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_OUTGOINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_OUTGOINGLINKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromOutgoingLinks((GenericLink) value);
          return true;
@@ -136,7 +136,7 @@ public class GenericObjectCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericObject.PROPERTY_INCOMMINGLINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericObject.PROPERTY_INCOMMINGLINKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericObject) target).removeFromIncommingLinks((GenericLink) value);
          return true;

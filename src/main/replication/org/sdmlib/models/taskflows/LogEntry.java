@@ -29,8 +29,8 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
@@ -109,7 +109,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
       
-      if ((PROPERTY_CHILDREN + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHILDREN + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChildren((LogEntry) value);
          return true;

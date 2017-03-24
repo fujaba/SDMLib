@@ -107,7 +107,7 @@ public class RoomCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -130,7 +130,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_NEIGHBORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_NEIGHBORS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromNeighbors((Room) value);
          return true;
@@ -142,7 +142,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_LECTURE + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_LECTURE + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromLecture((Lecture) value);
          return true;
@@ -160,7 +160,7 @@ public class RoomCreator extends EntityFactory
          return true;
       }
       
-      if ((Room.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Room.PROPERTY_STUDENTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).removeFromStudents((Student) value);
          return true;

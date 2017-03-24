@@ -29,8 +29,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
@@ -63,7 +63,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
 
-      if ((PROPERTY_CHANGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHANGES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChanges((ReplicationChange) value);
          return true;

@@ -137,7 +137,7 @@ public class BoardTaskCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -160,7 +160,7 @@ public class BoardTaskCreator extends EntityFactory
          return true;
       }
       
-      if ((BoardTask.PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BoardTask.PROPERTY_LOGENTRIES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((BoardTask) target).withoutLogEntries((LogEntry) value);
          return true;
@@ -178,7 +178,7 @@ public class BoardTaskCreator extends EntityFactory
          return true;
       }
       
-      if ((BoardTask.PROPERTY_NEXT + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BoardTask.PROPERTY_NEXT + REMOVE).equalsIgnoreCase(attrName))
       {
          ((BoardTask) target).withoutNext((BoardTask) value);
          return true;
@@ -190,7 +190,7 @@ public class BoardTaskCreator extends EntityFactory
          return true;
       }
 
-      if ((BoardTask.PROPERTY_PREV + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BoardTask.PROPERTY_PREV + REMOVE).equalsIgnoreCase(attrName))
       {
          ((BoardTask) target).withoutPrev((BoardTask) value);
          return true;

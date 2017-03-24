@@ -68,9 +68,9 @@ import org.sdmlib.storyboards.util.StoryboardStepSet;
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
@@ -813,7 +813,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
-                  creatorClass.setValue(object, attrName, value, IdMap.REMOVE);
+                  creatorClass.setValue(object, attrName, value, SendableEntityCreator.REMOVE);
 
                   patternObject = (PatternObject) hasPOMethod.invoke(setObject);
 
@@ -1153,7 +1153,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
    }
 
-   private class AlwaysTrueCondition implements UpdateListener
+   private class AlwaysTrueCondition implements ObjectCondition
    {
       public boolean update(Object value)
       {
@@ -1162,7 +1162,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   private void addObjectDiagram(IdMap jsonIdMap, Object root, UpdateListener filter)
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -2074,7 +2074,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       add(po.getPattern().dumpDiagram(name));
    }
 
-   public static class RestrictToFilter implements UpdateListener
+   public static class RestrictToFilter implements ObjectCondition
    {
       private LinkedHashSet<Object> explicitElems;
 

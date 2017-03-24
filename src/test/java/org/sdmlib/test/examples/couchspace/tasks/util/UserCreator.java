@@ -87,7 +87,7 @@ public class UserCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class UserCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((User.PROPERTY_HANDLEDTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((User.PROPERTY_HANDLEDTASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((User) target).withoutHandledTasks((Task) value);
          return true;
@@ -110,7 +110,7 @@ public class UserCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((User.PROPERTY_GROUPS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((User.PROPERTY_GROUPS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((User) target).withoutGroups((UserGroup) value);
          return true;

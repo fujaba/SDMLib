@@ -111,7 +111,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -152,7 +152,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return true;
       }
 
-      if ((PlaceHolderDescription.PROPERTY_OWNERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PlaceHolderDescription.PROPERTY_OWNERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutOwners((Template) value);
          return true;
@@ -164,7 +164,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return true;
       }
 
-      if ((PlaceHolderDescription.PROPERTY_MATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PlaceHolderDescription.PROPERTY_MATCHES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutMatches((Match) value);
          return true;

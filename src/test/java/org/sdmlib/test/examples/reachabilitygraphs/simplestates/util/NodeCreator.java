@@ -86,7 +86,7 @@ public class NodeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -109,7 +109,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_NEXT + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_NEXT + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).withoutNext((Node) value);
          return true;
@@ -121,7 +121,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_PREV + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_PREV + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).withoutPrev((Node) value);
          return true;

@@ -55,9 +55,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
@@ -68,7 +68,7 @@ import javafx.application.Platform;
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
 * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
  */
-   public  class ModelSpace implements PropertyChangeInterface, UpdateListener, SendableEntity
+   public  class ModelSpace implements PropertyChangeInterface, ObjectCondition, SendableEntity
 {
    public static final String JSONCHGS = ".jsonchgs";
 
@@ -458,7 +458,7 @@ import javafx.application.Platform;
 
             if (targetObject != null)
             {
-               creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
+               creator.setValue(object, change.getProperty(), targetObject, SendableEntityCreator.REMOVE);
             }
          }
          else
@@ -587,19 +587,19 @@ import javafx.application.Platform;
       //                   "prop":{"scopeName":"commands",
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
-      String opCode = IdMap.UPDATE;
+      String opCode = SendableEntityCreator.UPDATE;
 
-      Object attributes = jsonObject.get(IdMap.UPDATE);
+      Object attributes = jsonObject.get(SendableEntityCreator.UPDATE);
 
       if (attributes == null)
       {
-         attributes = jsonObject.get(IdMap.REMOVE);
-         opCode = IdMap.REMOVE;
+         attributes = jsonObject.get(SendableEntityCreator.REMOVE);
+         opCode = SendableEntityCreator.REMOVE;
 
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
-            opCode = IdMap.UPDATE;
+            opCode = SendableEntityCreator.UPDATE;
          }
       }
 
@@ -669,7 +669,7 @@ import javafx.application.Platform;
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(IdMap.REMOVE))
+                  if (opCode.equals(SendableEntityCreator.REMOVE))
                   {
                      change.withOldValue(valueObjectId);
                   }

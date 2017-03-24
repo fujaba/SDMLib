@@ -79,7 +79,7 @@ import de.uniks.networkparser.IdMap;
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -96,7 +96,7 @@ import de.uniks.networkparser.IdMap;
          return true;
       }
       
-      if ((River.PROPERTY_BANKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((River.PROPERTY_BANKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((River) target).withoutBanks((Bank) value);
          return true;

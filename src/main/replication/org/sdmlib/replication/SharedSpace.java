@@ -56,9 +56,9 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.interfaces.Entity;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import javafx.application.Platform;
@@ -67,8 +67,7 @@ import javafx.application.Platform;
 /**
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-UpdateListener, SendableEntity
+public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener, ObjectCondition, SendableEntity
 {
 
    public static final String JLOG = "jlog";
@@ -114,7 +113,7 @@ UpdateListener, SendableEntity
    {
       map.with(ReplicationNodeCreator.createIdMap("i"));
       
-      map.with((UpdateListener)this);
+      map.with((ObjectCondition)this);
       
       setReplicationRoot(new ReplicationRoot());
       map.put(SharedSpace.REPLICATION_ROOT, getReplicationRoot());
@@ -377,11 +376,11 @@ UpdateListener, SendableEntity
                   JsonObject higherJson = new JsonObject().withValue(changeMsg);
                   String sourceId = higherJson.getString(IdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
-                  JsonObject updateJson = (JsonObject) higherJson.get(IdMap.UPDATE);
+                  JsonObject updateJson = (JsonObject) higherJson.get(SendableEntityCreator.UPDATE);
                   
                   if (updateJson == null)
                   {
-                     updateJson = (JsonObject) higherJson.get(IdMap.REMOVE);
+                     updateJson = (JsonObject) higherJson.get(SendableEntityCreator.REMOVE);
                   }
 
                   for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
@@ -419,7 +418,7 @@ UpdateListener, SendableEntity
                      // remove higher elems from collection
                      for (Object obj : higherList)
                      {
-                        creatorClass.setValue(sourceObject, property + IdMap.REMOVE, obj, null);
+                        creatorClass.setValue(sourceObject, property + SendableEntityCreator.REMOVE, obj, null);
                      }
 
                      // add new
@@ -843,11 +842,11 @@ UpdateListener, SendableEntity
       .withTargetObjectId((String) source.getValue(IdMap.ID))
       .withChangeMsg(source.toString());
 
-      Object object = source.getValue(IdMap.UPDATE);
+      Object object = source.getValue(SendableEntityCreator.UPDATE);
       
       if (object == null)
       {
-         object = source.getValue(IdMap.REMOVE);
+         object = source.getValue(SendableEntityCreator.REMOVE);
       }
 
       if (object != null)
@@ -989,7 +988,7 @@ UpdateListener, SendableEntity
          return true;
       }
 
-      if ((PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_CHANNELS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChannels((ReplicationChannel) value);
          return true;
@@ -1284,7 +1283,7 @@ UpdateListener, SendableEntity
    public void withMap(IdMap map)
    {
       this.map = map;
-      map.with((UpdateListener)this);
+      map.with((ObjectCondition)this);
    }
 
    @Override

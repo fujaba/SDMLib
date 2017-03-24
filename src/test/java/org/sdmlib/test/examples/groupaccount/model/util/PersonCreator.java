@@ -87,7 +87,7 @@ public class PersonCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -116,7 +116,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_ITEM + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_ITEM + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutItem((Item) value);
          return true;

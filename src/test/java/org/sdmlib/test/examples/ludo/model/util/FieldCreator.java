@@ -148,7 +148,7 @@ public class FieldCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -237,7 +237,7 @@ public class FieldCreator extends EntityFactory
          return true;
       }
       
-      if ((Field.PROPERTY_PAWNS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Field.PROPERTY_PAWNS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Field) target).removeFromPawns((Pawn) value);
          return true;

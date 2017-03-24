@@ -5,15 +5,15 @@ import java.util.LinkedHashMap;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 
 public class Specific2Generic
 {
-   private class MyUpdateListener implements UpdateListener
+   private class MyUpdateListener implements ObjectCondition
    {
       public String firstPropName = null;
       
@@ -21,7 +21,7 @@ public class Specific2Generic
 
   	public boolean update(Object event) {
     	  SimpleEvent simpleEvent = (SimpleEvent) event;
-  			Object tmp = simpleEvent.getEntity().getValue(IdMap.REMOVE);
+  			Object tmp = simpleEvent.getEntity().getValue(SendableEntityCreator.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
@@ -124,7 +124,7 @@ public class Specific2Generic
 
          if (multi)
          {
-            creatorClass.setValue(specObj, attrName + IdMap.REMOVE, specTgtObject, "");
+            creatorClass.setValue(specObj, attrName + SendableEntityCreator.REMOVE, specTgtObject, "");
             creatorClass.setValue(specObj, attrName, specTgtObject, "");
          }
          else

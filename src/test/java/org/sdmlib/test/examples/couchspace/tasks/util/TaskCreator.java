@@ -136,7 +136,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -165,7 +165,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_RESPONSIBLES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_RESPONSIBLES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutResponsibles((UserGroup) value);
          return true;
@@ -183,7 +183,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_TRANSITIONTARGETS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_TRANSITIONTARGETS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutTransitionTargets((Task) value);
          return true;

@@ -53,7 +53,7 @@ public class GraphCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -64,7 +64,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_NODES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_NODES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromNodes((Node) value);
          return true;
@@ -76,7 +76,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_EDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_EDGES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromEdges((Edge) value);
          return true;
@@ -88,7 +88,7 @@ public class GraphCreator extends EntityFactory
          return true;
       }
       
-      if ((Graph.PROPERTY_GCS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Graph.PROPERTY_GCS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Graph) target).removeFromGcs((GraphComponent) value);
          return true;

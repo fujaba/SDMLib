@@ -80,7 +80,7 @@ public class BuildingCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -91,7 +91,7 @@ public class BuildingCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Building.PROPERTY_HAS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Building.PROPERTY_HAS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Building) target).withoutHas((Floor) value);
          return true;

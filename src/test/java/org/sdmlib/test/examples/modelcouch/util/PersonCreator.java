@@ -87,7 +87,7 @@ public class PersonCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Person.PROPERTY_MEMBERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_MEMBERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutMembers((Person) value);
          return true;
@@ -110,7 +110,7 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Person.PROPERTY_GROUPS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_GROUPS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutGroups((Person) value);
          return true;
@@ -122,7 +122,7 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Person.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutTasks((Task) value);
          return true;
@@ -134,7 +134,7 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Person.PROPERTY_PERSONDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_PERSONDATA + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutPersonData((DocumentData) value);
          return true;

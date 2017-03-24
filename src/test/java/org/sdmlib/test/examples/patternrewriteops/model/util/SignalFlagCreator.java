@@ -39,7 +39,7 @@ public class SignalFlagCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -50,7 +50,7 @@ public class SignalFlagCreator extends EntityFactory
          return true;
       }
       
-      if ((SignalFlag.PROPERTY_STATION + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SignalFlag.PROPERTY_STATION + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SignalFlag) target).removeFromStation((Station) value);
          return true;

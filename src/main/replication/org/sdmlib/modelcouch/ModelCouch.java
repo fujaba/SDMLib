@@ -51,9 +51,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.concurrent.Task;
@@ -68,7 +68,7 @@ import javafx.concurrent.Task;
  *      ModelCouchModel.java</a>
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
  */
-public class ModelCouch implements SendableEntity, PropertyChangeInterface, UpdateListener {
+public class ModelCouch implements SendableEntity, PropertyChangeInterface, ObjectCondition {
 	public enum ApplicationType {
 		StandAlone, JavaFX
 	};
@@ -317,17 +317,17 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 		}
 		JsonObject jsonObject = (JsonObject) simpleEvent.getEntity();
 
-		String opCode = IdMap.UPDATE;
+		String opCode = SendableEntityCreator.UPDATE;
 
-		Object attributes = jsonObject.get(IdMap.UPDATE);
+		Object attributes = jsonObject.get(SendableEntityCreator.UPDATE);
 
 		if (attributes == null) {
-			attributes = jsonObject.get(IdMap.REMOVE);
-			opCode = IdMap.REMOVE;
+			attributes = jsonObject.get(SendableEntityCreator.REMOVE);
+			opCode = SendableEntityCreator.REMOVE;
 
 			if (attributes == null) {
 				attributes = jsonObject.get("prop");
-				opCode = IdMap.UPDATE;
+				opCode = SendableEntityCreator.UPDATE;
 			}
 		}
 
@@ -387,7 +387,7 @@ public class ModelCouch implements SendableEntity, PropertyChangeInterface, Upda
 						}
 
 						// newValue or oldValue?
-						if (opCode.equals(IdMap.REMOVE)) {
+						if (opCode.equals(SendableEntityCreator.REMOVE)) {
 							change.withOldValue(valueObjectId);
 						} else {
 							change.withNewValue(valueObjectId);

@@ -87,7 +87,7 @@ public class ModelCloudProxyCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -116,7 +116,7 @@ public class ModelCloudProxyCreator extends EntityFactory
          return true;
       }
       
-      if ((ModelCloudProxy.PROPERTY_PROVIDEDSPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ModelCloudProxy.PROPERTY_PROVIDEDSPACES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ModelCloudProxy) target).withoutProvidedSpaces((ModelSpaceProxy) value);
          return true;

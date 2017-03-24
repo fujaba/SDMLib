@@ -306,7 +306,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 				if (targetObject != null)
 				{
-					creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
+					creator.setValue(object, change.getProperty(), targetObject, SendableEntityCreator.REMOVE);
 				}
 			}
 			else

@@ -98,7 +98,7 @@ import org.sdmlib.models.pattern.Pattern;
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
                }
                
-            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + IdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
+            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + SendableEntityCreator.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
             {

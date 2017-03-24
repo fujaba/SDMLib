@@ -48,8 +48,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -66,7 +66,7 @@ import org.sdmlib.models.pattern.Pattern;
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================
-   private final class OmitRootCondition implements UpdateListener
+   private final class OmitRootCondition implements ObjectCondition
    {
       private Object root;
 

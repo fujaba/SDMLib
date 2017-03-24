@@ -75,7 +75,7 @@ public class HouseCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -86,7 +86,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_DOORS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_DOORS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutDoors((Door) value);
          return true;
@@ -98,7 +98,7 @@ public class HouseCreator extends EntityFactory
          return true;
       }
       
-      if ((House.PROPERTY_WINDOWS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((House.PROPERTY_WINDOWS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((House) target).withoutWindows((Window) value);
          return true;

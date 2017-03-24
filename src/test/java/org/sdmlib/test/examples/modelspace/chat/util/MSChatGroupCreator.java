@@ -81,7 +81,7 @@ public class MSChatGroupCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -92,7 +92,7 @@ public class MSChatGroupCreator extends EntityFactory
          return true;
       }
       
-      if ((MSChatGroup.PROPERTY_MEMBERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MSChatGroup.PROPERTY_MEMBERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((MSChatGroup) target).withoutMembers((MSChatMember) value);
          return true;
@@ -104,7 +104,7 @@ public class MSChatGroupCreator extends EntityFactory
          return true;
       }
       
-      if ((MSChatGroup.PROPERTY_CHANNELS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MSChatGroup.PROPERTY_CHANNELS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((MSChatGroup) target).withoutChannels((MSChatChannelDescription) value);
          return true;
