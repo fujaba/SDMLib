@@ -43,7 +43,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternSet extends SimpleSet<Pattern>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return Pattern.class;
 	}
 

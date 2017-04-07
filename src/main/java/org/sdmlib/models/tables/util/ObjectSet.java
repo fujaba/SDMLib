@@ -28,7 +28,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class ObjectSet extends SimpleSet<Object>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return Object.class;
 	}
 

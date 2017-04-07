@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return AttributeConstraint.class;
 	}
 

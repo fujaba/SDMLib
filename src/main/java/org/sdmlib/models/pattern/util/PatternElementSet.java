@@ -54,7 +54,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SimpleSet<PatternElement>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return PatternElement.class;
 	}
 

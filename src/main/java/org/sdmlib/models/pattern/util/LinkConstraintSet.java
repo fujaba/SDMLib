@@ -34,7 +34,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return LinkConstraint.class;
 	}
 

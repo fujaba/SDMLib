@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return GenericConstraint.class;
 	}
 

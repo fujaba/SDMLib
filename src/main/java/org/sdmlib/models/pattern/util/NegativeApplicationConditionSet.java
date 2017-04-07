@@ -40,7 +40,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return NegativeApplicationCondition.class;
 	}
 

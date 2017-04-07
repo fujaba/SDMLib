@@ -40,7 +40,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return OptionalSubPattern.class;
 	}
 

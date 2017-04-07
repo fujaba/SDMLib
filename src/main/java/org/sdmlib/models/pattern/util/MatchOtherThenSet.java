@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class MatchOtherThenSet extends SimpleSet<MatchOtherThen>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return MatchOtherThen.class;
 	}
 

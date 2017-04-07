@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return DestroyObjectElem.class;
 	}
 

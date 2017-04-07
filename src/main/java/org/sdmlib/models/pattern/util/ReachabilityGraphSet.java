@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return ReachabilityGraph.class;
 	}
 

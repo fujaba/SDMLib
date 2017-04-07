@@ -37,7 +37,7 @@ import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return CardinalityConstraint.class;
 	}
 

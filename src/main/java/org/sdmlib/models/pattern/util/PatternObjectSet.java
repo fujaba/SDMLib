@@ -43,7 +43,7 @@ import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 
 public class PatternObjectSet extends SimpleSet<PatternObject>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return PatternObject.class;
 	}
 

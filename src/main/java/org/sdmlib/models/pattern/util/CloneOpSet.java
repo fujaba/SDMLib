@@ -34,7 +34,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class CloneOpSet extends SimpleSet<CloneOp>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return CloneOp.class;
 	}
 

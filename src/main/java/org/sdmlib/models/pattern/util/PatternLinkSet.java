@@ -36,7 +36,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternLinkSet extends SimpleSet<PatternLink>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return PatternLink.class;
 	}
 

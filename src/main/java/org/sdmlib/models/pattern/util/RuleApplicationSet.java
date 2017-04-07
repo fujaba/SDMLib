@@ -34,7 +34,7 @@ import org.sdmlib.models.pattern.util.ReachableStateSet;
 
 public class RuleApplicationSet extends SimpleSet<RuleApplication>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return RuleApplication.class;
 	}
 

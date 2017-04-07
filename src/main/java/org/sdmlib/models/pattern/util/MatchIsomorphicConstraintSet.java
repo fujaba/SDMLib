@@ -34,7 +34,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConstraint>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return MatchIsomorphicConstraint.class;
 	}
 

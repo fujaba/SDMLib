@@ -34,7 +34,7 @@ import org.sdmlib.models.pattern.util.PatternSet;
 
 public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return UnifyGraphsOp.class;
 	}
 

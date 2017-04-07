@@ -28,7 +28,7 @@ import java.util.Collection;
 
 public class ObjectSet extends SimpleSet<Object>
 {
-	protected Class<?> getTypClass() {
+   public Class<?> getTypClass() {
 		return Object.class;
 	}
 
