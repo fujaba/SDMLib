@@ -967,10 +967,10 @@ public class HistoryIdMap extends IdMap
          String className = obj.getClass().getName();
          char firstChar = className.charAt(className.lastIndexOf(".") + 1);
 
-         if (this.prefixId != null)
+         if (this.session != null)
          {
             // try to reuse removed id
-            TimeStampMap timeStampMap = getRemovedObjects().get(this.prefixId);
+            TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
             if (timeStampMap != null && timeStampMap.size() > 0)
             {
                String oldKey = timeStampMap.keySet().iterator().next();
@@ -986,7 +986,7 @@ public class HistoryIdMap extends IdMap
             else
             {
                // generate new first life key
-               key = this.prefixId
+               key = this.session
                   + this.getSplitter() + sessionStartTime
                   + this.getSplitter() + firstChar + this.number
                   + "#1"
