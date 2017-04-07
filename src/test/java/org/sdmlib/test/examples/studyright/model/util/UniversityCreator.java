@@ -81,7 +81,7 @@ public class UniversityCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class UniversityCreator extends EntityFactory
          return true;
       }
       
-      if ((University.PROPERTY_ROOMS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_ROOMS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).removeFromRooms((Room) value);
          return true;
@@ -110,7 +110,7 @@ public class UniversityCreator extends EntityFactory
          return true;
       }
       
-      if ((University.PROPERTY_STUDENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((University.PROPERTY_STUDENTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).removeFromStudents((Student) value);
          return true;

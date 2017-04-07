@@ -87,7 +87,7 @@ public class TaskCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_SUBTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_SUBTASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutSubTasks((Task) value);
          return true;
@@ -110,7 +110,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_PARENTTASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_PARENTTASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutParentTasks((Task) value);
          return true;
@@ -122,7 +122,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_PERSONS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutPersons((Person) value);
          return true;
@@ -134,7 +134,7 @@ public class TaskCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Task.PROPERTY_TASKDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Task.PROPERTY_TASKDATA + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Task) target).withoutTaskData((DocumentData) value);
          return true;

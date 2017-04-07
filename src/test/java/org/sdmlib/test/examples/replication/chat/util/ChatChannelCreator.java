@@ -75,7 +75,7 @@ public class ChatChannelCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -86,7 +86,7 @@ public class ChatChannelCreator extends EntityFactory
          return true;
       }
       
-      if ((ChatChannel.PROPERTY_USERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChatChannel.PROPERTY_USERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChatChannel) target).withoutUsers((ChatUser) value);
          return true;
@@ -98,7 +98,7 @@ public class ChatChannelCreator extends EntityFactory
          return true;
       }
       
-      if ((ChatChannel.PROPERTY_MSGS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChatChannel.PROPERTY_MSGS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChatChannel) target).withoutMsgs((ChatMsg) value);
          return true;

@@ -103,7 +103,7 @@ public class StatementEntryCreator extends EntityFactory
          return true;
       }
       
-      if ((StatementEntry.PROPERTY_BODYSTATS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((StatementEntry.PROPERTY_BODYSTATS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((StatementEntry)target).removeFromBodyStats((StatementEntry) value);
          return true;

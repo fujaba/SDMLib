@@ -142,7 +142,7 @@ public class TemplateCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -207,7 +207,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_PLACEHOLDERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_PLACEHOLDERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutPlaceholders((PlaceHolderDescription) value);
          return true;
@@ -225,7 +225,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_MATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_MATCHES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutMatches((Match) value);
          return true;
@@ -237,7 +237,7 @@ public class TemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((Template.PROPERTY_PARENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Template.PROPERTY_PARENTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutParents((PlaceHolderDescription) value);
          return true;

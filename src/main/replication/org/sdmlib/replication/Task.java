@@ -28,8 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
@@ -60,7 +60,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
 
-      if ((PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LOGENTRIES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
          return true;

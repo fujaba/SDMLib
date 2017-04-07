@@ -68,7 +68,7 @@ public class RemoteTaskBoardCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +79,7 @@ public class RemoteTaskBoardCreator extends EntityFactory
          return true;
       }
       
-      if ((RemoteTaskBoard.PROPERTY_LANES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((RemoteTaskBoard.PROPERTY_LANES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((RemoteTaskBoard) target).withoutLanes((Lane) value);
          return true;

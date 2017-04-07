@@ -94,7 +94,7 @@ public class BankCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -129,7 +129,7 @@ public class BankCreator extends EntityFactory
          return true;
       }
       
-      if ((Bank.PROPERTY_CARGOS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Bank.PROPERTY_CARGOS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Bank) target).withoutCargos((Cargo) value);
          return true;

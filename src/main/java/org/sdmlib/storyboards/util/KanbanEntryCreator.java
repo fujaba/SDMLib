@@ -80,7 +80,7 @@ public class KanbanEntryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -103,7 +103,7 @@ public class KanbanEntryCreator extends EntityFactory
          return true;
       }
       
-      if ((KanbanEntry.PROPERTY_LOGENTRIES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((KanbanEntry.PROPERTY_LOGENTRIES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((KanbanEntry) target).withoutLogEntries((LogEntryStoryBoard) value);
          return true;

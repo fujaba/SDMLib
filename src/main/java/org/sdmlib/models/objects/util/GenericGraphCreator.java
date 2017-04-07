@@ -46,7 +46,7 @@ public class GenericGraphCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -57,7 +57,7 @@ public class GenericGraphCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericGraph.PROPERTY_OBJECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericGraph.PROPERTY_OBJECTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericGraph) target).removeFromObjects((GenericObject) value);
          return true;
@@ -69,7 +69,7 @@ public class GenericGraphCreator extends EntityFactory
          return true;
       }
       
-      if ((GenericGraph.PROPERTY_LINKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((GenericGraph.PROPERTY_LINKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((GenericGraph) target).removeFromLinks((GenericLink) value);
          return true;

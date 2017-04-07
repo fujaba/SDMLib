@@ -81,7 +81,7 @@ public class LaneCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -104,7 +104,7 @@ public class LaneCreator extends EntityFactory
          return true;
       }
       
-      if ((Lane.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Lane.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Lane) target).withoutTasks((BoardTask) value);
          return true;

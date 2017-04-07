@@ -68,7 +68,7 @@ public class CloudModelDirectoryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +79,7 @@ public class CloudModelDirectoryCreator extends EntityFactory
          return true;
       }
       
-      if ((CloudModelDirectory.PROPERTY_FILES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((CloudModelDirectory.PROPERTY_FILES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((CloudModelDirectory) target).withoutFiles((CloudModelFile) value);
          return true;

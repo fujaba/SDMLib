@@ -4,10 +4,10 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 class CreatorCreator{
 
-   public static SDMLibJsonIdMap createIdMap(String sessionID)
+   public static SDMLibJsonIdMap createIdMap(String session)
    {
 	   SDMLibJsonIdMap map = new SDMLibJsonIdMap();
-      map.withSessionId(sessionID);
+      map.withSession(session);
       
       map.with(new LectureCreator());
       map.with(new LecturePOCreator());

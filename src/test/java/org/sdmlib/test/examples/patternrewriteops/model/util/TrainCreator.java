@@ -46,7 +46,7 @@ public class TrainCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -63,7 +63,7 @@ public class TrainCreator extends EntityFactory
          return true;
       }
       
-      if ((Train.PROPERTY_PASSENGERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Train.PROPERTY_PASSENGERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Train) target).removeFromPassengers((Person) value);
          return true;

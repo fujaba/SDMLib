@@ -148,7 +148,7 @@ public class ChoiceTemplateCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -213,7 +213,7 @@ public class ChoiceTemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((ChoiceTemplate.PROPERTY_PLACEHOLDERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChoiceTemplate.PROPERTY_PLACEHOLDERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChoiceTemplate) target).withoutPlaceholders((PlaceHolderDescription) value);
          return true;
@@ -225,7 +225,7 @@ public class ChoiceTemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((ChoiceTemplate.PROPERTY_CHOICES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChoiceTemplate.PROPERTY_CHOICES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChoiceTemplate) target).withoutChoices((Template) value);
          return true;
@@ -243,7 +243,7 @@ public class ChoiceTemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((ChoiceTemplate.PROPERTY_MATCHES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChoiceTemplate.PROPERTY_MATCHES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChoiceTemplate) target).withoutMatches((Match) value);
          return true;
@@ -255,7 +255,7 @@ public class ChoiceTemplateCreator extends EntityFactory
          return true;
       }
 
-      if ((ChoiceTemplate.PROPERTY_PARENTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ChoiceTemplate.PROPERTY_PARENTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChoiceTemplate) target).withoutParents((PlaceHolderDescription) value);
          return true;

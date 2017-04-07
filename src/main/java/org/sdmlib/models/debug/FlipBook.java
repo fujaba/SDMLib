@@ -12,10 +12,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
-import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.interfaces.ObjectCondition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonObject;
 
-public class FlipBook implements UpdateListener,  PropertyChangeInterface
+public class FlipBook implements ObjectCondition, PropertyChangeInterface
 
 {
    public void step()
@@ -45,7 +46,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       
       undo.put(IdMap.ID, jo.getString(IdMap.ID));
       
-      Object update = jo.get(IdMap.UPDATE);
+      Object update = jo.get(SendableEntityCreator.UPDATE);
       if (update != null)
       {
          // if the value is a JsonObject, just use the id
@@ -61,18 +62,18 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
             newValue.put(IdMap.ID, jsonValue.getString(IdMap.ID));
             JsonObject newUpdate = new JsonObject();
             newUpdate.put(key, newValue);
-            undo.put(IdMap.REMOVE, newUpdate);
+            undo.put(SendableEntityCreator.REMOVE, newUpdate);
          }
          else
          {
-            undo.put(IdMap.REMOVE, update);
+            undo.put(SendableEntityCreator.REMOVE, update);
          }
       }
       
-      Object remove = jo.get(IdMap.REMOVE);
+      Object remove = jo.get(SendableEntityCreator.REMOVE);
       if (remove != null)
       {
-         undo.put(IdMap.UPDATE, remove);
+         undo.put(SendableEntityCreator.UPDATE, remove);
       }
       
       setReading(true);
@@ -106,7 +107,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
          
          if (obj == target)
          {
-            Object update = jo.get(IdMap.UPDATE);
+            Object update = jo.get(SendableEntityCreator.UPDATE);
             
             if (update != null)
             {

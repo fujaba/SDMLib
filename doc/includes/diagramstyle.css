@@ -258,4 +258,31 @@
 	opacity:0.50;
 	fill:#ddd;
 }
+.hljs-line-numbers {
+	text-align: right;
+	border-right: 1px solid #ccc;
+	color: #999;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
+.conum[data-value]:after {content: attr(data-value);}
+.conum[data-value] {
+	display: inline-block;
+	color: #fff!important;
+	background-color: rgba(0,0,0,.8);
+	-webkit-border-radius: 100px;
+	border-radius: 100px;
+	text-align: center;
+	font-size: 8px;
+	width: 12px;
+	height: 12px;
+	line-height: 12px;
+	font-family: "Open Sans","DejaVu Sans",sans-serif;
+	font-style: normal;
+	font-weight: bold;
+}

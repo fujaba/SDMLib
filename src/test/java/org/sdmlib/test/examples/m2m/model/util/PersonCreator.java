@@ -106,7 +106,7 @@ public class PersonCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -135,7 +135,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_OUTEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_OUTEDGES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromOutEdges((Relation) value);
          return true;
@@ -147,7 +147,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_INEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_INEDGES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromInEdges((Relation) value);
          return true;
@@ -159,7 +159,7 @@ public class PersonCreator extends EntityFactory
          return true;
       }
       
-      if ((Person.PROPERTY_KNOWS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_KNOWS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).removeFromKnows((Person) value);
          return true;

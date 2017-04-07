@@ -87,7 +87,7 @@ public class MSChatChannelDescriptionCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -116,7 +116,7 @@ public class MSChatChannelDescriptionCreator extends EntityFactory
          return true;
       }
       
-      if ((MSChatChannelDescription.PROPERTY_MEMBERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((MSChatChannelDescription.PROPERTY_MEMBERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((MSChatChannelDescription) target).withoutMembers((MSChatMember) value);
          return true;

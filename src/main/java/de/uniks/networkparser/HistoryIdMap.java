@@ -9,12 +9,8 @@ import java.util.logging.Logger;
 
 import org.sdmlib.replication.ChangeEvent;
 
-import de.uniks.networkparser.HistoryIdMap.AttrTimeStampMap;
-import de.uniks.networkparser.HistoryIdMap.RefTime;
-import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
-import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -30,8 +26,7 @@ public class HistoryIdMap extends IdMap
 
    public static final String PLAIN = "plain";
 
-   private UpdateListener updateListenerFromUser;
-
+   private ObjectCondition updateListenerFromUser;
 
    public long decodeChanges(String value)
    {
@@ -303,17 +298,16 @@ public class HistoryIdMap extends IdMap
 
    public HistoryIdMap(String owner)
    {
-      this.withCounter(new NanoCounter());
-      this.withSessionId(owner);
+      this.withSession(owner);
    }
 
 
    @Override
-   public IdMap withListener(UpdateListener updateListener)
+   public IdMap withListener(ObjectCondition updateListener)
    {
       updateListenerFromUser = updateListener;
 
-      return super.withListener((UpdateListener) update -> wrapUpdate(update));
+      return super.withListener((ObjectCondition) update -> wrapUpdate(update));
    }
 
    private long changeTime = 0;
@@ -419,7 +413,7 @@ public class HistoryIdMap extends IdMap
                newValue = null;
             }
          }
-         creator.setValue(object, prop, newValue, UPDATE);
+         creator.setValue(object, prop, newValue, SendableEntityCreator.UPDATE);
          attrTimeStampMap.put(prop, newChangeNanos);
          Logger.getGlobal().info(dumpHistory() + "");
       }
@@ -457,7 +451,7 @@ public class HistoryIdMap extends IdMap
          adjustPosition(id, prop, addId, object, addObject, creator, timeStampMap, newChangeNanos);
          Logger.getGlobal().info(dumpHistory() + "");
       }
-      else if (opCode.equals(REMOVE))
+      else if (opCode.equals(SendableEntityCreator.REMOVE))
       {
          String remId = (String) oldValue;
          
@@ -486,10 +480,10 @@ public class HistoryIdMap extends IdMap
          {
             return 0;
          }
-         creator.setValue(object, prop, remObject, REMOVE);
+         creator.setValue(object, prop, remObject, SendableEntityCreator.REMOVE);
          Logger.getGlobal().info(dumpHistory() + "");
       }
-      else if (opCode.equals(REMOVE_YOU))
+      else if (opCode.equals(SendableEntityCreator.REMOVE_YOU))
       {
          // store removed id
          // split object number without life counter from id
@@ -507,8 +501,11 @@ public class HistoryIdMap extends IdMap
          Object object = this.getObject(id);
          if (object != null)
          {
+//        	 this.removeObj(object, true);
+//            SendableEntityCreator creator = this.getCreatorClass(object);
+//            creator.removeObject(object);
             SendableEntityCreator creator = this.getCreatorClass(object);
-            creator.removeObject(object);
+            creator.setValue(object, "this", null, SendableEntityCreator.REMOVE_YOU);
          }
 
          Logger.getGlobal().info(dumpHistory() + "");
@@ -592,7 +589,7 @@ public class HistoryIdMap extends IdMap
                RefTime refTime = rr.getValue();
                String otherId = refTime.objId;
                long timeStamp = refTime.timeStamp;
-               JsonObject jsonChange = plainCreateJsonChange(id, REMOVE, prop, null, otherId, timeStamp);
+               JsonObject jsonChange = plainCreateJsonChange(id, SendableEntityCreator.REMOVE, prop, null, otherId, timeStamp);
                result.add(jsonChange);
             }
          }
@@ -608,7 +605,7 @@ public class HistoryIdMap extends IdMap
             RefTime refTime = ro.getValue();
             String id = refTime.objId;
             long timeStamp = refTime.timeStamp;
-            JsonObject jsonChange = plainCreateJsonChange(id, REMOVE_YOU, LIFE, -1, 1, timeStamp);
+            JsonObject jsonChange = plainCreateJsonChange(id, SendableEntityCreator.REMOVE_YOU, LIFE, -1, 1, timeStamp);
             result.add(jsonChange);
          }
       }
@@ -745,7 +742,7 @@ public class HistoryIdMap extends IdMap
          TimeStampMap timeStampMap = refTimeStampsMap.getOrCreate(prop);
          timeStampMap.put((String) newValue, nanoTime);
       }
-      else if (opCode.equals(REMOVE))
+      else if (opCode.equals(SendableEntityCreator.REMOVE))
       {
          // remove from toMany timestamps
          // store in removed toMany timestamps
@@ -753,13 +750,13 @@ public class HistoryIdMap extends IdMap
          TimeStampMap timeStampMap = refTimeStampsMap.getOrCreate(prop);
          timeStampMap.remove((String) oldValue, nanoTime);
       }
-      else if (opCode.equals(REMOVE_YOU))
+      else if (opCode.equals(SendableEntityCreator.REMOVE_YOU))
       {
          // store removed id
          // split object number without life counter from id
          String baseId = baseId(id);
          RefTime refTime = new RefTime(id, nanoTime);
-         TimeStampMap timeStampMap = removedObjects.getOrCreate(this.getCounter().getPrefixId());
+         TimeStampMap timeStampMap = removedObjects.getOrCreate(this.getSession());
          timeStampMap.put(baseId, refTime);
 
          // remove old timestamps
@@ -815,20 +812,20 @@ public class HistoryIdMap extends IdMap
          return;
       }
       String oldText = oldJson.toString(3);
-      String opCode = IdMap.UPDATE;
+      String opCode = SendableEntityCreator.UPDATE;
 
       String oldId = (String) oldJson.get(IdMap.ID);
-      Object attributes = oldJson.get(IdMap.UPDATE);
+      Object attributes = oldJson.get(SendableEntityCreator.UPDATE);
 
       if (attributes == null)
       {
-         attributes = oldJson.get(IdMap.REMOVE);
-         opCode = IdMap.REMOVE;
+         attributes = oldJson.get(SendableEntityCreator.REMOVE);
+         opCode = SendableEntityCreator.REMOVE;
 
          if (attributes == null)
          {
             attributes = oldJson.get("prop");
-            opCode = IdMap.UPDATE;
+            opCode = SendableEntityCreator.UPDATE;
          }
       }
 
@@ -844,10 +841,10 @@ public class HistoryIdMap extends IdMap
 
          Iterator<String> iter = attributesJson.keyIterator();
 
-         if (!iter.hasNext() && opCode == IdMap.REMOVE)
+         if (!iter.hasNext() && opCode == SendableEntityCreator.REMOVE)
          {
             // object removal
-            JsonObject jsonChange = createJsonChange(oldId, IdMap.REMOVE_YOU, LIFE, -1, 1);
+            JsonObject jsonChange = createJsonChange(oldId, SendableEntityCreator.REMOVE_YOU, LIFE, -1, 1);
             jsonArray.add(jsonChange);
          }
          while (iter.hasNext())
@@ -887,14 +884,14 @@ public class HistoryIdMap extends IdMap
                   if (value != null && value instanceof Collection)
                   {
                      card = ChangeEvent.TO_MANY;
-                     if (!opCode.equals(IdMap.REMOVE))
+                     if (!opCode.equals(SendableEntityCreator.REMOVE))
                      {
                         opCode = ADD;
                      }
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(IdMap.REMOVE))
+                  if (opCode.equals(SendableEntityCreator.REMOVE))
                   {
                      oldValue = valueObjectId;
                   }
@@ -922,7 +919,7 @@ public class HistoryIdMap extends IdMap
             }
             else
             {
-               JsonObject remJson = (JsonObject) oldJson.get(IdMap.REMOVE);
+               JsonObject remJson = (JsonObject) oldJson.get(SendableEntityCreator.REMOVE);
                if (remJson != null)
                {
                   oldValue = remJson.get(prop);
@@ -936,71 +933,56 @@ public class HistoryIdMap extends IdMap
       }
 
    }
-
-   private class NanoCounter extends SimpleIdCounter
+   
+   private long sessionStartTime = System.currentTimeMillis();
+   private long number = 1;
+   
+   @Override
+   public String createId(Object obj)
    {
-
-      private long sessionStartTime;
-
-
-      public NanoCounter()
+      String key;
+      
+      if (obj == null)
       {
-         sessionStartTime = System.currentTimeMillis();
+         return "";
       }
 
+      String className = obj.getClass().getName();
+      char firstChar = className.charAt(className.lastIndexOf(".") + 1);
 
-      /**
-       * Get a new Id
-       */
-      @Override
-      public String getId(Object obj)
+      if (this.session != null)
       {
-         String key;
-
-         // new object generate key and add to tables
-         // <session id>.<first char><running number>
-         if (obj == null)
+         // try to reuse removed id
+         TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
+         if (timeStampMap != null && timeStampMap.size() > 0)
          {
-            return "";
-         }
-
-         String className = obj.getClass().getName();
-         char firstChar = className.charAt(className.lastIndexOf(".") + 1);
-
-         if (this.session != null)
-         {
-            // try to reuse removed id
-            TimeStampMap timeStampMap = getRemovedObjects().get(this.session);
-            if (timeStampMap != null && timeStampMap.size() > 0)
-            {
-               String oldKey = timeStampMap.keySet().iterator().next();
-               RefTime refTime = timeStampMap.get(oldKey);
-               String fullOldKey = refTime.objId;
-               String baseId = baseId(fullOldKey);
-               long lifeNum = lifeCountFromId(fullOldKey);
-               lifeNum++;
-               key = baseId + "#" + lifeNum + ":" + className;
-               timeStampMap.remove(oldKey);
-               rebirthCounters.put(baseId, lifeNum);
-            }
-            else
-            {
-               // generate new first life key
-               key = this.session
-                  + this.getSplitter() + sessionStartTime
-                  + this.getSplitter() + firstChar + this.number
-                  + "#1"
-                  + ":" + className;
-            }
+            String oldKey = timeStampMap.keySet().iterator().next();
+            RefTime refTime = timeStampMap.get(oldKey);
+            String fullOldKey = refTime.objId;
+            String baseId = baseId(fullOldKey);
+            long lifeNum = lifeCountFromId(fullOldKey);
+            lifeNum++;
+            key = baseId + "#" + lifeNum + ":" + className;
+            timeStampMap.remove(oldKey);
+            rebirthCounters.put(baseId, lifeNum);
          }
          else
          {
-            key = "" + firstChar + this.number;
+            // generate new first life key
+            key = this.session
+               + "." + sessionStartTime
+               + "." + firstChar + this.number
+               + "#1"
+               + ":" + className;
          }
-         this.number++;
-         return key;
       }
-
+      else
+      {
+         key = "" + firstChar + this.number;
+      }
+      
+      this.number++;
+      put(key, obj);
+      return key;
    }
-
 }

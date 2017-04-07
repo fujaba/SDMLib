@@ -28,8 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
@@ -61,7 +61,7 @@ public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
          return true;
       }
 
-      if ((PROPERTY_LANES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_LANES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLanes((Lane) value);
          return true;

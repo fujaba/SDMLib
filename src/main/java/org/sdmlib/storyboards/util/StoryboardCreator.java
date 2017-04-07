@@ -63,7 +63,7 @@ public class StoryboardCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -98,7 +98,7 @@ public class StoryboardCreator extends EntityFactory
          return true;
       }
       
-      if ((StoryboardImpl.PROPERTY_STORYBOARDSTEPS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((StoryboardImpl.PROPERTY_STORYBOARDSTEPS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((StoryboardImpl) target).removeFromStoryboardSteps((StoryboardStep) value);
          return true;

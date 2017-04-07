@@ -95,7 +95,7 @@ public class NodeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -130,7 +130,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_OUTEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_OUTEDGES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromOutEdges((Edge) value);
          return true;
@@ -142,7 +142,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_INEDGES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_INEDGES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromInEdges((Edge) value);
          return true;
@@ -166,7 +166,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_LINKSTO + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_LINKSTO + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromLinksTo((Node) value);
          return true;
@@ -178,7 +178,7 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_LINKSFROM + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_LINKSFROM + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).removeFromLinksFrom((Node) value);
          return true;

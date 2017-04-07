@@ -30,8 +30,8 @@ import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
@@ -84,7 +84,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          return true;
       }
 
-      if ((PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_TASKS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTasks((BoardTask) value);
          return true;

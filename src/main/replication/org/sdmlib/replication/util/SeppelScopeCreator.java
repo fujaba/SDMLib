@@ -92,7 +92,7 @@ public class SeppelScopeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -109,7 +109,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SUBSCOPES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SUBSCOPES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSubScopes((SeppelScope) value);
          return true;
@@ -121,7 +121,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SUPERSCOPES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SUPERSCOPES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSuperScopes((SeppelScope) value);
          return true;
@@ -133,7 +133,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_SPACES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_SPACES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSpaces((SeppelSpaceProxy) value);
          return true;
@@ -145,7 +145,7 @@ public class SeppelScopeCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelScope.PROPERTY_OBSERVEDOBJECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelScope.PROPERTY_OBSERVEDOBJECTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutObservedObjects((Object) value);
          return true;

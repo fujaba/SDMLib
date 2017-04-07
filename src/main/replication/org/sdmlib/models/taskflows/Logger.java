@@ -69,7 +69,7 @@ import de.uniks.networkparser.json.JsonArray;
          }
 
          LogEntry newEntry = createEntries()
-               .withNodeName(getSubFlow().getIdMap().getCounter().getPrefixId())
+               .withNodeName(getSubFlow().getIdMap().getSession())
                .withTaskName(getSubFlow().getTaskNames()[getSubFlow().getTaskNo()].toString());
 
          if(previousEntry != null)

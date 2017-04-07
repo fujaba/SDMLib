@@ -85,7 +85,7 @@ public class ReplicationRootCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -108,7 +108,7 @@ public class ReplicationRootCreator extends EntityFactory
          return true;
       }
       
-      if ((ReplicationRoot.PROPERTY_KIDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ReplicationRoot.PROPERTY_KIDS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((ReplicationRoot) target).withoutKids((ReplicationRoot) value);
          return true;

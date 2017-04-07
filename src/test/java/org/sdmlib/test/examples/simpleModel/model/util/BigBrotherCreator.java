@@ -80,7 +80,7 @@ public class BigBrotherCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -91,7 +91,7 @@ public class BigBrotherCreator extends EntityFactory
          return true;
       }
       
-      if ((BigBrother.PROPERTY_KIDS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BigBrother.PROPERTY_KIDS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withoutKids((Object) value);
          return true;
@@ -109,7 +109,7 @@ public class BigBrotherCreator extends EntityFactory
          return true;
       }
       
-      if ((BigBrother.PROPERTY_SUSPECTS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((BigBrother.PROPERTY_SUSPECTS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withoutSuspects((Person) value);
          return true;

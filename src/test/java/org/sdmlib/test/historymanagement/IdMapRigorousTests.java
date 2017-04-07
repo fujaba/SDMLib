@@ -10,7 +10,7 @@ import org.sdmlib.test.historymanagement.marketmodel.util.MarketCreator;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
-import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonObject;
 
 public class IdMapRigorousTests
@@ -23,7 +23,7 @@ public class IdMapRigorousTests
       buf = new StringBuffer();
       IdMap idMap = MarketCreator.createIdMap("ebay");
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       Market market = new Market();
       market.withMarketTime("00:00");
@@ -44,7 +44,7 @@ public class IdMapRigorousTests
       
       IdMap idMap = MarketCreator.createIdMap("ebay");
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       Market market = new Market();
       String id = idMap.getId(market);
@@ -82,7 +82,7 @@ public class IdMapRigorousTests
       buf = new StringBuffer();
       IdMap idMap = MarketCreator.createIdMap("ebay");
       
-      idMap.withListener((UpdateListener) value -> handleUpdate(value));
+      idMap.withListener((ObjectCondition) value -> handleUpdate(value));
       
       Market market = new Market();
       market.withMarketTime("00:00");

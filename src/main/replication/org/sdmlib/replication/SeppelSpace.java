@@ -47,9 +47,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.SimpleEvent;
+import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -59,7 +59,7 @@ import javafx.application.Platform;
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
  */
-   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener, SendableEntity
+   public class SeppelSpace extends Thread implements PropertyChangeInterface, ObjectCondition, SendableEntity
 {
    //==========================================================================
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
@@ -273,7 +273,7 @@ import javafx.application.Platform;
             
             if (targetObject != null)
             {
-               creator.setValue(object, change.getProperty(), targetObject, IdMap.REMOVE);
+               creator.setValue(object, change.getProperty(), targetObject, SendableEntityCreator.REMOVE);
             }
          }
          else
@@ -318,7 +318,7 @@ import javafx.application.Platform;
       }
    }
 
-   public static class RestrictToFilter implements UpdateListener {
+   public static class RestrictToFilter implements ObjectCondition {
       private ObjectSet explicitElems;
 
       public RestrictToFilter(ObjectSet explicitElems2)
@@ -366,19 +366,19 @@ import javafx.application.Platform;
       //                   "prop":{"scopeName":"commands",
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
-      String opCode = IdMap.UPDATE;
+      String opCode = SendableEntityCreator.UPDATE;
       
-      Object attributes = jsonObject.get(IdMap.UPDATE);
+      Object attributes = jsonObject.get(SendableEntityCreator.UPDATE);
       
       if (attributes == null)
       {
-         attributes = jsonObject.get(IdMap.REMOVE);
-         opCode = IdMap.REMOVE;
+         attributes = jsonObject.get(SendableEntityCreator.REMOVE);
+         opCode = SendableEntityCreator.REMOVE;
          
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
-            opCode = IdMap.UPDATE;
+            opCode = SendableEntityCreator.UPDATE;
          }
       }
 
@@ -448,7 +448,7 @@ import javafx.application.Platform;
                   }
 
                   // newValue or oldValue?
-                  if (opCode.equals(IdMap.REMOVE))
+                  if (opCode.equals(SendableEntityCreator.REMOVE))
                   {
                      change.withOldValue(valueObjectId);
                   }
@@ -744,7 +744,7 @@ import javafx.application.Platform;
    public void withMap(IdMap map)
    {
       this.map = map;
-      map.with((UpdateListener)this);
+      map.with((ObjectCondition)this);
    }
    
    public void put(String string, Object object)
@@ -762,7 +762,7 @@ import javafx.application.Platform;
    //==============================================================================
    public SeppelSpace init(IdMap userModelIdMap, boolean javaFXApplication, String hostName, int portNo)
    {
-      String userName = userModelIdMap.getCounter().getPrefixId();
+      String userName = userModelIdMap.getSession();
       
       this.setName(userName+"Thread");
       

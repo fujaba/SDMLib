@@ -147,7 +147,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -158,7 +158,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_SUBDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_SUBDATA + REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutSubData((DocumentData) value);
          return true;
@@ -170,7 +170,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_PARENTDATA + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_PARENTDATA + REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutParentData((DocumentData) value);
          return true;
@@ -182,7 +182,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutTasks((Task) value);
          return true;
@@ -194,7 +194,7 @@ public class DocumentDataCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((DocumentData.PROPERTY_PERSONS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((DocumentData.PROPERTY_PERSONS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((DocumentData) target).withoutPersons((Person) value);
          return true;

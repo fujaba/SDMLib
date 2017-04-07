@@ -92,7 +92,7 @@ public class LogEntryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -121,7 +121,7 @@ public class LogEntryCreator extends EntityFactory
          return true;
       }
       
-      if ((LogEntry.PROPERTY_CHILDREN + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((LogEntry.PROPERTY_CHILDREN + REMOVE).equalsIgnoreCase(attrName))
       {
          ((LogEntry) target).withoutChildren((LogEntry) value);
          return true;

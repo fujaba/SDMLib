@@ -124,7 +124,7 @@ public class SeppelSpaceProxyCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -171,7 +171,7 @@ public class SeppelSpaceProxyCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelSpaceProxy.PROPERTY_PARTNERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelSpaceProxy.PROPERTY_PARTNERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).withoutPartners((SeppelSpaceProxy) value);
          return true;
@@ -183,7 +183,7 @@ public class SeppelSpaceProxyCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelSpaceProxy.PROPERTY_SCOPES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelSpaceProxy.PROPERTY_SCOPES + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).withoutScopes((SeppelScope) value);
          return true;
@@ -201,7 +201,7 @@ public class SeppelSpaceProxyCreator extends EntityFactory
          return true;
       }
       
-      if ((SeppelSpaceProxy.PROPERTY_TASKS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((SeppelSpaceProxy.PROPERTY_TASKS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).withoutTasks((BoardTask) value);
          return true;

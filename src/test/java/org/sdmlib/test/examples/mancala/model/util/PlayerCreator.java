@@ -115,7 +115,7 @@ public class PlayerCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -156,7 +156,7 @@ public class PlayerCreator extends EntityFactory
          return true;
       }
       
-      if ((Player.PROPERTY_PITS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Player.PROPERTY_PITS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Player) target).withoutPits((Pit) value);
          return true;

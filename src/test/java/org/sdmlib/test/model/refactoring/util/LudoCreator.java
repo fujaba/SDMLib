@@ -82,7 +82,7 @@ public class LudoCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if (REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -99,7 +99,7 @@ public class LudoCreator extends EntityFactory
          return true;
       }
       
-      if ((Ludo.PROPERTY_PLAYERS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Ludo.PROPERTY_PLAYERS + REMOVE).equalsIgnoreCase(attrName))
       {
          ((Ludo) target).withoutPlayers((Player) value);
          return true;
