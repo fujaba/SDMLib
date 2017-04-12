@@ -33,7 +33,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class GroundSet extends SimpleSet<Ground>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Ground.class;
 	}
 

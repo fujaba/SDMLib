@@ -28,7 +28,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return SimpleKeyValueList.class;
 	}
 

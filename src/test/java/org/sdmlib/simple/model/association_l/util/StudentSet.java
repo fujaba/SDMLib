@@ -34,7 +34,7 @@ import org.sdmlib.simple.model.association_l.University;
 
 public class StudentSet extends SimpleSet<Student>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Student.class;
 	}
 

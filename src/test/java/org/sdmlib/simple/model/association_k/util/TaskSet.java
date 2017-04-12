@@ -31,7 +31,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class TaskSet extends SimpleSet<Task>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Task.class;
 	}
 

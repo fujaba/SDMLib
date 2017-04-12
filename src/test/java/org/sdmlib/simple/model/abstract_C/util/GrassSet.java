@@ -32,7 +32,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class GrassSet extends SimpleSet<Grass>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Grass.class;
 	}
 

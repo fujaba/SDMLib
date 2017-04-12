@@ -32,7 +32,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class TeacherSet extends SimpleSet<Teacher>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Teacher.class;
 	}
 

@@ -32,7 +32,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class HumanSet extends SimpleSet<Human>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Human.class;
 	}
 

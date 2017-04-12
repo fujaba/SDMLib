@@ -38,7 +38,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return TeachingAssistant.class;
 	}
 
