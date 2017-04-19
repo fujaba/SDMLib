@@ -38,6 +38,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 {
 
    
+   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -84,6 +85,16 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+   
+   public void move(Dice die)
+   {
+      Field field = this.getPos();
+      for (int i = 0; i < die.getValue(); i++)
+      {
+         field = field.getNext();
+      }
+      this.setPos(field);
+   }
    
    //==========================================================================
    
