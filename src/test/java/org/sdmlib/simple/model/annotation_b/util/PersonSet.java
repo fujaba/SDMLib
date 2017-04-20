@@ -30,7 +30,7 @@ import de.uniks.networkparser.list.SimpleSet;
 @SuppressWarnings(value = { "deprecation" })
 public class PersonSet extends SimpleSet<Person>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Person.class;
 	}
 

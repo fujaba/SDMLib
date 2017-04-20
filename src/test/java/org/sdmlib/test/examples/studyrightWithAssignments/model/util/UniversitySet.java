@@ -34,7 +34,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class UniversitySet extends SimpleSet<University>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return University.class;
 	}
 

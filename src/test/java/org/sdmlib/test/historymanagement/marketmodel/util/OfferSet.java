@@ -36,7 +36,7 @@ import org.sdmlib.test.historymanagement.marketmodel.Market;
 
 public class OfferSet extends SimpleSet<Offer>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Offer.class;
 	}
 

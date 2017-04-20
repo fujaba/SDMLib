@@ -32,7 +32,7 @@ import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
 public class MarketSet extends SimpleSet<Market>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Market.class;
 	}
 

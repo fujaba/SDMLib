@@ -33,7 +33,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class GameSet extends SimpleSet<Game>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Game.class;
 	}
 

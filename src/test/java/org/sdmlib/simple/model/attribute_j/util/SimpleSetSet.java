@@ -27,7 +27,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class SimpleSetSet extends SimpleSet<SimpleSet>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return SimpleSet.class;
 	}
 

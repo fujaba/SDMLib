@@ -34,7 +34,7 @@ import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
 public class ActorSet extends SimpleSet<Actor>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Actor.class;
 	}
 

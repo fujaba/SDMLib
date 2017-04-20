@@ -402,7 +402,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
                "{\n" +
-               "	protected Class<?> getTypClass() {\n" +
+               "	public Class<?> getTypClass() {\n" +
                "		return entitiyClassName.class;\n"+
                "	}\n"+
                "}\n");

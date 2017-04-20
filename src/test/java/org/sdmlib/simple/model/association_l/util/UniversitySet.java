@@ -32,7 +32,7 @@ import org.sdmlib.simple.model.association_l.Student;
 
 public class UniversitySet extends SimpleSet<University>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return University.class;
 	}
 

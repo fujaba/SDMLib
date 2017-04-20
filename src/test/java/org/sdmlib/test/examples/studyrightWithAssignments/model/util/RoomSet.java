@@ -38,7 +38,7 @@ import de.uniks.networkparser.list.StringList;
 
 public class RoomSet extends SimpleSet<Room>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Room.class;
 	}
 

@@ -34,7 +34,7 @@ import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
 public class BidSet extends SimpleSet<Bid>
 {
-	protected Class<?> getTypClass() {
+	public Class<?> getTypClass() {
 		return Bid.class;
 	}
 
