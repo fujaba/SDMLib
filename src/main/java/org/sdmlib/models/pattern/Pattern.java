@@ -627,11 +627,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
             JsonArray attrs = new JsonArray();
 
-            if (num == 1)
-            {
-               attrs.add("<< start >>");
-            }
-
             if (po.getModifier() != null)
             {
                attrs.add("<< " + po.getModifier() + ">>");
