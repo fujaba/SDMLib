@@ -38,7 +38,7 @@ import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Clazz.ClazzType;
+import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;

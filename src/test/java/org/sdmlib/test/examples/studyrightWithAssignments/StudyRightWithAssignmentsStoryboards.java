@@ -243,47 +243,47 @@ public class StudyRightWithAssignmentsStoryboards
          .withContent("Integrals")
          .withPoints(8);
 
-      Room mathRoom = university.createRooms()
-         .withName("senate")
-         .withTopic("math")
-         .withCredits(17)
-         .withStudents(karli)
-         .withAssignments(a1, a2, integrals);
+//      Room mathRoom = university.createRooms()
+//         .withName("senate")
+//         .withTopic("math")
+//         .withCredits(17)
+//         .withStudents(karli)
+//         .withAssignments(a1, a2, integrals);
 
-      Room artsRoom = university.createRooms()
-         .withName("7522")
-         .withTopic("arts")
-         .withCredits(16)
-         .withDoors(mathRoom);
+//      Room artsRoom = university.createRooms()
+//         .withName("7522")
+//         .withTopic("arts")
+//         .withCredits(16)
+//         .withDoors(mathRoom);
+//
+//      Room sportsRoom = university.createRooms()
+//         .withName("gymnasium")
+//         .withTopic("sports")
+//         .withCredits(25)
+//         .withDoors(mathRoom, artsRoom);
 
-      Room sportsRoom = university.createRooms()
-         .withName("gymnasium")
-         .withTopic("sports")
-         .withCredits(25)
-         .withDoors(mathRoom, artsRoom);
+//      Room examRoom = university.createRooms()
+//         .withName("The End")
+//         .withTopic("exam")
+//         .withCredits(0)
+//         .withDoors(sportsRoom, artsRoom);
+//
+//      Room softwareEngineering = university.createRooms()
+//         .withName("7422")
+//         .withTopic("Software Engineering")
+//         .withCredits(42)
+//         .withDoors(artsRoom, examRoom);
 
-      Room examRoom = university.createRooms()
-         .withName("The End")
-         .withTopic("exam")
-         .withCredits(0)
-         .withDoors(sportsRoom, artsRoom);
-
-      Room softwareEngineering = university.createRooms()
-         .withName("7422")
-         .withTopic("Software Engineering")
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
-
-      storyboard.addObjectDiagram(
-         "studyRight", university,
-         "karli", "icons/karli.png", karli,
-         "mathRoom", "icons/mathroom.png", mathRoom,
-         "artsRoom", artsRoom,
-         "sportsRoom", sportsRoom,
-         "examRoom", examRoom,
-         "placeToBe", softwareEngineering,
-         "icons/matrix.png", a1,
-         "icons/limes.png", a2, "icons/integralAssignment.png", integrals);
+//      storyboard.addObjectDiagram(
+//         "studyRight", university,
+//         "karli", "icons/karli.png", karli,
+//         "mathRoom", "icons/mathroom.png", mathRoom,
+//         "artsRoom", artsRoom,
+//         "sportsRoom", sportsRoom,
+//         "examRoom", examRoom,
+//         "placeToBe", softwareEngineering,
+//         "icons/matrix.png", a1,
+//         "icons/limes.png", a2, "icons/integralAssignment.png", integrals);
 
       // =====================================================
       storyboard.addStep("Serialize to json:");
@@ -699,6 +699,33 @@ public class StudyRightWithAssignmentsStoryboards
       story.dumpHTML();
    }
 
+   
+   /**
+    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
+    */
+   @Test
+   public void testReports()
+   {
+      University university = new University()
+         .withName("StudyRight");
+
+      Student abu = university.createStudents()
+         .withId("1337")
+         .withName("Abu");
+
+      Student alice = university.createStudents()
+         .withId("2323")
+         .withName("Alice");
+
+      abu.withFriends(alice);
+
+      IdMap map=new IdMap();
+      map.with(new org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator());
+      map.with(new org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentCreator());
+      
+      System.out.println(map.toJsonArray(university).toString(2));
+   }
+   
    /**
     * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
     */
@@ -737,7 +764,7 @@ public class StudyRightWithAssignmentsStoryboards
       Assignment a2 = new Assignment()
          .withContent("Series")
          .withPoints(6);
-
+//
       Assignment a3 = new Assignment()
          .withContent("Integrals")
          .withPoints(8);
@@ -764,19 +791,19 @@ public class StudyRightWithAssignmentsStoryboards
          .withDoors(mathRoom, artsRoom)
          .withStudents(abu, alice);
 
-      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
+//      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
 
-      Room examRoom = university.createRooms()
-         .withName("The End")
-         .withTopic("exam")
-         .withCredits(0)
-         .withDoors(sportsRoom, artsRoom);
+//      Room examRoom = university.createRooms()
+//         .withName("The End")
+//         .withTopic("exam")
+//         .withCredits(0)
+//         .withDoors(sportsRoom, artsRoom);
 
-      Room softwareEngineering = university.createRooms()
-         .withName("7422")
-         .withTopic("Software Engineering")
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
+//      Room softwareEngineering = university.createRooms()
+//         .withName("7422")
+//         .withTopic("Software Engineering")
+//         .withCredits(42)
+//         .withDoors(artsRoom, examRoom);
 
       story.addObjectDiagram(university);
 

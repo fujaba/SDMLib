@@ -269,6 +269,11 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+code[data-lang]:before{display:none;content:attr(data-lang);font-size:.75em;line-height:1;text-transform:uppercase;color:#999;
+	position:relative;float:right;
+}
+code:hover[data-lang]:before{display:block}
+pre .title {text-align:center}
 
 .conum[data-value]:after {content: attr(data-value);}
 .conum[data-value] {
@@ -279,10 +284,49 @@
 	border-radius: 100px;
 	text-align: center;
 	font-size: 8px;
-	width: 12px;
-	height: 12px;
-	line-height: 12px;
+	width: 10px;
+	height: 10px;
+	line-height: 10px;
 	font-family: "Open Sans","DejaVu Sans",sans-serif;
 	font-style: normal;
 	font-weight: bold;
 }
+.symbol {
+	font-size: 0.9em;
+	font-family: Times New Roman;
+	border-radius: 1em;
+	padding-left: .6em;
+	padding-right: .6em;
+	font-weight: bolder;
+	float:left;
+	color: white;
+	background-color: #4E5A56;
+	-webkit-margin-after:0;
+	-webkit-margin-before:0;
+}
+
+.icon-info { background-color: #3229CF; }
+.icon-error { background: #e64943; font-family: Consolas; }
+.icon-tick { background: #13c823; }
+.icon-excl { background: #ffd54b; color: black; }
+
+.icon-info:before { content: 'i'; }
+.icon-error:before { content: 'x'; }
+.icon-tick:before { content: '\002713'; }
+.notify {
+	display:flex;
+	background-color:#e3f7fc;
+	color:#555; 
+	border:.1em solid;
+	border-color: #8ed9f6;
+	border-radius:10px;
+	font-size:1.1em;
+	padding:10px 10px 10px 10px;
+	margin:10px;
+	float:left;
+	cursor: default;
+}
+.notify-text { margin-left:10px;white-space:nowrap;}
+.notify-yellow { background: #fff8c4; border-color: #f7deae; }
+.notify-red { background: #ffecec; border-color: #fad9d7; }
+.notify-green { background: #e9ffd9; border-color: #D1FAB6; }
