@@ -92,7 +92,7 @@ public class HistoryScenarios
 
       market.withOffers(coffeeOffer);
       
-      story.assertTrue("change message should contain Bid", buf.indexOf(".Bid") >= 0);
+      story.assertTrue("change message should contain Bid", buf.indexOf("bids") >= 0);
       story.assertTrue("change message should contain 42.23", buf.indexOf("42.23") >= 0);
       story.assertTrue("change message should contain Starbucks", buf.indexOf("Starbucks") >= 0);
       RefTimeStampsMap refTimeStampsMap = idMap.toManyChanges.get(marketId);

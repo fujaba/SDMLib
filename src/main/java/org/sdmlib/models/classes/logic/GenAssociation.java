@@ -495,50 +495,58 @@ public class GenAssociation extends Generator<Association>
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            String setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
-                  "\n   {" +
-                  "\n      boolean changed = false;" +
-                  "\n      " +
-                  "\n      if (this.partnerRoleName != value)" +
-                  "\n      {" +
-                  "\n         partnerClassName oldValue = this.partnerRoleName;" +
-                  "\n         " +
-                  "\n         if (this.partnerRoleName != null)" +
-                  "\n         {" +
-                  "\n            this.partnerRoleName = null;" +
-                  "\n            oldValue.withoutMethodCall(this);" +
-                  "\n         }" +
-                  "\n         " +
-                  "\n         this.partnerRoleName = value;" +
-                  "\n         " +
-                  "\n         if (value != null)" +
-                  "\n         {" +
-                  "\n            value.withMyRoleName(this);" +
-                  "\n         }" +
-                  "\n         " +
-                  "\n         PROPERTYCHANGEADD" +
-                  "\n         changed = true;" +
-                  "\n      }" +
-                  "\n      " +
-                  "\n      return changed;" +
-                  "\n   }" +
-                  "\n";
-
-//FIXME NESSESSARY??            if (this.model.getType()==AssociationTypes.EDGE || GraphUtil.isInterface(partnerRole.getClazz()))
-//            {
-//               // uni directional assoc, do not call reverse
-//               setMeth = CGUtil.replaceAll(setMeth, 
-//                  "\n         if (this.partnerRoleName != null)" +
-//                        "\n         {" +
-//                        "\n            this.partnerRoleName = null;" +
-//                        "\n            oldValue.withoutMethodCall(this);" +
-//                        "\n         }", "",
-//                        "\n         if (value != null)" +
-//                              "\n         {" +
-//                              "\n            value.withMyRoleName(this);" +
-//                              "\n         }", ""
-//                     );
-//            }
+        	 String setMeth = "";
+        	 if (this.model.getType().equals(AssociationTypes.EDGE)) {
+        		 // unidirectional
+        		 setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+                         "\n   {" +
+                         "\n      boolean changed = false;" +
+                         "\n      " +
+                         "\n      if (this.partnerRoleName != value)" +
+                         "\n      {" +
+                         "\n         partnerClassName oldValue = this.partnerRoleName;" +
+                         "\n         " +
+                         "\n         this.partnerRoleName = value;" +
+                         "\n         " +
+                         "\n         PROPERTYCHANGEADD" +
+                         "\n         changed = true;" +
+                         "\n      }" +
+                         "\n      " +
+                         "\n      return changed;" +
+                         "\n   }" +
+                         "\n";
+        	 } else {
+        		 // bidirectional
+        		 setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+                         "\n   {" +
+                         "\n      boolean changed = false;" +
+                         "\n      " +
+                         "\n      if (this.partnerRoleName != value)" +
+                         "\n      {" +
+                         "\n         partnerClassName oldValue = this.partnerRoleName;" +
+                         "\n         " +
+                         "\n         if (this.partnerRoleName != null)" +
+                         "\n         {" +
+                         "\n            this.partnerRoleName = null;" +
+                         "\n            oldValue.withoutMethodCall(this);" +
+                         "\n         }" +
+                         "\n         " +
+                         "\n         this.partnerRoleName = value;" +
+                         "\n         " +
+                         "\n         if (value != null)" +
+                         "\n         {" +
+                         "\n            value.withMyRoleName(this);" +
+                         "\n         }" +
+                         "\n         " +
+                         "\n         PROPERTYCHANGEADD" +
+                         "\n         changed = true;" +
+                         "\n      }" +
+                         "\n      " +
+                         "\n      return changed;" +
+                         "\n   }" +
+                         "\n";
+        	 }
+            
             text.append(setMeth);
          }
          else

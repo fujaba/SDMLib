@@ -62,7 +62,7 @@ public class TestSuperClazzes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_e");
 		Clazz person = model.createClazz("Person");
-		person.with(Modifier.create("abstract"));
+		person.with(Modifier.create("public"), Modifier.create("abstract"));
 		Clazz teacher = model.createClazz("Teacher");
 		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
 		
