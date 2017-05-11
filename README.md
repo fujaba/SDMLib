@@ -77,8 +77,8 @@ In addition to class models, SDMLib will also support object diagrams, storyboar
  - To learn about class diagrams and code generation, start with 
    (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightWithAssignmentsClassGeneration.html).
 	
- - To learn how to use the generated classes see and to generate test documentation with story pages see 
-   (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightWithAssignmentsStoryPage.html).
+ - To learn how to use the generated classes see and to generate test documentation with storyboards see 
+   (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightWithAssignmentsStoryboard.html).
 	
  - For advanced model navigation and model transformations have a look at 
    (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightObjectModelNavigationAndQueries.html).
