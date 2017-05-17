@@ -36,8 +36,8 @@ public class ReachbilityGraphSimpleExamples
       Node n22 = s21.createNodes().withPrev(n21);
       Node n23 = s21.createNodes().withPrev(n22).withNext(n21);
       
-      IdMap map = SimpleStateCreator.createIdMap("s");
-      IdMap map2 = SimpleStateCreator.createIdMap("s");
+      IdMap map = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
+      IdMap map2 = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
       
       // mark them at different places
       n21.withNum(42);
@@ -61,7 +61,7 @@ public class ReachbilityGraphSimpleExamples
       storyboard.add(s1cert);
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
+      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s").withTimeStamp(1));
       
       LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
       
@@ -122,7 +122,7 @@ public class ReachbilityGraphSimpleExamples
       Node n23 = s21.createNodes().withPrev(n22);
       Node n24 = s21.createNodes().withPrev(n23).withNext(n21);
       
-      IdMap map = SimpleStateCreator.createIdMap("s");
+      IdMap map = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
       IdMap map2 = SimpleStateCreator.createIdMap("t");
       
       storyboard.addObjectDiagram(s11);
@@ -142,7 +142,7 @@ public class ReachbilityGraphSimpleExamples
       storyboard.add(s1cert);
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
+      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s").withTimeStamp(1));
       
       LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
       
