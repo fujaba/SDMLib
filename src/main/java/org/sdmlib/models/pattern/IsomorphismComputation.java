@@ -9,8 +9,8 @@ public class IsomorphismComputation
 
    public static LinkedHashMap<String, String> calculateMatch(Object graph1, Object graph2, IdMap creators)
    {
-      IdMap map1 = new IdMap().withSession("s").with(creators);
-      IdMap map2 = new IdMap().withSession("s").with(creators);
+      IdMap map1 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
+      IdMap map2 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
 
       ReachableState rs1 = new ReachableState().withGraphRoot(graph1);
       ReachableState rs2 = new ReachableState().withGraphRoot(graph2);
@@ -19,7 +19,7 @@ public class IsomorphismComputation
       String s2cert = rs2.computeCertificate(map2);
 
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators));
+      reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators).withTimeStamp(1));
 
       return reachabilityGraph.match(rs1, rs2);
    }

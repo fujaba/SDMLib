@@ -21,13 +21,14 @@ public class ReachibilityErrorTest {
 		reachableState.withGraphRoot(simpleState);
 		
 		IdMap idMap = SimpleStateCreator.createIdMap("s");
+//		idMap.withTimeStamp(1);
 		JsonArray jsonArray = idMap.toJsonArray(reachableState.getGraphRoot());
 	
 		JsonObject jsonObject = (JsonObject) jsonArray.get(0);
 	
 		String id = (String) jsonObject.get(IdMap.ID);
 		
-		IdMap newIdMap = new IdMap().withSession("s").with(idMap);
+		IdMap newIdMap = new IdMap().with(idMap);
 		
 		jsonArray = newIdMap.toJsonArray(reachableState.getGraphRoot());
 		
