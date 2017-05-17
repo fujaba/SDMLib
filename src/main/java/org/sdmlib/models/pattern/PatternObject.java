@@ -607,7 +607,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * 
     * @return The PatternLinkSet
     */
-   public PatternLinkSet getOutgoing()
+   private PatternLinkSet getOutgoing()
    {
       if (this.outgoing == null)
       {
