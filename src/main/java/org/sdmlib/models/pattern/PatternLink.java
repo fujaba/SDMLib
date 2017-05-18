@@ -146,7 +146,7 @@ import org.sdmlib.models.pattern.Pattern;
                   if ( ! variablesAlreadyInTrace.contains(setVarName))
                   {
                      variablesAlreadyInTrace.add(setVarName);
-                     setVarName = value.getClass().getSimpleName() + " " + setVarName;
+                     setVarName = (value == null ? "null" : value.getClass().getSimpleName()) + " " + setVarName;
                   }
                   
                   getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
