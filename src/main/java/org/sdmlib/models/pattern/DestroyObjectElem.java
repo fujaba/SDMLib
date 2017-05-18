@@ -60,6 +60,8 @@ import org.sdmlib.models.pattern.Pattern;
             SendableEntityCreator creatorClass = (SendableEntityCreator) this.getPattern().getIdMap().getCreatorClass(currentMatch);
             if(creatorClass instanceof EntityFactory) {
             	((EntityFactory)creatorClass).removeObject(currentMatch);
+            }else if(creatorClass instanceof SendableEntityCreator){
+               ((SendableEntityCreator)creatorClass).setValue(currentMatch, null, null, SendableEntityCreator.REMOVE_YOU);
             }
             
             if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)

@@ -1080,6 +1080,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
+                     "      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {\n"+
+                     "           ((entitiyClassName)target).removeYou();\n"+
+                     "           return true;\n"+
+                     "      }\n"+
                      "      if (SendableEntityCreator.REMOVE.equals(type) && value != null)\n" +
                      "      {\n" +
                      "         attrName = attrName + type;\n" +

@@ -783,7 +783,8 @@ public class GenAttribute extends Generator<Attribute>
       }
       else if ("boolean".equals(type))
       {
-         type = "Boolean";
+         typePlaceholder = "(type) value";
+         type = "Boolean.valueOf(value.toString())";
          modelClass = false;
       }
       else if (isEnumType(model, ownerClazz, false))
