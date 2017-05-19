@@ -1121,18 +1121,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
       else
       {
+         Pattern onDutyPattern = this.getPattern().getOnDutyPattern();
          if (tgt.getTopPattern() != this.getTopPattern())
          {
-            this.getPattern().withElements(tgt);
+            onDutyPattern.withElements(tgt);
          }
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
             .withTgt(tgt).withTgtRoleName(roleName)
             .withSrc(this)
             .withModifier(modifier);
 
-         this.getPattern().addToElements(patternLink);
+         onDutyPattern.addToElements(patternLink);
 
-         this.getPattern().getOnDutyPattern().findMatch();
+         onDutyPattern.findMatch();
       }
 
       return (POC) this;
