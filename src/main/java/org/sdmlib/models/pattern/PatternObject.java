@@ -353,6 +353,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
 
       this.getPattern().addToElements(nac);
+      
+      this.getPattern().withCurrentSubPattern(nac);
 
       if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
@@ -391,6 +393,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
 
       this.getPattern().addToElements(optionalSubPattern);
+      
+      this.getPattern().withCurrentSubPattern(optionalSubPattern);
 
       if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
@@ -1128,7 +1132,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
          this.getPattern().addToElements(patternLink);
 
-         this.getPattern().findMatch();
+         this.getPattern().getOnDutyPattern().findMatch();
       }
 
       return (POC) this;

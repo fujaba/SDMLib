@@ -79,17 +79,4 @@ public class POCreatorTest
             .getPattern().getPatternObjectCount());
       storyboard.dumpHTML();
    }
-
-   // FIXME ALBERT
-   //@Test
-   public void testMatchOtherThan(){
-      University university = new University();
-      Student student1 = university.createStudents();
-      
-      StudentPO studentPO = new StudentPO();
-      boolean addToMatchOtherThen = studentPO.addToMatchOtherThen(new MatchOtherThen().withForbidden(new StudentPO(student1)));
-      
-      assertFalse(!studentPO.isHasMatch());
-   }
-
 }

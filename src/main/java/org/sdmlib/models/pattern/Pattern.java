@@ -1131,6 +1131,11 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    }
 
 
+   public Pattern getOnDutyPattern()
+   {
+      return this.currentSubPattern == null ? this : this.currentSubPattern;
+   }
+
    public void setCurrentSubPattern(Pattern value)
    {
       if (this.currentSubPattern != value)
