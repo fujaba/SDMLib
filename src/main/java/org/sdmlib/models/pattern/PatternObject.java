@@ -318,7 +318,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public POC startCreate()
    {
-      this.getPattern().startCreate();
+      this.getOnDutyPattern().startCreate();
 
       return (POC) this;
    }
@@ -326,7 +326,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public POC endCreate()
    {
-      this.getPattern().endCreate();
+      this.getOnDutyPattern().endCreate();
 
       return (POC) this;
    }
@@ -334,7 +334,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public POC startDestroy()
    {
-      this.getPattern().startDestroy();
+      this.getOnDutyPattern().startDestroy();
 
       return (POC) this;
    }
@@ -342,7 +342,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public POC endDestroy()
    {
-      this.getPattern().endCreate();
+      this.getOnDutyPattern().endCreate();
 
       return (POC) this;
    }
@@ -352,9 +352,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
 
-      this.getPattern().addToElements(nac);
+      this.getOnDutyPattern().addToElements(nac);
       
-      this.getPattern().withCurrentSubPattern(nac);
+      // this.getOnDutyPattern().withCurrentSubPattern(nac);
 
       if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
@@ -392,9 +392,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
 
-      this.getPattern().addToElements(optionalSubPattern);
+      Pattern onDutyPattern = this.getOnDutyPattern();
+      onDutyPattern.addToElements(optionalSubPattern);
       
-      this.getPattern().withCurrentSubPattern(optionalSubPattern);
+      onDutyPattern.withCurrentSubPattern(optionalSubPattern);
 
       if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
@@ -820,18 +821,18 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       if (Pattern.CREATE.equals(result.getModifier()))
       {
-         this.getPattern().addToElements(result);
+         this.getOnDutyPattern().addToElements(result);
 
-         this.getPattern().findMatch();
+         this.getOnDutyPattern().findMatch();
 
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
             .withTgt(result).withTgtRoleName(roleName)
             .withSrc(this)
             .withModifier(Pattern.CREATE);
 
-         this.getPattern().addToElements(patternLink);
+         this.getOnDutyPattern().addToElements(patternLink);
 
-         patternLink.getPattern().findMatch();
+         patternLink.getOnDutyPattern().findMatch();
       }
       else
       {
@@ -841,11 +842,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
          patternLink.setModifier(result.getModifier());
 
-         this.getPattern().addToElements(patternLink);
+         this.getOnDutyPattern().addToElements(patternLink);
 
-         this.getPattern().addToElements(result);
+         this.getOnDutyPattern().addToElements(result);
 
-         result.getPattern().findMatch();
+         result.getOnDutyPattern().findMatch();
       }
    }
 
@@ -875,7 +876,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      this.getPattern().findMatch();
+      this.getOnDutyPattern().findMatch();
 
       return (POC) this;
    }
@@ -896,7 +897,25 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      this.getPattern().findMatch();
+      this.getOnDutyPattern().findMatch();
+
+      return (POC) this;
+   }
+
+
+   public POC createCondition(Condition<MC> condition, String text)
+   {
+      GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
+         .withCondition(o -> {
+            return o != null && ((Condition<Object>) condition).update(o);
+         })
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
+      genericConstraint.withText(text);
+      
+      this.getOnDutyPattern().findMatch();
 
       return (POC) this;
    }
@@ -912,7 +931,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      this.getPattern().findMatch();
+      this.getOnDutyPattern().findMatch();
 
       return (POC) this;
    }
@@ -922,12 +941,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    {
       PatternPath patternPath = new PatternPath();
       patternPath.setPathExpr(expression);
-      patternPath.withSrc(this).withPattern(this.getPattern());
+      patternPath.withSrc(this)
+      .withPattern(this.getOnDutyPattern());
       patternPath.withTgt(targetPatternObject);
 
-      targetPatternObject.withPattern(this.getPattern());
+      targetPatternObject.withPattern(this.getOnDutyPattern());
 
-      this.getPattern().findMatch();
+      this.getOnDutyPattern().findMatch();
 
       return targetPatternObject;
    }
