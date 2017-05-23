@@ -56,6 +56,9 @@ import org.sdmlib.models.pattern.Pattern;
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
+            if(srcObj == null){
+               return false;
+            }
             SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);

@@ -39,6 +39,8 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.test.model.util.EntityCreator;
+
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
@@ -276,10 +278,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       if (Pattern.DESTROY.equals(getModifier()) && this.getCurrentMatch() != null)
       {
          Object currentMatch = this.getCurrentMatch();
-         // FIXME: well thats quite old stuff
-         EntityFactory creatorClass = (EntityFactory) this.getPattern().getIdMap().getCreatorClass(currentMatch);
+         
+         Object creatorClass = this.getPattern().getIdMap().getCreatorClass(currentMatch);
+         if(creatorClass instanceof SendableEntityCreator){
+            ((SendableEntityCreator) creatorClass).setValue(currentMatch, null, null, SendableEntityCreator.REMOVE_YOU);
+         }else if(creatorClass instanceof EntityFactory){
+            ((EntityFactory) creatorClass).removeObject(currentMatch);
+         }
 
-         creatorClass.removeObject(currentMatch);
       }
 
       return resultStat;
@@ -442,7 +448,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
          this.getPattern().findMatch();
       }
-
+      
+      
       return (POC) this;
    }
 
