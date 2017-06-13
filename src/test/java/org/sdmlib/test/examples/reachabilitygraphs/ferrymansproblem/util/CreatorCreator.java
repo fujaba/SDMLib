@@ -17,6 +17,7 @@ class CreatorCreator{
       jsonIdMap.with(new BankPOCreator());
       jsonIdMap.with(new CargoCreator());
       jsonIdMap.with(new CargoPOCreator());
+      jsonIdMap.withTimeStamp(1);
       return jsonIdMap;
    }
 }

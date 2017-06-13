@@ -10,6 +10,7 @@ public class SDMLibIdMap extends IdMap
    public SDMLibIdMap(String session)
    {
       this.withSession(session);
+      this.withTimeStamp(1);
    }
 
    @Override

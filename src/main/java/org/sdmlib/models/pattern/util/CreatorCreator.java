@@ -47,6 +47,7 @@ class CreatorCreator{
       jsonIdMap.with(new ConditionPOCreator());
       jsonIdMap.with(new ObjectCreator());
       jsonIdMap.with(new ObjectPOCreator());
+      jsonIdMap.withTimeStamp(1);
       return jsonIdMap;
    }
 }

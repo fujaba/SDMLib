@@ -811,6 +811,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                // is the new graph already known?
                newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
                newJsonIdMap.withSession("s");
+               newJsonIdMap.withTimeStamp(1);
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
 
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
@@ -1129,6 +1130,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       IdMap map1 = (IdMap) new IdMap().with(masterMap);
       IdMap map2 = (IdMap) new IdMap().with(masterMap);
 
+      map1.withTimeStamp(1);
+      map2.withTimeStamp(1);
       map1.withSession("s");
       map2.withSession("s");
 
@@ -1330,6 +1333,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   // does the certificate match?
                   String cert1 = s1.getNode2certificates().get(tgt1);
                   String cert2 = s2.getNode2certificates().get(tgt2);
+                  if(cert1 == null) {
+                	  return cert2 == null;
+                  }
 
                   if (cert1.equals(cert2))
                   {
