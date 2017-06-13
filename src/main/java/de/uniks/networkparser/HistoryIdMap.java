@@ -14,6 +14,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class HistoryIdMap extends IdMap
@@ -349,7 +350,18 @@ public class HistoryIdMap extends IdMap
       {
          // create a new one
          String className = classNameFromId(id);
-         SendableEntityCreator creator = this.getCreator(className, true, null);
+         SimpleList<SendableEntityCreator> candidates = new SimpleList<SendableEntityCreator>();
+         SendableEntityCreator creator = this.getCreator(className, false, candidates);
+         if(creator == null && candidates.size()>0) {
+        	 creator = candidates.first();
+        	 for(SendableEntityCreator candidate : candidates) {
+        		 String name = candidate.getClass().getName();
+        		 if(name.startsWith("de.uniks.networkparser.")) {
+        			 continue;
+        		 }
+        		 creator = candidate;
+        	 }
+         }
          obj = creator.getSendableInstance(false);
          this.put(id, obj);
          // add to re-birth, if necessary
@@ -674,6 +686,9 @@ public class HistoryIdMap extends IdMap
          {
             // found the position; check position in SimpleSet
             Object container = creator.getValue(object, prop);
+            if(container == null) {
+            	return;
+            }
             SimpleSet<Object> toManySet = (SimpleSet<Object>) container;
             int indexOf = toManySet.indexOf(addObject);
             if (indexOf != i)
@@ -714,6 +729,9 @@ public class HistoryIdMap extends IdMap
    {
       int pos = id.indexOf('#');
       int colonPos = id.indexOf(':', pos);
+      if(colonPos<0) {
+    	  return 1;
+      }
       String lifeNumString = id.substring(pos + 1, colonPos);
       long lifeNum = Long.valueOf(lifeNumString);
       return lifeNum;
@@ -947,8 +965,8 @@ public class HistoryIdMap extends IdMap
    private long number = 1;
    
    
-   public String createId(Object obj)
-   {
+   @Override
+   public String createId(Object obj, boolean notification) {
       String key;
       
       if (obj == null)
