@@ -59,7 +59,14 @@ public class GenericConstraint extends PatternElement<GenericConstraint>implemen
 
          if (ok && getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
-            getTopPattern().addLogMsg("// match is isomorphic");
+            if (this.getText() == null)
+            {
+               getTopPattern().addLogMsg("// match is isomorphic");
+            }
+            else
+            {
+               getTopPattern().addLogMsg("// " + this.getText() + " is OK ");
+            }
          }
 
          return ok;

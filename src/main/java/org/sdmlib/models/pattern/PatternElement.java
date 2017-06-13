@@ -90,6 +90,17 @@ import org.sdmlib.models.pattern.Pattern;
       firePropertyChange("REMOVE_YOU", this, null);
    }
    
+   
+   
+   /********************************************************************
+    * get current sub pattern
+    * @return Pattern&lt;PatternElement&lt;?&gt;&gt;
+    */
+   public Pattern getOnDutyPattern()
+   {
+      return this.getPattern().getOnDutyPattern();
+   }
+   
    /********************************************************************
     * <pre>
     *              many                       one

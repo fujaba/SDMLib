@@ -8,6 +8,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class POCreator
 {
@@ -99,10 +100,10 @@ public class POCreator
             continue;
          }
 
-         if (value instanceof SDMSet)
+         if (value instanceof SimpleSet)
          {
             // If to Many
-            ((SDMSet<SendableEntity>) value).forEach(t -> setValue(
+            ((SimpleSet<SendableEntity>) value).forEach(t -> setValue(
                po, property, createPO(t, creators, po, property)));
          }
          else if (value instanceof SendableEntity)

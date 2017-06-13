@@ -49,6 +49,8 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern>implements Pr
          return false;
       }
 
+      setMatchForward(false);
+      
       return super.findMatch();
    }
 

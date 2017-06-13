@@ -1,24 +1,26 @@
 package org.sdmlib.test.examples.pattern;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import org.junit.Test;
+import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.POCreator;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
 
 public class POCreatorTest
 {
 
-//FIXME ALBERT   @Test
+   @Test
    public void testPOCreator()
    {
       // Storyboard storyboard = new Storyboard();
       University university = new University();
-      Room mathRoom = university.createRooms().withCredits(6).withName("Math");
+      Room mathRoom = university.withName("UniKasselVersität").createRooms().withCredits(6).withName("Math");
       mathRoom.createStudents().withName("Sudi Sorglos");
 
       // storyboard.addObjectDiagram(university);
@@ -40,7 +42,7 @@ public class POCreatorTest
     * 
     * @see <a href='../../../../../../../../doc/POCreatorLargeModel.html'>POCreatorLargeModel.html</a>
  */
-//FIXME ALBERT   @Test
+   @Test
    public void testPOCreatorLargeModel()
    {
       StoryboardImpl storyboard = new StoryboardImpl();
@@ -77,5 +79,4 @@ public class POCreatorTest
             .getPattern().getPatternObjectCount());
       storyboard.dumpHTML();
    }
-
 }
