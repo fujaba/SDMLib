@@ -26,7 +26,7 @@ public class Generic2Specific
                type = packageName + "." + type;
             }
             
-            SendableEntityCreator creatorClass = idMap.getCreator(type, true);
+            SendableEntityCreator creatorClass = idMap.getCreator(type, true, null);
             
             if (creatorClass != null)
             {

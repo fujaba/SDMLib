@@ -220,7 +220,7 @@ import javafx.application.Platform;
       Object object = map.getObject(change.getObjectId());
       
       String objectType = change.getObjectType();
-      SendableEntityCreator creator = map.getCreator(objectType, false);
+      SendableEntityCreator creator = map.getCreator(objectType, false, null);
       
       if (object == null)
       {
@@ -251,7 +251,7 @@ import javafx.application.Platform;
             if (targetObject == null)
             {
                // not yet known target, build it. 
-               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
+               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false, null);
                targetObject = targetCreator.getSendableInstance(false);
                this.put(newValueId, targetObject);
             }
@@ -284,7 +284,7 @@ import javafx.application.Platform;
             if (targetObject == null)
             {
                // create unknown target
-               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
+               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false, null);
                targetObject = targetCreator.getSendableInstance(false);
                this.put(targetId, targetObject);
             }

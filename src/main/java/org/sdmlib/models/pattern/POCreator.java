@@ -81,8 +81,8 @@ public class POCreator
       }
       // TODO: is this the best solution for finding the corresponding POs?
       SendableEntityCreator poCreator = creators.getCreator(entity.getClass().getPackage().getName() + ".util."
-         + entity.getClass().getSimpleName() + "PO", true);
-      SendableEntityCreator creator = creators.getCreator(entity.getClass().getName(), true);
+         + entity.getClass().getSimpleName() + "PO", true, null);
+      SendableEntityCreator creator = creators.getCreator(entity.getClass().getName(), true, null);
       PatternObject po = (PatternObject) poCreator.getSendableInstance(false);
       if (parentPO != null && incommingProperty != null)
       {

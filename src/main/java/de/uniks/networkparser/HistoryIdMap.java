@@ -349,7 +349,7 @@ public class HistoryIdMap extends IdMap
       {
          // create a new one
          String className = classNameFromId(id);
-         SendableEntityCreator creator = this.getCreator(className, true);
+         SendableEntityCreator creator = this.getCreator(className, true, null);
          obj = creator.getSendableInstance(false);
          this.put(id, obj);
          // add to re-birth, if necessary
@@ -524,6 +524,9 @@ public class HistoryIdMap extends IdMap
       int pos = id.indexOf('.');
       pos = id.indexOf('.', pos + 1);
       int colonPos = id.indexOf(':');
+      if(colonPos<0) {
+    	  return id;
+      }
       String result = id.substring(pos + 1, colonPos);
       return result;
    }
@@ -720,6 +723,9 @@ public class HistoryIdMap extends IdMap
    private String ownerId(String id)
    {
       int pos = id.indexOf('.');
+      if(pos<0) {
+    	  return id;
+      }
       String owner = id.substring(0, pos);
       return owner;
    }
@@ -788,6 +794,9 @@ public class HistoryIdMap extends IdMap
    public static String baseId(String id)
    {
       int lifePos = id.indexOf('#');
+      if(lifePos<0) {
+    	  return id;
+      }
       String baseId = id.substring(0, lifePos);
       return baseId;
    }

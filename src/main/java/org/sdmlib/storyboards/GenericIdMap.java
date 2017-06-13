@@ -4,12 +4,12 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.SimpleList;
 
 public class GenericIdMap extends SDMLibJsonIdMap
 {
-   @Override
-   public SendableEntityCreator getCreator(String className, boolean fullName) 
-   {
+	@Override
+		public SendableEntityCreator getCreator(String className, boolean fullName, SimpleList<SendableEntityCreator> creators) {
       if (className.startsWith("java.util.Collections$"))
       {
          return null;

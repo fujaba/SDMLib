@@ -911,7 +911,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      try
                      {
                         String poClassName = CGUtil.helperClassName(valueClass.getName(), "PO");
-                        SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true);
+                        SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true, null);
                         Object po = poCreator.getSendableInstance(false);
                         try
                         {
