@@ -2309,7 +2309,8 @@ public class Parser
       {
     	  // Try to rekursiv add
     	  insertImport(className.substring(genericType+1, className.lastIndexOf(">")));
-    	  strings = new String[]{className.substring(0, genericType)}; 
+    	  String preType = className.substring(0, genericType);
+    	  strings = preType.split(","); 
       } else {
     	  strings = className.split(",");
       }
