@@ -21,6 +21,8 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.DataTypeMap;
+import de.uniks.networkparser.graph.DataTypeSet;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.list.BooleanList;
@@ -111,31 +113,47 @@ public class GenAttribute extends Generator<Attribute>
       String modelSetType = value.getName(false);
       ArrayList<String> importList = new ArrayList<String>();
       modelSetType = modelSetType.trim();
-      int index = modelSetType.indexOf("<");
+//      int index = modelSetType.indexOf("<");
 
-      if (index >= 0)
-      {
-         String listType = modelSetType.substring(0, index);
-
-         if ("List Vector HashSet HashMap".indexOf(listType) >= 0)
-         {
-            listType = "java.util." + listType;
-         }
-
-         importList.add(listType);
-         String substring = modelSetType.substring(index + 1, modelSetType.lastIndexOf(">"));
-         String[] strings = substring.split(",");
-
-         for (String string : strings)
-         {
-            Clazz findClass = ((ClassModel) model.getClazz().getClassModel()).getGenerator().findClass(string);
-            if (findClass != null)
-            {
-               importList.add(findClass.getName(false));
-            } else if(EntityUtil.isPrimitiveType(string) == false) {
-               importList.add(string);
-            }
-         }
+      if (value instanceof DataTypeSet) {
+    	  DataTypeSet setType = (DataTypeSet) value;
+    	  importList.add(setType.getClazz().getName());
+    	  ArrayList<String> subTypes = checkImportClassesFromType(setType.getGeneric());
+    	  importList.addAll(subTypes);
+      }else if(value instanceof DataTypeMap) {
+    	  DataTypeMap mapType = (DataTypeMap) value;
+    	  importList.add(mapType.getClazz().getName());
+    	  ArrayList<String> subTypes = checkImportClassesFromType(mapType.getGenericKey());
+    	  importList.addAll(subTypes);
+    	  subTypes = checkImportClassesFromType(mapType.getGenericValue());
+    	  importList.addAll(subTypes);
+//         String listType = modelSetType.substring(0, index);
+//
+//         if ("List Vector HashSet HashMap".indexOf(listType) >= 0)
+//         {
+//            listType = "java.util." + listType;
+//         }
+//
+//         importList.add(listType);
+//         String substring = modelSetType.substring(index + 1, modelSetType.lastIndexOf(">"));
+//         if(modelSetType.indexOf("<")>0 ) {
+//        	 ArrayList<String> subTypes = checkImportClassesFromType(DataType.create(substring));
+//        	 return subTypes;
+//         }
+//         
+//         //de.uniks.networkparser.list.SimpleKeyValueList<String,String>
+//         //String[] strings = substring.split(",");
+//
+//         for (String string : strings)
+//         {
+//            Clazz findClass = ((ClassModel) model.getClazz().getClassModel()).getGenerator().findClass(string);
+//            if (findClass != null)
+//            {
+//               importList.add(findClass.getName(false));
+//            } else if(EntityUtil.isPrimitiveType(string) == false) {
+//               importList.add(string);
+//            }
+//         }
       }
       else
       {

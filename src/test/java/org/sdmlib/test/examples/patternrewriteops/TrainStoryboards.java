@@ -95,6 +95,6 @@ public class TrainStoryboards
       
       storyboard.dumpHTML();
 
-      Assert.assertEquals("station should be vacant ",  3, stat1.getPeople().size());
+      Assert.assertEquals("station should be vacant ",  0, stat1.getPeople().size());
    }
 }
