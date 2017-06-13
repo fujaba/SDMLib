@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2017 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,30 +21,77 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 public class SignalFlagSet extends SimpleSet<SignalFlag>
 {
-   public SignalFlagPO hasSignalFlagPO()
+	public Class<?> getTypClass() {
+		return SignalFlag.class;
+	}
+
+   public SignalFlagSet()
    {
-      return new SignalFlagPO (this.toArray(new SignalFlag[this.size()]));
+      // empty
    }
 
+   public SignalFlagSet(SignalFlag... objects)
+   {
+      for (SignalFlag obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public SignalFlagSet(Collection<SignalFlag> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withFlag(SignalFlagSet.READONLY);
+
+
+   public SignalFlagPO createSignalFlagPO()
+   {
+      return new SignalFlagPO(this.toArray(new SignalFlag[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
+   }
+
+
+   @Override
+   public SignalFlagSet getNewList(boolean keyValue)
+   {
+      return new SignalFlagSet();
+   }
+
+
+   public SignalFlagSet filter(Condition<SignalFlag> condition) {
+      SignalFlagSet filterList = new SignalFlagSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   @SuppressWarnings("unchecked")
    public SignalFlagSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((SignalFlag) item);
-           }
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SignalFlag>)value);
       }
       else if (value != null)
       {
@@ -60,6 +107,11 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       return this;
    }
 
+   /**
+    * Loop through the current set of SignalFlag objects and collect a set of the Station objects reached via station. 
+    * 
+    * @return Set of Station objects reachable via station
+    */
    public StationSet getStation()
    {
       StationSet result = new StationSet();
@@ -72,7 +124,14 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       return result;
    }
 
-   public SignalFlagSet hasStation(Object value)
+   /**
+    * Loop through the current set of SignalFlag objects and collect all contained objects with reference station pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as station neighbor of the collected results. 
+    * 
+    * @return Set of Station objects referring to value via station
+    */
+   public SignalFlagSet filterStation(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -98,6 +157,11 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       return answer;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the SignalFlag object passed as parameter to the Station attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Station attributes.
+    */
    public SignalFlagSet withStation(Station value)
    {
       for (SignalFlag obj : this)
@@ -108,6 +172,11 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the SignalFlag object passed as parameter from the Station attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public SignalFlagSet withoutStation(Station value)
    {
       for (SignalFlag obj : this)
@@ -118,37 +187,4 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       return this;
    }
 
-
-   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withFlag(SignalFlagSet.READONLY);
-
-
-   public SignalFlagPO filterSignalFlagPO()
-   {
-      return new SignalFlagPO(this.toArray(new SignalFlag[this.size()]));
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
-   }
-
-   public SignalFlagSet()
-   {
-      // empty
-   }
-
-   public SignalFlagSet(SignalFlag... objects)
-   {
-      for (SignalFlag obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public SignalFlagSet(Collection<SignalFlag> objects)
-   {
-      this.addAll(objects);
-   }
 }
-

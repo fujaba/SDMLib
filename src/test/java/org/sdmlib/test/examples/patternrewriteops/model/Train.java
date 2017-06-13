@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2017 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,71 +21,148 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Person;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
-*/
-   public class Train implements PropertyChangeInterface, SendableEntity
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
+   public  class Train implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
+   
    //==========================================================================
+   
    
    public void removeYou()
    {
-      setStation(null);
-      removeAllFromPassengers();
       withoutPassengers(this.getPassengers().toArray(new Person[this.getPassengers().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setStation(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
-   public static final TrainSet EMPTY_SET = new TrainSet();
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Train ----------------------------------- Person
+    *              train                   passengers
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PASSENGERS = "passengers";
+
+   private PersonSet passengers = null;
+   
+   public PersonSet getPassengers()
+   {
+      if (this.passengers == null)
+      {
+         return PersonSet.EMPTY_SET;
+      }
+   
+      return this.passengers;
+   }
+
+   public Train withPassengers(Person... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Person item : value)
+      {
+         if (item != null)
+         {
+            if (this.passengers == null)
+            {
+               this.passengers = new PersonSet();
+            }
+            
+            boolean changed = this.passengers.add (item);
+
+            if (changed)
+            {
+               item.withTrain(this);
+               firePropertyChange(PROPERTY_PASSENGERS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Train withoutPassengers(Person... value)
+   {
+      for (Person item : value)
+      {
+         if ((this.passengers != null) && (item != null))
+         {
+            if (this.passengers.remove(item))
+            {
+               item.setTrain(null);
+               firePropertyChange(PROPERTY_PASSENGERS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Person createPassengers()
+   {
+      Person value = new Person();
+      withPassengers(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -108,7 +185,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public boolean setStation(Station value)
    {
       boolean changed = false;
@@ -130,7 +207,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             value.withTrains(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, oldValue, value);
+         firePropertyChange(PROPERTY_STATION, oldValue, value);
          changed = true;
       }
       
@@ -146,120 +223,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public Station createStation()
    {
       Station value = new Station();
       withStation(value);
       return value;
    } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Train ----------------------------------- Person
-    *              train                   passengers
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PASSENGERS = "passengers";
-
-   private PersonSet passengers = null;
-   
-   public PersonSet getPassengers()
-   {
-      if (this.passengers == null)
-      {
-         return Person.EMPTY_SET;
-      }
-   
-      return this.passengers;
-   }
-
-   public boolean addToPassengers(Person value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.passengers == null)
-         {
-            this.passengers = new PersonSet();
-         }
-         
-         changed = this.passengers.add (value);
-         
-         if (changed)
-         {
-            value.withTrain(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public boolean removeFromPassengers(Person value)
-   {
-      boolean changed = false;
-      
-      if ((this.passengers != null) && (value != null))
-      {
-         changed = this.passengers.remove (value);
-         
-         if (changed)
-         {
-            value.setTrain(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public Train withPassengers(Person... value)
-   {
-      for (Person item : value)
-      {
-         addToPassengers(item);
-      }
-      return this;
-   } 
-
-   public Train withoutPassengers(Person... value)
-   {
-      for (Person item : value)
-      {
-         removeFromPassengers(item);
-      }
-      return this;
-   }
-
-   public void removeAllFromPassengers()
-   {
-      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(this.getPassengers());
-   
-      for (Person value : tmpSet)
-      {
-         this.removeFromPassengers(value);
-      }
-   }
-
-   public Person createPassengers()
-   {
-      Person value = new Person();
-      withPassengers(value);
-      return value;
-   } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
-
+}

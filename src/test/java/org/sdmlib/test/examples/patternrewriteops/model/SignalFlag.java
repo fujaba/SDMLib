@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2017 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,64 +21,72 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
-*/
-   public class SignalFlag implements PropertyChangeInterface, SendableEntity
+ */
+   public  class SignalFlag implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
+   
    //==========================================================================
+   
    
    public void removeYou()
    {
-      removeAllFromStation();
       withoutStation(this.getStation().toArray(new Station[this.getStation().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -98,58 +106,34 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       if (this.station == null)
       {
-         return Station.EMPTY_SET;
+         return StationSet.EMPTY_SET;
       }
    
       return this.station;
    }
 
-   public boolean addToStation(Station value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.station == null)
-         {
-            this.station = new StationSet();
-         }
-         
-         changed = this.station.add (value);
-         
-         if (changed)
-         {
-            value.withFlag(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public boolean removeFromStation(Station value)
-   {
-      boolean changed = false;
-      
-      if ((this.station != null) && (value != null))
-      {
-         changed = this.station.remove (value);
-         
-         if (changed)
-         {
-            value.setFlag(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    public SignalFlag withStation(Station... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Station item : value)
       {
-         addToStation(item);
+         if (item != null)
+         {
+            if (this.station == null)
+            {
+               this.station = new StationSet();
+            }
+            
+            boolean changed = this.station.add (item);
+
+            if (changed)
+            {
+               item.withFlag(this);
+               firePropertyChange(PROPERTY_STATION, null, item);
+            }
+         }
       }
       return this;
    } 
@@ -158,19 +142,16 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       for (Station item : value)
       {
-         removeFromStation(item);
+         if ((this.station != null) && (item != null))
+         {
+            if (this.station.remove(item))
+            {
+               item.setFlag(null);
+               firePropertyChange(PROPERTY_STATION, item, null);
+            }
+         }
       }
       return this;
-   }
-
-   public void removeAllFromStation()
-   {
-      LinkedHashSet<Station> tmpSet = new LinkedHashSet<Station>(this.getStation());
-   
-      for (Station value : tmpSet)
-      {
-         this.removeFromStation(value);
-      }
    }
 
    public Station createStation()
@@ -179,14 +160,4 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       withStation(value);
       return value;
    } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
-
+}

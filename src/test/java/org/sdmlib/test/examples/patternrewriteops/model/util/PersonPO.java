@@ -1,10 +1,12 @@
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -12,7 +14,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public PersonSet allMatches()
    {
       this.setDoAllMatches(true);
@@ -31,58 +33,21 @@ public class PersonPO extends PatternObject<PersonPO, Person>
 
 
    public PersonPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(null);
    }
 
    public PersonPO(Person... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
-   public StationPO hasStation()
-   {
-      StationPO result = new StationPO(new Station[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_STATION, result);
-      
-      return result;
+      newInstance(null, hostGraphObject);
    }
 
-   public StationPO createStation()
+   public PersonPO(String modifier)
    {
-      return this.startCreate().hasStation().endCreate();
+      this.setModifier(modifier);
    }
-
-   public PersonPO hasStation(StationPO tgt)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_STATION);
-   }
-
-   public PersonPO createStation(StationPO tgt)
-   {
-      return this.startCreate().hasStation(tgt).endCreate();
-   }
-
-   public Station getStation()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) this.getCurrentMatch()).getStation();
-      }
-      return null;
-   }
-
-   public TrainPO hasTrain()
+   public TrainPO createTrainPO()
    {
       TrainPO result = new TrainPO(new Train[]{});
       
@@ -92,19 +57,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public TrainPO createTrain()
+   public TrainPO createTrainPO(String modifier)
    {
-      return this.startCreate().hasTrain().endCreate();
+      TrainPO result = new TrainPO(new Train[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_TRAIN, result);
+      
+      return result;
    }
 
-   public PersonPO hasTrain(TrainPO tgt)
+   public PersonPO createTrainLink(TrainPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN);
    }
 
-   public PersonPO createTrain(TrainPO tgt)
+   public PersonPO createTrainLink(TrainPO tgt, String modifier)
    {
-      return this.startCreate().hasTrain(tgt).endCreate();
+      return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN, modifier);
    }
 
    public Train getTrain()
@@ -116,7 +86,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public StationPO filterStation()
+   public StationPO createStationPO()
    {
       StationPO result = new StationPO(new Station[]{});
       
@@ -126,25 +96,33 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
-   public PersonPO filterStation(StationPO tgt)
+   public StationPO createStationPO(String modifier)
    {
-      return hasLinkConstraint(tgt, Person.PROPERTY_STATION);
-   }
-
-   public TrainPO filterTrain()
-   {
-      TrainPO result = new TrainPO(new Train[]{});
+      StationPO result = new StationPO(new Station[]{});
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_TRAIN, result);
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_STATION, result);
       
       return result;
    }
 
-   public PersonPO filterTrain(TrainPO tgt)
+   public PersonPO createStationLink(StationPO tgt)
    {
-      return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN);
+      return hasLinkConstraint(tgt, Person.PROPERTY_STATION);
+   }
+
+   public PersonPO createStationLink(StationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_STATION, modifier);
+   }
+
+   public Station getStation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) this.getCurrentMatch()).getStation();
+      }
+      return null;
    }
 
 }
-

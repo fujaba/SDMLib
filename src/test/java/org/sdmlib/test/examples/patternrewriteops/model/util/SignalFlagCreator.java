@@ -1,12 +1,32 @@
+/*
+   Copyright (c) 2017 Stefan
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
-import de.uniks.networkparser.IdMap;
-
-public class SignalFlagCreator extends EntityFactory
+public class SignalFlagCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -28,46 +48,56 @@ public class SignalFlagCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (SignalFlag.PROPERTY_STATION.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (SignalFlag.PROPERTY_STATION.equalsIgnoreCase(attribute))
       {
          return ((SignalFlag) target).getStation();
       }
-
+      
       return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (REMOVE.equals(type) && value != null)
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((SignalFlag)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
       if (SignalFlag.PROPERTY_STATION.equalsIgnoreCase(attrName))
       {
-         ((SignalFlag) target).addToStation((Station) value);
+         ((SignalFlag) target).withStation((Station) value);
          return true;
       }
       
-      if ((SignalFlag.PROPERTY_STATION + REMOVE).equalsIgnoreCase(attrName))
+      if ((SignalFlag.PROPERTY_STATION + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((SignalFlag) target).removeFromStation((Station) value);
+         ((SignalFlag) target).withoutStation((Station) value);
          return true;
       }
+      
       return false;
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.patternrewriteops.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((SignalFlag) entity).removeYou();
    }
 }
-

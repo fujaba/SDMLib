@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2017 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,155 +21,21 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import java.util.Collection;
-
-import org.sdmlib.test.examples.patternrewriteops.model.Person;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
-import org.sdmlib.test.examples.patternrewriteops.model.Train;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 public class PersonSet extends SimpleSet<Person>
 {
-   public PersonPO hasPersonPO()
-   {
-      return new PersonPO (this.toArray(new Person[this.size()]));
-   }
-
-   public PersonSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Person) item);
-           }
-      }
-      else if (value != null)
-      {
-         this.add((Person) value);
-      }
-      
-      return this;
-   }
-   
-   public PersonSet without(Person value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-   public StationSet getStation()
-   {
-      StationSet result = new StationSet();
-      
-      for (Person obj : this)
-      {
-         result.with(obj.getStation());
-      }
-      
-      return result;
-   }
-
-   public PersonSet hasStation(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PersonSet answer = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (neighbors.contains(obj.getStation()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public PersonSet withStation(Station value)
-   {
-      for (Person obj : this)
-      {
-         obj.withStation(value);
-      }
-      
-      return this;
-   }
-
-   public TrainSet getTrain()
-   {
-      TrainSet result = new TrainSet();
-      
-      for (Person obj : this)
-      {
-         result.with(obj.getTrain());
-      }
-      
-      return result;
-   }
-
-   public PersonSet hasTrain(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PersonSet answer = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (neighbors.contains(obj.getTrain()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public PersonSet withTrain(Train value)
-   {
-      for (Person obj : this)
-      {
-         obj.withTrain(value);
-      }
-      
-      return this;
-   }
-
-
-   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
-
-
-   public PersonPO filterPersonPO()
-   {
-      return new PersonPO(this.toArray(new Person[this.size()]));
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.Person";
-   }
+	public Class<?> getTypClass() {
+		return Person.class;
+	}
 
    public PersonSet()
    {
@@ -188,5 +54,188 @@ public class PersonSet extends SimpleSet<Person>
    {
       this.addAll(objects);
    }
-}
 
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.patternrewriteops.model.Person";
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   @SuppressWarnings("unchecked")
+   public PersonSet with(Object value)
+   {
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect a set of the Train objects reached via train. 
+    * 
+    * @return Set of Train objects reachable via train
+    */
+   public TrainSet getTrain()
+   {
+      TrainSet result = new TrainSet();
+      
+      for (Person obj : this)
+      {
+         result.with(obj.getTrain());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect all contained objects with reference train pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as train neighbor of the collected results. 
+    * 
+    * @return Set of Train objects referring to value via train
+    */
+   public PersonSet filterTrain(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (neighbors.contains(obj.getTrain()) || (neighbors.isEmpty() && obj.getTrain() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Train attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Train attributes.
+    */
+   public PersonSet withTrain(Train value)
+   {
+      for (Person obj : this)
+      {
+         obj.withTrain(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect a set of the Station objects reached via station. 
+    * 
+    * @return Set of Station objects reachable via station
+    */
+   public StationSet getStation()
+   {
+      StationSet result = new StationSet();
+      
+      for (Person obj : this)
+      {
+         result.with(obj.getStation());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect all contained objects with reference station pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as station neighbor of the collected results. 
+    * 
+    * @return Set of Station objects referring to value via station
+    */
+   public PersonSet filterStation(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (neighbors.contains(obj.getStation()) || (neighbors.isEmpty() && obj.getStation() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Station attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Station attributes.
+    */
+   public PersonSet withStation(Station value)
+   {
+      for (Person obj : this)
+      {
+         obj.withStation(value);
+      }
+      
+      return this;
+   }
+
+}

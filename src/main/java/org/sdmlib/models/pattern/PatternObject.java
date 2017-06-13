@@ -277,9 +277,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       {
          Object currentMatch = this.getCurrentMatch();
          // FIXME: well thats quite old stuff
-         EntityFactory creatorClass = (EntityFactory) this.getPattern().getIdMap().getCreatorClass(currentMatch);
-
-         creatorClass.removeObject(currentMatch);
+         SendableEntityCreator creatorClass = (SendableEntityCreator) this.getPattern().getIdMap().getCreatorClass(currentMatch);
+         
+         if(creatorClass instanceof EntityFactory ) {
+        	 ((EntityFactory)creatorClass).removeObject(currentMatch);
+         } else {
+        	 creatorClass.setValue(currentMatch, null, null, SendableEntityCreator.REMOVE_YOU);
+         }
       }
 
       return resultStat;

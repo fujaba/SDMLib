@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 public class StationPOCreator extends PatternObjectCreator
 {
@@ -17,9 +16,7 @@ public class StationPOCreator extends PatternObjectCreator
       }
    }
    
-   public static IdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+   public static IdMap createIdMap(String sessionID) {
+      return org.sdmlib.test.examples.patternrewriteops.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }
-

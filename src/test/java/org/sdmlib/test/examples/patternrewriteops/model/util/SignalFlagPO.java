@@ -1,9 +1,11 @@
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 {
@@ -26,24 +28,21 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 
 
    public SignalFlagPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(null);
    }
 
    public SignalFlagPO(SignalFlag... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
-   public StationPO hasStation()
+      newInstance(null, hostGraphObject);
+   }
+
+   public SignalFlagPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public StationPO createStationPO()
    {
       StationPO result = new StationPO(new Station[]{});
       
@@ -53,19 +52,24 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       return result;
    }
 
-   public StationPO createStation()
+   public StationPO createStationPO(String modifier)
    {
-      return this.startCreate().hasStation().endCreate();
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SignalFlag.PROPERTY_STATION, result);
+      
+      return result;
    }
 
-   public SignalFlagPO hasStation(StationPO tgt)
+   public SignalFlagPO createStationLink(StationPO tgt)
    {
       return hasLinkConstraint(tgt, SignalFlag.PROPERTY_STATION);
    }
 
-   public SignalFlagPO createStation(StationPO tgt)
+   public SignalFlagPO createStationLink(StationPO tgt, String modifier)
    {
-      return this.startCreate().hasStation(tgt).endCreate();
+      return hasLinkConstraint(tgt, SignalFlag.PROPERTY_STATION, modifier);
    }
 
    public StationSet getStation()
@@ -77,20 +81,4 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       return null;
    }
 
-   public StationPO filterStation()
-   {
-      StationPO result = new StationPO(new Station[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SignalFlag.PROPERTY_STATION, result);
-      
-      return result;
-   }
-
-   public SignalFlagPO filterStation(StationPO tgt)
-   {
-      return hasLinkConstraint(tgt, SignalFlag.PROPERTY_STATION);
-   }
-
 }
-

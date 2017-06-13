@@ -1,14 +1,17 @@
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.patternrewriteops.model.Person;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.test.examples.patternrewriteops.model.Person;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public class TrainPO extends PatternObject<TrainPO, Train>
 {
 
@@ -32,72 +35,31 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public TrainPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(null);
    }
 
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
+ */
    public TrainPO(Train... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
-   public StationPO hasStation()
-   {
-      StationPO result = new StationPO(new Station[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Train.PROPERTY_STATION, result);
-      
-      return result;
-   }
-
-   public StationPO createStation()
-   {
-      return this.startCreate().hasStation().endCreate();
+      newInstance(null, hostGraphObject);
    }
 
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
-*/
-   public TrainPO hasStation(StationPO tgt)
+ */
+   public TrainPO(String modifier)
    {
-      return hasLinkConstraint(tgt, Train.PROPERTY_STATION);
+      this.setModifier(modifier);
    }
-
-   public TrainPO createStation(StationPO tgt)
-   {
-      return this.startCreate().hasStation(tgt).endCreate();
-   }
-
-   public Station getStation()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Train) this.getCurrentMatch()).getStation();
-      }
-      return null;
-   }
-
-   public PersonPO hasPassengers()
+   public PersonPO createPassengersPO()
    {
       PersonPO result = new PersonPO(new Person[]{});
       
@@ -107,19 +69,24 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
       return result;
    }
 
-   public PersonPO createPassengers()
+   public PersonPO createPassengersPO(String modifier)
    {
-      return this.startCreate().hasPassengers().endCreate();
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Train.PROPERTY_PASSENGERS, result);
+      
+      return result;
    }
 
-   public TrainPO hasPassengers(PersonPO tgt)
+   public TrainPO createPassengersLink(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Train.PROPERTY_PASSENGERS);
    }
 
-   public TrainPO createPassengers(PersonPO tgt)
+   public TrainPO createPassengersLink(PersonPO tgt, String modifier)
    {
-      return this.startCreate().hasPassengers(tgt).endCreate();
+      return hasLinkConstraint(tgt, Train.PROPERTY_PASSENGERS, modifier);
    }
 
    public PersonSet getPassengers()
@@ -131,7 +98,11 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
       return null;
    }
 
-   public StationPO filterStation()
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
+   public StationPO createStationPO()
    {
       StationPO result = new StationPO(new Station[]{});
       
@@ -141,25 +112,37 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
       return result;
    }
 
-   public TrainPO filterStation(StationPO tgt)
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
+   public StationPO createStationPO(String modifier)
    {
-      return hasLinkConstraint(tgt, Train.PROPERTY_STATION);
-   }
-
-   public PersonPO filterPassengers()
-   {
-      PersonPO result = new PersonPO(new Person[]{});
+      StationPO result = new StationPO(new Station[]{});
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Train.PROPERTY_PASSENGERS, result);
+      result.setModifier(modifier);
+      super.hasLink(Train.PROPERTY_STATION, result);
       
       return result;
    }
 
-   public TrainPO filterPassengers(PersonPO tgt)
+   public TrainPO createStationLink(StationPO tgt)
    {
-      return hasLinkConstraint(tgt, Train.PROPERTY_PASSENGERS);
+      return hasLinkConstraint(tgt, Train.PROPERTY_STATION);
+   }
+
+   public TrainPO createStationLink(StationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Train.PROPERTY_STATION, modifier);
+   }
+
+   public Station getStation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Train) this.getCurrentMatch()).getStation();
+      }
+      return null;
    }
 
 }
-

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2017 Stefan
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,126 +21,74 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
-*/
-   public class Person implements PropertyChangeInterface, SendableEntity
+ */
+   public  class Person implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
+   
    //==========================================================================
+   
    
    public void removeYou()
    {
-      setStation(null);
       setTrain(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setStation(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Person ----------------------------------- Station
-    *              people                   station
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STATION = "station";
-
-   private Station station = null;
-
-   public Station getStation()
-   {
-      return this.station;
-   }
-
-   public boolean setStation(Station value)
-   {
-      boolean changed = false;
-      
-      if (this.station != value)
-      {
-         Station oldValue = this.station;
-         
-         if (this.station != null)
-         {
-            this.station = null;
-            oldValue.withoutPeople(this);
-         }
-         
-         this.station = value;
-         
-         if (value != null)
-         {
-            value.withPeople(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Person withStation(Station value)
-   {
-      setStation(value);
-      return this;
-   } 
-
-   public Station createStation()
-   {
-      Station value = new Station();
-      withStation(value);
-      return value;
-   } 
-
-   
-   public static final PersonSet EMPTY_SET = new PersonSet();
 
    
    /********************************************************************
@@ -181,7 +129,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             value.withPassengers(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TRAIN, oldValue, value);
+         firePropertyChange(PROPERTY_TRAIN, oldValue, value);
          changed = true;
       }
       
@@ -201,13 +149,62 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return value;
    } 
 
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Person ----------------------------------- Station
+    *              people                   station
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STATION = "station";
+
+   private Station station = null;
+
+   public Station getStation()
    {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
+      return this.station;
    }
 
+   public boolean setStation(Station value)
+   {
+      boolean changed = false;
+      
+      if (this.station != value)
+      {
+         Station oldValue = this.station;
+         
+         if (this.station != null)
+         {
+            this.station = null;
+            oldValue.withoutPeople(this);
+         }
+         
+         this.station = value;
+         
+         if (value != null)
+         {
+            value.withPeople(this);
+         }
+         
+         firePropertyChange(PROPERTY_STATION, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withStation(Station value)
+   {
+      setStation(value);
+      return this;
+   } 
+
+   public Station createStation()
+   {
+      Station value = new Station();
+      withStation(value);
+      return value;
+   } 
+}
