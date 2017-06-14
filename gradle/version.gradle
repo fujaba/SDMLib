@@ -1,42 +1,58 @@
-// MAJOR VERSION - Manually set
-//----------------------
-def majorNumber = 2
-//----------------------
-
 import java.text.SimpleDateFormat
 
-task printVersion {
-    doFirst {
-        println "$version"
-    }
-}
-
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), branch: getWorkingBranch(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release'), latest: project.hasProperty('latest') )
+	try{
+		buildAntCompile.execute()
+		buildAnt.execute()
+		project.ext.Revisionnumber = Integer.parseInt(ant.Revisionnumber)
+		if (project.hasProperty("branch")) {
+			project.ext.Branchname = ant.Branchname + " " + project.get("branch")
+		}else {
+			project.ext.Branchname = ant.Branchname
+		}
+		project.ext.LastCommit = ant.LastCommit
+		project.ext.GitTag = Integer.parseInt(ant.GitTag)
+	}catch(Exception e) {
+		println e
+		project.ext.Revisionnumber = revisionNumber()
+		if (project.hasProperty("branch")) {
+			project.ext.Branchname = project.get("branch")
+		} else {
+			project.ext.Branchname = ""
+		}
+		project.ext.LastCommit = getGitLastCommit()
+		project.ext.GitTag = getGitTag()
+	}
+	gitVersion = new GITVersion(major: ext.majorNumber,minor: ext.GitTag, revision: ext.Revisionnumber, hash: ext.LastCommit, buildTime: buildTime(), branch: ext.Branchname, latest: project.hasProperty('latest'))
 }
 version = gitVersion
-group = 'org.sdmlib'
+task version {
+	group "Git"
+	description "Show Final Version of Repository"
+	doLast {
+		println gitVersion
+
+		println "Revisionnumber: "	+ project.ext.Revisionnumber
+		println "Branchname: " 		+ project.ext.Branchname
+		println "LastCommit: "		+ project.ext.LastCommit
+		println "GitTag: "			+ project.ext.GitTag
+    }
+}
 
 // Define a method using a closure as the method body
 public class GITVersion {
 	// MAJOR VERSION - Manually set
-    int major = -1
-    int minor = -1
-    int revision = -1
-	
-    String buildTime
-    String mavenTime
-    String year
+	int major = -1
+	int minor = -1
+	int revision = -1
+	String buildTime
+	String hash = ""
+	String coverage = ""
 	String branch
-    String hash = ""
-    // change, if release is needed some day: boolean release
-    // also change version above to accept release property
-    boolean release = false
-    boolean lecture
+	String prefix = ""
 	boolean latest
-	
 
-    String toString() {
+	String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
@@ -56,19 +72,11 @@ public class GITVersion {
 	}
 }
 
-def getGitTag() {
-	def gittag=0
-	def test = [0]
-	executeCommand("git", "tag").eachLine {
-		try {
-			test << (it.trim() as int)
-		} catch (Exception ex) {
-			// no problem as long as there's another tag with a number
-		}
-	}
-	gittag = test.max()
-	println "Git-Tag: " + gittag
-	gittag
+def buildTime() {
+	//def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") //you can change it
+	def df = new SimpleDateFormat("yyyyMMdd'T'HHmmss") //you can change it
+	df.setTimeZone(TimeZone.getTimeZone("UTC"))
+	return df.format(new Date())
 }
 
 def executeCommand(String[] args) {
@@ -95,70 +103,43 @@ def executeCommand(String[] args) {
 	}
 	result
 }
+def getGitTag() {
+	def gittag=0
+	def test = [0]
+	executeCommand("git", "tag").eachLine {
+		try {
+			def id = it.trim()
+			def start = id.indexOf(".")
+			if(start>0) {
+				id = id.substring(start + 1)
+				start = id.indexOf(".")
+				if(start>0) {
+					id = id.substring(0, start)
+				}
+			}
+			test << (id as int)
+		} catch (Exception ex) {
+			// no problem as long as there's another tag with a number
+		}
+	}
+	gittag = test.max()
+	gittag
+}
+def getGitLastCommit() {
+	def gittag=""
+	executeCommand("git", "log", "--pretty=format:\"%H\"", "-1").eachLine {
+		gittag = it.trim()
+	}
+	gittag
+}
 
 def revisionNumber() {
 	def count = 0
 	executeCommand("git", "log", "--oneline").eachLine {
 		count = count + 1
 	}
-	println "RevisionNumber: " + count
-	count
-}
-
-def revisionHash() {
-    def gitFolder = "$projectDir/.git/"
-    def takeFromHash = 12
-
-    def head = new File(gitFolder + "HEAD").text.split(":")
-    def isCommit = head.length == 1
- 
-    if(isCommit) return head[0].trim().take(takeFromHash)
- 
-    def refHead = new File(gitFolder + head[1].trim())
-    refHead.text.trim().take takeFromHash
-}
-
-def buildTime() {
-	def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") //you can change it
-	df.setTimeZone(TimeZone.getTimeZone("UTC"))
-	return df.format(new Date())
-}
-
-def buildTimeYear() {
-	def df = new SimpleDateFormat("yyyy")
-	df.setTimeZone(TimeZone.getTimeZone("UTC"))
-	return df.format(new Date())
-}
-
-def mavenTime() {
-	def df = new SimpleDateFormat("yyyyMMddHHmmss")
-	df.setTimeZone(TimeZone.getTimeZone("UTC"))
-	return df.format(new Date())
-}
-/*
- * Get the name of the working branch of the project
- *
- * @return Name of the working branch
- */
-def getWorkingBranch() {
-    // Triple double-quotes for the breaklines
-	def commit, branch="", value
-	executeCommand("git", "rev-parse", "HEAD").eachLine {
-		commit = it.trim()
-		println "Commit: "+commit
-		executeCommand("git", "branch", "-r", "--contains", commit).eachLine {
-	        if(it.startsWith("* ")) {
-				value = it.substring(1).trim()
-			} else {
-				value = it.trim()
-			}
-			if(value.lastIndexOf("/")>0) {
-				value = value.substring(value.lastIndexOf("/")+1)
-			}
-			branch = branch + " "+value
-		}
+	if( count == 0) {
+		count = -1
 	}
-	branch = branch.trim()
-	println "Git-Branch: " + branch
-	branch
+	count
 }

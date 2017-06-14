@@ -3,16 +3,22 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
-if(new File("secring.gpg").exists()) {
-	apply plugin: 'signing'
+
+// MAJOR VERSION - Manually set
+//----------------------
+ext{
+	majorNumber = 2
 }
+//----------------------
 
 apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
 apply from: 'gradle/tasks.gradle'
-
+apply from: 'gradle/mavencentral.gradle'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+group = "org.sdmlib"
 
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
@@ -40,6 +46,9 @@ buildscript {
     }
 }
 
+artifacts { 
+    archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion
+}
 
 test {
     if (project.hasProperty('maxParallelForks'))

@@ -1,15 +1,12 @@
-import java.lang.ClassValue.Version;
-
-artifacts { 
-	archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion
-}
-
 def isReleaseBuild() {
-    return "$version".contains("SNAPSHOT") == false || project.hasProperty('release')
+	return gitVersion.isRelease();
 }
-if(new File("secring.gpg").exists()) {
+
+if(project.hasProperty("signing.keyId")) {
+	apply plugin: 'signing'
+
 	signing {
-		required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives")}
+		required { (isReleaseBuild() || gitVersion.isMaster() )&& gradle.taskGraph.hasTask("uploadArchives")}
 		sign configurations.archives
 	}
 
