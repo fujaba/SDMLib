@@ -3299,7 +3299,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             try
             {
-               SendableEntityCreator creator = map.getCreator(clazz.getName(false), true);
+               SendableEntityCreator creator = map.getCreator(clazz.getName(false), true, null);
 
                Object object1 = creator.getSendableInstance(false);
                if (largestModelRoot == null)
@@ -3328,7 +3328,7 @@ public class GenClassModel implements ClassModelAdapter
 
                   Clazz partnerClazz = role.getClazz();
 
-                  SendableEntityCreator partnerCreator = map.getCreator(partnerClazz.getName(false), true);
+                  SendableEntityCreator partnerCreator = map.getCreator(partnerClazz.getName(false), true, null);
 
                   Object partnerObject = partnerCreator.getSendableInstance(false);
                   map.getId(partnerObject);

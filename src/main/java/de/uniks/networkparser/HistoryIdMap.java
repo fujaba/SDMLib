@@ -349,7 +349,7 @@ public class HistoryIdMap extends IdMap
       {
          // create a new one
          String className = classNameFromId(id);
-         SendableEntityCreator creator = this.getCreator(className, true);
+         SendableEntityCreator creator = this.getCreator(className, true, null);
          obj = creator.getSendableInstance(false);
          this.put(id, obj);
          // add to re-birth, if necessary

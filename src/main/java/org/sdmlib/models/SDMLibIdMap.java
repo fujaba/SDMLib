@@ -4,6 +4,7 @@ import org.sdmlib.serialization.NullCreator;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.SimpleList;
 
 public class SDMLibIdMap extends IdMap
 {
@@ -13,9 +14,9 @@ public class SDMLibIdMap extends IdMap
    }
 
    @Override
-   public SendableEntityCreator getCreator(String clazz, boolean fullName)
+   public SendableEntityCreator getCreator(String clazz, boolean fullName, SimpleList<SendableEntityCreator> creators)
    {
-      SendableEntityCreator result = super.getCreator(clazz, fullName);
+      SendableEntityCreator result = super.getCreator(clazz, fullName, creators);
       
       if (result == NullCreator.get())
       {
