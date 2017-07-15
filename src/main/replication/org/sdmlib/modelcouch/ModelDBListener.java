@@ -204,7 +204,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 			return;
 		}
 
-		lastPersisted = seqObject.getLong("seq");
+		String lastPersistedId = seqObject.getString("seq");
+		lastPersisted = Long.valueOf(lastPersistedId.substring(0, lastPersistedId.indexOf('-')));
 
 		this.setApplyingChangeMsg(true);
 		try 
