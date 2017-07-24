@@ -26,10 +26,13 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.util.AssociationSet;
 
 public class StudyRightWithAssignmentsModel 
 {
@@ -97,6 +100,8 @@ public class StudyRightWithAssignmentsModel
 
       //Association universityToRoom = 
       universityClass.withBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE);
+      Association uniAssoc = roomClass.getAssociations().getOther().filter((Association a) -> a.getName().equals("university")).first();
+      uniAssoc.with(AssociationTypes.AGGREGATION);
       
       // Association doors = 
       roomClass.withBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);

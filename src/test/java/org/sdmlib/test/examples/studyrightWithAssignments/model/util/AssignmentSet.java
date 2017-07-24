@@ -32,6 +32,8 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
@@ -419,6 +421,100 @@ public class AssignmentSet extends SimpleSet<Assignment>
       }
       
       return this;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet createContentCondition(String value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value.equals(obj.getContent()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet createContentCondition(String lower, String upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower.compareTo(obj.getContent()) <= 0 && obj.getContent().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet createPointsCondition(int value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value == obj.getPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Assignment objects that match the parameter
+    */
+   public AssignmentSet createPointsCondition(int lower, int upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower <= obj.getPoints() && obj.getPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

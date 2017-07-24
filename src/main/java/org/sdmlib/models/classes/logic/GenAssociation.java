@@ -790,12 +790,31 @@ public class GenAssociation extends Generator<Association>
       // OK, found method, parse its body to find if that handles me. 
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      if (partnerRole.getCardinality() == Cardinality.MANY) {
-         String name = StrUtil.upFirstChar(partnerRole.getName());
-         String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
-         clazzName = CGUtil.shortClassName(clazzName);
-         removeCall = "without"+name;
-         fullRemoveCall = removeCall + "(this.get"+name+"().toArray(new "+clazzName+"[this.get"+name+"().size()]));\n      ";
+      
+      if (partnerRole.getCardinality() == Cardinality.MANY) 
+      {
+         if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
+         {
+            fullRemoveCall = "for (RoomType obj : new RoomSet(this.getRooms())) { obj.removeYou(); };\n      ";
+            
+            String name = StrUtil.upFirstChar(partnerRole.getName());
+            String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
+            clazzName = CGUtil.shortClassName(clazzName); 
+            removeCall = "get"+name;
+            
+            fullRemoveCall = CGUtil.replaceAll(fullRemoveCall, 
+               "RoomType", clazzName,
+               "getRooms", "get"+name,
+               "RoomSet", clazzName+"Set");
+         }
+         else
+         {
+            String name = StrUtil.upFirstChar(partnerRole.getName());
+            String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
+            clazzName = CGUtil.shortClassName(clazzName);
+            removeCall = "without"+name;
+            fullRemoveCall = removeCall + "(this.get"+name+"().toArray(new "+clazzName+"[this.get"+name+"().size()]));\n      ";
+         }
       }            
       
       int methodBodyStartPos = parser.getMethodBodyStartPos();

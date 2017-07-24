@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -350,6 +352,53 @@ public class UniversitySet extends SimpleSet<University>
       }
       
       return this;
+   }
+
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet createNameCondition(String value)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet createNameCondition(String lower, String upper)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

@@ -35,6 +35,9 @@ import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
 {
@@ -968,6 +971,264 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
       }
       
       return this;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the certified attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createCertifiedCondition(boolean value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.isCertified())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the assignmentPoints attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createAssignmentPointsCondition(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getAssignmentPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the assignmentPoints attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createAssignmentPointsCondition(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getAssignmentPoints() && obj.getAssignmentPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createCreditsCondition(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createCreditsCondition(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the id attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createIdCondition(String value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value.equals(obj.getId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the id attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createIdCondition(String lower, String upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower.compareTo(obj.getId()) <= 0 && obj.getId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the motivation attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createMotivationCondition(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getMotivation())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the motivation attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createMotivationCondition(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createNameCondition(String value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TeachingAssistant objects and collect those TeachingAssistant objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TeachingAssistant objects that match the parameter
+    */
+   public TeachingAssistantSet createNameCondition(String lower, String upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }
