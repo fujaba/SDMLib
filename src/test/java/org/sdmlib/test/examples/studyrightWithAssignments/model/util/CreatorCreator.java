@@ -17,6 +17,8 @@ class CreatorCreator{
       jsonIdMap.with(new AssignmentPOCreator());
       jsonIdMap.with(new TeachingAssistantCreator());
       jsonIdMap.with(new TeachingAssistantPOCreator());
+      jsonIdMap.with(new PresidentCreator());
+      jsonIdMap.with(new PresidentPOCreator());
       return jsonIdMap;
    }
 }

@@ -142,6 +142,11 @@ public class StudyRightWithAssignmentsModel
       .withAttribute("certified", DataType.BOOLEAN);
       
 
+      Clazz presidentClass = model.createClazz("President");
+      universityClass.withBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE);
+      uniAssoc = presidentClass.getAssociations().getOther().filter((Association a) -> a.getName().equals("university")).first();
+      uniAssoc.with(AssociationTypes.AGGREGATION);
+      
       //============================================================
       story.add("6. generate class source files.");
 

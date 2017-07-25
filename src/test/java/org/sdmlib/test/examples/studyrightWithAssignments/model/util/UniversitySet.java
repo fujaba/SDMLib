@@ -33,6 +33,8 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -399,6 +401,71 @@ public class UniversitySet extends SimpleSet<University>
       }
       
       return result;
+   }
+
+   /**
+    * Loop through the current set of University objects and collect a set of the President objects reached via president. 
+    * 
+    * @return Set of President objects reachable via president
+    */
+   public PresidentSet getPresident()
+   {
+      PresidentSet result = new PresidentSet();
+      
+      for (University obj : this)
+      {
+         result.with(obj.getPresident());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of University objects and collect all contained objects with reference president pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as president neighbor of the collected results. 
+    * 
+    * @return Set of President objects referring to value via president
+    */
+   public UniversitySet filterPresident(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (neighbors.contains(obj.getPresident()) || (neighbors.isEmpty() && obj.getPresident() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the University object passed as parameter to the President attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their President attributes.
+    */
+   public UniversitySet withPresident(President value)
+   {
+      for (University obj : this)
+      {
+         obj.withPresident(value);
+      }
+      
+      return this;
    }
 
 }

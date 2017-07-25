@@ -787,33 +787,42 @@ public class GenAssociation extends Generator<Association>
          return;
       }
 
+      
       // OK, found method, parse its body to find if that handles me. 
+      String roleName = StrUtil.upFirstChar(partnerRole.getName());
+      String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
+      clazzName = CGUtil.shortClassName(clazzName); 
+      
+      
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
+      
+      if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
+      {
+         removeCall = "get"+roleName;
+         fullRemoveCall = "if (getPresident() != null) { getPresident().removeYou(); }\n      ";
+               
+         fullRemoveCall =  CGUtil.replaceAll(fullRemoveCall, 
+            "getPresident", "get"+roleName);  
+      }
       
       if (partnerRole.getCardinality() == Cardinality.MANY) 
       {
          if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
          {
-            fullRemoveCall = "for (RoomType obj : new RoomSet(this.getRooms())) { obj.removeYou(); };\n      ";
+            fullRemoveCall = "for (RoomType obj : new RoomSet(this.getRooms())) { obj.removeYou(); }\n      ";
             
-            String name = StrUtil.upFirstChar(partnerRole.getName());
-            String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
-            clazzName = CGUtil.shortClassName(clazzName); 
-            removeCall = "get"+name;
+            removeCall = "get"+roleName;
             
             fullRemoveCall = CGUtil.replaceAll(fullRemoveCall, 
                "RoomType", clazzName,
-               "getRooms", "get"+name,
+               "getRooms", "get"+roleName,
                "RoomSet", clazzName+"Set");
          }
          else
          {
-            String name = StrUtil.upFirstChar(partnerRole.getName());
-            String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
-            clazzName = CGUtil.shortClassName(clazzName);
-            removeCall = "without"+name;
-            fullRemoveCall = removeCall + "(this.get"+name+"().toArray(new "+clazzName+"[this.get"+name+"().size()]));\n      ";
+            removeCall = "without"+roleName;
+            fullRemoveCall = removeCall + "(this.get"+roleName+"().toArray(new "+clazzName+"[this.get"+roleName+"().size()]));\n      ";
          }
       }            
       

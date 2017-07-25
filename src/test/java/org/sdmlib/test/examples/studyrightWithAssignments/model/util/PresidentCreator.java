@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,22 +21,16 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-public class UniversityCreator implements SendableEntityCreator
+public class PresidentCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      University.PROPERTY_NAME,
-      University.PROPERTY_STUDENTS,
-      University.PROPERTY_ROOMS,
-      University.PROPERTY_PRESIDENT,
+      President.PROPERTY_UNIVERSITY,
    };
    
    @Override
@@ -48,7 +42,7 @@ public class UniversityCreator implements SendableEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new University();
+      return new President();
    }
    
    @Override
@@ -62,24 +56,9 @@ public class UniversityCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (University.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (President.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
       {
-         return ((University) target).getName();
-      }
-
-      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
-      {
-         return ((University) target).getStudents();
-      }
-
-      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
-      {
-         return ((University) target).getRooms();
-      }
-
-      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attribute))
-      {
-         return ((University) target).getPresident();
+         return ((President) target).getUniversity();
       }
       
       return null;
@@ -88,44 +67,18 @@ public class UniversityCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (University.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((University) target).setName((String) value);
-         return true;
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((President)target).removeYou();
+           return true;
       }
-
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (President.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
       {
-         ((University) target).withStudents((Student) value);
-         return true;
-      }
-      
-      if ((University.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((University) target).withoutStudents((Student) value);
-         return true;
-      }
-
-      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attrName))
-      {
-         ((University) target).withRooms((Room) value);
-         return true;
-      }
-      
-      if ((University.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((University) target).withoutRooms((Room) value);
-         return true;
-      }
-
-      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attrName))
-      {
-         ((University) target).setPresident((President) value);
+         ((President) target).setUniversity((University) value);
          return true;
       }
       
@@ -139,6 +92,6 @@ public class UniversityCreator implements SendableEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((University) entity).removeYou();
+      ((President) entity).removeYou();
    }
 }

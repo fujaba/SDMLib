@@ -32,6 +32,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 /**
  * 
@@ -93,8 +94,10 @@ public  class University implements SendableEntity
 
    public void removeYou()
    {
+      
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
-      for (Room obj : new RoomSet(this.getRooms())) { obj.removeYou(); };
+      for (Room obj : new RoomSet(this.getRooms())) { obj.removeYou(); }
+      if (getPresident() != null) { getPresident().removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -309,6 +312,65 @@ public  class University implements SendableEntity
    {
       Room value = new Room();
       withRooms(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * University ----------------------------------- President
+    *              university                   president
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PRESIDENT = "president";
+
+   private President president = null;
+
+   public President getPresident()
+   {
+      return this.president;
+   }
+
+   public boolean setPresident(President value)
+   {
+      boolean changed = false;
+      
+      if (this.president != value)
+      {
+         President oldValue = this.president;
+         
+         if (this.president != null)
+         {
+            this.president = null;
+            oldValue.setUniversity(null);
+         }
+         
+         this.president = value;
+         
+         if (value != null)
+         {
+            value.withUniversity(this);
+         }
+         
+         firePropertyChange(PROPERTY_PRESIDENT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public University withPresident(President value)
+   {
+      setPresident(value);
+      return this;
+   } 
+
+   public President createPresident()
+   {
+      President value = new President();
+      withPresident(value);
       return value;
    } 
 }

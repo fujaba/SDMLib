@@ -49,6 +49,7 @@ import org.sdmlib.models.tables.util.RowPO;
 import org.sdmlib.models.tables.util.TablePO;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
@@ -282,10 +283,15 @@ public class StudyRightWithAssignmentsStoryboards
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
          
+         President president = university.createPresident();
+         
+         Assert.assertEquals("presidents lives", true, president.alive);
+         
          university.removeYou();
          
          Assert.assertEquals("studyright has no more rooms", 0, university.getRooms().size());
          Assert.assertEquals("karli still has assignments", 2, karli.getDone().size());
+         Assert.assertEquals("presidents is dead", false, president.alive);
          
    }
 
