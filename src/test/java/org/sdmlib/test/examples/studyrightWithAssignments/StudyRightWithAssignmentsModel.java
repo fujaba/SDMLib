@@ -99,9 +99,7 @@ public class StudyRightWithAssignmentsModel
       roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
 
       //Association universityToRoom = 
-      universityClass.withBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE);
-      Association uniAssoc = roomClass.getAssociations().getOther().filter((Association a) -> a.getName().equals("university")).first();
-      uniAssoc.with(AssociationTypes.AGGREGATION);
+      universityClass.withBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE, AssociationTypes.AGGREGATION);
       
       // Association doors = 
       roomClass.withBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
@@ -143,9 +141,7 @@ public class StudyRightWithAssignmentsModel
       
 
       Clazz presidentClass = model.createClazz("President");
-      universityClass.withBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE);
-      uniAssoc = presidentClass.getAssociations().getOther().filter((Association a) -> a.getName().equals("university")).first();
-      uniAssoc.with(AssociationTypes.AGGREGATION);
+      universityClass.withBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE, AssociationTypes.AGGREGATION);
       
       //============================================================
       story.add("6. generate class source files.");

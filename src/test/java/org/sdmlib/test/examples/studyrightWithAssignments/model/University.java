@@ -94,7 +94,6 @@ public  class University implements SendableEntity
 
    public void removeYou()
    {
-      
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       for (Room obj : new RoomSet(this.getRooms())) { obj.removeYou(); }
       if (getPresident() != null) { getPresident().removeYou(); }

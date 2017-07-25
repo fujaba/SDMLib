@@ -141,9 +141,7 @@
       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
 
       &#x2F;&#x2F;Association universityToRoom = 
-      universityClass.withBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-      Association uniAssoc = roomClass.getAssociations().getOther().filter((Association a) -&gt; a.getName().equals(&quot;university&quot;)).first();
-      uniAssoc.with(AssociationTypes.AGGREGATION);
+      universityClass.withBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE, AssociationTypes.AGGREGATION);
       
       &#x2F;&#x2F; Association doors = 
       roomClass.withBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
