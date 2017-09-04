@@ -29,6 +29,7 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
@@ -274,7 +275,7 @@ public class GenClass extends GenClazzEntity
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 		ClassModel model = (ClassModel) clazz.getClassModel();
-		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false) {
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(ClazzType.INTERFACE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();

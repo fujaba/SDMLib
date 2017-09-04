@@ -19,6 +19,7 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
@@ -979,6 +980,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          return null;
       }
 
+      if (model.getType().equals(ClazzType.INTERFACE)) {
+    	  return null;
+      }
+      
       if (creatorParser == null)
       {
          // try to find existing file
