@@ -792,6 +792,10 @@ public class GenClass extends GenClazzEntity
          return null;
       }
 
+      if (model.getType().equals(ClazzType.INTERFACE)) {
+    	  return null;
+      }
+      
       if (patternObjectCreatorParser == null)
       {
          // try to find existing file
