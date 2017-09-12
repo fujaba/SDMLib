@@ -76,9 +76,12 @@ public class GenClass extends GenClazzEntity
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
-            insertInterfaceMethods(model, rootDir, helpersDir);
+            
             if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
+            
+            insertInterfaceMethods(model, rootDir, helpersDir);
+            
 
             if (classModel.hasFeature(Feature.SERIALIZATION, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
