@@ -40,6 +40,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.GraphModel;
+import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
    /**
@@ -156,6 +157,18 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		result.append(" ").append(this.getId());
 		result.append(" ").append(this.getName());
       return result.substring(1);
+	}
+	
+	@Override
+	public boolean add(Object... values) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public BaseItem getNewList(boolean keyValue) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public ClassModel with(Clazz... values) {
@@ -363,4 +376,5 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		}
 		return null;
 	}
+
 }
