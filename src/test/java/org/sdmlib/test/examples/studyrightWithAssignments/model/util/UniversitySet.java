@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -31,10 +32,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 public class UniversitySet extends SimpleSet<University>
 {

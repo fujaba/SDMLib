@@ -1,8 +1,9 @@
 package org.sdmlib.test.historymanagement.marketmodel.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
+
+import de.uniks.networkparser.IdMap;
 
 public class MarketPOCreator extends PatternObjectCreator
 {

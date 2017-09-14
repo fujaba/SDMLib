@@ -21,16 +21,16 @@
    
 package org.sdmlib.simple.model.association_l.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.simple.model.association_l.Student;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.simple.model.association_l.util.LectureSet;
+
 import org.sdmlib.simple.model.association_l.Lecture;
-import org.sdmlib.simple.model.association_l.util.UniversitySet;
+import org.sdmlib.simple.model.association_l.Student;
 import org.sdmlib.simple.model.association_l.University;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class StudentSet extends SimpleSet<Student>
 {

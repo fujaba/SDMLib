@@ -21,11 +21,11 @@
    
 package org.sdmlib.simple.model.androidmodel;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
-import org.sdmlib.simple.model.androidmodel.Student;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/FeatureTest.java'>FeatureTest.java</a>

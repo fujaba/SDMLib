@@ -5,9 +5,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.OptionalSubPatternPO;
 
 public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, OptionalSubPattern>
 {

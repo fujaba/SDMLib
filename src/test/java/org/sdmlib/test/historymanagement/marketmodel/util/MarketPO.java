@@ -1,13 +1,10 @@
 package org.sdmlib.test.historymanagement.marketmodel.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
-import org.sdmlib.test.historymanagement.marketmodel.util.MarketPO;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class MarketPO extends PatternObject<MarketPO, Market>
 {

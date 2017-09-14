@@ -21,13 +21,13 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 public class UniversityCreator implements SendableEntityCreator
 {

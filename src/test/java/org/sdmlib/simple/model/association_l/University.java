@@ -22,7 +22,6 @@
 package org.sdmlib.simple.model.association_l;
 
 import org.sdmlib.simple.model.association_l.util.StudentSet;
-import org.sdmlib.simple.model.association_l.Student;
 
 public  interface University
 {

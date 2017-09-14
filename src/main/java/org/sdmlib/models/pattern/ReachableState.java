@@ -40,8 +40,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
-import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 /**
  * 

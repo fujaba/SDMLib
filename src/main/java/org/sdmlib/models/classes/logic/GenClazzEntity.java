@@ -4,15 +4,13 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 import de.uniks.networkparser.EntityUtil;
@@ -20,6 +18,8 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
@@ -356,7 +356,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!modelSetJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+        	 List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -861,7 +861,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+        	 List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -1015,7 +1015,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          if (!creatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+            List<String> featureSet = feature.getPath();
             for (String featureValue : featureSet)
             {
                String alternativePackageName = featureValue;

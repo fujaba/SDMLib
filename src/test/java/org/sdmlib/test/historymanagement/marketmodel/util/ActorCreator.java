@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.historymanagement.marketmodel.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.historymanagement.marketmodel.Bid;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ActorCreator implements SendableEntityCreator
 {

@@ -1,8 +1,6 @@
 package org.sdmlib.test.historymanagement;
 
 
-import static org.junit.Assert.*;
-
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -18,10 +16,8 @@ import de.uniks.networkparser.HistoryIdMap.RefTime;
 import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
 import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 
 public class HistoryScenarios

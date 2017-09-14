@@ -21,11 +21,12 @@
    
 package org.sdmlib.simple.model.association_l.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.simple.model.association_l.Student;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.simple.model.association_l.Lecture;
+import org.sdmlib.simple.model.association_l.Student;
 import org.sdmlib.simple.model.association_l.University;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class StudentCreator implements SendableEntityCreator
 {

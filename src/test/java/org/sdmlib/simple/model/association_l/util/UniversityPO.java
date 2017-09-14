@@ -1,11 +1,8 @@
 package org.sdmlib.simple.model.association_l.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.association_l.University;
-import org.sdmlib.simple.model.association_l.util.StudentPO;
 import org.sdmlib.simple.model.association_l.Student;
-import org.sdmlib.simple.model.association_l.util.UniversityPO;
-import org.sdmlib.simple.model.association_l.util.StudentSet;
+import org.sdmlib.simple.model.association_l.University;
 
 public class UniversityPO extends PatternObject<UniversityPO, University>
 {

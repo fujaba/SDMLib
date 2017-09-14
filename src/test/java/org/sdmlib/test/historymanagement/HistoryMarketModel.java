@@ -1,13 +1,15 @@
 package org.sdmlib.test.historymanagement;
 
+import static de.uniks.networkparser.graph.Cardinality.MANY;
+import static de.uniks.networkparser.graph.Cardinality.ONE;
+import static de.uniks.networkparser.graph.DataType.DOUBLE;
+import static de.uniks.networkparser.graph.DataType.STRING;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import static de.uniks.networkparser.graph.Cardinality.*;
 import de.uniks.networkparser.graph.Clazz;
-
-import static de.uniks.networkparser.graph.DataType.*;
 
 public class HistoryMarketModel
 {

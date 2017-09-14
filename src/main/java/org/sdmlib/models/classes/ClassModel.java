@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -39,6 +38,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -213,7 +214,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return this;
 	}
 
-	public ClassModel withFeatures(HashSet<FeatureProperty> value) {
+	public ClassModel withFeatures(Set<FeatureProperty> value) {
 		if (value == null) {
 			this.features.clear();
 			return this;

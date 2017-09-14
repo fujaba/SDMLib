@@ -24,7 +24,6 @@ import static org.sdmlib.models.pattern.Pattern.CREATE;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
@@ -70,7 +69,6 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class StudyRightWithAssignmentsStoryboards
 {

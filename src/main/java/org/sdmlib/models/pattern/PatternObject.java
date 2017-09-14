@@ -39,13 +39,6 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.test.model.util.EntityCreator;
-
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.CardinalityConstraint;
 
 /**
  * 

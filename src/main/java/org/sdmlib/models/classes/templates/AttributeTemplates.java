@@ -2,11 +2,11 @@ package org.sdmlib.models.classes.templates;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 

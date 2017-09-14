@@ -23,34 +23,23 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
 
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.util.GenericConstraintSet;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.util.UnifyGraphsOpSet;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.util.CloneOpSet;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.util.MatchIsomorphicConstraintSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.util.AttributeConstraintSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.util.PatternLinkSet;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SimpleSet<PatternElement>
 {
