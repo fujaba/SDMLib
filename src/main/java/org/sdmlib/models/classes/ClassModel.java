@@ -159,18 +159,6 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
       return result.substring(1);
 	}
 	
-	@Override
-	public boolean add(Object... values) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public BaseItem getNewList(boolean keyValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public ClassModel with(Clazz... values) {
 		super.with(values);
 		return this;
@@ -377,4 +365,13 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return null;
 	}
 
+	@Override
+	public boolean add(Object... values) {
+		return false;
+	}
+
+	@Override
+	public BaseItem getNewList(boolean keyValue) {
+		return new ClassModel();
+	}
 }

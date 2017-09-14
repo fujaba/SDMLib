@@ -19,7 +19,6 @@ public class SDMDiagramEditor extends Application {
 		ReflectionLoader.logger = System.err;
 		controller = new DiagramController(primaryStage);
 		controller.withIcon(StrUtil.class.getResource("sdmlib.png").toString());
-		
 		controller.show();
 	}
 	
