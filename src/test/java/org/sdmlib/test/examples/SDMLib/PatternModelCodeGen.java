@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -45,9 +44,9 @@ public class PatternModelCodeGen
       ClassModel model = new ClassModel("org.sdmlib.models.pattern");
 
       Clazz patternElement = model.createClazz("PatternElement")
-         .withAttribute("modifier", DataType.STRING)
-         .with(new Attribute("hasMatch", DataType.BOOLEAN).withValue("false"))
-         .withAttribute("patternObjectName", DataType.STRING)
+         .withAttribute("modifier", DataType.STRING);
+      patternElement.createAttribute("hasMatch", DataType.BOOLEAN).withValue("false");
+      patternElement.withAttribute("patternObjectName", DataType.STRING)
          .withAttribute("doAllMatches", DataType.BOOLEAN);
 
       Clazz pattern = model.createClazz("Pattern")

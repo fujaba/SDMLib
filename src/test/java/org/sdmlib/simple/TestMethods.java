@@ -18,7 +18,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_a");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think"));
+		person.createMethod("think");
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -30,7 +30,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_b");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID));
+		person.withMethod("think", DataType.VOID);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -42,7 +42,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_c");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING)));
+		person.withMethod("think", DataType.VOID, new Parameter(DataType.STRING));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -54,7 +54,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_d");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING).with("value")));
+		person.withMethod("think", DataType.VOID, new Parameter(DataType.STRING).with("value"));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -69,7 +69,7 @@ public class TestMethods {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room)).with("room")));
+		person.withMethod("think", DataType.VOID, new Parameter(DataType.create(room)).with("room"));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -81,8 +81,8 @@ public class TestMethods {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room)).with("room")));
-		person.with(new Method("read", DataType.VOID, new Parameter(room).with("room")));
+		person.withMethod("think", DataType.VOID, new Parameter(DataType.create(room)).with("room"));
+		person.withMethod("read", DataType.VOID, new Parameter(room).with("room"));
 	
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
@@ -95,7 +95,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_g");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeSet.create(DataType.STRING)).with("values")));
+		person.withMethod("think", DataType.VOID, new Parameter(DataTypeSet.create(DataType.STRING)).with("values"));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -107,7 +107,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_h");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeMap.create(DataType.STRING, DataType.STRING)).with("values")));
+		person.withMethod("think", DataType.VOID, new Parameter(DataTypeMap.create(DataType.STRING, DataType.STRING)).with("values"));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -119,7 +119,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_i");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING).with("value"), new Parameter(DataType.INT)));
+		person.withMethod("think", DataType.VOID, new Parameter(DataType.STRING).with("value"), new Parameter(DataType.INT));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -131,7 +131,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_j");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.STRING));
+		person.withMethod("think", DataType.STRING);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -143,7 +143,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_k");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING)));
+		person.withMethod("think", DataType.STRING, new Parameter(DataType.STRING));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -155,8 +155,8 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_l");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING))
-				, new Method("dontThink", DataType.VOID));
+		person.withMethod("think", DataType.STRING, new Parameter(DataType.STRING));
+		person.withMethod("dontThink", DataType.VOID);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -168,8 +168,8 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_m");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID)
-				.withBody("		String thought = \"\";\n"));
+		person.createMethod("think", DataType.VOID)
+				.withBody("		String thought = \"\";\n");
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -181,7 +181,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_n");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("checkSomething", DataType.BOOLEAN));
+		person.withMethod("checkSomething", DataType.BOOLEAN);
 		model.getGenerator().testGeneratedCode();
 		
 	}

@@ -6,7 +6,6 @@ import org.sdmlib.models.classes.ClassModel;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Method;
 
 public class testGen {
 
@@ -18,7 +17,7 @@ public class testGen {
 		person.createAttribute("name", DataType.STRING);
 		person.createAttribute("age", DataType.INT);
 
-		room.with(new Method("init", DataType.VOID));
+		room.withMethod("init", DataType.VOID);
 		
 		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
 		

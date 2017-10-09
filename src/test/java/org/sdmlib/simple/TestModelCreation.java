@@ -8,7 +8,6 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Literal;
-import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 
 public class TestModelCreation {
@@ -40,14 +39,13 @@ public class TestModelCreation {
 		roomInterface.withAttribute("number", DataType.INT);
 		
 		// Methods
-		Method teach = new Method("teach", DataType.STRING)
+		teacher.createMethod("teach", DataType.STRING)
 			.withBody("		String teachResult = \"greatResult\";\n"
 					+ "		return teachResult;\n");
 		
 		person.withMethod("think", DataType.VOID);
 		person.withMethod("dontThink", DataType.VOID, new Parameter(DataType.BOOLEAN));
 		pupil.withMethod("read", DataType.STRING);
-		teacher.with(teach);
 		
 		// Super Classes
 		pupil.withSuperClazz(person);

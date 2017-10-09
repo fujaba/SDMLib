@@ -6,6 +6,7 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Modifier;
 
@@ -32,7 +33,7 @@ public class SimpleModel
       Clazz helperClazz = model.createClazz("Item");
       helperClazz.createMethod("init").withBody("System.out.println(new Date());").with(Modifier.STATIC);
 //      model.getGenerator().getOrCreateClazz(helperClazz).insertImport("java.util.Date");
-      helperClazz.with(Import.create("java.util.Date"));
+      GraphUtil.setImport(helperClazz, Import.create("java.util.Date"));
       
       model.generate("src/test/java");
    }

@@ -5,7 +5,6 @@ import java.awt.Point;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -23,10 +22,10 @@ public class LudoReverseModel
             .withAttribute("style", DataType.STRING)
             .withAttribute("age", DataType.INT);
       
-      Clazz point = model.createClazz(Point.class.getName())
-            .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC))
-            .with(new Attribute("y", DataType.INT).with(Modifier.PUBLIC))
-            .withExternal(true);
+      Clazz point = model.createClazz(Point.class.getName());
+      point.createAttribute("x", DataType.INT).with(Modifier.PUBLIC);
+      point.createAttribute("y", DataType.INT).with(Modifier.PUBLIC);
+      point.withExternal(true);
       
       Clazz player = model.createClazz("Player")
             .withAttribute("name", DataType.STRING)
@@ -42,12 +41,12 @@ public class LudoReverseModel
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludoreverse.model");
 
       Clazz ludoClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Ludo")
-      .with(new Attribute("style", DataType.create("String")) )
-      .with(new Attribute("age", DataType.create("int")) );
+      .withAttribute("style", DataType.create("String"))
+      .withAttribute("age", DataType.create("int") );
 
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Player")
-      .with(new Attribute("name", DataType.create("String")) )
-      .with(new Attribute("color", DataType.create("String")) );
+      .withAttribute("name", DataType.create("String"))
+      .withAttribute("color", DataType.create("String"));
 
       ludoClass.withBidirectional(playerClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 

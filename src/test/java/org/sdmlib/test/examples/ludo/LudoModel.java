@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -43,10 +42,10 @@ public class LudoModel
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludo.model");
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.create(Date.class));
       
-      Clazz point = model.createClazz(Point.class.getName())
-            .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC))
-            .with(new Attribute("y", DataType.INT).with(Modifier.PUBLIC))
-            .withExternal(true);
+      Clazz point = model.createClazz(Point.class.getName());
+      point.createAttribute("x", DataType.INT).with(Modifier.PUBLIC);
+      point.createAttribute("y", DataType.INT).with(Modifier.PUBLIC);
+      point.withExternal(true);
       
       Clazz player = model.createClazz("Player")
             .withBidirectional(ludo, "game", Cardinality.ONE, "players", Cardinality.MANY)

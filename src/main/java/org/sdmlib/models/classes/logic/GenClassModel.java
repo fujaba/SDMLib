@@ -187,9 +187,8 @@ public class GenClassModel implements ClassModelAdapter
 	                                  attribute.with(DataType.OBJECT);
 	                              }
 	                          } else {
-	                              Attribute attribute = new Attribute("value"+no, DataType.create(type));
+	                              Attribute attribute = item.createAttribute("value"+no, DataType.create(type));
 	                              attributes.add(attribute);
-	                              item.with(attribute);
 	                          }
 	                      }
 	                      no++;
@@ -199,7 +198,7 @@ public class GenClassModel implements ClassModelAdapter
 	          GenClazzEntity orCreate = getOrCreate(item);
 	          Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
 	          orCreateParser.indexOf(Parser.CLASS_END);
-	          Method constructor = new Method(item.getName()).with(DataType.create(""));
+	          Method constructor = item.createMethod(item.getName(), DataType.create(""));
 	          String constructorBody = "";
 	          for(Attribute attribute : attributes) {
 	              constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
@@ -207,7 +206,6 @@ public class GenClassModel implements ClassModelAdapter
 	          }
 	          constructor.withBody(constructorBody);
 	          constructor.with(Modifier.PACKAGE);
-	          item.with(constructor);
 	      }
    }
 
@@ -2128,7 +2126,7 @@ public class GenClassModel implements ClassModelAdapter
             		.with(Cardinality.ONE)
             		.with(sourceLabel)
             		.with(other);
-            model.with(currentAssoc);
+            GraphUtil.setAssociation(model, currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
@@ -2622,7 +2620,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!assocWithRolesExists(sourceRole, targetRole))
       {
     	  sourceRole.with(targetRole);
-         clazz.with(sourceRole);
+    	  GraphUtil.setAssociation(clazz, sourceRole);
       }
    }
 

@@ -160,11 +160,6 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
       return result.substring(1);
 	}
 	
-	public ClassModel with(Clazz... values) {
-		super.with(values);
-		return this;
-	}
-	
 	@Override
 	public ClassModel with(String name) {
 		super.with(name);

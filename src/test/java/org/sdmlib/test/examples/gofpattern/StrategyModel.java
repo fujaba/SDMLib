@@ -47,7 +47,7 @@ public class StrategyModel
       // bStrategy.withBidirectional(bStrategy, "suc", Cardinality.ONE, "pre", Cardinality.ONE);
 
       // cm.removeAllGeneratedCode("src/test/java");
-      cm.withAuthorName("zuendorf");
+      cm.setAuthorName("zuendorf");
       cm.generate("src/test/java");
       
       story.addClassDiagram(cm);

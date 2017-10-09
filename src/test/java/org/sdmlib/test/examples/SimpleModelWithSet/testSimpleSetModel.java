@@ -19,14 +19,13 @@ public class testSimpleSetModel {
 		Clazz child = model.createClazz("Child");
 		person.withAttribute("name", DataTypeMap.create(DataType.STRING, DataType.create(person)));
 		
-		Method m1 = new Method("setParent")
+		Method m1 = child.createMethod("setParent")
 		      .with(new Parameter(DataType.create(person)).with("parent"));
 		m1.withBody("if (this.parent != parent) {\n"+
 					"if (this.parent != null) {\n"+
 					"}}");
-		child.with(m1);
 		
-		child.with(new Attribute("parent", DataType.create(person)));
+		child.withAttribute("parent", DataType.create(person));
 		
 		// model.removeAllGeneratedCode("src/test/java");
 		model.generate("src/test/java");

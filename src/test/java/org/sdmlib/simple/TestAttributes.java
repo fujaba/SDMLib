@@ -37,7 +37,7 @@ public class TestAttributes {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_c");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
-		person.with(new Attribute("age", DataType.INT));
+		person.withAttribute("age", DataType.INT);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -48,7 +48,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_d");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("names", DataTypeSet.create(DataType.STRING)));
+		person.withAttribute("names", DataTypeSet.create(DataType.STRING));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -59,7 +59,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_e");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("ages", DataTypeSet.create(DataType.INT)));
+		person.withAttribute("ages", DataTypeSet.create(DataType.INT));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -70,7 +70,7 @@ public class TestAttributes {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_f");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("names", DataTypeSet.create(DataType.STRING));
-		person.with(new Attribute("ages", DataTypeSet.create(DataType.INT)));
+		person.withAttribute("ages", DataTypeSet.create(DataType.INT));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -139,7 +139,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_l");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PRIVATE));
+		person.createAttribute("personalName", DataType.STRING).with(Modifier.PRIVATE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -152,7 +152,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_m");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PUBLIC));
+		person.createAttribute("personalName", DataType.STRING).with(Modifier.PUBLIC);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -162,7 +162,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_n");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.STATIC));
+		person.createAttribute("personalName", DataType.STRING).with(Modifier.STATIC);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -170,7 +170,7 @@ public class TestAttributes {
 	public void testClassWithProtectedModifiedAttribute() {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_o");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PROTECTED));
+		person.createAttribute("personalName", DataType.STRING).with(Modifier.PROTECTED);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}

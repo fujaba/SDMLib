@@ -146,7 +146,7 @@ public class StudyRightWithAssignmentsModel
 
       // model.removeAllGeneratedCode("src/test/java");
       
-      model.withAuthorName("zuendorf");
+      model.setAuthorName("zuendorf");
       story.markCodeStart();
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
       story.addCode();

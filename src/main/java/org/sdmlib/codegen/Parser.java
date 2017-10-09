@@ -696,6 +696,7 @@ public class Parser
                   .withMemberName(methodSignature)
                   .withKind(METHOD)
                   .withThrowsTags(throwsTags)
+                  //FIXME STEFAN RETURN
                   .withType(methodSignature + ":" + type)
                   .withStartPos(startPos)
                   .withEndPos(previousRealToken.startPos)
