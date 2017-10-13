@@ -9,8 +9,6 @@ class CreatorCreator{
       IdMap jsonIdMap = new IdMap().withSession(session);
       jsonIdMap.with(new PersonCreator());
       jsonIdMap.with(new PersonPOCreator());
-      jsonIdMap.with(new HumanCreator());
-      jsonIdMap.with(new HumanPOCreator());
       jsonIdMap.with(new StudentCreator());
       jsonIdMap.with(new StudentPOCreator());
       return jsonIdMap;

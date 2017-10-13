@@ -2,8 +2,11 @@ package org.sdmlib.simple.model.association_i.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.association_i.Person;
-import org.sdmlib.simple.model.association_i.Room;
+import org.sdmlib.simple.model.association_i.util.TeacherPO;
 import org.sdmlib.simple.model.association_i.Teacher;
+import org.sdmlib.simple.model.association_i.util.PersonPO;
+import org.sdmlib.simple.model.association_i.util.RoomPO;
+import org.sdmlib.simple.model.association_i.Room;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -40,45 +43,6 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       this.setModifier(modifier);
    }
-   public RoomPO createRoomPO()
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_ROOM, result);
-      
-      return result;
-   }
-
-   public RoomPO createRoomPO(String modifier)
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Person.PROPERTY_ROOM, result);
-      
-      return result;
-   }
-
-   public PersonPO createRoomLink(RoomPO tgt)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
-   }
-
-   public PersonPO createRoomLink(RoomPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
-   }
-
-   public Room getRoom()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) this.getCurrentMatch()).getRoom();
-      }
-      return null;
-   }
-
    public TeacherPO createTeacherPO()
    {
       TeacherPO result = new TeacherPO(new Teacher[]{});
@@ -114,6 +78,45 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       if (this.getPattern().getHasMatch())
       {
          return ((Person) this.getCurrentMatch()).getTeacher();
+      }
+      return null;
+   }
+
+   public RoomPO createRoomPO()
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public RoomPO createRoomPO(String modifier)
+   {
+      RoomPO result = new RoomPO(new Room[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public PersonPO createRoomLink(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM);
+   }
+
+   public PersonPO createRoomLink(RoomPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_ROOM, modifier);
+   }
+
+   public Room getRoom()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) this.getCurrentMatch()).getRoom();
       }
       return null;
    }

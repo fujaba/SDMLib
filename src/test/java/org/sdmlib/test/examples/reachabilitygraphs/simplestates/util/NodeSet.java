@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -404,4 +407,70 @@ public class NodeSet extends SimpleSet<Node>
    {
       this.addAll(objects);
    }
+
+
+   public NodePO createNodePO()
+   {
+      return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   @Override
+   public NodeSet getNewList(boolean keyValue)
+   {
+      return new NodeSet();
+   }
+
+
+   public NodeSet filter(Condition<Node> condition) {
+      NodeSet filterList = new NodeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNumCondition(int value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value == obj.getNum())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNumCondition(int lower, int upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower <= obj.getNum() && obj.getNum() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

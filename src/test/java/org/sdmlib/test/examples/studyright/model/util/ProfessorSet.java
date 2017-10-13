@@ -32,6 +32,8 @@ import org.sdmlib.test.examples.studyright.model.Topic;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.studyright.model.util.TopicSet;
 
 public class ProfessorSet extends SimpleSet<Professor>
 {
@@ -399,4 +401,70 @@ public class ProfessorSet extends SimpleSet<Professor>
    {
       this.addAll(objects);
    }
+
+
+   public ProfessorPO createProfessorPO()
+   {
+      return new ProfessorPO(this.toArray(new Professor[this.size()]));
+   }
+
+
+   @Override
+   public ProfessorSet getNewList(boolean keyValue)
+   {
+      return new ProfessorSet();
+   }
+
+
+   public ProfessorSet filter(Condition<Professor> condition) {
+      ProfessorSet filterList = new ProfessorSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet createNameCondition(String value)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Professor objects and collect those Professor objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Professor objects that match the parameter
+    */
+   public ProfessorSet createNameCondition(String lower, String upper)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

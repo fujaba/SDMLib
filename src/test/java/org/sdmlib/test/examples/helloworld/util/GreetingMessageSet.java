@@ -30,6 +30,7 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
 public class GreetingMessageSet extends SimpleSet<GreetingMessage>
 {
@@ -259,7 +260,54 @@ public class GreetingMessageSet extends SimpleSet<GreetingMessage>
       GreetingMessageSet filterList = new GreetingMessageSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of GreetingMessage objects and collect those GreetingMessage objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GreetingMessage objects that match the parameter
+    */
+   public GreetingMessageSet createTextCondition(String value)
+   {
+      GreetingMessageSet result = new GreetingMessageSet();
+      
+      for (GreetingMessage obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GreetingMessage objects and collect those GreetingMessage objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GreetingMessage objects that match the parameter
+    */
+   public GreetingMessageSet createTextCondition(String lower, String upper)
+   {
+      GreetingMessageSet result = new GreetingMessageSet();
+      
+      for (GreetingMessage obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}
 
 
 

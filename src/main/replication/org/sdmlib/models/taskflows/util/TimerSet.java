@@ -25,6 +25,9 @@ import java.util.Collection;
 import java.util.Timer;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.taskflows.SDMTimer;
+import org.sdmlib.models.taskflows.util.SDMTimerSet;
 
 public class TimerSet extends SimpleSet<Timer>
 {
@@ -88,4 +91,38 @@ public class TimerSet extends SimpleSet<Timer>
    {
       this.addAll(objects);
    }
-}
+
+
+   public TimerPO createTimerPO()
+   {
+      return new TimerPO(this.toArray(new Timer[this.size()]));
+   }
+
+
+   @Override
+   public TimerSet getNewList(boolean keyValue)
+   {
+      return new TimerSet();
+   }
+
+
+   public TimerSet filter(Condition<Timer> condition) {
+      TimerSet filterList = new TimerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public SDMTimerSet instanceOfSDMTimer()
+   {
+      SDMTimerSet result = new SDMTimerSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof SDMTimer)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

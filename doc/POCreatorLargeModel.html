@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java' type='text/x-java'>POCreatorLargeModel</a></p>
 <p>Start: At first we instanciate a Model</p>
 <pre>      University university = new University().withName(&quot;StudyRight University&quot;);
@@ -18,110 +30,74 @@
       university.withStudents(susi, peter);
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight University"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Susi Sorglos",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "certified=false",
-            "name=Peter Teacher",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "name=Multiply",
-            "topic=Math",
-            "credits=6"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"A5 : Assignment",
          "attributes":[
             "content=1*1",
             "points=2"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=6",
+            "name=Multiply",
+            "topic=Math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=null",
+            "motivation=0",
+            "name=Susi Sorglos"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=false",
+            "credits=0",
+            "id=null",
+            "motivation=0",
+            "name=Peter Teacher",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight University",
+            "president=null"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
+            "property":"assignments",
+            "id":"A5 : Assignment"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
+            "property":"room",
             "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"done",
@@ -134,7 +110,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -147,16 +136,42 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A5 : Assignment"
+            "property":"rooms",
+            "id":"R4 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"room",
-            "id":"R4 : Room"
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
          }
       }
    ]
@@ -170,19 +185,19 @@
 </pre><p><a name = 'step_2'>Step 2: Now we want to rebind the patternObject to the University model and look for the matches</a></p><pre>      po.rebind(university);
 </pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"u1 : UniversityPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>",
-            "name == StudyRight University"
+            "name == StudyRight University",
+            "president == null"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"s2 : StudentPO",
          "attributes":[
             "name == Susi Sorglos",
@@ -193,7 +208,7 @@
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r3 : RoomPO",
          "attributes":[
             "name == Multiply",
@@ -202,7 +217,7 @@
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"t4 : TeachingAssistantPO",
          "attributes":[
             "certified == false",
@@ -215,7 +230,7 @@
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"a5 : AssignmentPO",
          "attributes":[
             "content == 1*1",
@@ -341,8 +356,8 @@
             "id":"a5 : AssignmentPO"
          },
          "target":{
-            "property":"room",
-            "id":"r3 : RoomPO"
+            "property":"students",
+            "id":"s2 : StudentPO"
          }
       },
       {
@@ -352,8 +367,8 @@
             "id":"a5 : AssignmentPO"
          },
          "target":{
-            "property":"students",
-            "id":"s2 : StudentPO"
+            "property":"room",
+            "id":"r3 : RoomPO"
          }
       },
       {

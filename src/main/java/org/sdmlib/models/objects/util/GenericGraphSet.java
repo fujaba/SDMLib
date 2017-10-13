@@ -29,6 +29,9 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.objects.util.GenericLinkSet;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 
 public class GenericGraphSet extends SimpleSet<GenericGraph>
 {
@@ -179,5 +182,18 @@ public class GenericGraphSet extends SimpleSet<GenericGraph>
    {
       return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
-}
+
+
+   @Override
+   public GenericGraphSet getNewList(boolean keyValue)
+   {
+      return new GenericGraphSet();
+   }
+
+
+   public GenericGraphSet filter(Condition<GenericGraph> condition) {
+      GenericGraphSet filterList = new GenericGraphSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 

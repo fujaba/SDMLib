@@ -28,6 +28,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>

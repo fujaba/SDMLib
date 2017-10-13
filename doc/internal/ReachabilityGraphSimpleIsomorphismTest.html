@@ -5,87 +5,56 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilityGraphSimpleIsomorphismTest</a></p>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilityGraphSimpleIsomorphismTest</a></p>
 <p>Create two rings of three nodes with a mark at one node.</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S1 : SimpleState"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N2 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N3 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N4 : Node",
          "attributes":[
             "num=42"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"S1 : SimpleState"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N2 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N3 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -98,20 +67,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N2 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -121,6 +77,58 @@
             "cardinality":"many",
             "property":"prev",
             "id":"N3 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N4 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N2 : Node"
          }
       }
    ]
@@ -130,77 +138,37 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S5 : SimpleState"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N6 : Node",
          "attributes":[
             "num=42"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N7 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N8 : Node",
          "attributes":[
             "num=0"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"S5 : SimpleState"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N6 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N7 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -213,20 +181,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -236,6 +191,58 @@
             "cardinality":"many",
             "property":"prev",
             "id":"N7 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S5 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S5 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S5 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N6 : Node"
          }
       }
    ]
@@ -244,364 +251,7 @@
    g.layout(100,100);
 </script>
 <p>compute certificates</p>
-<p>Check: Both certificates are equal.  true</p>
-<p>{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-  "prop":{
-    "graph":{
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-      "id":"#7"
-    },
-    "next":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#5"
-      }
-    ],
-    "prev":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#6"
-      }
-    ]
-  }
-}*1
-{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-  "prop":{
-    "graph":{
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-      "id":"#7"
-    },
-    "next":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#6"
-      }
-    ],
-    "prev":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#4"
-      }
-    ]
-  }
-}*1
-{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-  "prop":{
-    "num":42,
-    "graph":{
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-      "id":"#7"
-    },
-    "next":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#4"
-      }
-    ],
-    "prev":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#5"
-      }
-    ]
-  }
-}*1
-{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-  "prop":{"nodes":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#4"
-      },
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#5"
-      },
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#6"
-      }
-    ]}
-}*1
-</p>
-<p>Graphs are isomorphic:</p>
-<p>{s.S1=s.S1, s.N2=s.N3, s.N3=s.N4, s.N4=s.N2}</p>
-<p>removing the num</p>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"S1 : SimpleState"
-      },
-      {
-         "typ":"clazz",
-         "id":"N2 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"N3 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"N4 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N2 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N3 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N3 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N2 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N2 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N3 : Node"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "style":null,
-   "nodes":[
-      {
-         "typ":"clazz",
-         "id":"S5 : SimpleState"
-      },
-      {
-         "typ":"clazz",
-         "id":"N6 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"N7 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"N8 : Node",
-         "attributes":[
-            "num=0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N6 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N7 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S5 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N7 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N7 : Node"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>Check: Both certificates are again equal.  true</p>
-<p>{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-  "prop":{
-    "graph":{
-      "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-      "id":"#4"
-    },
-    "next":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#3"
-      }
-    ],
-    "prev":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#3"
-      }
-    ]
-  }
-}*3
-{
-  "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState",
-  "prop":{"nodes":[
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#3"
-      },
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#3"
-      },
-      {
-        "class":"org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node",
-        "id":"#3"
-      }
-    ]}
-}*1
-</p>
-<p>Graphs are isomorphic:</p>
-<p>{s.S1=s.S1, s.N2=s.N2, s.N3=s.N3, s.N4=s.N4}</p>
+<p>Check: Both certificates are equal.  false</p>
 
 </body>
 </html>

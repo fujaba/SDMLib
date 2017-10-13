@@ -26,6 +26,7 @@ import java.util.Collection;
 import org.sdmlib.replication.Lane;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class LaneSet extends SimpleSet<Lane>
 {
@@ -90,4 +91,23 @@ public class LaneSet extends SimpleSet<Lane>
    {
       this.addAll(objects);
    }
-}
+
+
+   public LanePO createLanePO()
+   {
+      return new LanePO(this.toArray(new Lane[this.size()]));
+   }
+
+
+   @Override
+   public LaneSet getNewList(boolean keyValue)
+   {
+      return new LaneSet();
+   }
+
+
+   public LaneSet filter(Condition<Lane> condition) {
+      LaneSet filterList = new LaneSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

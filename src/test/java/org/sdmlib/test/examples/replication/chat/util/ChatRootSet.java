@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.replication.chat.ChatUser;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
 
 public class ChatRootSet extends SimpleSet<ChatRoot>
 {
@@ -150,4 +152,23 @@ public class ChatRootSet extends SimpleSet<ChatRoot>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ChatRootPO createChatRootPO()
+   {
+      return new ChatRootPO(this.toArray(new ChatRoot[this.size()]));
+   }
+
+
+   @Override
+   public ChatRootSet getNewList(boolean keyValue)
+   {
+      return new ChatRootSet();
+   }
+
+
+   public ChatRootSet filter(Condition<ChatRoot> condition) {
+      ChatRootSet filterList = new ChatRootSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

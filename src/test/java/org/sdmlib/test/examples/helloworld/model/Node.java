@@ -31,6 +31,7 @@ import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.helloworld.model.Graph;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTmp.java'>HelloWorldTmp.java</a>
@@ -768,5 +769,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
+   
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
+}
 

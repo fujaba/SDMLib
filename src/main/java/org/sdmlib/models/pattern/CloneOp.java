@@ -24,8 +24,11 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonArray;
+import org.sdmlib.models.pattern.Pattern;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
@@ -64,7 +67,7 @@ import de.uniks.networkparser.json.JsonArray;
             
             origMap = this.getPattern().getIdMap();
             origMap = (IdMap) new SDMLibIdMap("om").with(origMap);
-            cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap);
+            cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap.getCreators());
             
             for (PatternElement pe : this.getPattern().getElements())
             {

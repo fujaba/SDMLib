@@ -1,11 +1,10 @@
 package org.sdmlib.simple.model.attribute_e.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.attribute_e.Person;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

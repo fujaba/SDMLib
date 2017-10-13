@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.test.examples.annotations.model.simple.Door;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.test.examples.annotations.model.simple.House;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
 
 public class HouseCreator implements SendableEntityCreator
 {
@@ -75,6 +74,10 @@ public class HouseCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((House)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;

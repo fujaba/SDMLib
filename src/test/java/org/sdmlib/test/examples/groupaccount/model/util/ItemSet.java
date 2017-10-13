@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class ItemSet extends SimpleSet<Item>
 {
@@ -343,4 +346,117 @@ public class ItemSet extends SimpleSet<Item>
    {
       this.addAll(objects);
    }
+
+
+   public ItemPO createItemPO()
+   {
+      return new ItemPO(this.toArray(new Item[this.size()]));
+   }
+
+
+   @Override
+   public ItemSet getNewList(boolean keyValue)
+   {
+      return new ItemSet();
+   }
+
+
+   public ItemSet filter(Condition<Item> condition) {
+      ItemSet filterList = new ItemSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the description attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet createDescriptionCondition(String value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value.equals(obj.getDescription()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the description attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet createDescriptionCondition(String lower, String upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet createValueCondition(double value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Item objects and collect those Item objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Item objects that match the parameter
+    */
+   public ItemSet createValueCondition(double lower, double upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

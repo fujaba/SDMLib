@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.simple.model.androidmodel.Student;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/FeatureTest.java'>FeatureTest.java</a>

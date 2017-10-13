@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
+import org.sdmlib.models.pattern.Pattern;
 
 public class UniversityPO extends PatternObject<UniversityPO, University>
 {
@@ -178,6 +179,54 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public UniversityPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public UniversityPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UniversityPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UniversityPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

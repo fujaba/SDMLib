@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,14 @@
    
 package org.sdmlib.simple.model.association_l.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.simple.model.association_l.Student;
-import org.sdmlib.simple.model.association_l.University;
-
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_l.University;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.simple.model.association_l.util.StudentSet;
+import org.sdmlib.simple.model.association_l.Student;
 
 public class UniversitySet extends SimpleSet<University>
 {

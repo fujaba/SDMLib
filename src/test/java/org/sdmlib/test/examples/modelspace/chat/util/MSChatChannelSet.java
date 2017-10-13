@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 
 public class MSChatChannelSet extends SimpleSet<MSChatChannel>
 {
@@ -251,4 +253,70 @@ public class MSChatChannelSet extends SimpleSet<MSChatChannel>
    {
       this.addAll(objects);
    }
+
+
+   public MSChatChannelPO createMSChatChannelPO()
+   {
+      return new MSChatChannelPO(this.toArray(new MSChatChannel[this.size()]));
+   }
+
+
+   @Override
+   public MSChatChannelSet getNewList(boolean keyValue)
+   {
+      return new MSChatChannelSet();
+   }
+
+
+   public MSChatChannelSet filter(Condition<MSChatChannel> condition) {
+      MSChatChannelSet filterList = new MSChatChannelSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of MSChatChannel objects and collect those MSChatChannel objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatChannel objects that match the parameter
+    */
+   public MSChatChannelSet createTaskCondition(String value)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatChannel objects and collect those MSChatChannel objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatChannel objects that match the parameter
+    */
+   public MSChatChannelSet createTaskCondition(String lower, String upper)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

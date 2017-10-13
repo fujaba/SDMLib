@@ -1,11 +1,10 @@
 package org.sdmlib.simple.model.attribute_g.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.attribute_g.Person;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -42,7 +41,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       this.setModifier(modifier);
    }
-   public PersonPO createNamesSetCondition(SimpleSet<SimpleSet> value)
+   public PersonPO createNamesSetCondition(SimpleSet<SimpleSet<String>> value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAMESSET)
@@ -56,7 +55,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createNamesSetAssignment(SimpleSet<SimpleSet> value)
+   public PersonPO createNamesSetAssignment(SimpleSet<SimpleSet<String>> value)
    {
       new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAMESSET)
@@ -70,7 +69,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public SimpleSet<SimpleSet> getNamesSet()
+   public SimpleSet<SimpleSet<String>> getNamesSet()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -79,7 +78,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
    
-   public PersonPO withNamesSet(SimpleSet<SimpleSet> value)
+   public PersonPO withNamesSet(SimpleSet<SimpleSet<String>> value)
    {
       if (this.getPattern().getHasMatch())
       {

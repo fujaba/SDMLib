@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePO;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
 
 public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
 {
@@ -81,6 +83,41 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
    public SimpleStatePO filterNodes(NodePO tgt)
    {
       return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES);
+   }
+
+
+   public SimpleStatePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public NodePO createNodesPO()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SimpleState.PROPERTY_NODES, result);
+      
+      return result;
+   }
+
+   public NodePO createNodesPO(String modifier)
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SimpleState.PROPERTY_NODES, result);
+      
+      return result;
+   }
+
+   public SimpleStatePO createNodesLink(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES);
+   }
+
+   public SimpleStatePO createNodesLink(NodePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES, modifier);
    }
 
 }

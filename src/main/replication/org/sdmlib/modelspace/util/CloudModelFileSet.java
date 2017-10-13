@@ -30,6 +30,9 @@ import org.sdmlib.modelspace.CloudModelFile;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelspace.util.CloudModelDirectorySet;
 
 public class CloudModelFileSet extends SimpleSet<CloudModelFile>
 {
@@ -340,4 +343,117 @@ public class CloudModelFileSet extends SimpleSet<CloudModelFile>
    {
       this.addAll(objects);
    }
+
+
+   public CloudModelFilePO createCloudModelFilePO()
+   {
+      return new CloudModelFilePO(this.toArray(new CloudModelFile[this.size()]));
+   }
+
+
+   @Override
+   public CloudModelFileSet getNewList(boolean keyValue)
+   {
+      return new CloudModelFileSet();
+   }
+
+
+   public CloudModelFileSet filter(Condition<CloudModelFile> condition) {
+      CloudModelFileSet filterList = new CloudModelFileSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the fileName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet createFileNameCondition(String value)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (value.equals(obj.getFileName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the fileName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet createFileNameCondition(String lower, String upper)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (lower.compareTo(obj.getFileName()) <= 0 && obj.getFileName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the lastModifiedTime attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet createLastModifiedTimeCondition(long value)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (value == obj.getLastModifiedTime())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the lastModifiedTime attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of CloudModelFile objects that match the parameter
+    */
+   public CloudModelFileSet createLastModifiedTimeCondition(long lower, long upper)
+   {
+      CloudModelFileSet result = new CloudModelFileSet();
+      
+      for (CloudModelFile obj : this)
+      {
+         if (lower <= obj.getLastModifiedTime() && obj.getLastModifiedTime() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

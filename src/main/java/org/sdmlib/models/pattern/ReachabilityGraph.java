@@ -53,6 +53,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.Pattern;
 
 /**
  * 
@@ -1122,8 +1126,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
 
-      IdMap map1 = (IdMap) new IdMap().with(masterMap);
-      IdMap map2 = (IdMap) new IdMap().with(masterMap);
+      IdMap map1 = s1.getCertificateIdMap();
+      IdMap map2 = s2.getCertificateIdMap();
+
+      //      IdMap map1 = (IdMap) new IdMap().with(masterMap);
+      //      IdMap map2 = (IdMap) new IdMap().with(masterMap);
 
       map1.withSession("s");
       map2.withSession("s");

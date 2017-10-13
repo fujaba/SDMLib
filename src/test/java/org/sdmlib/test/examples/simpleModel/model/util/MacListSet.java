@@ -28,6 +28,9 @@ import org.sdmlib.test.examples.simpleModel.model.MacList;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class MacListSet extends SimpleSet<MacList>
 {
@@ -273,4 +276,117 @@ public class MacListSet extends SimpleSet<MacList>
    {
       this.addAll(objects);
    }
+
+
+   public MacListPO createMacListPO()
+   {
+      return new MacListPO(this.toArray(new MacList[this.size()]));
+   }
+
+
+   @Override
+   public MacListSet getNewList(boolean keyValue)
+   {
+      return new MacListSet();
+   }
+
+
+   public MacListSet filter(Condition<MacList> condition) {
+      MacListSet filterList = new MacListSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of MacList objects and collect those MacList objects where the Name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MacList objects that match the parameter
+    */
+   public MacListSet createNameCondition(String value)
+   {
+      MacListSet result = new MacListSet();
+      
+      for (MacList obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MacList objects and collect those MacList objects where the Name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MacList objects that match the parameter
+    */
+   public MacListSet createNameCondition(String lower, String upper)
+   {
+      MacListSet result = new MacListSet();
+      
+      for (MacList obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MacList objects and collect those MacList objects where the serialVersionUID attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MacList objects that match the parameter
+    */
+   public MacListSet createSerialVersionUIDCondition(long value)
+   {
+      MacListSet result = new MacListSet();
+      
+      for (MacList obj : this)
+      {
+         if (value == obj.getSerialVersionUID())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MacList objects and collect those MacList objects where the serialVersionUID attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MacList objects that match the parameter
+    */
+   public MacListSet createSerialVersionUIDCondition(long lower, long upper)
+   {
+      MacListSet result = new MacListSet();
+      
+      for (MacList obj : this)
+      {
+         if (lower <= obj.getSerialVersionUID() && obj.getSerialVersionUID() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

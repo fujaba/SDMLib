@@ -29,6 +29,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
+import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>

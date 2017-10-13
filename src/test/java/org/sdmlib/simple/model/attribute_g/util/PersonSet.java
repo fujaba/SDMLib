@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,10 @@
    
 package org.sdmlib.simple.model.attribute_g.util;
 
-import java.util.Collection;
-
-import org.sdmlib.simple.model.attribute_g.Person;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.attribute_g.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -66,6 +65,19 @@ public class PersonSet extends SimpleSet<Person>
    }
 
 
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
@@ -95,11 +107,11 @@ public class PersonSet extends SimpleSet<Person>
    /**
     * Loop through the current set of Person objects and collect a list of the namesSet attribute values. 
     * 
-    * @return List of de.uniks.networkparser.list.SimpleSet<de.uniks.networkparser.list.SimpleSet> objects reachable via namesSet attribute
+    * @return List of de.uniks.networkparser.list.SimpleSet<de.uniks.networkparser.list.SimpleSet<String>> objects reachable via namesSet attribute
     */
-   public SimpleSet<SimpleSet> getNamesSet()
+   public SimpleSet<SimpleSet<String>> getNamesSet()
    {
-      SimpleSet<SimpleSet> result = new SimpleSet<SimpleSet>();
+      SimpleSet<SimpleSet<String>> result = new SimpleSet<SimpleSet<String>>();
       
       for (Person obj : this)
       {
@@ -117,7 +129,7 @@ public class PersonSet extends SimpleSet<Person>
     * 
     * @return Subset of Person objects that match the parameter
     */
-   public PersonSet createNamesSetCondition(SimpleSet<SimpleSet> value)
+   public PersonSet createNamesSetCondition(SimpleSet<SimpleSet<String>> value)
    {
       PersonSet result = new PersonSet();
       
@@ -140,7 +152,7 @@ public class PersonSet extends SimpleSet<Person>
     * 
     * @return Current set of Person objects now with new attribute values.
     */
-   public PersonSet withNamesSet(SimpleSet<SimpleSet> value)
+   public PersonSet withNamesSet(SimpleSet<SimpleSet<String>> value)
    {
       for (Person obj : this)
       {

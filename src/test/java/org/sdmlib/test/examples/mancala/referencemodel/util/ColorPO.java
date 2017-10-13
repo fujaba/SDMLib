@@ -33,4 +33,9 @@ public class ColorPO extends PatternObject<ColorPO, Color>
       }
       newInstance(org.sdmlib.test.examples.mancala.referencemodel.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ColorPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

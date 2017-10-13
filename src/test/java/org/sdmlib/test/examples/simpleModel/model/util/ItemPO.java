@@ -43,4 +43,9 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
    }
 
+
+   public ItemPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

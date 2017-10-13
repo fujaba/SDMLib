@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
 
 public class MSChatGroupSet extends SimpleSet<MSChatGroup>
 {
@@ -310,4 +313,70 @@ public class MSChatGroupSet extends SimpleSet<MSChatGroup>
    {
       this.addAll(objects);
    }
+
+
+   public MSChatGroupPO createMSChatGroupPO()
+   {
+      return new MSChatGroupPO(this.toArray(new MSChatGroup[this.size()]));
+   }
+
+
+   @Override
+   public MSChatGroupSet getNewList(boolean keyValue)
+   {
+      return new MSChatGroupSet();
+   }
+
+
+   public MSChatGroupSet filter(Condition<MSChatGroup> condition) {
+      MSChatGroupSet filterList = new MSChatGroupSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of MSChatGroup objects and collect those MSChatGroup objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatGroup objects that match the parameter
+    */
+   public MSChatGroupSet createTaskCondition(String value)
+   {
+      MSChatGroupSet result = new MSChatGroupSet();
+      
+      for (MSChatGroup obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatGroup objects and collect those MSChatGroup objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatGroup objects that match the parameter
+    */
+   public MSChatGroupSet createTaskCondition(String lower, String upper)
+   {
+      MSChatGroupSet result = new MSChatGroupSet();
+      
+      for (MSChatGroup obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

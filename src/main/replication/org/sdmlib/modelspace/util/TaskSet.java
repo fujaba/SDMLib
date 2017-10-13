@@ -30,6 +30,9 @@ import org.sdmlib.modelspace.TaskLane;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -586,4 +589,211 @@ public class TaskSet extends SimpleSet<Task>
    {
       this.addAll(objects);
    }
+
+
+   public TaskPO createTaskPO()
+   {
+      return new TaskPO(this.toArray(new Task[this.size()]));
+   }
+
+
+   @Override
+   public TaskSet getNewList(boolean keyValue)
+   {
+      return new TaskSet();
+   }
+
+
+   public TaskSet filter(Condition<Task> condition) {
+      TaskSet filterList = new TaskSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the fileName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createFileNameCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getFileName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the fileName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createFileNameCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getFileName()) <= 0 && obj.getFileName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the lastModified attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createLastModifiedCondition(long value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value == obj.getLastModified())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the lastModified attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createLastModifiedCondition(long lower, long upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower <= obj.getLastModified() && obj.getLastModified() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the spaceName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createSpaceNameCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getSpaceName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the spaceName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createSpaceNameCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceName()) <= 0 && obj.getSpaceName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the state attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createStateCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getState()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the state attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createStateCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getState()) <= 0 && obj.getState().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

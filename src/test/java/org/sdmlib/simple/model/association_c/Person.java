@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.simple.model.association_c;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.simple.model.association_c.util.PersonSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.simple.model.association_c.util.PersonSet;
+import org.sdmlib.simple.model.association_c.Room;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>
@@ -86,9 +85,9 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      setRoom(null);
-      setPrevPerson(null);
       setNextPerson(null);
+      setPrevPerson(null);
+      setRoom(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -96,49 +95,53 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /********************************************************************
     * <pre>
     *              one                       one
-    * Person ----------------------------------- Room
-    *              person                   room
+    * Person ----------------------------------- Person
+    *              person                   nextPerson
     * </pre>
     */
    
-   public static final String PROPERTY_ROOM = "room";
+   public static final String PROPERTY_NEXTPERSON = "nextPerson";
 
-   private Room room = null;
+   private Person nextPerson = null;
 
-   public Room getRoom()
+   public Person getNextPerson()
    {
-      return this.room;
+      return this.nextPerson;
+   }
+   public PersonSet getNextPersonTransitive()
+   {
+      PersonSet result = new PersonSet().with(this);
+      return result.getNextPersonTransitive();
    }
 
-   public boolean setRoom(Room value)
+
+   public boolean setNextPerson(Person value)
    {
       boolean changed = false;
       
-      if (this.room != value)
+      if (this.nextPerson != value)
       {
-         Room oldValue = this.room;
+         Person oldValue = this.nextPerson;
          
+         this.nextPerson = value;
          
-         this.room = value;
-         
-         
-         firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         firePropertyChange(PROPERTY_NEXTPERSON, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
 
-   public Person withRoom(Room value)
+   public Person withNextPerson(Person value)
    {
-      setRoom(value);
+      setNextPerson(value);
       return this;
    } 
 
-   public Room createRoom()
+   public Person createNextPerson()
    {
-      Room value = new Room();
-      withRoom(value);
+      Person value = new Person();
+      withNextPerson(value);
       return value;
    } 
 
@@ -174,9 +177,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       {
          Person oldValue = this.prevPerson;
          
-         
          this.prevPerson = value;
-         
          
          firePropertyChange(PROPERTY_PREVPERSON, oldValue, value);
          changed = true;
@@ -202,55 +203,47 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /********************************************************************
     * <pre>
     *              one                       one
-    * Person ----------------------------------- Person
-    *              person                   nextPerson
+    * Person ----------------------------------- Room
+    *              person                   room
     * </pre>
     */
    
-   public static final String PROPERTY_NEXTPERSON = "nextPerson";
+   public static final String PROPERTY_ROOM = "room";
 
-   private Person nextPerson = null;
+   private Room room = null;
 
-   public Person getNextPerson()
+   public Room getRoom()
    {
-      return this.nextPerson;
-   }
-   public PersonSet getNextPersonTransitive()
-   {
-      PersonSet result = new PersonSet().with(this);
-      return result.getNextPersonTransitive();
+      return this.room;
    }
 
-
-   public boolean setNextPerson(Person value)
+   public boolean setRoom(Room value)
    {
       boolean changed = false;
       
-      if (this.nextPerson != value)
+      if (this.room != value)
       {
-         Person oldValue = this.nextPerson;
+         Room oldValue = this.room;
          
+         this.room = value;
          
-         this.nextPerson = value;
-         
-         
-         firePropertyChange(PROPERTY_NEXTPERSON, oldValue, value);
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
 
-   public Person withNextPerson(Person value)
+   public Person withRoom(Room value)
    {
-      setNextPerson(value);
+      setRoom(value);
       return this;
    } 
 
-   public Person createNextPerson()
+   public Room createRoom()
    {
-      Person value = new Person();
-      withNextPerson(value);
+      Room value = new Room();
+      withRoom(value);
       return value;
    } 
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,15 @@
    
 package org.sdmlib.simple.model.association_h.util;
 
-import java.util.Collection;
-
-import org.sdmlib.simple.model.association_h.Person;
-import org.sdmlib.simple.model.association_h.Room;
-import org.sdmlib.simple.model.association_h.Teacher;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_h.Teacher;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.simple.model.association_h.util.PersonSet;
+import org.sdmlib.simple.model.association_h.Person;
+import org.sdmlib.simple.model.association_h.util.RoomSet;
+import org.sdmlib.simple.model.association_h.Room;
 
 public class TeacherSet extends SimpleSet<Teacher>
 {
@@ -68,6 +69,19 @@ public class TeacherSet extends SimpleSet<Teacher>
       return "org.sdmlib.simple.model.association_h.Teacher";
    }
 
+
+   @Override
+   public TeacherSet getNewList(boolean keyValue)
+   {
+      return new TeacherSet();
+   }
+
+
+   public TeacherSet filter(Condition<Teacher> condition) {
+      TeacherSet filterList = new TeacherSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public TeacherSet with(Object value)

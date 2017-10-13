@@ -5,12 +5,21 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/simple/TestModelCreation.java' type='text/x-java'>CreateEntireModel</a></p>
 <script>
    var json = {
@@ -20,12 +29,12 @@
          "typ":"node",
          "id":"Person",
          "attributes":[
-            "name : String",
-            "age : int"
+            "age : int",
+            "name : String"
          ],
          "methods":[
-            "think()",
-            "dontThink(boolean p0)"
+            "dontThink(boolean p1)",
+            "think()"
          ]
       },
       {
@@ -40,17 +49,10 @@
       },
       {
          "typ":"node",
-         "id":"Teacher",
+         "id":"Room",
          "attributes":[
-            "rank : String"
-         ],
-         "methods":[
-            "teach() String"
+            "number : int"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"Room"
       },
       {
          "typ":"node",
@@ -64,45 +66,29 @@
       },
       {
          "typ":"node",
-         "id":"roomInterface",
+         "id":"Teacher",
          "attributes":[
-            "number : int"
+            "rank : String"
+         ],
+         "methods":[
+            "teach() String"
          ]
       },
       {
          "typ":"node",
          "id":"Integer"
+      },
+      {
+         "typ":"node",
+         "id":"roomInterface",
+         "attributes":[
+            "number : int"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Pupil",
-            "cardinality":"one",
-            "property":"pupil"
-         },
-         "target":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Teacher",
-            "cardinality":"one",
-            "property":"teacher"
-         },
-         "target":{
-            "id":"Person",
-            "cardinality":"one",
-            "property":"person"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Person",
             "cardinality":"many",
@@ -115,7 +101,33 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"generalisation",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"one",
+            "property":"pupil"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"teacher"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Pupil",
             "cardinality":"many",
@@ -128,7 +140,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Pupil",
             "cardinality":"many",
@@ -141,7 +153,85 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"generalisation",
+         "source":{
+            "id":"Pupil",
+            "cardinality":"one",
+            "property":"pupil"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         },
+         "target":{
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"currentPupils"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"currentRoom"
+         },
+         "target":{
+            "id":"Teacher",
+            "cardinality":"one",
+            "property":"currentTeacher"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         }
+      },
+      {
+         "typ":"implements",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"roomInterface",
+            "cardinality":"one",
+            "property":"roominterface"
+         }
+      },
+      {
+         "typ":"implements",
+         "source":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"roomInterface",
+            "cardinality":"one",
+            "property":"roominterface"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Teacher",
             "cardinality":"one",
@@ -154,16 +244,29 @@
          }
       },
       {
-         "typ":"IMPLEMENTS",
+         "typ":"assoc",
          "source":{
-            "id":"Room",
+            "id":"Teacher",
             "cardinality":"one",
-            "property":"room"
+            "property":"teacher"
          },
          "target":{
-            "id":"roomInterface",
+            "id":"Pupil",
+            "cardinality":"many",
+            "property":"pupils"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Teacher",
             "cardinality":"one",
-            "property":"roominterface"
+            "property":"teacher"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
          }
       }
    ]

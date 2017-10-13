@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation1</a></p>
 <p>A constant transformation that creates a Greeting object</p>
 <p>Create class model and generate implementation:</p>
@@ -25,7 +37,7 @@
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"unidirectional",
          "source":{
             "id":"Greeting",
             "cardinality":"one",
@@ -51,13 +63,13 @@
 
 </pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g1 : GreetingPO",
          "attributes":[
-            "<< start >>",
             "<< create>>",
             "text == Hello World"
          ]
@@ -72,13 +84,13 @@
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g1 : GreetingPO",
          "attributes":[
-            "<< start >>",
             "<< create>>",
             "text == Hello World"
          ]
@@ -92,14 +104,17 @@
 <p>For completeness just the host graph:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G1 : Greeting",
          "attributes":[
-            "text=Hello World"
+            "greeting=null",
+            "greetingMessage=null",
+            "person=null",
+            "text=Hello World",
+            "tgt=null"
          ]
       }
    ]

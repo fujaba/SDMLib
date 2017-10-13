@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>SeppelModel</a></p>
 <script>
    var json = {
@@ -15,28 +27,14 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Thread"
+         "id":"BoardTask"
       },
       {
          "typ":"node",
-         "id":"SeppelSpace",
+         "id":"SeppelChannel",
          "attributes":[
-            "spaceId : String",
-            "history : ChangeEventList",
-            "lastChangeId : long",
-            "javaFXApplication : boolean"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"SeppelSpaceProxy",
-         "attributes":[
-            "spaceId : String",
-            "acceptsConnectionRequests : boolean",
-            "hostName : String",
-            "portNo : int",
-            "loginName : String",
-            "password : String"
+            "loginValidated : boolean",
+            "socket : Socket"
          ]
       },
       {
@@ -48,45 +46,72 @@
       },
       {
          "typ":"node",
-         "id":"Object"
-      },
-      {
-         "typ":"node",
-         "id":"SeppelChannel",
+         "id":"SeppelSpace",
          "attributes":[
-            "socket : Socket",
-            "loginValidated : boolean"
+            "history : ChangeEventList",
+            "javaFXApplication : boolean",
+            "lastChangeId : long",
+            "spaceId : String"
          ]
       },
       {
          "typ":"node",
-         "id":"BoardTask"
+         "id":"SeppelSpaceProxy",
+         "attributes":[
+            "acceptsConnectionRequests : boolean",
+            "hostName : String",
+            "loginName : String",
+            "password : String",
+            "portNo : int",
+            "spaceId : String"
+         ]
       },
       {
          "typ":"node",
-         "id":"ChangeEventList"
+         "id":"Object"
+      },
+      {
+         "typ":"node",
+         "id":"Thread"
       },
       {
          "typ":"node",
          "id":"Socket"
+      },
+      {
+         "typ":"node",
+         "id":"ChangeEventList"
       }
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
+         "typ":"assoc",
          "source":{
-            "id":"SeppelSpace",
-            "cardinality":"one",
-            "property":"seppelspace"
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
          },
          "target":{
-            "id":"Thread",
+            "id":"SeppelSpaceProxy",
             "cardinality":"one",
-            "property":"thread"
+            "property":"proxy"
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"assoc",
+         "source":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"channel"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"one",
+            "property":"seppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"generalisation",
          "source":{
             "id":"SeppelChannel",
             "cardinality":"one",
@@ -99,59 +124,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"many",
-            "property":"partners"
-         },
-         "target":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"many",
-            "property":"partners"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"many",
-            "property":"spaces"
-         },
-         "target":{
             "id":"SeppelScope",
             "cardinality":"many",
             "property":"scopes"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SeppelSpaceProxy",
-            "cardinality":"one",
-            "property":"seppelSpaceProxy"
          },
          "target":{
-            "id":"SeppelChannel",
-            "cardinality":"one",
-            "property":"channel"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
             "id":"SeppelSpaceProxy",
-            "cardinality":"one",
-            "property":"proxy"
-         },
-         "target":{
-            "id":"BoardTask",
             "cardinality":"many",
-            "property":"tasks"
+            "property":"spaces"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"SeppelScope",
             "cardinality":"many",
@@ -164,7 +150,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"unidirectional",
          "source":{
             "id":"Object",
             "cardinality":"many",
@@ -174,6 +160,110 @@
             "id":"SeppelScope",
             "cardinality":"one",
             "property":"seppelscope"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SeppelSpace",
+            "cardinality":"one",
+            "property":"seppelspace"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"many",
+            "property":"partners"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"many",
+            "property":"partners"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"one",
+            "property":"proxy"
+         },
+         "target":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"one",
+            "property":"seppelSpaceProxy"
+         },
+         "target":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"channel"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SeppelSpaceProxy",
+            "cardinality":"many",
+            "property":"spaces"
+         },
+         "target":{
+            "id":"SeppelScope",
+            "cardinality":"many",
+            "property":"scopes"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"Object",
+            "cardinality":"many",
+            "property":"observedObjects"
+         },
+         "target":{
+            "id":"SeppelScope",
+            "cardinality":"one",
+            "property":"seppelscope"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SeppelSpace",
+            "cardinality":"one",
+            "property":"seppelspace"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"seppelchannel"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
          }
       }
    ]

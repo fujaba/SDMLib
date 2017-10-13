@@ -28,6 +28,8 @@ import org.sdmlib.test.examples.features.model.albertsets.Window;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
 public class WindowSet extends SimpleSet<Window>
 {
@@ -139,4 +141,23 @@ public class WindowSet extends SimpleSet<Window>
    {
       this.addAll(objects);
    }
-}
+
+
+   public WindowPO createWindowPO()
+   {
+      return new WindowPO(this.toArray(new Window[this.size()]));
+   }
+
+
+   @Override
+   public WindowSet getNewList(boolean keyValue)
+   {
+      return new WindowSet();
+   }
+
+
+   public WindowSet filter(Condition<Window> condition) {
+      WindowSet filterList = new WindowSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

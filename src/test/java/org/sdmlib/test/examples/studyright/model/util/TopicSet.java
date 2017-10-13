@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.studyright.model.Topic;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.studyright.model.util.ProfessorSet;
 
 public class TopicSet extends SimpleSet<Topic>
 {
@@ -239,4 +241,70 @@ public class TopicSet extends SimpleSet<Topic>
    {
       this.addAll(objects);
    }
+
+
+   public TopicPO createTopicPO()
+   {
+      return new TopicPO(this.toArray(new Topic[this.size()]));
+   }
+
+
+   @Override
+   public TopicSet getNewList(boolean keyValue)
+   {
+      return new TopicSet();
+   }
+
+
+   public TopicSet filter(Condition<Topic> condition) {
+      TopicSet filterList = new TopicSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Topic objects and collect those Topic objects where the title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Topic objects that match the parameter
+    */
+   public TopicSet createTitleCondition(String value)
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Topic obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Topic objects and collect those Topic objects where the title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Topic objects that match the parameter
+    */
+   public TopicSet createTitleCondition(String lower, String upper)
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Topic obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

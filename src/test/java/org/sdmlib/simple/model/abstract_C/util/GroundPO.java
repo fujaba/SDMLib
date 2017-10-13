@@ -1,8 +1,10 @@
 package org.sdmlib.simple.model.abstract_C.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.abstract_C.Game;
 import org.sdmlib.simple.model.abstract_C.Ground;
+import org.sdmlib.simple.model.abstract_C.util.GamePO;
+import org.sdmlib.simple.model.abstract_C.Game;
+import org.sdmlib.simple.model.abstract_C.util.GroundPO;
 
 public class GroundPO extends PatternObject<GroundPO, Ground>
 {

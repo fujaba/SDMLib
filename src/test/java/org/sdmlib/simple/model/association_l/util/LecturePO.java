@@ -2,7 +2,10 @@ package org.sdmlib.simple.model.association_l.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.association_l.Lecture;
+import org.sdmlib.simple.model.association_l.util.StudentPO;
 import org.sdmlib.simple.model.association_l.Student;
+import org.sdmlib.simple.model.association_l.util.LecturePO;
+import org.sdmlib.simple.model.association_l.util.StudentSet;
 
 public class LecturePO extends PatternObject<LecturePO, Lecture>
 {

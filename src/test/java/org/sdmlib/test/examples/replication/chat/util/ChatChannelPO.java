@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatMsgPO;
 
 public class ChatChannelPO extends PatternObject<ChatChannelPO, ChatChannel>
 {
@@ -131,6 +134,71 @@ public class ChatChannelPO extends PatternObject<ChatChannelPO, ChatChannel>
    public ChatChannelPO filterMsgs(ChatMsgPO tgt)
    {
       return hasLinkConstraint(tgt, ChatChannel.PROPERTY_MSGS);
+   }
+
+
+   public ChatChannelPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChatUserPO createUsersPO()
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatChannel.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatUserPO createUsersPO(String modifier)
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatChannel.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO createUsersLink(ChatUserPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_USERS);
+   }
+
+   public ChatChannelPO createUsersLink(ChatUserPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_USERS, modifier);
+   }
+
+   public ChatMsgPO createMsgsPO()
+   {
+      ChatMsgPO result = new ChatMsgPO(new ChatMsg[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public ChatMsgPO createMsgsPO(String modifier)
+   {
+      ChatMsgPO result = new ChatMsgPO(new ChatMsg[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO createMsgsLink(ChatMsgPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_MSGS);
+   }
+
+   public ChatChannelPO createMsgsLink(ChatMsgPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatChannel.PROPERTY_MSGS, modifier);
    }
 
 }

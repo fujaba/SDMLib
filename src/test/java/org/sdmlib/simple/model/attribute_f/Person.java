@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,10 +21,9 @@
    
 package org.sdmlib.simple.model.attribute_f;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
@@ -91,34 +90,6 @@ import de.uniks.networkparser.list.SimpleSet;
    
    //==========================================================================
    
-   public static final String PROPERTY_NAMES = "names";
-   
-   private SimpleSet<String> names;
-
-   public SimpleSet<String> getNames()
-   {
-      return this.names;
-   }
-   
-   public void setNames(SimpleSet<String> value)
-   {
-      if (this.names != value) {
-      
-         SimpleSet<String> oldValue = this.names;
-         this.names = value;
-         this.firePropertyChange(PROPERTY_NAMES, oldValue, value);
-      }
-   }
-   
-   public Person withNames(SimpleSet<String> value)
-   {
-      setNames(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
    public static final String PROPERTY_AGES = "ages";
    
    private SimpleSet<Integer> ages;
@@ -141,6 +112,34 @@ import de.uniks.networkparser.list.SimpleSet;
    public Person withAges(SimpleSet<Integer> value)
    {
       setAges(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAMES = "names";
+   
+   private SimpleSet<String> names;
+
+   public SimpleSet<String> getNames()
+   {
+      return this.names;
+   }
+   
+   public void setNames(SimpleSet<String> value)
+   {
+      if (this.names != value) {
+      
+         SimpleSet<String> oldValue = this.names;
+         this.names = value;
+         this.firePropertyChange(PROPERTY_NAMES, oldValue, value);
+      }
+   }
+   
+   public Person withNames(SimpleSet<String> value)
+   {
+      setNames(value);
       return this;
    } 
 }

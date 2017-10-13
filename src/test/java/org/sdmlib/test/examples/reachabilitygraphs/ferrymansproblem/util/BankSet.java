@@ -33,6 +33,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -448,4 +453,117 @@ public class BankSet extends SimpleSet<Bank>
    {
       this.addAll(objects);
    }
+
+
+   public BankPO createBankPO()
+   {
+      return new BankPO(this.toArray(new Bank[this.size()]));
+   }
+
+
+   @Override
+   public BankSet getNewList(boolean keyValue)
+   {
+      return new BankSet();
+   }
+
+
+   public BankSet filter(Condition<Bank> condition) {
+      BankSet filterList = new BankSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the age attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet createAgeCondition(int value)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (value == obj.getAge())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the age attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet createAgeCondition(int lower, int upper)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (lower <= obj.getAge() && obj.getAge() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet createNameCondition(String value)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet createNameCondition(String lower, String upper)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,14 @@
    
 package org.sdmlib.simple.model.association_c.util;
 
-import java.util.Collection;
-
-import org.sdmlib.simple.model.association_c.Person;
-import org.sdmlib.simple.model.association_c.Room;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_c.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.simple.model.association_c.util.PersonSet;
+import org.sdmlib.simple.model.association_c.util.RoomSet;
+import org.sdmlib.simple.model.association_c.Room;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -68,6 +69,19 @@ public class PersonSet extends SimpleSet<Person>
    }
 
 
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
@@ -94,30 +108,30 @@ public class PersonSet extends SimpleSet<Person>
    }
 
    /**
-    * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
+    * Loop through the current set of Person objects and collect a set of the Person objects reached via nextPerson. 
     * 
-    * @return Set of Room objects reachable via room
+    * @return Set of Person objects reachable via nextPerson
     */
-   public RoomSet getRoom()
+   public PersonSet getNextPerson()
    {
-      RoomSet result = new RoomSet();
+      PersonSet result = new PersonSet();
       
       for (Person obj : this)
       {
-         result.with(obj.getRoom());
+         result.with(obj.getNextPerson());
       }
       
       return result;
    }
 
    /**
-    * Loop through the current set of Person objects and collect all contained objects with reference room pointing to the object passed as parameter. 
+    * Loop through the current set of Person objects and collect all contained objects with reference nextPerson pointing to the object passed as parameter. 
     * 
-    * @param value The object required as room neighbor of the collected results. 
+    * @param value The object required as nextPerson neighbor of the collected results. 
     * 
-    * @return Set of Room objects referring to value via room
+    * @return Set of Person objects referring to value via nextPerson
     */
-   public PersonSet filterRoom(Object value)
+   public PersonSet filterNextPerson(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -134,7 +148,7 @@ public class PersonSet extends SimpleSet<Person>
       
       for (Person obj : this)
       {
-         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
+         if (neighbors.contains(obj.getNextPerson()) || (neighbors.isEmpty() && obj.getNextPerson() == null))
          {
             answer.add(obj);
          }
@@ -144,15 +158,46 @@ public class PersonSet extends SimpleSet<Person>
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Room attribute of each of it. 
+    * Follow nextPerson reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    * @return Set of Person objects reachable via nextPerson transitively (including the start set)
     */
-   public PersonSet withRoom(Room value)
+   public PersonSet getNextPersonTransitive()
+   {
+      PersonSet todo = new PersonSet().with(this);
+      
+      PersonSet result = new PersonSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Person current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getNextPerson()))
+            {
+               todo.with(current.getNextPerson());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the NextPerson attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their NextPerson attributes.
+    */
+   public PersonSet withNextPerson(Person value)
    {
       for (Person obj : this)
       {
-         obj.withRoom(value);
+         obj.withNextPerson(value);
       }
       
       return this;
@@ -255,30 +300,30 @@ public class PersonSet extends SimpleSet<Person>
    }
 
    /**
-    * Loop through the current set of Person objects and collect a set of the Person objects reached via nextPerson. 
+    * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
     * 
-    * @return Set of Person objects reachable via nextPerson
+    * @return Set of Room objects reachable via room
     */
-   public PersonSet getNextPerson()
+   public RoomSet getRoom()
    {
-      PersonSet result = new PersonSet();
+      RoomSet result = new RoomSet();
       
       for (Person obj : this)
       {
-         result.with(obj.getNextPerson());
+         result.with(obj.getRoom());
       }
       
       return result;
    }
 
    /**
-    * Loop through the current set of Person objects and collect all contained objects with reference nextPerson pointing to the object passed as parameter. 
+    * Loop through the current set of Person objects and collect all contained objects with reference room pointing to the object passed as parameter. 
     * 
-    * @param value The object required as nextPerson neighbor of the collected results. 
+    * @param value The object required as room neighbor of the collected results. 
     * 
-    * @return Set of Person objects referring to value via nextPerson
+    * @return Set of Room objects referring to value via room
     */
-   public PersonSet filterNextPerson(Object value)
+   public PersonSet filterRoom(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -295,7 +340,7 @@ public class PersonSet extends SimpleSet<Person>
       
       for (Person obj : this)
       {
-         if (neighbors.contains(obj.getNextPerson()) || (neighbors.isEmpty() && obj.getNextPerson() == null))
+         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
          {
             answer.add(obj);
          }
@@ -305,46 +350,15 @@ public class PersonSet extends SimpleSet<Person>
    }
 
    /**
-    * Follow nextPerson reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Room attribute of each of it. 
     * 
-    * @return Set of Person objects reachable via nextPerson transitively (including the start set)
+    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
     */
-   public PersonSet getNextPersonTransitive()
-   {
-      PersonSet todo = new PersonSet().with(this);
-      
-      PersonSet result = new PersonSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Person current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            if ( ! result.contains(current.getNextPerson()))
-            {
-               todo.with(current.getNextPerson());
-            }
-         }
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the NextPerson attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their NextPerson attributes.
-    */
-   public PersonSet withNextPerson(Person value)
+   public PersonSet withRoom(Room value)
    {
       for (Person obj : this)
       {
-         obj.withNextPerson(value);
+         obj.withRoom(value);
       }
       
       return this;

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,10 +21,9 @@
    
 package org.sdmlib.simple.model.attribute_g;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
@@ -93,24 +92,24 @@ import de.uniks.networkparser.list.SimpleSet;
    
    public static final String PROPERTY_NAMESSET = "namesSet";
    
-   private SimpleSet<SimpleSet> namesSet;
+   private SimpleSet<SimpleSet<String>> namesSet;
 
-   public SimpleSet<SimpleSet> getNamesSet()
+   public SimpleSet<SimpleSet<String>> getNamesSet()
    {
       return this.namesSet;
    }
    
-   public void setNamesSet(SimpleSet<SimpleSet> value)
+   public void setNamesSet(SimpleSet<SimpleSet<String>> value)
    {
       if (this.namesSet != value) {
       
-         SimpleSet<SimpleSet> oldValue = this.namesSet;
+         SimpleSet<SimpleSet<String>> oldValue = this.namesSet;
          this.namesSet = value;
          this.firePropertyChange(PROPERTY_NAMESSET, oldValue, value);
       }
    }
    
-   public Person withNamesSet(SimpleSet<SimpleSet> value)
+   public Person withNamesSet(SimpleSet<SimpleSet<String>> value)
    {
       setNamesSet(value);
       return this;

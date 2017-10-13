@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.association_g.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.association_g.Room;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.association_g.Room;
 
 public class RoomPOCreator extends PatternObjectCreator
 {

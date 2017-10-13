@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherSet extends SimpleSet<BigBrother>
 {
@@ -256,4 +258,23 @@ public class BigBrotherSet extends SimpleSet<BigBrother>
    {
       this.addAll(objects);
    }
-}
+
+
+   public BigBrotherPO createBigBrotherPO()
+   {
+      return new BigBrotherPO(this.toArray(new BigBrother[this.size()]));
+   }
+
+
+   @Override
+   public BigBrotherSet getNewList(boolean keyValue)
+   {
+      return new BigBrotherSet();
+   }
+
+
+   public BigBrotherSet filter(Condition<BigBrother> condition) {
+      BigBrotherSet filterList = new BigBrotherSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

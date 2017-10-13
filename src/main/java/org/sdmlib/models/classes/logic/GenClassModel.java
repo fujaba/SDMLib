@@ -2491,7 +2491,7 @@ public class GenClassModel implements ClassModelAdapter
 
          if (!classContainsAttribut(clazz, attrName, symTabEntry.getType()))
          {
-            new Attribute(attrName, DataType.create(symTabEntry.getType())).with(clazz);
+            clazz.createAttribute(attrName, DataType.create(symTabEntry.getType()));
          }
       }
 
@@ -2537,8 +2537,7 @@ public class GenClassModel implements ClassModelAdapter
       // type is unknown
       if (addToSymTabEntry == null)
       {
-         new Attribute(memberName, DataType.create(partnerTypeName))
-               .with(clazz);
+         clazz.createAttribute(memberName, DataType.create(partnerTypeName));
          return;
       }
 
@@ -2576,8 +2575,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!done)
       {
          // did not find reverse role, add as attribute
-         new Attribute(memberName, DataType.create(partnerTypeName))
-               .with(clazz);
+         clazz.createAttribute(memberName, DataType.create(partnerTypeName));
       }
 
       // // remove getter with setter or addTo removeFrom removeAllFrom without

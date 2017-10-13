@@ -1,9 +1,11 @@
 package org.sdmlib.simple.model.association_k.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.association_k.Task;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.simple.model.association_k.util.TaskPO;
+import org.sdmlib.simple.model.association_k.util.TaskSet;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {

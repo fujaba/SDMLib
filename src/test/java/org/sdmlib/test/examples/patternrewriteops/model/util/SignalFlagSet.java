@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagSet extends SimpleSet<SignalFlag>
 {
@@ -150,5 +152,24 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
    {
       this.addAll(objects);
    }
-}
+
+
+   public SignalFlagPO createSignalFlagPO()
+   {
+      return new SignalFlagPO(this.toArray(new SignalFlag[this.size()]));
+   }
+
+
+   @Override
+   public SignalFlagSet getNewList(boolean keyValue)
+   {
+      return new SignalFlagSet();
+   }
+
+
+   public SignalFlagSet filter(Condition<SignalFlag> condition) {
+      SignalFlagSet filterList = new SignalFlagSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 

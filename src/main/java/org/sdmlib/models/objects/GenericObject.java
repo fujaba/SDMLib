@@ -32,6 +32,9 @@ import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.objects.GenericAttribute;
+import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.objects.GenericGraph;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>

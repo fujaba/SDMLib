@@ -30,6 +30,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyright.model.Topic;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
@@ -316,5 +317,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
+   
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
+}
 

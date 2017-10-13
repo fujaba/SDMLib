@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.simpleModel.model.MacList;
+import org.sdmlib.test.examples.simpleModel.model.util.MacListSet;
 
 public class ArrayListSet extends SimpleSet<ArrayList>
 {
@@ -91,4 +94,38 @@ public class ArrayListSet extends SimpleSet<ArrayList>
          this.add(obj);
       }
    }
-}
+
+
+   public ArrayListPO createArrayListPO()
+   {
+      return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
+   }
+
+
+   @Override
+   public ArrayListSet getNewList(boolean keyValue)
+   {
+      return new ArrayListSet();
+   }
+
+
+   public ArrayListSet filter(Condition<ArrayList> condition) {
+      ArrayListSet filterList = new ArrayListSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public MacListSet instanceOfMacList()
+   {
+      MacListSet result = new MacListSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MacList)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

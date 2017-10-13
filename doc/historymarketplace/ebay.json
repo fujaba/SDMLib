@@ -92,3 +92,5 @@
 {"id":"ebay.1488984647301.M1#1:org.sdmlib.test.historymanagement.marketmodel.Market","opCode":"plain","prop":"marketTime","newValue":"08:09","oldValue":"08:08","timeStamp":236660696850475}
 {"id":"ebay.1488984647301.M1#1:org.sdmlib.test.historymanagement.marketmodel.Market","opCode":"plain","prop":"marketTime","newValue":"08:10","oldValue":"08:09","timeStamp":236660806232296}
 {"id":"ebay.1488984647301.M1#1:org.sdmlib.test.historymanagement.marketmodel.Market","opCode":"plain","prop":"marketTime","newValue":"08:11","oldValue":"08:10","timeStamp":236660920518142}
+{"id":"M146451198263742","opCode":"plain","prop":"marketTime","newValue":"00:00","oldValue":null,"timeStamp":146451200295959}
+{"id":"M146451198263742","opCode":"plain","prop":"marketTime","newValue":"08:00","oldValue":"00:00","timeStamp":146451205200380}

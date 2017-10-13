@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.association_k.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.association_k.Task;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.association_k.Task;
 
 public class TaskPOCreator extends PatternObjectCreator
 {

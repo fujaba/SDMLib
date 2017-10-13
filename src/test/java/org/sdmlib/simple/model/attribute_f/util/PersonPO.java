@@ -1,11 +1,10 @@
 package org.sdmlib.simple.model.attribute_f.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.attribute_f.Person;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -42,52 +41,6 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       this.setModifier(modifier);
    }
-   public PersonPO createNamesCondition(SimpleSet<String> value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAMES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PersonPO createNamesAssignment(SimpleSet<String> value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAMES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public SimpleSet<String> getNames()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) getCurrentMatch()).getNames();
-      }
-      return null;
-   }
-   
-   public PersonPO withNames(SimpleSet<String> value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Person) getCurrentMatch()).setNames(value);
-      }
-      return this;
-   }
-   
    public PersonPO createAgesCondition(SimpleSet<Integer> value)
    {
       new AttributeConstraint()
@@ -130,6 +83,52 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       if (this.getPattern().getHasMatch())
       {
          ((Person) getCurrentMatch()).setAges(value);
+      }
+      return this;
+   }
+   
+   public PersonPO createNamesCondition(SimpleSet<String> value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAMES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNamesAssignment(SimpleSet<String> value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAMES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SimpleSet<String> getNames()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getNames();
+      }
+      return null;
+   }
+   
+   public PersonPO withNames(SimpleSet<String> value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) getCurrentMatch()).setNames(value);
       }
       return this;
    }

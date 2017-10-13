@@ -4,16 +4,41 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='../src/test/java/org/sdmlib/test/examples/replication/chat/ReplicationChatModel.java' type='text/x-java'>ReplicationChatModel</a></p>
 <p>ReplicationChatModel</p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
+      {
+         "typ":"node",
+         "id":"ChatChannel"
+      },
+      {
+         "typ":"node",
+         "id":"ChatMsg",
+         "attributes":[
+            "sender : String",
+            "text : String",
+            "time : long"
+         ]
+      },
       {
          "typ":"node",
          "id":"ChatRoot"
@@ -24,24 +49,50 @@
          "attributes":[
             "userName : String"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"ChatChannel"
-      },
-      {
-         "typ":"node",
-         "id":"ChatMsg",
-         "attributes":[
-            "text : String",
-            "time : long",
-            "sender : String"
-         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"ChatChannel",
+            "cardinality":"one",
+            "property":"channel"
+         },
+         "target":{
+            "id":"ChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ChatChannel",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"ChatUser",
+            "cardinality":"many",
+            "property":"users"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         },
+         "target":{
+            "id":"ChatChannel",
+            "cardinality":"one",
+            "property":"channel"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"ChatRoot",
             "cardinality":"one",
@@ -54,7 +105,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"ChatUser",
+            "cardinality":"many",
+            "property":"users"
+         },
+         "target":{
+            "id":"ChatRoot",
+            "cardinality":"one",
+            "property":"chatRoot"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"ChatUser",
             "cardinality":"many",
@@ -64,19 +128,6 @@
             "id":"ChatChannel",
             "cardinality":"many",
             "property":"channels"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChatChannel",
-            "cardinality":"one",
-            "property":"channel"
-         },
-         "target":{
-            "id":"ChatMsg",
-            "cardinality":"many",
-            "property":"msgs"
          }
       }
    ]

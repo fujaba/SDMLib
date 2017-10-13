@@ -9,6 +9,13 @@ import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.OpenStack;
 import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.maumau.model.util.CardPO;
+import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
+import org.sdmlib.test.examples.maumau.model.util.HolderPO;
+import org.sdmlib.test.examples.maumau.model.util.PlayerPO;
+import org.sdmlib.test.examples.maumau.model.util.DrawingStackPO;
+import org.sdmlib.test.examples.maumau.model.util.OpenStackPO;
 
 public class MauMauPO extends PatternObject<MauMauPO, MauMau>
 {
@@ -534,6 +541,307 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
    public MauMauPO filterOpenStack(OpenStackPO tgt)
    {
       return hasLinkConstraint(tgt, MauMau.PROPERTY_OPENSTACK);
+   }
+
+
+   public MauMauPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MauMauPO createCurrentPlayerCondition(Player value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTPLAYER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO createCurrentPlayerAssignment(Player value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTPLAYER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO createCurrentSuitCondition(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTSUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO createCurrentSuitAssignment(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MauMau.PROPERTY_CURRENTSUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO createCardsPO()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public CardPO createCardsPO(String modifier)
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public MauMauPO createCardsLink(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_CARDS);
+   }
+
+   public MauMauPO createCardsLink(CardPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_CARDS, modifier);
+   }
+
+   public HolderPO createDeckPO()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_DECK, result);
+      
+      return result;
+   }
+
+   public HolderPO createDeckPO(String modifier)
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_DECK, result);
+      
+      return result;
+   }
+
+   public MauMauPO createDeckLink(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DECK);
+   }
+
+   public MauMauPO createDeckLink(HolderPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DECK, modifier);
+   }
+
+   public PlayerPO createPlayersPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayersPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public MauMauPO createPlayersLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_PLAYERS);
+   }
+
+   public MauMauPO createPlayersLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_PLAYERS, modifier);
+   }
+
+   public DrawingStackPO createDrawingStackPO()
+   {
+      DrawingStackPO result = new DrawingStackPO(new DrawingStack[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_DRAWINGSTACK, result);
+      
+      return result;
+   }
+
+   public DrawingStackPO createDrawingStackPO(String modifier)
+   {
+      DrawingStackPO result = new DrawingStackPO(new DrawingStack[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_DRAWINGSTACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO createDrawingStackLink(DrawingStackPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DRAWINGSTACK);
+   }
+
+   public MauMauPO createDrawingStackLink(DrawingStackPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_DRAWINGSTACK, modifier);
+   }
+
+   public OpenStackPO createOpenStackPO()
+   {
+      OpenStackPO result = new OpenStackPO(new OpenStack[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_OPENSTACK, result);
+      
+      return result;
+   }
+
+   public OpenStackPO createOpenStackPO(String modifier)
+   {
+      OpenStackPO result = new OpenStackPO(new OpenStack[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_OPENSTACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO createOpenStackLink(OpenStackPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_OPENSTACK);
+   }
+
+   public MauMauPO createOpenStackLink(OpenStackPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_OPENSTACK, modifier);
+   }
+
+   public PlayerPO createLosersPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_LOSERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO createLosersPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_LOSERS, result);
+      
+      return result;
+   }
+
+   public MauMauPO createLosersLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_LOSERS);
+   }
+
+   public MauMauPO createLosersLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_LOSERS, modifier);
+   }
+
+   public HolderPO createStackPO()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_STACK, result);
+      
+      return result;
+   }
+
+   public HolderPO createStackPO(String modifier)
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_STACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO createStackLink(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_STACK);
+   }
+
+   public MauMauPO createStackLink(HolderPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_STACK, modifier);
+   }
+
+   public PlayerPO createWinnerPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MauMau.PROPERTY_WINNER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createWinnerPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MauMau.PROPERTY_WINNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO createWinnerLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_WINNER);
+   }
+
+   public MauMauPO createWinnerLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MauMau.PROPERTY_WINNER, modifier);
    }
 
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,10 +21,10 @@
    
 package org.sdmlib.simple.model.abstract_C;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.simple.model.abstract_C.Game;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>

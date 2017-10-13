@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.mancala.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class KalahSet extends SimpleSet<Kalah>
 {
@@ -562,4 +564,70 @@ public class KalahSet extends SimpleSet<Kalah>
    {
       this.addAll(objects);
    }
+
+
+   public KalahPO createKalahPO()
+   {
+      return new KalahPO(this.toArray(new Kalah[this.size()]));
+   }
+
+
+   @Override
+   public KalahSet getNewList(boolean keyValue)
+   {
+      return new KalahSet();
+   }
+
+
+   public KalahSet filter(Condition<Kalah> condition) {
+      KalahSet filterList = new KalahSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Kalah objects and collect those Kalah objects where the nr attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Kalah objects that match the parameter
+    */
+   public KalahSet createNrCondition(int value)
+   {
+      KalahSet result = new KalahSet();
+      
+      for (Kalah obj : this)
+      {
+         if (value == obj.getNr())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Kalah objects and collect those Kalah objects where the nr attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Kalah objects that match the parameter
+    */
+   public KalahSet createNrCondition(int lower, int upper)
+   {
+      KalahSet result = new KalahSet();
+      
+      for (Kalah obj : this)
+      {
+         if (lower <= obj.getNr() && obj.getNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

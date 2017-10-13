@@ -32,6 +32,8 @@ import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupSet;
 
 public class UserSet extends SDMSet<User>
 {
@@ -343,4 +345,64 @@ public class UserSet extends SDMSet<User>
    {
       this.addAll(objects);
    }
+
+
+   public UserPO createUserPO()
+   {
+      return new UserPO(this.toArray(new User[this.size()]));
+   }
+
+
+   @Override
+   public UserSet getNewList(boolean keyValue)
+   {
+      return new UserSet();
+   }
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet createNameCondition(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet createNameCondition(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

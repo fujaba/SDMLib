@@ -29,6 +29,12 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.models.taskflows.FetchFileFlow;
+import org.sdmlib.models.taskflows.util.FetchFileFlowSet;
+import org.sdmlib.models.taskflows.Logger;
+import org.sdmlib.models.taskflows.util.LoggerSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class TaskFlowSet extends SimpleSet<TaskFlow>
 {
@@ -399,4 +405,123 @@ public class TaskFlowSet extends SimpleSet<TaskFlow>
    {
       this.addAll(objects);
    }
+
+
+   public TaskFlowPO createTaskFlowPO()
+   {
+      return new TaskFlowPO(this.toArray(new TaskFlow[this.size()]));
+   }
+
+
+   @Override
+   public TaskFlowSet getNewList(boolean keyValue)
+   {
+      return new TaskFlowSet();
+   }
+
+
+   public TaskFlowSet filter(Condition<TaskFlow> condition) {
+      TaskFlowSet filterList = new TaskFlowSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public FetchFileFlowSet instanceOfFetchFileFlow()
+   {
+      FetchFileFlowSet result = new FetchFileFlowSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof FetchFileFlow)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet instanceOfLogger()
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Logger)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the taskNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet createTaskNoCondition(int value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the taskNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet createTaskNoCondition(int lower, int upper)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (lower <= obj.getTaskNo() && obj.getTaskNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

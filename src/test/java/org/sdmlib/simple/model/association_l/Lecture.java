@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,6 +22,7 @@
 package org.sdmlib.simple.model.association_l;
 
 import org.sdmlib.simple.model.association_l.util.StudentSet;
+import org.sdmlib.simple.model.association_l.Student;
 
 public  interface Lecture
 {

@@ -25,6 +25,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.historymanagement.marketmodel.Actor;
+import org.sdmlib.test.historymanagement.marketmodel.Offer;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryMarketModel.java'>HistoryMarketModel.java</a>

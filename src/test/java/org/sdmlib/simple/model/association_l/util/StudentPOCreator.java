@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.association_l.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.association_l.Student;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.association_l.Student;
 
 public class StudentPOCreator extends PatternObjectCreator
 {

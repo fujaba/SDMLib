@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.maumau.model.MauMau;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class DrawingStackSet extends SimpleSet<DrawingStack>
 {
@@ -296,4 +299,23 @@ public class DrawingStackSet extends SimpleSet<DrawingStack>
    {
       this.addAll(objects);
    }
-}
+
+
+   public DrawingStackPO createDrawingStackPO()
+   {
+      return new DrawingStackPO(this.toArray(new DrawingStack[this.size()]));
+   }
+
+
+   @Override
+   public DrawingStackSet getNewList(boolean keyValue)
+   {
+      return new DrawingStackSet();
+   }
+
+
+   public DrawingStackSet filter(Condition<DrawingStack> condition) {
+      DrawingStackSet filterList = new DrawingStackSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

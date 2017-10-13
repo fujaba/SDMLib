@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.replication.chat.ChatUser;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootSet;
 
 public class ChatUserSet extends SimpleSet<ChatUser>
 {
@@ -299,4 +302,70 @@ public class ChatUserSet extends SimpleSet<ChatUser>
    {
       this.addAll(objects);
    }
+
+
+   public ChatUserPO createChatUserPO()
+   {
+      return new ChatUserPO(this.toArray(new ChatUser[this.size()]));
+   }
+
+
+   @Override
+   public ChatUserSet getNewList(boolean keyValue)
+   {
+      return new ChatUserSet();
+   }
+
+
+   public ChatUserSet filter(Condition<ChatUser> condition) {
+      ChatUserSet filterList = new ChatUserSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of ChatUser objects and collect those ChatUser objects where the userName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChatUser objects that match the parameter
+    */
+   public ChatUserSet createUserNameCondition(String value)
+   {
+      ChatUserSet result = new ChatUserSet();
+      
+      for (ChatUser obj : this)
+      {
+         if (value.equals(obj.getUserName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChatUser objects and collect those ChatUser objects where the userName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChatUser objects that match the parameter
+    */
+   public ChatUserSet createUserNameCondition(String lower, String upper)
+   {
+      ChatUserSet result = new ChatUserSet();
+      
+      for (ChatUser obj : this)
+      {
+         if (lower.compareTo(obj.getUserName()) <= 0 && obj.getUserName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

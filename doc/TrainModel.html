@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java' type='text/x-java'>TrainModel</a></p>
 <p>Example model for testing destroy with model patterns: </p>
 <script>
@@ -16,7 +28,11 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Train"
+         "id":"Person"
+      },
+      {
+         "typ":"node",
+         "id":"SignalFlag"
       },
       {
          "typ":"node",
@@ -24,20 +40,29 @@
       },
       {
          "typ":"node",
-         "id":"Person"
-      },
-      {
-         "typ":"node",
-         "id":"SignalFlag"
+         "id":"Train"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Train",
+            "id":"Person",
             "cardinality":"many",
-            "property":"trains"
+            "property":"passengers"
+         },
+         "target":{
+            "id":"Train",
+            "cardinality":"one",
+            "property":"train"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"people"
          },
          "target":{
             "id":"Station",
@@ -46,20 +71,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Train",
+            "id":"SignalFlag",
             "cardinality":"one",
-            "property":"train"
+            "property":"flag"
          },
          "target":{
-            "id":"Person",
+            "id":"Station",
             "cardinality":"many",
-            "property":"passengers"
+            "property":"station"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Station",
             "cardinality":"one",
@@ -72,7 +97,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Station",
+            "cardinality":"one",
+            "property":"station"
+         },
+         "target":{
+            "id":"Train",
+            "cardinality":"many",
+            "property":"trains"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Station",
             "cardinality":"one",
@@ -85,7 +123,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Station",
             "cardinality":"many",
@@ -95,6 +133,32 @@
             "id":"SignalFlag",
             "cardinality":"one",
             "property":"flag"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Train",
+            "cardinality":"one",
+            "property":"train"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"passengers"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Train",
+            "cardinality":"many",
+            "property":"trains"
+         },
+         "target":{
+            "id":"Station",
+            "cardinality":"one",
+            "property":"station"
          }
       }
    ]

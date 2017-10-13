@@ -156,7 +156,7 @@ public class GenMethod extends Generator<Method>
          if(i > 0) {
             signature += ",";
          } 
-         signature += param.getType(true);
+         signature += param.getType();
       }
 
       signature += ")";
@@ -411,7 +411,7 @@ public class GenMethod extends Generator<Method>
        SimpleSet<Parameter> parameters = model.getParameter();
 		for (int p = 0; p < parameters.size(); p++) {
 			Parameter param = parameters.get(p);
-			formalParameter.append(param.getType(true)).append(" ");
+			formalParameter.append(param.getType()).append(" ");
 			String name = "";
 			if (param.getName() != null) {
 				name = param.getName().trim();
@@ -420,7 +420,7 @@ public class GenMethod extends Generator<Method>
 				name = "p" + (i++);
 			}
 			formalParameter.append(name);
-			parser.insertImport(param.getType(false));
+			parser.insertImport(param.getType().getName(false));
 			actualParameter.append(name);
 			if (p + 1 < parameters.size()) {
 				formalParameter.append(", ");

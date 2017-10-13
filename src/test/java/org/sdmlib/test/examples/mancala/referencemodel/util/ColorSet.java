@@ -26,6 +26,7 @@ import java.util.Collection;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ColorSet extends SimpleSet<Color>
 {
@@ -89,4 +90,23 @@ public class ColorSet extends SimpleSet<Color>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ColorPO createColorPO()
+   {
+      return new ColorPO(this.toArray(new Color[this.size()]));
+   }
+
+
+   @Override
+   public ColorSet getNewList(boolean keyValue)
+   {
+      return new ColorSet();
+   }
+
+
+   public ColorSet filter(Condition<Color> condition) {
+      ColorSet filterList = new ColorSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

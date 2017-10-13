@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,22 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
+import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
 
-import de.uniks.networkparser.list.ObjectSet;
-
-public class HouseSet extends SDMSet<House>
+public class HouseSet extends SimpleSet<House>
 {
+	public Class<?> getTypClass() {
+		return House.class;
+	}
 
    public HouseSet()
    {
@@ -52,10 +56,10 @@ public class HouseSet extends SDMSet<House>
       this.addAll(objects);
    }
 
-   public static final HouseSet EMPTY_SET = new HouseSet();
+   public static final HouseSet EMPTY_SET = new HouseSet().withFlag(HouseSet.READONLY);
 
 
-   public HousePO filterHousePO()
+   public HousePO createHousePO()
    {
       return new HousePO(this.toArray(new House[this.size()]));
    }
@@ -66,6 +70,19 @@ public class HouseSet extends SDMSet<House>
       return "org.sdmlib.test.examples.annotations.model.simple.House";
    }
 
+
+   @Override
+   public HouseSet getNewList(boolean keyValue)
+   {
+      return new HouseSet();
+   }
+
+
+   public HouseSet filter(Condition<House> condition) {
+      HouseSet filterList = new HouseSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public HouseSet with(Object value)
@@ -97,11 +114,7 @@ public class HouseSet extends SDMSet<House>
    
    public HouseSet init()
    {
-      for (House obj : this)
-      {
-         obj.init();
-      }
-      return this;
+      return HouseSet.EMPTY_SET;
    }
 
    /**

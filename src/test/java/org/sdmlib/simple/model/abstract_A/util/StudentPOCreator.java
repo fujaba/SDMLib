@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.abstract_A.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.abstract_A.Student;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.abstract_A.Student;
 
 public class StudentPOCreator extends PatternObjectCreator
 {

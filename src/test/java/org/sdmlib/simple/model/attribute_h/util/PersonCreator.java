@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,10 +21,9 @@
    
 package org.sdmlib.simple.model.attribute_h.util;
 
-import org.sdmlib.simple.model.attribute_h.Person;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.simple.model.attribute_h.Person;
+import de.uniks.networkparser.IdMap;
 
 public class PersonCreator implements SendableEntityCreator
 {
@@ -73,6 +72,10 @@ public class PersonCreator implements SendableEntityCreator
          return true;
       }
 
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Person)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;

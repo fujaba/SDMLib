@@ -32,6 +32,9 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
 public class PawnSet extends SimpleSet<Pawn>
 {
@@ -507,4 +510,145 @@ public class PawnSet extends SimpleSet<Pawn>
       PawnSet filterList = new PawnSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the color attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createColorCondition(String value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the color attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createColorCondition(String lower, String upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the x attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createXCondition(int value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the x attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createXCondition(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the y attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createYCondition(int value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pawn objects and collect those Pawn objects where the y attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Pawn objects that match the parameter
+    */
+   public PawnSet createYCondition(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

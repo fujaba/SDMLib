@@ -6,6 +6,7 @@ import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
+import org.sdmlib.models.pattern.Pattern;
 
 public class KalahPO extends PatternObject<KalahPO, Kalah>
 {
@@ -316,6 +317,54 @@ public class KalahPO extends PatternObject<KalahPO, Kalah>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public KalahPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public KalahPO createNrCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Kalah.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KalahPO createNrCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Kalah.PROPERTY_NR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public KalahPO createNrAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Kalah.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

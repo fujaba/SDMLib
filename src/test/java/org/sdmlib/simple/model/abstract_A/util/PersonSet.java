@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,16 @@
    
 package org.sdmlib.simple.model.abstract_A.util;
 
-import java.util.Collection;
-
-import org.sdmlib.simple.model.abstract_A.Human;
-import org.sdmlib.simple.model.abstract_A.Person;
-import org.sdmlib.simple.model.abstract_A.Student;
-
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.abstract_A.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.simple.model.abstract_A.Student;
+import org.sdmlib.simple.model.abstract_A.util.StudentSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.simple.model.abstract_A.util.PersonSet;
+import org.sdmlib.simple.model.abstract_A.util.HumanSet;
+import org.sdmlib.simple.model.abstract_A.Human;
 
 public class PersonSet extends SimpleSet<Person>
 {

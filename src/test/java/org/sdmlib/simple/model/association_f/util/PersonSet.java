@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.simple.model.association_f.util;
 
-import java.util.Collection;
-
-import org.sdmlib.simple.model.association_f.Person;
-import org.sdmlib.simple.model.association_f.Room;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_f.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.simple.model.association_f.util.RoomSet;
+import org.sdmlib.simple.model.association_f.Room;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -67,6 +67,19 @@ public class PersonSet extends SimpleSet<Person>
       return "org.sdmlib.simple.model.association_f.Person";
    }
 
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)

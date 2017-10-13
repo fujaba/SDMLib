@@ -21,6 +21,10 @@
    
 package org.sdmlib.test.examples.mancala.model;
 
+import org.sdmlib.test.examples.mancala.model.Pit;
+import org.sdmlib.test.examples.mancala.model.Mancala;
+import org.sdmlib.test.examples.mancala.model.Player;
+
 /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>

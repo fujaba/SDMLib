@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 
 public class CargoSet extends SimpleSet<Cargo>
 {
@@ -288,4 +291,70 @@ public class CargoSet extends SimpleSet<Cargo>
    {
       this.addAll(objects);
    }
+
+
+   public CargoPO createCargoPO()
+   {
+      return new CargoPO(this.toArray(new Cargo[this.size()]));
+   }
+
+
+   @Override
+   public CargoSet getNewList(boolean keyValue)
+   {
+      return new CargoSet();
+   }
+
+
+   public CargoSet filter(Condition<Cargo> condition) {
+      CargoSet filterList = new CargoSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Cargo objects that match the parameter
+    */
+   public CargoSet createNameCondition(String value)
+   {
+      CargoSet result = new CargoSet();
+      
+      for (Cargo obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Cargo objects that match the parameter
+    */
+   public CargoSet createNameCondition(String lower, String upper)
+   {
+      CargoSet result = new CargoSet();
+      
+      for (Cargo obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

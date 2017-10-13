@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.simple.model.androidmodel.University;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/FeatureTest.java'>FeatureTest.java</a>

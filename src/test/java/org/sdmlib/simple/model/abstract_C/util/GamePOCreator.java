@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.abstract_C.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.abstract_C.Game;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.abstract_C.Game;
 
 public class GamePOCreator extends PatternObjectCreator
 {

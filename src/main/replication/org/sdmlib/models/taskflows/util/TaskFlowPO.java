@@ -4,6 +4,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {
@@ -265,6 +267,142 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
    public TaskFlowPO filterSubFlow(TaskFlowPO tgt)
    {
       return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
+   }
+
+
+   public TaskFlowPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TaskFlowPO createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createIdMapAssignment(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createTaskNoCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createTaskNoCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createTaskNoAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createParentPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createParentPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createParentLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT);
+   }
+
+   public TaskFlowPO createParentLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_PARENT, modifier);
+   }
+
+   public TaskFlowPO createSubFlowPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createSubFlowPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createSubFlowLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
+   }
+
+   public TaskFlowPO createSubFlowLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW, modifier);
    }
 
 }

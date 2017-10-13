@@ -24,6 +24,7 @@ package org.sdmlib.simple.model.attribute_g.util;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class SimpleSetSet extends SimpleSet<SimpleSet>
 {
@@ -89,4 +90,17 @@ public class SimpleSetSet extends SimpleSet<SimpleSet>
       return this;
    }
 
-}
+
+
+   @Override
+   public SimpleSetSet getNewList(boolean keyValue)
+   {
+      return new SimpleSetSet();
+   }
+
+
+   public SimpleSetSet filter(Condition<SimpleSet> condition) {
+      SimpleSetSet filterList = new SimpleSetSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

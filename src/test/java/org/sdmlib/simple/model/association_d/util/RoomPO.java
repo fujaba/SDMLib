@@ -1,8 +1,10 @@
 package org.sdmlib.simple.model.association_d.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.association_d.Person;
 import org.sdmlib.simple.model.association_d.Room;
+import org.sdmlib.simple.model.association_d.util.PersonPO;
+import org.sdmlib.simple.model.association_d.Person;
+import org.sdmlib.simple.model.association_d.util.RoomPO;
 
 public class RoomPO extends PatternObject<RoomPO, Room>
 {

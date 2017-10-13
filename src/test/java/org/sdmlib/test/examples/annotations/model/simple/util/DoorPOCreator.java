@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 
 public class DoorPOCreator extends PatternObjectCreator
 {

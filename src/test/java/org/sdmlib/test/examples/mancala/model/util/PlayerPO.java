@@ -9,6 +9,7 @@ import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
 import org.sdmlib.test.examples.mancala.model.Stone;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -396,4 +397,108 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+
+   public PlayerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PlayerPO createColorCondition(Color value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createColorAssignment(Color value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createStateCondition(PlayerState value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createStateAssignment(PlayerState value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

@@ -1,9 +1,8 @@
 package org.sdmlib.simple.model.abstract_B.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.simple.model.abstract_B.Flower;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.abstract_B.Flower;
 
 public class FlowerPOCreator extends PatternObjectCreator
 {

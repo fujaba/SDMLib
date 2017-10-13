@@ -32,6 +32,10 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
 
 public class MatchSet extends SimpleSet<Match>
 {
@@ -804,4 +808,234 @@ public class MatchSet extends SimpleSet<Match>
    {
       this.addAll(objects);
    }
+
+
+   public MatchPO createMatchPO()
+   {
+      return new MatchPO(this.toArray(new Match[this.size()]));
+   }
+
+
+   @Override
+   public MatchSet getNewList(boolean keyValue)
+   {
+      return new MatchSet();
+   }
+
+
+   public MatchSet filter(Condition<Match> condition) {
+      MatchSet filterList = new MatchSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the endPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createEndPosCondition(int value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the endPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createEndPosCondition(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the fullText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createFullTextCondition(String value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value.equals(obj.getFullText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the fullText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createFullTextCondition(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getFullText()) <= 0 && obj.getFullText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the matchText attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createMatchTextCondition(String value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value.equals(obj.getMatchText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the matchText attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createMatchTextCondition(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getMatchText()) <= 0 && obj.getMatchText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the modelObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createModelObjectCondition(Object value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getModelObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the startPos attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createStartPosCondition(int value)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Match objects and collect those Match objects where the startPos attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Match objects that match the parameter
+    */
+   public MatchSet createStartPosCondition(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
 public class SimpleStateSet extends SimpleSet<SimpleState>
 {
@@ -150,4 +152,23 @@ public class SimpleStateSet extends SimpleSet<SimpleState>
    {
       this.addAll(objects);
    }
-}
+
+
+   public SimpleStatePO createSimpleStatePO()
+   {
+      return new SimpleStatePO(this.toArray(new SimpleState[this.size()]));
+   }
+
+
+   @Override
+   public SimpleStateSet getNewList(boolean keyValue)
+   {
+      return new SimpleStateSet();
+   }
+
+
+   public SimpleStateSet filter(Condition<SimpleState> condition) {
+      SimpleStateSet filterList = new SimpleStateSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

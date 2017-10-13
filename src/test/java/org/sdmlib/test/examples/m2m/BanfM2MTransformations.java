@@ -44,7 +44,8 @@ public class BanfM2MTransformations
     * 
     * @see <a href=
     *      '../../../../../../../../doc/BanfM2MTransformation.html'>BanfM2MTransformation.html</a>
-    */
+    * @see <a href='../../../../../../../../doc/BanfM2MTransformation.html'>BanfM2MTransformation.html</a>
+ */
    @Test
    public void testBanfM2MTransformation()
    {

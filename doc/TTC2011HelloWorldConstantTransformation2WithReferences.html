@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
@@ -36,7 +48,7 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Greeting",
             "cardinality":"one",
@@ -49,7 +61,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Greeting",
             "cardinality":"one",
@@ -59,6 +71,32 @@
             "id":"Person",
             "cardinality":"one",
             "property":"person"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"GreetingMessage",
+            "cardinality":"one",
+            "property":"greetingMessage"
+         },
+         "target":{
+            "id":"Greeting",
+            "cardinality":"one",
+            "property":"greeting"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Greeting",
+            "cardinality":"one",
+            "property":"greeting"
          }
       }
    ]
@@ -77,18 +115,19 @@
             .hasName(&quot;TTC Participants&quot;);
 </pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g1 : GreetingPO",
          "attributes":[
-            "<< start >>",
             "<< create>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g2 : GreetingMessagePO",
          "attributes":[
             "<< create>>",
@@ -96,7 +135,8 @@
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"p3 : PersonPO",
          "attributes":[
             "<< create>>",
@@ -114,7 +154,8 @@
          "target":{
             "property":"greetingMessage",
             "id":"g2 : GreetingMessagePO"
-         }
+         },
+         "style":"create"
       },
       {
          "typ":"EDGE",
@@ -125,7 +166,8 @@
          "target":{
             "property":"person",
             "id":"p3 : PersonPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;
@@ -136,18 +178,19 @@
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g1 : GreetingPO",
          "attributes":[
-            "<< start >>",
             "<< create>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"g2 : GreetingMessagePO",
          "attributes":[
             "<< create>>",
@@ -155,7 +198,8 @@
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
+         "style":"create",
          "id":"p3 : PersonPO",
          "attributes":[
             "<< create>>",
@@ -173,7 +217,8 @@
          "target":{
             "property":"greetingMessage",
             "id":"g2 : GreetingMessagePO"
-         }
+         },
+         "style":"create"
       },
       {
          "typ":"EDGE",
@@ -184,7 +229,8 @@
          "target":{
             "property":"person",
             "id":"p3 : PersonPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;
@@ -194,22 +240,25 @@
 <p>For completeness just the host graph:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"G1 : Greeting"
+         "type":"clazz",
+         "id":"G1 : Greeting",
+         "attributes":[
+            "text=null",
+            "tgt=null"
+         ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G2 : GreetingMessage",
          "attributes":[
             "text=Hello"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P3 : Person",
          "attributes":[
             "name=TTC Participants"
@@ -218,7 +267,7 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"greetingMessage",
@@ -231,7 +280,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"person",

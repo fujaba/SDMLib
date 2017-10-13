@@ -6,6 +6,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -354,6 +359,187 @@ public class BankPO extends PatternObject<BankPO, Bank>
    public BankPO filterCargos(CargoPO tgt)
    {
       return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS);
+   }
+
+
+   public BankPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public BankPO createAgeCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createAgeCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createAgeAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BoatPO createBoatPO()
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public BoatPO createBoatPO(String modifier)
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public BankPO createBoatLink(BoatPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_BOAT);
+   }
+
+   public BankPO createBoatLink(BoatPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_BOAT, modifier);
+   }
+
+   public CargoPO createCargosPO()
+   {
+      CargoPO result = new CargoPO(new Cargo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_CARGOS, result);
+      
+      return result;
+   }
+
+   public CargoPO createCargosPO(String modifier)
+   {
+      CargoPO result = new CargoPO(new Cargo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_CARGOS, result);
+      
+      return result;
+   }
+
+   public BankPO createCargosLink(CargoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS);
+   }
+
+   public BankPO createCargosLink(CargoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS, modifier);
+   }
+
+   public RiverPO createRiverPO()
+   {
+      RiverPO result = new RiverPO(new River[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_RIVER, result);
+      
+      return result;
+   }
+
+   public RiverPO createRiverPO(String modifier)
+   {
+      RiverPO result = new RiverPO(new River[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_RIVER, result);
+      
+      return result;
+   }
+
+   public BankPO createRiverLink(RiverPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_RIVER);
+   }
+
+   public BankPO createRiverLink(RiverPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_RIVER, modifier);
    }
 
 }

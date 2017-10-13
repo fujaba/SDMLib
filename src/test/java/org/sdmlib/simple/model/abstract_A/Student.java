@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,7 +21,9 @@
    
 package org.sdmlib.simple.model.abstract_A;
 
-/**
+import org.sdmlib.simple.model.abstract_A.Person;
+import org.sdmlib.simple.model.abstract_A.Human;
+   /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAbstractClazz.java'>TestAbstractClazz.java</a>
  */
@@ -35,7 +37,6 @@ package org.sdmlib.simple.model.abstract_A;
    public void removeYou()
    {
       setOwner(null);
-      setHas(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 }

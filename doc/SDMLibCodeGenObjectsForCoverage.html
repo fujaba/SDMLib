@@ -4,81 +4,90 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/SDMLib/SDMLibMetaModelObjectDiagramsForCoverage.java' type='text/x-java'>SDMLibCodeGenObjectsForCoverage</a></p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"C1 : ClassModel",
          "attributes":[
             "name=org.sdmlib"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S2 : StatementEntry",
-         "attributes":[
-            "kind=polite",
-            "de.uniks.networkparser.json.JsonArray=[{\"class\":\"de.uniks.networkparser.event.ObjectMapEntry\"},{\"class\":\"de.uniks.networkparser.event.ObjectMapEntry\"}]",
-            "assignTargetVarName=x",
-            "startPos=42",
-            "endPos=77"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S6 : StatementEntry",
-         "attributes":[
-            "startPos=0",
-            "endPos=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":" : ObjectMapEntry"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"L3 : LocalVarTableEntry",
          "attributes":[
-            "name=me",
-            "type=int",
-            "startPos=42",
             "endPos=84",
-            "de.uniks.networkparser.json.JsonArray=[{\"class\":\"de.uniks.networkparser.event.ObjectMapEntry\"},{\"class\":\"de.uniks.networkparser.event.ObjectMapEntry\"}]"
+            "name=me",
+            "startPos=42",
+            "type=int"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"S2 : StatementEntry",
+         "attributes":[
+            "assignTargetVarName=x",
+            "endPos=77",
+            "kind=polite",
+            "startPos=42"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"S4 : SymTabEntry",
          "attributes":[
-            "kind=cool",
-            "memberName=me",
-            "startPos=43",
+            "annotations=null",
+            "annotationsStartPos=0",
             "bodyStartPos=42",
             "endPos=84",
+            "kind=cool",
+            "memberName=me",
             "modifiers=grow",
-            "preCommentStartPos=0",
             "preCommentEndPos=0",
-            "annotationsStartPos=0"
+            "preCommentStartPos=0",
+            "startPos=43",
+            "type=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S5 : StatementEntry",
+         "attributes":[
+            "assignTargetVarName=null",
+            "endPos=0",
+            "kind=null",
+            "startPos=0"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"bodyStats",
-            "id":"S6 : StatementEntry"
+            "id":"S5 : StatementEntry"
          },
          "target":{
             "cardinality":"one",

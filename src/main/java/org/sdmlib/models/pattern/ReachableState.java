@@ -40,6 +40,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 /**
  * 
@@ -78,6 +80,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    public String computeCertificate(IdMap map)
    {
+      this.certificateIdMap = map;
+      
       this.certificate = null;
 
       long category = 1;
@@ -112,6 +116,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             String id = jsonObj.getString(IdMap.ID);
 
             jsonObj.remove(IdMap.ID);
+            jsonObj.remove(IdMap.SESSION);
+            jsonObj.remove(IdMap.TIMESTAMP);
 
             JsonObject propObj = jsonObj.getJsonObject(JsonTokener.PROPS);
 
@@ -127,7 +133,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                   JsonObject ref = (JsonObject) value;
                   if (ref.get(IdMap.ID) != null)
                   {
-                     ref.withValue(IdMap.ID, oldnode2certificates.get(ref.getString(IdMap.ID)));
+                     String oldCerti = oldnode2certificates.get(ref.getString(IdMap.ID));
+                     ref.withValue(IdMap.ID, oldCerti);
                   }
                }
                else if (value instanceof JsonArray)
@@ -138,8 +145,11 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                      JsonObject ref = (JsonObject) ao;
                      if (ref.get(IdMap.ID) != null)
                      {
-                        ref.withValue(IdMap.ID, oldnode2certificates.get(ref.getString(IdMap.ID)));
+                        String oldCerti = oldnode2certificates.get(ref.getString(IdMap.ID));
+                        ref.withValue(IdMap.ID, oldCerti);
                      }
+                     ref.remove(IdMap.SESSION);
+                     ref.remove(IdMap.TIMESTAMP);
                   }
 
                   // sort the jsonarray according to ref node categories
@@ -368,6 +378,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private HashMap<String, String> node2certificates;
 
+   private IdMap certificateIdMap = null;
+   
+   public IdMap getCertificateIdMap()
+   {
+      return certificateIdMap;
+   }
 
    public HashMap<String, String> getNode2certificates()
    {
@@ -441,6 +457,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
       result.append(" ").append(this.getNumber());
       result.append(" ").append(this.getMetricValue());
+      
+      if (graphRoot != null)
+      {
+         result.append("\n").append(graphRoot.toString());
+      }
+      
       return result.substring(1);
    }
 

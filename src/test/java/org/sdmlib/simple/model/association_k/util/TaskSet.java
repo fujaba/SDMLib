@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.simple.model.association_k.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.simple.model.association_k.Task;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_k.Task;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.simple.model.association_k.util.TaskSet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -67,6 +67,19 @@ public class TaskSet extends SimpleSet<Task>
       return "org.sdmlib.simple.model.association_k.Task";
    }
 
+
+   @Override
+   public TaskSet getNewList(boolean keyValue)
+   {
+      return new TaskSet();
+   }
+
+
+   public TaskSet filter(Condition<Task> condition) {
+      TaskSet filterList = new TaskSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public TaskSet with(Object value)

@@ -5,6 +5,9 @@ import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.util.CardPO;
+import org.sdmlib.test.examples.maumau.model.util.DrawingStackPO;
+import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
 
 public class DrawingStackPO extends PatternObject<DrawingStackPO, DrawingStack>
 {
@@ -230,6 +233,131 @@ public class DrawingStackPO extends PatternObject<DrawingStackPO, DrawingStack>
    public DrawingStackPO filterGame(MauMauPO tgt)
    {
       return hasLinkConstraint(tgt, DrawingStack.PROPERTY_GAME);
+   }
+
+
+   public DrawingStackPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CardPO createCardsPO()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(DrawingStack.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public CardPO createCardsPO(String modifier)
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(DrawingStack.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public DrawingStackPO createCardsLink(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_CARDS);
+   }
+
+   public DrawingStackPO createCardsLink(CardPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_CARDS, modifier);
+   }
+
+   public MauMauPO createDeckOwnerPO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(DrawingStack.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO createDeckOwnerPO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(DrawingStack.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public DrawingStackPO createDeckOwnerLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_DECKOWNER);
+   }
+
+   public DrawingStackPO createDeckOwnerLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_DECKOWNER, modifier);
+   }
+
+   public MauMauPO createGamePO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(DrawingStack.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public MauMauPO createGamePO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(DrawingStack.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public DrawingStackPO createGameLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_GAME);
+   }
+
+   public DrawingStackPO createGameLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_GAME, modifier);
+   }
+
+   public MauMauPO createStackOwnerPO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(DrawingStack.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO createStackOwnerPO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(DrawingStack.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public DrawingStackPO createStackOwnerLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_STACKOWNER);
+   }
+
+   public DrawingStackPO createStackOwnerLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, DrawingStack.PROPERTY_STACKOWNER, modifier);
    }
 
 }

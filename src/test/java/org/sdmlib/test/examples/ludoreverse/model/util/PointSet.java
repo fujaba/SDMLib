@@ -27,6 +27,7 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class PointSet extends SimpleSet<Point>
 {
@@ -164,4 +165,23 @@ public class PointSet extends SimpleSet<Point>
    {
       this.addAll(objects);
    }
-}
+
+
+   public PointPO createPointPO()
+   {
+      return new PointPO(this.toArray(new Point[this.size()]));
+   }
+
+
+   @Override
+   public PointSet getNewList(boolean keyValue)
+   {
+      return new PointSet();
+   }
+
+
+   public PointSet filter(Condition<Point> condition) {
+      PointSet filterList = new PointSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

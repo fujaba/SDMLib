@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class TrainSet extends SimpleSet<Train>
 {
@@ -199,5 +202,24 @@ public class TrainSet extends SimpleSet<Train>
    {
       this.addAll(objects);
    }
-}
+
+
+   public TrainPO createTrainPO()
+   {
+      return new TrainPO(this.toArray(new Train[this.size()]));
+   }
+
+
+   @Override
+   public TrainSet getNewList(boolean keyValue)
+   {
+      return new TrainSet();
+   }
+
+
+   public TrainSet filter(Condition<Train> condition) {
+      TrainSet filterList = new TrainSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 

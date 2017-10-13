@@ -30,6 +30,11 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
+import org.sdmlib.models.objects.util.GenericGraphSet;
 
 public class GenericObjectSet extends SimpleSet<GenericObject>
 {
@@ -668,5 +673,18 @@ public class GenericObjectSet extends SimpleSet<GenericObject>
       return result;
    }
 
-}
+
+
+   @Override
+   public GenericObjectSet getNewList(boolean keyValue)
+   {
+      return new GenericObjectSet();
+   }
+
+
+   public GenericObjectSet filter(Condition<GenericObject> condition) {
+      GenericObjectSet filterList = new GenericObjectSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 

@@ -33,4 +33,9 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(org.sdmlib.test.examples.Annotation.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

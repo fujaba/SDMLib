@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.features.model.albertsets.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
+import org.sdmlib.test.examples.features.model.albertsets.util.HousePO;
+import org.sdmlib.test.examples.features.model.albertsets.util.WindowPO;
 
 public class WindowPO extends PatternObject<WindowPO, Window>
 {
@@ -81,6 +83,41 @@ public class WindowPO extends PatternObject<WindowPO, Window>
    public WindowPO filterHouse(HousePO tgt)
    {
       return hasLinkConstraint(tgt, Window.PROPERTY_HOUSE);
+   }
+
+
+   public WindowPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public HousePO createHousePO()
+   {
+      HousePO result = new HousePO(new House[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Window.PROPERTY_HOUSE, result);
+      
+      return result;
+   }
+
+   public HousePO createHousePO(String modifier)
+   {
+      HousePO result = new HousePO(new House[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Window.PROPERTY_HOUSE, result);
+      
+      return result;
+   }
+
+   public WindowPO createHouseLink(HousePO tgt)
+   {
+      return hasLinkConstraint(tgt, Window.PROPERTY_HOUSE);
+   }
+
+   public WindowPO createHouseLink(HousePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Window.PROPERTY_HOUSE, modifier);
    }
 
 }

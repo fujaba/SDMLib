@@ -1,8 +1,10 @@
 package org.sdmlib.simple.model.abstract_A.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.simple.model.abstract_A.Human;
 import org.sdmlib.simple.model.abstract_A.Person;
+import org.sdmlib.simple.model.abstract_A.util.PersonPO;
+import org.sdmlib.simple.model.abstract_A.util.HumanPO;
+import org.sdmlib.simple.model.abstract_A.Human;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -44,7 +46,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       PersonPO result = new PersonPO(new Person[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Human.PROPERTY_HAS, result);
+      super.hasLink(Person.PROPERTY_HAS, result);
       
       return result;
    }
@@ -54,26 +56,26 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       PersonPO result = new PersonPO(new Person[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Human.PROPERTY_HAS, result);
+      super.hasLink(Person.PROPERTY_HAS, result);
       
       return result;
    }
 
    public PersonPO createHasLink(PersonPO tgt)
    {
-      return hasLinkConstraint(tgt, Human.PROPERTY_HAS);
+      return hasLinkConstraint(tgt, Person.PROPERTY_HAS);
    }
 
    public PersonPO createHasLink(PersonPO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Human.PROPERTY_HAS, modifier);
+      return hasLinkConstraint(tgt, Person.PROPERTY_HAS, modifier);
    }
 
    public Person getHas()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Human) this.getCurrentMatch()).getHas();
+         return ((Person) this.getCurrentMatch()).getHas();
       }
       return null;
    }

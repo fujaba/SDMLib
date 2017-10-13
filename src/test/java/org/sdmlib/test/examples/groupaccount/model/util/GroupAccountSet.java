@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class GroupAccountSet extends SimpleSet<GroupAccount>
 {
@@ -298,4 +300,70 @@ public class GroupAccountSet extends SimpleSet<GroupAccount>
    {
       this.addAll(objects);
    }
+
+
+   public GroupAccountPO createGroupAccountPO()
+   {
+      return new GroupAccountPO(this.toArray(new GroupAccount[this.size()]));
+   }
+
+
+   @Override
+   public GroupAccountSet getNewList(boolean keyValue)
+   {
+      return new GroupAccountSet();
+   }
+
+
+   public GroupAccountSet filter(Condition<GroupAccount> condition) {
+      GroupAccountSet filterList = new GroupAccountSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet createTaskCondition(String value)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
+   public GroupAccountSet createTaskCondition(String lower, String upper)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

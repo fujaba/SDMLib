@@ -34,6 +34,9 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class StudentSet extends SimpleSet<Student>
 {

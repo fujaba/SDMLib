@@ -32,6 +32,10 @@ import org.sdmlib.modelspace.TaskLane;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelspace.util.TaskSet;
+import org.sdmlib.modelspace.util.TaskBoardSet;
 
 public class TaskLaneSet extends SimpleSet<TaskLane>
 {
@@ -458,4 +462,117 @@ public class TaskLaneSet extends SimpleSet<TaskLane>
    {
       this.addAll(objects);
    }
+
+
+   public TaskLanePO createTaskLanePO()
+   {
+      return new TaskLanePO(this.toArray(new TaskLane[this.size()]));
+   }
+
+
+   @Override
+   public TaskLaneSet getNewList(boolean keyValue)
+   {
+      return new TaskLaneSet();
+   }
+
+
+   public TaskLaneSet filter(Condition<TaskLane> condition) {
+      TaskLaneSet filterList = new TaskLaneSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the hostName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet createHostNameCondition(String value)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the hostName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet createHostNameCondition(String lower, String upper)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the portNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet createPortNoCondition(long value)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (value == obj.getPortNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskLane objects and collect those TaskLane objects where the portNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskLane objects that match the parameter
+    */
+   public TaskLaneSet createPortNoCondition(long lower, long upper)
+   {
+      TaskLaneSet result = new TaskLaneSet();
+      
+      for (TaskLane obj : this)
+      {
+         if (lower <= obj.getPortNo() && obj.getPortNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -6,6 +6,10 @@ import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {
@@ -308,6 +312,161 @@ public class StationPO extends PatternObject<StationPO, Station>
    public StationPO filterNext(StationPO tgt)
    {
       return hasLinkConstraint(tgt, Station.PROPERTY_NEXT);
+   }
+
+
+   public StationPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public StationPO createPrevPO()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public StationPO createPrevPO(String modifier)
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Station.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public StationPO createPrevLink(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PREV);
+   }
+
+   public StationPO createPrevLink(StationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PREV, modifier);
+   }
+
+   public StationPO createNextPO()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public StationPO createNextPO(String modifier)
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Station.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public StationPO createNextLink(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_NEXT);
+   }
+
+   public StationPO createNextLink(StationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_NEXT, modifier);
+   }
+
+   public PersonPO createPeoplePO()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_PEOPLE, result);
+      
+      return result;
+   }
+
+   public PersonPO createPeoplePO(String modifier)
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Station.PROPERTY_PEOPLE, result);
+      
+      return result;
+   }
+
+   public StationPO createPeopleLink(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PEOPLE);
+   }
+
+   public StationPO createPeopleLink(PersonPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_PEOPLE, modifier);
+   }
+
+   public SignalFlagPO createFlagPO()
+   {
+      SignalFlagPO result = new SignalFlagPO(new SignalFlag[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_FLAG, result);
+      
+      return result;
+   }
+
+   public SignalFlagPO createFlagPO(String modifier)
+   {
+      SignalFlagPO result = new SignalFlagPO(new SignalFlag[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Station.PROPERTY_FLAG, result);
+      
+      return result;
+   }
+
+   public StationPO createFlagLink(SignalFlagPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_FLAG);
+   }
+
+   public StationPO createFlagLink(SignalFlagPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_FLAG, modifier);
+   }
+
+   public TrainPO createTrainsPO()
+   {
+      TrainPO result = new TrainPO(new Train[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Station.PROPERTY_TRAINS, result);
+      
+      return result;
+   }
+
+   public TrainPO createTrainsPO(String modifier)
+   {
+      TrainPO result = new TrainPO(new Train[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Station.PROPERTY_TRAINS, result);
+      
+      return result;
+   }
+
+   public StationPO createTrainsLink(TrainPO tgt)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_TRAINS);
+   }
+
+   public StationPO createTrainsLink(TrainPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Station.PROPERTY_TRAINS, modifier);
    }
 
 }

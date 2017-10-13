@@ -31,6 +31,8 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.historymanagement.marketmodel.util.ActorSet;
+import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class BidSet extends SimpleSet<Bid>
 {

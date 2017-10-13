@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.User;
 import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskPO;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserPO;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupPO;
 
 public class UserPO extends PatternObject<UserPO, User>
 {
@@ -155,6 +159,114 @@ public class UserPO extends PatternObject<UserPO, User>
          return ((User) this.getCurrentMatch()).getGroups();
       }
       return null;
+   }
+
+
+   public UserPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public UserPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createHandledTasksPO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_HANDLEDTASKS, result);
+      
+      return result;
+   }
+
+   public TaskPO createHandledTasksPO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_HANDLEDTASKS, result);
+      
+      return result;
+   }
+
+   public UserPO createHandledTasksLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_HANDLEDTASKS);
+   }
+
+   public UserPO createHandledTasksLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_HANDLEDTASKS, modifier);
+   }
+
+   public UserGroupPO createGroupsPO()
+   {
+      UserGroupPO result = new UserGroupPO(new UserGroup[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_GROUPS, result);
+      
+      return result;
+   }
+
+   public UserGroupPO createGroupsPO(String modifier)
+   {
+      UserGroupPO result = new UserGroupPO(new UserGroup[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_GROUPS, result);
+      
+      return result;
+   }
+
+   public UserPO createGroupsLink(UserGroupPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_GROUPS);
+   }
+
+   public UserPO createGroupsLink(UserGroupPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_GROUPS, modifier);
    }
 
 }

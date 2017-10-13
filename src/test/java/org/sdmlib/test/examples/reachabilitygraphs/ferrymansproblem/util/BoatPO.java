@@ -5,6 +5,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
 
 public class BoatPO extends PatternObject<BoatPO, Boat>
 {
@@ -181,6 +185,101 @@ public class BoatPO extends PatternObject<BoatPO, Boat>
    public BoatPO filterCargo(CargoPO tgt)
    {
       return hasLinkConstraint(tgt, Boat.PROPERTY_CARGO);
+   }
+
+
+   public BoatPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Boat.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Boat.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BoatPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_BANK);
+   }
+
+   public BoatPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_BANK, modifier);
+   }
+
+   public RiverPO createRiverPO()
+   {
+      RiverPO result = new RiverPO(new River[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Boat.PROPERTY_RIVER, result);
+      
+      return result;
+   }
+
+   public RiverPO createRiverPO(String modifier)
+   {
+      RiverPO result = new RiverPO(new River[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Boat.PROPERTY_RIVER, result);
+      
+      return result;
+   }
+
+   public BoatPO createRiverLink(RiverPO tgt)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_RIVER);
+   }
+
+   public BoatPO createRiverLink(RiverPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_RIVER, modifier);
+   }
+
+   public CargoPO createCargoPO()
+   {
+      CargoPO result = new CargoPO(new Cargo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Boat.PROPERTY_CARGO, result);
+      
+      return result;
+   }
+
+   public CargoPO createCargoPO(String modifier)
+   {
+      CargoPO result = new CargoPO(new Cargo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Boat.PROPERTY_CARGO, result);
+      
+      return result;
+   }
+
+   public BoatPO createCargoLink(CargoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_CARGO);
+   }
+
+   public BoatPO createCargoLink(CargoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Boat.PROPERTY_CARGO, modifier);
    }
 
 }

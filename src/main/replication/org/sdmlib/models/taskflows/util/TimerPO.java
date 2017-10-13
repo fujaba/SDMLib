@@ -34,4 +34,9 @@ public class TimerPO extends PatternObject<TimerPO, Timer>
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public TimerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

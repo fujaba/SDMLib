@@ -28,6 +28,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>

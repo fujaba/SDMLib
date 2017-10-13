@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,14 @@
    
 package org.sdmlib.simple.model.association_j.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.simple.model.association_j.Person;
-import org.sdmlib.simple.model.association_j.Room;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_j.Person;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.simple.model.association_j.util.RoomSet;
+import org.sdmlib.simple.model.association_j.Room;
+import java.util.Collections;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -69,6 +69,19 @@ public class PersonSet extends SimpleSet<Person>
    }
 
 
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
@@ -91,6 +104,71 @@ public class PersonSet extends SimpleSet<Person>
    public PersonSet without(Person value)
    {
       this.remove(value);
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
+    * 
+    * @return Set of Room objects reachable via room
+    */
+   public RoomSet getRoom()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Person obj : this)
+      {
+         result.with(obj.getRoom());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect all contained objects with reference room pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as room neighbor of the collected results. 
+    * 
+    * @return Set of Room objects referring to value via room
+    */
+   public PersonSet filterRoom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Room attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    */
+   public PersonSet withRoom(Room value)
+   {
+      for (Person obj : this)
+      {
+         obj.withRoom(value);
+      }
+      
       return this;
    }
 
@@ -169,71 +247,6 @@ public class PersonSet extends SimpleSet<Person>
       for (Person obj : this)
       {
          obj.withoutRooms(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Person objects and collect a set of the Room objects reached via room. 
-    * 
-    * @return Set of Room objects reachable via room
-    */
-   public RoomSet getRoom()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Person obj : this)
-      {
-         result.with(obj.getRoom());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Person objects and collect all contained objects with reference room pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as room neighbor of the collected results. 
-    * 
-    * @return Set of Room objects referring to value via room
-    */
-   public PersonSet filterRoom(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PersonSet answer = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (neighbors.contains(obj.getRoom()) || (neighbors.isEmpty() && obj.getRoom() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Person object passed as parameter to the Room attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
-    */
-   public PersonSet withRoom(Room value)
-   {
-      for (Person obj : this)
-      {
-         obj.withRoom(value);
       }
       
       return this;

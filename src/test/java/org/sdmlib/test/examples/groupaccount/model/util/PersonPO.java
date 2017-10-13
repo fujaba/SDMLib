@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -296,6 +300,157 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    public PersonPO filterItem(ItemPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_ITEM);
+   }
+
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createBalanceCondition(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_BALANCE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createBalanceCondition(double lower, double upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_BALANCE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createBalanceAssignment(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_BALANCE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createItemPO()
+   {
+      ItemPO result = new ItemPO(new Item[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_ITEM, result);
+      
+      return result;
+   }
+
+   public ItemPO createItemPO(String modifier)
+   {
+      ItemPO result = new ItemPO(new Item[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_ITEM, result);
+      
+      return result;
+   }
+
+   public PersonPO createItemLink(ItemPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_ITEM);
+   }
+
+   public PersonPO createItemLink(ItemPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_ITEM, modifier);
+   }
+
+   public GroupAccountPO createParentPO()
+   {
+      GroupAccountPO result = new GroupAccountPO(new GroupAccount[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public GroupAccountPO createParentPO(String modifier)
+   {
+      GroupAccountPO result = new GroupAccountPO(new GroupAccount[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public PersonPO createParentLink(GroupAccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_PARENT);
+   }
+
+   public PersonPO createParentLink(GroupAccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_PARENT, modifier);
    }
 
 }

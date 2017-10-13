@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightOneToOneAssoc</a></p>
 <p>Add class Prof --gives-- Topic</p>
 <script>
@@ -31,7 +43,7 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Professor",
             "cardinality":"one",
@@ -41,6 +53,19 @@
             "id":"Topic",
             "cardinality":"one",
             "property":"topic"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Topic",
+            "cardinality":"one",
+            "property":"topic"
+         },
+         "target":{
+            "id":"Professor",
+            "cardinality":"one",
+            "property":"prof"
          }
       }
    ]

@@ -5,12 +5,21 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
 <p>Adding flipbook to protocol changes.</p>
 <p>Start situation: use University class to build object structure</p>
@@ -28,80 +37,172 @@
 <p>Add rooms and students and dump the object model.</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=0",
+            "roomNo=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=42",
+            "room=null",
+            "roomNo=ProgMeth"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"U1 : University",
          "attributes":[
             "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R2 : Room",
-         "attributes":[
-            "roomNo=math",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room",
-         "attributes":[
-            "roomNo=arts",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "roomNo=sports",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "roomNo=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-            "roomNo=ProgMeth",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S7 : Student",
-         "attributes":[
-            "name=Albert",
-            "matrNo=4242",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S8 : Student",
-         "attributes":[
-            "name=Nina",
-            "matrNo=2323",
-            "credits=0",
-            "motivation=0"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -114,7 +215,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -127,7 +228,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -140,7 +241,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -153,7 +254,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -166,7 +267,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -179,7 +280,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -192,33 +293,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -228,71 +303,6 @@
             "cardinality":"one",
             "property":"in",
             "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
          }
       }
    ]
@@ -315,64 +325,60 @@
 
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "room=null",
+            "roomNo=arts",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"U1 : University",
          "attributes":[
             "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R2 : Room",
-         "attributes":[
-            "roomNo=math",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room",
-         "attributes":[
-            "roomNo=arts",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "roomNo=sports",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S7 : Student",
-         "attributes":[
-            "name=Albert",
-            "matrNo=4242",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S8 : Student",
-         "attributes":[
-            "name=Nina",
-            "matrNo=2323",
-            "credits=0",
-            "motivation=0"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -385,33 +391,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -424,33 +404,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S8 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -467,8 +421,7 @@
    json["options"]={"canvasid":"canvasFlipbook11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Number of students expected:  2 actual 2</p>
-<p>Check: Number of rooms expected:  3 actual 3</p>
+<p>Check: Number of students expected:  2 actual 1</p>
 
 </body>
 </html>

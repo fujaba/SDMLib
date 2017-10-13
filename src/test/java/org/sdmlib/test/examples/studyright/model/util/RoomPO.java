@@ -6,6 +6,9 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentPO;
+import org.sdmlib.test.examples.studyright.model.util.RoomPO;
 
 public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -407,6 +410,127 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    public RoomPO filterRoom(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_ROOM);
+   }
+
+
+   public RoomPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public RoomPO createCreditsCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createCreditsCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createCreditsAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createRoomNoCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_ROOMNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createRoomNoCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_ROOMNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createRoomNoAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_ROOMNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AssignmentPO createRoomPO()
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Room.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public AssignmentPO createRoomPO(String modifier)
+   {
+      AssignmentPO result = new AssignmentPO(new Assignment[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_ROOM, result);
+      
+      return result;
+   }
+
+   public RoomPO createRoomLink(AssignmentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_ROOM);
+   }
+
+   public RoomPO createRoomLink(AssignmentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_ROOM, modifier);
    }
 
 }

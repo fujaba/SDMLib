@@ -6,6 +6,10 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.m2m.model.util.PersonPO;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.RelationPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -444,6 +448,247 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    public PersonPO filterParent(GraphPO tgt)
    {
       return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
+   }
+
+
+   public PersonPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PersonPO createFirstNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_FIRSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createFirstNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_FIRSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createFirstNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_FIRSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createKnowsPO()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_KNOWS, result);
+      
+      return result;
+   }
+
+   public PersonPO createKnowsPO(String modifier)
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_KNOWS, result);
+      
+      return result;
+   }
+
+   public PersonPO createKnowsLink(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_KNOWS);
+   }
+
+   public PersonPO createKnowsLink(PersonPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_KNOWS, modifier);
+   }
+
+   public GraphPO createGraphPO()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GraphPO createGraphPO(String modifier)
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public PersonPO createGraphLink(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_GRAPH);
+   }
+
+   public PersonPO createGraphLink(GraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_GRAPH, modifier);
+   }
+
+   public RelationPO createOutEdgesPO()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_OUTEDGES, result);
+      
+      return result;
+   }
+
+   public RelationPO createOutEdgesPO(String modifier)
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_OUTEDGES, result);
+      
+      return result;
+   }
+
+   public PersonPO createOutEdgesLink(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_OUTEDGES);
+   }
+
+   public PersonPO createOutEdgesLink(RelationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_OUTEDGES, modifier);
+   }
+
+   public RelationPO createInEdgesPO()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_INEDGES, result);
+      
+      return result;
+   }
+
+   public RelationPO createInEdgesPO(String modifier)
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_INEDGES, result);
+      
+      return result;
+   }
+
+   public PersonPO createInEdgesLink(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_INEDGES);
+   }
+
+   public PersonPO createInEdgesLink(RelationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_INEDGES, modifier);
+   }
+
+   public GraphPO createParentPO()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Person.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public GraphPO createParentPO(String modifier)
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Person.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public PersonPO createParentLink(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_PARENT);
+   }
+
+   public PersonPO createParentLink(GraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Person.PROPERTY_PARENT, modifier);
    }
 
 }

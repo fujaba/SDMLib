@@ -30,6 +30,8 @@ import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Template;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>

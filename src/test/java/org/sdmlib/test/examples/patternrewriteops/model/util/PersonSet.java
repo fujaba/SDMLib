@@ -29,6 +29,9 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -188,5 +191,24 @@ public class PersonSet extends SimpleSet<Person>
    {
       this.addAll(objects);
    }
-}
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 

@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
 
 public class ItemPO extends PatternObject<ItemPO, Item>
 {
@@ -246,6 +249,127 @@ public class ItemPO extends PatternObject<ItemPO, Item>
    public ItemPO filterBuyer(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Item.PROPERTY_BUYER);
+   }
+
+
+   public ItemPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ItemPO createDescriptionCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createDescriptionCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createDescriptionAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createValueCondition(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createValueCondition(double lower, double upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ItemPO createValueAssignment(double value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createBuyerPO()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Item.PROPERTY_BUYER, result);
+      
+      return result;
+   }
+
+   public PersonPO createBuyerPO(String modifier)
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Item.PROPERTY_BUYER, result);
+      
+      return result;
+   }
+
+   public ItemPO createBuyerLink(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Item.PROPERTY_BUYER);
+   }
+
+   public ItemPO createBuyerLink(PersonPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Item.PROPERTY_BUYER, modifier);
    }
 
 }

@@ -36,6 +36,9 @@ Drawer.prototype.getColor = function (style, defaultColor) {
 		if (style.toLowerCase() === "create") {
 			return "#008000";
 		}
+		if (style.toLowerCase() === "destroy") {
+			return "#a00000";
+		}
 		if (style.toLowerCase() === "nac") {
 			return "#FE3E3E";
 		}
@@ -153,18 +156,18 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 	if (graph && graph.model.options) {
 		item = graph.model.options.buttons;
 		func = function (e) {
-			var t = e.currentTarget.typ;
+			var t = e.currentTarget.type;
 			that.model.initDrawer(t);
 			that.model.layout();
 		};
 		for (i = 0; i < item.length; i += 1) {
 			typ = item[i];
 			if (typ !== notTyp) {
-				node = {typ: "Button", value: typ, y: 8, x: 2, height: 28, width: 60};
+				node = {type: "Button", value: typ, y: 8, x: 2, height: 28, width: 60};
 				btn = this.symbolLib.draw(this, node);
 				btn.style.verticalAlign = "top";
 				this.util.bind(btn, "mousedown", func);
-				btn.typ = typ;
+				btn.type = typ;
 				buttons.push(btn);
 			}
 		}
@@ -179,7 +182,7 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 			}
 		};
 
-		btn = {typ: "Dropdown", x: 2, y: 8, width: 120, elements: ["Save", "Load"], activText: "Localstorage", action: func};
+		btn = {type: "Dropdown", x: 2, y: 8, width: 120, elements: ["Save", "Load"], activText: "Localstorage", action: func};
 		item = this.symbolLib.draw(this, btn);
 		buttons.push(item);
 	}
@@ -205,16 +208,16 @@ Drawer.HTMLDrawer.prototype.createCell = function (parent, tag, node, innerHTML,
 Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 	var first, z, cell, item, model, htmlElement = this.util.create({tag: "div", model: node});
 	model = this.model.model;
-	if (node.typ === "patternobject") {
+	if (node.type === "patternobject") {
 		htmlElement.className = "patternElement";
 	} else if (this.symbolLib.isSymbol(node)) {
 		return this.symbolLib.draw(null, node);
 	}
-	if (node.typ === "classdiagram") {
+	if (node.type === "classdiagram") {
 		htmlElement.className = "classdiagram";
-	} else if (node.typ === "objectdiagram") {
+	} else if (node.type === "objectdiagram") {
 		htmlElement.className = "objectdiagram";
-	} else if (model.typ.toLowerCase() === "objectdiagram") {
+	} else if (model.type.toLowerCase() === "objectdiagram") {
 		htmlElement.className = "objectElement";
 	} else {
 		htmlElement.className = "classElement";
@@ -222,14 +225,14 @@ Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 	this.setPos(htmlElement, node.x, node.y);
 	htmlElement.style.zIndex = 5000;
 
-	if (node.typ === "objectdiagram" || node.typ === "classdiagram") {
+	if (node.type === "objectdiagram" || node.type === "classdiagram") {
 		node.left = node.top = 30;
 		node.$gui = htmlElement;
 		if (draw) {
 			this.model.draw(node);
 			htmlElement.style.borderColor = "red";
 			if (node.style && node.style.toLowerCase() === "nac") {
-				htmlElement.appendChild(this.symbolLib.draw(null, {typ: "stop", x: 0, y: 0}));
+				htmlElement.appendChild(this.symbolLib.draw(null, {type: "stop", x: 0, y: 0}));
 			}
 		} else {
 			this.model.layout(0, 0, node);
@@ -274,7 +277,7 @@ Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 		this.createCell(item, "td", node, node.headinfo).className = "head";
 	}
 
-	if (model.typ.toLowerCase() === "objectdiagram") {
+	if (model.type.toLowerCase() === "objectdiagram") {
 		z = node.id.charAt(0).toLowerCase() + node.id.slice(1);
 	} else {
 		z = node.id;
@@ -283,18 +286,24 @@ Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 		z = "<a href=\"" + node.href + "\">" + z + "</a>";
 	}
 	cell  = this.createCell(item, "th", node, z, "id");
-	if (model.typ.toLowerCase() === "objectdiagram") {
+	if (model.type.toLowerCase() === "objectdiagram") {
 		cell.style.textDecorationLine = "underline";
 	}
 	cell = null;
 	if (node.attributes) {
 		first = true;
 		for (z = 0; z < node.attributes.length; z += 1) {
-			cell = this.createCell(item, "td", node, node.attributes[z], "attribute");
+			var color="";
+			var attr = node.attributes[z];
+			if(attr.indexOf("[")>=0){
+				color = " " + attr.substring(attr.indexOf("[")+1, attr.indexOf("]"));
+				attr = attr.substring(0, attr.indexOf("["))+attr.substring(attr.indexOf("]")+1);
+			}
+			cell = this.createCell(item, "td", node, attr, "attribute");
 			if (!first) {
-				cell.className = 'attributes';
+				cell.className = 'attributes'+color;
 			} else {
-				cell.className = 'attributes first';
+				cell.className = 'attributes first'+color;
 				first = false;
 			}
 		}
@@ -422,7 +431,7 @@ Drawer.SVGDrawer.prototype.getBoard = function (graph) {
 
 	if (this.showButton) {
 		buttons = this.getButtons(graph, "SVG");
-		node = {typ: "Dropdown", x: 66, y: 8, minheight: 28, maxheight: 28, width: 80, elements: list, activText: "Save", action: function (e) {that.removeToolItems(that.board); that.model.SaveAs(e.currentTarget.value); }};
+		node = {type: "Dropdown", x: 66, y: 8, minheight: 28, maxheight: 28, width: 80, elements: list, activText: "Save", action: function (e) {that.removeToolItems(that.board); that.model.SaveAs(e.currentTarget.value); }};
 		buttons.push(this.symbolLib.draw(this, node));
 	}
 	board = this.createBoard({tag: "svg", "xmlns:svg": "http://www.w3.org/2000/svg", "xmlns:xlink": "http://www.w3.org/1999/xlink"}, graph, buttons);
@@ -465,7 +474,7 @@ Drawer.SVGDrawer.prototype.getNode = function (node, draw) {
 		}
 	}
 	g = this.util.create({tag: "g", model: node});
-	if (node.typ === "objectdiagram" || node.typ === "classdiagram") {
+	if (node.type === "objectdiagram" || node.type === "classdiagram") {
 		if (node.status === "close") {
 			width = this.getWidth(node.minid || node.id) + 30;
 			height = 40;
@@ -527,7 +536,7 @@ Drawer.SVGDrawer.prototype.getNode = function (node, draw) {
 	width = 0;
 	height = 40;
 
-	if (this.model.model.typ.toLowerCase() === "objectdiagram") {
+	if (this.model.model.type.toLowerCase() === "objectdiagram") {
 		id = node.id.charAt(0).toLowerCase() + node.id.slice(1);
 	} else {
 		id = node.id;
@@ -559,7 +568,7 @@ Drawer.SVGDrawer.prototype.getNode = function (node, draw) {
 
 	this.model.createElement(g, "class", node);
 	rect = {tag: "rect", "width": width, "height": height, "x": x, "y": y, "fill": "#fff", "class": "draggable"};
-	typ = node.typ.toLowerCase();
+	typ = node.type.toLowerCase();
 	if (typ === "patternobject") {
 		rect.fill = "lightblue";
 	}
@@ -573,7 +582,7 @@ Drawer.SVGDrawer.prototype.getNode = function (node, draw) {
 
 	item = this.util.create({tag: "text", $font: true, "text-anchor": "right", "x": x + width / 2 - textWidth / 2, "y": y + 20, "width": textWidth});
 
-	if (this.model.model.typ.toLowerCase() === "objectdiagram") {
+	if (this.model.model.type.toLowerCase() === "objectdiagram") {
 		item.setAttribute("text-decoration", "underline");
 	}
 	item.appendChild(document.createTextNode(id));
@@ -611,14 +620,14 @@ Drawer.SVGDrawer.prototype.getInfo = function (item, text, angle, style) {
 	if (items.length > 1) {
 		group = this.util.create({tag: "g", "class": "draggable", rotate: angle, model: item});
 		for (i = 0; i < items.length; i += 1) {
-			child = this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": item.x, "y": item.y + (item.height * i), fill: this.getColor(style, "#CCC")});
+			child = this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": item.x, "y": item.y + (item.height * i), fill: this.getColor(style, "#000")});
 			child.appendChild(document.createTextNode(items[i]));
 			group.appendChild(child);
 		}
 		this.model.createElement(group, "info", item);
 		return group;
 	}
-	group = this.util.create({tag: "text", "#$font": true, "text-anchor": "left", "x": item.x, "y": item.y, value: text, "id": item.id, "class": "draggable", rotate: angle, model: item, fill: this.getColor(style, "#CCC")});
+	group = this.util.create({tag: "text", "#$font": true, "text-anchor": "left", "x": item.x, "y": item.y, value: text, "id": item.id, "class": "draggable", rotate: angle, model: item, fill: this.getColor(style, "#000")});
 	this.model.createElement(group, "info", item);
 	return group;
 };
@@ -755,8 +764,8 @@ SymbolLibary.prototype.isSymbol = function (node) {
 	return typeof fn === "function";
 };
 SymbolLibary.prototype.getName = function (node) {
-	if (node.typ) {
-		return "draw" + this.upFirstChar(node.typ);
+	if (node.type) {
+		return "draw" + this.upFirstChar(node.type);
 	}
 	if (node.src) {
 		return "draw" + this.upFirstChar(node.src);

@@ -27,6 +27,10 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.maumau.model.Suit;
+import org.sdmlib.test.examples.maumau.model.Value;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.Holder;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>

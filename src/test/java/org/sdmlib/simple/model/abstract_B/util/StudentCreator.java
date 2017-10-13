@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,14 @@
    
 package org.sdmlib.simple.model.abstract_B.util;
 
-import org.sdmlib.simple.model.abstract_B.Flower;
-import org.sdmlib.simple.model.abstract_B.Human;
-import org.sdmlib.simple.model.abstract_B.Student;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.simple.model.abstract_B.Student;
+import de.uniks.networkparser.IdMap;
 
 public class StudentCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Human.PROPERTY_HAS,
    };
    
    @Override
@@ -57,11 +53,6 @@ public class StudentCreator implements SendableEntityCreator
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (Student.PROPERTY_HAS.equalsIgnoreCase(attribute))
-      {
-         return ((Student) target).getHas();
-      }
       
       return null;
    }
@@ -69,15 +60,13 @@ public class StudentCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Student)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Student.PROPERTY_HAS.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).setHas((Flower) value);
-         return true;
       }
       
       return false;

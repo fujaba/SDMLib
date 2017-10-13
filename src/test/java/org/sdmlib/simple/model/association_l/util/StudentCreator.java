@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.simple.model.association_l.util;
 
-import org.sdmlib.simple.model.association_l.Lecture;
-import org.sdmlib.simple.model.association_l.Student;
-import org.sdmlib.simple.model.association_l.University;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.simple.model.association_l.Student;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.association_l.Lecture;
+import org.sdmlib.simple.model.association_l.University;
 
 public class StudentCreator implements SendableEntityCreator
 {
@@ -75,6 +74,10 @@ public class StudentCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Student)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;

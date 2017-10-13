@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,10 @@
    
 package org.sdmlib.simple.model.attribute_c;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.EntityUtil;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAttributes.java'>TestAttributes.java</a>
@@ -91,46 +90,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    //==========================================================================
    
-   public static final String PROPERTY_NAME = "name";
-   
-   private String name;
-
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
-      
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-   
-   public Person withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
-
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-      
-      result.append(" ").append(this.getName());
-      result.append(" ").append(this.getAge());
-      return result.substring(1);
-   }
-
-
-   
-   //==========================================================================
-   
    public static final String PROPERTY_AGE = "age";
    
    private int age;
@@ -153,6 +112,46 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public Person withAge(int value)
    {
       setAge(value);
+      return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getAge());
+      result.append(" ").append(this.getName());
+      return result.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
+      
+         String oldValue = this.name;
+         this.name = value;
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Person withName(String value)
+   {
+      setName(value);
       return this;
    } 
 }

@@ -503,7 +503,101 @@ public class EdgeSet extends SimpleSet<Edge>
       EdgeSet filterList = new EdgeSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet createNameCondition(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet createNameCondition(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet createTextCondition(String value)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Edge objects and collect those Edge objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Edge objects that match the parameter
+    */
+   public EdgeSet createTextCondition(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}
 
 
 

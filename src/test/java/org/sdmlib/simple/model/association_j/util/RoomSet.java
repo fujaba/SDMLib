@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,14 @@
    
 package org.sdmlib.simple.model.association_j.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.simple.model.association_j.Person;
-import org.sdmlib.simple.model.association_j.Room;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.simple.model.association_j.Room;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.simple.model.association_j.util.PersonSet;
+import org.sdmlib.simple.model.association_j.Person;
 
 public class RoomSet extends SimpleSet<Room>
 {
@@ -68,6 +68,19 @@ public class RoomSet extends SimpleSet<Room>
       return "org.sdmlib.simple.model.association_j.Room";
    }
 
+
+   @Override
+   public RoomSet getNewList(boolean keyValue)
+   {
+      return new RoomSet();
+   }
+
+
+   public RoomSet filter(Condition<Room> condition) {
+      RoomSet filterList = new RoomSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)

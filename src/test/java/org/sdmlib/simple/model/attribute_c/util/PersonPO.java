@@ -1,9 +1,9 @@
 package org.sdmlib.simple.model.attribute_c.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.simple.model.attribute_c.Person;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -40,67 +40,6 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       this.setModifier(modifier);
    }
-   public PersonPO createNameCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PersonPO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public PersonPO createNameAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
-   public PersonPO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Person) getCurrentMatch()).setName(value);
-      }
-      return this;
-   }
-   
    public PersonPO createAgeCondition(int value)
    {
       new AttributeConstraint()
@@ -158,6 +97,67 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       if (this.getPattern().getHasMatch())
       {
          ((Person) getCurrentMatch()).setAge(value);
+      }
+      return this;
+   }
+   
+   public PersonPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PersonPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PersonPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) getCurrentMatch()).setName(value);
       }
       return this;
    }

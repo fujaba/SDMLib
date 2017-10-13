@@ -28,6 +28,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.replication.chat.ChatUser;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/replication/chat/ReplicationChatModel.java'>ReplicationChatModel.java</a>

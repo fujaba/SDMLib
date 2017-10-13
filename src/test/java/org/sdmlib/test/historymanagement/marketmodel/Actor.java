@@ -29,6 +29,8 @@ import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.historymanagement.marketmodel.Bid;
+import org.sdmlib.test.historymanagement.marketmodel.Offer;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryMarketModel.java'>HistoryMarketModel.java</a>

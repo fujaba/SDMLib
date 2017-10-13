@@ -90,6 +90,19 @@
             "property":"bids"
          },
          "target":{
+            "id":"Actor",
+            "cardinality":"one",
+            "property":"bidder"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Bid",
+            "cardinality":"many",
+            "property":"bids"
+         },
+         "target":{
             "id":"Offer",
             "cardinality":"one",
             "property":"offer"
@@ -106,6 +119,45 @@
             "id":"Offer",
             "cardinality":"many",
             "property":"offers"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Offer",
+            "cardinality":"one",
+            "property":"offer"
+         },
+         "target":{
+            "id":"Bid",
+            "cardinality":"many",
+            "property":"bids"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Offer",
+            "cardinality":"many",
+            "property":"offers"
+         },
+         "target":{
+            "id":"Market",
+            "cardinality":"one",
+            "property":"market"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Offer",
+            "cardinality":"many",
+            "property":"offers"
+         },
+         "target":{
+            "id":"Actor",
+            "cardinality":"one",
+            "property":"owner"
          }
       }
    ]

@@ -6,6 +6,11 @@ import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 import org.sdmlib.test.examples.couchspace.tasks.User;
 import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskFlowPO;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskPO;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserPO;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupPO;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {
@@ -398,6 +403,320 @@ public class TaskPO extends PatternObject<TaskPO, Task>
          return ((Task) this.getCurrentMatch()).getTransitionTargets();
       }
       return null;
+   }
+
+
+   public TaskPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TaskPO createCopySdmLibIdCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_COPYSDMLIBID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createCopySdmLibIdCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_COPYSDMLIBID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createCopySdmLibIdAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_COPYSDMLIBID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTitleCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TITLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTitleCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TITLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTitleAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TITLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTransitionConditionCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TRANSITIONCONDITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTransitionConditionCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TRANSITIONCONDITION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTransitionConditionAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_TRANSITIONCONDITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createTaskFlowFirstPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_TASKFLOWFIRST, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createTaskFlowFirstPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_TASKFLOWFIRST, result);
+      
+      return result;
+   }
+
+   public TaskPO createTaskFlowFirstLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TASKFLOWFIRST);
+   }
+
+   public TaskPO createTaskFlowFirstLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TASKFLOWFIRST, modifier);
+   }
+
+   public UserPO createHandledByPO()
+   {
+      UserPO result = new UserPO(new User[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_HANDLEDBY, result);
+      
+      return result;
+   }
+
+   public UserPO createHandledByPO(String modifier)
+   {
+      UserPO result = new UserPO(new User[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_HANDLEDBY, result);
+      
+      return result;
+   }
+
+   public TaskPO createHandledByLink(UserPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_HANDLEDBY);
+   }
+
+   public TaskPO createHandledByLink(UserPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_HANDLEDBY, modifier);
+   }
+
+   public UserGroupPO createResponsiblesPO()
+   {
+      UserGroupPO result = new UserGroupPO(new UserGroup[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_RESPONSIBLES, result);
+      
+      return result;
+   }
+
+   public UserGroupPO createResponsiblesPO(String modifier)
+   {
+      UserGroupPO result = new UserGroupPO(new UserGroup[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_RESPONSIBLES, result);
+      
+      return result;
+   }
+
+   public TaskPO createResponsiblesLink(UserGroupPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_RESPONSIBLES);
+   }
+
+   public TaskPO createResponsiblesLink(UserGroupPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_RESPONSIBLES, modifier);
+   }
+
+   public TaskFlowPO createTaskFlowPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_TASKFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createTaskFlowPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_TASKFLOW, result);
+      
+      return result;
+   }
+
+   public TaskPO createTaskFlowLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TASKFLOW);
+   }
+
+   public TaskPO createTaskFlowLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TASKFLOW, modifier);
+   }
+
+   public TaskPO createTransitionTargetsPO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_TRANSITIONTARGETS, result);
+      
+      return result;
+   }
+
+   public TaskPO createTransitionTargetsPO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_TRANSITIONTARGETS, result);
+      
+      return result;
+   }
+
+   public TaskPO createTransitionTargetsLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TRANSITIONTARGETS);
+   }
+
+   public TaskPO createTransitionTargetsLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TRANSITIONTARGETS, modifier);
+   }
+
+   public TaskPO createTransitionSourcePO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_TRANSITIONSOURCE, result);
+      
+      return result;
+   }
+
+   public TaskPO createTransitionSourcePO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_TRANSITIONSOURCE, result);
+      
+      return result;
+   }
+
+   public TaskPO createTransitionSourceLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TRANSITIONSOURCE);
+   }
+
+   public TaskPO createTransitionSourceLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_TRANSITIONSOURCE, modifier);
    }
 
 }

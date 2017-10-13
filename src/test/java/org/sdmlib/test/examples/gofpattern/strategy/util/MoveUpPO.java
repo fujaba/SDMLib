@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
+import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategyPO;
+import org.sdmlib.test.examples.gofpattern.strategy.util.MoveUpPO;
 
 public class MoveUpPO extends PatternObject<MoveUpPO, MoveUp>
 {
@@ -81,6 +83,41 @@ public class MoveUpPO extends PatternObject<MoveUpPO, MoveUp>
    public MoveUpPO filterSuccessor(BombermanStrategyPO tgt)
    {
       return hasLinkConstraint(tgt, BombermanStrategy.PROPERTY_SUCCESSOR);
+   }
+
+
+   public MoveUpPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public BombermanStrategyPO createSuccessorPO()
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MoveUp.PROPERTY_SUCCESSOR, result);
+      
+      return result;
+   }
+
+   public BombermanStrategyPO createSuccessorPO(String modifier)
+   {
+      BombermanStrategyPO result = new BombermanStrategyPO(new BombermanStrategy[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MoveUp.PROPERTY_SUCCESSOR, result);
+      
+      return result;
+   }
+
+   public MoveUpPO createSuccessorLink(BombermanStrategyPO tgt)
+   {
+      return hasLinkConstraint(tgt, MoveUp.PROPERTY_SUCCESSOR);
+   }
+
+   public MoveUpPO createSuccessorLink(BombermanStrategyPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MoveUp.PROPERTY_SUCCESSOR, modifier);
    }
 
 }

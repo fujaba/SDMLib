@@ -29,11 +29,16 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
  */
 public  class University implements SendableEntity
 {
@@ -165,7 +170,8 @@ public  class University implements SendableEntity
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    */
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ */
    public University withStudents(Student... value)
    {
       if(value==null){
@@ -302,7 +308,8 @@ public  class University implements SendableEntity
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    */
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ */
    public Room createRooms()
    {
       Room value = new Room();

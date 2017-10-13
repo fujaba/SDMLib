@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,12 @@
    
 package org.sdmlib.simple.model.attribute_c.util;
 
-import java.util.Collection;
-
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.simple.model.attribute_c.Person;
-
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -68,6 +67,19 @@ public class PersonSet extends SimpleSet<Person>
    }
 
 
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
@@ -90,89 +102,6 @@ public class PersonSet extends SimpleSet<Person>
    public PersonSet without(Person value)
    {
       this.remove(value);
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of Person objects and collect a list of the name attribute values. 
-    * 
-    * @return List of String objects reachable via name attribute
-    */
-   public ObjectSet getName()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (Person obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Person objects that match the parameter
-    */
-   public PersonSet createNameCondition(String value)
-   {
-      PersonSet result = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Person objects and collect those Person objects where the name attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Person objects that match the parameter
-    */
-   public PersonSet createNameCondition(String lower, String upper)
-   {
-      PersonSet result = new PersonSet();
-      
-      for (Person obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Person objects and assign value to the name attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Person objects now with new attribute values.
-    */
-   public PersonSet withName(String value)
-   {
-      for (Person obj : this)
-      {
-         obj.setName(value);
-      }
-      
       return this;
    }
 
@@ -254,6 +183,89 @@ public class PersonSet extends SimpleSet<Person>
       for (Person obj : this)
       {
          obj.setAge(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public ObjectSet getName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Person obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createNameCondition(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createNameCondition(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Person objects now with new attribute values.
+    */
+   public PersonSet withName(String value)
+   {
+      for (Person obj : this)
+      {
+         obj.setName(value);
       }
       
       return this;

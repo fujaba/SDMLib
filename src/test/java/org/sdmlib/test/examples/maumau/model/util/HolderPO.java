@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.util.CardPO;
+import org.sdmlib.test.examples.maumau.model.util.HolderPO;
+import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
 
 public class HolderPO extends PatternObject<HolderPO, Holder>
 {
@@ -180,6 +183,101 @@ public class HolderPO extends PatternObject<HolderPO, Holder>
    public HolderPO filterStackOwner(MauMauPO tgt)
    {
       return hasLinkConstraint(tgt, Holder.PROPERTY_STACKOWNER);
+   }
+
+
+   public HolderPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CardPO createCardsPO()
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public CardPO createCardsPO(String modifier)
+   {
+      CardPO result = new CardPO(new Card[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Holder.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public HolderPO createCardsLink(CardPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_CARDS);
+   }
+
+   public HolderPO createCardsLink(CardPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_CARDS, modifier);
+   }
+
+   public MauMauPO createDeckOwnerPO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO createDeckOwnerPO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Holder.PROPERTY_DECKOWNER, result);
+      
+      return result;
+   }
+
+   public HolderPO createDeckOwnerLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_DECKOWNER);
+   }
+
+   public HolderPO createDeckOwnerLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_DECKOWNER, modifier);
+   }
+
+   public MauMauPO createStackOwnerPO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Holder.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public MauMauPO createStackOwnerPO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Holder.PROPERTY_STACKOWNER, result);
+      
+      return result;
+   }
+
+   public HolderPO createStackOwnerLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_STACKOWNER);
+   }
+
+   public HolderPO createStackOwnerLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Holder.PROPERTY_STACKOWNER, modifier);
    }
 
 }

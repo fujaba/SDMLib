@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.modelspace.util.ModelSpaceProxyPO;
+import org.sdmlib.modelspace.util.ModelCloudProxyPO;
+import org.sdmlib.modelspace.util.ModelCloudPO;
 
 public class ModelCloudProxyPO extends PatternObject<ModelCloudProxyPO, ModelCloudProxy>
 {
@@ -296,6 +300,157 @@ public class ModelCloudProxyPO extends PatternObject<ModelCloudProxyPO, ModelClo
    public ModelCloudProxyPO filterProvidedSpaces(ModelSpaceProxyPO tgt)
    {
       return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_PROVIDEDSPACES);
+   }
+
+
+   public ModelCloudProxyPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ModelCloudProxyPO createHostNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO createHostNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO createHostNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO createPortNoCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO createPortNoCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_PORTNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudProxyPO createPortNoAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloudProxy.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelSpaceProxyPO createProvidedSpacesPO()
+   {
+      ModelSpaceProxyPO result = new ModelSpaceProxyPO(new ModelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloudProxy.PROPERTY_PROVIDEDSPACES, result);
+      
+      return result;
+   }
+
+   public ModelSpaceProxyPO createProvidedSpacesPO(String modifier)
+   {
+      ModelSpaceProxyPO result = new ModelSpaceProxyPO(new ModelSpaceProxy[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ModelCloudProxy.PROPERTY_PROVIDEDSPACES, result);
+      
+      return result;
+   }
+
+   public ModelCloudProxyPO createProvidedSpacesLink(ModelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_PROVIDEDSPACES);
+   }
+
+   public ModelCloudProxyPO createProvidedSpacesLink(ModelSpaceProxyPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_PROVIDEDSPACES, modifier);
+   }
+
+   public ModelCloudPO createRootPO()
+   {
+      ModelCloudPO result = new ModelCloudPO(new ModelCloud[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloudProxy.PROPERTY_ROOT, result);
+      
+      return result;
+   }
+
+   public ModelCloudPO createRootPO(String modifier)
+   {
+      ModelCloudPO result = new ModelCloudPO(new ModelCloud[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ModelCloudProxy.PROPERTY_ROOT, result);
+      
+      return result;
+   }
+
+   public ModelCloudProxyPO createRootLink(ModelCloudPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_ROOT);
+   }
+
+   public ModelCloudProxyPO createRootLink(ModelCloudPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_ROOT, modifier);
    }
 
 }

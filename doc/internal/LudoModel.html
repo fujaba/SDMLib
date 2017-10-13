@@ -5,18 +5,45 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/ludo/LudoModel.java' type='text/x-java'>LudoModel</a></p>
 <p>The model: </p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
+      {
+         "typ":"node",
+         "id":"Dice",
+         "attributes":[
+            "value : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Field",
+         "attributes":[
+            "color : String",
+            "kind : String",
+            "point : Point",
+            "x : int",
+            "y : int"
+         ]
+      },
       {
          "typ":"node",
          "id":"Ludo",
@@ -26,8 +53,9 @@
       },
       {
          "typ":"node",
-         "id":"Point",
+         "id":"Pawn",
          "attributes":[
+            "color : String",
             "x : int",
             "y : int"
          ]
@@ -45,27 +73,8 @@
       },
       {
          "typ":"node",
-         "id":"Dice",
+         "id":"Point",
          "attributes":[
-            "value : int"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Field",
-         "attributes":[
-            "color : String",
-            "kind : String",
-            "x : int",
-            "y : int",
-            "point : Point"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Pawn",
-         "attributes":[
-            "color : String",
             "x : int",
             "y : int"
          ]
@@ -73,137 +82,59 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Ludo",
-            "cardinality":"one",
-            "property":"game"
-         },
-         "target":{
-            "id":"Player",
-            "cardinality":"many",
-            "property":"players"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Ludo",
-            "cardinality":"one",
-            "property":"game"
-         },
-         "target":{
             "id":"Dice",
             "cardinality":"one",
             "property":"dice"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
+         },
+         "target":{
             "id":"Ludo",
             "cardinality":"one",
             "property":"game"
-         },
-         "target":{
-            "id":"Field",
-            "cardinality":"many",
-            "property":"fields"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Player",
+            "id":"Dice",
             "cardinality":"one",
-            "property":"next"
+            "property":"dice"
          },
          "target":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"prev"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
             "id":"Player",
             "cardinality":"one",
             "property":"player"
-         },
-         "target":{
-            "id":"Dice",
-            "cardinality":"one",
-            "property":"dice"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"starter"
-         },
-         "target":{
-            "id":"Field",
-            "cardinality":"one",
-            "property":"start"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"baseowner"
-         },
-         "target":{
             "id":"Field",
             "cardinality":"one",
             "property":"base"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"baseowner"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"lander"
-         },
-         "target":{
             "id":"Field",
-            "cardinality":"one",
-            "property":"landing"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Player",
-            "cardinality":"one",
-            "property":"player"
-         },
-         "target":{
-            "id":"Pawn",
             "cardinality":"many",
-            "property":"pawns"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Field",
-            "cardinality":"one",
-            "property":"next"
+            "property":"fields"
          },
          "target":{
-            "id":"Field",
+            "id":"Ludo",
             "cardinality":"one",
-            "property":"prev"
+            "property":"game"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Field",
             "cardinality":"one",
@@ -216,7 +147,33 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"landing"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"lander"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"next"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"prev"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Field",
             "cardinality":"one",
@@ -226,6 +183,175 @@
             "id":"Pawn",
             "cardinality":"many",
             "property":"pawns"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"start"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"starter"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Dice",
+            "cardinality":"one",
+            "property":"dice"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"many",
+            "property":"fields"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Pawn",
+            "cardinality":"many",
+            "property":"pawns"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Pawn",
+            "cardinality":"many",
+            "property":"pawns"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"pos"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"baseowner"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"base"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"lander"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"landing"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"next"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"prev"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         },
+         "target":{
+            "id":"Dice",
+            "cardinality":"one",
+            "property":"dice"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         },
+         "target":{
+            "id":"Pawn",
+            "cardinality":"many",
+            "property":"pawns"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         },
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"starter"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"start"
          }
       }
    ]

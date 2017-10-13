@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatMsgPO;
 
 public class ChatMsgPO extends PatternObject<ChatMsgPO, ChatMsg>
 {
@@ -328,6 +331,170 @@ public class ChatMsgPO extends PatternObject<ChatMsgPO, ChatMsg>
    public ChatMsgPO filterChannel(ChatChannelPO tgt)
    {
       return hasLinkConstraint(tgt, ChatMsg.PROPERTY_CHANNEL);
+   }
+
+
+   public ChatMsgPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChatMsgPO createSenderCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_SENDER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createSenderCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_SENDER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createSenderAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_SENDER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTimeCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTimeCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TIME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatMsgPO createTimeAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatMsg.PROPERTY_TIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatChannelPO createChannelPO()
+   {
+      ChatChannelPO result = new ChatChannelPO(new ChatChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatMsg.PROPERTY_CHANNEL, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO createChannelPO(String modifier)
+   {
+      ChatChannelPO result = new ChatChannelPO(new ChatChannel[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatMsg.PROPERTY_CHANNEL, result);
+      
+      return result;
+   }
+
+   public ChatMsgPO createChannelLink(ChatChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatMsg.PROPERTY_CHANNEL);
+   }
+
+   public ChatMsgPO createChannelLink(ChatChannelPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatMsg.PROPERTY_CHANNEL, modifier);
    }
 
 }

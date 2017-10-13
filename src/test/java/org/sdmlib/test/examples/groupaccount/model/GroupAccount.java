@@ -31,6 +31,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>

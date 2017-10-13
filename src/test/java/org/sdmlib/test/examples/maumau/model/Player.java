@@ -25,6 +25,9 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.test.examples.maumau.model.util.DutySet;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.Duty;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>

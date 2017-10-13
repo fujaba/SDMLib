@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
@@ -124,7 +125,7 @@ public class ReachabilityGraphFerrymansProblemExample
 
       cargoPO = boatPO.startSubPattern().hasCargo();
 
-      boatPO.startDestroy().hasCargo(cargoPO).endDestroy();
+      cargoPO.createBoatLink(boatPO, Pattern.DESTROY);
 
       cargoPO.startCreate().hasBank(newBankPO).endCreate().endSubPattern();
 
@@ -134,6 +135,14 @@ public class ReachabilityGraphFerrymansProblemExample
 
       // ================================================
       long size = reachabilityGraph.explore();
+      
+      for (ReachableState s : reachabilityGraph.getStates())
+      {
+         storyboard.add("Reachable State " + s.getNumber());
+         River r = (River) s.getGraphRoot();
+         storyboard.addObjectDiagram(r, r.getBoat(), r.getBanks(), r.getBanks().getCargos());
+      }
+      
 
       storyboard.assertEquals("Number of Reachable States expected: ", 27L, size);
 

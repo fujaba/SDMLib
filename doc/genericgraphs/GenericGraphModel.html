@@ -5,30 +5,26 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
-      {
-         "typ":"node",
-         "id":"GenericGraph"
-      },
-      {
-         "typ":"node",
-         "id":"GenericObject",
-         "attributes":[
-            "name : String",
-            "type : String",
-            "icon : String"
-         ]
-      },
       {
          "typ":"node",
          "id":"GenericAttribute",
@@ -39,16 +35,42 @@
       },
       {
          "typ":"node",
+         "id":"GenericGraph"
+      },
+      {
+         "typ":"node",
          "id":"GenericLink",
          "attributes":[
-            "tgtLabel : String",
-            "srcLabel : String"
+            "srcLabel : String",
+            "tgtLabel : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericObject",
+         "attributes":[
+            "icon : String",
+            "name : String",
+            "type : String"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"GenericAttribute",
+            "cardinality":"many",
+            "property":"attrs"
+         },
+         "target":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"owner"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"GenericGraph",
             "cardinality":"one",
@@ -61,7 +83,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"GenericGraph",
             "cardinality":"one",
@@ -74,7 +96,59 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"incommingLinks"
+         },
+         "target":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"links"
+         },
+         "target":{
+            "id":"GenericGraph",
+            "cardinality":"one",
+            "property":"graph"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"outgoingLinks"
+         },
+         "target":{
+            "id":"GenericObject",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"GenericObject",
+            "cardinality":"many",
+            "property":"objects"
+         },
+         "target":{
+            "id":"GenericGraph",
+            "cardinality":"one",
+            "property":"graph"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"GenericObject",
             "cardinality":"one",
@@ -87,7 +161,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"GenericObject",
             "cardinality":"one",
@@ -100,7 +174,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"GenericObject",
             "cardinality":"one",

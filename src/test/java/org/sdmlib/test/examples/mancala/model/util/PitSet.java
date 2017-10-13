@@ -30,6 +30,10 @@ import org.sdmlib.test.examples.mancala.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.mancala.model.Kalah;
+import org.sdmlib.test.examples.mancala.model.util.KalahSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class PitSet extends SimpleSet<Pit>
 {
@@ -525,4 +529,85 @@ public class PitSet extends SimpleSet<Pit>
    {
       this.addAll(objects);
    }
+
+
+   public PitPO createPitPO()
+   {
+      return new PitPO(this.toArray(new Pit[this.size()]));
+   }
+
+
+   @Override
+   public PitSet getNewList(boolean keyValue)
+   {
+      return new PitSet();
+   }
+
+
+   public PitSet filter(Condition<Pit> condition) {
+      PitSet filterList = new PitSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public KalahSet instanceOfKalah()
+   {
+      KalahSet result = new KalahSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Kalah)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+   /**
+    * Loop through the current set of Pit objects and collect those Pit objects where the nr attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Pit objects that match the parameter
+    */
+   public PitSet createNrCondition(int value)
+   {
+      PitSet result = new PitSet();
+      
+      for (Pit obj : this)
+      {
+         if (value == obj.getNr())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Pit objects and collect those Pit objects where the nr attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Pit objects that match the parameter
+    */
+   public PitSet createNrCondition(int lower, int upper)
+   {
+      PitSet result = new PitSet();
+      
+      for (Pit obj : this)
+      {
+         if (lower <= obj.getNr() && obj.getNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

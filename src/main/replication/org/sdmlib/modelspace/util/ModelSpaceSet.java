@@ -26,6 +26,7 @@ import java.util.Collection;
 import org.sdmlib.modelspace.ModelSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ModelSpaceSet extends SimpleSet<ModelSpace>
 {
@@ -90,4 +91,23 @@ public class ModelSpaceSet extends SimpleSet<ModelSpace>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ModelSpacePO createModelSpacePO()
+   {
+      return new ModelSpacePO(this.toArray(new ModelSpace[this.size()]));
+   }
+
+
+   @Override
+   public ModelSpaceSet getNewList(boolean keyValue)
+   {
+      return new ModelSpaceSet();
+   }
+
+
+   public ModelSpaceSet filter(Condition<ModelSpace> condition) {
+      ModelSpaceSet filterList = new ModelSpaceSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

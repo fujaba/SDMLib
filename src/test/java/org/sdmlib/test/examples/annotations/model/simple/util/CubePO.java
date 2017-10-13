@@ -33,6 +33,11 @@ public class CubePO extends PatternObject<CubePO, Cube>
       }
       newInstance(null, hostGraphObject);
    }
+
+   public CubePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
    
    //==========================================================================
    

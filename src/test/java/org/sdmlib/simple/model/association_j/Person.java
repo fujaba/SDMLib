@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.simple.model.association_j;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.simple.model.association_j.util.RoomSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.simple.model.association_j.Room;
+import org.sdmlib.simple.model.association_j.util.RoomSet;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>
@@ -86,10 +85,69 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
       setRoom(null);
+      withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Person ----------------------------------- Room
+    *              persons                   room
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ROOM = "room";
+
+   private Room room = null;
+
+   public Room getRoom()
+   {
+      return this.room;
+   }
+
+   public boolean setRoom(Room value)
+   {
+      boolean changed = false;
+      
+      if (this.room != value)
+      {
+         Room oldValue = this.room;
+         
+         if (this.room != null)
+         {
+            this.room = null;
+            oldValue.withoutPersons(this);
+         }
+         
+         this.room = value;
+         
+         if (value != null)
+         {
+            value.withPersons(this);
+         }
+         
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withRoom(Room value)
+   {
+      setRoom(value);
+      return this;
+   } 
+
+   public Room createRoom()
+   {
+      Room value = new Room();
+      withRoom(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -158,65 +216,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       Room value = new Room();
       withRooms(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Person ----------------------------------- Room
-    *              persons                   room
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ROOM = "room";
-
-   private Room room = null;
-
-   public Room getRoom()
-   {
-      return this.room;
-   }
-
-   public boolean setRoom(Room value)
-   {
-      boolean changed = false;
-      
-      if (this.room != value)
-      {
-         Room oldValue = this.room;
-         
-         if (this.room != null)
-         {
-            this.room = null;
-            oldValue.withoutPersons(this);
-         }
-         
-         this.room = value;
-         
-         if (value != null)
-         {
-            value.withPersons(this);
-         }
-         
-         firePropertyChange(PROPERTY_ROOM, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Person withRoom(Room value)
-   {
-      setRoom(value);
-      return this;
-   } 
-
-   public Room createRoom()
-   {
-      Room value = new Room();
-      withRoom(value);
       return value;
    } 
 }

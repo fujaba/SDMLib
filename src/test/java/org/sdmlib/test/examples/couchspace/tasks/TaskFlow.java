@@ -28,6 +28,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.couchspace.tasks.Task;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksModel.java'>ModelCouchTasksModel.java</a>

@@ -291,4 +291,51 @@ public class GraphComponentSet extends SimpleSet<GraphComponent>
       }
       
       return result;
-   }}
+   }
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet createTextCondition(String value)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet createTextCondition(String lower, String upper)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

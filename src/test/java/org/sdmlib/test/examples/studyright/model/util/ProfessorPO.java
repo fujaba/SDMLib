@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.studyright.model.util.TopicPO;
+import org.sdmlib.test.examples.studyright.model.util.ProfessorPO;
 
 public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
 {
@@ -280,6 +283,84 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
    public ProfessorPO filterTopic(TopicPO tgt)
    {
       return hasLinkConstraint(tgt, Professor.PROPERTY_TOPIC);
+   }
+
+
+   public ProfessorPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ProfessorPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ProfessorPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Professor.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TopicPO createTopicPO()
+   {
+      TopicPO result = new TopicPO(new Topic[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Professor.PROPERTY_TOPIC, result);
+      
+      return result;
+   }
+
+   public TopicPO createTopicPO(String modifier)
+   {
+      TopicPO result = new TopicPO(new Topic[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Professor.PROPERTY_TOPIC, result);
+      
+      return result;
+   }
+
+   public ProfessorPO createTopicLink(TopicPO tgt)
+   {
+      return hasLinkConstraint(tgt, Professor.PROPERTY_TOPIC);
+   }
+
+   public ProfessorPO createTopicLink(TopicPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Professor.PROPERTY_TOPIC, modifier);
    }
 
 }

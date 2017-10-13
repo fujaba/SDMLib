@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.simple.model.association_h;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.simple.model.association_h.util.RoomSet;
-import org.sdmlib.simple.model.association_h.util.TeacherSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.simple.model.association_h.util.TeacherSet;
+import org.sdmlib.simple.model.association_h.Teacher;
+import org.sdmlib.simple.model.association_h.util.RoomSet;
+import org.sdmlib.simple.model.association_h.Room;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/simple/TestAssociation.java'>TestAssociation.java</a>
@@ -87,82 +87,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void removeYou()
    {
-      withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
       withoutTeachers(this.getTeachers().toArray(new Teacher[this.getTeachers().size()]));
+      withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Person ----------------------------------- Room
-    *              person                   rooms
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ROOMS = "rooms";
-
-   private RoomSet rooms = null;
-   
-   public RoomSet getRooms()
-   {
-      if (this.rooms == null)
-      {
-         return RoomSet.EMPTY_SET;
-      }
-   
-      return this.rooms;
-   }
-
-   public Person withRooms(Room... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Room item : value)
-      {
-         if (item != null)
-         {
-            if (this.rooms == null)
-            {
-               this.rooms = new RoomSet();
-            }
-            
-            boolean changed = this.rooms.add (item);
-
-            if (changed)
-            {
-               item.withPerson(this);
-               firePropertyChange(PROPERTY_ROOMS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Person withoutRooms(Room... value)
-   {
-      for (Room item : value)
-      {
-         if ((this.rooms != null) && (item != null))
-         {
-            if (this.rooms.remove(item))
-            {
-               item.setPerson(null);
-               firePropertyChange(PROPERTY_ROOMS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Room createRooms()
-   {
-      Room value = new Room();
-      withRooms(value);
-      return value;
-   } 
 
    
    /********************************************************************
@@ -233,6 +161,78 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       Teacher value = new Teacher();
       withTeachers(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Person ----------------------------------- Room
+    *              person                   rooms
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ROOMS = "rooms";
+
+   private RoomSet rooms = null;
+   
+   public RoomSet getRooms()
+   {
+      if (this.rooms == null)
+      {
+         return RoomSet.EMPTY_SET;
+      }
+   
+      return this.rooms;
+   }
+
+   public Person withRooms(Room... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Room item : value)
+      {
+         if (item != null)
+         {
+            if (this.rooms == null)
+            {
+               this.rooms = new RoomSet();
+            }
+            
+            boolean changed = this.rooms.add (item);
+
+            if (changed)
+            {
+               item.withPerson(this);
+               firePropertyChange(PROPERTY_ROOMS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Person withoutRooms(Room... value)
+   {
+      for (Room item : value)
+      {
+         if ((this.rooms != null) && (item != null))
+         {
+            if (this.rooms.remove(item))
+            {
+               item.setPerson(null);
+               firePropertyChange(PROPERTY_ROOMS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Room createRooms()
+   {
+      Room value = new Room();
+      withRooms(value);
       return value;
    } 
 }

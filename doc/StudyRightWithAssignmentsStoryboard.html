@@ -78,18 +78,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A1023104844336608 : Assignment",
+         "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
@@ -98,7 +87,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "type":"clazz",
-         "id":"A1023104844355614 : Assignment",
+         "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Series",
@@ -107,7 +96,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "type":"clazz",
-         "id":"A1023104844365877 : Assignment",
+         "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
@@ -134,7 +123,15 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "type":"clazz",
-         "id":"karli : Student"
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli"
+         ]
       },
       {
          "type":"clazz",
@@ -168,7 +165,8 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "type":"clazz",
          "id":"studyRight : University",
          "attributes":[
-            "name=StudyRight"
+            "name=StudyRight",
+            "president=null"
          ]
       }
    ],
@@ -178,7 +176,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A1023104844336608 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -191,7 +189,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A1023104844355614 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -204,7 +202,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"A1023104844365877 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -304,16 +302,16 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"in",
             "id":"mathRoom : Room"
          },
          "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"4242 : Student"
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
          }
       },
       {
@@ -382,7 +380,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -392,32 +390,6 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             "cardinality":"one",
             "property":"university",
             "id":"studyRight : University"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"4242 : Student"
          }
       }
    ]
@@ -437,18 +409,7 @@ Karli's motivation is reduced by 5 points to now 209.
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
-         "attributes":[
-            "assignmentPoints=5",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A1023104844336608 : Assignment",
+         "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
@@ -457,7 +418,7 @@ Karli's motivation is reduced by 5 points to now 209.
       },
       {
          "type":"clazz",
-         "id":"A1023104844355614 : Assignment",
+         "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Series",
@@ -466,11 +427,23 @@ Karli's motivation is reduced by 5 points to now 209.
       },
       {
          "type":"clazz",
-         "id":"A1023104844365877 : Assignment",
+         "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "assignmentPoints=5",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli"
          ]
       },
       {
@@ -495,7 +468,7 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"4242 : Student"
+            "id":"karli : Student"
          }
       },
       {
@@ -508,7 +481,7 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844336608 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -521,7 +494,7 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844355614 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -534,7 +507,7 @@ Karli's motivation is reduced by 5 points to now 209.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844365877 : Assignment"
+            "id":"A3 : Assignment"
          }
       }
    ]
@@ -553,18 +526,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
-         "attributes":[
-            "assignmentPoints=11",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A1023104844336608 : Assignment",
+         "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
@@ -573,7 +535,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       },
       {
          "type":"clazz",
-         "id":"A1023104844355614 : Assignment",
+         "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Series",
@@ -582,11 +544,23 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       },
       {
          "type":"clazz",
-         "id":"A1023104844365877 : Assignment",
+         "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "assignmentPoints=11",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli"
          ]
       },
       {
@@ -611,7 +585,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"4242 : Student"
+            "id":"karli : Student"
          }
       },
       {
@@ -624,7 +598,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844336608 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -637,7 +611,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844355614 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -650,7 +624,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844365877 : Assignment"
+            "id":"A3 : Assignment"
          }
       }
    ]
@@ -669,18 +643,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
-         "attributes":[
-            "assignmentPoints=19",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A1023104844336608 : Assignment",
+         "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
@@ -689,7 +652,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       },
       {
          "type":"clazz",
-         "id":"A1023104844355614 : Assignment",
+         "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Series",
@@ -698,11 +661,23 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       },
       {
          "type":"clazz",
-         "id":"A1023104844365877 : Assignment",
+         "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "assignmentPoints=19",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli"
          ]
       },
       {
@@ -727,7 +702,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"4242 : Student"
+            "id":"karli : Student"
          }
       },
       {
@@ -740,7 +715,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844336608 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -753,7 +728,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844355614 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -766,7 +741,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844365877 : Assignment"
+            "id":"A3 : Assignment"
          }
       }
    ]
@@ -790,18 +765,7 @@ the credit points, the credit points will be awarded to the student.)</p>
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=17",
-            "id=4242",
-            "motivation=0",
-            "name=Karli"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A1023104844336608 : Assignment",
+         "id":"A1 : Assignment",
          "head":{"src":"{\"src\":\"icons/matrix.png\"}"},
          "attributes":[
             "content=Matrix Multiplication",
@@ -810,7 +774,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "type":"clazz",
-         "id":"A1023104844355614 : Assignment",
+         "id":"A2 : Assignment",
          "head":{"src":"{\"src\":\"icons/limes.png\"}"},
          "attributes":[
             "content=Series",
@@ -819,11 +783,23 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "type":"clazz",
-         "id":"A1023104844365877 : Assignment",
+         "id":"A3 : Assignment",
          "head":{"src":"{\"src\":\"icons/integralAssignment.png\"}"},
          "attributes":[
             "content=Integrals",
             "points=8"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"karli : Student",
+         "head":{"src":"{\"src\":\"icons/karli.png\"}"},
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=17",
+            "id=4242",
+            "motivation=0",
+            "name=Karli"
          ]
       },
       {
@@ -848,7 +824,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"student",
-            "id":"4242 : Student"
+            "id":"karli : Student"
          }
       },
       {
@@ -861,7 +837,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844336608 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -874,7 +850,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844355614 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -887,7 +863,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"A1023104844365877 : Assignment"
+            "id":"A3 : Assignment"
          }
       }
    ]

@@ -33,6 +33,10 @@ import org.sdmlib.test.examples.maumau.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.util.DutySet;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -762,4 +766,93 @@ public class PlayerSet extends SimpleSet<Player>
    {
       this.addAll(objects);
    }
+
+
+   public PlayerPO createPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
+
+
+   @Override
+   public PlayerSet getNewList(boolean keyValue)
+   {
+      return new PlayerSet();
+   }
+
+
+   public PlayerSet filter(Condition<Player> condition) {
+      PlayerSet filterList = new PlayerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the lane attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createLaneCondition(Lane value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getLane())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createNameCondition(String value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createNameCondition(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

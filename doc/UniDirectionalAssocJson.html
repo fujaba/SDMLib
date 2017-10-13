@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java' type='text/x-java'>UniDirectionalAssocJson</a></p>
 <p>adding flipbook to protocol changes.</p>
 <pre>      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) BigBrotherCreator.createIdMap(&quot;#&quot;);
@@ -18,36 +30,35 @@
 </pre><p>extend uni directional assco with objects and check flipbook for change protocol</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"B1 : BigBrother"
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P2 : Person",
          "attributes":[
             "name=Tom"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P3 : Person",
          "attributes":[
             "name=Jessica"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P4 : Person",
          "attributes":[
             "name=Albert"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P5 : Person",
          "attributes":[
             "name=Sabine"
@@ -56,7 +67,7 @@
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"kids",
@@ -69,7 +80,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"kids",
@@ -82,7 +93,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"noOne",
@@ -95,7 +106,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"suspects",

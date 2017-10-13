@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 Stefan
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,18 @@
    
 package org.sdmlib.simple.model.association_h.util;
 
-import org.sdmlib.simple.model.association_h.Person;
-import org.sdmlib.simple.model.association_h.Room;
-import org.sdmlib.simple.model.association_h.Teacher;
-
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import org.sdmlib.simple.model.association_h.Person;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.simple.model.association_h.Teacher;
+import org.sdmlib.simple.model.association_h.Room;
 
 public class PersonCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Person.PROPERTY_ROOMS,
       Person.PROPERTY_TEACHERS,
+      Person.PROPERTY_ROOMS,
    };
    
    @Override
@@ -59,14 +58,14 @@ public class PersonCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Person.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
-      {
-         return ((Person) target).getRooms();
-      }
-
       if (Person.PROPERTY_TEACHERS.equalsIgnoreCase(attribute))
       {
          return ((Person) target).getTeachers();
+      }
+
+      if (Person.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
+      {
+         return ((Person) target).getRooms();
       }
       
       return null;
@@ -75,21 +74,13 @@ public class PersonCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Person)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Person.PROPERTY_ROOMS.equalsIgnoreCase(attrName))
-      {
-         ((Person) target).withRooms((Room) value);
-         return true;
-      }
-      
-      if ((Person.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Person) target).withoutRooms((Room) value);
-         return true;
       }
 
       if (Person.PROPERTY_TEACHERS.equalsIgnoreCase(attrName))
@@ -101,6 +92,18 @@ public class PersonCreator implements SendableEntityCreator
       if ((Person.PROPERTY_TEACHERS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Person) target).withoutTeachers((Teacher) value);
+         return true;
+      }
+
+      if (Person.PROPERTY_ROOMS.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).withRooms((Room) value);
+         return true;
+      }
+      
+      if ((Person.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Person) target).withoutRooms((Room) value);
          return true;
       }
       

@@ -34,4 +34,9 @@ public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList<?>>
       }
       newInstance(org.sdmlib.test.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ArrayListPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

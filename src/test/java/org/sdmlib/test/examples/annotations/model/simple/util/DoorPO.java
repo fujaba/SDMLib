@@ -2,7 +2,9 @@ package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
+import org.sdmlib.test.examples.annotations.model.simple.util.HousePO;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.test.examples.annotations.model.simple.util.DoorPO;
 
 public class DoorPO extends PatternObject<DoorPO, Door>
 {
@@ -34,7 +36,12 @@ public class DoorPO extends PatternObject<DoorPO, Door>
       }
       newInstance(null, hostGraphObject);
    }
-   public HousePO filterHouse()
+
+   public DoorPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public HousePO createHousePO()
    {
       HousePO result = new HousePO(new House[]{});
       
@@ -44,19 +51,24 @@ public class DoorPO extends PatternObject<DoorPO, Door>
       return result;
    }
 
-   public HousePO createHouse()
+   public HousePO createHousePO(String modifier)
    {
-      return this.startCreate().filterHouse().endCreate();
+      HousePO result = new HousePO(new House[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Door.PROPERTY_HOUSE, result);
+      
+      return result;
    }
 
-   public DoorPO filterHouse(HousePO tgt)
+   public DoorPO createHouseLink(HousePO tgt)
    {
       return hasLinkConstraint(tgt, Door.PROPERTY_HOUSE);
    }
 
-   public DoorPO createHouse(HousePO tgt)
+   public DoorPO createHouseLink(HousePO tgt, String modifier)
    {
-      return this.startCreate().filterHouse(tgt).endCreate();
+      return hasLinkConstraint(tgt, Door.PROPERTY_HOUSE, modifier);
    }
 
    public House getHouse()

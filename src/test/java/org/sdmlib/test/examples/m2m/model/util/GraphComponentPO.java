@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
 
 public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {
@@ -164,6 +167,84 @@ public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphCompo
    public GraphComponentPO filterParent(GraphPO tgt)
    {
       return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
+   }
+
+
+   public GraphComponentPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GraphComponentPO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphComponentPO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphComponentPO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public GraphPO createParentPO()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public GraphPO createParentPO(String modifier)
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public GraphComponentPO createParentLink(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
+   }
+
+   public GraphComponentPO createParentLink(GraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT, modifier);
    }
 
 }
