@@ -200,7 +200,7 @@ public class GenMethod extends Generator<Method>
 
          String returnClause = "";
 
-         if ("int float double".indexOf(model.getReturnType().getName(false)) >= 0)
+         if ("int long float double".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "return 0;";
          }

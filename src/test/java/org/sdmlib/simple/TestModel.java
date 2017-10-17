@@ -23,7 +23,8 @@ public class TestModel {
 		person.createAttribute("credits", DataType.LONG);
 		Method createMethod = person.createMethod("getLong");
 		createMethod.with(DataType.LONG);
-		createMethod.withBody("return this.getCredits() + 42;");
+		createMethod.withBody( "" +
+		      "      return this.getCredits() + 42; \n");
 		
 		Clazz uni = model.createClazz("University");
 		uni.withBidirectional(person, "stud", Cardinality.MANY, "owner", Cardinality.ONE);
