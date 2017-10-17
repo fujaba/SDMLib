@@ -66,7 +66,7 @@ import org.sdmlib.models.pattern.Pattern;
             this.setHasMatch(true);
             
             origMap = this.getPattern().getIdMap();
-            origMap = (IdMap) new SDMLibIdMap("om").with(origMap);
+            origMap = (IdMap) new SDMLibIdMap("om").with(origMap.getCreators());
             cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap.getCreators());
             
             for (PatternElement pe : this.getPattern().getElements())
@@ -86,7 +86,9 @@ import org.sdmlib.models.pattern.Pattern;
 
             	JsonArray jsonArray = origMap.toJsonArray(origGraph);
 
-            	cloneGraph = cloneMap.decode(jsonArray);
+            	cloneGraph = cloneMap.cloneObject(origGraph, null);
+            	
+            	// cloneGraph = cloneMap.decode(jsonArray);
             }
             
             // change matches to point to the new nodes
