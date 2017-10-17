@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern;
 
+import org.junit.Assert;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
@@ -28,6 +29,7 @@ import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonArray;
+
 import org.sdmlib.models.pattern.Pattern;
    /**
     * 
@@ -84,10 +86,21 @@ import org.sdmlib.models.pattern.Pattern;
             {
             	origGraph = firstPO.getCurrentMatch();
 
-            	JsonArray jsonArray = origMap.toJsonArray(origGraph);
+            	origMap.withTimeStamp(1);
+            	
+            	SDMLibIdMap map = new SDMLibIdMap("");
+            	map.with(origMap.getCreators()).withTimeStamp(1);
+            	
+            	JsonArray jsonArray = map.toJsonArray(origGraph);
+            	
 
             	cloneGraph = cloneMap.cloneObject(origGraph, null);
+
+            	map = new SDMLibIdMap("");
+            	map.with(origMap.getCreators()).withTimeStamp(1);
             	
+            	JsonArray cloneArray = map.toJsonArray(cloneGraph);
+            	Assert.assertEquals(jsonArray.toString(), cloneArray.toString());
             	// cloneGraph = cloneMap.decode(jsonArray);
             }
             
