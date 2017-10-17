@@ -108,7 +108,11 @@ public class PersonSet extends SimpleSet<Person>
    
    public PersonSet think()
    {
-      return PersonSet.EMPTY_SET;
+      for (Person obj : this)
+      {
+         obj.think();
+      }
+      return this;
    }
 
 }
