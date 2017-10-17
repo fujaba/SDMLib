@@ -21,40 +21,30 @@
    
 package org.sdmlib.models.pattern;
 
-import org.junit.Assert;
-import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.Filter;
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.json.JsonArray;
-
-import org.sdmlib.models.pattern.Pattern;
+import de.uniks.networkparser.MapEntity;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
 */
    public class CloneOp extends PatternElement implements PropertyChangeInterface
 {
-   private IdMap origMap;
+   // private IdMap origMap;
 
-   private IdMap cloneMap;
+   // private IdMap cloneMap;
 
    private PatternObject firstPO;
    
    private Object origGraph;
 
    private Object cloneGraph;
-   
-   public IdMap getOrigMap()
+
+   private MapEntity mapEntity;
+
+   public MapEntity getMapEntity()
    {
-      return origMap;
-   }
-   
-   public IdMap getCloneMap()
-   {
-      return cloneMap;
+      return mapEntity;
    }
 
    //==========================================================================
@@ -67,10 +57,6 @@ import org.sdmlib.models.pattern.Pattern;
          {
             this.setHasMatch(true);
             
-            origMap = this.getPattern().getIdMap();
-            origMap = (IdMap) new SDMLibIdMap("om").with(origMap.getCreators());
-            cloneMap = (IdMap) new SDMLibIdMap("cm").with(origMap.getCreators());
-            
             for (PatternElement pe : this.getPattern().getElements())
             {
             	if (pe instanceof PatternObject)
@@ -80,28 +66,13 @@ import org.sdmlib.models.pattern.Pattern;
             	}
             }
             
-            //firstPO = (PatternObject) this.getPattern().getElements().first();
-            
+            mapEntity = new MapEntity();
+
             if (firstPO != null)
             {
             	origGraph = firstPO.getCurrentMatch();
 
-            	origMap.withTimeStamp(1);
-            	
-            	SDMLibIdMap map = new SDMLibIdMap("");
-            	map.with(origMap.getCreators()).withTimeStamp(1);
-            	
-            	JsonArray jsonArray = map.toJsonArray(origGraph);
-            	
-
-            	cloneGraph = cloneMap.cloneObject(origGraph, null);
-
-            	map = new SDMLibIdMap("");
-            	map.with(origMap.getCreators()).withTimeStamp(1);
-            	
-            	JsonArray cloneArray = map.toJsonArray(cloneGraph);
-            	Assert.assertEquals(jsonArray.toString(), cloneArray.toString());
-            	// cloneGraph = cloneMap.decode(jsonArray);
+            	cloneGraph = this.getPattern().getIdMap().cloneObject(origGraph, mapEntity);
             }
             
             // change matches to point to the new nodes
@@ -112,8 +83,7 @@ import org.sdmlib.models.pattern.Pattern;
                   PatternObject po = (PatternObject) pe;
                   if (po.getCurrentMatch() != null)
                   {
-                     String id = origMap.getId(po.getCurrentMatch());
-                     Object cloneObj = cloneMap.getObject(id);
+                     Object cloneObj = mapEntity.getCloneByEntity(po.getCurrentMatch());
                      po.setCurrentMatch(cloneObj);
                   }
                }
@@ -138,9 +108,8 @@ import org.sdmlib.models.pattern.Pattern;
                   PatternObject po = (PatternObject) pe;
                   if (po.getCurrentMatch() != null)
                   {
-                     String id = cloneMap.getId(po.getCurrentMatch());
-                     Object cloneObj = origMap.getObject(id);
-                     po.setCurrentMatch(cloneObj);
+                     Object origObj = mapEntity.getEntityByClone(po.getCurrentMatch());
+                     po.setCurrentMatch(origObj);
                   }
                }
                else if (pe instanceof UnifyGraphsOp)

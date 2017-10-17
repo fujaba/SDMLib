@@ -793,8 +793,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                               PatternObject po = (PatternObject) pe;
 
                               Object tgtObject = po.getCurrentMatch();
-                              String id = cloneOp.getCloneMap().getId(tgtObject);
-                              Object srcObj = cloneOp.getOrigMap().getObject(id);
+                              // String id = cloneOp.getCloneMap().getId(tgtObject);
+                              Object srcObj = cloneOp.getMapEntity().getEntityByClone(tgtObject);
 
                               srcMatch.put(po, srcObj);
                               tgtMatch.put(po, tgtObject);
