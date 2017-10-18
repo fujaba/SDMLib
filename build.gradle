@@ -54,11 +54,14 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-	if(gitVersion.isMaster() || isTravisSnapshot()) {
-		maven { url "https://se.cs.uni-kassel.de/artifactory/libs-release-local" }
-    }else{
-        maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
-    }
+	if((gitVersion.isMaster() || isTravisSnapshot())== false) {
+			maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
+	}
+	//if(gitVersion.isMaster() || isTravisSnapshot()) {
+	//	maven { url "https://se.cs.uni-kassel.de/artifactory/libs-release-local" }
+    //}else{
+    //    maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+    //}
 }
 
 dependencies {
@@ -66,6 +69,7 @@ dependencies {
    	if ( ! project.hasProperty('useLocalDependencies'))
    	{
 		compile 'de.uniks:NetworkParser:[4,):sources'
+		//compile 'de.uniks:NetworkParser:4.6.988-SNAPSHOT:sources'
 	}
 	else
 	{

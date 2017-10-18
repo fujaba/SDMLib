@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.MapEntity;
    /**
     * 
@@ -66,13 +67,14 @@ import de.uniks.networkparser.MapEntity;
             	}
             }
             
-            mapEntity = new MapEntity();
+            IdMap idMap = this.getPattern().getIdMap();
+            mapEntity = new MapEntity(idMap);
 
             if (firstPO != null)
             {
             	origGraph = firstPO.getCurrentMatch();
 
-            	cloneGraph = this.getPattern().getIdMap().cloneObject(origGraph, mapEntity);
+            	cloneGraph = idMap.cloneObject(origGraph, mapEntity);
             }
             
             // change matches to point to the new nodes
