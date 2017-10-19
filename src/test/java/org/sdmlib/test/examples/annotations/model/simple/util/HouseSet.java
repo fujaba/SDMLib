@@ -114,7 +114,11 @@ public class HouseSet extends SimpleSet<House>
    
    public HouseSet init()
    {
-      return HouseSet.EMPTY_SET;
+      for (House obj : this)
+      {
+         obj.init();
+      }
+      return this;
    }
 
    /**

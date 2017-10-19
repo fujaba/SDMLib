@@ -167,29 +167,6 @@ public class MacPO extends PatternObject<MacPO, Mac>
    }
    
    
-   //==========================================================================
-   
-   public String concat(int p1)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Mac) getCurrentMatch()).concat(p1);
-      }
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public org.sdmlib.test.examples.simpleEnumModel.model.TEnum select(int p1)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Mac) getCurrentMatch()).select(p1);
-      }
-      return null;
-   }
-
    public MacPO filterName(String value)
    {
       new AttributeConstraint()
@@ -351,4 +328,28 @@ public class MacPO extends PatternObject<MacPO, Mac>
       return this;
    }
    
+   
+   //==========================================================================
+   
+   public String concat(int p0)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).concat(p0);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public TEnum select(int p0)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).select(p0);
+      }
+      return null;
+   }
+
 }

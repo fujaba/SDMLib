@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
+import org.sdmlib.models.pattern.Pattern;
 
 public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, BombermanPlayer>
 {
@@ -35,16 +36,6 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       newInstance(org.sdmlib.test.examples.gofpattern.strategy.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    
-   //==========================================================================
-   
-   public void keyPress(String key)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((BombermanPlayer) getCurrentMatch()).keyPress(key);
-      }
-   }
-
    public BombermanPlayerPO hasXPosition(int value)
    {
       new AttributeConstraint()
@@ -388,6 +379,207 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public BombermanPlayerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   
+   //==========================================================================
+   
+   public void keyPress(String key)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((BombermanPlayer) getCurrentMatch()).keyPress(key);
+      }
+   }
+
+   public BombermanPlayerPO createLastKeyCondition(char value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_LASTKEY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createLastKeyAssignment(char value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_LASTKEY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createNumberOfBombsCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_NUMBEROFBOMBS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createNumberOfBombsCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_NUMBEROFBOMBS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createNumberOfBombsAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_NUMBEROFBOMBS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createShortTestCondition(short value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_SHORTTEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createShortTestAssignment(short value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_SHORTTEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createXPositionCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_XPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createXPositionCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_XPOSITION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createXPositionAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_XPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createYPositionCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_YPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createYPositionCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_YPOSITION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createYPositionAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_YPOSITION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

@@ -27,6 +27,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.tables.util.CellSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.tables.Cell;
+import org.sdmlib.models.tables.Table;
 
 /**
  * 
@@ -128,6 +130,7 @@ public class Row implements SendableEntity
    @Override
    public String toString()
    {
+      // result.append(" ").append(this.getNumber());
       return getCells().toString();
    }
 

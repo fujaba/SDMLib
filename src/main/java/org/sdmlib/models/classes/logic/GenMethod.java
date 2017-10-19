@@ -117,7 +117,7 @@ public class GenMethod extends Generator<Method>
          {
             returnClause = "return null;";
          }
-         String returnType = model.getReturnType().getName(false);
+         String returnType = model.getReturnType().getName(true);
 
          if (returnType.contains("."))
             returnType = returnType.substring(returnType.lastIndexOf(".") + 1);
@@ -156,7 +156,7 @@ public class GenMethod extends Generator<Method>
          if(i > 0) {
             signature += ",";
          } 
-         signature += param.getType();
+         signature += param.getType().getName(false);
       }
 
       signature += ")";
@@ -476,14 +476,18 @@ public class GenMethod extends Generator<Method>
          {
             type = "void";
          }
+         
          if (type.endsWith("[]"))
          {
             type = type.substring(0, type.length() - 2);
          }
-         if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
-            type = model.getClazz().getName(false);
-         }
+
          parser.insertImport(type); 
+         
+         if (type.indexOf(".") > 0) 
+         {
+            type = model.getReturnType().getName(true);
+         }
 
          if (!"void".equals(type))
          {

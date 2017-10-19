@@ -31,6 +31,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
@@ -326,6 +330,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ */
    public Student createStudents()
    {
       Student value = new Student();
@@ -333,6 +341,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return value;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ */
    public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
@@ -486,6 +498,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
  */
    public Assignment createAssignments()
    {
@@ -565,4 +578,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       withTas(value);
       return value;
    } 
+
+   
+
 }

@@ -125,7 +125,11 @@ public class CubeSet extends SimpleSet<Cube>
    
    public CubeSet init()
    {
-      return CubeSet.EMPTY_SET;
+      for (Cube obj : this)
+      {
+         obj.init();
+      }
+      return this;
    }
 
 }

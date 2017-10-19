@@ -32,6 +32,8 @@ import org.sdmlib.models.tables.util.ColumnSet;
 import org.sdmlib.models.tables.util.RowSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.models.tables.Column;
+import org.sdmlib.models.tables.Row;
 /**
  * 
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>

@@ -5,108 +5,64 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilitGraphSameCertificatesNonIsomorphic</a></p>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilitGraphSameCertificatesNonIsomorphic</a></p>
 <p>graph 1 two rings of two nodes</p>
 <p>graph 2 one ring of four nodes</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S1 : SimpleState"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N2 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N3 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N4 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N5 : Node",
          "attributes":[
             "num=0"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"S1 : SimpleState"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N2 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N3 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N5 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S1 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -119,42 +75,68 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"prev",
+            "property":"next",
+            "id":"N5 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
             "id":"N3 : Node"
          },
          "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N2 : Node"
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"next",
-            "id":"N5 : Node"
+            "property":"nodes",
+            "id":"N4 : Node"
          },
          "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N4 : Node"
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"prev",
+            "property":"nodes",
             "id":"N5 : Node"
          },
          "target":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N4 : Node"
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S1 : SimpleState"
          }
       }
    ]
@@ -164,97 +146,44 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S6 : SimpleState"
+         "type":"clazz",
+         "id":"N10 : Node",
+         "attributes":[
+            "num=0"
+         ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N7 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N8 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N9 : Node",
          "attributes":[
             "num=0"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"N10 : Node",
-         "attributes":[
-            "num=0"
-         ]
+         "type":"clazz",
+         "id":"S6 : SimpleState"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N7 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S6 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N8 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S6 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N9 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S6 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"N10 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"S6 : SimpleState"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -267,20 +196,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"N10 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"N7 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -293,7 +209,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -303,6 +219,71 @@
             "cardinality":"many",
             "property":"prev",
             "id":"N9 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S6 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S6 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N9 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S6 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N10 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"S6 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"N10 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N7 : Node"
          }
       }
    ]

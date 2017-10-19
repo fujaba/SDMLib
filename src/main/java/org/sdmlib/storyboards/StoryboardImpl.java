@@ -1010,7 +1010,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @param model The ClassModel for drawing
     * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    */
+    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
    public void addClassDiagram(ClassModel model)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1365,7 +1366,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
     * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    */
+    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
    public void dumpHTML()
    {
       try

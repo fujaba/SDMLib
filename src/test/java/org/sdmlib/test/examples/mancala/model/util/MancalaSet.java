@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.mancala.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class MancalaSet extends SimpleSet<Mancala>
 {
@@ -74,16 +75,6 @@ public class MancalaSet extends SimpleSet<Mancala>
    }
 
    
-   //==========================================================================
-   
-   public MancalaSet initGame(String firstPlayerName, String secondPlayerName)
-   {
-      for (Mancala obj : this)
-      {
-         obj.initGame(firstPlayerName, secondPlayerName);
-      }
-      return this;
-   }
 
    public PlayerSet getActivePlayer()
    {
@@ -281,4 +272,35 @@ public class MancalaSet extends SimpleSet<Mancala>
    {
       this.addAll(objects);
    }
+
+
+   public MancalaPO createMancalaPO()
+   {
+      return new MancalaPO(this.toArray(new Mancala[this.size()]));
+   }
+
+
+   @Override
+   public MancalaSet getNewList(boolean keyValue)
+   {
+      return new MancalaSet();
+   }
+
+
+   public MancalaSet filter(Condition<Mancala> condition) {
+      MancalaSet filterList = new MancalaSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }   
+   //==========================================================================
+   
+   public MancalaSet initGame(String firstPlayerName, String secondPlayerName)
+   {
+      for (Mancala obj : this)
+      {
+         obj.initGame(firstPlayerName, secondPlayerName);
+      }
+      return this;
+   }
+
 }

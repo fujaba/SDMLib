@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.model.refactoring.util.PlayerPO;
+import org.sdmlib.test.model.refactoring.util.LudoPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -188,6 +191,86 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
    public LudoPO filterPlayers(PlayerPO tgt)
    {
       return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS);
+   }
+
+
+   public LudoPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   
+
+   public LudoPO createLocationCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createLocationCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createLocationAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createPlayersPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayersPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Ludo.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public LudoPO createPlayersLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS);
+   }
+
+   public LudoPO createPlayersLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_PLAYERS, modifier);
    }
 
 }

@@ -3,6 +3,8 @@ package org.sdmlib.test.model.refactoring.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
+import org.sdmlib.test.model.refactoring.util.LudoPO;
+import org.sdmlib.test.model.refactoring.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -81,6 +83,41 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
    public PlayerPO filterGame(LudoPO tgt)
    {
       return hasLinkConstraint(tgt, Player.PROPERTY_GAME);
+   }
+
+
+   public PlayerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LudoPO createGamePO()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public LudoPO createGamePO(String modifier)
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Player.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO createGameLink(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_GAME);
+   }
+
+   public PlayerPO createGameLink(LudoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_GAME, modifier);
    }
 
 }

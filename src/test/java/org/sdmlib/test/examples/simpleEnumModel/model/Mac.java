@@ -28,6 +28,8 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java'>SimpleClassModelWithEnumeration.java</a>
@@ -115,22 +117,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return result.substring(1);
    }
 
-
-   
-   //==========================================================================
-   public String concat( int p1 )
-   {
-      return null;
-   }
-
-   
-   //==========================================================================
-   public TEnum select( int p1 )
-   {
-      return null;
-   }
-
-   
    //==========================================================================
    
    public static final String PROPERTY_TYPE = "type";
@@ -194,4 +180,18 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
+
+   
+   //==========================================================================
+   public String concat( int p1 )
+   {
+      return null;
    }
+
+   
+   //==========================================================================
+   public TEnum select( int p1 )
+   {
+      return null;
+   }
+}
