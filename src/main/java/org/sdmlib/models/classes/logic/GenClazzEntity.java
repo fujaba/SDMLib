@@ -1085,10 +1085,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
-                     "      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {\n"+
-                     "           ((entitiyClassName)target).removeYou();\n"+
-                     "           return true;\n"+
-                     "      }\n"+
+                     "      remove_you_clause" +
                      "      if (SendableEntityCreator.REMOVE.equals(type) && value != null)\n" +
                      "      {\n" +
                      "         attrName = attrName + type;\n" +
@@ -1107,8 +1104,16 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
             text.append("}\n");
 
+            String removeYouClause =  "" +
+                  "      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {\n"+
+                  "           ((entitiyClassName)target).removeYou();\n"+
+                  "           return true;\n"+
+                  "      }\n";
+
             if (model.isExternal())
             {
+               removeYouClause = "";
+               
                // check if it has a constructor
                ClassLoader classLoader = this.getClass().getClassLoader();
                boolean hasConstructor = false;
@@ -1131,6 +1136,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                   CGUtil.replaceAll(text,
                      "instanceCreationClause", "null", "fullEntityClassName", "");
                }
+            }
+            
+            if (model.getType() == ClazzType.ENUMERATION)
+            {
+               removeYouClause = "";
             }
 
             String instanceCreationClause = "";
@@ -1173,6 +1183,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             }
 
             String classModelPackage = model.getClassModel().getName() + ".util.";
+            CGUtil.replaceAll(text, "      remove_you_clause", removeYouClause);
 
             CGUtil.replaceAll(text,
                "creatorClassName", creatorClassName,
@@ -1180,7 +1191,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                "fullEntityClassName", "import " + fullEntityClassName + ";\n",
                "packageName", packageName,
                "instanceCreationClause", instanceCreationClause,
-               "ClassModelPackage", classModelPackage);
+               "ClassModelPackage", classModelPackage
+               );
 
             creatorParser.withFileBody(text).withFileChanged(true);
             if (standAlone == false)
