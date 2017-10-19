@@ -22,8 +22,9 @@ public class testSimpleSetModel {
 		Method m1 = child.createMethod("setParent")
 		      .with(new Parameter(DataType.create(person)).with("parent"));
 		m1.withBody("if (this.parent != parent) {\n"+
-					"if (this.parent != null) {\n"+
-					"}}");
+					"if (this.parent != null) {\n" +
+					"}\n"
+					+ "}");
 		
 		child.withAttribute("parent", DataType.create(person));
 		

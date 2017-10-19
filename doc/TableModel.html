@@ -5,12 +5,21 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/main/java/org/sdmlib/models/tables/TableModel.java' type='text/x-java'>TableModel</a></p>
 <script>
    var json = {
@@ -18,16 +27,9 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Table",
+         "id":"Cell",
          "attributes":[
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Row",
-         "attributes":[
-            "number : int"
+            "value : Object"
          ]
       },
       {
@@ -41,41 +43,74 @@
       },
       {
          "typ":"node",
-         "id":"Cell",
+         "id":"Row",
          "attributes":[
-            "value : Object"
+            "number : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Table",
+         "attributes":[
+            "name : String"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Table",
-            "cardinality":"one",
-            "property":"table"
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
          },
          "target":{
             "id":"Column",
-            "cardinality":"many",
-            "property":"columns"
+            "cardinality":"one",
+            "property":"column"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Table",
-            "cardinality":"one",
-            "property":"table"
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
          },
          "target":{
             "id":"Row",
-            "cardinality":"many",
-            "property":"rows"
+            "cardinality":"one",
+            "property":"row"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Column",
+            "cardinality":"one",
+            "property":"column"
+         },
+         "target":{
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Column",
+            "cardinality":"many",
+            "property":"columns"
+         },
+         "target":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Row",
             "cardinality":"one",
@@ -88,16 +123,42 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Column",
-            "cardinality":"one",
-            "property":"column"
+            "id":"Row",
+            "cardinality":"many",
+            "property":"rows"
          },
          "target":{
-            "id":"Cell",
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         },
+         "target":{
+            "id":"Column",
             "cardinality":"many",
-            "property":"cells"
+            "property":"columns"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         },
+         "target":{
+            "id":"Row",
+            "cardinality":"many",
+            "property":"rows"
          }
       }
    ]

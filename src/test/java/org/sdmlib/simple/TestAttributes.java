@@ -98,38 +98,7 @@ public class TestAttributes {
 		
 	}
 	
-	@Test
-	public void testClassWithMapMapAttribute() {
-		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_i");
-		Clazz person = model.createClazz("Person");
-		person.createAttribute("namesMap", DataTypeMap.create(DataType.STRING, DataTypeMap.create(DataType.STRING, DataType.STRING)));
-		model.getGenerator().testGeneratedCode();
-//		model.generate("src/test/java");
-		
-	}
 	
-	@Test
-	public void testClassWithSetMapAttribute() {
-		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_j");
-		Clazz person = model.createClazz("Person");
-		Attribute createAttribute = person.createAttribute("namesList", DataTypeSet.create(DataTypeMap.create(DataType.STRING, DataType.STRING)));
-		model.getGenerator().testGeneratedCode();
-//		model.generate("src/test/java");
-		
-	}
-	
-	@Test
-	public void testClassWithMapSetAttribute() {
-		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_k");
-		Clazz person = model.createClazz("Person");
-		Attribute createAttribute = person.createAttribute("names", DataTypeMap.create(DataType.STRING, DataTypeSet.create(DataType.STRING)));
-		model.getGenerator().testGeneratedCode();
-//		model.generate("src/test/java");
-		
-	}
 	
 	// FIXME withCreator(...) anstelle von with(...) in CreatorCreator
 	// (temporaer behoben)
