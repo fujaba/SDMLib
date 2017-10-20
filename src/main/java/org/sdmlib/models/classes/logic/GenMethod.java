@@ -156,7 +156,7 @@ public class GenMethod extends Generator<Method>
          if(i > 0) {
             signature += ",";
          } 
-         signature += param.getType().getName(false);
+         signature += param.getType().getName(true);
       }
 
       signature += ")";
