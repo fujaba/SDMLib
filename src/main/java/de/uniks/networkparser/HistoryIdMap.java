@@ -937,8 +937,8 @@ public class HistoryIdMap extends IdMap
    private long sessionStartTime = System.currentTimeMillis();
    private long number = 1;
    
-   
-   public String createId(Object obj)
+   @Override
+   public String createId(Object obj, boolean notification)
    {
       String key;
       
@@ -982,7 +982,7 @@ public class HistoryIdMap extends IdMap
       }
       
       this.number++;
-      put(key, obj);
+      put(key, obj, notification);
       return key;
    }
 }
