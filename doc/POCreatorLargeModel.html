@@ -24,7 +24,7 @@
 <p>Start: At first we instanciate a Model</p>
 <pre>      University university = new University().withName(&quot;StudyRight University&quot;);
       Room mathRoom = university.createRooms().withCredits(6).withName(&quot;Multiply&quot;).withTopic(&quot;Math&quot;);
-      Student joan = mathRoom.createStudents().withName(&quot;Joan Doe&quot;);
+      Student joan = mathRoom.createStudents().withName(&quot;Jane Doe&quot;);
       Student peter = mathRoom.createStudentsTeachingAssistant().withName(&quot;Peter Teacher&quot;).withIn(mathRoom);
       mathRoom.createAssignments().withContent(&quot;1*1&quot;).withPoints(2).withStudents(joan);
       university.withStudents(joan, peter);
@@ -57,7 +57,7 @@
             "credits=0",
             "id=null",
             "motivation=0",
-            "name=Joan Doe"
+            "name=Jane Doe"
          ]
       },
       {
@@ -200,7 +200,7 @@
          "type":"patternObject",
          "id":"s2 : StudentPO",
          "attributes":[
-            "name == Joan Doe",
+            "name == Jane Doe",
             "id == null",
             "assignmentPoints == 0",
             "motivation == 0",

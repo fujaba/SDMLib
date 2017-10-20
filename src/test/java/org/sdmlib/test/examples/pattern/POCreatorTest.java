@@ -20,7 +20,7 @@ public class POCreatorTest
       // Storyboard storyboard = new Storyboard();
       University university = new University();
       Room mathRoom = university.withName("UniKasselVersitaet").createRooms().withCredits(6).withName("Math");
-      mathRoom.createStudents().withName("Joan Doe");
+      mathRoom.createStudents().withName("Jane Doe");
 
       // storyboard.addObjectDiagram(university);
 
@@ -50,7 +50,7 @@ public class POCreatorTest
       storyboard.markCodeStart();
       University university = new University().withName("StudyRight University");
       Room mathRoom = university.createRooms().withCredits(6).withName("Multiply").withTopic("Math");
-      Student joan = mathRoom.createStudents().withName("Joan Doe");
+      Student joan = mathRoom.createStudents().withName("Jane Doe");
       Student peter = mathRoom.createStudentsTeachingAssistant().withName("Peter Teacher").withIn(mathRoom);
       mathRoom.createAssignments().withContent("1*1").withPoints(2).withStudents(joan);
       university.withStudents(joan, peter);
