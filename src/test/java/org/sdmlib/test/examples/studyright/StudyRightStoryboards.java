@@ -10,6 +10,8 @@ import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
 import org.sdmlib.test.examples.studyright.model.util.UniversityCreator;
 
+import de.uniks.networkparser.ext.story.Story;
+
 public class StudyRightStoryboards
 {
    /**
@@ -168,10 +170,11 @@ public class StudyRightStoryboards
 
       storyboard.markCodeStart();
       flipBook.back(42);
+      storyboard.addObjectDiagram(uni);
       flipBook.forward(42);
-
+      storyboard.addObjectDiagram(uni);
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
-
+      storyboard.addObjectDiagram(uni);
       flipBook.back()
          .back()
          .back()

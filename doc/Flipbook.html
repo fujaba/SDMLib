@@ -313,11 +313,291 @@
 <p>Check: Number of students expected:  2 actual 2</p>
 <p>Check: Number of rooms expected:  5 actual 5</p>
 <p>Test flipbook, with some undo redo steps: </p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasFlipbook10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=arts",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=sports",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=0",
+            "room=null",
+            "roomNo=exam",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=42",
+            "room=null",
+            "roomNo=ProgMeth",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasFlipbook11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "room=null",
+            "roomNo=arts",
+            "uni=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasFlipbook12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <pre>      flipBook.back(42);
+      storyboard.addObjectDiagram(uni);
       flipBook.forward(42);
-
+      storyboard.addObjectDiagram(uni);
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
-
+      storyboard.addObjectDiagram(uni);
       flipBook.back()
          .back()
          .back()
@@ -418,7 +698,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFlipbook11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasFlipbook14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Check: Number of students expected:  2 actual 1</p>

@@ -1,6 +1,7 @@
 package org.sdmlib.test.historymanagement;
 
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -127,6 +128,7 @@ public class HistoryScenarios
       
       // get current change set
       JsonArray currentChanges = idMap.getCurrentChanges();
+      Logger.getGlobal().setLevel(Level.SEVERE);
       Logger.getGlobal().info(currentChanges.toString(3));
       story.assertEquals("Only non-overwritten changes", 12, currentChanges.size());
       // try to decode current changes
