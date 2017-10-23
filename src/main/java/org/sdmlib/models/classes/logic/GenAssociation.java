@@ -1445,6 +1445,28 @@ public class GenAssociation extends Generator<Association>
             parser.insert(pos, text.toString());
          }
       }
+      
+      // add aggregations to aggregate method
+      if (model.getType() == AssociationTypes.AGGREGATION)
+      {
+         System.out.println("adding " + model.getName() + " to Creator");
+         
+         // search for public void aggregate(ObjectSet graph, Object obj)
+         key = Parser.METHOD + ":aggregate(ObjectSet,Object)";
+         pos = parser.indexOf(key);
+
+         if (pos < 0)
+         {
+            return;
+         }
+         
+         int methodBodyStartPos = parser.getMethodBodyStartPos();
+         
+         pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
+
+         
+         
+      }
    }
    
    private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Association partnerRole, String rootDir)

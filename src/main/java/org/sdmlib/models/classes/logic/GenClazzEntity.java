@@ -1059,7 +1059,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "\n" +
                      "public class creatorClassName implements AggregatedEntityCreator\n" +
                      "{\n" +
-                     "   public static creatorClassName it = new creatorClassName();\n" +
+                     "   public static final creatorClassName it = new creatorClassName();\n" +
                      "   \n" +
                      "   private final String[] properties = new String[]\n" +
                      "   {\n" +
