@@ -12,11 +12,6 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverCreator;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
@@ -1059,7 +1054,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "\n" +
                      "public class creatorClassName implements AggregatedEntityCreator\n" +
                      "{\n" +
-                     "   public static creatorClassName it = new creatorClassName();\n" +
+                     "   public static final creatorClassName it = new creatorClassName();\n" +
                      "   \n" +
                      "   private final String[] properties = new String[]\n" +
                      "   {\n" +

@@ -27,7 +27,6 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 
 public class LRiverCreator implements AggregatedEntityCreator
@@ -60,13 +59,6 @@ public class LRiverCreator implements AggregatedEntityCreator
       graph.add(obj);
       
       LRiver source = (LRiver) obj;
-      
-      LBoatCreator.it.aggregate(graph, source.getBoat());
-      
-      for (Object x : source.getBanks())
-      {
-         LBankCreator.it.aggregate(graph, x);
-      }
       
       return;
    }
