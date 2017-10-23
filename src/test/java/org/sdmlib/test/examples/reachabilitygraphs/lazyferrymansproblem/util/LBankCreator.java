@@ -27,12 +27,12 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 
 public class LBankCreator implements AggregatedEntityCreator
 {
-   public static LBankCreator it = new LBankCreator();
+   public static final LBankCreator it = new LBankCreator();
    
    private final String[] properties = new String[]
    {
@@ -62,8 +62,13 @@ public class LBankCreator implements AggregatedEntityCreator
       
       graph.add(obj);
       LBank source = (LBank) obj;
-      return;
-   }
+      LCargoCreator.it.aggregate(graph, source.getCargos());
+   
+      for (Object kid : source.getCargos())
+      {
+            LCargoCreator.it.aggregate(graph, kid);
+      }
+}
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -142,13 +147,13 @@ public class LBankCreator implements AggregatedEntityCreator
 
       if (LBank.PROPERTY_CARGOS.equalsIgnoreCase(attrName))
       {
-         ((LBank) target).withCargos((Cargo) value);
+         ((LBank) target).withCargos((LCargo) value);
          return true;
       }
       
       if ((LBank.PROPERTY_CARGOS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((LBank) target).withoutCargos((Cargo) value);
+         ((LBank) target).withoutCargos((LCargo) value);
          return true;
       }
 

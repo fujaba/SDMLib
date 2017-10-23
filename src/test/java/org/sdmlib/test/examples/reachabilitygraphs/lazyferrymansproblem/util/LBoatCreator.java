@@ -28,11 +28,11 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 
 public class LBoatCreator implements AggregatedEntityCreator
 {
-   public final static LBoatCreator it = new LBoatCreator();
+   public static final LBoatCreator it = new LBoatCreator();
    
    private final String[] properties = new String[]
    {
@@ -60,7 +60,7 @@ public class LBoatCreator implements AggregatedEntityCreator
       
       graph.add(obj);
       LBoat source = (LBoat) obj;
-      return;
+      LCargoCreator.it.aggregate(graph, source.getCargo());
    }
    
    @Override
@@ -124,7 +124,7 @@ public class LBoatCreator implements AggregatedEntityCreator
 
       if (LBoat.PROPERTY_CARGO.equalsIgnoreCase(attrName))
       {
-         ((LBoat) target).setCargo((Cargo) value);
+         ((LBoat) target).setCargo((LCargo) value);
          return true;
       }
       

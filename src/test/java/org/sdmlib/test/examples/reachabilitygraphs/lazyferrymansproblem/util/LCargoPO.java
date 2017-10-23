@@ -1,29 +1,29 @@
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 
-public class CargoPO extends PatternObject<CargoPO, Cargo>
+public class LCargoPO extends PatternObject<LCargoPO, LCargo>
 {
 
-    public CargoSet allMatches()
+    public LCargoSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      CargoSet matches = new CargoSet();
+      LCargoSet matches = new LCargoSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Cargo) this.getCurrentMatch());
+         matches.add((LCargo) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -32,25 +32,25 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    }
 
 
-   public CargoPO(){
+   public LCargoPO(){
       newInstance(null);
    }
 
-   public CargoPO(Cargo... hostGraphObject) {
+   public LCargoPO(LCargo... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(null, hostGraphObject);
    }
 
-   public CargoPO(String modifier)
+   public LCargoPO(String modifier)
    {
       this.setModifier(modifier);
    }
-   public CargoPO createNameCondition(String value)
+   public LCargoPO createNameCondition(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Cargo.PROPERTY_NAME)
+      .withAttrName(LCargo.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -61,10 +61,10 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       return this;
    }
    
-   public CargoPO createNameCondition(String lower, String upper)
+   public LCargoPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Cargo.PROPERTY_NAME)
+      .withAttrName(LCargo.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -76,10 +76,10 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       return this;
    }
    
-   public CargoPO createNameAssignment(String value)
+   public LCargoPO createNameAssignment(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Cargo.PROPERTY_NAME)
+      .withAttrName(LCargo.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -94,16 +94,16 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Cargo) getCurrentMatch()).getName();
+         return ((LCargo) getCurrentMatch()).getName();
       }
       return null;
    }
    
-   public CargoPO withName(String value)
+   public LCargoPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Cargo) getCurrentMatch()).setName(value);
+         ((LCargo) getCurrentMatch()).setName(value);
       }
       return this;
    }
@@ -113,7 +113,7 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       LBoatPO result = new LBoatPO(new LBoat[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Cargo.PROPERTY_BOAT, result);
+      super.hasLink(LCargo.PROPERTY_BOAT, result);
       
       return result;
    }
@@ -123,26 +123,26 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       LBoatPO result = new LBoatPO(new LBoat[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Cargo.PROPERTY_BOAT, result);
+      super.hasLink(LCargo.PROPERTY_BOAT, result);
       
       return result;
    }
 
-   public CargoPO createBoatLink(LBoatPO tgt)
+   public LCargoPO createBoatLink(LBoatPO tgt)
    {
-      return hasLinkConstraint(tgt, Cargo.PROPERTY_BOAT);
+      return hasLinkConstraint(tgt, LCargo.PROPERTY_BOAT);
    }
 
-   public CargoPO createBoatLink(LBoatPO tgt, String modifier)
+   public LCargoPO createBoatLink(LBoatPO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Cargo.PROPERTY_BOAT, modifier);
+      return hasLinkConstraint(tgt, LCargo.PROPERTY_BOAT, modifier);
    }
 
    public LBoatSet getBoat()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Cargo) this.getCurrentMatch()).getBoat();
+         return ((LCargo) this.getCurrentMatch()).getBoat();
       }
       return null;
    }
@@ -152,7 +152,7 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       LBankPO result = new LBankPO(new LBank[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Cargo.PROPERTY_BANK, result);
+      super.hasLink(LCargo.PROPERTY_BANK, result);
       
       return result;
    }
@@ -162,26 +162,26 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       LBankPO result = new LBankPO(new LBank[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Cargo.PROPERTY_BANK, result);
+      super.hasLink(LCargo.PROPERTY_BANK, result);
       
       return result;
    }
 
-   public CargoPO createBankLink(LBankPO tgt)
+   public LCargoPO createBankLink(LBankPO tgt)
    {
-      return hasLinkConstraint(tgt, Cargo.PROPERTY_BANK);
+      return hasLinkConstraint(tgt, LCargo.PROPERTY_BANK);
    }
 
-   public CargoPO createBankLink(LBankPO tgt, String modifier)
+   public LCargoPO createBankLink(LBankPO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Cargo.PROPERTY_BANK, modifier);
+      return hasLinkConstraint(tgt, LCargo.PROPERTY_BANK, modifier);
    }
 
    public LBankSet getBank()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Cargo) this.getCurrentMatch()).getBank();
+         return ((LCargo) this.getCurrentMatch()).getBank();
       }
       return null;
    }

@@ -30,8 +30,8 @@ import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 
@@ -359,13 +359,13 @@ public class LBankSet extends SimpleSet<LBank>
    }
 
    /**
-    * Loop through the current set of LBank objects and collect a set of the Cargo objects reached via cargos. 
+    * Loop through the current set of LBank objects and collect a set of the LCargo objects reached via cargos. 
     * 
-    * @return Set of Cargo objects reachable via cargos
+    * @return Set of LCargo objects reachable via cargos
     */
-   public CargoSet getCargos()
+   public LCargoSet getCargos()
    {
-      CargoSet result = new CargoSet();
+      LCargoSet result = new LCargoSet();
       
       for (LBank obj : this)
       {
@@ -380,7 +380,7 @@ public class LBankSet extends SimpleSet<LBank>
     * 
     * @param value The object required as cargos neighbor of the collected results. 
     * 
-    * @return Set of Cargo objects referring to value via cargos
+    * @return Set of LCargo objects referring to value via cargos
     */
    public LBankSet filterCargos(Object value)
    {
@@ -413,7 +413,7 @@ public class LBankSet extends SimpleSet<LBank>
     * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Cargos attributes.
     */
-   public LBankSet withCargos(Cargo value)
+   public LBankSet withCargos(LCargo value)
    {
       for (LBank obj : this)
       {
@@ -428,7 +428,7 @@ public class LBankSet extends SimpleSet<LBank>
     * 
     * @return The original set of ModelType objects now without the old neighbor.
     */
-   public LBankSet withoutCargos(Cargo value)
+   public LBankSet withoutCargos(LCargo value)
    {
       for (LBank obj : this)
       {

@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
@@ -32,60 +32,60 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 
-public class CargoSet extends SimpleSet<Cargo>
+public class LCargoSet extends SimpleSet<LCargo>
 {
 	public Class<?> getTypClass() {
-		return Cargo.class;
+		return LCargo.class;
 	}
 
-   public CargoSet()
+   public LCargoSet()
    {
       // empty
    }
 
-   public CargoSet(Cargo... objects)
+   public LCargoSet(LCargo... objects)
    {
-      for (Cargo obj : objects)
+      for (LCargo obj : objects)
       {
          this.add(obj);
       }
    }
 
-   public CargoSet(Collection<Cargo> objects)
+   public LCargoSet(Collection<LCargo> objects)
    {
       this.addAll(objects);
    }
 
-   public static final CargoSet EMPTY_SET = new CargoSet().withFlag(CargoSet.READONLY);
+   public static final LCargoSet EMPTY_SET = new LCargoSet().withFlag(LCargoSet.READONLY);
 
 
-   public CargoPO createCargoPO()
+   public LCargoPO createLCargoPO()
    {
-      return new CargoPO(this.toArray(new Cargo[this.size()]));
+      return new LCargoPO(this.toArray(new LCargo[this.size()]));
    }
 
 
    public String getEntryType()
    {
-      return "org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo";
+      return "org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo";
    }
 
 
    @Override
-   public CargoSet getNewList(boolean keyValue)
+   public LCargoSet getNewList(boolean keyValue)
    {
-      return new CargoSet();
+      return new LCargoSet();
    }
 
 
-   public CargoSet filter(Condition<Cargo> condition) {
-      CargoSet filterList = new CargoSet();
+   public LCargoSet filter(Condition<LCargo> condition) {
+      LCargoSet filterList = new LCargoSet();
       filterItems(filterList, condition);
       return filterList;
    }
 
    @SuppressWarnings("unchecked")
-   public CargoSet with(Object value)
+   public LCargoSet with(Object value)
    {
       if (value == null)
       {
@@ -93,17 +93,17 @@ public class CargoSet extends SimpleSet<Cargo>
       }
       else if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Cargo>)value);
+         this.addAll((Collection<LCargo>)value);
       }
       else if (value != null)
       {
-         this.add((Cargo) value);
+         this.add((LCargo) value);
       }
       
       return this;
    }
    
-   public CargoSet without(Cargo value)
+   public LCargoSet without(LCargo value)
    {
       this.remove(value);
       return this;
@@ -111,7 +111,7 @@ public class CargoSet extends SimpleSet<Cargo>
 
 
    /**
-    * Loop through the current set of Cargo objects and collect a list of the name attribute values. 
+    * Loop through the current set of LCargo objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
@@ -119,7 +119,7 @@ public class CargoSet extends SimpleSet<Cargo>
    {
       ObjectSet result = new ObjectSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          result.add(obj.getName());
       }
@@ -129,17 +129,17 @@ public class CargoSet extends SimpleSet<Cargo>
 
 
    /**
-    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute matches the parameter value. 
+    * Loop through the current set of LCargo objects and collect those LCargo objects where the name attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
-    * @return Subset of Cargo objects that match the parameter
+    * @return Subset of LCargo objects that match the parameter
     */
-   public CargoSet createNameCondition(String value)
+   public LCargoSet createNameCondition(String value)
    {
-      CargoSet result = new CargoSet();
+      LCargoSet result = new LCargoSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          if (value.equals(obj.getName()))
          {
@@ -152,18 +152,18 @@ public class CargoSet extends SimpleSet<Cargo>
 
 
    /**
-    * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute is between lower and upper. 
+    * Loop through the current set of LCargo objects and collect those LCargo objects where the name attribute is between lower and upper. 
     * 
     * @param lower Lower bound 
     * @param upper Upper bound 
     * 
-    * @return Subset of Cargo objects that match the parameter
+    * @return Subset of LCargo objects that match the parameter
     */
-   public CargoSet createNameCondition(String lower, String upper)
+   public LCargoSet createNameCondition(String lower, String upper)
    {
-      CargoSet result = new CargoSet();
+      LCargoSet result = new LCargoSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
          {
@@ -176,15 +176,15 @@ public class CargoSet extends SimpleSet<Cargo>
 
 
    /**
-    * Loop through the current set of Cargo objects and assign value to the name attribute of each of it. 
+    * Loop through the current set of LCargo objects and assign value to the name attribute of each of it. 
     * 
     * @param value New attribute value
     * 
-    * @return Current set of Cargo objects now with new attribute values.
+    * @return Current set of LCargo objects now with new attribute values.
     */
-   public CargoSet withName(String value)
+   public LCargoSet withName(String value)
    {
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          obj.setName(value);
       }
@@ -193,7 +193,7 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through the current set of Cargo objects and collect a set of the LBoat objects reached via boat. 
+    * Loop through the current set of LCargo objects and collect a set of the LBoat objects reached via boat. 
     * 
     * @return Set of LBoat objects reachable via boat
     */
@@ -201,7 +201,7 @@ public class CargoSet extends SimpleSet<Cargo>
    {
       LBoatSet result = new LBoatSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          result.with(obj.getBoat());
       }
@@ -210,13 +210,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through the current set of Cargo objects and collect all contained objects with reference boat pointing to the object passed as parameter. 
+    * Loop through the current set of LCargo objects and collect all contained objects with reference boat pointing to the object passed as parameter. 
     * 
     * @param value The object required as boat neighbor of the collected results. 
     * 
     * @return Set of LBoat objects referring to value via boat
     */
-   public CargoSet filterBoat(Object value)
+   public LCargoSet filterBoat(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -229,9 +229,9 @@ public class CargoSet extends SimpleSet<Cargo>
          neighbors.add(value);
       }
       
-      CargoSet answer = new CargoSet();
+      LCargoSet answer = new LCargoSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          if ( ! Collections.disjoint(neighbors, obj.getBoat()))
          {
@@ -243,13 +243,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Cargo object passed as parameter to the Boat attribute of each of it. 
+    * Loop through current set of ModelType objects and attach the LCargo object passed as parameter to the Boat attribute of each of it. 
     * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Boat attributes.
     */
-   public CargoSet withBoat(LBoat value)
+   public LCargoSet withBoat(LBoat value)
    {
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          obj.withBoat(value);
       }
@@ -258,13 +258,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through current set of ModelType objects and remove the Cargo object passed as parameter from the Boat attribute of each of it. 
+    * Loop through current set of ModelType objects and remove the LCargo object passed as parameter from the Boat attribute of each of it. 
     * 
     * @return The original set of ModelType objects now without the old neighbor.
     */
-   public CargoSet withoutBoat(LBoat value)
+   public LCargoSet withoutBoat(LBoat value)
    {
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          obj.withoutBoat(value);
       }
@@ -273,7 +273,7 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through the current set of Cargo objects and collect a set of the LBank objects reached via bank. 
+    * Loop through the current set of LCargo objects and collect a set of the LBank objects reached via bank. 
     * 
     * @return Set of LBank objects reachable via bank
     */
@@ -281,7 +281,7 @@ public class CargoSet extends SimpleSet<Cargo>
    {
       LBankSet result = new LBankSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          result.with(obj.getBank());
       }
@@ -290,13 +290,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through the current set of Cargo objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * Loop through the current set of LCargo objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
     * 
     * @param value The object required as bank neighbor of the collected results. 
     * 
     * @return Set of LBank objects referring to value via bank
     */
-   public CargoSet filterBank(Object value)
+   public LCargoSet filterBank(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -309,9 +309,9 @@ public class CargoSet extends SimpleSet<Cargo>
          neighbors.add(value);
       }
       
-      CargoSet answer = new CargoSet();
+      LCargoSet answer = new LCargoSet();
       
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          if ( ! Collections.disjoint(neighbors, obj.getBank()))
          {
@@ -323,13 +323,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Cargo object passed as parameter to the Bank attribute of each of it. 
+    * Loop through current set of ModelType objects and attach the LCargo object passed as parameter to the Bank attribute of each of it. 
     * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
     */
-   public CargoSet withBank(LBank value)
+   public LCargoSet withBank(LBank value)
    {
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          obj.withBank(value);
       }
@@ -338,13 +338,13 @@ public class CargoSet extends SimpleSet<Cargo>
    }
 
    /**
-    * Loop through current set of ModelType objects and remove the Cargo object passed as parameter from the Bank attribute of each of it. 
+    * Loop through current set of ModelType objects and remove the LCargo object passed as parameter from the Bank attribute of each of it. 
     * 
     * @return The original set of ModelType objects now without the old neighbor.
     */
-   public CargoSet withoutBank(LBank value)
+   public LCargoSet withoutBank(LBank value)
    {
-      for (Cargo obj : this)
+      for (LCargo obj : this)
       {
          obj.withoutBank(value);
       }

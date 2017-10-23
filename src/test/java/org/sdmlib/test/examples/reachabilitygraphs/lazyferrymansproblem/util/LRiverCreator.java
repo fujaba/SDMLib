@@ -31,7 +31,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 
 public class LRiverCreator implements AggregatedEntityCreator
 {
-   public static LRiverCreator it = new LRiverCreator();
+   public static final LRiverCreator it = new LRiverCreator();
    
    private final String[] properties = new String[]
    {
@@ -57,10 +57,13 @@ public class LRiverCreator implements AggregatedEntityCreator
       if (graph.contains(obj)) return;
       
       graph.add(obj);
-      
       LRiver source = (LRiver) obj;
-      
-      return;
+      LBoatCreator.it.aggregate(graph, source.getBoat());
+   
+      for (Object kid : source.getBanks())
+      {
+            LBankCreator.it.aggregate(graph, kid);
+      }
    }
    
    @Override

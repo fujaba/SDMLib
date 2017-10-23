@@ -27,13 +27,6 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Cargo",
-         "attributes":[
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"LBank",
          "attributes":[
             "age : int",
@@ -46,36 +39,17 @@
       },
       {
          "typ":"node",
+         "id":"LCargo",
+         "attributes":[
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"LRiver"
       }
    ],
    "edges":[
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"Cargo",
-            "cardinality":"one",
-            "property":"cargo"
-         },
-         "target":{
-            "id":"LBoat",
-            "cardinality":"many",
-            "property":"boat"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"Cargo",
-            "cardinality":"many",
-            "property":"cargos"
-         },
-         "target":{
-            "id":"LBank",
-            "cardinality":"many",
-            "property":"bank"
-         }
-      },
       {
          "typ":"assoc",
          "source":{
@@ -97,7 +71,7 @@
             "property":"bank"
          },
          "target":{
-            "id":"Cargo",
+            "id":"LCargo",
             "cardinality":"many",
             "property":"cargos"
          }
@@ -149,9 +123,35 @@
             "property":"boat"
          },
          "target":{
-            "id":"Cargo",
+            "id":"LCargo",
             "cardinality":"one",
             "property":"cargo"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LCargo",
+            "cardinality":"one",
+            "property":"cargo"
+         },
+         "target":{
+            "id":"LBoat",
+            "cardinality":"many",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LCargo",
+            "cardinality":"many",
+            "property":"cargos"
+         },
+         "target":{
+            "id":"LBank",
+            "cardinality":"many",
+            "property":"bank"
          }
       },
       {

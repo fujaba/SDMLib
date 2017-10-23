@@ -31,8 +31,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 
 public class LBoatSet extends SimpleSet<LBoat>
 {
@@ -257,13 +257,13 @@ public class LBoatSet extends SimpleSet<LBoat>
    }
 
    /**
-    * Loop through the current set of LBoat objects and collect a set of the Cargo objects reached via cargo. 
+    * Loop through the current set of LBoat objects and collect a set of the LCargo objects reached via cargo. 
     * 
-    * @return Set of Cargo objects reachable via cargo
+    * @return Set of LCargo objects reachable via cargo
     */
-   public CargoSet getCargo()
+   public LCargoSet getCargo()
    {
-      CargoSet result = new CargoSet();
+      LCargoSet result = new LCargoSet();
       
       for (LBoat obj : this)
       {
@@ -278,7 +278,7 @@ public class LBoatSet extends SimpleSet<LBoat>
     * 
     * @param value The object required as cargo neighbor of the collected results. 
     * 
-    * @return Set of Cargo objects referring to value via cargo
+    * @return Set of LCargo objects referring to value via cargo
     */
    public LBoatSet filterCargo(Object value)
    {
@@ -311,7 +311,7 @@ public class LBoatSet extends SimpleSet<LBoat>
     * 
     * @return The original set of ModelType objects now with the new neighbor attached to their Cargo attributes.
     */
-   public LBoatSet withCargo(Cargo value)
+   public LBoatSet withCargo(LCargo value)
    {
       for (LBoat obj : this)
       {

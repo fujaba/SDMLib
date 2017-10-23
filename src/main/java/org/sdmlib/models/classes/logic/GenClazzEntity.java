@@ -1079,7 +1079,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "      \n" + 
                      "      graph.add(obj);\n" + 
                      "      entitiyClassName source = (entitiyClassName) obj;\n" + 
-                     "      return;\n" + 
                      "   }\r\n" + 
                      "" +
                      "   \n" +

@@ -7,6 +7,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankCreator;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
@@ -1449,7 +1450,7 @@ public class GenAssociation extends Generator<Association>
       // add aggregations to aggregate method
       if (model.getType() == AssociationTypes.AGGREGATION)
       {
-         System.out.println("adding " + model.getName() + " to Creator");
+         System.out.println("adding " + model.getOther().getName() + " to Creator");
          
          // search for public void aggregate(ObjectSet graph, Object obj)
          key = Parser.METHOD + ":aggregate(ObjectSet,Object)";
@@ -1462,17 +1463,63 @@ public class GenAssociation extends Generator<Association>
          
          int methodBodyStartPos = parser.getMethodBodyStartPos();
          
-         pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+         int methodEndPos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
 
-         String methodBody = parser.getFileBody().substring(methodBodyStartPos, pos+1);
+         String methodBody = parser.getFileBody().substring(methodBodyStartPos, methodEndPos+1);
          
-         String aggreCall = "ModelCreator.it.aggregate(graph, kid)";
-         
-         String modelCreator = null;
-         
-         aggreCall = CGUtil.replaceAll(aggreCall, "ModelCreator", modelCreator);
-         
-         int aggreCallPos = methodBody.indexOf(aggreCall);
+         if (model.getOther().getCardinality() == Cardinality.ONE)
+         {
+            String aggreCall = "   ModelCreator.it.aggregate(graph, kid);\n   ";
+
+            Association other = model.getOther();
+
+            String modelCreator = other.getClazz().getName() + "Creator";
+
+            String kidCall = CGUtil.replaceAll("source.getNeighbor()", 
+               "Neighbor", StrUtil.upFirstChar(other.getName()));
+
+
+            aggreCall = CGUtil.replaceAll(aggreCall, 
+               "ModelCreator", modelCreator, 
+               "kid", kidCall);
+
+            int aggreCallPos = methodBody.indexOf(aggreCall);
+
+            if (aggreCallPos < 0)
+            {
+               parser.insert(methodEndPos, aggreCall);
+            }
+         }
+         else
+         {
+            // to many
+            String aggreCall = "   ModelCreator.it.aggregate(graph, kid);\n   ";
+
+            Association other = model.getOther();
+
+            String modelCreator = other.getClazz().getName() + "Creator";
+
+            aggreCall = CGUtil.replaceAll(aggreCall, 
+               "ModelCreator", modelCreator);
+
+            int aggreCallPos = methodBody.indexOf(aggreCall);
+
+            if (aggreCallPos < 0)
+            {
+               // create loop
+               String loop = "\n" +
+                  "      for (Object kid : source.getTheKids())\n" + 
+                  "      {\n" + 
+                  "         aggreCall" + 
+                  "   }\n   ";
+               
+               loop = CGUtil.replaceAll(loop, 
+                  "TheKids", StrUtil.upFirstChar(model.getOther().getName()), 
+                  "aggreCall", aggreCall);
+               
+               parser.insert(methodEndPos, loop);
+            }
+         }
       }
    }
    

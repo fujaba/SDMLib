@@ -8,8 +8,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBo
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoPO;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 
 public class LBoatPO extends PatternObject<LBoatPO, LBoat>
 {
@@ -124,9 +124,9 @@ public class LBoatPO extends PatternObject<LBoatPO, LBoat>
       return null;
    }
 
-   public CargoPO createCargoPO()
+   public LCargoPO createCargoPO()
    {
-      CargoPO result = new CargoPO(new Cargo[]{});
+      LCargoPO result = new LCargoPO(new LCargo[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(LBoat.PROPERTY_CARGO, result);
@@ -134,9 +134,9 @@ public class LBoatPO extends PatternObject<LBoatPO, LBoat>
       return result;
    }
 
-   public CargoPO createCargoPO(String modifier)
+   public LCargoPO createCargoPO(String modifier)
    {
-      CargoPO result = new CargoPO(new Cargo[]{});
+      LCargoPO result = new LCargoPO(new LCargo[]{});
       
       result.setModifier(modifier);
       super.hasLink(LBoat.PROPERTY_CARGO, result);
@@ -144,17 +144,17 @@ public class LBoatPO extends PatternObject<LBoatPO, LBoat>
       return result;
    }
 
-   public LBoatPO createCargoLink(CargoPO tgt)
+   public LBoatPO createCargoLink(LCargoPO tgt)
    {
       return hasLinkConstraint(tgt, LBoat.PROPERTY_CARGO);
    }
 
-   public LBoatPO createCargoLink(CargoPO tgt, String modifier)
+   public LBoatPO createCargoLink(LCargoPO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, LBoat.PROPERTY_CARGO, modifier);
    }
 
-   public Cargo getCargo()
+   public LCargo getCargo()
    {
       if (this.getPattern().getHasMatch())
       {

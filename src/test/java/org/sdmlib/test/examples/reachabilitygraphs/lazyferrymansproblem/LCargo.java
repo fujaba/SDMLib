@@ -33,7 +33,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
  */
-   public  class Cargo implements SendableEntity
+   public  class LCargo implements SendableEntity
 {
 
    
@@ -115,7 +115,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       }
    }
    
-   public Cargo withName(String value)
+   public LCargo withName(String value)
    {
       setName(value);
       return this;
@@ -136,7 +136,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    /********************************************************************
     * <pre>
     *              one                       many
-    * Cargo ----------------------------------- LBoat
+    * LCargo ----------------------------------- LBoat
     *              cargo                   boat
     * </pre>
     */
@@ -155,7 +155,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this.boat;
    }
 
-   public Cargo withBoat(LBoat... value)
+   public LCargo withBoat(LBoat... value)
    {
       if(value==null){
          return this;
@@ -181,7 +181,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this;
    } 
 
-   public Cargo withoutBoat(LBoat... value)
+   public LCargo withoutBoat(LBoat... value)
    {
       for (LBoat item : value)
       {
@@ -208,7 +208,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    /********************************************************************
     * <pre>
     *              many                       many
-    * Cargo ----------------------------------- LBank
+    * LCargo ----------------------------------- LBank
     *              cargos                   bank
     * </pre>
     */
@@ -227,7 +227,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this.bank;
    }
 
-   public Cargo withBank(LBank... value)
+   public LCargo withBank(LBank... value)
    {
       if(value==null){
          return this;
@@ -253,7 +253,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this;
    } 
 
-   public Cargo withoutBank(LBank... value)
+   public LCargo withoutBank(LBank... value)
    {
       for (LBank item : value)
       {

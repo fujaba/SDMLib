@@ -106,7 +106,7 @@ public class ReachabilityGraphExampleModels
       river.createBidirectional(bank, "banks", Cardinality.MANY, "river", Cardinality.MANY)
       .with(AssociationTypes.AGGREGATION);
       
-      Clazz cargo = model.createClazz("Cargo")
+      Clazz cargo = model.createClazz("LCargo")
             .withAttribute("name", DataType.STRING); 
             
       bank.createBidirectional(cargo, "cargos", Cardinality.MANY, "bank", Cardinality.MANY)

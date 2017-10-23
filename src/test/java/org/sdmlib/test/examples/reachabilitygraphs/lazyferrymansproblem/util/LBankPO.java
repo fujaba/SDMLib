@@ -8,9 +8,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBo
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoPO;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
@@ -211,9 +211,9 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return null;
    }
 
-   public CargoPO createCargosPO()
+   public LCargoPO createCargosPO()
    {
-      CargoPO result = new CargoPO(new Cargo[]{});
+      LCargoPO result = new LCargoPO(new LCargo[]{});
       
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(LBank.PROPERTY_CARGOS, result);
@@ -221,9 +221,9 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return result;
    }
 
-   public CargoPO createCargosPO(String modifier)
+   public LCargoPO createCargosPO(String modifier)
    {
-      CargoPO result = new CargoPO(new Cargo[]{});
+      LCargoPO result = new LCargoPO(new LCargo[]{});
       
       result.setModifier(modifier);
       super.hasLink(LBank.PROPERTY_CARGOS, result);
@@ -231,17 +231,17 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return result;
    }
 
-   public LBankPO createCargosLink(CargoPO tgt)
+   public LBankPO createCargosLink(LCargoPO tgt)
    {
       return hasLinkConstraint(tgt, LBank.PROPERTY_CARGOS);
    }
 
-   public LBankPO createCargosLink(CargoPO tgt, String modifier)
+   public LBankPO createCargosLink(LCargoPO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, LBank.PROPERTY_CARGOS, modifier);
    }
 
-   public CargoSet getCargos()
+   public LCargoSet getCargos()
    {
       if (this.getPattern().getHasMatch())
       {

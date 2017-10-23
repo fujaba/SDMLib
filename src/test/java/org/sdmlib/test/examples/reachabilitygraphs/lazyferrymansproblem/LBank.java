@@ -27,8 +27,8 @@ import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
    /**
@@ -91,7 +91,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
    public void removeYou()
    {
       withoutBoat(this.getBoat().toArray(new LBoat[this.getBoat().size()]));
-      for (Cargo obj : new CargoSet(this.getCargos())) { obj.removeYou(); }
+      for (LCargo obj : new LCargoSet(this.getCargos())) { obj.removeYou(); }
       withoutRiver(this.getRiver().toArray(new LRiver[this.getRiver().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -240,37 +240,37 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
    /********************************************************************
     * <pre>
     *              many                       many
-    * LBank ----------------------------------- Cargo
+    * LBank ----------------------------------- LCargo
     *              bank                   cargos
     * </pre>
     */
    
    public static final String PROPERTY_CARGOS = "cargos";
 
-   private CargoSet cargos = null;
+   private LCargoSet cargos = null;
    
-   public CargoSet getCargos()
+   public LCargoSet getCargos()
    {
       if (this.cargos == null)
       {
-         return CargoSet.EMPTY_SET;
+         return LCargoSet.EMPTY_SET;
       }
    
       return this.cargos;
    }
 
-   public LBank withCargos(Cargo... value)
+   public LBank withCargos(LCargo... value)
    {
       if(value==null){
          return this;
       }
-      for (Cargo item : value)
+      for (LCargo item : value)
       {
          if (item != null)
          {
             if (this.cargos == null)
             {
-               this.cargos = new CargoSet();
+               this.cargos = new LCargoSet();
             }
             
             boolean changed = this.cargos.add (item);
@@ -285,9 +285,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
       return this;
    } 
 
-   public LBank withoutCargos(Cargo... value)
+   public LBank withoutCargos(LCargo... value)
    {
-      for (Cargo item : value)
+      for (LCargo item : value)
       {
          if ((this.cargos != null) && (item != null))
          {
@@ -301,9 +301,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
       return this;
    }
 
-   public Cargo createCargos()
+   public LCargo createCargos()
    {
-      Cargo value = new Cargo();
+      LCargo value = new LCargo();
       withCargos(value);
       return value;
    } 

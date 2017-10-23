@@ -27,7 +27,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
@@ -228,27 +228,27 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
    /********************************************************************
     * <pre>
     *              many                       one
-    * LBoat ----------------------------------- Cargo
+    * LBoat ----------------------------------- LCargo
     *              boat                   cargo
     * </pre>
     */
    
    public static final String PROPERTY_CARGO = "cargo";
 
-   private Cargo cargo = null;
+   private LCargo cargo = null;
 
-   public Cargo getCargo()
+   public LCargo getCargo()
    {
       return this.cargo;
    }
 
-   public boolean setCargo(Cargo value)
+   public boolean setCargo(LCargo value)
    {
       boolean changed = false;
       
       if (this.cargo != value)
       {
-         Cargo oldValue = this.cargo;
+         LCargo oldValue = this.cargo;
          
          if (this.cargo != null)
          {
@@ -270,15 +270,15 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.Cargo;
       return changed;
    }
 
-   public LBoat withCargo(Cargo value)
+   public LBoat withCargo(LCargo value)
    {
       setCargo(value);
       return this;
    } 
 
-   public Cargo createCargo()
+   public LCargo createCargo()
    {
-      Cargo value = new Cargo();
+      LCargo value = new LCargo();
       withCargo(value);
       return value;
    } 
