@@ -319,10 +319,36 @@
    "nodes":[
       {
          "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=4242",
+            "motivation=0",
+            "name=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"U1 : University",
          "attributes":[
             "name=StudyRight"
          ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
       }
    ]
 }   ;
@@ -346,8 +372,7 @@
          "id":"R3 : Room",
          "attributes":[
             "credits=23",
-            "roomNo=arts",
-            "uni=null"
+            "roomNo=arts"
          ]
       },
       {
@@ -355,8 +380,7 @@
          "id":"R4 : Room",
          "attributes":[
             "credits=23",
-            "roomNo=sports",
-            "uni=null"
+            "roomNo=sports"
          ]
       },
       {
@@ -364,9 +388,7 @@
          "id":"R5 : Room",
          "attributes":[
             "credits=0",
-            "room=null",
-            "roomNo=exam",
-            "uni=null"
+            "roomNo=exam"
          ]
       },
       {
@@ -375,8 +397,7 @@
          "attributes":[
             "credits=42",
             "room=null",
-            "roomNo=ProgMeth",
-            "uni=null"
+            "roomNo=ProgMeth"
          ]
       },
       {
@@ -387,6 +408,17 @@
             "matrNo=4242",
             "motivation=0",
             "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
          ]
       },
       {
@@ -429,6 +461,32 @@
          "source":{
             "cardinality":"many",
             "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
             "id":"R6 : Room"
          },
          "target":{
@@ -454,6 +512,19 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
             "property":"rooms",
             "id":"R2 : Room"
          },
@@ -467,8 +538,73 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
             "property":"students",
             "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S8 : Student"
          },
          "target":{
             "cardinality":"one",
@@ -512,8 +648,16 @@
          "attributes":[
             "credits=23",
             "room=null",
-            "roomNo=arts",
-            "uni=null"
+            "roomNo=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=23",
+            "room=null",
+            "roomNo=sports"
          ]
       },
       {
@@ -524,6 +668,17 @@
             "matrNo=4242",
             "motivation=0",
             "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
          ]
       },
       {
@@ -565,8 +720,47 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
             "property":"students",
             "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S8 : Student"
          },
          "target":{
             "cardinality":"one",
@@ -592,9 +786,10 @@
    json["options"]={"canvasid":"canvasFlipbook12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      flipBook.back(42);
+<pre>      flipBook.back(34);
       storyboard.addObjectDiagram(uni);
-      flipBook.forward(42);
+      storyboard.dumpHTML();
+      flipBook.forward(34);
       storyboard.addObjectDiagram(uni);
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
       storyboard.addObjectDiagram(uni);
@@ -621,8 +816,16 @@
          "attributes":[
             "credits=23",
             "room=null",
-            "roomNo=arts",
-            "uni=null"
+            "roomNo=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=0",
+            "room=null",
+            "roomNo=null"
          ]
       },
       {
@@ -633,6 +836,17 @@
             "matrNo=4242",
             "motivation=0",
             "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
          ]
       },
       {
@@ -674,8 +888,47 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
             "property":"students",
             "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S8 : Student"
          },
          "target":{
             "cardinality":"one",
@@ -701,7 +954,8 @@
    json["options"]={"canvasid":"canvasFlipbook14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Number of students expected:  2 actual 1</p>
+<p>Check: Number of students expected:  2 actual 2</p>
+<p>Check: Number of rooms expected:  3 actual 3</p>
 
 </body>
 </html>

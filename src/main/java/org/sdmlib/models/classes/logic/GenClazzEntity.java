@@ -12,6 +12,11 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankCreator;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatCreator;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverCreator;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
@@ -24,6 +29,8 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -1047,11 +1054,13 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
-                     "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
+                     "import de.uniks.networkparser.interfaces.AggregatedEntityCreator;\n" +
                      "fullEntityClassName" +
                      "\n" +
-                     "public class creatorClassName implements SendableEntityCreator\n" +
+                     "public class creatorClassName implements AggregatedEntityCreator\n" +
                      "{\n" +
+                     "   public static creatorClassName it = new creatorClassName();\n" +
+                     "   \n" +
                      "   private final String[] properties = new String[]\n" +
                      "   {\n" +
                      "   };\n" +
@@ -1067,6 +1076,17 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   {\n" +
                      "      return instanceCreationClause;\n" +
                      "   }\n" +
+                     "   \n" +
+                     "   @Override\n" + 
+                     "   public void aggregate(ObjectSet graph, Object obj)\n" + 
+                     "   {\n" + 
+                     "      if (graph.contains(obj)) return;\n" + 
+                     "      \n" + 
+                     "      graph.add(obj);\n" + 
+                     "      entitiyClassName source = (entitiyClassName) obj;\n" + 
+                     "      return;\n" + 
+                     "   }\r\n" + 
+                     "" +
                      "   \n" +
                      "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" +
@@ -1195,6 +1215,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                );
 
             creatorParser.withFileBody(text).withFileChanged(true);
+            creatorParser.insertImport(ObjectSet.class.getName());
+            creatorParser.insertImport(SendableEntityCreator.class.getName());
             if (standAlone == false)
             {
                creatorParser.insertImport(IdMap.class.getName());

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>LazyFerryMansProblemModel</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Cargo",
+         "attributes":[
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LBank",
+         "attributes":[
+            "age : int",
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LBoat"
+      },
+      {
+         "typ":"node",
+         "id":"LRiver"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Cargo",
+            "cardinality":"one",
+            "property":"cargo"
+         },
+         "target":{
+            "id":"LBoat",
+            "cardinality":"many",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Cargo",
+            "cardinality":"many",
+            "property":"cargos"
+         },
+         "target":{
+            "id":"LBank",
+            "cardinality":"many",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LBank",
+            "cardinality":"one",
+            "property":"bank"
+         },
+         "target":{
+            "id":"LBoat",
+            "cardinality":"many",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"LBank",
+            "cardinality":"many",
+            "property":"bank"
+         },
+         "target":{
+            "id":"Cargo",
+            "cardinality":"many",
+            "property":"cargos"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LBank",
+            "cardinality":"many",
+            "property":"banks"
+         },
+         "target":{
+            "id":"LRiver",
+            "cardinality":"many",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LBoat",
+            "cardinality":"one",
+            "property":"boat"
+         },
+         "target":{
+            "id":"LRiver",
+            "cardinality":"many",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LBoat",
+            "cardinality":"many",
+            "property":"boat"
+         },
+         "target":{
+            "id":"LBank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"LBoat",
+            "cardinality":"many",
+            "property":"boat"
+         },
+         "target":{
+            "id":"Cargo",
+            "cardinality":"one",
+            "property":"cargo"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"LRiver",
+            "cardinality":"many",
+            "property":"river"
+         },
+         "target":{
+            "id":"LBoat",
+            "cardinality":"one",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"LRiver",
+            "cardinality":"many",
+            "property":"river"
+         },
+         "target":{
+            "id":"LBank",
+            "cardinality":"many",
+            "property":"banks"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasLazyFerryMansProblemModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>

@@ -305,7 +305,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
          return false;
       }
       JsonObject json = (JsonObject) simpleEvent.getEntity();
-      System.out.println(json);
+
       StepInfo stepInfo = new StepInfo(json, new RuntimeException());
       changes.add(stepInfo);
       

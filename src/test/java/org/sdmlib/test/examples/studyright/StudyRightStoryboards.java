@@ -169,9 +169,10 @@ public class StudyRightStoryboards
       storyboard.add("Test flipbook, with some undo redo steps: ");
 
       storyboard.markCodeStart();
-      flipBook.back(42);
+      flipBook.back(34);
       storyboard.addObjectDiagram(uni);
-      flipBook.forward(42);
+      storyboard.dumpHTML();
+      flipBook.forward(34);
       storyboard.addObjectDiagram(uni);
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
       storyboard.addObjectDiagram(uni);
