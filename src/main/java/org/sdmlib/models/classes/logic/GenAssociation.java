@@ -7,7 +7,6 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankCreator;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
