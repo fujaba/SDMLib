@@ -69,7 +69,7 @@ dependencies {
    	if ( ! project.hasProperty('useLocalDependencies'))
    	{
 		if((gitVersion.isMaster() || isTravisSnapshot())== false) {
-			compile 'de.uniks:NetworkParser:4.6.988-SNAPSHOT:sources'
+			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources", changing: true
 		} else {
 			compile 'de.uniks:NetworkParser:[4,):sources'
 		}
