@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRi
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class ReachabilityGraphFerrymansProblemExample
 {
@@ -207,6 +208,11 @@ public class ReachabilityGraphFerrymansProblemExample
 
       storyboard.addObjectDiagram(river);
       
+      ObjectSet graphElems = new ObjectSet();
+      
+      LRiverCreator.it.aggregate(graphElems, river);
+      
+      storyboard.addObjectDiagramOnlyWith(graphElems);
       
       // try aggregation 
       

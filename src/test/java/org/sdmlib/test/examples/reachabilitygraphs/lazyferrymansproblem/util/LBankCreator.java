@@ -62,7 +62,6 @@ public class LBankCreator implements AggregatedEntityCreator
       
       graph.add(obj);
       LBank source = (LBank) obj;
-      LCargoCreator.it.aggregate(graph, source.getCargos());
    
       for (Object kid : source.getCargos())
       {
