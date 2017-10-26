@@ -2,6 +2,7 @@ package org.sdmlib.test.examples.patternrewriteops;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
@@ -54,37 +55,25 @@ public class TrainStoryboards
       do 
       {
          // collect people from first station
-//         ModelPattern pattern = new ModelPattern();
          TrainPO trainPO = new TrainPO(train);
-//         TrainPO trainPO = pattern.hasElementTrainPO(train);
 
-         StationPO stationPO = trainPO.hasStation();
+         StationPO stationPO = trainPO.createStationPO();
 
-         SignalFlagPO flagPO = stationPO.hasFlag()
-               .destroy();
+         SignalFlagPO flagPO = stationPO.createFlagPO(Pattern.DESTROY);
 
          stationPO.startSubPattern();
          
-         storyboard.add(trainPO.getPattern().dumpDiagram("addPassengersPattern"+i+"-0"));
-         
-         StationPO stationDestroyPO = stationPO.startDestroy();
-         storyboard.add(trainPO.getPattern().dumpDiagram("addPassengersPattern"+i+"-1"));
-         PersonPO personPO = stationDestroyPO.hasPeople();
-         
-         storyboard.add(trainPO.getPattern().dumpDiagram("addPassengersPattern"+i+"-2"));
+         PersonPO personPO = stationPO.createPeoplePO();
 
-         personPO.startCreate().hasTrain(trainPO);
-         storyboard.add(trainPO.getPattern().dumpDiagram("addPassengersPattern"+i+"-3"));
-         // personPO.startDestroy().hasStation(stationPO);
+         personPO.createStationLink(stationPO, Pattern.DESTROY);
+         
+         personPO.createTrainLink(trainPO, Pattern.CREATE);
 
          personPO.allMatches();
-
-         storyboard.add(trainPO.getPattern().dumpDiagram("addPassengersPattern"+i+"-4"));
-//         storyboard.add(pattern.dumpDiagram("addPassengersPattern" + i));
          
-         storyboard.add("step " + i);
-         storyboard.addPattern(trainPO, true);
-         i++;
+         stationPO.endSubPattern();
+
+         storyboard.addObjectDiagram(train);
          
          train.setStation(train.getStation().getNext());
       }
@@ -92,6 +81,7 @@ public class TrainStoryboards
       
       storyboard.dumpHTML();
 
-      Assert.assertEquals("station should be vacant ",  0, stat1.getPeople().size());
+      storyboard.assertEquals("station should be vacant ",  0, stat1.getPeople().size());
+      storyboard.assertEquals("train should have all people ",  5, train.getPassengers().size());
    }
 }

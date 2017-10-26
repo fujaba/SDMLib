@@ -174,11 +174,19 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
    public PersonPO createTrainLink(TrainPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
    public PersonPO createTrainLink(TrainPO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_TRAIN, modifier);
@@ -204,11 +212,19 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return result;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
    public PersonPO createStationLink(StationPO tgt)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_STATION);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ */
    public PersonPO createStationLink(StationPO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, Person.PROPERTY_STATION, modifier);
