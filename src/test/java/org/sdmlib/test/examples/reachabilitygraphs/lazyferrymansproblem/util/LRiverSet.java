@@ -31,18 +31,29 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-
-public class LRiverSet extends SimpleSet<LRiver>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public class LRiverSet extends SimpleSet<LRiver>
 {
 	public Class<?> getTypClass() {
 		return LRiver.class;
 	}
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverSet()
    {
       // empty
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverSet(LRiver... objects)
    {
       for (LRiver obj : objects)
@@ -51,6 +62,10 @@ public class LRiverSet extends SimpleSet<LRiver>
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverSet(Collection<LRiver> objects)
    {
       this.addAll(objects);
@@ -178,7 +193,8 @@ public class LRiverSet extends SimpleSet<LRiver>
     * Loop through the current set of LRiver objects and collect a set of the LBank objects reached via banks. 
     * 
     * @return Set of LBank objects reachable via banks
-    */
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LBankSet getBanks()
    {
       LBankSet result = new LBankSet();

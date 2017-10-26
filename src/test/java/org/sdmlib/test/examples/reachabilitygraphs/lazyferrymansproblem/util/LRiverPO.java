@@ -8,8 +8,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRi
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
-
-public class LRiverPO extends PatternObject<LRiverPO, LRiver>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public class LRiverPO extends PatternObject<LRiverPO, LRiver>
 {
 
     public LRiverSet allMatches()
@@ -29,10 +32,18 @@ public class LRiverPO extends PatternObject<LRiverPO, LRiver>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverPO(){
       newInstance(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverPO(LRiver... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
@@ -40,6 +51,10 @@ public class LRiverPO extends PatternObject<LRiverPO, LRiver>
       newInstance(null, hostGraphObject);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LRiverPO(String modifier)
    {
       this.setModifier(modifier);
