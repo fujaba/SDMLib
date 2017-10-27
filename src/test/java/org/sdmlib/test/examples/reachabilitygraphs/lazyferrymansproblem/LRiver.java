@@ -230,4 +230,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       withBanks(value);
       return value;
    } 
+   
+   public String toString()
+   {
+      return this.getBanks().toString("\n");
+   }
+
+
 }

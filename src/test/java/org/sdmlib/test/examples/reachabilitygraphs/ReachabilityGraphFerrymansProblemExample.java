@@ -1,6 +1,9 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
+import java.util.Collection;
+
 import org.junit.Test;
+import org.sdmlib.models.pattern.LazyCloneOp;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
@@ -204,19 +207,44 @@ public class ReachabilityGraphFerrymansProblemExample
       left.createCargos().withName("goat");
       left.createCargos().withName("wolf");
 
-      river.createBanks().withName("right");
+      LBank right = river.createBanks().withName("right");
 
       storyboard.addObjectDiagram(river);
       
       ObjectSet graphElems = new ObjectSet();
       
+      // try aggregation 
       LRiverCreator.it.aggregate(graphElems, river);
-      
+      storyboard.add("kids of river");
       storyboard.addObjectDiagramOnlyWith(graphElems);
       
-      // try aggregation 
-      
 
+      // try lazy clone: clone the boat and move it to the other bank
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(LRiverCreator.createIdMap("lazy"));
+      
+      Object river2 = lazyCloneOp.clone(river);
+      
+      LBoat boat2 = (LBoat) lazyCloneOp.clone(boat);
+      
+      boat2.setBank(right);
+      
+      ObjectSet cloneGraph = new ObjectSet();
+
+      LRiverCreator.it.aggregate(cloneGraph, river2);
+      
+      storyboard.add("kids of river clone");
+      storyboard.addObjectDiagramOnlyWith(cloneGraph);
+      
+      storyboard.add("both graphs with shared components");
+      storyboard.addObjectDiagram(cloneGraph);
+
+      storyboard.assertEquals("both graphs should have same size", graphElems.size(), cloneGraph.size());
+      
+      Object union = graphElems.union(cloneGraph);
+      
+      storyboard.assertEquals("union should have two more elements ", graphElems.size() + 2, ((Collection) union).size());
+      
+      
       storyboard.add("compute certificates");
 
       ReachableState rs1 = new ReachableState().withGraphRoot(river);

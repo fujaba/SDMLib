@@ -282,4 +282,19 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
       withCargo(value);
       return value;
    } 
+
+   @Override
+   public String toString()
+   {
+      String string = "boat";
+      if (this.getCargo() != null)
+      {
+         string += " ("+this.getCargo().toString()+")";
+      }
+      if (this.getBank() != null)
+      {
+         string += " @ " + this.getBank();
+      }
+      return string;
+   }
 }
