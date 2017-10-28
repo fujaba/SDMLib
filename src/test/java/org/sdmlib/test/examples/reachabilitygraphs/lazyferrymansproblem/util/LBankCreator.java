@@ -67,7 +67,7 @@ public class LBankCreator implements AggregatedEntityCreator
       {
             LCargoCreator.it.aggregate(graph, kid);
       }
-}
+   }
    
    @Override
    public Object getValue(Object target, String attrName)

@@ -5,6 +5,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverPO;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
@@ -76,7 +77,7 @@ public class LBoatPO extends PatternObject<LBoatPO, LBoat>
       return hasLinkConstraint(tgt, LBoat.PROPERTY_BANK, modifier);
    }
 
-   public LBank getBank()
+   public LBankSet getBank()
    {
       if (this.getPattern().getHasMatch())
       {

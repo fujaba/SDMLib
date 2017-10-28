@@ -226,7 +226,8 @@ public class ReachabilityGraphFerrymansProblemExample
       
       LBoat boat2 = (LBoat) lazyCloneOp.clone(boat);
       
-      boat2.setBank(right);
+      boat2.withoutBank(left);
+      boat2.withBank(right);
       
       ObjectSet cloneGraph = new ObjectSet();
 

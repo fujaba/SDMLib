@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
@@ -87,7 +88,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
    
    public void removeYou()
    {
-      setBank(null);
+      withoutBank(this.getBank().toArray(new LBank[this.getBank().size()]));
       withoutRiver(this.getRiver().toArray(new LRiver[this.getRiver().size()]));
       if (getCargo() != null) { getCargo().removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
@@ -96,7 +97,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
    
    /********************************************************************
     * <pre>
-    *              many                       one
+    *              many                       many
     * LBoat ----------------------------------- LBank
     *              boat                   bank
     * </pre>
@@ -104,46 +105,59 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
    
    public static final String PROPERTY_BANK = "bank";
 
-   private LBank bank = null;
-
-   public LBank getBank()
+   private LBankSet bank = null;
+   
+   public LBankSet getBank()
    {
+      if (this.bank == null)
+      {
+         return LBankSet.EMPTY_SET;
+      }
+   
       return this.bank;
    }
 
-   public boolean setBank(LBank value)
+   public LBoat withBank(LBank... value)
    {
-      boolean changed = false;
-      
-      if (this.bank != value)
-      {
-         LBank oldValue = this.bank;
-         
-         if (this.bank != null)
-         {
-            this.bank = null;
-            oldValue.withoutBoat(this);
-         }
-         
-         this.bank = value;
-         
-         if (value != null)
-         {
-            value.withBoat(this);
-         }
-         
-         firePropertyChange(PROPERTY_BANK, oldValue, value);
-         changed = true;
+      if(value==null){
+         return this;
       }
-      
-      return changed;
-   }
+      for (LBank item : value)
+      {
+         if (item != null)
+         {
+            if (this.bank == null)
+            {
+               this.bank = new LBankSet();
+            }
+            
+            boolean changed = this.bank.add (item);
 
-   public LBoat withBank(LBank value)
-   {
-      setBank(value);
+            if (changed)
+            {
+               item.withBoat(this);
+               firePropertyChange(PROPERTY_BANK, null, item);
+            }
+         }
+      }
       return this;
    } 
+
+   public LBoat withoutBank(LBank... value)
+   {
+      for (LBank item : value)
+      {
+         if ((this.bank != null) && (item != null))
+         {
+            if (this.bank.remove(item))
+            {
+               item.withoutBoat(this);
+               firePropertyChange(PROPERTY_BANK, item, null);
+            }
+         }
+      }
+      return this;
+   }
 
    public LBank createBank()
    {
@@ -282,19 +296,4 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
       withCargo(value);
       return value;
    } 
-
-   @Override
-   public String toString()
-   {
-      String string = "boat";
-      if (this.getCargo() != null)
-      {
-         string += " ("+this.getCargo().toString()+")";
-      }
-      if (this.getBank() != null)
-      {
-         string += " @ " + this.getBank();
-      }
-      return string;
-   }
 }

@@ -106,7 +106,13 @@ public class LBoatCreator implements AggregatedEntityCreator
 
       if (LBoat.PROPERTY_BANK.equalsIgnoreCase(attrName))
       {
-         ((LBoat) target).setBank((LBank) value);
+         ((LBoat) target).withBank((LBank) value);
+         return true;
+      }
+      
+      if ((LBoat.PROPERTY_BANK + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((LBoat) target).withoutBank((LBank) value);
          return true;
       }
 

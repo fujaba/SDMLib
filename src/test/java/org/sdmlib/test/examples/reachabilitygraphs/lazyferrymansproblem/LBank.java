@@ -167,7 +167,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
    
    /********************************************************************
     * <pre>
-    *              one                       many
+    *              many                       many
     * LBank ----------------------------------- LBoat
     *              bank                   boat
     * </pre>
@@ -221,7 +221,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
          {
             if (this.boat.remove(item))
             {
-               item.setBank(null);
+               item.withoutBank(this);
                firePropertyChange(PROPERTY_BOAT, item, null);
             }
          }
@@ -301,10 +301,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
       return this;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public LCargo createCargos()
    {
       LCargo value = new LCargo();

@@ -101,7 +101,7 @@ public class ReachabilityGraphExampleModels
             .withAttribute("name", DataType.STRING)
             .withAttribute("age", DataType.INT);
             
-      boat.withBidirectional(bank, "bank", Cardinality.ONE, "boat", Cardinality.MANY);
+      boat.withBidirectional(bank, "bank", Cardinality.MANY, "boat", Cardinality.MANY);
       
       river.createBidirectional(bank, "banks", Cardinality.MANY, "river", Cardinality.MANY)
       .with(AssociationTypes.AGGREGATION);

@@ -26,9 +26,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
@@ -152,7 +152,7 @@ public class LBoatSet extends SimpleSet<LBoat>
       
       for (LBoat obj : this)
       {
-         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         if ( ! Collections.disjoint(neighbors, obj.getBank()))
          {
             answer.add(obj);
          }
@@ -171,6 +171,21 @@ public class LBoatSet extends SimpleSet<LBoat>
       for (LBoat obj : this)
       {
          obj.withBank(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the LBoat object passed as parameter from the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public LBoatSet withoutBank(LBank value)
+   {
+      for (LBoat obj : this)
+      {
+         obj.withoutBank(value);
       }
       
       return this;

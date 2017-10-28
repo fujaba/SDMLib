@@ -211,10 +211,6 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return null;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public LCargoPO createCargosPO()
    {
       LCargoPO result = new LCargoPO(new LCargo[]{});
@@ -225,10 +221,6 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return result;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public LCargoPO createCargosPO(String modifier)
    {
       LCargoPO result = new LCargoPO(new LCargo[]{});
@@ -239,19 +231,11 @@ public class LBankPO extends PatternObject<LBankPO, LBank>
       return result;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public LBankPO createCargosLink(LCargoPO tgt)
    {
       return hasLinkConstraint(tgt, LBank.PROPERTY_CARGOS);
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public LBankPO createCargosLink(LCargoPO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, LBank.PROPERTY_CARGOS, modifier);
