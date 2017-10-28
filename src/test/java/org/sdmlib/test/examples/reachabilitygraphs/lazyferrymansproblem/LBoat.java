@@ -296,4 +296,16 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
       withCargo(value);
       return value;
    } 
+   
+   public String toString()
+   {
+      if (cargo == null)
+      {
+         return "boat \\___/";
+      }
+      else
+      {
+         return "boat \\" + cargo.getName() + "/";
+      }
+   }
 }

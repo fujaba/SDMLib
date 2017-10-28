@@ -130,8 +130,13 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
    {
       StringBuilder result = new StringBuilder();
       
-      result.append(" ").append(this.getAge());
       result.append(" ").append(this.getName());
+      // result.append(" ").append(this.getAge());
+      
+      result.append(" ").append(this.getCargos().toString(" "));
+      
+      result.append(" ").append(this.getBoat().toString(" "));
+      
       return result.substring(1);
    }
 
