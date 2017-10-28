@@ -43,10 +43,32 @@ public class LBankCreator implements AggregatedEntityCreator
       LBank.PROPERTY_RIVER,
    };
    
+   private final String[] upProperties = new String[]
+   {
+      LBank.PROPERTY_RIVER,
+   };
+   
+   private final String[] downProperties = new String[]
+   {
+      LBank.PROPERTY_CARGOS,
+   };
+   
    @Override
    public String[] getProperties()
    {
       return properties;
+   }
+   
+   @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
    }
    
    @Override
@@ -55,19 +77,6 @@ public class LBankCreator implements AggregatedEntityCreator
       return new LBank();
    }
    
-   @Override
-   public void aggregate(ObjectSet graph, Object obj)
-   {
-      if (graph.contains(obj)) return;
-      
-      graph.add(obj);
-      LBank source = (LBank) obj;
-   
-      for (Object kid : source.getCargos())
-      {
-            LCargoCreator.it.aggregate(graph, kid);
-      }
-   }
    
    @Override
    public Object getValue(Object target, String attrName)

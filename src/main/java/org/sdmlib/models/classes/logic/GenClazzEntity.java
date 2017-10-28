@@ -1060,10 +1060,30 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   {\n" +
                      "   };\n" +
                      "   \n" +
+                     "   private final String[] upProperties = new String[]\n" +
+                     "   {\n" +
+                     "   };\n" +
+                     "   \n" +
+                     "   private final String[] downProperties = new String[]\n" +
+                     "   {\n" +
+                     "   };\n" +
+                     "   \n" +
                      "   @Override\n" +
                      "   public String[] getProperties()\n" +
                      "   {\n" +
                      "      return properties;\n" +
+                     "   }\n" +
+                     "   \n" +
+                     "   @Override\n" +
+                     "   public String[] getUpProperties()\n" +
+                     "   {\n" +
+                     "      return upProperties;\n" +
+                     "   }\n" +
+                     "   \n" +
+                     "   @Override\n" +
+                     "   public String[] getDownProperties()\n" +
+                     "   {\n" +
+                     "      return downProperties;\n" +
                      "   }\n" +
                      "   \n" +
                      "   @Override\n" +
@@ -1072,15 +1092,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "      return instanceCreationClause;\n" +
                      "   }\n" +
                      "   \n" +
-                     "   @Override\n" + 
-                     "   public void aggregate(ObjectSet graph, Object obj)\n" + 
-                     "   {\n" + 
-                     "      if (graph.contains(obj)) return;\n" + 
-                     "      \n" + 
-                     "      graph.add(obj);\n" + 
-                     "      entitiyClassName source = (entitiyClassName) obj;\n" + 
-                     "   }\r\n" + 
-                     "" +
                      "   \n" +
                      "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" +

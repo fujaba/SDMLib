@@ -28,15 +28,22 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public class LRiverCreator implements AggregatedEntityCreator
+
+public class LRiverCreator implements AggregatedEntityCreator
 {
    public static final LRiverCreator it = new LRiverCreator();
    
    private final String[] properties = new String[]
+   {
+      LRiver.PROPERTY_BOAT,
+      LRiver.PROPERTY_BANKS,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
    {
       LRiver.PROPERTY_BOAT,
       LRiver.PROPERTY_BANKS,
@@ -49,25 +56,23 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LRiver();
    }
    
-   @Override
-   public void aggregate(ObjectSet graph, Object obj)
-   {
-      if (graph.contains(obj)) return;
-      
-      graph.add(obj);
-      LRiver source = (LRiver) obj;
-      LBoatCreator.it.aggregate(graph, source.getBoat());
-   
-      for (Object kid : source.getBanks())
-      {
-            LBankCreator.it.aggregate(graph, kid);
-      }
-   }
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -125,10 +130,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       
       return false;
    }
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public static IdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CreatorCreator.createIdMap(sessionID);

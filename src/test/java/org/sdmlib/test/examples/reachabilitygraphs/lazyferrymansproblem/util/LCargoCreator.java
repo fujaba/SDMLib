@@ -40,10 +40,32 @@ public class LCargoCreator implements AggregatedEntityCreator
       LCargo.PROPERTY_BANK,
    };
    
+   private final String[] upProperties = new String[]
+   {
+      LCargo.PROPERTY_BOAT,
+      LCargo.PROPERTY_BANK,
+   };
+   
+   private final String[] downProperties = new String[]
+   {
+   };
+   
    @Override
    public String[] getProperties()
    {
       return properties;
+   }
+   
+   @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
    }
    
    @Override
@@ -52,14 +74,6 @@ public class LCargoCreator implements AggregatedEntityCreator
       return new LCargo();
    }
    
-   @Override
-   public void aggregate(ObjectSet graph, Object obj)
-   {
-      if (graph.contains(obj)) return;
-      
-      graph.add(obj);
-      LCargo source = (LCargo) obj;
-   }
    
    @Override
    public Object getValue(Object target, String attrName)
