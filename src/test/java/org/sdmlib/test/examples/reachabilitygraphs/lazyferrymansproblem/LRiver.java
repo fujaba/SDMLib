@@ -168,6 +168,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
 
    private LBankSet banks = null;
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LBankSet getBanks()
    {
       if (this.banks == null)

@@ -155,6 +155,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this.boat;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LCargo withBoat(LBoat... value)
    {
       if(value==null){
@@ -253,6 +257,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return this;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public LCargo withoutBank(LBank... value)
    {
       for (LBank item : value)
