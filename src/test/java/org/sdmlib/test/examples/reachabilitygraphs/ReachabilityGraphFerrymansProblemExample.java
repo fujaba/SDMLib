@@ -187,12 +187,217 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.dumpHTML();
    }
 
+   /**
+  * 
+  * @see <a href='../../../../../../../../doc/LayzFerrymansProblemExample.html'>LayzFerrymansProblemExample.html</a>
+*/
+ @Test
+ public void LayzFerrymansProblemExample()
+ {
+    Storyboard storyboard = new Storyboard();
+
+    // ================================================
+    storyboard.add("initial situation:");
+
+    LRiver river = new LRiver();
+
+    LBoat boat = river.createBoat();
+
+    LBank left = river.createBanks().withName("left").withBoat(boat);
+
+    left.createCargos().withName("cabbage");
+    LCargo goat = left.createCargos().withName("goat");
+    LCargo wolf = left.createCargos().withName("wolf");
+
+    LBank right = river.createBanks().withName("right");
+
+    storyboard.addObjectDiagram(river);
+    
+    ObjectSet graphElems = new ObjectSet();
+    
+    // try aggregation 
+    LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(LRiverCreator.createIdMap("lazy"));
+    lazyCloneOp.aggregate(graphElems, river);
+    storyboard.add("kids of river");
+    storyboard.addObjectDiagramOnlyWith(graphElems);
+    
+
+    // try lazy clone: clone the boat and move it to the other bank
+    Object river2 = lazyCloneOp.clone(river);
+
+    LCargo cloneGoat = (LCargo) lazyCloneOp.clone(goat);
+    
+    LBoat cloneBoat = (LBoat) lazyCloneOp.clone(boat);
+    
+    cloneGoat.withoutBank(cloneGoat.getBank().first());
+    cloneGoat.withBoat(cloneBoat);
+    
+    ObjectSet cloneGraph = new ObjectSet();
+
+    lazyCloneOp.aggregate(cloneGraph, river2);
+    
+    storyboard.add("kids of river clone");
+    storyboard.addObjectDiagramOnlyWith(cloneGraph);
+    
+    storyboard.add("both graphs with shared components");
+    storyboard.addObjectDiagram(river);
+    
+    storyboard.assertEquals("both graphs should have same size", graphElems.size(), cloneGraph.size());
+    
+    Object union = graphElems.union(cloneGraph);
+    
+    storyboard.assertEquals("union should have four more elements ", graphElems.size() + 4, ((Collection) union).size());
+    
+
+    // try a third graph
+    lazyCloneOp.clear();
+    
+    LRiver river3 = (LRiver) lazyCloneOp.clone(river2);
+    
+    LCargo wolf3 = (LCargo) lazyCloneOp.clone(wolf);
+    
+    LBank right3 = (LBank) lazyCloneOp.clone(right);
+          
+    LBank left3 = river3.getBanks().createNameCondition("left").first();
+    
+    left3.withoutCargos(wolf3);
+    right3.withCargos(wolf3);
+
+    storyboard.add("three graphs with shared components");
+    storyboard.addObjectDiagram(river);
+    
+    ObjectSet graph3 = new ObjectSet();
+    lazyCloneOp.aggregate(graph3, river3);
+
+    union = ((SimpleSet) union).union(graph3);
+    storyboard.assertEquals("union should now have 8 additional elements ", graphElems.size() + 8, ((Collection) union).size());
+
+//    storyboard.add("compute certificates");
+//
+//    ReachableState rs1 = new ReachableState().withGraphRoot(river);
+//
+//    LRiverCreator cc = new LRiverCreator();
+//
+//    IdMap map = cc.createIdMap("s");
+//    map.with(ReachabilityGraphCreator.createIdMap("rg"));
+//
+//    String s1cert = rs1.computeCertificate(map);
+//
+//    storyboard.add(s1cert);
+//
+//    ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
+//       .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
+//
+//    // ================================================
+//    // map.with(new ModelPatternCreator());
+//    // FlipBook flipBook = new FlipBook().withMap(map);
+//    // String id = map.getId(reachabilityGraph);
+//    //
+//    // ================================================
+//    // load boat rule
+//
+//    LRiverPO riverPO = new LRiverPO();
+//
+//    Pattern loadPattern = (Pattern) riverPO.getPattern().withName("load").withDebugMode(Kanban.DEBUG_ON);
+//    map.getId(loadPattern);
+//
+//    LBoatPO boatPO = riverPO.createBoatPO();
+//
+//    boatPO.startNAC().createCargoPO().endNAC();
+//
+//    LBankPO bankPO = boatPO.createBankPO();
+//
+//    LCargoPO cargoPO = bankPO.createCargosPO();
+//
+//    LCargoPO goatPO = bankPO.startNAC()
+//          .createCargosPO().createNameCondition("goat").hasMatchOtherThen(cargoPO);
+//    bankPO.createCargosPO().hasMatchOtherThen(cargoPO).hasMatchOtherThen(goatPO);
+//    bankPO.endNAC();
+//
+//    loadPattern.createCloneOp();
+//
+//    bankPO.createCargosLink(cargoPO, Pattern.DESTROY);
+//
+//    boatPO.createCargoLink(cargoPO, Pattern.CREATE);
+//
+//    storyboard.addPattern(loadPattern, false);
+//
+//    reachabilityGraph.addToRules(loadPattern);
+//
+//    // ================================================
+//    // move boat rule
+//
+//    riverPO = new LRiverPO();
+//
+//    Pattern movePattern = (Pattern) riverPO.getPattern().withName("move").withDebugMode(Kanban.DEBUG_ON);
+//
+//    boatPO = riverPO.createBoatPO();
+//
+//    LBankPO oldBankPO = boatPO.createBankPO();
+//
+//    LBankPO newBankPO = riverPO.createBanksPO().hasMatchOtherThen(oldBankPO);
+//
+//    // do not leave the goat allone with some other cargo
+//    goatPO = oldBankPO.startNAC().createCargosPO().createNameCondition("goat");
+//    oldBankPO.createCargosPO().hasMatchOtherThen(goatPO).endNAC();
+//
+//    movePattern.createCloneOp();
+//
+//    boatPO.createBankLink(oldBankPO, Pattern.DESTROY);
+//
+//    boatPO.createBankLink(newBankPO, Pattern.CREATE);
+//
+//    cargoPO = boatPO.startSubPattern().createCargoPO();
+//
+//    cargoPO.createBoatLink(boatPO, Pattern.DESTROY);
+//
+//    cargoPO.createBankLink(newBankPO, Pattern.CREATE).endSubPattern();
+//
+//    storyboard.addPattern(movePattern, false);
+//
+//    reachabilityGraph.addToRules(movePattern);
+//
+//    // ================================================
+//    long size = reachabilityGraph.explore();
+//    
+//    for (ReachableState s : reachabilityGraph.getStates())
+//    {
+//       storyboard.add("Reachable State " + s.getNumber());
+//       LRiver r = (LRiver) s.getGraphRoot();
+//       storyboard.addObjectDiagram(r, r.getBoat(), r.getBanks(), r.getBanks().getCargos());
+//    }
+//    
+//
+//    storyboard.assertEquals("Number of Reachable States expected: ", 27L, size);
+//
+//    storyboard.add("Small reachbility graph with hyperlinks to states: ");
+//    storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));
+//
+//    storyboard.add("large reachbility graph with embedded states: ");
+//    storyboard.addObjectDiagram(map, reachabilityGraph, true);
+//
+//    LRiverSet rivers = new LRiverSet().with(reachabilityGraph.getStates().getGraphRoot());
+//    LBankSet banks = rivers.getBanks().createNameCondition("right");
+//
+//    for (LBank bank : banks)
+//    {
+//       if (bank.getCargos().size() == 3)
+//       {
+//          storyboard.add("Found a solution.");
+//          break;
+//       }
+//    }
+
+    storyboard.dumpHTML();
+ }
      /**
     * 
     * @see <a href='../../../../../../../../doc/LayzFerrymansProblemExample.html'>LayzFerrymansProblemExample.html</a>
+ * @see <a href='../../../../../../../../doc/LayzFerrymansProblemIsomorphim.html'>LayzFerrymansProblemIsomorphim.html</a>
  */
-   @Test
-   public void LayzFerrymansProblemExample()
+
+ @Test
+   public void LayzFerrymansProblemIsomorphim()
    {
       Storyboard storyboard = new Storyboard();
 
@@ -217,74 +422,29 @@ public class ReachabilityGraphFerrymansProblemExample
       
       // try aggregation 
       LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(LRiverCreator.createIdMap("lazy"));
-      lazyCloneOp.aggregate(graphElems, river);
-      storyboard.add("kids of river");
-      storyboard.addObjectDiagramOnlyWith(graphElems);
+      
+      LRiver river2 = (LRiver) lazyCloneOp.clone(river);
+
+      storyboard.add("compute certificates");
+
+      ReachableState rs1 = new ReachableState().withGraphRoot(river);
+
+      LRiverCreator cc = new LRiverCreator();
+
+      IdMap map = LRiverCreator.createIdMap("s");
+      map.with(ReachabilityGraphCreator.createIdMap("rg"));
+
+      String s1cert = rs1.lazyComputeCertificate(lazyCloneOp);
+
+      storyboard.addPreformatted(s1cert);
+      
+      ReachableState rs2 = new ReachableState().withGraphRoot(river2);
+
+      String s1cert2 = rs2.lazyComputeCertificate(lazyCloneOp);
+
+      storyboard.addPreformatted(s1cert2);
       
 
-      // try lazy clone: clone the boat and move it to the other bank
-      Object river2 = lazyCloneOp.clone(river);
-
-      LCargo cloneGoat = (LCargo) lazyCloneOp.clone(goat);
-      
-      LBoat cloneBoat = (LBoat) lazyCloneOp.clone(boat);
-      
-      cloneGoat.withoutBank(cloneGoat.getBank().first());
-      cloneGoat.withBoat(cloneBoat);
-      
-      ObjectSet cloneGraph = new ObjectSet();
-
-      lazyCloneOp.aggregate(cloneGraph, river2);
-      
-      storyboard.add("kids of river clone");
-      storyboard.addObjectDiagramOnlyWith(cloneGraph);
-      
-      storyboard.add("both graphs with shared components");
-      storyboard.addObjectDiagram(river);
-      
-      storyboard.assertEquals("both graphs should have same size", graphElems.size(), cloneGraph.size());
-      
-      Object union = graphElems.union(cloneGraph);
-      
-      storyboard.assertEquals("union should have four more elements ", graphElems.size() + 4, ((Collection) union).size());
-      
-
-      // try a third graph
-      lazyCloneOp.clear();
-      
-      LRiver river3 = (LRiver) lazyCloneOp.clone(river2);
-      
-      LCargo wolf3 = (LCargo) lazyCloneOp.clone(wolf);
-      
-      LBank right3 = (LBank) lazyCloneOp.clone(right);
-            
-      LBank left3 = river3.getBanks().createNameCondition("left").first();
-      
-      left3.withoutCargos(wolf3);
-      right3.withCargos(wolf3);
-
-      storyboard.add("three graphs with shared components");
-      storyboard.addObjectDiagram(river);
-      
-      ObjectSet graph3 = new ObjectSet();
-      lazyCloneOp.aggregate(graph3, river3);
-
-      union = ((SimpleSet) union).union(graph3);
-      storyboard.assertEquals("union should now have 8 additional elements ", graphElems.size() + 8, ((Collection) union).size());
-
-//      storyboard.add("compute certificates");
-//
-//      ReachableState rs1 = new ReachableState().withGraphRoot(river);
-//
-//      LRiverCreator cc = new LRiverCreator();
-//
-//      IdMap map = cc.createIdMap("s");
-//      map.with(ReachabilityGraphCreator.createIdMap("rg"));
-//
-//      String s1cert = rs1.computeCertificate(map);
-//
-//      storyboard.add(s1cert);
-//
 //      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
 //         .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
 //

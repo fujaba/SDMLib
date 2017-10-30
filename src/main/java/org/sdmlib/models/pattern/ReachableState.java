@@ -23,12 +23,15 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.TreeMap;
 
 import org.sdmlib.models.pattern.util.ReachableStateSet;
@@ -36,10 +39,14 @@ import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.list.ObjectSet;
+
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
@@ -64,6 +71,10 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    public long noOfRuleMatchesDone = 0;
 
    private String certificate = null;
+
+   private LazyCloneOp lazyCloneOp;
+
+   private TreeMap<String, Integer> lazyAllCertificate2Number;
 
 
    public String getCertificate()
@@ -233,6 +244,175 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return this.certificate;
    }
 
+   public String lazyComputeCertificate(LazyCloneOp lazyCloneOp)
+   {
+      this.lazyCloneOp = lazyCloneOp;
+      
+      this.certificate = null;
+
+      long category = 1;
+
+      HashMap<Object, Integer> oldNode2CertNo = new HashMap<Object, Integer>();
+      long oldNumOfCertificates = 0;
+
+      lazyNode2CertNo = new HashMap<Object, Integer>();
+
+      ObjectSet graph = new ObjectSet();
+      lazyCloneOp.aggregate(graph, this.getGraphRoot());
+      
+      lazyAllCertificate2Number = new TreeMap<String, Integer>();
+      
+      TreeMap<String, Integer> allCertificate2Number = new TreeMap<String, Integer>();
+      
+      // collect new certificates
+      for (Object o : graph)
+      {
+         String simpleName = o.getClass().getSimpleName()+'\n';
+
+         allCertificate2Number.put(simpleName, 0);
+      }
+      
+      // number new certificates
+      int numOfCerts = 0;
+      for (String cert : allCertificate2Number.keySet())
+      {
+         numOfCerts++;
+         allCertificate2Number.put(cert, numOfCerts);
+      }
+
+      // assign cert numbers to nodes
+      for (Object o : graph)
+      {
+         String simpleName = o.getClass().getSimpleName()+'\n';
+         Integer certNo = allCertificate2Number.get(simpleName);
+         oldNode2CertNo.put(o, certNo);
+      }
+      
+      TreeMap<String, ArrayList> cert2Nodes = new TreeMap<String, ArrayList>();
+      boolean stopNextRound = false;
+      while (true)
+      {
+         // collect new certificates
+         for (Object o : graph)
+         {
+            AggregatedEntityCreator creator = (AggregatedEntityCreator) lazyCloneOp.getMap().getCreatorClass(o);
+            
+            Integer certNo = oldNode2CertNo.get(o);
+            Objects.requireNonNull(certNo);
+            StringBuilder newCertificate = new StringBuilder().append(certNo).append(": ");
+            
+            // loop through props
+            for (String prop : creator.getProperties())
+            {
+               Object value = creator.getValue(o, prop);
+               
+               if (value != null)
+               {
+                  if (value instanceof Collection)
+                  {
+                     Collection valueCollection = (Collection) value;
+                     
+                     if ( ! valueCollection.isEmpty())
+                     {
+                        ArrayList<Integer> valueCertNumbers = new ArrayList<Integer>(valueCollection.size());
+
+                        for (Object valueElem : (Collection) value)
+                        {
+                           if (graph.contains(valueElem))
+                           {
+                              Integer valueCertNo = oldNode2CertNo.get(valueElem);
+                              Objects.requireNonNull(valueCertNo);
+                              valueCertNumbers.add(valueCertNo);
+                           }
+                        }
+
+                        valueCertNumbers.sort(null);
+
+                        newCertificate.append("   ").append(prop).append(": ");
+                        for (Integer no : valueCertNumbers)
+                        {
+                           newCertificate.append(no).append(' ');
+                        }
+                        newCertificate.append('\n');
+                     }
+                  }
+                  else if (graph.contains(value))
+                  {
+                     Integer valueCertNo = oldNode2CertNo.get(value);
+                     Objects.requireNonNull(valueCertNo);
+                     String line = String.format("   %s: %s\n", prop, valueCertNo);
+                     newCertificate.append(line);
+                     
+                  }
+                  else // plain value
+                  {
+                     String line = String.format("   %s: %s\n", prop, value.toString());
+                     newCertificate.append(line);
+                  }
+               }
+            } // for (String prop : creator.getProperties())
+
+            ArrayList nodeList = cert2Nodes.get(newCertificate.toString());
+            if (nodeList == null)
+            {
+               nodeList = new ArrayList();
+               cert2Nodes.put(newCertificate.toString(), nodeList);
+            }
+            nodeList.add(o);
+            
+            // lazyNode2CertNo.put(o, certNo);
+         } // for (Object o : graph)
+
+         // number certificates and assign numbers to nodes and count nodes per certificate
+         for (String newCert : cert2Nodes.keySet())
+         {
+            Integer certNo = allCertificate2Number.get(newCert);
+            if (certNo == null)
+            {
+               certNo = allCertificate2Number.size() + 1;
+               allCertificate2Number.put(newCert, certNo);
+            }
+            
+            for (Object elem : cert2Nodes.get(newCert))
+            {
+               lazyNode2CertNo.put(elem, certNo);
+            }
+         }
+
+         if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == graph.size())
+         {
+            // write state certificate
+            StringBuilder buf = new StringBuilder();
+            for (String cert : cert2Nodes.keySet())
+            {
+               Integer noOfNodes = cert2Nodes.get(cert).size();
+               Integer certNo = allCertificate2Number.get(cert);
+
+               buf.append(certNo).append('*').append(noOfNodes)
+               .append('\n');
+            }
+
+            // append certNo certText list
+            for ( Entry<String, Integer> entry : allCertificate2Number.entrySet())
+            {
+               buf.append(entry.getValue()).append(": ").append(entry.getKey());
+            }
+
+            this.certificate = buf.toString();
+
+            break;
+         }
+
+         // do another round
+         oldNumOfCertificates = cert2Nodes.size();
+         cert2Nodes.clear();
+         oldNode2CertNo = lazyNode2CertNo;
+
+         lazyNode2CertNo = new HashMap<Object, Integer>();
+      } // while
+
+      return this.certificate;
+   }
 
    // ==========================================================================
 
@@ -377,6 +557,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    private TreeMap<String, String> certificates2nodes;
 
    private HashMap<String, String> node2certificates;
+   private HashMap<Object, Integer> lazyNode2CertNo;
 
    private IdMap certificateIdMap = null;
    
