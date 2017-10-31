@@ -20,7 +20,9 @@ public class IsomorphismComputation
 
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators));
-
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
+      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
+      
       return reachabilityGraph.match(rs1, rs2);
    }
 

@@ -170,6 +170,17 @@ public class LazyCloneOp
          return;
       }
       
+      SendableEntityCreator plainCreator = map.getCreatorClass(root);
+      
+      Objects.requireNonNull(plainCreator);
+      
+      if ( ! (plainCreator instanceof AggregatedEntityCreator))
+      {
+         collectComponent(graph, root);
+         
+         return;
+      }
+      
       graph.add(root);
       
       AggregatedEntityCreator creator = (AggregatedEntityCreator) map.getCreatorClass(root);
@@ -193,6 +204,43 @@ public class LazyCloneOp
          }
       }
       
+   }
+
+
+   public void collectComponent(ObjectSet graph, Object root)
+   {
+      if (root == null || graph.contains(root))
+      {
+         return;
+      }
+      
+      SendableEntityCreator creator = map.getCreatorClass(root);
+      
+      graph.add(root);
+      
+      String[] properties = creator.getProperties();
+      
+      for (String prop : properties)
+      {
+         Object value = creator.getValue(root, prop);
+         
+         if (value != null && value instanceof Collection)
+         {
+            for (Object elem : (Collection) value)
+            {
+               collectComponent(graph, elem);
+            }
+         }
+         else
+         {
+            SendableEntityCreator valueCreator = map.getCreatorClass(value);
+            
+            if (valueCreator != null)
+            {
+               collectComponent(graph, value);
+            }
+         }
+      }
    }
 
 

@@ -302,7 +302,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
          // collect new certificates
          for (Object o : lazyGraph)
          {
-            AggregatedEntityCreator creator = (AggregatedEntityCreator) lazyCloneOp.getMap().getCreatorClass(o);
+            SendableEntityCreator creator = lazyCloneOp.getMap().getCreatorClass(o);
             
             Integer certNo = oldNode2CertNo.get(o);
             Objects.requireNonNull(certNo);

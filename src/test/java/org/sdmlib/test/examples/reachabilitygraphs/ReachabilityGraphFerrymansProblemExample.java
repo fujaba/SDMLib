@@ -78,12 +78,15 @@ public class ReachabilityGraphFerrymansProblemExample
       IdMap map = cc.createIdMap("s");
       map.with(ReachabilityGraphCreator.createIdMap("rg"));
 
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(map);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
+            .withMasterMap(map).withStates(rs1).withTodo(rs1);
+      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
+      
       String s1cert = rs1.computeCertificate(map);
 
-      storyboard.add(s1cert);
+      storyboard.addPreformatted(s1cert);
 
-      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
-         .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
 
       // ================================================
       // map.with(new ModelPatternCreator());
