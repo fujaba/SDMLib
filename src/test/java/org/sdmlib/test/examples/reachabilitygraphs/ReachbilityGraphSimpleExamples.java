@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.reachabilitygraphs;
 import java.util.LinkedHashMap;
 
 import org.junit.Test;
+import org.sdmlib.models.pattern.LazyCloneOp;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.storyboards.Storyboard;
@@ -50,8 +51,13 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add("compute certificates");
       
-      ReachableState rs1 = new ReachableState().withGraphRoot(s11);
-      ReachableState rs2 = new ReachableState().withGraphRoot(s21);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
+      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
+      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
+      
+      ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
+      ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
       String s1cert = rs1.computeCertificate(map);
       String s2cert = rs2.computeCertificate(map2);
@@ -60,12 +66,9 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add(s1cert);
       
-      ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
+      LinkedHashMap<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
       
-      LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
-      
-      storyboard.add("Graphs are isomorphic:");
+      storyboard.assertNotNull("Graphs are isomorphic:", match);
       storyboard.add(match.toString());
       
       
@@ -86,10 +89,9 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add(s1cert);
 
-      match = reachabilityGraph.match(rs1, rs2);
+      match = reachabilityGraph.lazyMatch(rs1, rs2);
       
-      storyboard.add("Graphs are isomorphic:");
-      storyboard.add(match.toString());
+      storyboard.assertNotNull("Graphs are isomorphic:", match);
       
       storyboard.dumpHTML();
    }
@@ -143,11 +145,12 @@ public class ReachbilityGraphSimpleExamples
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
+      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
       
-      LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
+      LinkedHashMap<Object, Object> match = reachabilityGraph.match(rs1, rs2);
       
-      storyboard.add("Graphs are not isomorphic:");
-      storyboard.add("" + match);
+      storyboard.assertFalse("Graphs are not isomorphic:", false);
             
       storyboard.dumpHTML();
    }
