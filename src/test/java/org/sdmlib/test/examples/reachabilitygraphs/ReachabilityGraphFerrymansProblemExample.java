@@ -434,20 +434,20 @@ public class ReachabilityGraphFerrymansProblemExample
       IdMap map = LRiverCreator.createIdMap("s");
       map.with(ReachabilityGraphCreator.createIdMap("rg"));
 
-      String s1cert = rs1.lazyComputeCertificate(lazyCloneOp);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
+         .withMasterMap(map).withStates(rs1).withTodo(rs1).setLazyCloneOp(lazyCloneOp);
 
-      storyboard.addPreformatted(s1cert);
+      // add dummy rule computing a lazy clone. 
+      // explore should recognize it as equal and terminate immediately
       
-      ReachableState rs2 = new ReachableState().withGraphRoot(river2);
-
-      String s1cert2 = rs2.lazyComputeCertificate(lazyCloneOp);
-
-      storyboard.addPreformatted(s1cert2);
+      LRiverPO riverPO = new LRiverPO();
       
-
-//      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
-//         .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
-//
+      riverPO.createCondition(r -> lazyClone(riverPO, r));
+      
+      reachabilityGraph.withRules(riverPO);
+      
+      long size = reachabilityGraph.explore();
+      
 //      // ================================================
 //      // map.with(new ModelPatternCreator());
 //      // FlipBook flipBook = new FlipBook().withMap(map);
@@ -549,5 +549,16 @@ public class ReachabilityGraphFerrymansProblemExample
 //      }
 
       storyboard.dumpHTML();
+   }
+
+   private boolean lazyClone(LRiverPO riverPO, LRiver r)
+   {
+      LazyCloneOp lazyCloneOp = riverPO.getPattern().getLazyCloneOp();
+      
+      LRiver r2 = (LRiver) lazyCloneOp.clone(r);
+      
+      riverPO.setCurrentMatch(r2);
+      
+      return true;
    }
 }

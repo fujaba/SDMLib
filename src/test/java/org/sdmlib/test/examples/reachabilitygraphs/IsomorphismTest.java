@@ -38,7 +38,7 @@ public class IsomorphismTest
 
       storyboard.addObjectDiagram(s21);
 
-      LinkedHashMap<String, String> match = IsomorphismComputation.calculateMatch(s11, s21,
+      LinkedHashMap<Object, Object> match = IsomorphismComputation.calculateMatch(s11, s21,
          SimpleStateCreator.createIdMap("s"));
 
       storyboard.add("Graphs are isomorphic:");

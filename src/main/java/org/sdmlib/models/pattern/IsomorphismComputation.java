@@ -7,7 +7,7 @@ import de.uniks.networkparser.IdMap;
 public class IsomorphismComputation
 {
 
-   public static LinkedHashMap<String, String> calculateMatch(Object graph1, Object graph2, IdMap creators)
+   public static LinkedHashMap<Object, Object> calculateMatch(Object graph1, Object graph2, IdMap creators)
    {
       IdMap map1 = new IdMap().withSession("s").with(creators);
       IdMap map2 = new IdMap().withSession("s").with(creators);

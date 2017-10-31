@@ -72,8 +72,6 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private String certificate = null;
 
-   private LazyCloneOp lazyCloneOp;
-
    private TreeMap<String, Integer> lazyAllCertificate2Number;
 
 
@@ -91,6 +89,11 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    public String computeCertificate(IdMap map)
    {
+      if (this.getParent() != null && this.getParent().getLazyCloneOp() != null)
+      {
+         lazyComputeCertificate();
+         return this.certificate;
+      }
       this.certificateIdMap = map;
       
       this.certificate = null;
@@ -244,9 +247,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       return this.certificate;
    }
 
-   public String lazyComputeCertificate(LazyCloneOp lazyCloneOp)
+   public String lazyComputeCertificate()
    {
-      this.lazyCloneOp = lazyCloneOp;
+      Objects.requireNonNull(getParent());
+      
+      LazyCloneOp lazyCloneOp = getParent().getLazyCloneOp();
+      
+      Objects.requireNonNull(lazyCloneOp);
       
       this.certificate = null;
 
@@ -257,15 +264,15 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
       lazyNode2CertNo = new HashMap<Object, Integer>();
 
-      ObjectSet graph = new ObjectSet();
-      lazyCloneOp.aggregate(graph, this.getGraphRoot());
+      lazyGraph = new ObjectSet();
+      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot());
       
       lazyAllCertificate2Number = new TreeMap<String, Integer>();
       
       TreeMap<String, Integer> allCertificate2Number = new TreeMap<String, Integer>();
       
       // collect new certificates
-      for (Object o : graph)
+      for (Object o : lazyGraph)
       {
          String simpleName = o.getClass().getSimpleName()+'\n';
 
@@ -281,7 +288,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
 
       // assign cert numbers to nodes
-      for (Object o : graph)
+      for (Object o : lazyGraph)
       {
          String simpleName = o.getClass().getSimpleName()+'\n';
          Integer certNo = allCertificate2Number.get(simpleName);
@@ -293,7 +300,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       while (true)
       {
          // collect new certificates
-         for (Object o : graph)
+         for (Object o : lazyGraph)
          {
             AggregatedEntityCreator creator = (AggregatedEntityCreator) lazyCloneOp.getMap().getCreatorClass(o);
             
@@ -318,7 +325,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
                         for (Object valueElem : (Collection) value)
                         {
-                           if (graph.contains(valueElem))
+                           if (lazyGraph.contains(valueElem))
                            {
                               Integer valueCertNo = oldNode2CertNo.get(valueElem);
                               Objects.requireNonNull(valueCertNo);
@@ -336,7 +343,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                         newCertificate.append('\n');
                      }
                   }
-                  else if (graph.contains(value))
+                  else if (lazyGraph.contains(value))
                   {
                      Integer valueCertNo = oldNode2CertNo.get(value);
                      Objects.requireNonNull(valueCertNo);
@@ -379,7 +386,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == graph.size())
+         if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == lazyGraph.size())
          {
             // write state certificate
             StringBuilder buf = new StringBuilder();
@@ -558,6 +565,11 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private HashMap<String, String> node2certificates;
    private HashMap<Object, Integer> lazyNode2CertNo;
+   
+   public HashMap<Object, Integer> getLazyNode2CertNo()
+   {
+      return lazyNode2CertNo;
+   }
 
    private IdMap certificateIdMap = null;
    
@@ -931,6 +943,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    private boolean finalState;
 
    private boolean startState;
+
+   private ObjectSet lazyGraph;
+   
+   public ObjectSet getLazyGraph()
+   {
+      return lazyGraph;
+   }
 
 
    public void setFailureState(boolean b)

@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -124,6 +125,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    public void setIdMap(IdMap idMap)
    {
       this.idMap = idMap;
+      lazyCloneOp = new LazyCloneOp().setMap(idMap);
    }
 
    public void clone(ReachabilityGraph rgraph)
@@ -150,6 +152,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    public Pattern(IdMap createIdMap)
    {
       idMap = createIdMap;
+      lazyCloneOp = new LazyCloneOp().setMap(createIdMap);
       setHasMatch(true);
    }
 
@@ -1719,5 +1722,14 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       ReachabilityGraph value = new ReachabilityGraph();
       withRgraph(value);
       return value;
+   }
+
+   private LazyCloneOp lazyCloneOp = null;
+
+   public LazyCloneOp getLazyCloneOp()
+   {
+      Objects.requireNonNull(lazyCloneOp);
+      
+      return lazyCloneOp;
    } 
 }
