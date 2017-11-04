@@ -309,11 +309,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
    {
       if (cargo == null)
       {
-         return "boat \\___/";
+         return "boat \\___/ at " + this.getBank().getName();
       }
       else
       {
-         return "boat \\" + cargo.getName() + "/";
+         return "boat \\" + cargo.getName() + "/ at " + this.getBank().getName();
       }
    }
 }

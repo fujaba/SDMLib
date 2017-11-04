@@ -135,7 +135,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
       
       result.append(" ").append(this.getCargos().toString(" "));
       
-      result.append(" ").append(this.getBoat().toString(" "));
+      // result.append(" ").append(this.getBoat().toString(" "));
       
       return result.substring(1);
    }

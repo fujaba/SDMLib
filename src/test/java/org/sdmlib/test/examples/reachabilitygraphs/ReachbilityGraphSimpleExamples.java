@@ -98,7 +98,6 @@ public class ReachbilityGraphSimpleExamples
 
     /**
     * 
-    * @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
     * @see <a href='../../../../../../../../doc/internal/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
  */
    @Test

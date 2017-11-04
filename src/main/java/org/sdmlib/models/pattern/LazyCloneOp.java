@@ -1,5 +1,6 @@
 package org.sdmlib.models.pattern;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -21,6 +22,17 @@ public class LazyCloneOp
    private IdMap map = null;
    
    private LinkedHashMap<Object, Object> origToCloneMap = new LinkedHashMap<Object, Object>();
+   private LinkedHashMap<Object, Object> cloneToOrigMap = new LinkedHashMap<Object, Object>();
+   
+   public LinkedHashMap<Object, Object> getOrigToCloneMap()
+   {
+      return origToCloneMap;
+   }
+   
+   public LinkedHashMap<Object, Object> getCloneToOrigMap()
+   {
+      return cloneToOrigMap;
+   }
    
    public Object clone(Object orig)
    {
@@ -48,6 +60,10 @@ public class LazyCloneOp
          orig = origToCloneMap.keySet().iterator().next();
          clone = origToCloneMap.get(orig);
          aggregate(graph, clone);
+      }
+      else
+      {
+         aggregate(graph, orig);
       }
       
       
@@ -92,8 +108,12 @@ public class LazyCloneOp
 
          // create clone
          clone = creator.getSendableInstance(false);
+         
+         graph.remove(orig);
+         graph.add(clone);
 
          origToCloneMap.put(orig, clone);
+         cloneToOrigMap.put(clone, orig);
 
          // copy properties
          for ( String prop : creator.getProperties())
@@ -104,22 +124,31 @@ public class LazyCloneOp
             {
                // if our neighbor is currently cloned, we connect to that clone, only. 
                Object neighborOrig = null;
-               Object neighborClone = null; 
-               for (Object neighbor : (Collection)value)
+               Object neighborClone = null;
+               ArrayList list = new ArrayList(((Collection)value).size());
+               list.addAll((Collection)value);
+               for (Object neighbor : (Collection)list)
                {
                   neighborClone = origToCloneMap.get(neighbor);
+                  neighborOrig = cloneToOrigMap.get(neighbor);
                   
-                  if (neighborClone != null)
+                  //                  if (neighborClone != null)
+                  //                  {
+                  //                     creator.setValue(orig, prop, neighborClone, SendableEntityCreator.REMOVE);
+                  //                     creator.setValue(clone, prop, neighborClone, "new");
+                  //                  }
+                  //                  else 
+                  //                  if (arrayContains(creator.getUpProperties(), prop))
+                  //                  {
+                  //                     // do not copy as clone gets parent in new graph only
+                  //                  }
+                  //                  else 
+                  if (graph.contains(neighbor))
                   {
-                     creator.setValue(orig, prop, neighborClone, SendableEntityCreator.REMOVE);
-                     creator.setValue(clone, prop, neighborClone, "new");
-                  }
-                  else if (arrayContains(creator.getUpProperties(), prop))
-                  {
-                     // do not copy as clone gets parent in new graph only
-                  }
-                  else
-                  {
+                     if (neighborOrig != null)
+                     {
+                        creator.setValue(orig, prop, neighbor, SendableEntityCreator.REMOVE);
+                     }
                      creator.setValue(clone, prop, neighbor, "new");
                   }
                }
@@ -244,8 +273,11 @@ public class LazyCloneOp
    }
 
 
-   public void clear()
+   public LazyCloneOp clear()
    {
       origToCloneMap.clear();
+      cloneToOrigMap.clear();
+      
+      return this;
    }
 }

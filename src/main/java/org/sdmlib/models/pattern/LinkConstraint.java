@@ -59,6 +59,8 @@ import org.sdmlib.models.pattern.Pattern;
                return false;
             }
             SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
+            this.getTopPattern().lazyClone(srcObj);
+            srcObj = this.getSrc().getCurrentMatch();
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             
@@ -100,6 +102,8 @@ import org.sdmlib.models.pattern.Pattern;
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
                }
                
+               this.getTopPattern().lazyClone(srcObj);
+               srcObj = this.getSrc().getCurrentMatch();
             	creatorClass.setValue(srcObj, this.getTgtRoleName()  + SendableEntityCreator.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
@@ -110,7 +114,9 @@ import org.sdmlib.models.pattern.Pattern;
                      + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
                }
                
-            	creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
+               this.getTopPattern().lazyClone(srcObj);
+               srcObj = this.getSrc().getCurrentMatch();
+               creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
             }
             this.setHasMatch(true);
             return true;

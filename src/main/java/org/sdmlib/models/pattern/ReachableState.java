@@ -318,21 +318,21 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                   if (value instanceof Collection)
                   {
                      Collection valueCollection = (Collection) value;
-                     
-                     if ( ! valueCollection.isEmpty())
+
+                     ArrayList<Integer> valueCertNumbers = new ArrayList<Integer>(valueCollection.size());
+
+                     for (Object valueElem : (Collection) value)
                      {
-                        ArrayList<Integer> valueCertNumbers = new ArrayList<Integer>(valueCollection.size());
-
-                        for (Object valueElem : (Collection) value)
+                        if (lazyGraph.contains(valueElem))
                         {
-                           if (lazyGraph.contains(valueElem))
-                           {
-                              Integer valueCertNo = oldNode2CertNo.get(valueElem);
-                              Objects.requireNonNull(valueCertNo);
-                              valueCertNumbers.add(valueCertNo);
-                           }
+                           Integer valueCertNo = oldNode2CertNo.get(valueElem);
+                           Objects.requireNonNull(valueCertNo);
+                           valueCertNumbers.add(valueCertNo);
                         }
+                     }
 
+                     if ( ! valueCertNumbers.isEmpty())
+                     {
                         valueCertNumbers.sort(null);
 
                         newCertificate.append("   ").append(prop).append(": ");

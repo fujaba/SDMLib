@@ -237,7 +237,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    
    public String toString()
    {
-      return this.getBanks().toString("\n");
+      String str = this.getBanks().createNameCondition("left").first().toString() + "\n";
+      str += this.getBoat().toString() + "\n";
+      str += this.getBanks().createNameCondition("right").first().toString() + "\n";
+      return str;
    }
 
 

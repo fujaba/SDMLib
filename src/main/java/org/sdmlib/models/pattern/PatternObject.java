@@ -498,6 +498,16 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    // ==========================================================================
    public MC getCurrentMatch()
    {
+      if (getTopPattern().getLazyCloneOp() != null && this.currentMatch != null)
+      {
+         // might have a clone
+         Object clone = getTopPattern().getLazyCloneOp().getOrigToCloneMap().get(this.currentMatch);
+         
+         if (clone != null)
+         {
+            return (MC) clone;
+         }
+      }
       return (MC) this.currentMatch;
    }
 

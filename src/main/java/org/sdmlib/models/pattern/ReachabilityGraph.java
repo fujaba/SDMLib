@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -717,6 +718,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          {
             PatternObject firstPO = (PatternObject) rule.getElements().first();
 
+            rule.setLazyCloneOp(lazyCloneOp);
             rule.resetSearch();
 
             ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(current.getGraphRoot());
@@ -1330,7 +1332,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   
                   // do the certificates match?
                   int cert1 = s1.getLazyNode2CertNo().get(object1);
-                  int cert2 = s2.getLazyNode2CertNo().get(object2);
+                  HashMap<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
+                  int cert2 = lazyNode2CertNo.get(object2);
                   
                   if (cert1 != cert2)
                   {
@@ -1820,5 +1823,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       
       return this;
    }
+   
+   public void withLazyCloning()
+   {
+      Objects.requireNonNull(this.masterMap);
+      this.lazyCloneOp = new LazyCloneOp().setMap(masterMap);
+   }
+
 
 }

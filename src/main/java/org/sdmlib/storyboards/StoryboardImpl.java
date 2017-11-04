@@ -2091,13 +2091,29 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       public boolean update(Object values)
       {
          PropertyChangeEvent evt = (PropertyChangeEvent) values;
-         if (evt.getNewValue() != null
+         Object newValue = evt.getNewValue();
+         if (newValue != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0))
+               .indexOf(newValue.getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(evt.getNewValue());
+         
+         if (newValue != null && newValue instanceof Collection)
+         {
+            boolean allContained = true;
+            for (Object elem : (Collection) newValue)
+            {
+               if ( ! explicitElems.contains(elem))
+               {
+                  return false;
+               }
+            }
+            return true;
+         }
+         
+         boolean contains = explicitElems.contains(newValue);
+         return contains;
       }
    }
 

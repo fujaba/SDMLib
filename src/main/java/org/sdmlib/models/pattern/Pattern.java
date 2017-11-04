@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -291,6 +292,11 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       }
 
       boolean done = false;
+      
+      if (this.lazyCloneOp != null)
+      {
+         this.lazyCloneOp.clear();
+      }
 
       // start with the last element and go backward until a new choice is made,
       // then go forward to propagate the new choice
@@ -348,6 +354,11 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       for (PatternElement pe : this.getElements())
       {
          pe.resetSearch();
+      }
+      
+      if (this.lazyCloneOp != null)
+      {
+         this.lazyCloneOp.clear();
       }
    }
 
@@ -1731,5 +1742,43 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       Objects.requireNonNull(lazyCloneOp);
       
       return lazyCloneOp;
+   }
+
+
+
+   public Pattern<MP> setLazyCloneOp(LazyCloneOp lazyCloneOp2)
+   {
+      this.lazyCloneOp = lazyCloneOp2;
+      return this;
+   }
+
+   public void lazyClone(Object srcObj)
+   {
+      if (this.lazyCloneOp == null)
+      {
+         return; // no lazy cloning
+      }
+      
+      if (this.lazyCloneOp.getCloneToOrigMap().get(srcObj) != null)
+      {
+         // srcObj is already a clone
+         return;
+      }
+      
+      // ensure root has already been / is cloned
+      if (this.lazyCloneOp.getOrigToCloneMap().isEmpty())
+      {
+         // get graph root and lazy clone it
+         PatternObject firstPO = (PatternObject) this.getElements().first();
+         Object root = firstPO.getCurrentMatch();
+         this.lazyCloneOp.clone(root);
+      }
+      
+      // does srcObj already have a clone?
+      if (this.lazyCloneOp.getOrigToCloneMap().get(srcObj) == null)
+      {
+         // no, do it
+         this.lazyCloneOp.clone(srcObj);
+      }
    } 
 }
