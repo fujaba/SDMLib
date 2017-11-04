@@ -153,7 +153,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    public Pattern(IdMap createIdMap)
    {
       idMap = createIdMap;
-      lazyCloneOp = new LazyCloneOp().setMap(createIdMap);
       setHasMatch(true);
    }
 
@@ -1739,8 +1738,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
    public LazyCloneOp getLazyCloneOp()
    {
-      Objects.requireNonNull(lazyCloneOp);
-      
       return lazyCloneOp;
    }
 
