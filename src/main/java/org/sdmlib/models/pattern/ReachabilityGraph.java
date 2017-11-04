@@ -493,6 +493,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+   public ReachabilityGraph withStart(ReachableState startState)
+   {
+      this
+      .withStates(startState)
+      .withTodo(startState);
+      
+      return this;
+   }
+   
+   
    public ReachabilityGraph withTodo(ReachableState value)
    {
       addToTodo(value);
@@ -607,9 +617,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-   public ReachabilityGraph withRules(PatternObject value)
+   public ReachabilityGraph withRules(PatternObject... value)
    {
-      addToRules(value.getPattern());
+      for (PatternObject p : value)
+      {
+         addToRules(p.getPattern());
+      }
       return this;
    }
 
@@ -1824,10 +1837,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return this;
    }
    
-   public void withLazyCloning()
+   public ReachabilityGraph withLazyCloning()
    {
       Objects.requireNonNull(this.masterMap);
       this.lazyCloneOp = new LazyCloneOp().setMap(masterMap);
+      
+      return this;
    }
 
 

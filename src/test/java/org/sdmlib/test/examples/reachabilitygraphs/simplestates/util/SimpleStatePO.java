@@ -1,12 +1,16 @@
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePO;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
-
-public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
+   public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
 {
 
     public SimpleStateSet allMatches()
@@ -26,70 +30,37 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
    public SimpleStatePO(){
-      newInstance(org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
    public SimpleStatePO(SimpleState... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-   }
-   public NodePO hasNodes()
-   {
-      NodePO result = new NodePO(new Node[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SimpleState.PROPERTY_NODES, result);
-      
-      return result;
+      newInstance(null, hostGraphObject);
    }
 
-   public NodePO createNodes()
-   {
-      return this.startCreate().hasNodes().endCreate();
-   }
-
-   public SimpleStatePO hasNodes(NodePO tgt)
-   {
-      return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES);
-   }
-
-   public SimpleStatePO createNodes(NodePO tgt)
-   {
-      return this.startCreate().hasNodes(tgt).endCreate();
-   }
-
-   public NodeSet getNodes()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SimpleState) this.getCurrentMatch()).getNodes();
-      }
-      return null;
-   }
-
-   public NodePO filterNodes()
-   {
-      NodePO result = new NodePO(new Node[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SimpleState.PROPERTY_NODES, result);
-      
-      return result;
-   }
-
-   public SimpleStatePO filterNodes(NodePO tgt)
-   {
-      return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES);
-   }
-
-
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
    public SimpleStatePO(String modifier)
    {
       this.setModifier(modifier);
    }
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
    public NodePO createNodesPO()
    {
       NodePO result = new NodePO(new Node[]{});
@@ -100,6 +71,10 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
       return result;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
    public NodePO createNodesPO(String modifier)
    {
       NodePO result = new NodePO(new Node[]{});
@@ -118,6 +93,15 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
    public SimpleStatePO createNodesLink(NodePO tgt, String modifier)
    {
       return hasLinkConstraint(tgt, SimpleState.PROPERTY_NODES, modifier);
+   }
+
+   public NodeSet getNodes()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SimpleState) this.getCurrentMatch()).getNodes();
+      }
+      return null;
    }
 
 }

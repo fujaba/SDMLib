@@ -87,7 +87,7 @@
             "id":"N2 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -100,7 +100,7 @@
             "id":"N3 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -113,7 +113,7 @@
             "id":"N4 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -201,7 +201,7 @@
             "id":"N6 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -214,7 +214,7 @@
             "id":"N7 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -227,7 +227,7 @@
             "id":"N8 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -257,32 +257,32 @@
 8*1
 9*1
 3: 1:    num: 0
-   graph: 2
-   next: 1 
    prev: 1 
+   next: 1 
+   graph: 2 
 4: 1:    num: 42
-   graph: 2
-   next: 1 
    prev: 1 
+   next: 1 
+   graph: 2 
 5: 2:    nodes: 1 1 1 
 6: 3:    num: 0
-   graph: 5
-   next: 3 
-   prev: 4 
-7: 3:    num: 0
-   graph: 5
+   prev: 3 
    next: 4 
-   prev: 3 
-8: 4:    num: 42
-   graph: 5
+   graph: 5 
+7: 3:    num: 0
+   prev: 4 
    next: 3 
+   graph: 5 
+8: 4:    num: 42
    prev: 3 
+   next: 3 
+   graph: 5 
 9: 5:    nodes: 3 3 4 
 1: Node
 2: SimpleState
 </p>
-<p>Check: Graphs are isomorphic: {org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@51e2adc7=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@4d3167f4, 0=0, 0=0, 42=42}</p>
-<p>{org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@51e2adc7=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@4d3167f4, 0=0, 0=0, 42=42}</p>
+<p>Check: Graphs are isomorphic: {org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@47db50c5=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@149494d8, 0=0, 42=42, 0=0}</p>
+<p>{org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@47db50c5=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@149494d8, 0=0, 42=42, 0=0}</p>
 <p>removing the num</p>
 <script>
    var json = {
@@ -349,7 +349,7 @@
             "id":"N2 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -362,7 +362,7 @@
             "id":"N3 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -375,7 +375,7 @@
             "id":"N4 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S1 : SimpleState"
          }
@@ -463,7 +463,7 @@
             "id":"N6 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -476,7 +476,7 @@
             "id":"N7 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -489,7 +489,7 @@
             "id":"N8 : Node"
          },
          "target":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"graph",
             "id":"S5 : SimpleState"
          }
@@ -516,19 +516,19 @@
 <p>5*3
 6*1
 3: 1:    num: 0
-   graph: 2
-   next: 1 
    prev: 1 
+   next: 1 
+   graph: 2 
 4: 2:    nodes: 1 1 1 
 5: 3:    num: 0
-   graph: 4
-   next: 3 
    prev: 3 
+   next: 3 
+   graph: 4 
 6: 4:    nodes: 3 3 3 
 1: Node
 2: SimpleState
 </p>
-<p>Check: Graphs are isomorphic: {org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@51e2adc7=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@4d3167f4, 0=0, 0=0, 0=0}</p>
+<p>Check: Graphs are isomorphic: {org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@47db50c5=org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@149494d8, 0=0, 0=0, 0=0}</p>
 
 </body>
 </html>

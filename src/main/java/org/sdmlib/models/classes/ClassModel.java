@@ -132,7 +132,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	   File srcDir = new File("src/main/java");
 
       if (srcDir.exists()) {
-         getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
+         // getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
       }
       else
       {

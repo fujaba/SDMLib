@@ -27,12 +27,15 @@ public class ReachabilityGraphExampleModels
       Clazz node = model.createClazz("Node")
             .withAttribute("num", DataType.INT);
             
-      state.withBidirectional(node, "nodes", Cardinality.MANY, "graph", Cardinality.ONE);
+      state.createBidirectional(node, "nodes", Cardinality.MANY, "graph", Cardinality.MANY)
+      .with(AssociationTypes.AGGREGATION);
       
       node.withBidirectional(node, "next", Cardinality.MANY, "prev", Cardinality.MANY);
       
       storyboard.addClassDiagram(model);
 
+      // model.removeAllGeneratedCode();
+      
       model.generate("src/test/java");
       
       storyboard.dumpHTML();

@@ -56,7 +56,8 @@ import org.sdmlib.models.pattern.Pattern;
             setHasMatch(true);
             
             Object currentMatch = this.getPatternObject().getCurrentMatch();
-            
+            this.getTopPattern().lazyClone(currentMatch);
+            currentMatch = this.getPatternObject().getCurrentMatch();
             SendableEntityCreator creatorClass = (SendableEntityCreator) this.getPattern().getIdMap().getCreatorClass(currentMatch);
             if(creatorClass instanceof EntityFactory) {
             	((EntityFactory)creatorClass).removeObject(currentMatch);
