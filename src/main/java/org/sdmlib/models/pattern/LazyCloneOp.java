@@ -71,8 +71,22 @@ public class LazyCloneOp
       {
          orig = climbTodo.pollFirst();
          // climb up to root and add parents to todo list
-         AggregatedEntityCreator creator = (AggregatedEntityCreator) map.getCreatorClass(orig);
+         SendableEntityCreator simpleCreator = map.getCreatorClass(orig);
+         
+         if ( ! (simpleCreator instanceof AggregatedEntityCreator))
+         {
+            return cloneComponent(graph, orig);
+         }
+         
+         AggregatedEntityCreator creator = (AggregatedEntityCreator) simpleCreator;
       
+         if (creator.getUpProperties().length == 0 && creator.getDownProperties().length == 0)
+         {
+            // orig is not part of the aggregation tree. No sharing. Clone everything
+            return cloneComponent(graph, orig);
+         }
+         
+         
          for (String upProp : creator.getUpProperties())
          {
             Object value = creator.getValue(orig, upProp);
@@ -132,17 +146,6 @@ public class LazyCloneOp
                   neighborClone = origToCloneMap.get(neighbor);
                   neighborOrig = cloneToOrigMap.get(neighbor);
                   
-                  //                  if (neighborClone != null)
-                  //                  {
-                  //                     creator.setValue(orig, prop, neighborClone, SendableEntityCreator.REMOVE);
-                  //                     creator.setValue(clone, prop, neighborClone, "new");
-                  //                  }
-                  //                  else 
-                  //                  if (arrayContains(creator.getUpProperties(), prop))
-                  //                  {
-                  //                     // do not copy as clone gets parent in new graph only
-                  //                  }
-                  //                  else 
                   if (graph.contains(neighbor))
                   {
                      if (neighborOrig != null)
@@ -158,12 +161,78 @@ public class LazyCloneOp
                creator.setValue(clone, prop, value, "new");
             }
          }
-
       }
       
       return clone;
    }
 
+
+   private Object cloneComponent(ObjectSet graph, Object orig)
+   {
+      ObjectSet cloneGraph = new ObjectSet();
+      
+      // first clone objects, 
+      for (Object obj : graph)
+      {
+         Object origObj = cloneToOrigMap.get(obj);
+         if (origObj != null)
+         {
+            // obj is already a clone
+            cloneGraph.add(obj);
+            continue;
+         }
+         
+         Object cloneObj = origToCloneMap.get(obj);
+         if (cloneObj != null)
+         {
+            cloneGraph.add(cloneObj);
+            continue;
+         }
+         
+         // ok, let's clone
+         SendableEntityCreator creator = map.getCreatorClass(obj);
+         cloneObj = creator.getSendableInstance(false);
+         cloneGraph.add(cloneObj);
+         origToCloneMap.put(obj, cloneObj);
+         cloneToOrigMap.put(cloneObj, obj);
+      }
+      
+      // second clone properties
+      for (Object clone : cloneGraph)
+      {
+         SendableEntityCreator creator = map.getCreatorClass(clone);
+         
+         Object origObj = cloneToOrigMap.get(clone);
+         
+         for (String prop : creator.getProperties())
+         {
+            Object value = creator.getValue(origObj, prop);
+            
+            if (value instanceof Collection)
+            {
+               for (Object valueObj : (Collection) value)
+               {
+                  Object cloneValue = origToCloneMap.get(valueObj);
+                  creator.setValue(clone, prop, cloneValue, "new");
+               }
+            }
+            else
+            {
+               Object cloneValue = origToCloneMap.get(value);
+               if (cloneValue == null)
+               {
+                  creator.setValue(clone, prop, value, "new");
+               }
+               else
+               {
+                  creator.setValue(clone, prop, cloneValue, "new");
+               }
+            }
+         }
+      }
+      
+      return origToCloneMap.get(orig);
+   }
 
    private boolean arrayContains(String[] upProperties, String prop)
    {

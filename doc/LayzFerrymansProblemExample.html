@@ -228,16 +228,94 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"boat",
             "id":"L2 : LBoat"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L6 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
          }
       }
    ]
@@ -298,11 +376,24 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
             "property":"boat",
             "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
          },
          "target":{
             "cardinality":"one",
@@ -311,16 +402,68 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"cargo",
             "id":"L10 : LCargo"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lboat",
+            "cardinality":"many",
+            "property":"boat",
             "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lbank",
+            "id":"L9 : LBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lbank",
+            "id":"L9 : LBank"
          }
       }
    ]
