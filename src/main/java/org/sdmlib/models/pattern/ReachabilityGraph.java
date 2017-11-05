@@ -56,6 +56,8 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.list.ObjectSet;
+
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
@@ -652,16 +654,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-   public long explore()
-   {
-      return explore(Long.MAX_VALUE, Searchmode.DEPTH);
-   }
-
    public enum Searchmode
    {
       DEFAULT, DEPTH, IGNORE, DEPTHIGNORE
    }
 
+
+   public long explore()
+   {
+      return explore(Long.MAX_VALUE, Searchmode.DEPTH);
+   }
 
    public long explore(long maxNoOfNewStates, Searchmode mode)
    {
@@ -726,6 +728,62 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          current.noOfRuleMatchesDone = 0;
 
          this.withoutTodo(current);
+         
+         for (String trafoName : trafoList.keySet())
+         {
+            Trafo trafo = trafoList.get(trafoName);
+            // clone current state
+            ObjectSet graph = new ObjectSet();
+            lazyCloneOp.clear();
+            lazyCloneOp.aggregate(graph, current.getGraphRoot());
+            Object newGraphRoot = lazyCloneOp.cloneComponent(graph, current.getGraphRoot());
+            ReachableState newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
+
+            // apply trafo
+            trafo.run(newGraphRoot);
+            
+            // merge with old states
+            String newCertificate = newReachableState.lazyComputeCertificate();
+
+            // already known? 
+            ReachableStateSet candidateStates = this.getStateMap(newCertificate);
+
+            LinkedHashMap<Object, Object> match = null;
+
+            for (ReachableState oldState : candidateStates)
+            {
+               match = lazyMatch(oldState, newReachableState);
+               if (match != null)
+               {
+                  // newReachableState is isomorphic to oldState. Just add a
+                  // link from first to oldState
+                  if (current == oldState)
+                  {
+                     // trafo did not change the current state, do not create a rule application link
+                  }
+                  else
+                  {
+                     current.createRuleapplications().withTgt(oldState).withDescription(trafoName);
+                  }
+
+                  break;
+               }
+            }
+
+            if (match == null)
+            {
+               // new state is really new
+               this.withTodo(newReachableState).withStateMap(newCertificate,
+                  newReachableState);
+
+               current.createRuleapplications().withTgt(newReachableState).withDescription(trafoName);
+            }
+            else
+            {
+               this.withoutStates(newReachableState);
+            }
+
+         }
 
          for (Pattern rule : getRules())
          {
@@ -1843,6 +1901,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       this.lazyCloneOp = new LazyCloneOp().setMap(masterMap);
       
       return this;
+   }
+
+   @FunctionalInterface
+   public interface Trafo
+   {
+      public void run(Object root);
+   }
+
+   private LinkedHashMap<String, ReachabilityGraph.Trafo> trafoList = new LinkedHashMap<String, ReachabilityGraph.Trafo>();
+   
+   public void withTrafo(String trafoName, Trafo trafo)
+   {
+      trafoList.put(trafoName, trafo);
    }
 
 

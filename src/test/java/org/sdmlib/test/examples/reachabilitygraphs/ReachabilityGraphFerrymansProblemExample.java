@@ -13,6 +13,7 @@ import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
@@ -65,11 +66,6 @@ public class ReachabilityGraphFerrymansProblemExample
 
       storyboard.addObjectDiagram(river);
 
-
-      // try aggregation 
-
-
-      storyboard.add("compute certificates");
 
       ReachableState rs1 = new ReachableState().withGraphRoot(river);
 
@@ -173,7 +169,7 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));
 
       storyboard.add("large reachbility graph with embedded states: ");
-      storyboard.addObjectDiagram(map, reachabilityGraph, true);
+      storyboard.addObjectDiagram(reachabilityGraph);
 
       RiverSet rivers = new RiverSet().with(reachabilityGraph.getStates().getGraphRoot());
       BankSet banks = rivers.getBanks().hasName("right");
@@ -190,6 +186,152 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/FerrymansProblemManuel.html'>FerrymansProblemManuel.html</a>
+ */
+   @Test
+   public void FerrymansProblemManuel()
+   {
+      Storyboard storyboard = new Storyboard();
+
+      // ================================================
+      storyboard.add("initial situation:");
+
+      River river = new River();
+
+      Boat boat = river.createBoat();
+
+      Bank left = river.createBanks().withName("left").withBoat(boat);
+
+      left.createCargos().withName("cabbage");
+      left.createCargos().withName("goat");
+      left.createCargos().withName("wolf");
+
+      river.createBanks().withName("right");
+
+      storyboard.addObjectDiagram(river);
+
+
+      ReachableState rs1 = new ReachableState().withGraphRoot(river);
+
+      RiverCreator cc = new RiverCreator();
+
+      IdMap map = cc.createIdMap("s");
+      map.with(ReachabilityGraphCreator.createIdMap("rg"));
+      
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(map);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
+            .withMasterMap(map)
+            .withStart(rs1)
+            .withLazyCloning();
+
+      // ================================================
+      // load boat operations
+
+      reachabilityGraph.withTrafo("load wolf", g -> load(g, "wolf"));
+      reachabilityGraph.withTrafo("load goat", g -> load(g, "goat"));
+      reachabilityGraph.withTrafo("load cabbage", g -> load(g, "cabbage"));
+      
+      // ================================================
+      // move boat rule
+      reachabilityGraph.withTrafo("move boat", g -> move(g));
+      
+      
+      // ================================================
+      long size = reachabilityGraph.explore();
+
+      for (ReachableState s : reachabilityGraph.getStates())
+      {
+         storyboard.add("Reachable State " + s.getNumber());
+         River r = (River) s.getGraphRoot();
+         storyboard.addObjectDiagram(r);
+      }
+
+
+      storyboard.assertEquals("Number of Reachable States expected: ", 27L, size);
+
+      storyboard.add("large reachbility graph with embedded states: ");
+      storyboard.addObjectDiagram(reachabilityGraph);
+
+      RiverSet rivers = new RiverSet().with(reachabilityGraph.getStates().getGraphRoot());
+      BankSet banks = rivers.getBanks()
+            .hasName("right")
+            .filter(bank -> bank.getCargos().size() == 3);
+
+      storyboard.assertTrue("found a solution ", ! banks.isEmpty());
+
+      storyboard.dumpHTML();
+   }
+
+   
+   private void load(Object g, String cargoName)
+   {
+      River river = (River) g;
+      
+      Boat boat = river.getBoat();
+      
+      if (boat.getCargo() == null)
+      {
+         Bank bank = boat.getBank();
+         
+         if (bank.getCargos().size() == 3 && ! cargoName.equals("goat"))
+         {
+            // reject
+            return;
+         }
+         
+         for (Cargo cargo : bank.getCargos())
+         {
+            if (cargo.getName().equals(cargoName))
+            {
+               bank.withoutCargos(cargo);
+               boat.withCargo(cargo);
+               return;
+            }
+         }
+      }
+   }
+
+   private void move(Object g)
+   {
+      River river = (River) g;
+      
+      Boat boat = river.getBoat();
+      
+      Bank oldBank = boat.getBank();
+      
+      if (oldBank.getCargos().size() >= 2)
+      {
+         // would i leave alone the goat with some other cargo?
+         for (Cargo cargo : oldBank.getCargos())
+         {
+            if (cargo.getName().equals("goat"))
+            {
+               // reject
+               return;
+            }
+         }
+      }
+         
+      for (Bank newBank : river.getBanks())
+      {
+         if (newBank != oldBank)
+         {
+            boat.setBank(newBank);
+            
+            Cargo cargo = boat.getCargo();
+            if (cargo != null)
+            {
+               boat.setCargo(null);
+               newBank.withCargos(cargo);
+            }
+            return;
+         }
+      }
+   }
+   
+   
    /**
     * 
     * @see <a href='../../../../../../../../doc/LayzFerrymansProblemExample.html'>LayzFerrymansProblemExample.html</a>

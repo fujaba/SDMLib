@@ -167,7 +167,7 @@ public class LazyCloneOp
    }
 
 
-   private Object cloneComponent(ObjectSet graph, Object orig)
+   public Object cloneComponent(ObjectSet graph, Object orig)
    {
       ObjectSet cloneGraph = new ObjectSet();
       

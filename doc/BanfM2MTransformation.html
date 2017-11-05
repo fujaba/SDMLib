@@ -377,7 +377,7 @@
       },
       {
          "type":"clazz",
-         "id":"P3 : Person",
+         "id":"P5 : Person",
          "attributes":[
             "firstName=Jens",
             "parent=null",
@@ -386,7 +386,7 @@
       },
       {
          "type":"clazz",
-         "id":"P4 : Person",
+         "id":"P7 : Person",
          "attributes":[
             "firstName=Gabi",
             "parent=null",
@@ -395,7 +395,7 @@
       },
       {
          "type":"clazz",
-         "id":"P5 : Person",
+         "id":"P8 : Person",
          "attributes":[
             "firstName=Nina",
             "parent=null",
@@ -404,7 +404,7 @@
       },
       {
          "type":"clazz",
-         "id":"P6 : Person",
+         "id":"P9 : Person",
          "attributes":[
             "firstName=Nerdi",
             "parent=null",
@@ -431,7 +431,7 @@
       },
       {
          "type":"clazz",
-         "id":"R7 : Relation",
+         "id":"R3 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -440,7 +440,7 @@
       },
       {
          "type":"clazz",
-         "id":"R8 : Relation",
+         "id":"R4 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -449,7 +449,7 @@
       },
       {
          "type":"clazz",
-         "id":"R9 : Relation",
+         "id":"R6 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -459,120 +459,120 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P1 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R2 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"src",
             "id":"P1 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R7 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R3 : Relation"
+         },
+         "target":{
             "cardinality":"one",
             "property":"src",
             "id":"P1 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R8 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P3 : Person"
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R4 : Relation"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
-            "id":"R9 : Relation"
+            "property":"src",
+            "id":"P1 : Person"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P6 : Person"
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R6 : Relation"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
+            "property":"src",
+            "id":"P5 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R10 : Relation"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"P9 : Person"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P4 : Person"
+            "id":"P7 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
+            "cardinality":"many",
+            "property":"inEdges",
             "id":"R2 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P8 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R3 : Relation"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
             "id":"P5 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R7 : Relation"
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R4 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P3 : Person"
+            "id":"P7 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R8 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P4 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R9 : Relation"
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R6 : Relation"
          }
       }
    ]
@@ -590,7 +590,7 @@
          "id":"G11 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=G494190253166701",
+            "name=G2157380466315401",
             "type=org.sdmlib.test.examples.m2m.model.Graph"
          ]
       },
@@ -612,83 +612,74 @@
       },
       {
          "type":"clazz",
-         "id":"G14 : GenericObject",
+         "id":"G14 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190253453113",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=graph",
+            "tgtLabel=persons"
          ]
       },
       {
          "type":"clazz",
-         "id":"G15 : GenericObject",
+         "id":"G15 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254070207",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=graph",
+            "tgtLabel=persons"
          ]
       },
       {
          "type":"clazz",
-         "id":"G16 : GenericObject",
+         "id":"G16 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190253914683",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=graph",
+            "tgtLabel=persons"
          ]
       },
       {
          "type":"clazz",
-         "id":"G17 : GenericObject",
+         "id":"G17 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254666514",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=graph",
+            "tgtLabel=persons"
          ]
       },
       {
          "type":"clazz",
-         "id":"G18 : GenericObject",
+         "id":"G18 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254967170",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=graph",
+            "tgtLabel=relations"
          ]
       },
       {
          "type":"clazz",
-         "id":"G19 : GenericObject",
+         "id":"G19 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190253565907",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=graph",
+            "tgtLabel=relations"
          ]
       },
       {
          "type":"clazz",
-         "id":"G20 : GenericObject",
+         "id":"G20 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254575663",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=graph",
+            "tgtLabel=relations"
          ]
       },
       {
          "type":"clazz",
-         "id":"G21 : GenericObject",
+         "id":"G21 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254168758",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=graph",
+            "tgtLabel=relations"
          ]
       },
       {
          "type":"clazz",
-         "id":"G22 : GenericObject",
+         "id":"G22 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254010153",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=graph",
+            "tgtLabel=relations"
          ]
       },
       {
@@ -696,53 +687,13 @@
          "id":"G23 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=R494190255041853",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "name=P2157380466809693",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
          "id":"G24 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=persons"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G25 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=persons"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G26 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=persons"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G27 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=persons"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G28 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=relations"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G29 : GenericLink",
          "attributes":[
             "srcLabel=outEdges",
             "tgtLabel=src"
@@ -750,7 +701,40 @@
       },
       {
          "type":"clazz",
-         "id":"G30 : GenericLink",
+         "id":"G25 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G26 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G27 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157380468584369",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G28 : GenericAttribute",
+         "attributes":[
+            "name=firstName",
+            "value=Jens"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G29 : GenericLink",
          "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
@@ -758,18 +742,27 @@
       },
       {
          "type":"clazz",
-         "id":"G31 : GenericLink",
+         "id":"G30 : GenericLink",
          "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=relations"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
-         "id":"G32 : GenericLink",
+         "id":"G31 : GenericObject",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
+            "icon=null",
+            "name=P2157380467183876",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G32 : GenericAttribute",
+         "attributes":[
+            "name=firstName",
+            "value=Gabi"
          ]
       },
       {
@@ -784,93 +777,22 @@
          "type":"clazz",
          "id":"G34 : GenericLink",
          "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=relations"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G35 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G36 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G37 : GenericLink",
+         "id":"G35 : GenericObject",
          "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=relations"
+            "icon=null",
+            "name=P2157380469972159",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
-         "id":"G38 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G39 : GenericLink",
-         "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G40 : GenericLink",
-         "attributes":[
-            "srcLabel=graph",
-            "tgtLabel=relations"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G41 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G42 : GenericLink",
-         "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G43 : GenericAttribute",
-         "attributes":[
-            "name=firstName",
-            "value=Jens"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G44 : GenericAttribute",
-         "attributes":[
-            "name=firstName",
-            "value=Gabi"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G45 : GenericAttribute",
+         "id":"G36 : GenericAttribute",
          "attributes":[
             "name=firstName",
             "value=Nina"
@@ -878,10 +800,86 @@
       },
       {
          "type":"clazz",
-         "id":"G46 : GenericAttribute",
+         "id":"G37 : GenericLink",
+         "attributes":[
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G38 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157380470610427",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G39 : GenericAttribute",
          "attributes":[
             "name=firstName",
             "value=Nerdi"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G40 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G41 : GenericLink",
+         "attributes":[
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G42 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380466948664",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G43 : GenericAttribute",
+         "attributes":[
+            "name=kind",
+            "value=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G44 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380469696141",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G45 : GenericAttribute",
+         "attributes":[
+            "name=kind",
+            "value=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G46 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380468903118",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -894,10 +892,11 @@
       },
       {
          "type":"clazz",
-         "id":"G48 : GenericAttribute",
+         "id":"G48 : GenericObject",
          "attributes":[
-            "name=kind",
-            "value=knows"
+            "icon=null",
+            "name=R2157380468301037",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -910,10 +909,11 @@
       },
       {
          "type":"clazz",
-         "id":"G50 : GenericAttribute",
+         "id":"G50 : GenericObject",
          "attributes":[
-            "name=kind",
-            "value=knows"
+            "icon=null",
+            "name=R2157380470788280",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -927,653 +927,653 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G14 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G13 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G15 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
+            "property":"owner",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G28 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G32 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G36 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G35 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G39 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G43 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G16 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G44 : GenericAttribute"
+            "property":"owner",
+            "id":"G42 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G45 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G18 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G46 : GenericAttribute"
+            "property":"owner",
+            "id":"G44 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G19 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G47 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G48 : GenericAttribute"
+            "property":"owner",
+            "id":"G46 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G49 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G22 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G50 : GenericAttribute"
+            "property":"owner",
+            "id":"G48 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G51 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"owner",
+            "id":"G50 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G24 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G25 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G26 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G29 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G30 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G33 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G34 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G37 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G35 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G40 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G41 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G12 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G14 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G15 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G16 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G17 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G18 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G19 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G20 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G21 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G22 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G42 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G24 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G25 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G26 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G27 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G28 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G19 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G29 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G19 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G30 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G42 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G31 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G32 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G33 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G34 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G21 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G35 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G36 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G37 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G22 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G38 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G22 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G39 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G40 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G23 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G41 : GenericLink"
          }
       },
       {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G42 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G23 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"incommingLinks",
             "id":"G12 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G15 : GenericObject"
+            "id":"G27 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G24 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G14 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G16 : GenericObject"
+            "id":"G31 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G25 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G15 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G17 : GenericObject"
+            "id":"G35 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G26 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G16 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G18 : GenericObject"
+            "id":"G38 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G27 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G17 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G19 : GenericObject"
+            "id":"G42 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G28 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G18 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G29 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G19 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G16 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G30 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G20 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G20 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G31 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G21 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G32 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G33 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G34 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G14 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G35 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G15 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G36 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G22 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G37 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G15 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G38 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G16 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G39 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G40 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G18 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G41 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G18 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G42 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G22 : GenericLink"
          }
       }
    ]
@@ -1772,7 +1772,7 @@
          "id":"G11 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=G494190253166701",
+            "name=G2157380466315401",
             "type=org.sdmlib.test.examples.m2m.model.Graph"
          ]
       },
@@ -1794,83 +1794,74 @@
       },
       {
          "type":"clazz",
-         "id":"G14 : GenericObject",
+         "id":"G14 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190253453113",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G15 : GenericObject",
+         "id":"G15 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254070207",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G16 : GenericObject",
+         "id":"G16 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190253914683",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G17 : GenericObject",
+         "id":"G17 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254666514",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G18 : GenericObject",
+         "id":"G18 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494190254967170",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G19 : GenericObject",
+         "id":"G19 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190253565907",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G20 : GenericObject",
+         "id":"G20 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254575663",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G21 : GenericObject",
+         "id":"G21 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254168758",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
          "type":"clazz",
-         "id":"G22 : GenericObject",
+         "id":"G22 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494190254010153",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=parent",
+            "tgtLabel=gcs"
          ]
       },
       {
@@ -1878,53 +1869,13 @@
          "id":"G23 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=R494190255041853",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "name=P2157380466809693",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
          "id":"G24 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G25 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G26 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G27 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G28 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G29 : GenericLink",
          "attributes":[
             "srcLabel=outEdges",
             "tgtLabel=src"
@@ -1932,7 +1883,40 @@
       },
       {
          "type":"clazz",
-         "id":"G30 : GenericLink",
+         "id":"G25 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G26 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G27 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157380468584369",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G28 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Jens"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G29 : GenericLink",
          "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
@@ -1940,18 +1924,27 @@
       },
       {
          "type":"clazz",
-         "id":"G31 : GenericLink",
+         "id":"G30 : GenericLink",
          "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
-         "id":"G32 : GenericLink",
+         "id":"G31 : GenericObject",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
+            "icon=null",
+            "name=P2157380467183876",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G32 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Gabi"
          ]
       },
       {
@@ -1966,93 +1959,22 @@
          "type":"clazz",
          "id":"G34 : GenericLink",
          "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G35 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G36 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G37 : GenericLink",
+         "id":"G35 : GenericObject",
          "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
+            "icon=null",
+            "name=P2157380469972159",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
-         "id":"G38 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G39 : GenericLink",
-         "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G40 : GenericLink",
-         "attributes":[
-            "srcLabel=parent",
-            "tgtLabel=gcs"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G41 : GenericLink",
-         "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G42 : GenericLink",
-         "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G43 : GenericAttribute",
-         "attributes":[
-            "name=text",
-            "value=Jens"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G44 : GenericAttribute",
-         "attributes":[
-            "name=text",
-            "value=Gabi"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G45 : GenericAttribute",
+         "id":"G36 : GenericAttribute",
          "attributes":[
             "name=text",
             "value=Nina"
@@ -2060,10 +1982,86 @@
       },
       {
          "type":"clazz",
-         "id":"G46 : GenericAttribute",
+         "id":"G37 : GenericLink",
+         "attributes":[
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G38 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157380470610427",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G39 : GenericAttribute",
          "attributes":[
             "name=text",
             "value=Nerdi"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G40 : GenericLink",
+         "attributes":[
+            "srcLabel=outEdges",
+            "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G41 : GenericLink",
+         "attributes":[
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G42 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380466948664",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G43 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G44 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380469696141",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G45 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G46 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=R2157380468903118",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -2076,10 +2074,11 @@
       },
       {
          "type":"clazz",
-         "id":"G48 : GenericAttribute",
+         "id":"G48 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=knows"
+            "icon=null",
+            "name=R2157380468301037",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -2092,10 +2091,11 @@
       },
       {
          "type":"clazz",
-         "id":"G50 : GenericAttribute",
+         "id":"G50 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=knows"
+            "icon=null",
+            "name=R2157380470788280",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -2109,653 +2109,653 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G14 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G13 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G15 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
+            "property":"owner",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G28 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G32 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G36 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G35 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G39 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G43 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G16 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G44 : GenericAttribute"
+            "property":"owner",
+            "id":"G42 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G45 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G18 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G46 : GenericAttribute"
+            "property":"owner",
+            "id":"G44 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G19 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G47 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G48 : GenericAttribute"
+            "property":"owner",
+            "id":"G46 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G49 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G22 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G50 : GenericAttribute"
+            "property":"owner",
+            "id":"G48 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G51 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"owner",
+            "id":"G50 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G24 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G25 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G26 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G23 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G29 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G30 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G27 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G33 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G34 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G31 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G37 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G35 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G40 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G41 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G38 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G12 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G14 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G15 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G16 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G17 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G18 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G19 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G20 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G21 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G22 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G11 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G42 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G24 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G25 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G26 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G27 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G28 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G19 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G29 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G19 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G30 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G42 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G31 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G32 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G20 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G33 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G11 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G34 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G21 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G35 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G36 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G37 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G22 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G38 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G22 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G39 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G11 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G40 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G23 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G41 : GenericLink"
          }
       },
       {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G42 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G23 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"incommingLinks",
             "id":"G12 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G15 : GenericObject"
+            "id":"G27 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G24 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G14 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G16 : GenericObject"
+            "id":"G31 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G25 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G15 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G17 : GenericObject"
+            "id":"G35 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G26 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G16 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G18 : GenericObject"
+            "id":"G38 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G27 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G17 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G19 : GenericObject"
+            "id":"G42 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G28 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G18 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G44 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G29 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G19 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G16 : GenericObject"
+            "id":"G46 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G30 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G20 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G20 : GenericObject"
+            "id":"G48 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G31 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G21 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"G14 : GenericObject"
+            "id":"G50 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G32 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G17 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G33 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G21 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G34 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G14 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G35 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G15 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G36 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G22 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G37 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G15 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G38 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G16 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G39 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G23 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G40 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G18 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G41 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G18 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G42 : GenericLink"
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G22 : GenericLink"
          }
       }
    ]
@@ -2779,7 +2779,7 @@
       },
       {
          "type":"clazz",
-         "id":"P53 : Person",
+         "id":"P56 : Person",
          "attributes":[
             "firstName=null",
             "graph=null",
@@ -2788,7 +2788,7 @@
       },
       {
          "type":"clazz",
-         "id":"P54 : Person",
+         "id":"P58 : Person",
          "attributes":[
             "firstName=null",
             "graph=null",
@@ -2797,7 +2797,7 @@
       },
       {
          "type":"clazz",
-         "id":"P55 : Person",
+         "id":"P59 : Person",
          "attributes":[
             "firstName=null",
             "graph=null",
@@ -2806,7 +2806,7 @@
       },
       {
          "type":"clazz",
-         "id":"P56 : Person",
+         "id":"P60 : Person",
          "attributes":[
             "firstName=null",
             "graph=null",
@@ -2815,34 +2815,34 @@
       },
       {
          "type":"clazz",
+         "id":"R53 : Relation",
+         "attributes":[
+            "graph=null",
+            "kind=null",
+            "text=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R54 : Relation",
+         "attributes":[
+            "graph=null",
+            "kind=null",
+            "text=knows"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R55 : Relation",
+         "attributes":[
+            "graph=null",
+            "kind=null",
+            "text=knows"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"R57 : Relation",
-         "attributes":[
-            "graph=null",
-            "kind=null",
-            "text=knows"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R58 : Relation",
-         "attributes":[
-            "graph=null",
-            "kind=null",
-            "text=knows"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R59 : Relation",
-         "attributes":[
-            "graph=null",
-            "kind=null",
-            "text=knows"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R60 : Relation",
          "attributes":[
             "graph=null",
             "kind=null",
@@ -2861,120 +2861,120 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P52 : Person"
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R53 : Relation"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
+            "property":"src",
+            "id":"P52 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R54 : Relation"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"P52 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R55 : Relation"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"P52 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R57 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P52 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R58 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P52 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R59 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P53 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R60 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
             "cardinality":"one",
             "property":"src",
             "id":"P56 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R61 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P54 : Person"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
+            "property":"src",
+            "id":"P60 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P58 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R53 : Relation"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P59 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R54 : Relation"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P56 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R55 : Relation"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P58 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
             "id":"R57 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P55 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R58 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P53 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R59 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P54 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R60 : Relation"
          }
       }
    ]
@@ -3058,7 +3058,7 @@
       },
       {
          "type":"clazz",
-         "id":"P64 : Person",
+         "id":"P66 : Person",
          "attributes":[
             "firstName=Jens",
             "parent=null",
@@ -3067,7 +3067,7 @@
       },
       {
          "type":"clazz",
-         "id":"P65 : Person",
+         "id":"P68 : Person",
          "attributes":[
             "firstName=Gabi",
             "parent=null",
@@ -3076,7 +3076,7 @@
       },
       {
          "type":"clazz",
-         "id":"P66 : Person",
+         "id":"P69 : Person",
          "attributes":[
             "firstName=Nina",
             "parent=null",
@@ -3085,7 +3085,7 @@
       },
       {
          "type":"clazz",
-         "id":"P67 : Person",
+         "id":"P70 : Person",
          "attributes":[
             "firstName=Nerdi",
             "parent=null",
@@ -3103,7 +3103,7 @@
       },
       {
          "type":"clazz",
-         "id":"R68 : Relation",
+         "id":"R64 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -3112,7 +3112,7 @@
       },
       {
          "type":"clazz",
-         "id":"R69 : Relation",
+         "id":"R65 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -3121,7 +3121,7 @@
       },
       {
          "type":"clazz",
-         "id":"R70 : Relation",
+         "id":"R67 : Relation",
          "attributes":[
             "kind=knows",
             "parent=null",
@@ -3140,120 +3140,120 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P62 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R63 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
+         },
+         "target":{
             "cardinality":"one",
             "property":"src",
             "id":"P62 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R68 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R64 : Relation"
+         },
+         "target":{
             "cardinality":"one",
             "property":"src",
             "id":"P62 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R69 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P64 : Person"
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R65 : Relation"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
-            "id":"R70 : Relation"
+            "property":"src",
+            "id":"P62 : Person"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P67 : Person"
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"R67 : Relation"
          },
          "target":{
             "cardinality":"one",
-            "property":"relation",
+            "property":"src",
+            "id":"P66 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"R71 : Relation"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"P70 : Person"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P65 : Person"
+            "id":"P68 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
+            "cardinality":"many",
+            "property":"inEdges",
             "id":"R63 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"P69 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R64 : Relation"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
             "id":"P66 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R68 : Relation"
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R65 : Relation"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P64 : Person"
+            "id":"P68 : Person"
          },
          "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R69 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P65 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R70 : Relation"
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"R67 : Relation"
          }
       }
    ]
@@ -3488,7 +3488,7 @@
          "attributes":[
             "firstName=null",
             "parent=null",
-            "text=Jens"
+            "text=Gabi"
          ]
       },
       {
@@ -3497,7 +3497,7 @@
          "attributes":[
             "firstName=null",
             "parent=null",
-            "text=Gabi"
+            "text=Nina"
          ]
       },
       {
@@ -3506,7 +3506,7 @@
          "attributes":[
             "firstName=null",
             "parent=null",
-            "text=Nina"
+            "text=Jens"
          ]
       },
       {
@@ -3517,6 +3517,73 @@
             "parent=null",
             "text=Nerdi"
          ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P74 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P73 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P75 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P73 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P76 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P73 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P76 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P74 : Person"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P77 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P77 : Person"
+         }
       }
    ]
 }   ;
@@ -3931,66 +3998,68 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"G100 : GenericLink",
+         "id":"G100 : GenericAttribute",
          "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
+            "name=text",
+            "value=Gabi"
          ]
       },
       {
          "type":"clazz",
          "id":"G101 : GenericLink",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
          "id":"G102 : GenericLink",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G103 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G104 : GenericLink",
+         "id":"G103 : GenericObject",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "icon=null",
+            "name=P2157384633104614",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G104 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Nina"
          ]
       },
       {
          "type":"clazz",
          "id":"G105 : GenericLink",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G106 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G107 : GenericLink",
+         "id":"G106 : GenericObject",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "icon=null",
+            "name=P2157384633468404",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G107 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Nerdi"
          ]
       },
       {
@@ -4011,10 +4080,11 @@
       },
       {
          "type":"clazz",
-         "id":"G110 : GenericLink",
+         "id":"G110 : GenericObject",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "icon=null",
+            "name=R2157384632286184",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -4022,15 +4092,16 @@
          "id":"G111 : GenericAttribute",
          "attributes":[
             "name=text",
-            "value=Jens"
+            "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G112 : GenericAttribute",
+         "id":"G112 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=Gabi"
+            "icon=null",
+            "name=R2157384633026467",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -4038,15 +4109,16 @@
          "id":"G113 : GenericAttribute",
          "attributes":[
             "name=text",
-            "value=Nina"
+            "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G114 : GenericAttribute",
+         "id":"G114 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=Nerdi"
+            "icon=null",
+            "name=R2157384632611862",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -4059,10 +4131,11 @@
       },
       {
          "type":"clazz",
-         "id":"G116 : GenericAttribute",
+         "id":"G116 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=knows"
+            "icon=null",
+            "name=R2157384632452873",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -4075,10 +4148,11 @@
       },
       {
          "type":"clazz",
-         "id":"G118 : GenericAttribute",
+         "id":"G118 : GenericObject",
          "attributes":[
-            "name=text",
-            "value=knows"
+            "icon=null",
+            "name=R2157384633541546",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
@@ -4094,7 +4168,7 @@
          "id":"G79 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=G494193941298616",
+            "name=G2157384631972055",
             "type=org.sdmlib.test.examples.m2m.model.Graph"
          ]
       },
@@ -4116,83 +4190,74 @@
       },
       {
          "type":"clazz",
-         "id":"G82 : GenericObject",
+         "id":"G82 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941384848",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G83 : GenericObject",
+         "id":"G83 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941698207",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G84 : GenericObject",
+         "id":"G84 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941566165",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G85 : GenericObject",
+         "id":"G85 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193942094334",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G86 : GenericObject",
+         "id":"G86 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193942304908",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G87 : GenericObject",
+         "id":"G87 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941451062",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G88 : GenericObject",
+         "id":"G88 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193942046983",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G89 : GenericObject",
+         "id":"G89 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941758647",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G90 : GenericObject",
+         "id":"G90 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941668565",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
@@ -4200,48 +4265,49 @@
          "id":"G91 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=R494193942344174",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "name=P2157384632114491",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
          "id":"G92 : GenericLink",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
          "id":"G93 : GenericLink",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
          "id":"G94 : GenericLink",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G95 : GenericLink",
-         "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G96 : GenericLink",
-         "attributes":[
             "srcLabel=outEdges",
             "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G95 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157384632507152",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G96 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Jens"
          ]
       },
       {
@@ -4256,668 +4322,669 @@
          "type":"clazz",
          "id":"G98 : GenericLink",
          "attributes":[
-            "srcLabel=gcs",
-            "tgtLabel=parent"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
-         "id":"G99 : GenericLink",
+         "id":"G99 : GenericObject",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
+            "icon=null",
+            "name=P2157384632364331",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       }
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G81 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G83 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
+            "property":"owner",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G96 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G100 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G104 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G103 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G107 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G111 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G84 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G112 : GenericAttribute"
+            "property":"owner",
+            "id":"G110 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G85 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G113 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G86 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G114 : GenericAttribute"
+            "property":"owner",
+            "id":"G112 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G115 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G88 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G116 : GenericAttribute"
+            "property":"owner",
+            "id":"G114 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G89 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G117 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G90 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G118 : GenericAttribute"
+            "property":"owner",
+            "id":"G116 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G119 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G82 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"owner",
+            "id":"G118 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G80 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G82 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G83 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G84 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G85 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G86 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G87 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G88 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G89 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G90 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G92 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G93 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G94 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G97 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G98 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G101 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G102 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G105 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G103 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G108 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G109 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G91 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G80 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G83 : GenericObject"
+            "id":"G95 : GenericObject"
          },
          "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G82 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"src",
+            "id":"G99 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G83 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G103 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G84 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G106 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G85 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G110 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G86 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G112 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G87 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G114 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G88 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G116 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G89 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G118 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G90 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G110 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G92 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G84 : GenericObject"
+            "id":"G112 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G93 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G85 : GenericObject"
+            "id":"G114 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G94 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G86 : GenericObject"
+            "id":"G114 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G95 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G96 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G97 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G87 : GenericObject"
+            "id":"G116 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G98 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G88 : GenericObject"
+            "id":"G110 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G99 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G88 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G100 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G88 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G101 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G89 : GenericObject"
+            "id":"G116 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G102 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G89 : GenericObject"
+            "id":"G112 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G103 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G89 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G104 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G90 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G105 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G90 : GenericObject"
+            "id":"G118 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G106 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G90 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G107 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G108 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G91 : GenericObject"
+            "id":"G118 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G109 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G110 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G80 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G92 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G93 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G94 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G95 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G96 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G84 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G97 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G98 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G99 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G85 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G100 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G101 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G102 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G83 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G103 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G104 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G83 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G105 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G84 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G106 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G107 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G86 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G108 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G86 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G109 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G110 : GenericLink"
          }
       }
    ]
@@ -4931,66 +4998,68 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"G100 : GenericLink",
+         "id":"G100 : GenericAttribute",
          "attributes":[
-            "srcLabel=inEdges",
-            "tgtLabel=tgt"
+            "name=text",
+            "value=Gabi"
          ]
       },
       {
          "type":"clazz",
          "id":"G101 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "srcLabel=inEdges",
+            "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
          "id":"G102 : GenericLink",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G103 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G104 : GenericLink",
+         "id":"G103 : GenericObject",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "icon=null",
+            "name=P2157384633104614",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G104 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Nina"
          ]
       },
       {
          "type":"clazz",
          "id":"G105 : GenericLink",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G106 : GenericLink",
-         "attributes":[
             "srcLabel=inEdges",
             "tgtLabel=tgt"
          ]
       },
       {
          "type":"clazz",
-         "id":"G107 : GenericLink",
+         "id":"G106 : GenericObject",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "icon=null",
+            "name=P2157384633468404",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G107 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Nerdi"
          ]
       },
       {
@@ -5011,81 +5080,86 @@
       },
       {
          "type":"clazz",
-         "id":"G110 : GenericLink",
+         "id":"G110 : GenericObject",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "icon=null",
+            "name=R2157384632286184",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
          "type":"clazz",
          "id":"G111 : GenericAttribute",
          "attributes":[
-            "name=firstName",
-            "value=Jens"
+            "name=text",
+            "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G112 : GenericAttribute",
+         "id":"G112 : GenericObject",
          "attributes":[
-            "name=firstName",
-            "value=Gabi"
+            "icon=null",
+            "name=R2157384633026467",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
          "type":"clazz",
          "id":"G113 : GenericAttribute",
          "attributes":[
-            "name=firstName",
-            "value=Nina"
+            "name=text",
+            "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G114 : GenericAttribute",
+         "id":"G114 : GenericObject",
          "attributes":[
-            "name=firstName",
-            "value=Nerdi"
+            "icon=null",
+            "name=R2157384632611862",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
          "type":"clazz",
          "id":"G115 : GenericAttribute",
          "attributes":[
-            "name=kind",
+            "name=text",
             "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G116 : GenericAttribute",
+         "id":"G116 : GenericObject",
          "attributes":[
-            "name=kind",
-            "value=knows"
+            "icon=null",
+            "name=R2157384632452873",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
          "type":"clazz",
          "id":"G117 : GenericAttribute",
          "attributes":[
-            "name=kind",
+            "name=text",
             "value=knows"
          ]
       },
       {
          "type":"clazz",
-         "id":"G118 : GenericAttribute",
+         "id":"G118 : GenericObject",
          "attributes":[
-            "name=kind",
-            "value=knows"
+            "icon=null",
+            "name=R2157384633541546",
+            "type=org.sdmlib.test.examples.m2m.model.Relation"
          ]
       },
       {
          "type":"clazz",
          "id":"G119 : GenericAttribute",
          "attributes":[
-            "name=kind",
+            "name=text",
             "value=knows"
          ]
       },
@@ -5094,7 +5168,7 @@
          "id":"G79 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=G494193941298616",
+            "name=G2157384631972055",
             "type=org.sdmlib.test.examples.m2m.model.Graph"
          ]
       },
@@ -5102,97 +5176,88 @@
          "type":"clazz",
          "id":"G80 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
          "id":"G81 : GenericAttribute",
          "attributes":[
-            "name=firstName",
+            "name=text",
             "value=Albert"
          ]
       },
       {
          "type":"clazz",
-         "id":"G82 : GenericObject",
+         "id":"G82 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941384848",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G83 : GenericObject",
+         "id":"G83 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941698207",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G84 : GenericObject",
+         "id":"G84 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193941566165",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G85 : GenericObject",
+         "id":"G85 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193942094334",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G86 : GenericObject",
+         "id":"G86 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=P494193942304908",
-            "type=org.sdmlib.test.examples.m2m.model.Person"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G87 : GenericObject",
+         "id":"G87 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941451062",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G88 : GenericObject",
+         "id":"G88 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193942046983",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G89 : GenericObject",
+         "id":"G89 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941758647",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
          "type":"clazz",
-         "id":"G90 : GenericObject",
+         "id":"G90 : GenericLink",
          "attributes":[
-            "icon=null",
-            "name=R494193941668565",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "srcLabel=gcs",
+            "tgtLabel=parent"
          ]
       },
       {
@@ -5200,48 +5265,49 @@
          "id":"G91 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=R494193942344174",
-            "type=org.sdmlib.test.examples.m2m.model.Relation"
+            "name=P2157384632114491",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       },
       {
          "type":"clazz",
          "id":"G92 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
          "id":"G93 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
          "id":"G94 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G95 : GenericLink",
-         "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G96 : GenericLink",
-         "attributes":[
             "srcLabel=outEdges",
             "tgtLabel=src"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G95 : GenericObject",
+         "attributes":[
+            "icon=null",
+            "name=P2157384632507152",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G96 : GenericAttribute",
+         "attributes":[
+            "name=text",
+            "value=Jens"
          ]
       },
       {
@@ -5256,668 +5322,669 @@
          "type":"clazz",
          "id":"G98 : GenericLink",
          "attributes":[
-            "srcLabel=persons",
-            "tgtLabel=graph"
+            "srcLabel=outEdges",
+            "tgtLabel=src"
          ]
       },
       {
          "type":"clazz",
-         "id":"G99 : GenericLink",
+         "id":"G99 : GenericObject",
          "attributes":[
-            "srcLabel=outEdges",
-            "tgtLabel=src"
+            "icon=null",
+            "name=P2157384632364331",
+            "type=org.sdmlib.test.examples.m2m.model.Person"
          ]
       }
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G81 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G83 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
+            "property":"owner",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G96 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G100 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G104 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G103 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
+            "id":"G107 : GenericAttribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G111 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G84 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G112 : GenericAttribute"
+            "property":"owner",
+            "id":"G110 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G85 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G113 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G86 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G114 : GenericAttribute"
+            "property":"owner",
+            "id":"G112 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G115 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G88 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G116 : GenericAttribute"
+            "property":"owner",
+            "id":"G114 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G89 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G117 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G90 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericattribute",
-            "id":"G118 : GenericAttribute"
+            "property":"owner",
+            "id":"G116 : GenericObject"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericattribute",
+            "cardinality":"many",
+            "property":"attrs",
             "id":"G119 : GenericAttribute"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G82 : GenericObject"
          },
          "target":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"owner",
+            "id":"G118 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G80 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G82 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G83 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G84 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G85 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G86 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G87 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G88 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G89 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G90 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G79 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G92 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G93 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G94 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G91 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G97 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G98 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G95 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G101 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G102 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G99 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G105 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G103 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G108 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"incommingLinks",
+            "id":"G109 : GenericLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"G106 : GenericObject"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G91 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G80 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G83 : GenericObject"
+            "id":"G95 : GenericObject"
          },
          "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G82 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
             "cardinality":"one",
-            "property":"genericlink",
+            "property":"src",
+            "id":"G99 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G83 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G103 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G84 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G106 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G85 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G110 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G86 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G112 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G87 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G114 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G88 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G116 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G89 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G118 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"G90 : GenericLink"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"G110 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G92 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G84 : GenericObject"
+            "id":"G112 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G93 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G85 : GenericObject"
+            "id":"G114 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G94 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G86 : GenericObject"
+            "id":"G114 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G95 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G96 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G87 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G97 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G87 : GenericObject"
+            "id":"G116 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G98 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G88 : GenericObject"
+            "id":"G110 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G99 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G88 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G100 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G88 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G101 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G89 : GenericObject"
+            "id":"G116 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G102 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G89 : GenericObject"
+            "id":"G112 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G103 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G89 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G104 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G90 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G105 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G90 : GenericObject"
+            "id":"G118 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G106 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G90 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G107 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G108 : GenericLink"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"G91 : GenericObject"
+            "id":"G118 : GenericObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"genericlink",
+            "cardinality":"many",
+            "property":"outgoingLinks",
             "id":"G109 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"G91 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G110 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G80 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G92 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G93 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G94 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G95 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G96 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G84 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G97 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G98 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G99 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G85 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G100 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G101 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G82 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G102 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G83 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G103 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G104 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G83 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G105 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G84 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G106 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G107 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G86 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G108 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G86 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G109 : GenericLink"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"G79 : GenericObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"genericlink",
-            "id":"G110 : GenericLink"
          }
       }
    ]
@@ -5928,217 +5995,7 @@
 <hr/><script>
    var json = {
    "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"P120 : Person",
-         "attributes":[
-            "firstName=Albert",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"P122 : Person",
-         "attributes":[
-            "firstName=Jens",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"P123 : Person",
-         "attributes":[
-            "firstName=Gabi",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"P124 : Person",
-         "attributes":[
-            "firstName=Nina",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"P125 : Person",
-         "attributes":[
-            "firstName=Nerdi",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R121 : Relation",
-         "attributes":[
-            "kind=knows",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R126 : Relation",
-         "attributes":[
-            "kind=knows",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R127 : Relation",
-         "attributes":[
-            "kind=knows",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R128 : Relation",
-         "attributes":[
-            "kind=knows",
-            "parent=null",
-            "text=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R129 : Relation",
-         "attributes":[
-            "kind=knows",
-            "parent=null",
-            "text=null"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P120 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R121 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P120 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R126 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P120 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R127 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P122 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R128 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"P125 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R129 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P123 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R121 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P124 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R126 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P122 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R127 : Relation"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"P123 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"relation",
-            "id":"R128 : Relation"
-         }
-      }
-   ]
+   "nodes":null
 }   ;
    json["options"]={"canvasid":"canvasBanfM2MTransformation56", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
