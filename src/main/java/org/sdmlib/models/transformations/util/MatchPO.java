@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.util.MatchPO;
+import org.sdmlib.models.transformations.util.TemplatePO;
 
 public class MatchPO extends PatternObject<MatchPO, Match>
 {
@@ -610,6 +614,331 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    public MatchPO filterSubMatches(MatchPO tgt)
    {
       return hasLinkConstraint(tgt, Match.PROPERTY_SUBMATCHES);
+   }
+
+
+   public MatchPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MatchPO createEndPosCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_ENDPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createEndPosCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_ENDPOS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createEndPosAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_ENDPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createFullTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_FULLTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createFullTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_FULLTEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createFullTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_FULLTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createMatchTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_MATCHTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createMatchTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_MATCHTEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createMatchTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_MATCHTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createModelObjectCondition(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_MODELOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createModelObjectAssignment(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_MODELOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createStartPosCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_STARTPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createStartPosCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_STARTPOS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createStartPosAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Match.PROPERTY_STARTPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPlaceholderPO()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Match.PROPERTY_PLACEHOLDER, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createPlaceholderPO(String modifier)
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Match.PROPERTY_PLACEHOLDER, result);
+      
+      return result;
+   }
+
+   public MatchPO createPlaceholderLink(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_PLACEHOLDER);
+   }
+
+   public MatchPO createPlaceholderLink(PlaceHolderDescriptionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_PLACEHOLDER, modifier);
+   }
+
+   public MatchPO createParentMatchPO()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Match.PROPERTY_PARENTMATCH, result);
+      
+      return result;
+   }
+
+   public MatchPO createParentMatchPO(String modifier)
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Match.PROPERTY_PARENTMATCH, result);
+      
+      return result;
+   }
+
+   public MatchPO createParentMatchLink(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_PARENTMATCH);
+   }
+
+   public MatchPO createParentMatchLink(MatchPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_PARENTMATCH, modifier);
+   }
+
+   public MatchPO createSubMatchesPO()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Match.PROPERTY_SUBMATCHES, result);
+      
+      return result;
+   }
+
+   public MatchPO createSubMatchesPO(String modifier)
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Match.PROPERTY_SUBMATCHES, result);
+      
+      return result;
+   }
+
+   public MatchPO createSubMatchesLink(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_SUBMATCHES);
+   }
+
+   public MatchPO createSubMatchesLink(MatchPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_SUBMATCHES, modifier);
+   }
+
+   public TemplatePO createTemplatePO()
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Match.PROPERTY_TEMPLATE, result);
+      
+      return result;
+   }
+
+   public TemplatePO createTemplatePO(String modifier)
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Match.PROPERTY_TEMPLATE, result);
+      
+      return result;
+   }
+
+   public MatchPO createTemplateLink(TemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_TEMPLATE);
+   }
+
+   public MatchPO createTemplateLink(TemplatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Match.PROPERTY_TEMPLATE, modifier);
    }
 
 }

@@ -35,6 +35,10 @@ import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 public class RoomSet extends SimpleSet<Room>
 {
@@ -790,4 +794,144 @@ public class RoomSet extends SimpleSet<Room>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createCreditsCondition(int value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createCreditsCondition(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createNameCondition(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createNameCondition(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the topic attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createTopicCondition(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getTopic()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the topic attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createTopicCondition(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getTopic()) <= 0 && obj.getTopic().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
 }

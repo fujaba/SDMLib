@@ -1,7 +1,8 @@
 package org.sdmlib.models.classes.templates;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
+
+import de.uniks.networkparser.graph.Feature;
 
 public class ReplaceText {
 	private String value = "";

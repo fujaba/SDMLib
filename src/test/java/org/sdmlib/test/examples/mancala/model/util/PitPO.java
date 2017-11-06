@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PitPO extends PatternObject<PitPO, Pit>
 {
@@ -292,6 +293,54 @@ public class PitPO extends PatternObject<PitPO, Pit>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public PitPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PitPO createNrCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pit.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PitPO createNrCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pit.PROPERTY_NR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PitPO createNrAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Pit.PROPERTY_NR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

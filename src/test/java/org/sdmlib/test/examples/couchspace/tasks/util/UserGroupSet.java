@@ -32,6 +32,8 @@ import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 public class UserGroupSet extends SDMSet<UserGroup>
 {
@@ -343,4 +345,64 @@ public class UserGroupSet extends SDMSet<UserGroup>
    {
       this.addAll(objects);
    }
+
+
+   public UserGroupPO createUserGroupPO()
+   {
+      return new UserGroupPO(this.toArray(new UserGroup[this.size()]));
+   }
+
+
+   @Override
+   public UserGroupSet getNewList(boolean keyValue)
+   {
+      return new UserGroupSet();
+   }
+
+   /**
+    * Loop through the current set of UserGroup objects and collect those UserGroup objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of UserGroup objects that match the parameter
+    */
+   public UserGroupSet createNameCondition(String value)
+   {
+      UserGroupSet result = new UserGroupSet();
+      
+      for (UserGroup obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of UserGroup objects and collect those UserGroup objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of UserGroup objects that match the parameter
+    */
+   public UserGroupSet createNameCondition(String lower, String upper)
+   {
+      UserGroupSet result = new UserGroupSet();
+      
+      for (UserGroup obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

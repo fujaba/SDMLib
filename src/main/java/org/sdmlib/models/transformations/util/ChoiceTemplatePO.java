@@ -6,6 +6,11 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.transformations.util.ChoiceTemplatePO;
+import org.sdmlib.models.transformations.util.TemplatePO;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.util.MatchPO;
 
 public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemplate>
 {
@@ -966,6 +971,518 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    public ChoiceTemplatePO filterChoices(TemplatePO tgt)
    {
       return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_CHOICES);
+   }
+
+
+   public ChoiceTemplatePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChoiceTemplatePO createExpandedTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createExpandedTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createExpandedTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListEndCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListEndCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListEndAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListSeparatorCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListSeparatorCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListSeparatorAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListStartCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListStartCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListStartAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelClassNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelClassNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelClassNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelObjectCondition(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelObjectAssignment(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createReferenceLookupCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_REFERENCELOOKUP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createReferenceLookupAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_REFERENCELOOKUP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createTemplateTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createTemplateTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createTemplateTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO createChooserPO()
+   {
+      ChoiceTemplatePO result = new ChoiceTemplatePO(new ChoiceTemplate[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChoiceTemplate.PROPERTY_CHOOSER, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createChooserPO(String modifier)
+   {
+      ChoiceTemplatePO result = new ChoiceTemplatePO(new ChoiceTemplate[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChoiceTemplate.PROPERTY_CHOOSER, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createChooserLink(ChoiceTemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_CHOOSER);
+   }
+
+   public ChoiceTemplatePO createChooserLink(ChoiceTemplatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_CHOOSER, modifier);
+   }
+
+   public TemplatePO createChoicesPO()
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChoiceTemplate.PROPERTY_CHOICES, result);
+      
+      return result;
+   }
+
+   public TemplatePO createChoicesPO(String modifier)
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChoiceTemplate.PROPERTY_CHOICES, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createChoicesLink(TemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_CHOICES);
+   }
+
+   public ChoiceTemplatePO createChoicesLink(TemplatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_CHOICES, modifier);
+   }
+
+   public PlaceHolderDescriptionPO createPlaceholdersPO()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChoiceTemplate.PROPERTY_PLACEHOLDERS, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createPlaceholdersPO(String modifier)
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChoiceTemplate.PROPERTY_PLACEHOLDERS, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createPlaceholdersLink(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_PLACEHOLDERS);
+   }
+
+   public ChoiceTemplatePO createPlaceholdersLink(PlaceHolderDescriptionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_PLACEHOLDERS, modifier);
+   }
+
+   public PlaceHolderDescriptionPO createParentsPO()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChoiceTemplate.PROPERTY_PARENTS, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createParentsPO(String modifier)
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChoiceTemplate.PROPERTY_PARENTS, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createParentsLink(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_PARENTS);
+   }
+
+   public ChoiceTemplatePO createParentsLink(PlaceHolderDescriptionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_PARENTS, modifier);
+   }
+
+   public MatchPO createMatchesPO()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChoiceTemplate.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public MatchPO createMatchesPO(String modifier)
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChoiceTemplate.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO createMatchesLink(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_MATCHES);
+   }
+
+   public ChoiceTemplatePO createMatchesLink(MatchPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChoiceTemplate.PROPERTY_MATCHES, modifier);
    }
 
 }

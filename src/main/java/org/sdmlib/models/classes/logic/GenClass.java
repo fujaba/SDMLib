@@ -4,7 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,8 +16,6 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
@@ -29,6 +26,9 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
@@ -75,9 +75,12 @@ public class GenClass extends GenClazzEntity
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
-            insertInterfaceMethods(model, rootDir, helpersDir);
+            
             if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
+            
+            insertInterfaceMethods(model, rootDir, helpersDir);
+            
 
             if (classModel.hasFeature(Feature.SERIALIZATION, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
@@ -274,7 +277,7 @@ public class GenClass extends GenClazzEntity
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 		ClassModel model = (ClassModel) clazz.getClassModel();
-		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false) {
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(ClazzType.INTERFACE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -791,6 +794,10 @@ public class GenClass extends GenClazzEntity
          return null;
       }
 
+      if (model.getType().equals(ClazzType.INTERFACE)) {
+    	  return null;
+      }
+      
       if (patternObjectCreatorParser == null)
       {
          // try to find existing file
@@ -819,7 +826,7 @@ public class GenClass extends GenClazzEntity
          FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectCreatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+            List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {

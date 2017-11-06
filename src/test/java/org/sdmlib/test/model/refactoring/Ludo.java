@@ -29,6 +29,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.model.refactoring.util.PlayerSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.model.refactoring.Player;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
@@ -223,4 +224,4 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
-   }
+}

@@ -7,6 +7,8 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
+import org.sdmlib.test.examples.helloworld.model.util.NodePO;
+import org.sdmlib.test.examples.helloworld.model.util.GraphPO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {
@@ -556,6 +558,247 @@ public class NodePO extends PatternObject<NodePO, Node>
    public NodePO filterLinksTo(NodePO tgt)
    {
       return hasLinkConstraint(tgt, Node.PROPERTY_LINKSTO);
+   }
+
+
+   public NodePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public NodePO createOrigPO()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_ORIG, result);
+      
+      return result;
+   }
+
+   public NodePO createOrigPO(String modifier)
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Node.PROPERTY_ORIG, result);
+      
+      return result;
+   }
+
+   public NodePO createOrigLink(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_ORIG);
+   }
+
+   public NodePO createOrigLink(NodePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_ORIG, modifier);
+   }
+
+   public NodePO createCopyPO()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_COPY, result);
+      
+      return result;
+   }
+
+   public NodePO createCopyPO(String modifier)
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Node.PROPERTY_COPY, result);
+      
+      return result;
+   }
+
+   public NodePO createCopyLink(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_COPY);
+   }
+
+   public NodePO createCopyLink(NodePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_COPY, modifier);
+   }
+
+   public NodePO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createTextCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createTextCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createTextAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public NodePO createLinksFromPO()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSFROM, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksFromPO(String modifier)
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Node.PROPERTY_LINKSFROM, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksFromLink(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSFROM);
+   }
+
+   public NodePO createLinksFromLink(NodePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSFROM, modifier);
+   }
+
+   public NodePO createLinksToPO()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSTO, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksToPO(String modifier)
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Node.PROPERTY_LINKSTO, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksToLink(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSTO);
+   }
+
+   public NodePO createLinksToLink(NodePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSTO, modifier);
+   }
+
+   public GraphPO createGraphPO()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public GraphPO createGraphPO(String modifier)
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Node.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+
+   public NodePO createGraphLink(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_GRAPH);
+   }
+
+   public NodePO createGraphLink(GraphPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_GRAPH, modifier);
    }
 
 }

@@ -29,6 +29,9 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class PeerProxySet extends SimpleSet<PeerProxy>
 {
@@ -350,4 +353,140 @@ public class PeerProxySet extends SimpleSet<PeerProxy>
    {
       this.addAll(objects);
    }
+
+
+   public PeerProxyPO createPeerProxyPO()
+   {
+      return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
+   }
+
+
+   @Override
+   public PeerProxySet getNewList(boolean keyValue)
+   {
+      return new PeerProxySet();
+   }
+
+
+   public PeerProxySet filter(Condition<PeerProxy> condition) {
+      PeerProxySet filterList = new PeerProxySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the ip attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet createIpCondition(String value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value.equals(obj.getIp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the ip attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet createIpCondition(String lower, String upper)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (lower.compareTo(obj.getIp()) <= 0 && obj.getIp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet createPortCondition(int value)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of PeerProxy objects that match the parameter
+    */
+   public PeerProxySet createPortCondition(int lower, int upper)
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (PeerProxy obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

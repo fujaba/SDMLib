@@ -323,7 +323,7 @@ pre .title {text-align:center}
 	font-size:1.1em;
 	padding:10px 10px 10px 10px;
 	margin:10px;
-	float:left;
+	float:none;
 	cursor: default;
 }
 .notify-text { margin-left:10px;white-space:nowrap;}

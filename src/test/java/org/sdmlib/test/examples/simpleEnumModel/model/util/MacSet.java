@@ -29,6 +29,9 @@ import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.simpleEnumModel.model.util.TEnumSet;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class MacSet extends SimpleSet<Mac>
 {
@@ -229,33 +232,6 @@ public class MacSet extends SimpleSet<Mac>
       
       return this;
    }
-
-   
-   //==========================================================================
-   
-   public StringList concat(int p1)
-   {
-      StringList result = new StringList();
-      for (Mac obj : this)
-      {
-         result.add(obj.concat(p1));
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public TEnumSet select(int p1)
-   {
-      TEnumSet result = new TEnumSet();
-      for (Mac obj : this)
-      {
-         result.add(obj.select(p1));
-      }
-      return result;
-   }
-
 
 
    public MacPO filterMacPO()
@@ -475,6 +451,52 @@ public class MacSet extends SimpleSet<Mac>
          }
       }
       
+      return result;
+   }
+
+
+
+   @Override
+   public MacSet getNewList(boolean keyValue)
+   {
+      return new MacSet();
+   }
+
+
+   public MacSet filter(Condition<Mac> condition) {
+      MacSet filterList = new MacSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }   
+
+
+   
+   //==========================================================================
+   
+   public StringList concat(int p0)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Mac obj : this)
+      {
+         result.add( obj.concat(p0) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public TEnumSet select(int p0)
+   {
+      
+      TEnumSet result = new TEnumSet();
+      
+      for (Mac obj : this)
+      {
+         result.add( obj.select(p0) );
+      }
       return result;
    }
 

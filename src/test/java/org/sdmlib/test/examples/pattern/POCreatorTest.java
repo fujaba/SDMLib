@@ -1,16 +1,15 @@
 package org.sdmlib.test.examples.pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.POCreator;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.StoryboardImpl;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentPO;
 
 public class POCreatorTest
 {
@@ -20,8 +19,8 @@ public class POCreatorTest
    {
       // Storyboard storyboard = new Storyboard();
       University university = new University();
-      Room mathRoom = university.withName("UniKasselVersität").createRooms().withCredits(6).withName("Math");
-      mathRoom.createStudents().withName("Sudi Sorglos");
+      Room mathRoom = university.withName("UniKasselVersitaet").createRooms().withCredits(6).withName("Math");
+      mathRoom.createStudents().withName("Jane Doe");
 
       // storyboard.addObjectDiagram(university);
 
@@ -51,10 +50,10 @@ public class POCreatorTest
       storyboard.markCodeStart();
       University university = new University().withName("StudyRight University");
       Room mathRoom = university.createRooms().withCredits(6).withName("Multiply").withTopic("Math");
-      Student susi = mathRoom.createStudents().withName("Susi Sorglos");
+      Student joan = mathRoom.createStudents().withName("Jane Doe");
       Student peter = mathRoom.createStudentsTeachingAssistant().withName("Peter Teacher").withIn(mathRoom);
-      mathRoom.createAssignments().withContent("1*1").withPoints(2).withStudents(susi);
-      university.withStudents(susi, peter);
+      mathRoom.createAssignments().withContent("1*1").withPoints(2).withStudents(joan);
+      university.withStudents(joan, peter);
       storyboard.addCode();
 
       storyboard.addObjectDiagram(university);

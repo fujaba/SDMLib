@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -31,6 +32,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -347,6 +351,118 @@ public class UniversitySet extends SimpleSet<University>
       for (University obj : this)
       {
          obj.withoutRooms(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet createNameCondition(String value)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of University objects and collect those University objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of University objects that match the parameter
+    */
+   public UniversitySet createNameCondition(String lower, String upper)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of University objects and collect a set of the President objects reached via president. 
+    * 
+    * @return Set of President objects reachable via president
+    */
+   public PresidentSet getPresident()
+   {
+      PresidentSet result = new PresidentSet();
+      
+      for (University obj : this)
+      {
+         result.with(obj.getPresident());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of University objects and collect all contained objects with reference president pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as president neighbor of the collected results. 
+    * 
+    * @return Set of President objects referring to value via president
+    */
+   public UniversitySet filterPresident(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (neighbors.contains(obj.getPresident()) || (neighbors.isEmpty() && obj.getPresident() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the University object passed as parameter to the President attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their President attributes.
+    */
+   public UniversitySet withPresident(President value)
+   {
+      for (University obj : this)
+      {
+         obj.withPresident(value);
       }
       
       return this;

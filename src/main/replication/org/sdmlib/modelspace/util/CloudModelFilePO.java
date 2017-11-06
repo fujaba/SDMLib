@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.modelspace.util.CloudModelDirectoryPO;
+import org.sdmlib.modelspace.util.CloudModelFilePO;
 
 public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModelFile>
 {
@@ -246,6 +249,127 @@ public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModel
    public CloudModelFilePO filterDir(CloudModelDirectoryPO tgt)
    {
       return hasLinkConstraint(tgt, CloudModelFile.PROPERTY_DIR);
+   }
+
+
+   public CloudModelFilePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CloudModelFilePO createFileNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO createFileNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO createFileNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO createLastModifiedTimeCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_LASTMODIFIEDTIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO createLastModifiedTimeCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_LASTMODIFIEDTIME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelFilePO createLastModifiedTimeAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(CloudModelFile.PROPERTY_LASTMODIFIEDTIME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CloudModelDirectoryPO createDirPO()
+   {
+      CloudModelDirectoryPO result = new CloudModelDirectoryPO(new CloudModelDirectory[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(CloudModelFile.PROPERTY_DIR, result);
+      
+      return result;
+   }
+
+   public CloudModelDirectoryPO createDirPO(String modifier)
+   {
+      CloudModelDirectoryPO result = new CloudModelDirectoryPO(new CloudModelDirectory[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(CloudModelFile.PROPERTY_DIR, result);
+      
+      return result;
+   }
+
+   public CloudModelFilePO createDirLink(CloudModelDirectoryPO tgt)
+   {
+      return hasLinkConstraint(tgt, CloudModelFile.PROPERTY_DIR);
+   }
+
+   public CloudModelFilePO createDirLink(CloudModelDirectoryPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, CloudModelFile.PROPERTY_DIR, modifier);
    }
 
 }

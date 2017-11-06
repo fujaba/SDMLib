@@ -5,14 +5,14 @@ import java.awt.Point;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 
@@ -43,10 +43,10 @@ public class MancalaModel {
                 .withAttribute("state", DataType.create(stateEnum))
                 .withAttribute("color", DataType.create(Color.class));
 
-        Clazz point = model.createClazz(Point.class.getName()) //<7>
-                .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC)) //<8>
-                .with(new Attribute("y", DataType.INT).with(Modifier.PUBLIC))
-                .withExternal(true); //<9>
+        Clazz point = model.createClazz(Point.class.getName()); //<7>
+        point.createAttribute("x", DataType.INT).with(Modifier.PUBLIC); //<8>
+        point.createAttribute("y", DataType.INT).with(Modifier.PUBLIC);
+        point.withExternal(true); //<9>
 
         Clazz pit = model.createClazz("Pit")
                 .withAttribute("nr", DataType.INT)
@@ -91,8 +91,8 @@ public class MancalaModel {
       .withMethod("createPitsKalah", DataType.create("Kalah"));
 
       Clazz pitClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Pit")
-      .with(new Attribute("nr", DataType.create("int")) )
-      .with(new Attribute("nr", DataType.create("int")) )
+      .withAttribute("nr", DataType.create("int"))
+      .withAttribute("nr", DataType.create("int"))
       /* add method */
       .withMethod("moveStones", DataType.VOID);
 
@@ -104,8 +104,8 @@ public class MancalaModel {
       
       
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Player")
-      .with(new Attribute("name", DataType.create("String")) )
-      .with(new Attribute("state", DataType.create("PlayerState")) );
+      .withAttribute("name", DataType.create("String"))
+      .withAttribute("state", DataType.create("PlayerState"));
       /* add assoc */
       playerClass.withBidirectional(mancalaClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 

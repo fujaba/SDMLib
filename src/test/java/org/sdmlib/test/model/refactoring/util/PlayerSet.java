@@ -28,6 +28,8 @@ import org.sdmlib.test.model.refactoring.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.model.refactoring.util.LudoSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -157,4 +159,23 @@ public class PlayerSet extends SimpleSet<Player>
    {
       this.addAll(objects);
    }
-}
+
+
+   public PlayerPO createPlayerPO()
+   {
+      return new PlayerPO(this.toArray(new Player[this.size()]));
+   }
+
+
+   @Override
+   public PlayerSet getNewList(boolean keyValue)
+   {
+      return new PlayerSet();
+   }
+
+
+   public PlayerSet filter(Condition<Player> condition) {
+      PlayerSet filterList = new PlayerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

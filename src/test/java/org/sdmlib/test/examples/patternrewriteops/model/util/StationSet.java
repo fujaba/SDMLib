@@ -21,19 +21,17 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.Station;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
-import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagSet;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class StationSet extends SimpleSet<Station>
 {
@@ -528,5 +526,4 @@ public class StationSet extends SimpleSet<Station>
       
       return this;
    }
-
 }

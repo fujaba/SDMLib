@@ -35,6 +35,10 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.test.examples.ludo.model.util.LudoSet;
+import org.sdmlib.test.examples.ludo.model.util.PawnSet;
 
 public class FieldSet extends SimpleSet<Field>
 {
@@ -1123,4 +1127,215 @@ public class FieldSet extends SimpleSet<Field>
       FieldSet filterList = new FieldSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the color attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createColorCondition(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the color attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createColorCondition(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createKindCondition(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createKindCondition(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the point attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createPointCondition(Point value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getPoint())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the x attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createXCondition(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the x attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createXCondition(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the y attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createYCondition(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Field objects and collect those Field objects where the y attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Field objects that match the parameter
+    */
+   public FieldSet createYCondition(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

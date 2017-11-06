@@ -82,6 +82,7 @@ task pmJar(type: Jar) {
 	manifest = project.manifest {from sharedManifest}
 	exclude('META-INF/MANIFEST.MF')
 	exclude('org/sdmlib/models/transformations/**')
+	exclude('de/uniks/networkparser/ext/ClassModel*')
 	exclude('org/sdmlib/replication/**')
 
 	classifier = 'pm'

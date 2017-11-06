@@ -19,6 +19,7 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.graph.GraphTokener;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.util.AssociationSet;
@@ -126,16 +127,15 @@ public class Javascript implements GuiAdapter
          // Attributes
          for (Attribute attr : clazz.getAttributes())
          {
-        	 node.with(new Attribute(attr.getName(), attr.getType()));
+        	 node.withAttribute(attr.getName(), attr.getType());
          }
          // Methods
          for (Method method : clazz.getMethods())
          {
-        	 Method newMethod = new Method(method.getName());
+        	 Method newMethod = node.createMethod(method.getName());
         	 for(Parameter param : method.getParameter()){
         		 newMethod.withParameter(param.getName(), param.getType());
         	 }
-        	 node.with(newMethod);
          }
          list.with(node);
          nodes.put(node.getId(), node);
@@ -151,7 +151,7 @@ public class Javascript implements GuiAdapter
          
          sourceEdge.with(assoc.getInfo());
          targetEdge.with(assoc.getInfo());
-         list.with(sourceEdge);
+         GraphUtil.setAssociation(list, sourceEdge);
       }
       
       for (Clazz kidClazz : model.getClazzes())
@@ -163,8 +163,7 @@ public class Javascript implements GuiAdapter
         	 Clazz kidClazzes = nodes.get(CGUtil.shortClassName(superClazz.getName()));
         	 Association kidEdge = new Association(kidClazzes).with(AssociationTypes.EDGE);
         	generationEdge.with(kidEdge);
-        	
-        	list.with(generationEdge);
+            GraphUtil.setAssociation(list, generationEdge);
          }
       }
       return list;

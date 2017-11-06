@@ -24,7 +24,6 @@ import static org.sdmlib.models.pattern.Pattern.CREATE;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
@@ -49,6 +48,7 @@ import org.sdmlib.models.tables.util.RowPO;
 import org.sdmlib.models.tables.util.TablePO;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
@@ -69,7 +69,6 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class StudyRightWithAssignmentsStoryboards
 {
@@ -211,6 +210,88 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.dumpHTML();
    }
 
+
+   @Test
+   public void testStudyRightWithAssignmentsAggregation()
+   {
+      University university = new University()
+            .withName("StudyRight");
+
+         Student abu = university.createStudents()
+            .withId("1337")
+            .withName("Abu");
+
+         Student karli = new TeachingAssistant().withCertified(true);
+         university.withStudents(karli
+            .withId("4242")
+            .withName("Karli"));
+
+         Student alice = university.createStudents()
+            .withId("2323")
+            .withName("Alice");
+
+         abu.withFriends(alice);
+
+         Assignment a1 = new Assignment()
+            .withContent("Matrix Multiplication")
+            .withPoints(5)
+            .withStudents(abu);
+
+         Assignment a2 = new Assignment()
+            .withContent("Series")
+            .withPoints(6);
+
+         Assignment a3 = new Assignment()
+            .withContent("Integrals")
+            .withPoints(8);
+
+         karli.withDone(a1, a2);
+
+         Room mathRoom = university.createRooms()
+            .withName("senate")
+            .withTopic("math")
+            .withCredits(17)
+            .withStudents(karli)
+            .withAssignments(a1, a2, a3);
+
+         Room artsRoom = university.createRooms()
+            .withName("7522")
+            .withTopic("arts")
+            .withCredits(16)
+            .withDoors(mathRoom);
+
+         Room sportsRoom = university.createRooms()
+            .withName("gymnasium")
+            .withTopic("sports")
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom)
+            .withStudents(abu, alice);
+
+         Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
+
+         Room examRoom = university.createRooms()
+            .withName("The End")
+            .withTopic("exam")
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
+
+         Room softwareEngineering = university.createRooms()
+            .withName("7422")
+            .withTopic("Software Engineering")
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
+         
+         President president = university.createPresident();
+         
+         Assert.assertEquals("presidents lives", true, president.alive);
+         
+         university.removeYou();
+         
+         Assert.assertEquals("studyright has no more rooms", 0, university.getRooms().size());
+         Assert.assertEquals("karli still has assignments", 2, karli.getDone().size());
+         Assert.assertEquals("presidents is dead", false, president.alive);
+         
+   }
 
    /**
     * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>

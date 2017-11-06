@@ -237,5 +237,4 @@ public class PersonSet extends SimpleSet<Person>
       
       return this;
    }
-
 }

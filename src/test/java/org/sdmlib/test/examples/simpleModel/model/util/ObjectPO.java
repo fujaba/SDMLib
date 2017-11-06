@@ -32,4 +32,9 @@ public class ObjectPO extends PatternObject<ObjectPO, Object>
       }
       newInstance(org.sdmlib.test.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ObjectPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

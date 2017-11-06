@@ -4,152 +4,438 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
 <hr/><p>Delete node with name n1 and its incidemnt edges.</p>
 <p>Start graph:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"E10 : Edge",
+         "attributes":[
+            "name=e18",
+            "parent=null",
+            "text=null",
+            "tgt=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E11 : Edge",
+         "attributes":[
+            "name=e19",
+            "parent=null",
+            "src=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E12 : Edge",
+         "attributes":[
+            "name=e10",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E13 : Edge",
+         "attributes":[
+            "name=e11",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E14 : Edge",
+         "attributes":[
+            "name=e12",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E15 : Edge",
+         "attributes":[
+            "name=e13",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E16 : Edge",
+         "attributes":[
+            "name=e14",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E17 : Edge",
+         "attributes":[
+            "name=e15",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E18 : Edge",
+         "attributes":[
+            "name=e16",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E19 : Edge",
+         "attributes":[
+            "name=e17",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"G1 : Graph"
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N2 : Node",
          "attributes":[
-            "name=n1"
+            "copy=null",
+            "name=n1",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N3 : Node",
          "attributes":[
-            "name=n2"
+            "copy=null",
+            "name=n2",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N4 : Node",
          "attributes":[
-            "name=n1"
+            "copy=null",
+            "name=n1",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N5 : Node",
          "attributes":[
-            "name=n4"
+            "copy=null",
+            "name=n4",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N6 : Node",
          "attributes":[
-            "name=n5"
+            "copy=null",
+            "name=n5",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N7 : Node",
          "attributes":[
-            "name=n6"
+            "copy=null",
+            "name=n6",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N8 : Node",
          "attributes":[
-            "name=n7"
+            "copy=null",
+            "name=n7",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"N9 : Node",
          "attributes":[
-            "name=n8"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E10 : Edge",
-         "attributes":[
-            "name=e18"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E11 : Edge",
-         "attributes":[
-            "name=e19"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E12 : Edge",
-         "attributes":[
-            "name=e10"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E13 : Edge",
-         "attributes":[
-            "name=e11"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E14 : Edge",
-         "attributes":[
-            "name=e12"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E15 : Edge",
-         "attributes":[
-            "name=e13"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E16 : Edge",
-         "attributes":[
-            "name=e14"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E17 : Edge",
-         "attributes":[
-            "name=e15"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E18 : Edge",
-         "attributes":[
-            "name=e16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E19 : Edge",
-         "attributes":[
-            "name=e17"
+            "copy=null",
+            "name=n8",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E13 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E14 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E18 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E19 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E14 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E12 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N3 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E13 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E15 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N5 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -162,7 +448,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -175,7 +461,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -188,7 +474,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -201,7 +487,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -214,7 +500,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -227,7 +513,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -240,7 +526,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -253,137 +539,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E10 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E11 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E12 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E13 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E14 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E15 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E16 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E17 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E18 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E19 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -396,20 +552,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E14 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N2 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -422,20 +565,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E12 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N3 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -448,7 +578,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -461,33 +591,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E13 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N4 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E17 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N4 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -500,20 +604,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E15 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N5 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -526,7 +617,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -539,33 +630,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E11 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E16 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -578,7 +643,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
@@ -587,32 +652,6 @@
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"N9 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E18 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N9 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E19 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
             "id":"N9 : Node"
          }
       }
@@ -649,42 +688,41 @@
       return nodeN1PO;
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[
             "name == n1"
          ]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"OptionalSubPattern",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e3 : EdgePO",
                "attributes":[]
             }
          ]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"OptionalSubPattern",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e4 : EdgePO",
                "attributes":[]
             }
@@ -733,101 +771,269 @@
 <p>Result graph:</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"E10 : Edge",
+         "attributes":[
+            "name=e18",
+            "parent=null",
+            "text=null",
+            "tgt=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E11 : Edge",
+         "attributes":[
+            "name=e19",
+            "parent=null",
+            "src=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E16 : Edge",
+         "attributes":[
+            "name=e14",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E17 : Edge",
+         "attributes":[
+            "name=e15",
+            "parent=null",
+            "text=null",
+            "tgt=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E18 : Edge",
+         "attributes":[
+            "name=e16",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"E19 : Edge",
+         "attributes":[
+            "name=e17",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"G1 : Graph"
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"N3 : Node",
+         "attributes":[
+            "copy=null",
+            "name=n2",
+            "orig=null",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N5 : Node",
+         "attributes":[
+            "copy=null",
+            "name=n4",
+            "orig=null",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"N6 : Node",
          "attributes":[
-            "name=n2"
+            "copy=null",
+            "name=n5",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"N7 : Node",
+         "attributes":[
+            "copy=null",
+            "name=n6",
+            "orig=null",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N8 : Node",
+         "attributes":[
+            "copy=null",
+            "name=n7",
+            "orig=null",
+            "parent=null",
+            "text=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"N9 : Node",
          "attributes":[
-            "name=n4"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E10 : Node",
-         "attributes":[
-            "name=n5"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E11 : Node",
-         "attributes":[
-            "name=n6"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E13 : Node",
-         "attributes":[
-            "name=n7"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E14 : Node",
-         "attributes":[
-            "name=n8"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E16 : Edge",
-         "attributes":[
-            "name=e18"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E17 : Edge",
-         "attributes":[
-            "name=e19"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E22 : Edge",
-         "attributes":[
-            "name=e14"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E23 : Edge",
-         "attributes":[
-            "name=e15"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E24 : Edge",
-         "attributes":[
-            "name=e16"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"E25 : Edge",
-         "attributes":[
-            "name=e17"
+            "copy=null",
+            "name=n8",
+            "orig=null",
+            "parent=null",
+            "text=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E17 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E18 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"edges",
+            "id":"E19 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E11 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E16 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N5 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -840,7 +1046,33 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G1 : Graph"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"nodes",
@@ -853,141 +1085,50 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"nodes",
-            "id":"E10 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"E11 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"E13 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"nodes",
-            "id":"E14 : Node"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
+            "property":"outEdges",
             "id":"E16 : Edge"
          },
          "target":{
             "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
+            "property":"src",
+            "id":"N5 : Node"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"edges",
+            "property":"outEdges",
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
             "id":"E17 : Edge"
          },
          "target":{
             "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
+            "property":"src",
+            "id":"N6 : Node"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E22 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E23 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E24 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"edges",
-            "id":"E25 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G1 : Graph"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
-            "id":"E22 : Edge"
+            "id":"E18 : Edge"
          },
          "target":{
             "cardinality":"one",
@@ -996,107 +1137,16 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"outEdges",
-            "id":"E16 : Edge"
+            "id":"E19 : Edge"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"E10 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E23 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"E10 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E17 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"E10 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E22 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"E10 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E24 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"E14 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E25 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"E14 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E24 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"E14 : Node"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E25 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"E14 : Node"
+            "id":"N9 : Node"
          }
       }
    ]

@@ -35,6 +35,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonObject;
+import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.modelspace.ModelCloudProxy;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>

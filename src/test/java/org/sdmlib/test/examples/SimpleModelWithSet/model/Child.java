@@ -25,6 +25,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/SimpleModelWithSet/testSimpleSetModel.java'>testSimpleSetModel.java</a>
@@ -33,14 +34,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 {
 
    
-   //==========================================================================
-   public void setParent( Person parent )
-   {
-if (this.parent != parent) {
-if (this.parent != null) {
-}}   }
-
-   
+  
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -111,4 +105,11 @@ if (this.parent != null) {
    	}
    	return false;
    }
+   
+   
+   //==========================================================================
+   public void setParent( Person parent )
+   {
+      
    }
+}

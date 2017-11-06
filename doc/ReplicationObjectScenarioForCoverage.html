@@ -4,193 +4,155 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java' type='text/x-java'>ReplicationObjectScenarioForCoverage</a></p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"R1 : ReplicationNode",
+         "type":"clazz",
+         "id":"B12 : BoardTask",
          "attributes":[
-            "spaceId=coverage",
-            "lastChangeId=0",
-            "javaFXApplication=false"
+            "manualExecution=false",
+            "name=firstTask",
+            "proxy=null",
+            "source=null",
+            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=firstTask null]",
+            "status=null"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S7 : SharedSpace",
+         "type":"clazz",
+         "id":"B13 : BoardTask",
          "attributes":[
-            "lastChangeId=0",
-            "javaFXApplication=false"
+            "manualExecution=false",
+            "name=secondTask",
+            "proxy=null",
+            "source=null",
+            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=secondTask null]",
+            "status=null"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"R10 : ReplicationChannel"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"C11 : ChangeHistory"
       },
       {
-         "typ":"clazz",
-         "id":"R2 : ReplicationServer",
+         "type":"clazz",
+         "id":"C6 : ChangeHistory"
+      },
+      {
+         "type":"clazz",
+         "id":"L14 : LogEntry",
          "attributes":[
-            "lastChangeId=0",
-            "javaFXApplication=false"
+            "executedBy=null",
+            "stepName=null",
+            "timeStamp=0"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S3 : ServerSocketAcceptThread",
-         "attributes":[
-            "port=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : RemoteTaskBoard"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"L8 : Lane",
          "attributes":[
             "name=todo"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"B12 : BoardTask",
+         "type":"clazz",
+         "id":"R1 : ReplicationNode",
          "attributes":[
-            "name=firstTask",
-            "manualExecution=false",
-            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=firstTask null]"
+            "history=null",
+            "javaFXApplication=false",
+            "lastChangeId=0",
+            "nodeId=null",
+            "spaceId=coverage"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"B13 : BoardTask",
+         "type":"clazz",
+         "id":"R10 : ReplicationChannel",
          "attributes":[
-            "name=secondTask",
-            "manualExecution=false",
-            "stashedPropertyChangeEvent=java.beans.PropertyChangeEvent[propertyName=lane; oldValue=null; newValue=todo; propagationId=null; source=secondTask null]"
+            "socket=null",
+            "targetNodeId=null"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"R5 : ReplicationRoot"
+         "type":"clazz",
+         "id":"R2 : ReplicationServer",
+         "attributes":[
+            "history=null",
+            "javaFXApplication=false",
+            "lastChangeId=0",
+            "nodeId=null",
+            "spaceId=null"
+         ]
       },
       {
-         "typ":"clazz",
-         "id":"C6 : ChangeHistory"
+         "type":"clazz",
+         "id":"R4 : RemoteTaskBoard"
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"R5 : ReplicationRoot",
+         "attributes":[
+            "applicationObject=null",
+            "name=null",
+            "parent=null"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"R9 : ReplicationChange",
          "attributes":[
-            "historyIdPrefix=42",
+            "changeMsg={}",
             "historyIdNumber=0",
+            "historyIdPrefix=42",
             "isToManyProperty=false",
-            "changeMsg={}"
+            "targetObjectId=null",
+            "targetProperty=null"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"L14 : LogEntry",
+         "type":"clazz",
+         "id":"S3 : ServerSocketAcceptThread",
          "attributes":[
-            "timeStamp=0"
+            "port=0",
+            "replicationNode=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SharedSpace",
+         "attributes":[
+            "javaFXApplication=false",
+            "lastChangeId=0",
+            "nodeId=null",
+            "socket=null",
+            "spaceId=null",
+            "targetNodeId=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"sharedSpaces",
-            "id":"S7 : SharedSpace"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"R1 : ReplicationNode"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"channels",
-            "id":"R10 : ReplicationChannel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"sharedSpace",
-            "id":"S7 : SharedSpace"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"history",
-            "id":"C11 : ChangeHistory"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"sharedspace",
-            "id":"S7 : SharedSpace"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"lanes",
-            "id":"L8 : Lane"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"board",
-            "id":"R4 : RemoteTaskBoard"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"tasks",
-            "id":"B12 : BoardTask"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"lane",
-            "id":"L8 : Lane"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"tasks",
-            "id":"B13 : BoardTask"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"lane",
-            "id":"L8 : Lane"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"changes",
@@ -203,7 +165,46 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"channels",
+            "id":"R10 : ReplicationChannel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"sharedSpace",
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"history",
+            "id":"C11 : ChangeHistory"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"sharedspace",
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"lanes",
+            "id":"L8 : Lane"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"board",
+            "id":"R4 : RemoteTaskBoard"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"logEntries",
@@ -216,7 +217,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"next",
@@ -226,6 +227,45 @@
             "cardinality":"many",
             "property":"prev",
             "id":"B12 : BoardTask"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"sharedSpaces",
+            "id":"S7 : SharedSpace"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"R1 : ReplicationNode"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"B12 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lane",
+            "id":"L8 : Lane"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"B13 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lane",
+            "id":"L8 : Lane"
          }
       }
    ]

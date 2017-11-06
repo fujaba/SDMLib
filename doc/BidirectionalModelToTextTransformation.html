@@ -5,90 +5,191 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
 <p>Start: We start with the usual StudyRight object model.</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=0",
+            "roomNo=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=42",
+            "room=null",
+            "roomNo=ProgMeth"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Tom"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"U1 : University",
          "attributes":[
             "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R2 : Room",
-         "attributes":[
-            "roomNo=math",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room",
-         "attributes":[
-            "roomNo=arts",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "roomNo=sports",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "roomNo=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-            "roomNo=ProgMeth",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S7 : Student",
-         "attributes":[
-            "name=Tom",
-            "matrNo=4242",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S8 : Student",
-         "attributes":[
-            "name=Nina",
-            "matrNo=2323",
-            "credits=0",
-            "motivation=0"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -101,7 +202,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -114,7 +215,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -127,7 +228,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -140,7 +241,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"rooms",
@@ -153,7 +254,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -166,7 +267,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -179,33 +280,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -216,71 +291,6 @@
             "property":"in",
             "id":"R2 : Room"
          }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         }
       }
    ]
 }   ;
@@ -289,223 +299,273 @@
 </script>
 <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"T9 : Template",
+         "type":"clazz",
+         "id":"P10 : PlaceHolderDescription",
          "attributes":[
-            "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
-            "listStart=",
-            "listSeparator=",
-            "listEnd=",
-            "referenceLookup=false"
+            "attrName=name",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=example",
+            "value=null"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"P11 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=rooms.size",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=99",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P12 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=students.size",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=88",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P13 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=rooms",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "textFragment=roomList",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P14 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=students",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "textFragment=studentList",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P17 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=roomNo",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=xy",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P18 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=credits",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=42",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P19 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=neighbors",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "textFragment=neighbors",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P20 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=name",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=Stud",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P21 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=matrNo",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=1234",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P23 : PlaceHolderDescription",
+         "attributes":[
+            "attrName=roomNo",
+            "isKeyAttribute=false",
+            "prefix=null",
+            "subTemplate=null",
+            "textFragment=name",
+            "value=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "roomNo=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=23",
+            "roomNo=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=0",
+            "roomNo=exam"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=42",
+            "room=null",
+            "roomNo=ProgMeth"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : Student",
+         "attributes":[
+            "credits=0",
+            "matrNo=4242",
+            "motivation=0",
+            "name=Tom"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Student",
+         "attributes":[
+            "credits=0",
+            "in=null",
+            "matrNo=2323",
+            "motivation=0",
+            "name=Nina"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T15 : Template",
+         "attributes":[
+            "chooser=null",
+            "expandedText=null",
+            "listEnd=\u000a",
+            "listSeparator=\u000a",
+            "listStart=",
+            "modelClassName=null",
+            "modelObject=null",
+            "name=null",
+            "referenceLookup=true",
+            "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T16 : Template",
+         "attributes":[
+            "chooser=null",
+            "expandedText=null",
+            "listEnd=\u000a",
+            "listSeparator=\u000a",
+            "listStart=",
+            "modelClassName=null",
+            "modelObject=null",
+            "name=null",
+            "referenceLookup=false",
+            "templateText= - Stud has student number 1234."
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T22 : Template",
+         "attributes":[
+            "chooser=null",
+            "expandedText=null",
+            "listEnd=.",
+            "listSeparator=, ",
+            "listStart=",
+            "modelClassName=null",
+            "modelObject=null",
+            "name=null",
+            "referenceLookup=true",
+            "templateText=name"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T9 : Template",
+         "attributes":[
+            "chooser=null",
+            "expandedText=null",
+            "listEnd=",
+            "listSeparator=",
+            "listStart=",
+            "modelClassName=null",
+            "name=null",
+            "referenceLookup=false",
+            "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList "
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"U1 : University",
          "attributes":[
             "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P10 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=example",
-            "attrName=name",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P11 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=99",
-            "attrName=rooms.size",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P12 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=88",
-            "attrName=students.size",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P13 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=roomList",
-            "attrName=rooms",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P14 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=studentList",
-            "attrName=students",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R2 : Room",
-         "attributes":[
-            "roomNo=math",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R3 : Room",
-         "attributes":[
-            "roomNo=arts",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R4 : Room",
-         "attributes":[
-            "roomNo=sports",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "roomNo=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-            "roomNo=ProgMeth",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S7 : Student",
-         "attributes":[
-            "name=Tom",
-            "matrNo=4242",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S8 : Student",
-         "attributes":[
-            "name=Nina",
-            "matrNo=2323",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T15 : Template",
-         "attributes":[
-            "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
-            "listStart=",
-            "listSeparator=\u000a",
-            "listEnd=\u000a",
-            "referenceLookup=true"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T16 : Template",
-         "attributes":[
-            "templateText= - Stud has student number 1234.",
-            "listStart=",
-            "listSeparator=\u000a",
-            "listEnd=\u000a",
-            "referenceLookup=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P17 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=xy",
-            "attrName=roomNo",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P18 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=42",
-            "attrName=credits",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P19 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=neighbors",
-            "attrName=neighbors",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P20 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=Stud",
-            "attrName=name",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P21 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=1234",
-            "attrName=matrNo",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T22 : Template",
-         "attributes":[
-            "templateText=name",
-            "listStart=",
-            "listSeparator=, ",
-            "listEnd=.",
-            "referenceLookup=true"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P23 : PlaceHolderDescription",
-         "attributes":[
-            "textFragment=name",
-            "attrName=roomNo",
-            "isKeyAttribute=false"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"modelObject",
@@ -518,7 +578,98 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -531,7 +682,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -544,7 +695,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -557,7 +708,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -570,7 +721,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -583,228 +734,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R2 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S7 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S8 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T15 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P13 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T16 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P14 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S7 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R2 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R3 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R4 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -817,7 +747,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -830,7 +760,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -843,7 +773,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -856,7 +786,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -869,20 +799,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T22 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P19 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"placeholders",
@@ -892,6 +809,149 @@
             "cardinality":"many",
             "property":"owners",
             "id":"T22 : Template"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S8 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S7 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R2 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T15 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P13 : PlaceHolderDescription"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T16 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P14 : PlaceHolderDescription"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T22 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P19 : PlaceHolderDescription"
          }
       }
    ]
@@ -960,11 +1020,10 @@
 
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"U24 : University",
          "attributes":[
             "name=Study False"

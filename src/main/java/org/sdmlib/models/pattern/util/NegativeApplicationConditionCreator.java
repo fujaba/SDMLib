@@ -24,10 +24,10 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionCreator implements SendableEntityCreator
 {

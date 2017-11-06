@@ -29,6 +29,9 @@ import org.sdmlib.models.modelsets.shortList;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
 {
@@ -70,16 +73,6 @@ public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
    }
 
    
-   //==========================================================================
-   
-   public BombermanPlayerSet keyPress(String key)
-   {
-      for (BombermanPlayer obj : this)
-      {
-         obj.keyPress(key);
-      }
-      return this;
-   }
 
    public intList getXPosition()
    {
@@ -522,4 +515,222 @@ public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
    {
       this.addAll(objects);
    }
+
+
+   public BombermanPlayerPO createBombermanPlayerPO()
+   {
+      return new BombermanPlayerPO(this.toArray(new BombermanPlayer[this.size()]));
+   }
+
+
+   @Override
+   public BombermanPlayerSet getNewList(boolean keyValue)
+   {
+      return new BombermanPlayerSet();
+   }
+
+
+   public BombermanPlayerSet filter(Condition<BombermanPlayer> condition) {
+      BombermanPlayerSet filterList = new BombermanPlayerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }   
+   //==========================================================================
+   
+   public BombermanPlayerSet keyPress(String key)
+   {
+      for (BombermanPlayer obj : this)
+      {
+         obj.keyPress(key);
+      }
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the lastKey attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createLastKeyCondition(char value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getLastKey())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the numberOfBombs attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createNumberOfBombsCondition(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getNumberOfBombs())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the numberOfBombs attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createNumberOfBombsCondition(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getNumberOfBombs() && obj.getNumberOfBombs() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the shortTest attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createShortTestCondition(short value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getShortTest())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the xPosition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createXPositionCondition(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getXPosition())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the xPosition attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createXPositionCondition(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getXPosition() && obj.getXPosition() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the yPosition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createYPositionCondition(int value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getYPosition())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of BombermanPlayer objects and collect those BombermanPlayer objects where the yPosition attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of BombermanPlayer objects that match the parameter
+    */
+   public BombermanPlayerSet createYPositionCondition(int lower, int upper)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (lower <= obj.getYPosition() && obj.getYPosition() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

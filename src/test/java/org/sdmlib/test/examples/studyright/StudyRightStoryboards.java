@@ -10,6 +10,8 @@ import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
 import org.sdmlib.test.examples.studyright.model.util.UniversityCreator;
 
+import de.uniks.networkparser.ext.story.Story;
+
 public class StudyRightStoryboards
 {
    /**
@@ -167,11 +169,13 @@ public class StudyRightStoryboards
       storyboard.add("Test flipbook, with some undo redo steps: ");
 
       storyboard.markCodeStart();
-      flipBook.back(42);
-      flipBook.forward(42);
-      
+      flipBook.back(34);
+      storyboard.addObjectDiagram(uni);
+      storyboard.dumpHTML();
+      flipBook.forward(34);
+      storyboard.addObjectDiagram(uni);
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
-
+      storyboard.addObjectDiagram(uni);
       flipBook.back()
          .back()
          .back()

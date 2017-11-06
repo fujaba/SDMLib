@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
 public class SimpleStatePOCreator extends PatternObjectCreator
 {

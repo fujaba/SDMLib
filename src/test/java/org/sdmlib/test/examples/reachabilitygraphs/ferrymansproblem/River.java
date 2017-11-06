@@ -28,9 +28,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
 */
@@ -228,9 +230,15 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
       if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
+         listeners.firePropertyChange(propertyName, oldValue, newValue);
+         return true;
+      }
+      return false;
    }
+
+   public String toString()
+   {
+      return this.getBanks().toString("\n");
    }
+
+}

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,10 +21,9 @@
    
 package org.sdmlib.test.examples.annotations.model.simple;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>
@@ -70,20 +69,21 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
    
    //==========================================================================
    

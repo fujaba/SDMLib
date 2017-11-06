@@ -24,6 +24,7 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ObjectSet extends SimpleSet<Object>
 {
@@ -87,4 +88,23 @@ public class ObjectSet extends SimpleSet<Object>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ObjectPO createObjectPO()
+   {
+      return new ObjectPO(this.toArray(new Object[this.size()]));
+   }
+
+
+   @Override
+   public ObjectSet getNewList(boolean keyValue)
+   {
+      return new ObjectSet();
+   }
+
+
+   public ObjectSet filter(Condition<Object> condition) {
+      ObjectSet filterList = new ObjectSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

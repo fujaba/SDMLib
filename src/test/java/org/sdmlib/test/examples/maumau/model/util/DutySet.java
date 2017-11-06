@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 
 public class DutySet extends SimpleSet<Duty>
 {
@@ -301,4 +304,93 @@ public class DutySet extends SimpleSet<Duty>
    {
       this.addAll(objects);
    }
+
+
+   public DutyPO createDutyPO()
+   {
+      return new DutyPO(this.toArray(new Duty[this.size()]));
+   }
+
+
+   @Override
+   public DutySet getNewList(boolean keyValue)
+   {
+      return new DutySet();
+   }
+
+
+   public DutySet filter(Condition<Duty> condition) {
+      DutySet filterList = new DutySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the number attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet createNumberCondition(int value)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (value == obj.getNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the number attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet createNumberCondition(int lower, int upper)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Duty objects and collect those Duty objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Duty objects that match the parameter
+    */
+   public DutySet createTypeCondition(DutyType value)
+   {
+      DutySet result = new DutySet();
+      
+      for (Duty obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

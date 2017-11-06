@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.features.model.all.Window;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.features.model.all.util.DoorSet;
+import org.sdmlib.test.examples.features.model.all.util.WindowSet;
 
 public class HouseSet extends SimpleSet<House>
 {
@@ -209,4 +212,23 @@ public class HouseSet extends SimpleSet<House>
    {
       this.addAll(objects);
    }
-}
+
+
+   public HousePO createHousePO()
+   {
+      return new HousePO(this.toArray(new House[this.size()]));
+   }
+
+
+   @Override
+   public HouseSet getNewList(boolean keyValue)
+   {
+      return new HouseSet();
+   }
+
+
+   public HouseSet filter(Condition<House> condition) {
+      HouseSet filterList = new HouseSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

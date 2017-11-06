@@ -21,6 +21,7 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -35,6 +36,7 @@ public class UniversityCreator implements SendableEntityCreator
       University.PROPERTY_NAME,
       University.PROPERTY_STUDENTS,
       University.PROPERTY_ROOMS,
+      University.PROPERTY_PRESIDENT,
    };
    
    @Override
@@ -73,6 +75,11 @@ public class UniversityCreator implements SendableEntityCreator
       if (University.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
       {
          return ((University) target).getRooms();
+      }
+
+      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attribute))
+      {
+         return ((University) target).getPresident();
       }
       
       return null;
@@ -113,6 +120,12 @@ public class UniversityCreator implements SendableEntityCreator
       if ((University.PROPERTY_ROOMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((University) target).withoutRooms((Room) value);
+         return true;
+      }
+
+      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attrName))
+      {
+         ((University) target).setPresident((President) value);
          return true;
       }
       

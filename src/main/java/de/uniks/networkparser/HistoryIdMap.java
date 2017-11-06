@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sdmlib.replication.ChangeEvent;
@@ -392,7 +393,8 @@ public class HistoryIdMap extends IdMap
       Object newValue = jsonChange.get("newValue");
       Object oldValue = jsonChange.get("oldValue");
       long newChangeNanos = jsonChange.getLong("timeStamp");
-
+      
+      Logger.getGlobal().setLevel(Level.SEVERE);
       Logger.getGlobal().info(dumpHistory());
 
       // the object might have been removed meanwhile
@@ -546,6 +548,7 @@ public class HistoryIdMap extends IdMap
 
    public JsonArray getCurrentChanges()
    {
+      Logger.getGlobal().setLevel(Level.SEVERE);
       Logger.getGlobal().info(dumpHistory());
       JsonArray result = new JsonArray();
 
@@ -964,7 +967,6 @@ public class HistoryIdMap extends IdMap
    private long sessionStartTime = System.currentTimeMillis();
    private long number = 1;
    
-   
    @Override
    public String createId(Object obj, boolean notification) {
       String key;
@@ -1009,7 +1011,7 @@ public class HistoryIdMap extends IdMap
       }
       
       this.number++;
-      put(key, obj);
+      put(key, obj, notification);
       return key;
    }
 }

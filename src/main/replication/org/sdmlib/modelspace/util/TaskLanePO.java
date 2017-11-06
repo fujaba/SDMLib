@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.modelspace.util.TaskPO;
+import org.sdmlib.modelspace.util.TaskLanePO;
+import org.sdmlib.modelspace.util.TaskBoardPO;
 
 public class TaskLanePO extends PatternObject<TaskLanePO, TaskLane>
 {
@@ -345,6 +349,187 @@ public class TaskLanePO extends PatternObject<TaskLanePO, TaskLane>
    public TaskLanePO filterMyRequests(TaskPO tgt)
    {
       return hasLinkConstraint(tgt, TaskLane.PROPERTY_MYREQUESTS);
+   }
+
+
+   public TaskLanePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TaskLanePO createHostNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createHostNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createHostNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createPortNoCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createPortNoCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_PORTNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createPortNoAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TaskLane.PROPERTY_PORTNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createMyRequestsPO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_MYREQUESTS, result);
+      
+      return result;
+   }
+
+   public TaskPO createMyRequestsPO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(TaskLane.PROPERTY_MYREQUESTS, result);
+      
+      return result;
+   }
+
+   public TaskLanePO createMyRequestsLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_MYREQUESTS);
+   }
+
+   public TaskLanePO createMyRequestsLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_MYREQUESTS, modifier);
+   }
+
+   public TaskBoardPO createBoardPO()
+   {
+      TaskBoardPO result = new TaskBoardPO(new TaskBoard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public TaskBoardPO createBoardPO(String modifier)
+   {
+      TaskBoardPO result = new TaskBoardPO(new TaskBoard[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(TaskLane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public TaskLanePO createBoardLink(TaskBoardPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_BOARD);
+   }
+
+   public TaskLanePO createBoardLink(TaskBoardPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_BOARD, modifier);
+   }
+
+   public TaskPO createTasksPO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(TaskLane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public TaskPO createTasksPO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(TaskLane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public TaskLanePO createTasksLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_TASKS);
+   }
+
+   public TaskLanePO createTasksLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, TaskLane.PROPERTY_TASKS, modifier);
    }
 
 }

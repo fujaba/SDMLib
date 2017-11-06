@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.replication.chat.util.ChatChannelPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
 
 public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
 {
@@ -214,6 +218,114 @@ public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
    public ChatUserPO filterChannels(ChatChannelPO tgt)
    {
       return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHANNELS);
+   }
+
+
+   public ChatUserPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChatUserPO createUserNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatUser.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatUserPO createUserNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatUser.PROPERTY_USERNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatUserPO createUserNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChatUser.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChatChannelPO createChannelsPO()
+   {
+      ChatChannelPO result = new ChatChannelPO(new ChatChannel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatUser.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public ChatChannelPO createChannelsPO(String modifier)
+   {
+      ChatChannelPO result = new ChatChannelPO(new ChatChannel[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatUser.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public ChatUserPO createChannelsLink(ChatChannelPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHANNELS);
+   }
+
+   public ChatUserPO createChannelsLink(ChatChannelPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHANNELS, modifier);
+   }
+
+   public ChatRootPO createChatRootPO()
+   {
+      ChatRootPO result = new ChatRootPO(new ChatRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatUser.PROPERTY_CHATROOT, result);
+      
+      return result;
+   }
+
+   public ChatRootPO createChatRootPO(String modifier)
+   {
+      ChatRootPO result = new ChatRootPO(new ChatRoot[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatUser.PROPERTY_CHATROOT, result);
+      
+      return result;
+   }
+
+   public ChatUserPO createChatRootLink(ChatRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHATROOT);
+   }
+
+   public ChatUserPO createChatRootLink(ChatRootPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatUser.PROPERTY_CHATROOT, modifier);
    }
 
 }

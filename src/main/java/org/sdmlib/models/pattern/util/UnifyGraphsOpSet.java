@@ -26,10 +26,10 @@ import java.util.Collection;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
 
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.pattern.util.PatternSet;
 
 public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>

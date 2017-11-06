@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.studyright.model.util.RoomSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyright.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>

@@ -36,6 +36,12 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import java.util.ArrayList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import org.sdmlib.test.examples.ludo.model.util.DiceSet;
+import org.sdmlib.test.examples.ludo.model.util.LudoSet;
+import org.sdmlib.test.examples.ludo.model.util.PawnSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -1022,4 +1028,215 @@ public class PlayerSet extends SimpleSet<Player>
       PlayerSet filterList = new PlayerSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the color attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createColorCondition(String value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the color attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createColorCondition(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the enumColor attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createEnumColorCondition(LudoColor value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getEnumColor())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createNameCondition(String value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createNameCondition(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the x attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createXCondition(int value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the x attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createXCondition(int lower, int upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the y attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createYCondition(int value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Player objects and collect those Player objects where the y attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Player objects that match the parameter
+    */
+   public PlayerSet createYCondition(int lower, int upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

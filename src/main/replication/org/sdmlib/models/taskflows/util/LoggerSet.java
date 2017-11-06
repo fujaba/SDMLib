@@ -33,6 +33,9 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SimpleSet<Logger>
 {
@@ -523,4 +526,116 @@ public class LoggerSet extends SimpleSet<Logger>
    {
       this.addAll(objects);
    }
+
+
+   public LoggerPO createLoggerPO()
+   {
+      return new LoggerPO(this.toArray(new Logger[this.size()]));
+   }
+
+
+   @Override
+   public LoggerSet getNewList(boolean keyValue)
+   {
+      return new LoggerSet();
+   }
+
+
+   public LoggerSet filter(Condition<Logger> condition) {
+      LoggerSet filterList = new LoggerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Logger objects and collect those Logger objects where the startPeer attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Logger objects that match the parameter
+    */
+   public LoggerSet createStartPeerCondition(PeerProxy value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getStartPeer())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Logger objects and collect those Logger objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Logger objects that match the parameter
+    */
+   public LoggerSet createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Logger objects and collect those Logger objects where the taskNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Logger objects that match the parameter
+    */
+   public LoggerSet createTaskNoCondition(int value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Logger objects and collect those Logger objects where the taskNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Logger objects that match the parameter
+    */
+   public LoggerSet createTaskNoCondition(int lower, int upper)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (lower <= obj.getTaskNo() && obj.getTaskNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java' type='text/x-java'>GofStrategyModel</a></p>
 <script>
    var json = {
@@ -15,13 +27,17 @@
    "nodes":[
       {
          "typ":"node",
+         "id":"Blast"
+      },
+      {
+         "typ":"node",
          "id":"BombermanPlayer",
          "attributes":[
-            "xPosition : int",
-            "yPosition : int",
-            "numberOfBombs : int",
             "lastKey : char",
-            "shortTest : short"
+            "numberOfBombs : int",
+            "shortTest : short",
+            "xPosition : int",
+            "yPosition : int"
          ],
          "methods":[
             "keyPress(String key)"
@@ -33,10 +49,6 @@
          "methods":[
             "handleMove()"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"MoveUp"
       },
       {
          "typ":"node",
@@ -52,7 +64,7 @@
       },
       {
          "typ":"node",
-         "id":"Blast"
+         "id":"MoveUp"
       },
       {
          "typ":"node",
@@ -61,59 +73,7 @@
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"MoveUp",
-            "cardinality":"one",
-            "property":"moveup"
-         },
-         "target":{
-            "id":"BombermanStrategy",
-            "cardinality":"one",
-            "property":"bombermanstrategy"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"MoveDown",
-            "cardinality":"one",
-            "property":"movedown"
-         },
-         "target":{
-            "id":"BombermanStrategy",
-            "cardinality":"one",
-            "property":"bombermanstrategy"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"MoveLeft",
-            "cardinality":"one",
-            "property":"moveleft"
-         },
-         "target":{
-            "id":"BombermanStrategy",
-            "cardinality":"one",
-            "property":"bombermanstrategy"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"MoveRight",
-            "cardinality":"one",
-            "property":"moveright"
-         },
-         "target":{
-            "id":"BombermanStrategy",
-            "cardinality":"one",
-            "property":"bombermanstrategy"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
             "id":"Blast",
             "cardinality":"one",
@@ -126,7 +86,85 @@
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"unidirectional",
+         "source":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"successor"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveUp",
+            "cardinality":"one",
+            "property":"moveup"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveDown",
+            "cardinality":"one",
+            "property":"movedown"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveLeft",
+            "cardinality":"one",
+            "property":"moveleft"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveRight",
+            "cardinality":"one",
+            "property":"moveright"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Blast",
+            "cardinality":"one",
+            "property":"blast"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
          "source":{
             "id":"Stay",
             "cardinality":"one",
@@ -139,11 +177,63 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"generalisation",
          "source":{
+            "id":"MoveDown",
+            "cardinality":"one",
+            "property":"movedown"
+         },
+         "target":{
             "id":"BombermanStrategy",
             "cardinality":"one",
-            "property":"successor"
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveLeft",
+            "cardinality":"one",
+            "property":"moveleft"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveRight",
+            "cardinality":"one",
+            "property":"moveright"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"MoveUp",
+            "cardinality":"one",
+            "property":"moveup"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"bombermanstrategy"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Stay",
+            "cardinality":"one",
+            "property":"stay"
          },
          "target":{
             "id":"BombermanStrategy",

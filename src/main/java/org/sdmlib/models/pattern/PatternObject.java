@@ -183,6 +183,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);
             this.setHasMatch(true);
+            
+            LazyCloneOp lazyCloneOp = this.getTopPattern().getLazyCloneOp();
+            if (lazyCloneOp != null)
+            {
+               lazyCloneOp.getOrigToCloneMap().put(sendableInstance, sendableInstance);
+               lazyCloneOp.getCloneToOrigMap().put(sendableInstance, sendableInstance);
+            }
 
             if (this.getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
             {
@@ -276,13 +283,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       if (Pattern.DESTROY.equals(getModifier()) && this.getCurrentMatch() != null)
       {
          Object currentMatch = this.getCurrentMatch();
-         // FIXME: well thats quite old stuff
-         SendableEntityCreator creatorClass = (SendableEntityCreator) this.getPattern().getIdMap().getCreatorClass(currentMatch);
-         
-         if(creatorClass instanceof EntityFactory ) {
-        	 ((EntityFactory)creatorClass).removeObject(currentMatch);
-         } else {
-        	 creatorClass.setValue(currentMatch, null, null, SendableEntityCreator.REMOVE_YOU);
+         this.getTopPattern().lazyClone(currentMatch);
+         currentMatch = this.getCurrentMatch();
+         Object creatorClass = this.getPattern().getIdMap().getCreatorClass(currentMatch);
+         if(creatorClass instanceof SendableEntityCreator){
+            ((SendableEntityCreator) creatorClass).setValue(currentMatch, null, null, SendableEntityCreator.REMOVE_YOU);
+         }else if(creatorClass instanceof EntityFactory){
+            ((EntityFactory) creatorClass).removeObject(currentMatch);
          }
       }
 
@@ -446,7 +453,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
          this.getPattern().findMatch();
       }
-
+      
+      
       return (POC) this;
    }
 
@@ -497,6 +505,16 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    // ==========================================================================
    public MC getCurrentMatch()
    {
+      if (getTopPattern().getLazyCloneOp() != null && this.currentMatch != null)
+      {
+         // might have a clone
+         Object clone = getTopPattern().getLazyCloneOp().getOrigToCloneMap().get(this.currentMatch);
+         
+         if (clone != null)
+         {
+            return (MC) clone;
+         }
+      }
       return (MC) this.currentMatch;
    }
 

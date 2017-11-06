@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.features.model.all.util.DoorSet;
 import org.sdmlib.test.examples.features.model.all.util.WindowSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.features.model.all.Door;
+import org.sdmlib.test.examples.features.model.all.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

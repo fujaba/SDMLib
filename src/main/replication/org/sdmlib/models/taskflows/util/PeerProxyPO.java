@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
 {
@@ -244,6 +245,125 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public PeerProxyPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PeerProxyPO createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createIdMapAssignment(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createIpCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createIpCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createIpAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createPortCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createPortCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createPortAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

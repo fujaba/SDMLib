@@ -33,4 +33,9 @@ public class SDMLibJsonIdMapPO extends PatternObject<SDMLibJsonIdMapPO, SDMLibJs
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public SDMLibJsonIdMapPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

@@ -29,6 +29,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.ludoreverse.model.Player;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludoreverse/LudoReverseModel.java'>LudoReverseModel.java</a>

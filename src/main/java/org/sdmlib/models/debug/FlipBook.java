@@ -292,15 +292,21 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
       }
       // store message in list
       SimpleEvent simpleEvent = (SimpleEvent) event;
-      
+      if(simpleEvent.isIdEvent()) {
+    	  return true;
+      }
+//      if(simpleEvent.isNewEvent()) {
+//    	  return true;
+//      }
       if (simpleEvent.getEntity() == null) 
       {
          // looks like a bug in IDMap. It fires an empty property change within 
          // Filter.isPropertyRegard 
          return false;
       }
-      
-      StepInfo stepInfo = new StepInfo((JsonObject)simpleEvent.getEntity(), new RuntimeException());
+      JsonObject json = (JsonObject) simpleEvent.getEntity();
+
+      StepInfo stepInfo = new StepInfo(json, new RuntimeException());
       changes.add(stepInfo);
       
       currentStep = changes.size();

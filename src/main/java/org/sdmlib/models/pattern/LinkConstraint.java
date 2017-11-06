@@ -27,7 +27,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.Pattern;
    /**
@@ -56,7 +55,12 @@ import org.sdmlib.models.pattern.Pattern;
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
+            if(srcObj == null){
+               return false;
+            }
             SendableEntityCreator creatorClass = this.getPattern().getIdMap().getCreatorClass(srcObj);
+            this.getTopPattern().lazyClone(srcObj);
+            srcObj = this.getSrc().getCurrentMatch();
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             
@@ -98,6 +102,8 @@ import org.sdmlib.models.pattern.Pattern;
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
                }
                
+               this.getTopPattern().lazyClone(srcObj);
+               srcObj = this.getSrc().getCurrentMatch();
             	creatorClass.setValue(srcObj, this.getTgtRoleName()  + SendableEntityCreator.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
@@ -108,7 +114,9 @@ import org.sdmlib.models.pattern.Pattern;
                      + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
                }
                
-            	creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
+               this.getTopPattern().lazyClone(srcObj);
+               srcObj = this.getSrc().getCurrentMatch();
+               creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
             }
             this.setHasMatch(true);
             return true;

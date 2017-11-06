@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgPO;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelPO;
 
 public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChannel>
 {
@@ -164,6 +167,84 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
    public MSChatChannelPO filterMsgs(MSChatMsgPO tgt)
    {
       return hasLinkConstraint(tgt, MSChatChannel.PROPERTY_MSGS);
+   }
+
+
+   public MSChatChannelPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MSChatChannelPO createTaskCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO createTaskCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO createTaskAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatMsgPO createMsgsPO()
+   {
+      MSChatMsgPO result = new MSChatMsgPO(new MSChatMsg[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public MSChatMsgPO createMsgsPO(String modifier)
+   {
+      MSChatMsgPO result = new MSChatMsgPO(new MSChatMsg[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MSChatChannel.PROPERTY_MSGS, result);
+      
+      return result;
+   }
+
+   public MSChatChannelPO createMsgsLink(MSChatMsgPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatChannel.PROPERTY_MSGS);
+   }
+
+   public MSChatChannelPO createMsgsLink(MSChatMsgPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MSChatChannel.PROPERTY_MSGS, modifier);
    }
 
 }

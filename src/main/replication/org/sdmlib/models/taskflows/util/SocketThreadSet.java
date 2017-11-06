@@ -30,6 +30,8 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class SocketThreadSet extends SimpleSet<SocketThread>
 {
@@ -411,4 +413,163 @@ public class SocketThreadSet extends SimpleSet<SocketThread>
    {
       this.addAll(objects);
    }
+
+
+   public SocketThreadPO createSocketThreadPO()
+   {
+      return new SocketThreadPO(this.toArray(new SocketThread[this.size()]));
+   }
+
+
+   @Override
+   public SocketThreadSet getNewList(boolean keyValue)
+   {
+      return new SocketThreadSet();
+   }
+
+
+   public SocketThreadSet filter(Condition<SocketThread> condition) {
+      SocketThreadSet filterList = new SocketThreadSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the defaultTargetThread attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createDefaultTargetThreadCondition(Object value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getDefaultTargetThread())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the idMap attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the ip attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createIpCondition(String value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value.equals(obj.getIp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the ip attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createIpCondition(String lower, String upper)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (lower.compareTo(obj.getIp()) <= 0 && obj.getIp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createPortCondition(int value)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SocketThread objects and collect those SocketThread objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SocketThread objects that match the parameter
+    */
+   public SocketThreadSet createPortCondition(int lower, int upper)
+   {
+      SocketThreadSet result = new SocketThreadSet();
+      
+      for (SocketThread obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

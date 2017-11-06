@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,65 +21,75 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
-*/
-   public class Node implements PropertyChangeInterface, SendableEntity
+ */
+   public  class Node implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
+   
    //==========================================================================
    
    
    public void removeYou()
    {
-      setGraph(null);
-      withoutNext(this.getNext().toArray(new Node[this.getNext().size()]));
       withoutPrev(this.getPrev().toArray(new Node[this.getPrev().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      withoutNext(this.getNext().toArray(new Node[this.getNext().size()]));
+      withoutGraph(this.getGraph().toArray(new SimpleState[this.getGraph().size()]));
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -96,11 +106,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    
    public void setNum(int value)
    {
-      if (this.num != value)
-      {
+      if (this.num != value) {
+      
          int oldValue = this.num;
          this.num = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUM, oldValue, value);
+         this.firePropertyChange(PROPERTY_NUM, oldValue, value);
       }
    }
    
@@ -122,146 +132,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 
 
    
-   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Node ----------------------------------- SimpleState
-    *              nodes                   graph
-    * </pre>
-    */
-   
-   public static final String PROPERTY_GRAPH = "graph";
-
-   private SimpleState graph = null;
-
-   public SimpleState getGraph()
-   {
-      return this.graph;
-   }
-
-   public boolean setGraph(SimpleState value)
-   {
-      boolean changed = false;
-      
-      if (this.graph != value)
-      {
-         SimpleState oldValue = this.graph;
-         
-         if (this.graph != null)
-         {
-            this.graph = null;
-            oldValue.withoutNodes(this);
-         }
-         
-         this.graph = value;
-         
-         if (value != null)
-         {
-            value.withNodes(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Node withGraph(SimpleState value)
-   {
-      setGraph(value);
-      return this;
-   } 
-
-   public SimpleState createGraph()
-   {
-      SimpleState value = new SimpleState();
-      withGraph(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Node ----------------------------------- Node
-    *              prev                   next
-    * </pre>
-    */
-   
-   public static final String PROPERTY_NEXT = "next";
-
-   private NodeSet next = null;
-   
-   public NodeSet getNext()
-   {
-      if (this.next == null)
-      {
-         return Node.EMPTY_SET;
-      }
-   
-      return this.next;
-   }
-   public NodeSet getNextTransitive()
-   {
-      NodeSet result = new NodeSet().with(this);
-      return result.getNextTransitive();
-   }
-
-
-   public Node withNext(Node... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Node item : value)
-      {
-         if (item != null)
-         {
-            if (this.next == null)
-            {
-               this.next = new NodeSet();
-            }
-            
-            boolean changed = this.next.add (item);
-
-            if (changed)
-            {
-               item.withPrev(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Node withoutNext(Node... value)
-   {
-      for (Node item : value)
-      {
-         if ((this.next != null) && (item != null))
-         {
-            if (this.next.remove(item))
-            {
-               item.withoutPrev(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Node createNext()
-   {
-      Node value = new Node();
-      withNext(value);
-      return value;
-   } 
-
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -278,7 +148,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       if (this.prev == null)
       {
-         return Node.EMPTY_SET;
+         return NodeSet.EMPTY_SET;
       }
    
       return this.prev;
@@ -309,7 +179,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             if (changed)
             {
                item.withNext(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null, item);
+               firePropertyChange(PROPERTY_PREV, null, item);
             }
          }
       }
@@ -325,7 +195,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             if (this.prev.remove(item))
             {
                item.withoutNext(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, item, null);
+               firePropertyChange(PROPERTY_PREV, item, null);
             }
          }
       }
@@ -339,12 +209,157 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return value;
    } 
 
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Node ----------------------------------- Node
+    *              prev                   next
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXT = "next";
+
+   private NodeSet next = null;
+   
+   public NodeSet getNext()
    {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
+      if (this.next == null)
+      {
+         return NodeSet.EMPTY_SET;
+      }
+   
+      return this.next;
    }
+   public NodeSet getNextTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getNextTransitive();
    }
+
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
+   public Node withNext(Node... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Node item : value)
+      {
+         if (item != null)
+         {
+            if (this.next == null)
+            {
+               this.next = new NodeSet();
+            }
+            
+            boolean changed = this.next.add (item);
+
+            if (changed)
+            {
+               item.withPrev(this);
+               firePropertyChange(PROPERTY_NEXT, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Node withoutNext(Node... value)
+   {
+      for (Node item : value)
+      {
+         if ((this.next != null) && (item != null))
+         {
+            if (this.next.remove(item))
+            {
+               item.withoutPrev(this);
+               firePropertyChange(PROPERTY_NEXT, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Node createNext()
+   {
+      Node value = new Node();
+      withNext(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Node ----------------------------------- SimpleState
+    *              nodes                   graph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GRAPH = "graph";
+
+   private SimpleStateSet graph = null;
+   
+   public SimpleStateSet getGraph()
+   {
+      if (this.graph == null)
+      {
+         return SimpleStateSet.EMPTY_SET;
+      }
+   
+      return this.graph;
+   }
+
+   public Node withGraph(SimpleState... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (SimpleState item : value)
+      {
+         if (item != null)
+         {
+            if (this.graph == null)
+            {
+               this.graph = new SimpleStateSet();
+            }
+            
+            boolean changed = this.graph.add (item);
+
+            if (changed)
+            {
+               item.withNodes(this);
+               firePropertyChange(PROPERTY_GRAPH, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Node withoutGraph(SimpleState... value)
+   {
+      for (SimpleState item : value)
+      {
+         if ((this.graph != null) && (item != null))
+         {
+            if (this.graph.remove(item))
+            {
+               item.withoutNodes(this);
+               firePropertyChange(PROPERTY_GRAPH, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public SimpleState createGraph()
+   {
+      SimpleState value = new SimpleState();
+      withGraph(value);
+      return value;
+   } 
+}

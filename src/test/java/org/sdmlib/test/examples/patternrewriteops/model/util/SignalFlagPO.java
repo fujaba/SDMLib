@@ -2,10 +2,7 @@ package org.sdmlib.test.examples.patternrewriteops.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationPO;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
-import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 {
@@ -81,4 +78,18 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       return null;
    }
 
+   public StationPO filterStation()
+   {
+      StationPO result = new StationPO(new Station[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SignalFlag.PROPERTY_STATION, result);
+      
+      return result;
+   }
+
+   public SignalFlagPO filterStation(StationPO tgt)
+   {
+      return hasLinkConstraint(tgt, SignalFlag.PROPERTY_STATION);
+   }
 }

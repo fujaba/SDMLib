@@ -32,6 +32,7 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -834,4 +835,98 @@ public class NodeSet extends SimpleSet<Node>
       NodeSet filterList = new NodeSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNameCondition(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNameCondition(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createTextCondition(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createTextCondition(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

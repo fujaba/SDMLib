@@ -6,6 +6,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Parameter;
 
@@ -24,7 +25,7 @@ public class SimpleClassModelWithEnumeration
 
       Clazz enumeration = model.createClazz("TEnum").enableEnumeration();
 
-      enumeration.with(new Literal("T1"),
+      GraphUtil.setLiteral(enumeration, new Literal("T1"),
          new Literal("T2"),
          new Literal("12"),
          new Literal("T1000"));

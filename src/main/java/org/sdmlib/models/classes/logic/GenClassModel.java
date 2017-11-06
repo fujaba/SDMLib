@@ -34,7 +34,6 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
@@ -49,6 +48,7 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Literal;
@@ -187,9 +187,8 @@ public class GenClassModel implements ClassModelAdapter
 	                                  attribute.with(DataType.OBJECT);
 	                              }
 	                          } else {
-	                              Attribute attribute = new Attribute("value"+no, DataType.create(type));
+	                              Attribute attribute = item.createAttribute("value"+no, DataType.create(type));
 	                              attributes.add(attribute);
-	                              item.with(attribute);
 	                          }
 	                      }
 	                      no++;
@@ -199,7 +198,7 @@ public class GenClassModel implements ClassModelAdapter
 	          GenClazzEntity orCreate = getOrCreate(item);
 	          Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
 	          orCreateParser.indexOf(Parser.CLASS_END);
-	          Method constructor = new Method(item.getName()).with(DataType.create(""));
+	          Method constructor = item.createMethod(item.getName(), DataType.create(""));
 	          String constructorBody = "";
 	          for(Attribute attribute : attributes) {
 	              constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
@@ -207,7 +206,6 @@ public class GenClassModel implements ClassModelAdapter
 	          }
 	          constructor.withBody(constructorBody);
 	          constructor.with(Modifier.PACKAGE);
-	          item.with(constructor);
 	      }
    }
 
@@ -2128,7 +2126,7 @@ public class GenClassModel implements ClassModelAdapter
             		.with(Cardinality.ONE)
             		.with(sourceLabel)
             		.with(other);
-            model.with(currentAssoc);
+            GraphUtil.setAssociation(model, currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
@@ -2493,7 +2491,7 @@ public class GenClassModel implements ClassModelAdapter
 
          if (!classContainsAttribut(clazz, attrName, symTabEntry.getType()))
          {
-            new Attribute(attrName, DataType.create(symTabEntry.getType())).with(clazz);
+            clazz.createAttribute(attrName, DataType.create(symTabEntry.getType()));
          }
       }
 
@@ -2539,8 +2537,7 @@ public class GenClassModel implements ClassModelAdapter
       // type is unknown
       if (addToSymTabEntry == null)
       {
-         new Attribute(memberName, DataType.create(partnerTypeName))
-               .with(clazz);
+         clazz.createAttribute(memberName, DataType.create(partnerTypeName));
          return;
       }
 
@@ -2578,8 +2575,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!done)
       {
          // did not find reverse role, add as attribute
-         new Attribute(memberName, DataType.create(partnerTypeName))
-               .with(clazz);
+         clazz.createAttribute(memberName, DataType.create(partnerTypeName));
       }
 
       // // remove getter with setter or addTo removeFrom removeAllFrom without
@@ -2622,7 +2618,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!assocWithRolesExists(sourceRole, targetRole))
       {
     	  sourceRole.with(targetRole);
-         clazz.with(sourceRole);
+    	  GraphUtil.setAssociation(clazz, sourceRole);
       }
    }
 

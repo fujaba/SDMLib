@@ -1010,7 +1010,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @param model The ClassModel for drawing
     * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    */
+    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
    public void addClassDiagram(ClassModel model)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1164,7 +1165,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -1365,7 +1366,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
     * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    */
+    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
    public void dumpHTML()
    {
       try
@@ -2089,13 +2091,29 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       public boolean update(Object values)
       {
          PropertyChangeEvent evt = (PropertyChangeEvent) values;
-         if (evt.getNewValue() != null
+         Object newValue = evt.getNewValue();
+         if (newValue != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(evt.getNewValue().getClass().getSimpleName()) >= 0))
+               .indexOf(newValue.getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(evt.getNewValue());
+         
+         if (newValue != null && newValue instanceof Collection)
+         {
+            boolean allContained = true;
+            for (Object elem : (Collection) newValue)
+            {
+               if ( ! explicitElems.contains(elem))
+               {
+                  return false;
+               }
+            }
+            return true;
+         }
+         
+         boolean contains = explicitElems.contains(newValue);
+         return contains;
       }
    }
 

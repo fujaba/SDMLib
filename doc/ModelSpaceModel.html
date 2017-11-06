@@ -4,43 +4,28 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java' type='text/x-java'>ModelSpaceModel</a></p>
 <p>ModelSpace provides incremental persistance and collaboration</p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
-      {
-         "typ":"node",
-         "id":"ModelSpace"
-      },
-      {
-         "typ":"node",
-         "id":"ModelCloud",
-         "attributes":[
-            "hostName : String",
-            "acceptPort : int"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"ModelCloudProxy",
-         "attributes":[
-            "hostName : String",
-            "portNo : int"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"ModelSpaceProxy",
-         "attributes":[
-            "location : String"
-         ]
-      },
       {
          "typ":"node",
          "id":"CloudModelDirectory"
@@ -55,6 +40,43 @@
       },
       {
          "typ":"node",
+         "id":"ModelCloud",
+         "attributes":[
+            "acceptPort : int",
+            "hostName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ModelCloudProxy",
+         "attributes":[
+            "hostName : String",
+            "portNo : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ModelSpace"
+      },
+      {
+         "typ":"node",
+         "id":"ModelSpaceProxy",
+         "attributes":[
+            "location : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Task",
+         "attributes":[
+            "fileName : String",
+            "lastModified : long",
+            "spaceName : String",
+            "state : String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"TaskBoard"
       },
       {
@@ -64,60 +86,11 @@
             "hostName : String",
             "portNo : long"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"Task",
-         "attributes":[
-            "state : String",
-            "spaceName : String",
-            "fileName : String",
-            "lastModified : long"
-         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelCloud",
-            "cardinality":"one",
-            "property":"root"
-         },
-         "target":{
-            "id":"ModelCloudProxy",
-            "cardinality":"many",
-            "property":"servers"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelCloud",
-            "cardinality":"one",
-            "property":"cloud"
-         },
-         "target":{
-            "id":"ModelSpaceProxy",
-            "cardinality":"many",
-            "property":"modelSpaces"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ModelCloudProxy",
-            "cardinality":"many",
-            "property":"providingClouds"
-         },
-         "target":{
-            "id":"ModelSpaceProxy",
-            "cardinality":"many",
-            "property":"providedSpaces"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"CloudModelDirectory",
             "cardinality":"one",
@@ -130,7 +103,124 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"CloudModelFile",
+            "cardinality":"many",
+            "property":"files"
+         },
+         "target":{
+            "id":"CloudModelDirectory",
+            "cardinality":"one",
+            "property":"dir"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"cloud"
+         },
+         "target":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"modelSpaces"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"root"
+         },
+         "target":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"servers"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"providingClouds"
+         },
+         "target":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"providedSpaces"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"servers"
+         },
+         "target":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"root"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"modelSpaces"
+         },
+         "target":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"cloud"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"providedSpaces"
+         },
+         "target":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"providingClouds"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"myRequests"
+         },
+         "target":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"fileTargetCloud"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"tasks"
+         },
+         "target":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"lane"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"TaskBoard",
             "cardinality":"one",
@@ -143,7 +233,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"fileTargetCloud"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"myRequests"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"TaskLane",
             "cardinality":"one",
@@ -156,16 +259,16 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"TaskLane",
-            "cardinality":"one",
-            "property":"fileTargetCloud"
+            "cardinality":"many",
+            "property":"lanes"
          },
          "target":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"myRequests"
+            "id":"TaskBoard",
+            "cardinality":"one",
+            "property":"board"
          }
       }
    ]

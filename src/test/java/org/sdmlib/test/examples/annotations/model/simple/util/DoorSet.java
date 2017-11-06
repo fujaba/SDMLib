@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,19 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
-import de.uniks.networkparser.list.ObjectSet;
-
-public class DoorSet extends SDMSet<Door>
+public class DoorSet extends SimpleSet<Door>
 {
+	public Class<?> getTypClass() {
+		return Door.class;
+	}
 
    public DoorSet()
    {
@@ -50,10 +53,10 @@ public class DoorSet extends SDMSet<Door>
       this.addAll(objects);
    }
 
-   public static final DoorSet EMPTY_SET = new DoorSet();
+   public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
 
 
-   public DoorPO filterDoorPO()
+   public DoorPO createDoorPO()
    {
       return new DoorPO(this.toArray(new Door[this.size()]));
    }
@@ -64,6 +67,19 @@ public class DoorSet extends SDMSet<Door>
       return "org.sdmlib.test.examples.annotations.model.simple.Door";
    }
 
+
+   @Override
+   public DoorSet getNewList(boolean keyValue)
+   {
+      return new DoorSet();
+   }
+
+
+   public DoorSet filter(Condition<Door> condition) {
+      DoorSet filterList = new DoorSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public DoorSet with(Object value)

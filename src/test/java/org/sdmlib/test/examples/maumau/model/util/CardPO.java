@@ -7,6 +7,10 @@ import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.Value;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
+import org.sdmlib.test.examples.maumau.model.util.CardPO;
+import org.sdmlib.test.examples.maumau.model.util.HolderPO;
 
 public class CardPO extends PatternObject<CardPO, Card>
 {
@@ -238,6 +242,127 @@ public class CardPO extends PatternObject<CardPO, Card>
    public CardPO filterHolder(HolderPO tgt)
    {
       return hasLinkConstraint(tgt, Card.PROPERTY_HOLDER);
+   }
+
+
+   public CardPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CardPO createSuitCondition(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_SUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO createSuitAssignment(Suit value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_SUIT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO createValueCondition(Value value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public CardPO createValueAssignment(Value value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Card.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MauMauPO createGamePO()
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Card.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public MauMauPO createGamePO(String modifier)
+   {
+      MauMauPO result = new MauMauPO(new MauMau[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Card.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public CardPO createGameLink(MauMauPO tgt)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_GAME);
+   }
+
+   public CardPO createGameLink(MauMauPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_GAME, modifier);
+   }
+
+   public HolderPO createHolderPO()
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Card.PROPERTY_HOLDER, result);
+      
+      return result;
+   }
+
+   public HolderPO createHolderPO(String modifier)
+   {
+      HolderPO result = new HolderPO(new Holder[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Card.PROPERTY_HOLDER, result);
+      
+      return result;
+   }
+
+   public CardPO createHolderLink(HolderPO tgt)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_HOLDER);
+   }
+
+   public CardPO createHolderLink(HolderPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Card.PROPERTY_HOLDER, modifier);
    }
 
 }

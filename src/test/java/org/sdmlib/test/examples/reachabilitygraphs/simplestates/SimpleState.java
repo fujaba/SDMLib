@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,72 +21,79 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
-*/
-   public class SimpleState implements PropertyChangeInterface, SendableEntity
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ */
+   public  class SimpleState implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
    
    //==========================================================================
    
    
    public void removeYou()
    {
-      withoutNodes(this.getNodes().toArray(new Node[this.getNodes().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      for (Node obj : new NodeSet(this.getNodes())) { obj.removeYou(); }
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    /********************************************************************
     * <pre>
-    *              one                       many
+    *              many                       many
     * SimpleState ----------------------------------- Node
     *              graph                   nodes
     * </pre>
@@ -100,7 +107,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    {
       if (this.nodes == null)
       {
-         return Node.EMPTY_SET;
+         return NodeSet.EMPTY_SET;
       }
    
       return this.nodes;
@@ -125,7 +132,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
             if (changed)
             {
                item.withGraph(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, null, item);
+               firePropertyChange(PROPERTY_NODES, null, item);
             }
          }
       }
@@ -140,8 +147,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
          {
             if (this.nodes.remove(item))
             {
-               item.setGraph(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, item, null);
+               item.withoutGraph(this);
+               firePropertyChange(PROPERTY_NODES, item, null);
             }
          }
       }
@@ -151,21 +158,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
-*/
+ */
    public Node createNodes()
    {
       Node value = new Node();
       withNodes(value);
       return value;
    } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
+}

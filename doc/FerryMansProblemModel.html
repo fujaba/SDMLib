@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>FerryMansProblemModel</a></p>
 <script>
    var json = {
@@ -15,7 +27,11 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"River"
+         "id":"Bank",
+         "attributes":[
+            "age : int",
+            "name : String"
+         ]
       },
       {
          "typ":"node",
@@ -23,27 +39,23 @@
       },
       {
          "typ":"node",
-         "id":"Bank",
-         "attributes":[
-            "name : String",
-            "age : int"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"Cargo",
          "attributes":[
             "name : String"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"River"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"River",
+            "id":"Bank",
             "cardinality":"one",
-            "property":"river"
+            "property":"bank"
          },
          "target":{
             "id":"Boat",
@@ -52,20 +64,46 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"River",
+            "id":"Bank",
             "cardinality":"one",
-            "property":"river"
+            "property":"bank"
          },
          "target":{
-            "id":"Bank",
+            "id":"Cargo",
             "cardinality":"many",
-            "property":"banks"
+            "property":"cargos"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Bank",
+            "cardinality":"many",
+            "property":"banks"
+         },
+         "target":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         },
+         "target":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Boat",
             "cardinality":"one",
@@ -78,7 +116,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Boat",
             "cardinality":"one",
@@ -91,16 +129,55 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Bank",
+            "id":"Cargo",
             "cardinality":"one",
-            "property":"bank"
+            "property":"cargo"
          },
          "target":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
             "id":"Cargo",
             "cardinality":"many",
             "property":"cargos"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         },
+         "target":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"River",
+            "cardinality":"one",
+            "property":"river"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"many",
+            "property":"banks"
          }
       }
    ]

@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelSet;
 
 public class MSChatMsgSet extends SimpleSet<MSChatMsg>
 {
@@ -439,4 +442,164 @@ public class MSChatMsgSet extends SimpleSet<MSChatMsg>
    {
       this.addAll(objects);
    }
+
+
+   public MSChatMsgPO createMSChatMsgPO()
+   {
+      return new MSChatMsgPO(this.toArray(new MSChatMsg[this.size()]));
+   }
+
+
+   @Override
+   public MSChatMsgSet getNewList(boolean keyValue)
+   {
+      return new MSChatMsgSet();
+   }
+
+
+   public MSChatMsgSet filter(Condition<MSChatMsg> condition) {
+      MSChatMsgSet filterList = new MSChatMsgSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the sender attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createSenderCondition(String value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value.equals(obj.getSender()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the sender attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createSenderCondition(String lower, String upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getSender()) <= 0 && obj.getSender().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createTextCondition(String value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createTextCondition(String lower, String upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the time attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createTimeCondition(long value)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (value == obj.getTime())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of MSChatMsg objects and collect those MSChatMsg objects where the time attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of MSChatMsg objects that match the parameter
+    */
+   public MSChatMsgSet createTimeCondition(long lower, long upper)
+   {
+      MSChatMsgSet result = new MSChatMsgSet();
+      
+      for (MSChatMsg obj : this)
+      {
+         if (lower <= obj.getTime() && obj.getTime() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

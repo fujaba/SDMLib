@@ -33,7 +33,7 @@ public class RuleApplicationCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       RuleApplication.PROPERTY_DESCRIPTION,
-      RuleApplication.PROPERTY_RULE,
+      // RuleApplication.PROPERTY_RULE,
       RuleApplication.PROPERTY_SRC,
       RuleApplication.PROPERTY_TGT,
    };

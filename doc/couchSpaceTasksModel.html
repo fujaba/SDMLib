@@ -4,16 +4,37 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksModel.java' type='text/x-java'>couchSpaceTasksModel</a></p>
 <p>Exchange tasks via couch space, i.e. couch databases</p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
+      {
+         "typ":"node",
+         "id":"Task",
+         "attributes":[
+            "copySdmLibId : String",
+            "title : String",
+            "transitionCondition : String"
+         ]
+      },
       {
          "typ":"node",
          "id":"TaskFlow",
@@ -23,11 +44,9 @@
       },
       {
          "typ":"node",
-         "id":"Task",
+         "id":"User",
          "attributes":[
-            "title : String",
-            "transitionCondition : String",
-            "copySdmLibId : String"
+            "name : String"
          ]
       },
       {
@@ -36,70 +55,24 @@
          "attributes":[
             "name : String"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"User",
-         "attributes":[
-            "name : String"
-         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskFlow"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"tasks"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskFlowFirst"
-         },
-         "target":{
             "id":"Task",
             "cardinality":"many",
             "property":"firstTasks"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
+         },
+         "target":{
+            "id":"TaskFlow",
             "cardinality":"one",
-            "property":"transitionSource"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"transitionTargets"
+            "property":"taskFlowFirst"
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
-            "cardinality":"many",
-            "property":"responsible"
-         },
-         "target":{
-            "id":"UserGroup",
-            "cardinality":"many",
-            "property":"responsibles"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Task",
             "cardinality":"many",
@@ -112,7 +85,98 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"responsible"
+         },
+         "target":{
+            "id":"UserGroup",
+            "cardinality":"many",
+            "property":"responsibles"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"tasks"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskFlow"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"transitionSource"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"transitionTargets"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskFlow"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"tasks"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskFlowFirst"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"firstTasks"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"User",
+            "cardinality":"one",
+            "property":"handledBy"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"handledTasks"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"User",
+            "cardinality":"many",
+            "property":"members"
+         },
+         "target":{
+            "id":"UserGroup",
+            "cardinality":"many",
+            "property":"groups"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"UserGroup",
             "cardinality":"many",
@@ -122,6 +186,19 @@
             "id":"User",
             "cardinality":"many",
             "property":"members"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"UserGroup",
+            "cardinality":"many",
+            "property":"responsibles"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"responsible"
          }
       }
    ]

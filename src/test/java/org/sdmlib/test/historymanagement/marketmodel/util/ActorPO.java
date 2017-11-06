@@ -1,16 +1,11 @@
 package org.sdmlib.test.historymanagement.marketmodel.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.historymanagement.marketmodel.util.BidPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Bid;
-import org.sdmlib.test.historymanagement.marketmodel.util.ActorPO;
-import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferPO;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class ActorPO extends PatternObject<ActorPO, Actor>
 {

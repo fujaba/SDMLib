@@ -291,7 +291,7 @@ GraphUtil.prototype.removeClass = function (ele, cls) {
 };
 /* Info */
 GraphUtil.Info = function (info, parent, edge) {
-	this.typ = "Info";
+	this.type = "Info";
 	if (typeof (info) === "string") {
 		this.id = info;
 	} else {
@@ -326,7 +326,7 @@ GraphUtil.Options = function () {
 };
 /* Node */
 var GraphNode = function (id) {
-	this.typ = "node";
+	this.type = "node";
 	this.id = id;
 	this.$edges = [];
 	this.attributes = [];
@@ -360,7 +360,7 @@ GraphNode.prototype.getShowed = function () {
 	return this;
 };
 var GraphModel = function (json, options) {
-	this.typ = "classdiagram";
+	this.type = "classdiagram";
 	this.$isdraggable = true;
 	json = json || {};
 	this.left = json.left || 0;
@@ -373,7 +373,7 @@ var GraphModel = function (json, options) {
 	this.nodes = {};
 	this.edges = [];
 	json = json || {};
-	this.typ = json.typ || "classdiagram";
+	this.type = json.type || "classdiagram";
 	this.set("id", json.id);
 	this.options = this.copy(this.copy(new GraphUtil.Options(), json.options), options, true, true);
 	this["package"] = "";
@@ -403,10 +403,10 @@ GraphModel.prototype.clear = function () {
 	}
 };
 GraphModel.prototype.addEdgeModel = function (e) {
-	var edge, typ = e.typ || "edge";
-	typ = typ.charAt(0).toUpperCase() + typ.substring(1).toLowerCase();
-	if (typeof window[typ] === "function") {
-		edge = new window[typ]();
+	var edge, type = e.type || "edge";
+	type = type.charAt(0).toUpperCase() + type.substring(1).toLowerCase();
+	if (typeof window[type] === "function") {
+		edge = new window[type]();
 	} else {
 		edge = new Edge();
 	}
@@ -441,17 +441,17 @@ GraphModel.prototype.addEdge = function (source, target) {
 GraphModel.prototype.addNode = function (node) {
 	/* testing if node is already existing in the graph */
 	if (typeof (node) === "string") {
-		node = {id: node, typ: "node"};
+		node = {id: node, type: "node"};
 	}
-	node.typ = node.typ || "node";
-	node.typ = node.typ.toLowerCase();
+	node.type = node.type || "node";
+	node.type = node.type.toLowerCase();
 	if (!(node.id)) {
-		node.id = node.typ + "$" + (this.$nodeCount + 1);
+		node.id = node.type + "$" + (this.$nodeCount + 1);
 	}
 	if (this.nodes[node.id] !== undefined) {
 		return this.nodes[node.id];
 	}
-	if (node.typ.indexOf("diagram", node.typ.length - 7) !== -1) {
+	if (node.type.indexOf("diagram", node.type.length - 7) !== -1) {
 		node = new GraphModel(node, new GraphUtil.Options());
 	} else {
 		node = this.copy(new GraphNode(), node);
@@ -545,7 +545,7 @@ GraphModel.prototype.calcLines = function (drawer) {
 };
 GraphModel.prototype.validateModel = function () {
 	var e, z, n, id, node, list;
-	if (this.typ === "classdiagram") {
+	if (this.type === "classdiagram") {
 		list = this.edges;
 		for (e = 0; e < list.length; e += 1) {
 			node = list[e].$sNode;
@@ -582,7 +582,7 @@ GraphModel.prototype.validateModel = function () {
 			if (!list[e].target.cardinality) {
 				list[e].target.cardinality = "one";
 			}
-			// Refactoring Edges for same property and typ set cardinality
+			// Refactoring Edges for same property and type set cardinality
 			for (z = e + 1; z < list.length; z += 1) {
 				id = typeof (java);
 				if (!(id === typeof list[z])) {
@@ -817,7 +817,7 @@ Graph.prototype.initGraph = function (model) {
 			continue;
 		}
 		n = model.nodes[i];
-		isDiag = n.typ.indexOf("diagram", n.typ.length - 7) !== -1;
+		isDiag = n.type.indexOf("diagram", n.type.length - 7) !== -1;
 		if (isDiag) {
 			this.initGraph(n);
 		}
@@ -987,7 +987,7 @@ Graph.prototype.stopDrag = function (event) {
 			this.board.removeChild(item);
 		}
 
-		if (item.model.typ === "Info") {
+		if (item.model.type === "Info") {
 			item.model.custom = true;
 			item.model.$edge.removeElement(item);
 			entry = item.model.$edge.getInfo(item.model);
@@ -1023,7 +1023,7 @@ Graph.prototype.redrawNode = function (node, draw) {
 	if (node.board) {
 		node.board = null;
 	}
-	if (node.typ === "Info") {
+	if (node.type === "Info") {
 		infoTxt = node.edge.getInfo(node.node);
 		node.edge.drawText(this.board, this.drawer, infoTxt, node.node);
 	} else {
@@ -1226,7 +1226,7 @@ var Edge = function () {
 	this.$m = 0;
 	this.$n = 0;
 	this.$lineStyle = GraphUtil.Line.Format.SOLID;
-	this.typ = "EDGE";
+	this.type = "EDGE";
 };
 Edge.Layout = { DIAG : 1, RECT : 0 };
 Edge.Position = {UP: "UP", LEFT: "LEFT", RIGHT: "RIGHT", DOWN: "DOWN"};
@@ -1393,7 +1393,7 @@ Edge.prototype.draw = function (board, drawer) {
 	this.drawSourceText(board, drawer, style);
 	if (this.info) {
 		angle = this.drawText(board, drawer, this.info, this.infoPos);
-		this.addElement(board, new SymbolLibary().create({typ: "Arrow", x: this.infoPos.x, y: this.infoPos.y, rotate: angle}, drawer));
+		this.addElement(board, new SymbolLibary().create({type: "Arrow", x: this.infoPos.x, y: this.infoPos.y, rotate: angle}, drawer));
 	}
 	this.drawTargetText(board, drawer, style);
 };
@@ -1459,7 +1459,7 @@ Edge.prototype.getCenterPosition = function (node, pos) {
 };
 Edge.prototype.getInfo = function (info) {
 	var isProperty, isCardinality, infoTxt = "";
-	isCardinality = this.$parent.typ === "classdiagram" && this.$parent.options.CardinalityInfo;
+	isCardinality = this.$parent.type === "classdiagram" && this.$parent.options.CardinalityInfo;
 	isProperty = this.$parent.options.propertyinfo;
 
 	if (isProperty && info.property) {
@@ -1706,7 +1706,7 @@ Edge.prototype.calcMoveLine = function (size, angle, move) {
 		this.endPos().target = new Pos((this.$top.x + this.$bot.x) / 2, (this.$top.y + this.$bot.y) / 2);
 	}
 };
-var Generalisation = function () { Edge.call(this); this.typ = "Generalisation"; };
+var Generalisation = function () { Edge.call(this); this.type = "Generalisation"; };
 Generalisation.prototype = ObjectCreate(Edge.prototype);
 Generalisation.prototype.calculateEdge = Generalisation.prototype.calculate;
 Generalisation.prototype.calculate = function (board, drawer) {
@@ -1727,10 +1727,10 @@ Generalisation.prototype.draw = function (board, drawer) {
 Generalisation.prototype.drawSourceText = function (board, drawer, style) {};
 Generalisation.prototype.drawTargetText = function (board, drawer, style) {};
 
-var Implements = function () { Edge.call(this); this.typ = "Implements"; this.$lineStyle = GraphUtil.Line.Format.DOTTED; };
+var Implements = function () { Edge.call(this); this.type = "Implements"; this.$lineStyle = GraphUtil.Line.Format.DOTTED; };
 Implements.prototype = ObjectCreate(Generalisation.prototype);
 
-var Unidirectional = function () { Edge.call(this); this.typ = "Unidirectional"; };
+var Unidirectional = function () { Edge.call(this); this.type = "Unidirectional"; };
 Unidirectional.prototype = ObjectCreate(Generalisation.prototype);
 Unidirectional.prototype.calculate = function (board, drawer) {
 	if (!this.calculateEdge(board, drawer)) {
@@ -1744,7 +1744,7 @@ Unidirectional.prototype.draw = function (board, drawer) {
 	this.addElement(board, drawer.getLine(this.$top.x, this.$top.y, this.$end.x, this.$end.y, this.$lineStyle));
 	this.addElement(board, drawer.getLine(this.$bot.x, this.$bot.y, this.$end.x, this.$end.y, this.$lineStyle));
 };
-var Aggregation = function () { Edge.call(this); this.typ = "Aggregation"; };
+var Aggregation = function () { Edge.call(this); this.type = "Aggregation"; };
 Aggregation.prototype = ObjectCreate(Generalisation.prototype);
 Aggregation.prototype.calculate = function (board, drawer) {
 	if (!this.calculateEdge(board, drawer)) {
@@ -1757,7 +1757,7 @@ Aggregation.prototype.draw = function (board, drawer) {
 	Edge.prototype.draw.call(this, board, drawer);
 	this.addElement(board, drawer.createPath(true, "none", [this.endPos().target, this.$topCenter, this.$end, this.$botCenter]));
 };
-var Composition = function () { Edge.call(this); this.typ = "Composition"; };
+var Composition = function () { Edge.call(this); this.type = "Composition"; };
 Composition.prototype = ObjectCreate(Aggregation.prototype);
 Composition.prototype.draw = function (board, drawer) {
 	Edge.prototype.draw.call(this, board, drawer);
@@ -1779,7 +1779,7 @@ var ClassEditor = function (element, diagramTyp) {
 	this.inputEvent = true;
 	this.nodes = {};
 	this.noButtons = true;
-	this.model = new GraphModel(this, {buttons: [], typ: diagramTyp});
+	this.model = new GraphModel(this, {buttons: [], type: diagramTyp});
 	if (element) {
 		if (typeof (element) === "string") {
 			this.board = this.drawer.getBoard(this);
@@ -2257,7 +2257,7 @@ ClassEditor.CreateNode.prototype.stopAction = function () {
 	if (!this.newClass) {
 		return false;
 	}
-	var node = {"typ": "node", "id": "Class" + (this.$parent.model.$nodeCount + 1)};
+	var node = {"type": "node", "id": "Class" + (this.$parent.model.$nodeCount + 1)};
 	node.x = this.getValue(this.newClass.style.left);
 	node.y = this.getValue(this.newClass.style.top);
 	node.width = this.getValue(this.newClass.style.width);
@@ -2384,7 +2384,7 @@ ClassEditor.Selector.prototype.refreshNode = function () {
 ClassEditor.Selector.prototype.addCreateAssoc = function (x, y) {
 	var n = this.nodes.assoc, symbolLib, that = this;
 	if (!n) {
-		n = {typ: "EdgeIcon", transform: "scale(0.2)", style: "cursor:pointer;top: " + x + "px;left:" + y + "px;" };
+		n = {type: "EdgeIcon", transform: "scale(0.2)", style: "cursor:pointer;top: " + x + "px;left:" + y + "px;" };
 		symbolLib = new SymbolLibary();
 		n = symbolLib.draw(null, n);
 		n.style.left = x + 10;
@@ -2537,7 +2537,7 @@ ClassEditor.InputNode.prototype.addValue = function (text, model) {
 		return true;
 	}
 	//typ ClassEditor
-	if (model.$parent.typ === "classdiagram") {
+	if (model.$parent.type === "classdiagram") {
 		model.id = this.fristUp(text);
 	} else {
 		model.id = text;
@@ -2609,15 +2609,15 @@ ClassEditor.ChoiceBox.prototype.change = function (e) {
 		return;
 	}
 	var t = e.target.value.toLowerCase(), that = this, i, div, func;
-	this.typ = "";
+	this.type = "";
 	if (t.indexOf(":") >= 0) {
 		this.initAttributes();
-		this.typ = ":";
+		this.type = ":";
 	}
-	if (this.typ === "") {
+	if (this.type === "") {
 		return;
 	}
-	t = t.substring(t.lastIndexOf(this.typ) + 1);
+	t = t.substring(t.lastIndexOf(this.type) + 1);
 	div = this.create({tag: "div", "class": "ChoiceBox", style: "left:" + this.field.style.left + ";top:" + (this.getValue(this.field.style.top) + this.field.clientHeight + 4) + ";width:" + this.field.clientWidth});
 	func = function () {that.select(this); };
 	for (i = 0; i < this.list.length; i += 1) {
@@ -2635,7 +2635,7 @@ ClassEditor.ChoiceBox.prototype.change = function (e) {
 	}
 };
 ClassEditor.ChoiceBox.prototype.select = function (input) {
-	var pos = this.field.value.lastIndexOf(this.typ);
+	var pos = this.field.value.lastIndexOf(this.type);
 	this.field.value = this.field.value.substring(0, pos + 1) + input.innerHTML;
 	if (this.div) {
 		this.graph.board.removeChild(this.div);
@@ -2654,7 +2654,7 @@ ClassEditor.EditNode.prototype.click = function (e, control, typ) {
 	var that = this;
 	control.oldValue = control.innerHTML;
 	control.contentEditable = true;
-	control.typ = typ;
+	control.type = typ;
 	this.graph.inputEvent = false;
 	this.selectText(control);
 	control.onkeydown = function (e) {that.change(e, control); };
@@ -2683,10 +2683,10 @@ ClassEditor.EditNode.prototype.change = function (e, control) {
 	while (value.substring(value.length - 4) === "<br>") {
 		value = value.substring(0, value.length - 4);
 	}
-	if (control.typ === "id") {
+	if (control.type === "id") {
 		node.model.id = value;
-	} else if (control.typ === "attribute" || control.typ === "method") {
-		t = control.typ + "s";
+	} else if (control.type === "attribute" || control.type === "method") {
+		t = control.type + "s";
 		for (i = 0; i < node.model[t].length; i += 1) {
 			if (node.model[t][i] === control.oldValue) {
 				if (value.length > 0) {
@@ -2697,7 +2697,7 @@ ClassEditor.EditNode.prototype.change = function (e, control) {
 				break;
 			}
 		}
-	} else if (control.typ === "info") {
+	} else if (control.type === "info") {
 		node.model.property = value;
 	}
 	control.innerHTML = value;
@@ -2759,11 +2759,11 @@ ClassEditor.CreateEdge.prototype.startAction = function (e) {
 ClassEditor.CreateEdge.prototype.select = function (e) {
 	var edge, t = e.innerHTML;
 	if (t === this.list[0]) {
-		edge = this.graph.model.addEdgeModel({"typ": "Generalisation", "source": {id: this.fromNode.id}, target: {id: this.toNode.id}});
+		edge = this.graph.model.addEdgeModel({"type": "Generalisation", "source": {id: this.fromNode.id}, target: {id: this.toNode.id}});
 		this.graph.drawlines();
 	}
 	if (t === this.list[1]) {
-		edge = this.graph.model.addEdgeModel({"typ": "edge", "source": {id: this.fromNode.id, property: "from"}, target: {id: this.toNode.id, property: "to"}});
+		edge = this.graph.model.addEdgeModel({"type": "edge", "source": {id: this.fromNode.id, property: "from"}, target: {id: this.toNode.id, property: "to"}});
 		this.graph.drawlines();
 	}
 	this.graph.board.removeChild(this.div);

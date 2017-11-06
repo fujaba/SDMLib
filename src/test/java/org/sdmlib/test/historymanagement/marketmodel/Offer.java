@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.historymanagement.marketmodel;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.test.historymanagement.marketmodel.Bid;
-import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
+import org.sdmlib.test.historymanagement.marketmodel.Actor;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryMarketModel.java'>HistoryMarketModel.java</a>

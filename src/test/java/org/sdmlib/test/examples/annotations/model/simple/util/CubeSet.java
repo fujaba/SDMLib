@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,18 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
-
-public class CubeSet extends SDMSet<Cube>
+public class CubeSet extends SimpleSet<Cube>
 {
+	public Class<?> getTypClass() {
+		return Cube.class;
+	}
 
    public CubeSet()
    {
@@ -47,10 +52,10 @@ public class CubeSet extends SDMSet<Cube>
       this.addAll(objects);
    }
 
-   public static final CubeSet EMPTY_SET = new CubeSet();
+   public static final CubeSet EMPTY_SET = new CubeSet().withFlag(CubeSet.READONLY);
 
 
-   public CubePO filterCubePO()
+   public CubePO createCubePO()
    {
       return new CubePO(this.toArray(new Cube[this.size()]));
    }
@@ -61,6 +66,34 @@ public class CubeSet extends SDMSet<Cube>
       return "org.sdmlib.test.examples.annotations.model.simple.Cube";
    }
 
+
+   @Override
+   public CubeSet getNewList(boolean keyValue)
+   {
+      return new CubeSet();
+   }
+
+
+   public CubeSet filter(Condition<Cube> condition) {
+      CubeSet filterList = new CubeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public HouseSet instanceOfHouse()
+   {
+      HouseSet result = new HouseSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof House)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
 
    @SuppressWarnings("unchecked")
    public CubeSet with(Object value)

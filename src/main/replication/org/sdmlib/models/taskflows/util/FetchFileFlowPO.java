@@ -6,6 +6,9 @@ import org.sdmlib.models.taskflows.FetchFileFlow;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
+import org.sdmlib.models.taskflows.util.FetchFileFlowPO;
 
 public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlow>
 {
@@ -412,6 +415,213 @@ public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlo
    public FetchFileFlowPO filterSubFlow(TaskFlowPO tgt)
    {
       return hasLinkConstraint(tgt, TaskFlow.PROPERTY_SUBFLOW);
+   }
+
+
+   public FetchFileFlowPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public FetchFileFlowPO createFileNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createFileNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createFileNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createFileServerCondition(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILESERVER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createFileServerAssignment(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILESERVER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createIdMapAssignment(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createTaskNoCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createTaskNoCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createTaskNoAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createParentPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(FetchFileFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createParentPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(FetchFileFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public FetchFileFlowPO createParentLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, FetchFileFlow.PROPERTY_PARENT);
+   }
+
+   public FetchFileFlowPO createParentLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, FetchFileFlow.PROPERTY_PARENT, modifier);
+   }
+
+   public TaskFlowPO createSubFlowPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(FetchFileFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createSubFlowPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(FetchFileFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public FetchFileFlowPO createSubFlowLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, FetchFileFlow.PROPERTY_SUBFLOW);
+   }
+
+   public FetchFileFlowPO createSubFlowLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, FetchFileFlow.PROPERTY_SUBFLOW, modifier);
    }
 
 }

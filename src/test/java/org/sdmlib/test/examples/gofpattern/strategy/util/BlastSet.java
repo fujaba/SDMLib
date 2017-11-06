@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class BlastSet extends SimpleSet<Blast>
 {
@@ -167,4 +168,23 @@ public class BlastSet extends SimpleSet<Blast>
    {
       this.addAll(objects);
    }
-}
+
+
+   public BlastPO createBlastPO()
+   {
+      return new BlastPO(this.toArray(new Blast[this.size()]));
+   }
+
+
+   @Override
+   public BlastSet getNewList(boolean keyValue)
+   {
+      return new BlastSet();
+   }
+
+
+   public BlastSet filter(Condition<Blast> condition) {
+      BlastSet filterList = new BlastSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

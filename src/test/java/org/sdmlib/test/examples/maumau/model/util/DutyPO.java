@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.DutyType;
 import org.sdmlib.test.examples.maumau.model.Player;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.maumau.model.util.PlayerPO;
+import org.sdmlib.test.examples.maumau.model.util.DutyPO;
 
 public class DutyPO extends PatternObject<DutyPO, Duty>
 {
@@ -217,6 +220,112 @@ public class DutyPO extends PatternObject<DutyPO, Duty>
    public DutyPO filterPlayer(PlayerPO tgt)
    {
       return hasLinkConstraint(tgt, Duty.PROPERTY_PLAYER);
+   }
+
+
+   public DutyPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public DutyPO createNumberCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_NUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO createNumberCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_NUMBER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO createNumberAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_NUMBER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO createTypeCondition(DutyType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public DutyPO createTypeAssignment(DutyType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Duty.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createPlayerPO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Duty.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayerPO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Duty.PROPERTY_PLAYER, result);
+      
+      return result;
+   }
+
+   public DutyPO createPlayerLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Duty.PROPERTY_PLAYER);
+   }
+
+   public DutyPO createPlayerLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Duty.PROPERTY_PLAYER, modifier);
    }
 
 }

@@ -33,6 +33,9 @@ import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskFlowSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupSet;
 
 public class TaskSet extends SDMSet<Task>
 {
@@ -829,4 +832,158 @@ public class TaskSet extends SDMSet<Task>
    {
       this.addAll(objects);
    }
+
+
+   public TaskPO createTaskPO()
+   {
+      return new TaskPO(this.toArray(new Task[this.size()]));
+   }
+
+
+   @Override
+   public TaskSet getNewList(boolean keyValue)
+   {
+      return new TaskSet();
+   }
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the copySdmLibId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createCopySdmLibIdCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getCopySdmLibId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the copySdmLibId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createCopySdmLibIdCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getCopySdmLibId()) <= 0 && obj.getCopySdmLibId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createTitleCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createTitleCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the transitionCondition attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createTransitionConditionCondition(String value)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (value.equals(obj.getTransitionCondition()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Task objects and collect those Task objects where the transitionCondition attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Task objects that match the parameter
+    */
+   public TaskSet createTransitionConditionCondition(String lower, String upper)
+   {
+      TaskSet result = new TaskSet();
+      
+      for (Task obj : this)
+      {
+         if (lower.compareTo(obj.getTransitionCondition()) <= 0 && obj.getTransitionCondition().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

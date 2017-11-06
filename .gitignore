@@ -14,6 +14,7 @@ atlassian-ide-plugin.xml
 /build/
 /.idea/
 /gen/
+/src/test/java/org/sdmlib/simple/model/
 *.jar
 gradle.properties
 *.gpg

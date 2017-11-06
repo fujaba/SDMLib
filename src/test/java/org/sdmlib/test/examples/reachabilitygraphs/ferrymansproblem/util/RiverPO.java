@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
@@ -145,6 +148,75 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
    public RiverPO filterBanks(BankPO tgt)
    {
       return hasLinkConstraint(tgt, River.PROPERTY_BANKS);
+   }
+
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public RiverPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public BoatPO createBoatPO()
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(River.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public BoatPO createBoatPO(String modifier)
+   {
+      BoatPO result = new BoatPO(new Boat[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(River.PROPERTY_BOAT, result);
+      
+      return result;
+   }
+
+   public RiverPO createBoatLink(BoatPO tgt)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BOAT);
+   }
+
+   public RiverPO createBoatLink(BoatPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BOAT, modifier);
+   }
+
+   public BankPO createBanksPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(River.PROPERTY_BANKS, result);
+      
+      return result;
+   }
+
+   public BankPO createBanksPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(River.PROPERTY_BANKS, result);
+      
+      return result;
+   }
+
+   public RiverPO createBanksLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BANKS);
+   }
+
+   public RiverPO createBanksLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, River.PROPERTY_BANKS, modifier);
    }
 
 }

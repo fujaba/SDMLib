@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -39,7 +38,10 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphModel;
+import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
    /**
@@ -130,7 +132,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	   File srcDir = new File("src/main/java");
 
       if (srcDir.exists()) {
-         getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
+         // getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
       }
       else
       {
@@ -156,11 +158,6 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		result.append(" ").append(this.getId());
 		result.append(" ").append(this.getName());
       return result.substring(1);
-	}
-	
-	public ClassModel with(Clazz... values) {
-		super.with(values);
-		return this;
 	}
 	
 	@Override
@@ -212,7 +209,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return this;
 	}
 
-	public ClassModel withFeatures(HashSet<FeatureProperty> value) {
+	public ClassModel withFeatures(Set<FeatureProperty> value) {
 		if (value == null) {
 			this.features.clear();
 			return this;
@@ -362,5 +359,15 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean add(Object... values) {
+		return false;
+	}
+
+	@Override
+	public BaseItem getNewList(boolean keyValue) {
+		return new ClassModel();
 	}
 }

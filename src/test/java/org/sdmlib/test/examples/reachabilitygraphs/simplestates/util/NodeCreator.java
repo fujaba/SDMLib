@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,32 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
-import de.uniks.networkparser.IdMap;
-
-public class NodeCreator extends EntityFactory
+public class NodeCreator implements AggregatedEntityCreator
 {
+   public static final NodeCreator it = new NodeCreator();
+   
    private final String[] properties = new String[]
    {
       Node.PROPERTY_NUM,
-      Node.PROPERTY_GRAPH,
-      Node.PROPERTY_NEXT,
       Node.PROPERTY_PREV,
+      Node.PROPERTY_NEXT,
+      Node.PROPERTY_GRAPH,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+      Node.PROPERTY_GRAPH,
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -44,10 +56,23 @@ public class NodeCreator extends EntityFactory
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Node();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -65,9 +90,9 @@ public class NodeCreator extends EntityFactory
          return ((Node) target).getNum();
       }
 
-      if (Node.PROPERTY_GRAPH.equalsIgnoreCase(attribute))
+      if (Node.PROPERTY_PREV.equalsIgnoreCase(attribute))
       {
-         return ((Node) target).getGraph();
+         return ((Node) target).getPrev();
       }
 
       if (Node.PROPERTY_NEXT.equalsIgnoreCase(attribute))
@@ -75,9 +100,9 @@ public class NodeCreator extends EntityFactory
          return ((Node) target).getNext();
       }
 
-      if (Node.PROPERTY_PREV.equalsIgnoreCase(attribute))
+      if (Node.PROPERTY_GRAPH.equalsIgnoreCase(attribute))
       {
-         return ((Node) target).getPrev();
+         return ((Node) target).getGraph();
       }
       
       return null;
@@ -86,20 +111,30 @@ public class NodeCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (REMOVE.equals(type) && value != null)
+      if (Node.PROPERTY_NUM.equalsIgnoreCase(attrName))
+      {
+         ((Node) target).setNum(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Node)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-      if (Node.PROPERTY_NUM.equalsIgnoreCase(attrName))
+      if (Node.PROPERTY_PREV.equalsIgnoreCase(attrName))
       {
-         ((Node) target).withNum(Integer.parseInt(value.toString()));
+         ((Node) target).withPrev((Node) value);
          return true;
       }
-
-      if (Node.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      
+      if ((Node.PROPERTY_PREV + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Node) target).setGraph((SimpleState) value);
+         ((Node) target).withoutPrev((Node) value);
          return true;
       }
 
@@ -109,21 +144,21 @@ public class NodeCreator extends EntityFactory
          return true;
       }
       
-      if ((Node.PROPERTY_NEXT + REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_NEXT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Node) target).withoutNext((Node) value);
          return true;
       }
 
-      if (Node.PROPERTY_PREV.equalsIgnoreCase(attrName))
+      if (Node.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
       {
-         ((Node) target).withPrev((Node) value);
+         ((Node) target).withGraph((SimpleState) value);
          return true;
       }
       
-      if ((Node.PROPERTY_PREV + REMOVE).equalsIgnoreCase(attrName))
+      if ((Node.PROPERTY_GRAPH + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Node) target).withoutPrev((Node) value);
+         ((Node) target).withoutGraph((SimpleState) value);
          return true;
       }
       
@@ -135,9 +170,7 @@ public class NodeCreator extends EntityFactory
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Node) entity).removeYou();
    }

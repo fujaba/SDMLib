@@ -44,4 +44,9 @@ public class SDMTimerPO extends PatternObject<SDMTimerPO, SDMTimer>
       }
    }
 
+
+   public SDMTimerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

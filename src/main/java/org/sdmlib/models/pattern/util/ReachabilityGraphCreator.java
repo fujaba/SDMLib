@@ -32,7 +32,7 @@ public class ReachabilityGraphCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      ReachabilityGraph.PROPERTY_RULES,
+      // ReachabilityGraph.PROPERTY_RULES,
       ReachabilityGraph.PROPERTY_FINALSTATES,
       ReachabilityGraph.PROPERTY_STATES,
       ReachabilityGraph.PROPERTY_TODO,

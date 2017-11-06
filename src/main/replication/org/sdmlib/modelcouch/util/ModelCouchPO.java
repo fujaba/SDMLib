@@ -4,6 +4,9 @@ import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.modelcouch.util.ModelDBListenerPO;
+import org.sdmlib.modelcouch.util.ModelCouchPO;
 
 public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
 {
@@ -246,6 +249,127 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
    public ModelCouchPO filterModelDBListener(ModelDBListenerPO tgt)
    {
       return hasLinkConstraint(tgt, ModelCouch.PROPERTY_MODELDBLISTENER);
+   }
+
+
+   public ModelCouchPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ModelCouchPO createHostNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO createHostNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO createHostNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO createPortCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO createPortCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelCouchPO createPortAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCouch.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ModelDBListenerPO createModelDBListenerPO()
+   {
+      ModelDBListenerPO result = new ModelDBListenerPO(new ModelDBListener[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCouch.PROPERTY_MODELDBLISTENER, result);
+      
+      return result;
+   }
+
+   public ModelDBListenerPO createModelDBListenerPO(String modifier)
+   {
+      ModelDBListenerPO result = new ModelDBListenerPO(new ModelDBListener[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ModelCouch.PROPERTY_MODELDBLISTENER, result);
+      
+      return result;
+   }
+
+   public ModelCouchPO createModelDBListenerLink(ModelDBListenerPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCouch.PROPERTY_MODELDBLISTENER);
+   }
+
+   public ModelCouchPO createModelDBListenerLink(ModelDBListenerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ModelCouch.PROPERTY_MODELDBLISTENER, modifier);
    }
 
 }

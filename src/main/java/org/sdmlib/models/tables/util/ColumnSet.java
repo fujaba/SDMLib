@@ -32,6 +32,8 @@ import org.sdmlib.models.tables.Table;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.tables.util.CellSet;
+import org.sdmlib.models.tables.util.TableSet;
 
 public class ColumnSet extends SDMSet<Column>
 {

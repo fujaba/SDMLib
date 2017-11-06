@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
@@ -200,6 +201,45 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
       if (this.getPattern().getHasMatch())
       {
          return ((University) this.getCurrentMatch()).getRooms();
+      }
+      return null;
+   }
+
+   public PresidentPO createPresidentPO()
+   {
+      PresidentPO result = new PresidentPO(new President[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(University.PROPERTY_PRESIDENT, result);
+      
+      return result;
+   }
+
+   public PresidentPO createPresidentPO(String modifier)
+   {
+      PresidentPO result = new PresidentPO(new President[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(University.PROPERTY_PRESIDENT, result);
+      
+      return result;
+   }
+
+   public UniversityPO createPresidentLink(PresidentPO tgt)
+   {
+      return hasLinkConstraint(tgt, University.PROPERTY_PRESIDENT);
+   }
+
+   public UniversityPO createPresidentLink(PresidentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, University.PROPERTY_PRESIDENT, modifier);
+   }
+
+   public President getPresident()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) this.getCurrentMatch()).getPresident();
       }
       return null;
    }

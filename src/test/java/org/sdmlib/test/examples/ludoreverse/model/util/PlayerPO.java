@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.ludoreverse.model.util.LudoPO;
+import org.sdmlib.test.examples.ludoreverse.model.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -246,6 +249,127 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
    public PlayerPO filterPlayers(LudoPO tgt)
    {
       return hasLinkConstraint(tgt, Player.PROPERTY_PLAYERS);
+   }
+
+
+   public PlayerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PlayerPO createColorCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createColorCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createColorAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createPlayersPO()
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public LudoPO createPlayersPO(String modifier)
+   {
+      LudoPO result = new LudoPO(new Ludo[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Player.PROPERTY_PLAYERS, result);
+      
+      return result;
+   }
+
+   public PlayerPO createPlayersLink(LudoPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PLAYERS);
+   }
+
+   public PlayerPO createPlayersLink(LudoPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_PLAYERS, modifier);
    }
 
 }

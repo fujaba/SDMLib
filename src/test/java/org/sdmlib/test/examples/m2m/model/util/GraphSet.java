@@ -31,6 +31,10 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.m2m.model.util.GraphComponentSet;
+import org.sdmlib.test.examples.m2m.model.util.RelationSet;
+import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
 public class GraphSet extends SimpleSet<Graph>
 {
@@ -268,4 +272,23 @@ public class GraphSet extends SimpleSet<Graph>
    {
       this.addAll(objects);
    }
-}
+
+
+   public GraphPO createGraphPO()
+   {
+      return new GraphPO(this.toArray(new Graph[this.size()]));
+   }
+
+
+   @Override
+   public GraphSet getNewList(boolean keyValue)
+   {
+      return new GraphSet();
+   }
+
+
+   public GraphSet filter(Condition<Graph> condition) {
+      GraphSet filterList = new GraphSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

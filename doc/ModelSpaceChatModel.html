@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java' type='text/x-java'>ModelSpaceChatModel</a></p>
 <p>Chatting via model space, i.e. shared files</p>
 <script>
@@ -23,11 +35,10 @@
       },
       {
          "typ":"node",
-         "id":"MSChatMsg",
+         "id":"MSChatChannelDescription",
          "attributes":[
-            "text : String",
-            "time : long",
-            "sender : String"
+            "location : String",
+            "name : String"
          ]
       },
       {
@@ -46,16 +57,17 @@
       },
       {
          "typ":"node",
-         "id":"MSChatChannelDescription",
+         "id":"MSChatMsg",
          "attributes":[
-            "name : String",
-            "location : String"
+            "sender : String",
+            "text : String",
+            "time : long"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"MSChatChannel",
             "cardinality":"one",
@@ -68,7 +80,33 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"MSChatGroup",
             "cardinality":"one",
@@ -81,7 +119,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"MSChatGroup",
             "cardinality":"one",
@@ -94,7 +132,20 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
+         },
+         "target":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"MSChatMember",
             "cardinality":"many",
@@ -104,6 +155,19 @@
             "id":"MSChatChannelDescription",
             "cardinality":"many",
             "property":"channels"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"MSChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         },
+         "target":{
+            "id":"MSChatChannel",
+            "cardinality":"one",
+            "property":"channel"
          }
       }
    ]

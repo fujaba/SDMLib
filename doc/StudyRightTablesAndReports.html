@@ -29,27 +29,7 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":" : Student"
-      },
-      {
-         "type":"clazz",
          "id":"A10 : Assignment",
-         "attributes":[
-            "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A11 : Assignment",
-         "attributes":[
-            "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A12 : Assignment",
          "attributes":[
             "content=Integrals",
             "points=8"
@@ -57,10 +37,18 @@
       },
       {
          "type":"clazz",
-         "id":"A13 : Assignment",
+         "id":"A8 : Assignment",
          "attributes":[
-            "content=Pushups",
-            "points=4"
+            "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"A9 : Assignment",
+         "attributes":[
+            "content=Series",
+            "points=6"
          ]
       },
       {
@@ -92,39 +80,45 @@
       },
       {
          "type":"clazz",
-         "id":"R8 : Room",
+         "id":"S2 : Student",
          "attributes":[
+            "assignmentPoints=0",
             "credits=0",
-            "name=The End",
-            "topic=exam"
+            "id=1337",
+            "motivation=0",
+            "name=Abu"
          ]
       },
       {
          "type":"clazz",
-         "id":"R9 : Room",
+         "id":"S4 : Student",
          "attributes":[
-            "credits=42",
-            "name=7422",
-            "topic=Software Engineering"
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=0",
+            "name=Alice"
          ]
       },
       {
          "type":"clazz",
-         "id":"S2 : Student"
-      },
-      {
-         "type":"clazz",
-         "id":"S4 : Student"
-      },
-      {
-         "type":"clazz",
-         "id":"T3 : TeachingAssistant"
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=0",
+            "name=Karli",
+            "room=null"
+         ]
       },
       {
          "type":"clazz",
          "id":"U1 : University",
          "attributes":[
-            "name=StudyRight"
+            "name=StudyRight",
+            "president=null"
          ]
       }
    ],
@@ -134,6 +128,32 @@
          "source":{
             "cardinality":"many",
             "property":"assignments",
+            "id":"A8 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A9 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"assignments",
             "id":"A10 : Assignment"
          },
          "target":{
@@ -146,39 +166,39 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A11 : Assignment"
+            "property":"done",
+            "id":"A8 : Assignment"
          },
          "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
          }
       },
       {
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A12 : Assignment"
+            "property":"done",
+            "id":"A8 : Assignment"
          },
          "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
          }
       },
       {
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"assignments",
-            "id":"A13 : Assignment"
+            "property":"done",
+            "id":"A9 : Assignment"
          },
          "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
          }
       },
       {
@@ -224,52 +244,52 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
+            "property":"friends",
+            "id":"S4 : Student"
          },
          "target":{
             "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
+            "property":"friends",
+            "id":"S2 : Student"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
+            "cardinality":"one",
+            "property":"in",
             "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
          }
       },
       {
@@ -313,32 +333,6 @@
       },
       {
          "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R8 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"edge",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -351,7 +345,7 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -364,7 +358,7 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"students",
@@ -374,97 +368,6 @@
             "cardinality":"one",
             "property":"university",
             "id":"U1 : University"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"A10 : Assignment"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"A10 : Assignment"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"A11 : Assignment"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"A13 : Assignment"
          }
       }
    ]
@@ -534,14 +437,6 @@
 <tr>
 <td >StudyRight</td>
 <td >gymnasium sports 25</td>
-</tr>
-<tr>
-<td >StudyRight</td>
-<td >The End exam 0</td>
-</tr>
-<tr>
-<td >StudyRight</td>
-<td >7422 Software Engineering 42</td>
 </tr>
 </tbody>
 
@@ -693,16 +588,6 @@
 <td >sports</td>
 <td class="text-right">25</td>
 <td class="text-right">2</td>
-</tr>
-<tr>
-<td >exam</td>
-<td class="text-right">0</td>
-<td class="text-right">0</td>
-</tr>
-<tr>
-<td >Software Engineering</td>
-<td class="text-right">42</td>
-<td class="text-right">0</td>
 </tr>
 </tbody>
 
@@ -882,16 +767,6 @@
 <td class="text-right">25</td>
 <td class="text-right">2</td>
 </tr>
-<tr>
-<td >exam</td>
-<td class="text-right">0</td>
-<td class="text-right">0</td>
-</tr>
-<tr>
-<td >Software Engineering</td>
-<td class="text-right">42</td>
-<td class="text-right">0</td>
-</tr>
 </tbody>
 
 </table>
@@ -901,7 +776,7 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"C15 : Column",
+         "id":"C12 : Column",
          "attributes":[
             "name=Topic",
             "tdCssClass=null",
@@ -910,7 +785,7 @@
       },
       {
          "type":"clazz",
-         "id":"C16 : Column",
+         "id":"C13 : Column",
          "attributes":[
             "name=Credits",
             "tdCssClass=text-right",
@@ -919,7 +794,7 @@
       },
       {
          "type":"clazz",
-         "id":"C17 : Column",
+         "id":"C14 : Column",
          "attributes":[
             "name=Students",
             "tdCssClass=text-right",
@@ -928,147 +803,91 @@
       },
       {
          "type":"clazz",
-         "id":"C23 : Cell",
+         "id":"C18 : Cell",
          "attributes":[
             "value=math"
          ]
       },
       {
          "type":"clazz",
-         "id":"C24 : Cell",
+         "id":"C19 : Cell",
          "attributes":[
             "value=arts"
          ]
       },
       {
          "type":"clazz",
-         "id":"C25 : Cell",
+         "id":"C20 : Cell",
          "attributes":[
             "value=sports"
          ]
       },
       {
          "type":"clazz",
-         "id":"C26 : Cell",
-         "attributes":[
-            "value=exam"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C27 : Cell",
-         "attributes":[
-            "value=Software Engineering"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C28 : Cell",
+         "id":"C21 : Cell",
          "attributes":[
             "value=17"
          ]
       },
       {
          "type":"clazz",
-         "id":"C29 : Cell",
+         "id":"C22 : Cell",
          "attributes":[
             "value=16"
          ]
       },
       {
          "type":"clazz",
-         "id":"C30 : Cell",
+         "id":"C23 : Cell",
          "attributes":[
             "value=25"
          ]
       },
       {
          "type":"clazz",
-         "id":"C31 : Cell",
-         "attributes":[
-            "value=0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C32 : Cell",
-         "attributes":[
-            "value=42"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C33 : Cell",
+         "id":"C24 : Cell",
          "attributes":[
             "value=1"
          ]
       },
       {
          "type":"clazz",
-         "id":"C34 : Cell",
+         "id":"C25 : Cell",
          "attributes":[
             "value=0"
          ]
       },
       {
          "type":"clazz",
-         "id":"C35 : Cell",
+         "id":"C26 : Cell",
          "attributes":[
             "value=2"
          ]
       },
       {
          "type":"clazz",
-         "id":"C36 : Cell",
-         "attributes":[
-            "value=0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C37 : Cell",
-         "attributes":[
-            "value=0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R18 : Row",
+         "id":"R15 : Row",
          "attributes":[
             "number=1"
          ]
       },
       {
          "type":"clazz",
-         "id":"R19 : Row",
+         "id":"R16 : Row",
          "attributes":[
             "number=2"
          ]
       },
       {
          "type":"clazz",
-         "id":"R20 : Row",
+         "id":"R17 : Row",
          "attributes":[
             "number=3"
          ]
       },
       {
          "type":"clazz",
-         "id":"R21 : Row",
-         "attributes":[
-            "number=4"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R22 : Row",
-         "attributes":[
-            "number=5"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T14 : Table",
+         "id":"T11 : Table",
          "attributes":[
             "name=University"
          ]
@@ -1080,12 +899,77 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
+            "id":"C18 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C12 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C19 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C12 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C20 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C12 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C21 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C13 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
+            "id":"C22 : Cell"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"column",
+            "id":"C13 : Column"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cells",
             "id":"C23 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"column",
-            "id":"C15 : Column"
+            "id":"C13 : Column"
          }
       },
       {
@@ -1098,7 +982,7 @@
          "target":{
             "cardinality":"one",
             "property":"column",
-            "id":"C15 : Column"
+            "id":"C14 : Column"
          }
       },
       {
@@ -1111,7 +995,7 @@
          "target":{
             "cardinality":"one",
             "property":"column",
-            "id":"C15 : Column"
+            "id":"C14 : Column"
          }
       },
       {
@@ -1124,7 +1008,7 @@
          "target":{
             "cardinality":"one",
             "property":"column",
-            "id":"C15 : Column"
+            "id":"C14 : Column"
          }
       },
       {
@@ -1132,155 +1016,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C27 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C15 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C28 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C16 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C29 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C16 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C30 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C16 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C31 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C16 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C32 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C16 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C33 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C17 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C34 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C17 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C35 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C17 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C36 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C17 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C37 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C17 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C23 : Cell"
+            "id":"C18 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R18 : Row"
+            "id":"R15 : Row"
          }
       },
       {
@@ -1288,25 +1029,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C28 : Cell"
+            "id":"C21 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R18 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C33 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R18 : Row"
+            "id":"R15 : Row"
          }
       },
       {
@@ -1319,7 +1047,7 @@
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R19 : Row"
+            "id":"R15 : Row"
          }
       },
       {
@@ -1327,12 +1055,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C29 : Cell"
+            "id":"C19 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R19 : Row"
+            "id":"R16 : Row"
          }
       },
       {
@@ -1340,12 +1068,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C34 : Cell"
+            "id":"C22 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R19 : Row"
+            "id":"R16 : Row"
          }
       },
       {
@@ -1358,7 +1086,7 @@
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R20 : Row"
+            "id":"R16 : Row"
          }
       },
       {
@@ -1366,12 +1094,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C30 : Cell"
+            "id":"C20 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R20 : Row"
+            "id":"R17 : Row"
          }
       },
       {
@@ -1379,12 +1107,12 @@
          "source":{
             "cardinality":"many",
             "property":"cells",
-            "id":"C35 : Cell"
+            "id":"C23 : Cell"
          },
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R20 : Row"
+            "id":"R17 : Row"
          }
       },
       {
@@ -1397,72 +1125,7 @@
          "target":{
             "cardinality":"one",
             "property":"row",
-            "id":"R21 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C31 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R21 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C36 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R21 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C27 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R22 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C32 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R22 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C37 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R22 : Row"
+            "id":"R17 : Row"
          }
       },
       {
@@ -1470,12 +1133,12 @@
          "source":{
             "cardinality":"many",
             "property":"columns",
-            "id":"C15 : Column"
+            "id":"C12 : Column"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       },
       {
@@ -1483,12 +1146,12 @@
          "source":{
             "cardinality":"many",
             "property":"columns",
-            "id":"C16 : Column"
+            "id":"C13 : Column"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       },
       {
@@ -1496,12 +1159,12 @@
          "source":{
             "cardinality":"many",
             "property":"columns",
-            "id":"C17 : Column"
+            "id":"C14 : Column"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       },
       {
@@ -1509,12 +1172,12 @@
          "source":{
             "cardinality":"many",
             "property":"rows",
-            "id":"R18 : Row"
+            "id":"R15 : Row"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       },
       {
@@ -1522,12 +1185,12 @@
          "source":{
             "cardinality":"many",
             "property":"rows",
-            "id":"R19 : Row"
+            "id":"R16 : Row"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       },
       {
@@ -1535,38 +1198,12 @@
          "source":{
             "cardinality":"many",
             "property":"rows",
-            "id":"R20 : Row"
+            "id":"R17 : Row"
          },
          "target":{
             "cardinality":"one",
             "property":"table",
-            "id":"T14 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R21 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T14 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R22 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T14 : Table"
+            "id":"T11 : Table"
          }
       }
    ]
@@ -1654,49 +1291,11 @@
 </thead>
 
 <tbody>
-<tr>
-<td >Pushups</td>
-<td class="text-right">4</td>
-</tr>
 </tbody>
 
 </table>
 </td>
 <td class="text-right">2</td>
-</tr>
-<tr>
-<td >exam</td>
-<td ><table class="table table-bordered table-condensed">
-<thead>
-<tr>
-<th class="text-center">Content</th>
-<th class="text-center">Points</th>
-</tr>
-</thead>
-
-<tbody>
-</tbody>
-
-</table>
-</td>
-<td class="text-right">0</td>
-</tr>
-<tr>
-<td >Software Engineering</td>
-<td ><table class="table table-bordered table-condensed">
-<thead>
-<tr>
-<th class="text-center">Content</th>
-<th class="text-center">Points</th>
-</tr>
-</thead>
-
-<tbody>
-</tbody>
-
-</table>
-</td>
-<td class="text-right">0</td>
 </tr>
 </tbody>
 

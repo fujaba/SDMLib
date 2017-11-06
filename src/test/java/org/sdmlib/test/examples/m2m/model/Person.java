@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.m2m.model.Graph;
+import org.sdmlib.test.examples.m2m.model.Relation;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MModelGen.java'>BanfM2MModelGen.java</a>
@@ -532,5 +534,12 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
+   
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
+}
 

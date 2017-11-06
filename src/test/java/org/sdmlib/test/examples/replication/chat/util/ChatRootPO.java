@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.replication.chat.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
+import org.sdmlib.test.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.test.examples.replication.chat.util.ChatRootPO;
 
 public class ChatRootPO extends PatternObject<ChatRootPO, ChatRoot>
 {
@@ -81,6 +83,41 @@ public class ChatRootPO extends PatternObject<ChatRootPO, ChatRoot>
    public ChatRootPO filterUsers(ChatUserPO tgt)
    {
       return hasLinkConstraint(tgt, ChatRoot.PROPERTY_USERS);
+   }
+
+
+   public ChatRootPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChatUserPO createUsersPO()
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ChatRoot.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatUserPO createUsersPO(String modifier)
+   {
+      ChatUserPO result = new ChatUserPO(new ChatUser[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ChatRoot.PROPERTY_USERS, result);
+      
+      return result;
+   }
+
+   public ChatRootPO createUsersLink(ChatUserPO tgt)
+   {
+      return hasLinkConstraint(tgt, ChatRoot.PROPERTY_USERS);
+   }
+
+   public ChatRootPO createUsersLink(ChatUserPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ChatRoot.PROPERTY_USERS, modifier);
    }
 
 }

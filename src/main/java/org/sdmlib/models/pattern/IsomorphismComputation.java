@@ -7,7 +7,7 @@ import de.uniks.networkparser.IdMap;
 public class IsomorphismComputation
 {
 
-   public static LinkedHashMap<String, String> calculateMatch(Object graph1, Object graph2, IdMap creators)
+   public static LinkedHashMap<Object, Object> calculateMatch(Object graph1, Object graph2, IdMap creators)
    {
       IdMap map1 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
       IdMap map2 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
@@ -19,8 +19,10 @@ public class IsomorphismComputation
       String s2cert = rs2.computeCertificate(map2);
 
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators).withTimeStamp(1));
-
+      reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators));
+      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
+      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
+      
       return reachabilityGraph.match(rs1, rs2);
    }
 

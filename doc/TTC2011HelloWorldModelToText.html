@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
 <p>For model to text transformation we provide a simple template mechanism. </p>
 <p>The model transformation that builds our object model looks like: </p>
@@ -24,22 +36,25 @@
 </pre><p>The created object model looks like: </p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"G1 : Greeting"
+         "type":"clazz",
+         "id":"G1 : Greeting",
+         "attributes":[
+            "text=null",
+            "tgt=null"
+         ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G2 : GreetingMessage",
          "attributes":[
             "text=Hello"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P3 : Person",
          "attributes":[
             "name=TTC Participants"
@@ -48,7 +63,7 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"greetingMessage",
@@ -61,7 +76,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"person",
@@ -91,22 +106,25 @@ Hello TTC Participants</p>
             );
 </pre><script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"G1 : Greeting"
+         "type":"clazz",
+         "id":"G1 : Greeting",
+         "attributes":[
+            "text=null",
+            "tgt=null"
+         ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G2 : GreetingMessage",
          "attributes":[
             "text=Hi"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P3 : Person",
          "attributes":[
             "name=dudes"
@@ -115,7 +133,7 @@ Hello TTC Participants</p>
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"greetingMessage",
@@ -128,7 +146,7 @@ Hello TTC Participants</p>
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"person",

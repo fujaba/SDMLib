@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
+import org.sdmlib.models.pattern.Pattern;
 
 public class MacListPO extends PatternObject<MacListPO, MacList>
 {
@@ -162,6 +163,97 @@ public class MacListPO extends PatternObject<MacListPO, MacList>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public MacListPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MacListPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createSerialVersionUIDCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_SERIALVERSIONUID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createSerialVersionUIDCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_SERIALVERSIONUID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MacListPO createSerialVersionUIDAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MacList.PROPERTY_SERIALVERSIONUID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

@@ -31,6 +31,7 @@ import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 public class TaskFlowSet extends SDMSet<TaskFlow>
 {
@@ -342,4 +343,64 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
    {
       this.addAll(objects);
    }
+
+
+   public TaskFlowPO createTaskFlowPO()
+   {
+      return new TaskFlowPO(this.toArray(new TaskFlow[this.size()]));
+   }
+
+
+   @Override
+   public TaskFlowSet getNewList(boolean keyValue)
+   {
+      return new TaskFlowSet();
+   }
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the title attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet createTitleCondition(String value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value.equals(obj.getTitle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of TaskFlow objects and collect those TaskFlow objects where the title attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of TaskFlow objects that match the parameter
+    */
+   public TaskFlowSet createTitleCondition(String lower, String upper)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

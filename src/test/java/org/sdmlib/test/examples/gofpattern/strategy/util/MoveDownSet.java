@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.gofpattern.strategy.MoveDown;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class MoveDownSet extends SimpleSet<MoveDown>
 {
@@ -167,4 +168,23 @@ public class MoveDownSet extends SimpleSet<MoveDown>
    {
       this.addAll(objects);
    }
-}
+
+
+   public MoveDownPO createMoveDownPO()
+   {
+      return new MoveDownPO(this.toArray(new MoveDown[this.size()]));
+   }
+
+
+   @Override
+   public MoveDownSet getNewList(boolean keyValue)
+   {
+      return new MoveDownSet();
+   }
+
+
+   public MoveDownSet filter(Condition<MoveDown> condition) {
+      MoveDownSet filterList = new MoveDownSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

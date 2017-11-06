@@ -7,6 +7,10 @@ import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.taskflows.util.LogEntryPO;
+import org.sdmlib.models.taskflows.util.LoggerPO;
+import org.sdmlib.models.taskflows.util.TaskFlowPO;
 
 public class LoggerPO extends PatternObject<LoggerPO, Logger>
 {
@@ -369,6 +373,200 @@ public class LoggerPO extends PatternObject<LoggerPO, Logger>
    public LoggerPO filterEntries(LogEntryPO tgt)
    {
       return hasLinkConstraint(tgt, Logger.PROPERTY_ENTRIES);
+   }
+
+
+   public LoggerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LoggerPO createStartPeerCondition(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_STARTPEER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createStartPeerAssignment(PeerProxy value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_STARTPEER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createIdMapAssignment(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createTaskNoCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createTaskNoCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LoggerPO createTaskNoAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createEntriesPO()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Logger.PROPERTY_ENTRIES, result);
+      
+      return result;
+   }
+
+   public LogEntryPO createEntriesPO(String modifier)
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Logger.PROPERTY_ENTRIES, result);
+      
+      return result;
+   }
+
+   public LoggerPO createEntriesLink(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_ENTRIES);
+   }
+
+   public LoggerPO createEntriesLink(LogEntryPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_ENTRIES, modifier);
+   }
+
+   public TaskFlowPO createParentPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Logger.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createParentPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Logger.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public LoggerPO createParentLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_PARENT);
+   }
+
+   public LoggerPO createParentLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_PARENT, modifier);
+   }
+
+   public TaskFlowPO createSubFlowPO()
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Logger.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public TaskFlowPO createSubFlowPO(String modifier)
+   {
+      TaskFlowPO result = new TaskFlowPO(new TaskFlow[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Logger.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public LoggerPO createSubFlowLink(TaskFlowPO tgt)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_SUBFLOW);
+   }
+
+   public LoggerPO createSubFlowLink(TaskFlowPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Logger.PROPERTY_SUBFLOW, modifier);
    }
 
 }

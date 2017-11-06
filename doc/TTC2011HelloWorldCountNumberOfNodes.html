@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldCountNumberOfNodes</a></p>
 <hr/><p>Simple Graph application classes: </p>
 <script>
@@ -16,14 +28,14 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Graph"
-      },
-      {
-         "typ":"node",
          "id":"Edge",
          "attributes":[
             "name : String"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"Graph"
       },
       {
          "typ":"node",
@@ -40,16 +52,15 @@
 <hr/><p>create example graph: </p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"S1 : SDMLibJsonIdMap"
+         "type":"clazz",
+         "id":"G2 : Graph"
       },
       {
-         "typ":"clazz",
-         "id":"G2 : Graph"
+         "type":"clazz",
+         "id":"S1 : SDMLibJsonIdMap"
       }
    ]
 }   ;
@@ -74,18 +85,17 @@
       systemout = &quot;Number of nodes: &quot; + noOfNodes;
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       }
@@ -109,18 +119,17 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       }
@@ -155,18 +164,17 @@
       systemout = &quot;Nodes: &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; Number of nodes: &quot; + allMatches.size();      
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       }
@@ -190,18 +198,17 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       }
@@ -238,23 +245,22 @@
       systemout = &quot;Looping Edges: &quot; + loopingEdges.getName().concat(&quot;, &quot;) + &quot; Number of looping edges: &quot; + loopingEdges.size();
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e2 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n3 : NodePO",
          "attributes":[]
       }
@@ -300,23 +306,22 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e2 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n3 : NodePO",
          "attributes":[]
       }
@@ -395,40 +400,39 @@
       systemout = &quot;Isolated nodes: &quot; + isolatedNodes.getName().concat(&quot;, &quot;) + &quot; Number of isolated nodes: &quot; + isolatedNodes.size();
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e3 : EdgePO",
                "attributes":[]
             }
          ]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e4 : EdgePO",
                "attributes":[]
             }
@@ -476,40 +480,39 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e3 : EdgePO",
                "attributes":[]
             }
          ]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"e4 : EdgePO",
                "attributes":[]
             }
@@ -595,43 +598,42 @@
       systemout = &quot;Circles found: &quot; + noOfCircles;
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e3 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n4 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e5 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n6 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e7 : EdgePO",
          "attributes":[]
       }
@@ -721,43 +723,42 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e3 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n4 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e5 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n6 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e7 : EdgePO",
          "attributes":[]
       }
@@ -878,43 +879,42 @@
       systemout += &quot;&quot; + noOfCircles + &quot; circles found&quot;;
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e3 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n4 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e5 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n6 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e7 : EdgePO",
          "attributes":[]
       }
@@ -1004,43 +1004,42 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n2 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e3 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n4 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e5 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"n6 : NodePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e7 : EdgePO",
          "attributes":[]
       }
@@ -1197,33 +1196,32 @@ n5 --> n3 --> n4 -->
       systemout = &quot;Dangling edges &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; number: &quot; + allMatches.size();
    }</pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e2 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"n3 : NodePO",
                "attributes":[]
             },
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"n4 : NodePO",
                "attributes":[]
             }
@@ -1271,33 +1269,32 @@ n5 --> n3 --> n4 -->
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"g1 : GraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"e2 : EdgePO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"n3 : NodePO",
                "attributes":[]
             },
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"n4 : NodePO",
                "attributes":[]
             }

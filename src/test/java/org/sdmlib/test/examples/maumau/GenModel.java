@@ -6,7 +6,6 @@ import org.sdmlib.replication.ApplicationObject;
 import org.sdmlib.replication.Lane;
 
 import de.uniks.networkparser.graph.Annotation;
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -29,13 +28,14 @@ public class GenModel {
 		mauMauClass.withBidirectional(playerClass, "players", Cardinality.MANY, "game", Cardinality.ONE);
 		mauMauClass.withBidirectional(playerClass, "winner", Cardinality.ONE, "wonGame", Cardinality.ONE);
 		mauMauClass.withBidirectional(playerClass, "losers", Cardinality.MANY, "lostGame", Cardinality.ONE);
-		mauMauClass.with(new Attribute("currentPlayer", DataType.create(playerClass)));
-		mauMauClass.with(new Attribute("currentSuit", DataType.create(suitEnum)));
+		mauMauClass.withAttribute("currentPlayer", DataType.create(playerClass));
+		mauMauClass.withAttribute("currentSuit", DataType.create(suitEnum));
 		playerClass.withBidirectional(playerClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
 		playerClass.withAttribute("lane", DataType.create(Lane.class));
 		Clazz dutyClass = model.createClazz("Duty");
 		Clazz dutyType = model.createClazz("DutyType").enableEnumeration("PlayCard", "TakeOne", "TakeTwo");
-		dutyClass.with(new Attribute("type", DataType.create(dutyType)), new Attribute("number", DataType.INT));
+		dutyClass.withAttribute("type", DataType.create(dutyType));
+		dutyClass.withAttribute("number", DataType.INT);
 		playerClass.withBidirectional(dutyClass, "duty", Cardinality.MANY, "player", Cardinality.ONE);
 		Clazz openStack = model.createClazz("OpenStack").withSuperClazz(holderClass);
 		Clazz drawingStack = model.createClazz("DrawingStack").withSuperClazz(holderClass);

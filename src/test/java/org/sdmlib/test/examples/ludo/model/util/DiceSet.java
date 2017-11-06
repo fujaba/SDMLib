@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 
 public class DiceSet extends SimpleSet<Dice>
 {
@@ -308,4 +311,51 @@ public class DiceSet extends SimpleSet<Dice>
       DiceSet filterList = new DiceSet();
       filterItems(filterList, condition);
       return filterList;
-   }}
+   }
+   /**
+    * Loop through the current set of Dice objects and collect those Dice objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Dice objects that match the parameter
+    */
+   public DiceSet createValueCondition(int value)
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Dice objects and collect those Dice objects where the value attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Dice objects that match the parameter
+    */
+   public DiceSet createValueCondition(int lower, int upper)
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+}

@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.ludoreverse.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludoreverse.model.util.PlayerSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -339,4 +342,117 @@ public class LudoSet extends SimpleSet<Ludo>
    {
       this.addAll(objects);
    }
+
+
+   public LudoPO createLudoPO()
+   {
+      return new LudoPO(this.toArray(new Ludo[this.size()]));
+   }
+
+
+   @Override
+   public LudoSet getNewList(boolean keyValue)
+   {
+      return new LudoSet();
+   }
+
+
+   public LudoSet filter(Condition<Ludo> condition) {
+      LudoSet filterList = new LudoSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the age attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet createAgeCondition(int value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getAge())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the age attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet createAgeCondition(int lower, int upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower <= obj.getAge() && obj.getAge() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the style attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet createStyleCondition(String value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value.equals(obj.getStyle()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the style attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet createStyleCondition(String lower, String upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.compareTo(obj.getStyle()) <= 0 && obj.getStyle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

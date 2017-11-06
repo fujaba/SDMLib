@@ -32,6 +32,10 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -409,4 +413,117 @@ public class PersonSet extends SimpleSet<Person>
    {
       this.addAll(objects);
    }
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+
+   public PersonSet filter(Condition<Person> condition) {
+      PersonSet filterList = new PersonSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the balance attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createBalanceCondition(double value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value == obj.getBalance())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the balance attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createBalanceCondition(double lower, double upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createNameCondition(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createNameCondition(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

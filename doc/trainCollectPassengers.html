@@ -4,133 +4,100 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java' type='text/x-java'>trainCollectPassengers</a></p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"T1 : Train"
+         "type":"clazz",
+         "id":"P10 : Person",
+         "attributes":[
+            "train=null"
+         ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"P11 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S12 : SignalFlag"
+      },
+      {
+         "type":"clazz",
          "id":"S2 : Station"
       },
       {
-         "typ":"clazz",
-         "id":"S3 : Station"
+         "type":"clazz",
+         "id":"S3 : Station",
+         "attributes":[
+            "flag=null"
+         ]
       },
       {
-         "typ":"clazz",
-         "id":"P4 : Person"
-      },
-      {
-         "typ":"clazz",
-         "id":"P5 : Person"
-      },
-      {
-         "typ":"clazz",
-         "id":"P6 : Person"
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S7 : SignalFlag"
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"S8 : Station"
       },
       {
-         "typ":"clazz",
-         "id":"S9 : Station"
+         "type":"clazz",
+         "id":"S9 : Station",
+         "attributes":[
+            "flag=null"
+         ]
       },
       {
-         "typ":"clazz",
-         "id":"P10 : Person"
-      },
-      {
-         "typ":"clazz",
-         "id":"P11 : Person"
-      },
-      {
-         "typ":"clazz",
-         "id":"S12 : SignalFlag"
+         "type":"clazz",
+         "id":"T1 : Train"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"S2 : Station"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"trains",
-            "id":"T1 : Train"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"S3 : Station"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"S2 : Station"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"people",
-            "id":"P4 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"S2 : Station"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"people",
-            "id":"P5 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"S2 : Station"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"people",
-            "id":"P6 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"S2 : Station"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"flag",
@@ -143,7 +110,33 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S12 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"next",
@@ -156,7 +149,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"next",
@@ -169,7 +162,46 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"people",
@@ -182,7 +214,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"people",
@@ -195,7 +227,113 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengers1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"P10 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P11 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S12 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S3 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S9 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T1 : Train"
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S7 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"flag",
@@ -206,1314 +344,796 @@
             "property":"station",
             "id":"S8 : Station"
          }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengers1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
       },
       {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
          },
          "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S8 : Station"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern1-0", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S3 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S9 : Station"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern1-1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
-            "property":"station",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P4 : Person"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"people",
-            "id":"p4 : PersonPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern1-2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern1-3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
+            "id":"T1 : Train"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P5 : Person"
          },
          "target":{
+            "cardinality":"one",
             "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern1-4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>step 1</p>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
+            "id":"T1 : Train"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P6 : Person"
          },
          "target":{
+            "cardinality":"one",
             "property":"train",
-            "id":"t2 : TrainPO"
+            "id":"T1 : Train"
          }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
       },
       {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
+            "cardinality":"many",
+            "property":"people",
+            "id":"P10 : Person"
          },
          "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"many",
+            "property":"people",
+            "id":"P11 : Person"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern2-0", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern2-1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":"S2 : Station"
          },
          "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengers2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"P10 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P11 : Person",
+         "attributes":[
+            "train=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S12 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S3 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S9 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T1 : Train"
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
             "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":"S12 : SignalFlag"
          },
          "target":{
-            "property":"people",
-            "id":"p4 : PersonPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern2-2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern2-3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern2-4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>step 2</p>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
+            "cardinality":"many",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern3-0", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
+            "id":"S7 : SignalFlag"
          },
          "target":{
+            "cardinality":"many",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S2 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S8 : Station"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S3 : Station"
          }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern3-1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
       },
       {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S9 : Station"
          },
          "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"P10 : Person"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
+            "cardinality":"many",
             "property":"people",
-            "id":"p4 : PersonPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern3-2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
+            "id":"P11 : Person"
          },
          "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern3-3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern3-4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>step 3</p>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram21", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
          }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern4-0", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
-         "attributes":[
-            "<< start >>"
-         ]
       },
       {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"station",
-            "id":"s2 : StationPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "id":"S3 : Station"
          },
          "target":{
-            "property":"flag",
-            "id":"s3 : SignalFlagPO"
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern4-1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengers3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"patternObject",
-         "id":"t1 : TrainPO",
+         "type":"clazz",
+         "id":"P10 : Person",
          "attributes":[
-            "<< start >>"
+            "station=null"
          ]
       },
       {
-         "typ":"patternObject",
-         "id":"s2 : StationPO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"s3 : SignalFlagPO",
-         "attributes":[]
-      },
-      {
-         "typ":"objectdiagram",
-         "style":"nac",
-         "info":"OptionalSubPattern",
-         "nodes":[
-            {
-               "typ":"patternObject",
-               "id":"p4 : PersonPO",
-               "attributes":[
-                  "<< destroy>>"
-               ]
-            }
+         "type":"clazz",
+         "id":"P11 : Person",
+         "attributes":[
+            "station=null"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S12 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S3 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S9 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T1 : Train"
       }
    ],
    "edges":[
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"t1 : TrainPO"
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S12 : SignalFlag"
          },
          "target":{
+            "cardinality":"many",
             "property":"station",
-            "id":"s2 : StationPO"
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
-         },
-         "target":{
+            "cardinality":"one",
             "property":"flag",
-            "id":"s3 : SignalFlagPO"
+            "id":"S7 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S2 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"s2 : StationPO"
+            "cardinality":"one",
+            "property":"next",
+            "id":"S9 : Station"
          },
          "target":{
-            "property":"people",
-            "id":"p4 : PersonPO"
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P10 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P11 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S8 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern4-2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengers4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
+         "type":"clazz",
+         "id":"P10 : Person",
          "attributes":[
-            "<< start >>",
-            "<< destroy>>"
+            "station=null"
          ]
       },
       {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
+         "type":"clazz",
+         "id":"P11 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P5 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "station=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S12 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S3 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SignalFlag"
+      },
+      {
+         "type":"clazz",
+         "id":"S8 : Station"
+      },
+      {
+         "type":"clazz",
+         "id":"S9 : Station",
+         "attributes":[
+            "flag=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T1 : Train"
       }
    ],
    "edges":[
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":null
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S12 : SignalFlag"
          },
          "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
+            "cardinality":"many",
+            "property":"station",
+            "id":"S8 : Station"
          }
       },
       {
-         "typ":"EDGE",
+         "type":"assoc",
          "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
+            "cardinality":"one",
+            "property":"flag",
+            "id":"S7 : SignalFlag"
          },
          "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"S2 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"train",
-            "id":"t2 : TrainPO"
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P10 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"passengers",
+            "id":"P11 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"train",
+            "id":"T1 : Train"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S8 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S9 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S8 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"S2 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"S3 : Station"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"S9 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"T1 : Train"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern4-3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasaddPassengersPattern4-4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>step 4</p>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-      {
-         "typ":"patternObject",
-         "id":"p1 : PersonPO",
-         "attributes":[
-            "<< start >>",
-            "<< destroy>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"t2 : TrainPO",
-         "attributes":[]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":null
-         },
-         "target":{
-            "property":"people",
-            "id":"p1 : PersonPO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"p1 : PersonPO"
-         },
-         "target":{
-            "property":"train",
-            "id":"t2 : TrainPO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram28", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvastrainCollectPassengers5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

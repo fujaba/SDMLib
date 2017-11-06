@@ -33,4 +33,9 @@ public class LanePO extends PatternObject<LanePO, Lane>
       }
       newInstance(org.sdmlib.test.examples.maumau.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public LanePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

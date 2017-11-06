@@ -4,25 +4,28 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.FeatureProperty;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.util.ClazzSet;
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -355,7 +358,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!modelSetJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+        	 List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -860,7 +863,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+        	 List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -979,6 +982,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          return null;
       }
 
+      if (model.getType().equals(ClazzType.INTERFACE)) {
+    	  return null;
+      }
+      
       if (creatorParser == null)
       {
          // try to find existing file
@@ -1010,7 +1017,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          if (!creatorJavaFile.exists() && feature != null)
          {
-            HashSet<String> featureSet = feature.getPath();
+            List<String> featureSet = feature.getPath();
             for (String featureValue : featureSet)
             {
                String alternativePackageName = featureValue;
@@ -1042,12 +1049,22 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
-                     "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
+                     "import de.uniks.networkparser.interfaces.AggregatedEntityCreator;\n" +
                      "fullEntityClassName" +
                      "\n" +
-                     "public class creatorClassName implements SendableEntityCreator\n" +
+                     "public class creatorClassName implements AggregatedEntityCreator\n" +
                      "{\n" +
+                     "   public static final creatorClassName it = new creatorClassName();\n" +
+                     "   \n" +
                      "   private final String[] properties = new String[]\n" +
+                     "   {\n" +
+                     "   };\n" +
+                     "   \n" +
+                     "   private final String[] upProperties = new String[]\n" +
+                     "   {\n" +
+                     "   };\n" +
+                     "   \n" +
+                     "   private final String[] downProperties = new String[]\n" +
                      "   {\n" +
                      "   };\n" +
                      "   \n" +
@@ -1058,10 +1075,23 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   }\n" +
                      "   \n" +
                      "   @Override\n" +
+                     "   public String[] getUpProperties()\n" +
+                     "   {\n" +
+                     "      return upProperties;\n" +
+                     "   }\n" +
+                     "   \n" +
+                     "   @Override\n" +
+                     "   public String[] getDownProperties()\n" +
+                     "   {\n" +
+                     "      return downProperties;\n" +
+                     "   }\n" +
+                     "   \n" +
+                     "   @Override\n" +
                      "   public Object getSendableInstance(boolean reference)\n" +
                      "   {\n" +
                      "      return instanceCreationClause;\n" +
                      "   }\n" +
+                     "   \n" +
                      "   \n" +
                      "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" +
@@ -1080,10 +1110,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
-                     "      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {\n"+
-                     "           ((entitiyClassName)target).removeYou();\n"+
-                     "           return true;\n"+
-                     "      }\n"+
+                     "      remove_you_clause" +
                      "      if (SendableEntityCreator.REMOVE.equals(type) && value != null)\n" +
                      "      {\n" +
                      "         attrName = attrName + type;\n" +
@@ -1102,8 +1129,16 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
             text.append("}\n");
 
+            String removeYouClause =  "" +
+                  "      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {\n"+
+                  "           ((entitiyClassName)target).removeYou();\n"+
+                  "           return true;\n"+
+                  "      }\n";
+
             if (model.isExternal())
             {
+               removeYouClause = "";
+               
                // check if it has a constructor
                ClassLoader classLoader = this.getClass().getClassLoader();
                boolean hasConstructor = false;
@@ -1126,6 +1161,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                   CGUtil.replaceAll(text,
                      "instanceCreationClause", "null", "fullEntityClassName", "");
                }
+            }
+            
+            if (model.getType() == ClazzType.ENUMERATION)
+            {
+               removeYouClause = "";
             }
 
             String instanceCreationClause = "";
@@ -1168,6 +1208,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             }
 
             String classModelPackage = model.getClassModel().getName() + ".util.";
+            CGUtil.replaceAll(text, "      remove_you_clause", removeYouClause);
 
             CGUtil.replaceAll(text,
                "creatorClassName", creatorClassName,
@@ -1175,9 +1216,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                "fullEntityClassName", "import " + fullEntityClassName + ";\n",
                "packageName", packageName,
                "instanceCreationClause", instanceCreationClause,
-               "ClassModelPackage", classModelPackage);
+               "ClassModelPackage", classModelPackage
+               );
 
             creatorParser.withFileBody(text).withFileChanged(true);
+            creatorParser.insertImport(ObjectSet.class.getName());
+            creatorParser.insertImport(SendableEntityCreator.class.getName());
             if (standAlone == false)
             {
                creatorParser.insertImport(IdMap.class.getName());

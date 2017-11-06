@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>LazyReachabilityGraphAttrsAndNodes</a></p>
+<p>Start graph: </p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"N2 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N3 : Node",
+         "attributes":[
+            "num=4"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S1 : SimpleState"
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLazyReachabilityGraphAttrsAndNodes2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Rewrite rule: </p>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"s1 : SimpleStatePO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[
+            "num == 23",
+            "num == 42"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s1 : SimpleStatePO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLazyReachabilityGraphAttrsAndNodesPatternDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"N2 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N3 : Node",
+         "attributes":[
+            "num=4"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N6 : Node",
+         "attributes":[
+            "num=23"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N8 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R10 : ReachableState",
+         "attributes":[
+            "failureState=false",
+            "metricValue=0.0",
+            "number=1"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R11 : ReachableState",
+         "attributes":[
+            "failureState=false",
+            "metricValue=0.0",
+            "number=2"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R12 : ReachableState",
+         "attributes":[
+            "failureState=false",
+            "metricValue=0.0",
+            "number=3"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R13 : RuleApplication",
+         "attributes":[
+            "description=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R14 : RuleApplication",
+         "attributes":[
+            "description=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R9 : ReachabilityGraph"
+      },
+      {
+         "type":"clazz",
+         "id":"S1 : SimpleState"
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : SimpleState"
+      },
+      {
+         "type":"clazz",
+         "id":"S7 : SimpleState"
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"S1 : SimpleState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R10 : ReachableState"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"S4 : SimpleState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R11 : ReachableState"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graphRoot",
+            "id":"S7 : SimpleState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"reachablestate",
+            "id":"R12 : ReachableState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"N2 : Node"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S1 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S4 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S4 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S7 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"graph",
+            "id":"S7 : SimpleState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"R13 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R11 : ReachableState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"R14 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R12 : ReachableState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"R13 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R10 : ReachableState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"R14 : RuleApplication"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R11 : ReachableState"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"R10 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"R9 : ReachabilityGraph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"R11 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"R9 : ReachabilityGraph"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"states",
+            "id":"R12 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"R9 : ReachabilityGraph"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLazyReachabilityGraphAttrsAndNodes5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: number of reachable states 3 actual 3</p>
+<p>Check: number of nodes building the two graphs 4 actual 4</p>
+
+</body>
+</html>

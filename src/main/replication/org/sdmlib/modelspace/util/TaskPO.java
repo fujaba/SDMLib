@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskLane;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.modelspace.util.TaskLanePO;
+import org.sdmlib.modelspace.util.TaskPO;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {
@@ -459,6 +462,243 @@ public class TaskPO extends PatternObject<TaskPO, Task>
    public TaskPO filterFileTargetCloud(TaskLanePO tgt)
    {
       return hasLinkConstraint(tgt, Task.PROPERTY_FILETARGETCLOUD);
+   }
+
+
+   public TaskPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public TaskPO createFileNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createFileNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createFileNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createLastModifiedCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_LASTMODIFIED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createLastModifiedCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_LASTMODIFIED)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createLastModifiedAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_LASTMODIFIED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createSpaceNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_SPACENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createSpaceNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_SPACENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createSpaceNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_SPACENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createStateCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createStateCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_STATE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createStateAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Task.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskLanePO createFileTargetCloudPO()
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_FILETARGETCLOUD, result);
+      
+      return result;
+   }
+
+   public TaskLanePO createFileTargetCloudPO(String modifier)
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_FILETARGETCLOUD, result);
+      
+      return result;
+   }
+
+   public TaskPO createFileTargetCloudLink(TaskLanePO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_FILETARGETCLOUD);
+   }
+
+   public TaskPO createFileTargetCloudLink(TaskLanePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_FILETARGETCLOUD, modifier);
+   }
+
+   public TaskLanePO createLanePO()
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LANE, result);
+      
+      return result;
+   }
+
+   public TaskLanePO createLanePO(String modifier)
+   {
+      TaskLanePO result = new TaskLanePO(new TaskLane[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_LANE, result);
+      
+      return result;
+   }
+
+   public TaskPO createLaneLink(TaskLanePO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LANE);
+   }
+
+   public TaskPO createLaneLink(TaskLanePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LANE, modifier);
    }
 
 }

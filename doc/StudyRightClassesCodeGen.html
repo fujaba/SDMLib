@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 <p>1. generate class University</p>
 <script>
@@ -33,17 +45,17 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"University",
+         "id":"Student",
          "attributes":[
+            "matrNo : int",
             "name : String"
          ]
       },
       {
          "typ":"node",
-         "id":"Student",
+         "id":"University",
          "attributes":[
-            "name : String",
-            "matrNo : int"
+            "name : String"
          ]
       }
    ],
@@ -58,17 +70,17 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"University",
+         "id":"Student",
          "attributes":[
+            "matrNo : int",
             "name : String"
          ]
       },
       {
          "typ":"node",
-         "id":"Student",
+         "id":"University",
          "attributes":[
-            "name : String",
-            "matrNo : int"
+            "name : String"
          ]
       }
    ],
@@ -83,25 +95,25 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"University",
+         "id":"Room",
          "attributes":[
-            "name : String"
+            "credits : int",
+            "roomNo : String"
          ]
       },
       {
          "typ":"node",
          "id":"Student",
          "attributes":[
-            "name : String",
-            "matrNo : int"
+            "matrNo : int",
+            "name : String"
          ]
       },
       {
          "typ":"node",
-         "id":"Room",
+         "id":"University",
          "attributes":[
-            "roomNo : String",
-            "credits : int"
+            "name : String"
          ]
       }
    ],
@@ -116,54 +128,67 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"University",
-         "attributes":[
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Student",
+         "id":"Assignment",
          "attributes":[
             "name : String",
-            "matrNo : int",
-            "credits : int",
-            "motivation : int"
+            "points : int"
          ]
       },
       {
          "typ":"node",
          "id":"Room",
          "attributes":[
-            "roomNo : String",
-            "credits : int"
+            "credits : int",
+            "roomNo : String"
          ]
       },
       {
          "typ":"node",
-         "id":"Assignment",
+         "id":"Student",
          "attributes":[
-            "name : String",
-            "points : int"
+            "credits : int",
+            "matrNo : int",
+            "motivation : int",
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+            "name : String"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
-            "id":"Student",
-            "cardinality":"one",
-            "property":"students"
-         },
-         "target":{
             "id":"Assignment",
             "cardinality":"many",
             "property":"done"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"students"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"Assignment",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"assignments"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Room",
             "cardinality":"many",
@@ -173,6 +198,19 @@
             "id":"Assignment",
             "cardinality":"one",
             "property":"room"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"students"
+         },
+         "target":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"done"
          }
       }
    ]
@@ -193,6 +231,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.test.examples.studyright.model.Assignment;</p>
 <p>9. generate property change support</p>
@@ -207,7 +246,7 @@ import org.sdmlib.test.examples.studyright.model.Assignment;</p>
       setUni(null);
       setIn(null);
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }</pre><p>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
 <p>generic set now works for double. Perhabs boolean and other are still missing</p>
 <p>Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,27 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 
-public class SimpleStateCreator extends EntityFactory
+public class SimpleStateCreator implements AggregatedEntityCreator
 {
+   public static final SimpleStateCreator it = new SimpleStateCreator();
+   
    private final String[] properties = new String[]
+   {
+      SimpleState.PROPERTY_NODES,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
    {
       SimpleState.PROPERTY_NODES,
    };
@@ -41,10 +53,23 @@ public class SimpleStateCreator extends EntityFactory
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new SimpleState();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -68,7 +93,11 @@ public class SimpleStateCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (REMOVE.equals(type) && value != null)
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((SimpleState)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -79,7 +108,7 @@ public class SimpleStateCreator extends EntityFactory
          return true;
       }
       
-      if ((SimpleState.PROPERTY_NODES + REMOVE).equalsIgnoreCase(attrName))
+      if ((SimpleState.PROPERTY_NODES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SimpleState) target).withoutNodes((Node) value);
          return true;
@@ -93,9 +122,7 @@ public class SimpleStateCreator extends EntityFactory
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((SimpleState) entity).removeYou();
    }

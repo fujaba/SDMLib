@@ -620,14 +620,14 @@ Drawer.SVGDrawer.prototype.getInfo = function (item, text, angle, style) {
 	if (items.length > 1) {
 		group = this.util.create({tag: "g", "class": "draggable", rotate: angle, model: item});
 		for (i = 0; i < items.length; i += 1) {
-			child = this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": item.x, "y": item.y + (item.height * i), fill: this.getColor(style, "#CCC")});
+			child = this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": item.x, "y": item.y + (item.height * i), fill: this.getColor(style, "#000")});
 			child.appendChild(document.createTextNode(items[i]));
 			group.appendChild(child);
 		}
 		this.model.createElement(group, "info", item);
 		return group;
 	}
-	group = this.util.create({tag: "text", "#$font": true, "text-anchor": "left", "x": item.x, "y": item.y, value: text, "id": item.id, "class": "draggable", rotate: angle, model: item, fill: this.getColor(style, "#CCC")});
+	group = this.util.create({tag: "text", "#$font": true, "text-anchor": "left", "x": item.x, "y": item.y, value: text, "id": item.id, "class": "draggable", rotate: angle, model: item, fill: this.getColor(style, "#000")});
 	this.model.createElement(group, "info", item);
 	return group;
 };

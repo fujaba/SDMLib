@@ -5,9 +5,7 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.NegativeApplicationConditionPO;
 
 public class NegativeApplicationConditionPO extends PatternObject<NegativeApplicationConditionPO, NegativeApplicationCondition>
 {

@@ -5,99 +5,95 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightReachabilityGraph</a></p>
 <p>Start: Build a start graph</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=83",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R3 : Room",
          "attributes":[
+            "credits=17",
             "name=senate",
-            "topic=math",
-            "credits=17"
+            "topic=math"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R4 : Room",
          "attributes":[
+            "credits=16",
             "name=7522",
-            "topic=arts",
-            "credits=16"
+            "topic=arts"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R5 : Room",
          "attributes":[
+            "credits=25",
             "name=gymnasium",
-            "topic=sports",
-            "credits=25"
+            "topic=sports"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R6 : Room",
          "attributes":[
+            "credits=0",
             "name=The End",
-            "topic=exam",
-            "credits=0"
+            "topic=exam"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R7 : Room",
          "attributes":[
+            "credits=42",
             "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
+            "topic=Software Engineering"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=17",
+            "id=1337",
+            "motivation=83",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -110,7 +106,20 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -123,7 +132,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -136,7 +145,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -149,7 +158,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -162,7 +171,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -181,27 +190,25 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"u1 : UniversityPO",
-         "attributes":[
-            "<< start >>"
-         ]
+         "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"s2 : StudentPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r3 : RoomPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r4 : RoomPO",
          "attributes":[]
       }
@@ -249,7 +256,8 @@
          "target":{
             "property":"in",
             "id":"r4 : RoomPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;
@@ -258,216 +266,225 @@
 </script>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"R8 : ReachableState",
+         "type":"clazz",
+         "id":"R12 : Room",
          "attributes":[
-            "number=43",
-            "metricValue=0.0"
+            "credits=0",
+            "name=The End",
+            "topic=exam"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"U10 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R13 : ReachableState",
          "attributes":[
-            "number=22",
-            "metricValue=0.0"
+            "failureState=false",
+            "metricValue=0.0",
+            "number=22"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"U14 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R15 : ReachableState",
          "attributes":[
-            "number=9",
-            "metricValue=0.0"
+            "failureState=false",
+            "metricValue=0.0",
+            "number=9"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"U16 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R17 : ReachableState",
          "attributes":[
-            "number=3",
-            "metricValue=0.0"
+            "failureState=false",
+            "metricValue=0.0",
+            "number=3"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"U18 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R19 : ReachableState",
          "attributes":[
-            "number=1",
-            "metricValue=0.0"
+            "failureState=false",
+            "metricValue=0.0",
+            "number=1"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : RuleApplication",
-         "attributes":[
-            "description=next"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R20 : RuleApplication",
          "attributes":[
             "description=next"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R21 : RuleApplication",
          "attributes":[
             "description=next"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R22 : RuleApplication",
          "attributes":[
             "description=next"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S11 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=100"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R12 : Room",
-         "attributes":[
-            "name=The End",
-            "topic=exam",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"S23 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=100"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R24 : Room",
          "attributes":[
+            "credits=42",
             "name=7422",
-            "topic=Software Engineering",
-            "credits=42"
+            "topic=Software Engineering"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S25 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=42",
-            "credits=58"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R26 : Room",
          "attributes":[
+            "credits=16",
             "name=7522",
-            "topic=arts",
-            "credits=16"
+            "topic=arts"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S27 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=58",
-            "credits=42"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R28 : Room",
          "attributes":[
+            "credits=25",
             "name=gymnasium",
-            "topic=sports",
-            "credits=25"
+            "topic=sports"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "name=Karli",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=83",
-            "credits=17"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"R3 : Room",
          "attributes":[
+            "credits=17",
             "name=senate",
-            "topic=math",
-            "credits=17"
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R8 : ReachableState",
+         "attributes":[
+            "failureState=false",
+            "metricValue=0.0",
+            "number=43"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R9 : RuleApplication",
+         "attributes":[
+            "description=next"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S11 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=100",
+            "id=1337",
+            "motivation=0",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=17",
+            "id=1337",
+            "motivation=83",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S23 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=100",
+            "id=1337",
+            "motivation=0",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S25 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=58",
+            "id=1337",
+            "motivation=42",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S27 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=42",
+            "id=1337",
+            "motivation=58",
+            "name=Karli"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U10 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U14 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U16 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U18 : University",
+         "attributes":[
+            "name=StudyRight",
+            "president=null"
          ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
@@ -480,7 +497,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
@@ -493,7 +510,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
@@ -506,7 +523,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
@@ -519,7 +536,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
@@ -532,124 +549,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R13 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R9 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R8 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R9 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R15 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R20 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R13 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R20 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R17 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R21 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R15 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R21 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R19 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R22 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R17 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R22 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U10 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S11 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -662,33 +562,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U10 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R12 : Room"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U14 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S23 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -701,33 +575,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U14 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R24 : Room"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U16 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S25 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -740,33 +588,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U16 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R26 : Room"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U18 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S27 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -779,33 +601,7 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U18 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R28 : Room"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"in",
@@ -818,7 +614,228 @@
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R13 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R9 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R19 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R8 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R9 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R13 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R21 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U10 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S11 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U10 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R12 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S23 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U14 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R24 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S25 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U16 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R26 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S27 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U18 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R28 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
          "source":{
             "cardinality":"one",
             "property":"university",
@@ -839,40 +856,39 @@
 <p>Success state 43</p>
 <script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r1 : ReachabilityGraphPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r2 : ReachableStatePO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"o3 : ObjectPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"u4 : UniversityPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"s5 : StudentPO",
          "attributes":[
             "motivation == 0"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"r6 : RoomPO",
          "attributes":[
             "topic == exam"

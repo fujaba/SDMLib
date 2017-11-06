@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
 {
@@ -296,6 +297,153 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public SocketThreadPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SocketThreadPO createDefaultTargetThreadCondition(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_DEFAULTTARGETTHREAD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createDefaultTargetThreadAssignment(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_DEFAULTTARGETTHREAD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIdMapCondition(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIdMapAssignment(SDMLibJsonIdMap value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIpCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIpCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIpAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createPortCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createPortCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createPortAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

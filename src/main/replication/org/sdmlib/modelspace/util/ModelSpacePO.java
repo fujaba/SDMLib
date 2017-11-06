@@ -33,4 +33,9 @@ public class ModelSpacePO extends PatternObject<ModelSpacePO, ModelSpace>
       }
       newInstance(org.sdmlib.modelspace.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ModelSpacePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

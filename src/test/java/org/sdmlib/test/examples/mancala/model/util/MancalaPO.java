@@ -47,16 +47,6 @@ public class MancalaPO extends PatternObject<MancalaPO, Mancala>
    }
 
    
-   //==========================================================================
-   
-   public void initGame(String firstPlayerName, String secondPlayerName)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Mancala) getCurrentMatch()).initGame(firstPlayerName, secondPlayerName);
-      }
-   }
-
    public PlayerPO hasActivePlayer()
    {
       PlayerPO result = new PlayerPO(new Player[]{});
@@ -157,6 +147,22 @@ public class MancalaPO extends PatternObject<MancalaPO, Mancala>
          return ((Mancala) this.getCurrentMatch()).getPits();
       }
       return null;
+   }
+
+
+   public MancalaPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   
+   //==========================================================================
+   
+   public void initGame(String firstPlayerName, String secondPlayerName)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Mancala) getCurrentMatch()).initGame(firstPlayerName, secondPlayerName);
+      }
    }
 
 }

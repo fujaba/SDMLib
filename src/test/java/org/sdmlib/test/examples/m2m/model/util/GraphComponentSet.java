@@ -29,6 +29,12 @@ import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.m2m.model.util.GraphSet;
+import org.sdmlib.test.examples.m2m.model.Person;
+import org.sdmlib.test.examples.m2m.model.util.PersonSet;
+import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 public class GraphComponentSet extends SimpleSet<GraphComponent>
 {
@@ -239,4 +245,100 @@ public class GraphComponentSet extends SimpleSet<GraphComponent>
    {
       this.addAll(objects);
    }
-}
+
+
+   public GraphComponentPO createGraphComponentPO()
+   {
+      return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
+   }
+
+
+   @Override
+   public GraphComponentSet getNewList(boolean keyValue)
+   {
+      return new GraphComponentSet();
+   }
+
+
+   public GraphComponentSet filter(Condition<GraphComponent> condition) {
+      GraphComponentSet filterList = new GraphComponentSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet createTextCondition(String value)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GraphComponent objects that match the parameter
+    */
+   public GraphComponentSet createTextCondition(String lower, String upper)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+   public PersonSet instanceOfPerson()
+   {
+      PersonSet result = new PersonSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Person)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RelationSet instanceOfRelation()
+   {
+      RelationSet result = new RelationSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Relation)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

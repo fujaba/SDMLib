@@ -10,7 +10,6 @@ import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.util.TrainPO;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {
@@ -257,5 +256,4 @@ public class StationPO extends PatternObject<StationPO, Station>
       }
       return null;
    }
-
 }

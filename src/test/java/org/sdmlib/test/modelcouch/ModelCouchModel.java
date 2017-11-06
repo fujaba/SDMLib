@@ -16,9 +16,9 @@ public class ModelCouchModel
 	{
 		ClassModel mCModel = new ClassModel("org.sdmlib.modelcouch");
 		
-		Clazz modelCouch = mCModel.createClazz("ModelCouch")
-			.with(new Attribute("hostName", DataType.STRING).withValue("localhost"))
-			.with(new Attribute("port", DataType.INT).withValue("5984"));
+		Clazz modelCouch = mCModel.createClazz("ModelCouch");
+		modelCouch.createAttribute("hostName", DataType.STRING).withValue("localhost");
+		modelCouch.createAttribute("port", DataType.INT).withValue("5984");
 		
 		Clazz modelDBListener = mCModel.createClazz("ModelDBListener");
 		

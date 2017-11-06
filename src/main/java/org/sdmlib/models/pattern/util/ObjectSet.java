@@ -21,10 +21,10 @@
    
 package org.sdmlib.models.pattern.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import java.lang.Object;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ObjectSet extends SimpleSet<Object>
 {

@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.m2m.model.util.GraphSet;
+import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
 public class RelationSet extends SimpleSet<Relation>
 {
@@ -483,4 +486,117 @@ public class RelationSet extends SimpleSet<Relation>
    {
       this.addAll(objects);
    }
+
+
+   public RelationPO createRelationPO()
+   {
+      return new RelationPO(this.toArray(new Relation[this.size()]));
+   }
+
+
+   @Override
+   public RelationSet getNewList(boolean keyValue)
+   {
+      return new RelationSet();
+   }
+
+
+   public RelationSet filter(Condition<Relation> condition) {
+      RelationSet filterList = new RelationSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the kind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet createKindCondition(String value)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the kind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet createKindCondition(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the text attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet createTextCondition(String value)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Relation objects and collect those Relation objects where the text attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Relation objects that match the parameter
+    */
+   public RelationSet createTextCondition(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

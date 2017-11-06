@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java' type='text/x-java'>LayzFerrymansProblemExample</a></p>
+<p>initial situation:</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"L1 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L2 : LBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L3 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L4 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L5 : LCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L6 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L7 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L6 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLayzFerrymansProblemExample2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>kids of river</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"L1 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L2 : LBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L3 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L4 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L5 : LCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L6 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L7 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L6 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLayzFerrymansProblemExample4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>kids of river clone</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"L10 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L11 : LBoat"
+      },
+      {
+         "type":"clazz",
+         "id":"L4 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L5 : LCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L7 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L8 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L9 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lriver",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"L10 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lbank",
+            "id":"L9 : LBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"lbank",
+            "id":"L9 : LBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLayzFerrymansProblemExample6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>both graphs with shared components</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"L1 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L10 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L11 : LBoat"
+      },
+      {
+         "type":"clazz",
+         "id":"L2 : LBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L3 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L4 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L5 : LCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L6 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L7 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L8 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L9 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"L10 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L6 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLayzFerrymansProblemExample8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: both graphs should have same size 7 actual 7</p>
+<p>Check: union should have four more elements  11 actual 11</p>
+<p>three graphs with shared components</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"L1 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L10 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L11 : LBoat"
+      },
+      {
+         "type":"clazz",
+         "id":"L12 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L13 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L14 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L15 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L2 : LBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L3 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L4 : LBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L5 : LCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L6 : LCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L7 : LCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L8 : LRiver"
+      },
+      {
+         "type":"clazz",
+         "id":"L9 : LBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L13 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L3 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L9 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L15 : LBank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L12 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L2 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L1 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L9 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L13 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"L10 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L5 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L6 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L7 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L3 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"L14 : LCargo"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bank",
+            "id":"L15 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L8 : LRiver"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L4 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L12 : LRiver"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"L13 : LBank"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"river",
+            "id":"L12 : LRiver"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"L11 : LBoat"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLayzFerrymansProblemExample12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: union should now have 8 additional elements  15 actual 15</p>
+
+</body>
+</html>

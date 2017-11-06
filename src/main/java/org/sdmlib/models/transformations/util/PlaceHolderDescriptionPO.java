@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.transformations.util.MatchPO;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.util.TemplatePO;
 
 public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescriptionPO, PlaceHolderDescription>
 {
@@ -567,6 +571,301 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
    public PlaceHolderDescriptionPO filterSubTemplate(TemplatePO tgt)
    {
       return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_SUBTEMPLATE);
+   }
+
+
+   public PlaceHolderDescriptionPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public PlaceHolderDescriptionPO createAttrNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createAttrNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createAttrNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createIsKeyAttributeCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createIsKeyAttributeAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPrefixCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_PREFIX)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPrefixCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_PREFIX)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPrefixAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_PREFIX)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createTextFragmentCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_TEXTFRAGMENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createTextFragmentCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_TEXTFRAGMENT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createTextFragmentAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_TEXTFRAGMENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createValueCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createValueCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createValueAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MatchPO createMatchesPO()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PlaceHolderDescription.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public MatchPO createMatchesPO(String modifier)
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PlaceHolderDescription.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createMatchesLink(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_MATCHES);
+   }
+
+   public PlaceHolderDescriptionPO createMatchesLink(MatchPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_MATCHES, modifier);
+   }
+
+   public TemplatePO createOwnersPO()
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PlaceHolderDescription.PROPERTY_OWNERS, result);
+      
+      return result;
+   }
+
+   public TemplatePO createOwnersPO(String modifier)
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PlaceHolderDescription.PROPERTY_OWNERS, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createOwnersLink(TemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_OWNERS);
+   }
+
+   public PlaceHolderDescriptionPO createOwnersLink(TemplatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_OWNERS, modifier);
+   }
+
+   public TemplatePO createSubTemplatePO()
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(PlaceHolderDescription.PROPERTY_SUBTEMPLATE, result);
+      
+      return result;
+   }
+
+   public TemplatePO createSubTemplatePO(String modifier)
+   {
+      TemplatePO result = new TemplatePO(new Template[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(PlaceHolderDescription.PROPERTY_SUBTEMPLATE, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO createSubTemplateLink(TemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_SUBTEMPLATE);
+   }
+
+   public PlaceHolderDescriptionPO createSubTemplateLink(TemplatePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_SUBTEMPLATE, modifier);
    }
 
 }

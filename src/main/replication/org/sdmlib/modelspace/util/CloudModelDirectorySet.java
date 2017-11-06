@@ -29,6 +29,8 @@ import org.sdmlib.modelspace.CloudModelFile;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.modelspace.util.CloudModelFileSet;
 
 public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
 {
@@ -151,4 +153,23 @@ public class CloudModelDirectorySet extends SimpleSet<CloudModelDirectory>
    {
       this.addAll(objects);
    }
-}
+
+
+   public CloudModelDirectoryPO createCloudModelDirectoryPO()
+   {
+      return new CloudModelDirectoryPO(this.toArray(new CloudModelDirectory[this.size()]));
+   }
+
+
+   @Override
+   public CloudModelDirectorySet getNewList(boolean keyValue)
+   {
+      return new CloudModelDirectorySet();
+   }
+
+
+   public CloudModelDirectorySet filter(Condition<CloudModelDirectory> condition) {
+      CloudModelDirectorySet filterList = new CloudModelDirectorySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

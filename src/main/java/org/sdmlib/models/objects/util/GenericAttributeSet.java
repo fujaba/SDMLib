@@ -28,6 +28,9 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 
 public class GenericAttributeSet extends SimpleSet<GenericAttribute>
 {
@@ -431,7 +434,20 @@ public class GenericAttributeSet extends SimpleSet<GenericAttribute>
       return result;
    }
 
-}
+
+
+   @Override
+   public GenericAttributeSet getNewList(boolean keyValue)
+   {
+      return new GenericAttributeSet();
+   }
+
+
+   public GenericAttributeSet filter(Condition<GenericAttribute> condition) {
+      GenericAttributeSet filterList = new GenericAttributeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}
 
 
 

@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
 import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionPO;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupPO;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberPO;
 
 public class MSChatGroupPO extends PatternObject<MSChatGroupPO, MSChatGroup>
 {
@@ -214,6 +218,114 @@ public class MSChatGroupPO extends PatternObject<MSChatGroupPO, MSChatGroup>
    public MSChatGroupPO filterChannels(MSChatChannelDescriptionPO tgt)
    {
       return hasLinkConstraint(tgt, MSChatGroup.PROPERTY_CHANNELS);
+   }
+
+
+   public MSChatGroupPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MSChatGroupPO createTaskCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatGroup.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatGroupPO createTaskCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatGroup.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatGroupPO createTaskAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatGroup.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelDescriptionPO createChannelsPO()
+   {
+      MSChatChannelDescriptionPO result = new MSChatChannelDescriptionPO(new MSChatChannelDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatGroup.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public MSChatChannelDescriptionPO createChannelsPO(String modifier)
+   {
+      MSChatChannelDescriptionPO result = new MSChatChannelDescriptionPO(new MSChatChannelDescription[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MSChatGroup.PROPERTY_CHANNELS, result);
+      
+      return result;
+   }
+
+   public MSChatGroupPO createChannelsLink(MSChatChannelDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatGroup.PROPERTY_CHANNELS);
+   }
+
+   public MSChatGroupPO createChannelsLink(MSChatChannelDescriptionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MSChatGroup.PROPERTY_CHANNELS, modifier);
+   }
+
+   public MSChatMemberPO createMembersPO()
+   {
+      MSChatMemberPO result = new MSChatMemberPO(new MSChatMember[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(MSChatGroup.PROPERTY_MEMBERS, result);
+      
+      return result;
+   }
+
+   public MSChatMemberPO createMembersPO(String modifier)
+   {
+      MSChatMemberPO result = new MSChatMemberPO(new MSChatMember[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(MSChatGroup.PROPERTY_MEMBERS, result);
+      
+      return result;
+   }
+
+   public MSChatGroupPO createMembersLink(MSChatMemberPO tgt)
+   {
+      return hasLinkConstraint(tgt, MSChatGroup.PROPERTY_MEMBERS);
+   }
+
+   public MSChatGroupPO createMembersLink(MSChatMemberPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, MSChatGroup.PROPERTY_MEMBERS, modifier);
    }
 
 }

@@ -23,7 +23,6 @@ package org.sdmlib.test.examples.SDMLib;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Association;
@@ -32,6 +31,7 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
@@ -81,19 +81,17 @@ public class ClassModelTest
 
       Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz);
       annotationClass
-         .with(
-            new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
-                  new Parameter(DataType.create("String...")).with("values")))
+         .withMethod("createSuppressWarningsAnnotation", DataType.create(annotationClass),
+                  new Parameter(DataType.create("String...")).with("values"))
          .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
          .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
          .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
 
-      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
-      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
-      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SafeVarargs");
-      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SuppressWarnings");
+      annotationClass.createAttribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
+      annotationClass.createAttribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
+      annotationClass.createAttribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SafeVarargs");
+      annotationClass.createAttribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("SuppressWarnings");
 
-      annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
 
       // ---- Enumeration ----
 
@@ -112,9 +110,9 @@ public class ClassModelTest
 
       Clazz associationClass = model.createClazz("Association").withSuperClazz(sdmLibClazz);
 
-      Clazz roleClass = model.createClazz("Role").withSuperClazz(sdmLibClazz)
-         .with(new Attribute("card", DataType.STRING).withValue("MANY"))
-         .with(new Attribute("kind", DataType.STRING).withValue("VANILLA"));
+      Clazz roleClass = model.createClazz("Role").withSuperClazz(sdmLibClazz);
+      roleClass.createAttribute("card", DataType.STRING).withValue("MANY");
+      roleClass.createAttribute("kind", DataType.STRING).withValue("VANILLA");
 
       new Association(clazzClass).with("clazz").with(Cardinality.ONE)
          .with(new Association(roleClass).with("roles").with(Cardinality.MANY));
@@ -147,7 +145,7 @@ public class ClassModelTest
 
       Clazz statementEntry = model.createClazz("org.sdmlib.codegen.StatementEntry")
          .withAttribute("kind", DataType.STRING)
-         .withAttribute("tokenList", DataType.create("java.util.ArrayList<String>", true))
+         .withAttribute("tokenList", DataType.create("java.util.ArrayList<String>"))
          .withAttribute("assignTargetVarName", DataType.STRING)
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);

@@ -3,7 +3,6 @@ package org.sdmlib.models.pattern;
 import java.util.LinkedHashMap;
 
 import org.sdmlib.models.SDMLibIdMap;
-import org.sdmlib.models.modelsets.SDMSet;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;

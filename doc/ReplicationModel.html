@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
 <script>
    var json = {
@@ -15,15 +27,16 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"Thread"
-      },
-      {
-         "typ":"node",
-         "id":"Socket"
-      },
-      {
-         "typ":"node",
-         "id":"ReplicationNode"
+         "id":"BoardTask",
+         "attributes":[
+            "manualExecution : boolean",
+            "name : String",
+            "stashedPropertyChangeEvent : PropertyChangeEvent",
+            "status : String"
+         ],
+         "methods":[
+            "execute()"
+         ]
       },
       {
          "typ":"node",
@@ -31,12 +44,41 @@
       },
       {
          "typ":"node",
-         "id":"SharedSpace",
+         "id":"Lane",
          "attributes":[
-            "spaceId : String",
-            "lastChangeId : long",
-            "nodeId : String",
-            "javaFXApplication : boolean"
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LogEntry",
+         "attributes":[
+            "executedBy : String",
+            "stepName : String",
+            "timeStamp : long"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RemoteTask",
+         "attributes":[
+            "boardTask : BoardTask"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RemoteTaskBoard"
+      },
+      {
+         "typ":"node",
+         "id":"ReplicationChange",
+         "attributes":[
+            "changeMsg : String",
+            "historyIdNumber : long",
+            "historyIdPrefix : String",
+            "isToManyProperty : boolean",
+            "targetObjectId : String",
+            "targetProperty : String"
          ]
       },
       {
@@ -45,6 +87,18 @@
          "attributes":[
             "socket : Socket",
             "targetNodeId : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ReplicationNode"
+      },
+      {
+         "typ":"node",
+         "id":"ReplicationRoot",
+         "attributes":[
+            "applicationObject : Object",
+            "name : String"
          ]
       },
       {
@@ -61,52 +115,21 @@
       },
       {
          "typ":"node",
+         "id":"SharedSpace",
+         "attributes":[
+            "javaFXApplication : boolean",
+            "lastChangeId : long",
+            "nodeId : String",
+            "spaceId : String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"Task"
       },
       {
          "typ":"node",
-         "id":"LogEntry",
-         "attributes":[
-            "stepName : String",
-            "executedBy : String",
-            "timeStamp : long"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"ReplicationChange",
-         "attributes":[
-            "historyIdPrefix : String",
-            "historyIdNumber : long",
-            "targetObjectId : String",
-            "targetProperty : String",
-            "isToManyProperty : boolean",
-            "changeMsg : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"RemoteTaskBoard"
-      },
-      {
-         "typ":"node",
-         "id":"Lane",
-         "attributes":[
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"BoardTask",
-         "attributes":[
-            "name : String",
-            "status : String",
-            "manualExecution : boolean",
-            "stashedPropertyChangeEvent : PropertyChangeEvent"
-         ],
-         "methods":[
-            "execute()"
-         ]
+         "id":"PropertyChangeEvent"
       },
       {
          "typ":"node",
@@ -114,209 +137,16 @@
       },
       {
          "typ":"node",
-         "id":"RemoteTask",
-         "attributes":[
-            "boardTask : BoardTask"
-         ]
+         "id":"Thread"
       },
       {
          "typ":"node",
-         "id":"ReplicationRoot",
-         "attributes":[
-            "name : String",
-            "applicationObject : Object"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"PropertyChangeEvent"
+         "id":"Socket"
       }
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"SharedSpace",
-            "cardinality":"one",
-            "property":"sharedspace"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ReplicationChannel",
-            "cardinality":"one",
-            "property":"replicationchannel"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ServerSocketAcceptThread",
-            "cardinality":"one",
-            "property":"serversocketacceptthread"
-         },
-         "target":{
-            "id":"Thread",
-            "cardinality":"one",
-            "property":"thread"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ReplicationNode",
-            "cardinality":"one",
-            "property":"node"
-         },
-         "target":{
-            "id":"SharedSpace",
-            "cardinality":"many",
-            "property":"sharedSpaces"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ReplicationServer",
-            "cardinality":"one",
-            "property":"replicationserver"
-         },
-         "target":{
-            "id":"ReplicationNode",
-            "cardinality":"one",
-            "property":"replicationnode"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"ChangeHistory",
-            "cardinality":"one",
-            "property":"history"
-         },
-         "target":{
-            "id":"SharedSpace",
-            "cardinality":"one",
-            "property":"sharedspace"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ChangeHistory",
-            "cardinality":"one",
-            "property":"history"
-         },
-         "target":{
-            "id":"ReplicationChange",
-            "cardinality":"many",
-            "property":"changes"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"SharedSpace",
-            "cardinality":"one",
-            "property":"sharedSpace"
-         },
-         "target":{
-            "id":"ReplicationChannel",
-            "cardinality":"many",
-            "property":"channels"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         },
-         "target":{
-            "id":"LogEntry",
-            "cardinality":"many",
-            "property":"logEntries"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ReplicationChange",
-            "cardinality":"one",
-            "property":"replicationchange"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"BoardTask",
-            "cardinality":"one",
-            "property":"boardtask"
-         },
-         "target":{
-            "id":"Task",
-            "cardinality":"one",
-            "property":"task"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"RemoteTask",
-            "cardinality":"one",
-            "property":"remotetask"
-         },
-         "target":{
-            "id":"Runnable",
-            "cardinality":"one",
-            "property":"runnable"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"RemoteTaskBoard",
-            "cardinality":"one",
-            "property":"board"
-         },
-         "target":{
-            "id":"Lane",
-            "cardinality":"many",
-            "property":"lanes"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Lane",
-            "cardinality":"one",
-            "property":"lane"
-         },
-         "target":{
-            "id":"BoardTask",
-            "cardinality":"many",
-            "property":"tasks"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"BoardTask",
             "cardinality":"many",
@@ -329,7 +159,228 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
+         "source":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
+         },
+         "target":{
+            "id":"Lane",
+            "cardinality":"one",
+            "property":"lane"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"BoardTask",
+            "cardinality":"one",
+            "property":"boardtask"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         },
+         "target":{
+            "id":"ReplicationChange",
+            "cardinality":"many",
+            "property":"changes"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Lane",
+            "cardinality":"one",
+            "property":"lane"
+         },
+         "target":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Lane",
+            "cardinality":"many",
+            "property":"lanes"
+         },
+         "target":{
+            "id":"RemoteTaskBoard",
+            "cardinality":"one",
+            "property":"board"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"logEntries"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":null
+         }
+      },
+      {
+         "typ":"implements",
+         "source":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         },
+         "target":{
+            "id":"Runnable",
+            "cardinality":"one",
+            "property":"runnable"
+         }
+      },
+      {
+         "typ":"implements",
+         "source":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         },
+         "target":{
+            "id":"Runnable",
+            "cardinality":"one",
+            "property":"runnable"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"RemoteTaskBoard",
+            "cardinality":"one",
+            "property":"board"
+         },
+         "target":{
+            "id":"Lane",
+            "cardinality":"many",
+            "property":"lanes"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ReplicationChange",
+            "cardinality":"many",
+            "property":"changes"
+         },
+         "target":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationChange",
+            "cardinality":"one",
+            "property":"replicationchange"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ReplicationChannel",
+            "cardinality":"many",
+            "property":"channels"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedSpace"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationChannel",
+            "cardinality":"one",
+            "property":"replicationchannel"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"node"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"many",
+            "property":"sharedSpaces"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationServer",
+            "cardinality":"one",
+            "property":"replicationserver"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"replicationnode"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"ReplicationRoot",
             "cardinality":"many",
@@ -339,6 +390,175 @@
             "id":"ReplicationRoot",
             "cardinality":"one",
             "property":"parent"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationServer",
+            "cardinality":"one",
+            "property":"replicationserver"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"replicationnode"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ServerSocketAcceptThread",
+            "cardinality":"one",
+            "property":"serversocketacceptthread"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedSpace"
+         },
+         "target":{
+            "id":"ReplicationChannel",
+            "cardinality":"many",
+            "property":"channels"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"many",
+            "property":"sharedSpaces"
+         },
+         "target":{
+            "id":"ReplicationNode",
+            "cardinality":"one",
+            "property":"node"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"ChangeHistory",
+            "cardinality":"one",
+            "property":"history"
+         },
+         "target":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         },
+         "target":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"logEntries"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationChange",
+            "cardinality":"one",
+            "property":"replicationchange"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"BoardTask",
+            "cardinality":"one",
+            "property":"boardtask"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"one",
+            "property":"task"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"RemoteTask",
+            "cardinality":"one",
+            "property":"remotetask"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":null
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SharedSpace",
+            "cardinality":"one",
+            "property":"sharedspace"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ReplicationChannel",
+            "cardinality":"one",
+            "property":"replicationchannel"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ServerSocketAcceptThread",
+            "cardinality":"one",
+            "property":"serversocketacceptthread"
+         },
+         "target":{
+            "id":"Thread",
+            "cardinality":"one",
+            "property":"thread"
          }
       }
    ]

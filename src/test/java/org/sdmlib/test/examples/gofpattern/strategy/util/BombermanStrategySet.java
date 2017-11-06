@@ -27,6 +27,19 @@ import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
+import org.sdmlib.test.examples.gofpattern.strategy.util.MoveUpSet;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveDown;
+import org.sdmlib.test.examples.gofpattern.strategy.util.MoveDownSet;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveLeft;
+import org.sdmlib.test.examples.gofpattern.strategy.util.MoveLeftSet;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveRight;
+import org.sdmlib.test.examples.gofpattern.strategy.util.MoveRightSet;
+import org.sdmlib.test.examples.gofpattern.strategy.Blast;
+import org.sdmlib.test.examples.gofpattern.strategy.util.BlastSet;
+import org.sdmlib.test.examples.gofpattern.strategy.Stay;
+import org.sdmlib.test.examples.gofpattern.strategy.util.StaySet;
 
 public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
 {
@@ -274,4 +287,113 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
    {
       this.addAll(objects);
    }
-}
+
+
+   public BombermanStrategyPO createBombermanStrategyPO()
+   {
+      return new BombermanStrategyPO(this.toArray(new BombermanStrategy[this.size()]));
+   }
+
+
+   @Override
+   public BombermanStrategySet getNewList(boolean keyValue)
+   {
+      return new BombermanStrategySet();
+   }
+
+
+   public BombermanStrategySet filter(Condition<BombermanStrategy> condition) {
+      BombermanStrategySet filterList = new BombermanStrategySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public MoveUpSet instanceOfMoveUp()
+   {
+      MoveUpSet result = new MoveUpSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MoveUp)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MoveDownSet instanceOfMoveDown()
+   {
+      MoveDownSet result = new MoveDownSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MoveDown)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MoveLeftSet instanceOfMoveLeft()
+   {
+      MoveLeftSet result = new MoveLeftSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MoveLeft)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MoveRightSet instanceOfMoveRight()
+   {
+      MoveRightSet result = new MoveRightSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof MoveRight)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BlastSet instanceOfBlast()
+   {
+      BlastSet result = new BlastSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Blast)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StaySet instanceOfStay()
+   {
+      StaySet result = new StaySet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Stay)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

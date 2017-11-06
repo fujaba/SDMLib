@@ -3,6 +3,8 @@ package org.sdmlib.modelspace.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
+import org.sdmlib.modelspace.util.CloudModelFilePO;
+import org.sdmlib.modelspace.util.CloudModelDirectoryPO;
 
 public class CloudModelDirectoryPO extends PatternObject<CloudModelDirectoryPO, CloudModelDirectory>
 {
@@ -81,6 +83,41 @@ public class CloudModelDirectoryPO extends PatternObject<CloudModelDirectoryPO, 
    public CloudModelDirectoryPO filterFiles(CloudModelFilePO tgt)
    {
       return hasLinkConstraint(tgt, CloudModelDirectory.PROPERTY_FILES);
+   }
+
+
+   public CloudModelDirectoryPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public CloudModelFilePO createFilesPO()
+   {
+      CloudModelFilePO result = new CloudModelFilePO(new CloudModelFile[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(CloudModelDirectory.PROPERTY_FILES, result);
+      
+      return result;
+   }
+
+   public CloudModelFilePO createFilesPO(String modifier)
+   {
+      CloudModelFilePO result = new CloudModelFilePO(new CloudModelFile[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(CloudModelDirectory.PROPERTY_FILES, result);
+      
+      return result;
+   }
+
+   public CloudModelDirectoryPO createFilesLink(CloudModelFilePO tgt)
+   {
+      return hasLinkConstraint(tgt, CloudModelDirectory.PROPERTY_FILES);
+   }
+
+   public CloudModelDirectoryPO createFilesLink(CloudModelFilePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, CloudModelDirectory.PROPERTY_FILES, modifier);
    }
 
 }

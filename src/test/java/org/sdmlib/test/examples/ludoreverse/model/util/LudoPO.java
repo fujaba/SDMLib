@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.ludoreverse.model.util.PlayerPO;
+import org.sdmlib.test.examples.ludoreverse.model.util.LudoPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -246,6 +249,127 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
    public LudoPO filterGame(PlayerPO tgt)
    {
       return hasLinkConstraint(tgt, Ludo.PROPERTY_GAME);
+   }
+
+
+   public LudoPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LudoPO createAgeCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createAgeCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createAgeAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createStyleCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createStyleCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createStyleAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public PlayerPO createGamePO()
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Ludo.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public PlayerPO createGamePO(String modifier)
+   {
+      PlayerPO result = new PlayerPO(new Player[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Ludo.PROPERTY_GAME, result);
+      
+      return result;
+   }
+
+   public LudoPO createGameLink(PlayerPO tgt)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_GAME);
+   }
+
+   public LudoPO createGameLink(PlayerPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Ludo.PROPERTY_GAME, modifier);
    }
 
 }

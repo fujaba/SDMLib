@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.features.model.albertsets.util.DoorSet;
 import org.sdmlib.test.examples.features.model.albertsets.util.WindowSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.features.model.albertsets.Door;
+import org.sdmlib.test.examples.features.model.albertsets.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

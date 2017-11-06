@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -96,7 +97,7 @@ public class StudyRightWithAssignmentsModel
       roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
 
       //Association universityToRoom = 
-      universityClass.withBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE);
+      universityClass.createBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
       
       // Association doors = 
       roomClass.withBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
@@ -137,12 +138,15 @@ public class StudyRightWithAssignmentsModel
       .withAttribute("certified", DataType.BOOLEAN);
       
 
+      Clazz presidentClass = model.createClazz("President");
+      universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+      
       //============================================================
       story.add("6. generate class source files.");
 
       // model.removeAllGeneratedCode("src/test/java");
       
-      model.withAuthorName("zuendorf");
+      model.setAuthorName("zuendorf");
       story.markCodeStart();
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
       story.addCode();

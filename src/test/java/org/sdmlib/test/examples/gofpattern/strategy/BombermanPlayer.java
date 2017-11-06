@@ -35,12 +35,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 {
 
    
-   //==========================================================================
-   public void keyPress( String key )
-   {
-      
-   }
-
    
    //==========================================================================
    
@@ -246,4 +240,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    	}
    	return false;
    }
+   
+   
+   //==========================================================================
+   public void keyPress( String key )
+   {
+      
    }
+}

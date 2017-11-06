@@ -186,5 +186,4 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
       
       return this;
    }
-
 }

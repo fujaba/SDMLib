@@ -30,6 +30,15 @@ import org.sdmlib.test.examples.maumau.model.MauMau;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.maumau.model.Player;
+import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
+import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
+import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class HolderSet extends SimpleSet<Holder>
 {
@@ -248,4 +257,68 @@ public class HolderSet extends SimpleSet<Holder>
    {
       this.addAll(objects);
    }
-}
+
+
+   public HolderPO createHolderPO()
+   {
+      return new HolderPO(this.toArray(new Holder[this.size()]));
+   }
+
+
+   @Override
+   public HolderSet getNewList(boolean keyValue)
+   {
+      return new HolderSet();
+   }
+
+
+   public HolderSet filter(Condition<Holder> condition) {
+      HolderSet filterList = new HolderSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public PlayerSet instanceOfPlayer()
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Player)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OpenStackSet instanceOfOpenStack()
+   {
+      OpenStackSet result = new OpenStackSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof OpenStack)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DrawingStackSet instanceOfDrawingStack()
+   {
+      DrawingStackSet result = new DrawingStackSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof DrawingStack)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

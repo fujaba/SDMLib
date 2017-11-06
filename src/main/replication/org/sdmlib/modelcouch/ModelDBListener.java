@@ -41,6 +41,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.application.Platform;
+import org.sdmlib.modelcouch.ModelCouch;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>

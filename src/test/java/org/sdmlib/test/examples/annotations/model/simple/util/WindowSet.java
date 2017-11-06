@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,19 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.House;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
-
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 
-public class WindowSet extends SDMSet<Window>
+public class WindowSet extends SimpleSet<Window>
 {
+	public Class<?> getTypClass() {
+		return Window.class;
+	}
 
    public WindowSet()
    {
@@ -50,10 +53,10 @@ public class WindowSet extends SDMSet<Window>
       this.addAll(objects);
    }
 
-   public static final WindowSet EMPTY_SET = new WindowSet();
+   public static final WindowSet EMPTY_SET = new WindowSet().withFlag(WindowSet.READONLY);
 
 
-   public WindowPO filterWindowPO()
+   public WindowPO createWindowPO()
    {
       return new WindowPO(this.toArray(new Window[this.size()]));
    }
@@ -64,6 +67,19 @@ public class WindowSet extends SDMSet<Window>
       return "org.sdmlib.test.examples.annotations.model.simple.Window";
    }
 
+
+   @Override
+   public WindowSet getNewList(boolean keyValue)
+   {
+      return new WindowSet();
+   }
+
+
+   public WindowSet filter(Condition<Window> condition) {
+      WindowSet filterList = new WindowSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public WindowSet with(Object value)

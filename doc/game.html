@@ -25,7 +25,7 @@
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
             "id":"Game",
             "cardinality":"one",
@@ -38,7 +38,33 @@
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
+         "source":{
+            "id":"Game",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"GameEntity",
+            "cardinality":"one",
+            "property":"gameentity"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         },
+         "target":{
+            "id":"GameEntity",
+            "cardinality":"one",
+            "property":"gameentity"
+         }
+      },
+      {
+         "typ":"generalisation",
          "source":{
             "id":"Player",
             "cardinality":"one",

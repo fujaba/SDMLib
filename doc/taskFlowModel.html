@@ -4,10 +4,22 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
 <script>
    var json = {
@@ -15,47 +27,13 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"TaskFlow",
-         "attributes":[
-            "taskNo : int",
-            "idMap : SDMLibJsonIdMap"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"PeerProxy",
-         "attributes":[
-            "ip : String",
-            "port : int",
-            "idMap : SDMLibJsonIdMap"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"SocketThread",
-         "attributes":[
-            "ip : String",
-            "port : int",
-            "idMap : SDMLibJsonIdMap",
-            "defaultTargetThread : Object"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"FetchFileFlow",
          "attributes":[
-            "fileServer : PeerProxy",
-            "fileName : String"
+            "fileName : String",
+            "fileServer : PeerProxy"
          ],
          "methods":[
             "run()"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Logger",
-         "attributes":[
-            "startPeer : PeerProxy"
          ]
       },
       {
@@ -68,29 +46,50 @@
       },
       {
          "typ":"node",
-         "id":"Timer"
+         "id":"Logger",
+         "attributes":[
+            "startPeer : PeerProxy"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"PeerProxy",
+         "attributes":[
+            "idMap : SDMLibJsonIdMap",
+            "ip : String",
+            "port : int"
+         ]
       },
       {
          "typ":"node",
          "id":"SDMTimer"
+      },
+      {
+         "typ":"node",
+         "id":"SocketThread",
+         "attributes":[
+            "defaultTargetThread : Object",
+            "idMap : SDMLibJsonIdMap",
+            "ip : String",
+            "port : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TaskFlow",
+         "attributes":[
+            "idMap : SDMLibJsonIdMap",
+            "taskNo : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Timer"
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"subFlow"
-         },
-         "target":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"parent"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
+         "typ":"generalisation",
          "source":{
             "id":"FetchFileFlow",
             "cardinality":"one",
@@ -103,33 +102,7 @@
          }
       },
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Logger",
-            "cardinality":"one",
-            "property":"logger"
-         },
-         "target":{
-            "id":"TaskFlow",
-            "cardinality":"one",
-            "property":"taskflow"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Logger",
-            "cardinality":"one",
-            "property":"logger"
-         },
-         "target":{
-            "id":"LogEntry",
-            "cardinality":"many",
-            "property":"entries"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"LogEntry",
             "cardinality":"many",
@@ -142,7 +115,98 @@
          }
       },
       {
-         "typ":"GENERALISATION",
+         "typ":"assoc",
+         "source":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"entries"
+         },
+         "target":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         },
+         "target":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"entries"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"SDMTimer",
+            "cardinality":"one",
+            "property":"sdmtimer"
+         },
+         "target":{
+            "id":"Timer",
+            "cardinality":"one",
+            "property":"timer"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"subFlow"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"parent"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"FetchFileFlow",
+            "cardinality":"one",
+            "property":"fetchfileflow"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Logger",
+            "cardinality":"one",
+            "property":"logger"
+         },
+         "target":{
+            "id":"TaskFlow",
+            "cardinality":"one",
+            "property":"taskflow"
+         }
+      },
+      {
+         "typ":"generalisation",
          "source":{
             "id":"SDMTimer",
             "cardinality":"one",

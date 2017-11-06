@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,29 +21,77 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 
 public class NodeSet extends SimpleSet<Node>
 {
+	public Class<?> getTypClass() {
+		return Node.class;
+	}
+
+   public NodeSet()
+   {
+      // empty
+   }
+
+   public NodeSet(Node... objects)
+   {
+      for (Node obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public NodeSet(Collection<Node> objects)
+   {
+      this.addAll(objects);
+   }
+
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
 
 
-   public NodePO hasNodePO()
+   public NodePO createNodePO()
    {
       return new NodePO(this.toArray(new Node[this.size()]));
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
+   }
+
+
+   @Override
+   public NodeSet getNewList(boolean keyValue)
+   {
+      return new NodeSet();
+   }
+
+
+   public NodeSet filter(Condition<Node> condition) {
+      NodeSet filterList = new NodeSet();
+      filterItems(filterList, condition);
+      return filterList;
    }
 
    @SuppressWarnings("unchecked")
    public NodeSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value == null)
+      {
+         return this;
+      }
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Node>)value);
       }
@@ -61,9 +109,15 @@ public class NodeSet extends SimpleSet<Node>
       return this;
    }
 
-   public intList getNum()
+
+   /**
+    * Loop through the current set of Node objects and collect a list of the num attribute values. 
+    * 
+    * @return List of int objects reachable via num attribute
+    */
+   public NumberList getNum()
    {
-      intList result = new intList();
+      NumberList result = new NumberList();
       
       for (Node obj : this)
       {
@@ -73,7 +127,15 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
-   public NodeSet hasNum(int value)
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNumCondition(int value)
    {
       NodeSet result = new NodeSet();
       
@@ -88,7 +150,16 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
-   public NodeSet hasNum(int lower, int upper)
+
+   /**
+    * Loop through the current set of Node objects and collect those Node objects where the num attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Node objects that match the parameter
+    */
+   public NodeSet createNumCondition(int lower, int upper)
    {
       NodeSet result = new NodeSet();
       
@@ -103,6 +174,14 @@ public class NodeSet extends SimpleSet<Node>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Node objects and assign value to the num attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Node objects now with new attribute values.
+    */
    public NodeSet withNum(int value)
    {
       for (Node obj : this)
@@ -113,149 +192,31 @@ public class NodeSet extends SimpleSet<Node>
       return this;
    }
 
-   public SimpleStateSet getGraph()
-   {
-      SimpleStateSet result = new SimpleStateSet();
-      
-      for (Node obj : this)
-      {
-         result.add(obj.getGraph());
-      }
-      
-      return result;
-   }
-
-   public NodeSet hasGraph(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      NodeSet answer = new NodeSet();
-      
-      for (Node obj : this)
-      {
-         if (neighbors.contains(obj.getGraph()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public NodeSet withGraph(SimpleState value)
-   {
-      for (Node obj : this)
-      {
-         obj.withGraph(value);
-      }
-      
-      return this;
-   }
-
-   public NodeSet getNext()
-   {
-      NodeSet result = new NodeSet();
-      
-      for (Node obj : this)
-      {
-         result.addAll(obj.getNext());
-      }
-      
-      return result;
-   }
-
-   public NodeSet hasNext(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      NodeSet answer = new NodeSet();
-      
-      for (Node obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getNext()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-
-   public NodeSet getNextTransitive()
-   {
-      NodeSet todo = new NodeSet().with(this);
-      
-      NodeSet result = new NodeSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Node current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getNext().minus(result));
-         }
-      }
-      
-      return result;
-   }
-
-   public NodeSet withNext(Node value)
-   {
-      for (Node obj : this)
-      {
-         obj.withNext(value);
-      }
-      
-      return this;
-   }
-
-   public NodeSet withoutNext(Node value)
-   {
-      for (Node obj : this)
-      {
-         obj.withoutNext(value);
-      }
-      
-      return this;
-   }
-
+   /**
+    * Loop through the current set of Node objects and collect a set of the Node objects reached via prev. 
+    * 
+    * @return Set of Node objects reachable via prev
+    */
    public NodeSet getPrev()
    {
       NodeSet result = new NodeSet();
       
       for (Node obj : this)
       {
-         result.addAll(obj.getPrev());
+         result.with(obj.getPrev());
       }
       
       return result;
    }
 
-   public NodeSet hasPrev(Object value)
+   /**
+    * Loop through the current set of Node objects and collect all contained objects with reference prev pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as prev neighbor of the collected results. 
+    * 
+    * @return Set of Node objects referring to value via prev
+    */
+   public NodeSet filterPrev(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -281,7 +242,11 @@ public class NodeSet extends SimpleSet<Node>
       return answer;
    }
 
-
+   /**
+    * Follow prev reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Node objects reachable via prev transitively (including the start set)
+    */
    public NodeSet getPrevTransitive()
    {
       NodeSet todo = new NodeSet().with(this);
@@ -298,13 +263,18 @@ public class NodeSet extends SimpleSet<Node>
          {
             result.add(current);
             
-            todo.with(current.getPrev().minus(result));
+            todo.with(current.getPrev()).minus(result);
          }
       }
       
       return result;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Node object passed as parameter to the Prev attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Prev attributes.
+    */
    public NodeSet withPrev(Node value)
    {
       for (Node obj : this)
@@ -315,6 +285,11 @@ public class NodeSet extends SimpleSet<Node>
       return this;
    }
 
+   /**
+    * Loop through current set of ModelType objects and remove the Node object passed as parameter from the Prev attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
    public NodeSet withoutPrev(Node value)
    {
       for (Node obj : this)
@@ -325,83 +300,192 @@ public class NodeSet extends SimpleSet<Node>
       return this;
    }
 
-
-   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
-
-
-   public NodePO filterNodePO()
-   {
-      return new NodePO(this.toArray(new Node[this.size()]));
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
-   }
-
    /**
-    * Loop through the current set of Node objects and collect those Node objects where the num attribute matches the parameter value. 
+    * Loop through the current set of Node objects and collect a set of the Node objects reached via next. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of Node objects that match the parameter
+    * @return Set of Node objects reachable via next
     */
-   public NodeSet filterNum(int value)
+   public NodeSet getNext()
    {
       NodeSet result = new NodeSet();
       
       for (Node obj : this)
       {
-         if (value == obj.getNum())
+         result.with(obj.getNext());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Node objects and collect all contained objects with reference next pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as next neighbor of the collected results. 
+    * 
+    * @return Set of Node objects referring to value via next
+    */
+   public NodeSet filterNext(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getNext()))
          {
-            result.add(obj);
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow next reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Node objects reachable via next transitively (including the start set)
+    */
+   public NodeSet getNextTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext()).minus(result);
          }
       }
       
       return result;
    }
 
+   /**
+    * Loop through current set of ModelType objects and attach the Node object passed as parameter to the Next attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Next attributes.
+    */
+   public NodeSet withNext(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
 
    /**
-    * Loop through the current set of Node objects and collect those Node objects where the num attribute is between lower and upper. 
+    * Loop through current set of ModelType objects and remove the Node object passed as parameter from the Next attribute of each of it. 
     * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Node objects that match the parameter
+    * @return The original set of ModelType objects now without the old neighbor.
     */
-   public NodeSet filterNum(int lower, int upper)
+   public NodeSet withoutNext(Node value)
    {
-      NodeSet result = new NodeSet();
+      for (Node obj : this)
+      {
+         obj.withoutNext(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Node objects and collect a set of the SimpleState objects reached via graph. 
+    * 
+    * @return Set of SimpleState objects reachable via graph
+    */
+   public SimpleStateSet getGraph()
+   {
+      SimpleStateSet result = new SimpleStateSet();
       
       for (Node obj : this)
       {
-         if (lower <= obj.getNum() && obj.getNum() <= upper)
-         {
-            result.add(obj);
-         }
+         result.with(obj.getGraph());
       }
       
       return result;
    }
 
-
-   public NodeSet()
+   /**
+    * Loop through the current set of Node objects and collect all contained objects with reference graph pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as graph neighbor of the collected results. 
+    * 
+    * @return Set of SimpleState objects referring to value via graph
+    */
+   public NodeSet filterGraph(Object value)
    {
-      // empty
-   }
+      ObjectSet neighbors = new ObjectSet();
 
-   public NodeSet(Node... objects)
-   {
-      for (Node obj : objects)
+      if (value instanceof Collection)
       {
-         this.add(obj);
+         neighbors.addAll((Collection<?>) value);
       }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getGraph()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
-   public NodeSet(Collection<Node> objects)
+   /**
+    * Loop through current set of ModelType objects and attach the Node object passed as parameter to the Graph attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Graph attributes.
+    */
+   public NodeSet withGraph(SimpleState value)
    {
-      this.addAll(objects);
+      for (Node obj : this)
+      {
+         obj.withGraph(value);
+      }
+      
+      return this;
    }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Node object passed as parameter from the Graph attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public NodeSet withoutGraph(SimpleState value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutGraph(value);
+      }
+      
+      return this;
+   }
+
 }

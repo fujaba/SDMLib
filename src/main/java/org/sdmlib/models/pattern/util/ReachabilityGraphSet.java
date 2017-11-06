@@ -28,9 +28,9 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 

@@ -37,14 +37,16 @@
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-      "id":"U1023105832581772",
-      "timestamp":"1023105832581772",
+      "id":"U1267772298593424",
+      "timestamp":"1267772298593424",
       "prop":{
          "name":"StudyRight",
          "students":[
             {
+               "session":"demo",
                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-               "id":"4242"
+               "id":"S1267772298780516",
+               "timestamp":"1267772298780516"
             }
          ]
       }
@@ -52,14 +54,14 @@
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-      "id":"4242",
-      "timestamp":"242",
+      "id":"S1267772298780516",
+      "timestamp":"1267772298780516",
       "prop":{
          "name":"Karli",
          "id":"4242",
          "university":{
             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-            "id":"U1023105832581772"
+            "id":"U1267772298593424"
          }
       }
    }
@@ -76,7 +78,7 @@
    "nodes":[
       {
          "type":"clazz",
-         "id":"4242 : Student",
+         "id":"S2 : Student",
          "attributes":[
             "assignmentPoints=0",
             "credits=0",
@@ -88,9 +90,10 @@
       },
       {
          "type":"clazz",
-         "id":"U1023105835088664 : University",
+         "id":"U1 : University",
          "attributes":[
-            "name=StudyRight"
+            "name=StudyRight",
+            "president=null"
          ]
       }
    ],
@@ -100,12 +103,12 @@
          "source":{
             "cardinality":"many",
             "property":"students",
-            "id":"4242 : Student"
+            "id":"S2 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"U1023105835088664 : University"
+            "id":"U1 : University"
          }
       }
    ]

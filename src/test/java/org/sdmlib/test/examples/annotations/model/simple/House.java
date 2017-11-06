@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,8 +21,11 @@
    
 package org.sdmlib.test.examples.annotations.model.simple;
 
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
 import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>

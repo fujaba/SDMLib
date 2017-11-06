@@ -5,74 +5,195 @@
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
 <p>Start situation: </p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
-         "id":"L1 : Ludo"
-      },
-      {
-         "typ":"clazz",
-         "id":"P2 : Player",
-         "attributes":[
-            "color=blue",
-            "enumColor=blue",
-            "name=Tom",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P3 : Player",
-         "attributes":[
-            "color=red",
-            "enumColor=red",
-            "name=Sabine",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"D4 : Dice",
          "attributes":[
+            "game=null",
             "value=6"
          ]
       },
       {
-         "typ":"clazz",
-         "id":"F5 : Field",
+         "type":"clazz",
+         "id":"F10 : Field",
          "attributes":[
-            "color=blue",
-            "kind=start",
+            "baseowner=null",
+            "color=null",
+            "entry=null",
+            "game=null",
+            "kind=null",
+            "lander=null",
+            "landing=null",
+            "point=null",
+            "starter=null",
             "x=0",
             "y=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"F11 : Field",
+         "attributes":[
+            "baseowner=null",
+            "color=null",
+            "entry=null",
+            "game=null",
+            "kind=null",
+            "lander=null",
+            "landing=null",
+            "point=null",
+            "starter=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"F12 : Field",
+         "attributes":[
+            "baseowner=null",
+            "color=null",
+            "entry=null",
+            "game=null",
+            "kind=null",
+            "lander=null",
+            "landing=null",
+            "point=null",
+            "starter=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"F13 : Field",
+         "attributes":[
+            "baseowner=null",
+            "color=null",
+            "entry=null",
+            "game=null",
+            "kind=null",
+            "lander=null",
+            "landing=null",
+            "point=null",
+            "starter=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"F5 : Field",
+         "attributes":[
+            "baseowner=null",
+            "color=blue",
+            "entry=null",
+            "game=null",
+            "kind=start",
+            "lander=null",
+            "landing=null",
+            "point=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"F6 : Field",
          "attributes":[
             "color=blue",
+            "entry=null",
+            "game=null",
             "kind=base",
+            "lander=null",
+            "landing=null",
+            "next=null",
+            "point=null",
+            "prev=null",
+            "starter=null",
             "x=0",
             "y=0"
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
+         "id":"F8 : Field",
+         "attributes":[
+            "baseowner=null",
+            "color=red",
+            "entry=null",
+            "game=null",
+            "kind=start",
+            "lander=null",
+            "landing=null",
+            "next=null",
+            "point=null",
+            "prev=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"L1 : Ludo",
+         "attributes":[
+            "date=null",
+            "dice=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P2 : Player",
+         "attributes":[
+            "color=blue",
+            "enumColor=blue",
+            "landing=null",
+            "name=Tom",
+            "next=null",
+            "prev=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P3 : Player",
+         "attributes":[
+            "base=null",
+            "color=red",
+            "dice=null",
+            "enumColor=red",
+            "landing=null",
+            "name=Sabine",
+            "next=null",
+            "prev=null",
+            "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"P7 : Pawn",
          "attributes":[
             "color=blue",
@@ -81,52 +202,10 @@
          ]
       },
       {
-         "typ":"clazz",
-         "id":"F8 : Field",
-         "attributes":[
-            "color=red",
-            "kind=start",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"P9 : Pawn",
          "attributes":[
             "color=red",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"F10 : Field",
-         "attributes":[
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"F11 : Field",
-         "attributes":[
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"F12 : Field",
-         "attributes":[
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"F13 : Field",
-         "attributes":[
             "x=0",
             "y=0"
          ]
@@ -134,59 +213,7 @@
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"players",
-            "id":"P2 : Player"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"game",
-            "id":"L1 : Ludo"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"players",
-            "id":"P3 : Player"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"game",
-            "id":"L1 : Ludo"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"dice",
-            "id":"D4 : Dice"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"player",
-            "id":"P2 : Player"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"start",
-            "id":"F5 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"starter",
-            "id":"P2 : Player"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"base",
@@ -199,7 +226,72 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"dice",
+            "id":"D4 : Dice"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"player",
+            "id":"P2 : Player"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F10 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F5 : Field"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F11 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F10 : Field"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F12 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F11 : Field"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F13 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F12 : Field"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"pawns",
@@ -212,20 +304,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"start",
-            "id":"F8 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"starter",
-            "id":"P3 : Player"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"pawns",
@@ -238,20 +317,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"F10 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"F5 : Field"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"pawns",
@@ -264,7 +330,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"pawns",
@@ -277,42 +343,55 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"F11 : Field"
+            "cardinality":"many",
+            "property":"players",
+            "id":"P2 : Player"
          },
          "target":{
             "cardinality":"one",
-            "property":"prev",
-            "id":"F10 : Field"
+            "property":"game",
+            "id":"L1 : Ludo"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"F12 : Field"
+            "cardinality":"many",
+            "property":"players",
+            "id":"P3 : Player"
          },
          "target":{
             "cardinality":"one",
-            "property":"prev",
-            "id":"F11 : Field"
+            "property":"game",
+            "id":"L1 : Ludo"
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
-            "property":"next",
-            "id":"F13 : Field"
+            "property":"start",
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"one",
-            "property":"prev",
-            "id":"F12 : Field"
+            "property":"starter",
+            "id":"P2 : Player"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"start",
+            "id":"F8 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"starter",
+            "id":"P3 : Player"
          }
       }
    ]
@@ -337,47 +416,46 @@
       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
 </pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"p1 : PawnPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"p2 : PlayerPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"d3 : DicePO",
          "attributes":[
             "value == 6"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"f4 : FieldPO",
          "attributes":[
             "kind == base"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"f5 : FieldPO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"p6 : PawnPO",
                "attributes":[]
             }
@@ -474,47 +552,46 @@
       pawnPO.hasPos(startFieldPO);
 </pre><script>
    var json = {
-   "typ":"object",
+   "type":"object",
    "nodes":[
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"p1 : PawnPO",
          "attributes":[
-            "<< start >>",
             "<< bound>>"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"p2 : PlayerPO",
          "attributes":[]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"d3 : DicePO",
          "attributes":[
             "value == 6"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"f4 : FieldPO",
          "attributes":[
             "kind == base"
          ]
       },
       {
-         "typ":"patternObject",
+         "type":"patternObject",
          "id":"f5 : FieldPO",
          "attributes":[]
       },
       {
-         "typ":"objectdiagram",
+         "type":"objectdiagram",
          "style":"nac",
          "info":"NegativeApplicationCondition",
          "nodes":[
             {
-               "typ":"patternObject",
+               "type":"patternObject",
                "id":"p6 : PawnPO",
                "attributes":[]
             }
@@ -608,7 +685,8 @@
          "target":{
             "property":"pos",
             "id":"f4 : FieldPO"
-         }
+         },
+         "style":"destroy"
       },
       {
          "typ":"EDGE",
@@ -619,7 +697,8 @@
          "target":{
             "property":"pos",
             "id":"f5 : FieldPO"
-         }
+         },
+         "style":"create"
       }
    ]
 }   ;

@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.historymanagement.marketmodel;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
    /**

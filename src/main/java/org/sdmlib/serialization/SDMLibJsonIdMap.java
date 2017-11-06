@@ -21,7 +21,6 @@
    
 package org.sdmlib.serialization;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.debug.FlipBook;

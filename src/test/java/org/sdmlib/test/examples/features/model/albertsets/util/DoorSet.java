@@ -28,6 +28,8 @@ import org.sdmlib.test.examples.features.model.albertsets.House;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.features.model.albertsets.util.HouseSet;
 
 public class DoorSet extends SimpleSet<Door>
 {
@@ -139,4 +141,23 @@ public class DoorSet extends SimpleSet<Door>
    {
       this.addAll(objects);
    }
-}
+
+
+   public DoorPO createDoorPO()
+   {
+      return new DoorPO(this.toArray(new Door[this.size()]));
+   }
+
+
+   @Override
+   public DoorSet getNewList(boolean keyValue)
+   {
+      return new DoorSet();
+   }
+
+
+   public DoorSet filter(Condition<Door> condition) {
+      DoorSet filterList = new DoorSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

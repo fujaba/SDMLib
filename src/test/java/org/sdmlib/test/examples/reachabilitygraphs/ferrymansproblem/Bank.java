@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
@@ -120,7 +123,15 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       StringBuilder result = new StringBuilder();
       
       result.append(" ").append(this.getName());
-      result.append(" ").append(this.getAge());
+      // result.append(" ").append(this.getAge());
+      
+      result.append(" ").append(this.getCargos().toString(" "));
+      
+      if (this.getBoat() != null)
+      {
+         result.append(" ").append(getBoat().toString());
+      }
+      
       return result.substring(1);
    }
 

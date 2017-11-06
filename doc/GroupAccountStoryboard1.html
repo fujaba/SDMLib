@@ -4,50 +4,37 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountStoryboard1</a></p>
 <p>Check: Groupaccount person set size should now be  1 actual 1</p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G1 : GroupAccount",
          "attributes":[
             "task="
          ]
       },
       {
-         "typ":"clazz",
-         "id":"P2 : Person",
-         "attributes":[
-            "name=Albert",
-            "balance=5.0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P3 : Person",
-         "attributes":[
-            "name=Nina",
-            "balance=-4.0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P4 : Person",
-         "attributes":[
-            "name=Artjom",
-            "balance=-1.0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I5 : Item",
          "attributes":[
             "description=Beer",
@@ -55,7 +42,7 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I6 : Item",
          "attributes":[
             "description=Bread",
@@ -63,56 +50,41 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I7 : Item",
          "attributes":[
             "description=Meat",
             "value=6.0"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "balance=5.0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "balance=-4.0",
+            "name=Nina"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "balance=-1.0",
+            "name=Artjom"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P2 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P3 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P4 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -125,7 +97,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -138,7 +110,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -148,6 +120,45 @@
             "cardinality":"one",
             "property":"buyer",
             "id":"P4 : Person"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
          }
       }
    ]
@@ -174,42 +185,17 @@
    }</pre><p>The effects of executing updateBalances() is shown in: </p>
 <script>
    var json = {
-   "typ":"objectdiagram",
-   "style":null,
+   "type":"objectdiagram",
    "nodes":[
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"G1 : GroupAccount",
          "attributes":[
             "task="
          ]
       },
       {
-         "typ":"clazz",
-         "id":"P2 : Person",
-         "attributes":[
-            "name=Albert",
-            "balance=5.0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P3 : Person",
-         "attributes":[
-            "name=Nina",
-            "balance=-4.0"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"P4 : Person",
-         "attributes":[
-            "name=Artjom",
-            "balance=-1.0"
-         ]
-      },
-      {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I5 : Item",
          "attributes":[
             "description=Beer",
@@ -217,7 +203,7 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I6 : Item",
          "attributes":[
             "description=Bread",
@@ -225,56 +211,41 @@
          ]
       },
       {
-         "typ":"clazz",
+         "type":"clazz",
          "id":"I7 : Item",
          "attributes":[
             "description=Meat",
             "value=6.0"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "balance=5.0",
+            "name=Albert"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "balance=-4.0",
+            "name=Nina"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "balance=-1.0",
+            "name=Artjom"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P2 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P3 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"persons",
-            "id":"P4 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -287,7 +258,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -300,7 +271,7 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"item",
@@ -311,15 +282,54 @@
             "property":"buyer",
             "id":"P4 : Person"
          }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         }
       }
    ]
 }   ;
    json["options"]={"canvasid":"canvasGroupAccountStoryboard18", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Balance for Albert is now  5.0 actual 5.0</p>
-<p>Check: The sum of all balances is  0.0 actual 0.0</p>
-<p>Check: Found one person with name Albert  1.0 actual 1.0</p>
+<p>Check: Balance for Albert is now  5.0 +-1.0E-4 actual 5.0</p>
+<p>Check: The sum of all balances is  0.0 +-1.0E-4 actual 0.0</p>
+<p>Check: Found one person with name Albert  1.0 +-1.0E-4 actual 1.0</p>
 <p>Check: Albert has name Albert true</p>
 <p>Persons that have bought at least one item: (Albert 5.0, Nina -4.0, Artjom -1.0)</p>
 

@@ -28,6 +28,8 @@ import org.sdmlib.modelcouch.ModelDBListener;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.modelcouch.util.ModelCouchSet;
 
 public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
 {
@@ -162,4 +164,23 @@ public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ModelDBListenerPO createModelDBListenerPO()
+   {
+      return new ModelDBListenerPO(this.toArray(new ModelDBListener[this.size()]));
+   }
+
+
+   @Override
+   public ModelDBListenerSet getNewList(boolean keyValue)
+   {
+      return new ModelDBListenerSet();
+   }
+
+
+   public ModelDBListenerSet filter(Condition<ModelDBListener> condition) {
+      ModelDBListenerSet filterList = new ModelDBListenerSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -21,18 +21,20 @@
    
 package org.sdmlib.test.historymanagement.marketmodel.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.historymanagement.marketmodel.Offer;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
-import org.sdmlib.test.historymanagement.marketmodel.Bid;
-import org.sdmlib.test.historymanagement.marketmodel.util.ActorSet;
+
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
-import org.sdmlib.test.historymanagement.marketmodel.util.MarketSet;
+import org.sdmlib.test.historymanagement.marketmodel.Bid;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
+import org.sdmlib.test.historymanagement.marketmodel.Offer;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
+import org.sdmlib.test.historymanagement.marketmodel.util.MarketSet;
+import org.sdmlib.test.historymanagement.marketmodel.util.ActorSet;
 
 public class OfferSet extends SimpleSet<Offer>
 {

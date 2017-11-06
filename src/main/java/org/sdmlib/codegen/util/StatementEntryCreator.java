@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.serialization.EntityFactory;
 
-import de.uniks.networkparser.IdMap;
-
 public class StatementEntryCreator extends EntityFactory
 {
    private final String[] properties = new String[]

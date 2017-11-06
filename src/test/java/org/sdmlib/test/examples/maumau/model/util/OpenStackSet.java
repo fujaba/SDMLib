@@ -30,6 +30,9 @@ import org.sdmlib.test.examples.maumau.model.OpenStack;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class OpenStackSet extends SimpleSet<OpenStack>
 {
@@ -296,4 +299,23 @@ public class OpenStackSet extends SimpleSet<OpenStack>
    {
       this.addAll(objects);
    }
-}
+
+
+   public OpenStackPO createOpenStackPO()
+   {
+      return new OpenStackPO(this.toArray(new OpenStack[this.size()]));
+   }
+
+
+   @Override
+   public OpenStackSet getNewList(boolean keyValue)
+   {
+      return new OpenStackSet();
+   }
+
+
+   public OpenStackSet filter(Condition<OpenStack> condition) {
+      OpenStackSet filterList = new OpenStackSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

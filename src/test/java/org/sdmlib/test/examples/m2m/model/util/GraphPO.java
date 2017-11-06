@@ -5,6 +5,10 @@ import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
+import org.sdmlib.test.examples.m2m.model.util.GraphComponentPO;
+import org.sdmlib.test.examples.m2m.model.util.GraphPO;
+import org.sdmlib.test.examples.m2m.model.util.RelationPO;
+import org.sdmlib.test.examples.m2m.model.util.PersonPO;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {
@@ -181,6 +185,101 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    public GraphPO filterRelations(RelationPO tgt)
    {
       return hasLinkConstraint(tgt, Graph.PROPERTY_RELATIONS);
+   }
+
+
+   public GraphPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public GraphComponentPO createGcsPO()
+   {
+      GraphComponentPO result = new GraphComponentPO(new GraphComponent[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+
+   public GraphComponentPO createGcsPO(String modifier)
+   {
+      GraphComponentPO result = new GraphComponentPO(new GraphComponent[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+
+   public GraphPO createGcsLink(GraphComponentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_GCS);
+   }
+
+   public GraphPO createGcsLink(GraphComponentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_GCS, modifier);
+   }
+
+   public RelationPO createRelationsPO()
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_RELATIONS, result);
+      
+      return result;
+   }
+
+   public RelationPO createRelationsPO(String modifier)
+   {
+      RelationPO result = new RelationPO(new Relation[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Graph.PROPERTY_RELATIONS, result);
+      
+      return result;
+   }
+
+   public GraphPO createRelationsLink(RelationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_RELATIONS);
+   }
+
+   public GraphPO createRelationsLink(RelationPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_RELATIONS, modifier);
+   }
+
+   public PersonPO createPersonsPO()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Graph.PROPERTY_PERSONS, result);
+      
+      return result;
+   }
+
+   public PersonPO createPersonsPO(String modifier)
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Graph.PROPERTY_PERSONS, result);
+      
+      return result;
+   }
+
+   public GraphPO createPersonsLink(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_PERSONS);
+   }
+
+   public GraphPO createPersonsLink(PersonPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Graph.PROPERTY_PERSONS, modifier);
    }
 
 }

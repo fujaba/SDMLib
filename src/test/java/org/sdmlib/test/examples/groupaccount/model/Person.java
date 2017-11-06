@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>

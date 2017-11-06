@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.maumau.model.Value;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.util.HolderSet;
 
 public class CardSet extends SimpleSet<Card>
 {
@@ -311,4 +314,69 @@ public class CardSet extends SimpleSet<Card>
    {
       this.addAll(objects);
    }
+
+
+   public CardPO createCardPO()
+   {
+      return new CardPO(this.toArray(new Card[this.size()]));
+   }
+
+
+   @Override
+   public CardSet getNewList(boolean keyValue)
+   {
+      return new CardSet();
+   }
+
+
+   public CardSet filter(Condition<Card> condition) {
+      CardSet filterList = new CardSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Card objects and collect those Card objects where the suit attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Card objects that match the parameter
+    */
+   public CardSet createSuitCondition(Suit value)
+   {
+      CardSet result = new CardSet();
+      
+      for (Card obj : this)
+      {
+         if (value == obj.getSuit())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Card objects and collect those Card objects where the value attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Card objects that match the parameter
+    */
+   public CardSet createValueCondition(Value value)
+   {
+      CardSet result = new CardSet();
+      
+      for (Card obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
