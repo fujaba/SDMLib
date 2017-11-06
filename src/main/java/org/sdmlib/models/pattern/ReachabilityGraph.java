@@ -95,7 +95,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    {
       OmitRootCondition conditionMap = new OmitRootCondition(this);
 
-      Filter filter = new Filter().withFull(true).withPropertyRegard(conditionMap);
+      Filter filter = Filter.createFull().withPropertyRegard(conditionMap);
 
       JsonArray jsonArray = masterMap.toJsonArray(this, filter);
 

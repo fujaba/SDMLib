@@ -1165,7 +1165,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
