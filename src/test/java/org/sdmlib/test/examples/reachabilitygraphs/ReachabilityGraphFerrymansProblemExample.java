@@ -658,10 +658,12 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.assertEquals("Number of Reachable States expected: ", 26L, size);
 
       storyboard.add("Small reachbility graph with hyperlinks to states: ");
-      storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));
+      storyboard.addObjectDiagramOnlyWith(reachabilityGraph.getStates(), reachabilityGraph.getStates().getRuleapplications());
+
+      // storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));
 
       storyboard.add("large reachbility graph with embedded states: ");
-      storyboard.addObjectDiagram(map, reachabilityGraph, true);
+      storyboard.addObjectDiagram(reachabilityGraph);
 
       LRiverSet rivers = new LRiverSet().with(reachabilityGraph.getStates().getGraphRoot());
       LBankSet banks = rivers.getBanks().createNameCondition("right");
