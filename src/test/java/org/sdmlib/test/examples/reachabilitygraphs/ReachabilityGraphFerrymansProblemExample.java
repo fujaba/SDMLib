@@ -293,6 +293,7 @@ public class ReachabilityGraphFerrymansProblemExample
       }
    }
 
+   
    private void move(Object g)
    {
       River river = (River) g;

@@ -126,7 +126,7 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    public void setIdMap(IdMap idMap)
    {
       this.idMap = idMap;
-      lazyCloneOp = new LazyCloneOp().setMap(idMap);
+      // lazyCloneOp = new LazyCloneOp().setMap(idMap);
    }
 
    public void clone(ReachabilityGraph rgraph)

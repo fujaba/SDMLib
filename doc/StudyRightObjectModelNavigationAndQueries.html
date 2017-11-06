@@ -1665,6 +1665,21 @@
             "room=null"
          ]
       }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      }
    ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries32", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
@@ -2004,42 +2019,55 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
          },
          "target":{
-            "cardinality":"one",
-            "property":"student",
+            "cardinality":"many",
+            "property":"friends",
             "id":"S2 : Student"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
             "cardinality":"one",
             "property":"in",
             "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R7 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
          },
          "target":{
             "cardinality":"one",
-            "property":"teachingassistant",
+            "property":"in",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"tas",
             "id":"T14 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
          }
       }
    ]
@@ -2260,42 +2288,55 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"in",
             "id":"R7 : Room"
          },
          "target":{
-            "cardinality":"one",
-            "property":"student",
+            "cardinality":"many",
+            "property":"students",
             "id":"S2 : Student"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"one",
             "property":"in",
             "id":"R5 : Room"
          },
          "target":{
-            "cardinality":"one",
-            "property":"teachingassistant",
+            "cardinality":"many",
+            "property":"students",
             "id":"T3 : TeachingAssistant"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
          },
          "target":{
             "cardinality":"one",
-            "property":"student",
-            "id":"S4 : Student"
+            "property":"in",
+            "id":"R7 : Room"
          }
       }
    ]
@@ -2431,40 +2472,79 @@
       {
          "type":"edge",
          "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"teachingassistant",
-            "id":"T3 : TeachingAssistant"
+            "property":"room",
+            "id":"R5 : Room"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"one",
-            "property":"student",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
             "id":"S2 : Student"
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
          },
          "target":{
             "cardinality":"one",
-            "property":"student",
+            "property":"in",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
             "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
          }
       }
    ]
