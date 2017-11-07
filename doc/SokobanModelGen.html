@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java' type='text/x-java'>SokobanModelGen</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Box"
+      },
+      {
+         "typ":"node",
+         "id":"Karli"
+      },
+      {
+         "typ":"node",
+         "id":"Maze",
+         "attributes":[
+            "height : int",
+            "width : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Sokoban"
+      },
+      {
+         "typ":"node",
+         "id":"Tile",
+         "attributes":[
+            "goal : boolean",
+            "wall : boolean",
+            "x : int",
+            "y : int"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Box",
+            "cardinality":"many",
+            "property":"boxes"
+         },
+         "target":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Box",
+            "cardinality":"many",
+            "property":"boxes"
+         },
+         "target":{
+            "id":"Tile",
+            "cardinality":"one",
+            "property":"tile"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Karli",
+            "cardinality":"one",
+            "property":"karli"
+         },
+         "target":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Karli",
+            "cardinality":"many",
+            "property":"karlis"
+         },
+         "target":{
+            "id":"Tile",
+            "cardinality":"one",
+            "property":"tile"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Maze",
+            "cardinality":"one",
+            "property":"maze"
+         },
+         "target":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"Maze",
+            "cardinality":"many",
+            "property":"maze"
+         },
+         "target":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"tiles"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         },
+         "target":{
+            "id":"Maze",
+            "cardinality":"one",
+            "property":"maze"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         },
+         "target":{
+            "id":"Box",
+            "cardinality":"many",
+            "property":"boxes"
+         }
+      },
+      {
+         "typ":"aggregation",
+         "source":{
+            "id":"Sokoban",
+            "cardinality":"many",
+            "property":"sokoban"
+         },
+         "target":{
+            "id":"Karli",
+            "cardinality":"one",
+            "property":"karli"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"neighbors"
+         },
+         "target":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"neighbors"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Tile",
+            "cardinality":"one",
+            "property":"tile"
+         },
+         "target":{
+            "id":"Box",
+            "cardinality":"many",
+            "property":"boxes"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Tile",
+            "cardinality":"one",
+            "property":"tile"
+         },
+         "target":{
+            "id":"Karli",
+            "cardinality":"many",
+            "property":"karlis"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"tiles"
+         },
+         "target":{
+            "id":"Maze",
+            "cardinality":"many",
+            "property":"maze"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasSokobanModelGenClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>
