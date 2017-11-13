@@ -88,7 +88,9 @@ public  class Maze implements SendableEntity
    public void removeYou()
    {
       withoutSokoban(this.getSokoban().toArray(new Sokoban[this.getSokoban().size()]));
-      for (Tile obj : new TileSet(this.getTiles())) { obj.removeYou(); }
+      // for (Tile obj : new TileSet(this.getTiles())) { obj.removeYou(); }
+      for (Tile obj : new TileSet(this.getTiles())) { this.withoutTiles(obj); }
+      
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -283,6 +285,74 @@ public  class Maze implements SendableEntity
 
       return result.substring(1);
    }
+   
+   public String toString(Sokoban currentSokoban)
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(" ").append(this.getHeight());
+      result.append(" ").append(this.getWidth());
+
+      mazeString(result, currentSokoban);
+
+      return result.substring(1);
+   } 
+
+
+   private void mazeString(StringBuilder result, Sokoban currentSokoban)
+   {
+      result.append('\n');
+      for (int y = 0; y < height; y++)
+      {
+         for (int x = 0; x < width; x++)
+         {
+            Tile t = this.getTile(x, y);
+            if (t == null)
+            {
+               result.append(' ');
+            }
+            else if (t.isWall())
+            {
+               result.append('w');
+            }
+            else if (currentSokoban.getBoxes().getTile().contains(t))
+            {
+               if (t.isGoal())
+               {
+                  result.append('B');                  
+               }
+               else
+               {
+                  result.append('b');
+               }
+            }
+            else if (currentSokoban.getKarli().getTile() == t)
+            {
+               if (t.isGoal())
+               {
+                  result.append('K');                  
+               }
+               else
+               {
+                  result.append('k');
+               }
+            }
+            else
+            {
+               if (t.isGoal())
+               {
+                  result.append('o');                  
+               }
+               else
+               {
+                  result.append('.');
+               }
+            }
+         }
+
+         result.append('\n');
+      }
+   }
 
    private void mazeString(StringBuilder result)
    {
@@ -366,5 +436,6 @@ public  class Maze implements SendableEntity
    {
       setWidth(value);
       return this;
-   } 
+   }
+
 }

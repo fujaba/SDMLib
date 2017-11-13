@@ -46,7 +46,10 @@ import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
+import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
@@ -70,6 +73,7 @@ import org.sdmlib.models.pattern.Pattern;
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
+   
    // ==========================================================================
    private final class OmitRootCondition implements ObjectCondition
    {
@@ -612,6 +616,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+   public ReachabilityGraph withRules(String name, PatternObject value)
+   {
+      value.getPattern().setName(name);
+      addToRules(value.getPattern());
+      return this;
+   }
+
    public ReachabilityGraph withRules(Pattern value)
    {
       addToRules(value);
@@ -676,12 +687,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       long lastMessageTime = System.currentTimeMillis();
 
-      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s");
-
       // inital states get certificates
       for (ReachableState s : this.getStates())
       {
-         String newCertificate = s.computeCertificate(newJsonIdMap);
+         String newCertificate = s.lazyComputeCertificate();
          this.withStateMap(newCertificate, s);
 
          s.setStartState(true);
@@ -856,75 +865,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                HashMap<PatternElement, Object> srcMatch = new HashMap<>();
                HashMap<PatternElement, Object> tgtMatch = new HashMap<>();
 
-               if (rememberMatches)
-               {
-                  PatternElementSet elements = rule.getElements();
-                  findcloneop: for (PatternElement patternElement : elements)
-                  {
-                     if (patternElement instanceof CloneOp)
-                     {
-                        CloneOp cloneOp = (CloneOp) patternElement;
-
-                        for (int i = 0; i < elements.size(); i++)
-                        {
-                           PatternElement pe = elements.get(i);
-
-                           if (pe instanceof PatternObject)
-                           {
-                              PatternObject po = (PatternObject) pe;
-
-                              Object tgtObject = po.getCurrentMatch();
-                              // String id = cloneOp.getCloneMap().getId(tgtObject);
-                              Object srcObj = cloneOp.getMapEntity().getEntityByClone(tgtObject);
-
-                              srcMatch.put(po, srcObj);
-                              tgtMatch.put(po, tgtObject);
-
-                           }
-
-                        }
-
-                        break findcloneop;
-                     }
-                  }
-               }
+               rememberMatches(rule, srcMatch, tgtMatch);
 
                // is the new graph already known?
-               newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
-               newJsonIdMap.withSession("s");
-               newJsonIdMap.withTimeStamp(1);
-               String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
+               String newCertificate = newReachableState.lazyComputeCertificate();
 
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
 
                LinkedHashMap<Object, Object> match = null;
 
-               for (ReachableState oldState : candidateStates)
-               {
-                  if (getLazyCloneOp() != null)
-                  {
-                     match = lazyMatch(oldState, newReachableState);
-                  }
-                  else
-                  {
-                     match = match(oldState, newReachableState);
-                  }
-
-                  if (match != null)
-                  {
-                     // newReachableState is isomorphic to oldState. Just add a
-                     // link from first to oldState
-
-                     current.createRuleapplications()
-                        .withRule(rule)
-                        .withDescription("" + rule.getName())
-                        .withTgt(oldState)
-                        .withSrcMatch(srcMatch)
-                        .withTgtMatch(tgtMatch);
-                     
-                     break;
-                  }
-               }
+               match = findMatchingState(current, rule, newReachableState, srcMatch, tgtMatch, candidateStates, match);
 
                if (match == null)
                {
@@ -972,12 +922,109 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                else
                {
                   this.withoutStates(newReachableState);
+                  // remove garbage clones
+                  for (Object oldClone : this.getLazyCloneOp().getCloneToOrigMap().keySet())
+                  {
+                     SendableEntityCreator creator = masterMap.getCreatorClass(oldClone);
+                     
+                     // creator.setValue(oldClone, "", null, SendableEntityCreator.REMOVE_YOU);
+                     for (String prop : creator.getProperties())
+                     {
+                        Object value = creator.getValue(oldClone, prop);
+                        
+                        if (value != null && value instanceof Collection)
+                        {
+                           ArrayList arrayList = new ArrayList<Object>((Collection) value);
+                           for (Object elem : arrayList)
+                           {
+                              creator.setValue(oldClone, prop, elem, SendableEntityCreator.REMOVE);
+                           }
+                        }
+                        else
+                        {
+                           SendableEntityCreator valueCreator = masterMap.getCreatorClass(value);
+                           if (valueCreator != null)
+                           {
+                              creator.setValue(oldClone, prop, null, "");
+                           }
+                        }
+                     }
+                  }
                }
             }
          }
       }
 
       return currentStateNum;
+   }
+
+
+   private LinkedHashMap<Object, Object> findMatchingState(ReachableState current, Pattern rule, ReachableState newReachableState, HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch, ReachableStateSet candidateStates, LinkedHashMap<Object, Object> match)
+   {
+      for (ReachableState oldState : candidateStates)
+      {
+         if (getLazyCloneOp() != null)
+         {
+            match = lazyMatch(oldState, newReachableState);
+         }
+         else
+         {
+            match = lazyMatch(oldState, newReachableState);
+         }
+
+         if (match != null)
+         {
+            // newReachableState is isomorphic to oldState. Just add a
+            // link from first to oldState
+
+            current.createRuleapplications()
+               .withRule(rule)
+               .withDescription("" + rule.getName())
+               .withTgt(oldState)
+               .withSrcMatch(srcMatch)
+               .withTgtMatch(tgtMatch);
+            
+            break;
+         }
+      }
+      return match;
+   }
+
+
+   private void rememberMatches(Pattern rule, HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch)
+   {
+      if (rememberMatches)
+      {
+         PatternElementSet elements = rule.getElements();
+         findcloneop: for (PatternElement patternElement : elements)
+         {
+            if (patternElement instanceof CloneOp)
+            {
+               CloneOp cloneOp = (CloneOp) patternElement;
+
+               for (int i = 0; i < elements.size(); i++)
+               {
+                  PatternElement pe = elements.get(i);
+
+                  if (pe instanceof PatternObject)
+                  {
+                     PatternObject po = (PatternObject) pe;
+
+                     Object tgtObject = po.getCurrentMatch();
+                     // String id = cloneOp.getCloneMap().getId(tgtObject);
+                     Object srcObj = cloneOp.getMapEntity().getEntityByClone(tgtObject);
+
+                     srcMatch.put(po, srcObj);
+                     tgtMatch.put(po, tgtObject);
+
+                  }
+
+               }
+
+               break findcloneop;
+            }
+         }
+      }
    }
 
 
@@ -998,7 +1045,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       RuleApplication newRuleApplication = new RuleApplication()
          .withTgt(startState);
 
-      Matcher matcher = matchers.get(Math.abs(startState.computeCertificate(masterMap).hashCode()) % matchers.size());
+      Matcher matcher = matchers.get(Math.abs(startState.lazyComputeCertificate().hashCode()) % matchers.size());
 
       matcher.apply(newRuleApplication);
 
@@ -1141,7 +1188,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             ReachableStateSet candidateStates = reachabilityGraph.getStateMap(newState.getCertificate());
             for (ReachableState oldState : candidateStates)
             {
-               match = match(oldState, newState);
+               match = lazyMatch(oldState, newState);
 
                if (match != null)
                {
@@ -1194,9 +1241,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                   // is the new graph already known?
-                  IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(rule.getIdMap());
-                  newJsonIdMap.withSession("s");
-                  String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
+                  String newCertificate = newReachableState.lazyComputeCertificate();
 
                   RuleApplication newRuleApplication = newState.createRuleapplications()
                      .withRule(rule)
@@ -1232,61 +1277,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return match ? fwdmapping : null;     
    }
 
-   public LinkedHashMap<Object, Object> match(ReachableState s1, ReachableState s2)
-   {
 
-      IdMap map1 = s1.getCertificateIdMap();
-      IdMap map2 = s2.getCertificateIdMap();
-
-      //      IdMap map1 = (IdMap) new IdMap().with(masterMap);
-      //      IdMap map2 = (IdMap) new IdMap().with(masterMap);
-
-      map1.withTimeStamp(1);
-      map2.withTimeStamp(1);
-      map1.withSession("s");
-      map2.withSession("s");
-
-      LinkedHashMap<Object, Object> fwdmapping = new LinkedHashMap<Object, Object>();
-      LinkedHashMap<Object, Object> bwdmapping = new LinkedHashMap<Object, Object>();
-
-      String key1 = map1.getId(s1.getGraphRoot());
-      String key2 = map2.getId(s2.getGraphRoot());
-
-      fwdmapping.put(key1, key2);
-      bwdmapping.put(key2, key1);
-
-      JsonArray ja1 = map1.toJsonArray(s1.getGraphRoot());
-      JsonArray ja2 = map2.toJsonArray(s2.getGraphRoot());
-
-      LinkedHashMap<String, JsonObject> joMap1 = null;
-      LinkedHashMap<String, JsonObject> joMap2 = null;
-
-      joMap1 = new LinkedHashMap<String, JsonObject>();
-
-      for (Object object : ja1)
-      {
-         JsonObject jo = (JsonObject) object;
-
-         String key = jo.getString(IdMap.ID);
-
-         joMap1.put(key, jo);
-      }
-
-      joMap2 = new LinkedHashMap<String, JsonObject>();
-
-      for (Object object : ja2)
-      {
-         JsonObject jo = (JsonObject) object;
-
-         String key = jo.getString(IdMap.ID);
-
-         joMap2.put(key, jo);
-      }
-
-      boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, key1, fwdmapping, bwdmapping);
-
-      return match ? fwdmapping : null;
-   }
 
    HashMap<Long, HashMap<Pattern, Pattern>> ruleClones;
 
@@ -1398,6 +1389,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                // not yet mapped, search for mapping
                for (Object object2 : (Collection) value2)
                {
+                  if ( ! s2.getLazyGraph().contains(object2))
+                  {
+                     // ignore it
+                     continue;
+                  }
+                  
                   if (bwdmapping.get(object2) != null)
                   {
                      // has already been mapped to someone else.
@@ -1646,7 +1643,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public void setMasterMap(IdMap newMasterMap)
    {
+      Objects.requireNonNull(newMasterMap);
+      
       masterMap = newMasterMap;
+      
+      withLazyCloning(); // default now
    }
 
 
@@ -1833,7 +1834,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public long explore(ReachableState startState)
    {
 
-      String s1cert = startState.computeCertificate(masterMap);
+      String s1cert = startState.lazyComputeCertificate();
 
       this.withStates(startState);
 
@@ -1858,13 +1859,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public void findFinalStates(ReachableState finalState)
    {
-      IdMap newJsonIdMap = (IdMap) new SDMLibIdMap("s").with(masterMap);
-      newJsonIdMap.withSession("s");
-      String s1cert = finalState.computeCertificate(newJsonIdMap);
+      String s1cert = finalState.lazyComputeCertificate();
       ReachableStateSet candidateStates = this.getStateMap(finalState.getCertificate());
       for (ReachableState oldState : candidateStates)
       {
-         Object match = match(oldState, finalState);
+         Object match = lazyMatch(oldState, finalState);
 
          if (match != null)
          {
@@ -1877,7 +1876,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public long explore(long i, ReachableState startState)
    {
-      String s1cert = startState.computeCertificate(masterMap);
+      String s1cert = startState.lazyComputeCertificate();
 
       this.withStates(startState);
 

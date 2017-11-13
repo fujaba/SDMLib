@@ -104,9 +104,6 @@ public class ReachbilityGraphSimpleExamples
       Node n22 = s21.createNodes().withPrev(n21);
       Node n23 = s21.createNodes().withPrev(n22).withNext(n21);
       
-      IdMap map = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
-      IdMap map2 = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
-      
       // mark them at different places
       n21.withNum(42);
       
@@ -120,14 +117,12 @@ public class ReachbilityGraphSimpleExamples
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
-      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
-      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
       
       ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
-      String s1cert = rs1.computeCertificate(map);
-      String s2cert = rs2.computeCertificate(map2);
+      String s1cert = rs1.lazyComputeCertificate();
+      String s2cert = rs2.lazyComputeCertificate();
       
       storyboard.assertTrue("Both certificates are equal. ", s1cert.equals(s2cert));
       
@@ -149,8 +144,8 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.addObjectDiagram(s21);
       
-      s1cert = rs1.computeCertificate(map);
-      s2cert = rs2.computeCertificate(map2);
+      s1cert = rs1.lazyComputeCertificate();
+      s2cert = rs2.lazyComputeCertificate();
       
       storyboard.assertTrue("Both certificates are again equal. ", s1cert.equals(s2cert));
       
@@ -190,8 +185,6 @@ public class ReachbilityGraphSimpleExamples
       Node n23 = s21.createNodes().withPrev(n22);
       Node n24 = s21.createNodes().withPrev(n23).withNext(n21);
       
-      IdMap map = SimpleStateCreator.createIdMap("s").withTimeStamp(1);
-      IdMap map2 = SimpleStateCreator.createIdMap("t");
       
       storyboard.addObjectDiagram(s11);
       
@@ -199,22 +192,20 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add("compute certificates");
       
-      ReachableState rs1 = new ReachableState().withGraphRoot(s11);
-      ReachableState rs2 = new ReachableState().withGraphRoot(s21);
+      ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
+      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
       
-      String s1cert = rs1.computeCertificate(map);
-      String s2cert = rs2.computeCertificate(map2);
+      ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
+      ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
+      
+      String s1cert = rs1.lazyComputeCertificate();
+      String s2cert = rs2.lazyComputeCertificate();
       
       storyboard.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
       
       storyboard.add(s1cert);
       
-      ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap(SimpleStateCreator.createIdMap("s"));
-      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
-      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
-      
-      LinkedHashMap<Object, Object> match = reachabilityGraph.match(rs1, rs2);
+      LinkedHashMap<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
       
       storyboard.assertFalse("Graphs are not isomorphic:", false);
             

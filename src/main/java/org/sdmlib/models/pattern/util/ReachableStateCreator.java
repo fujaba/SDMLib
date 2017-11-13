@@ -39,6 +39,7 @@ public class ReachableStateCreator implements SendableEntityCreator
       ReachableState.PROPERTY_RULEAPPLICATIONS,
       ReachableState.PROPERTY_RESULTOF,
       ReachableState.PROPERTY_FAILURE_STATE,
+      "descr",
    };
    
    @Override
@@ -99,6 +100,10 @@ public class ReachableStateCreator implements SendableEntityCreator
          return ((ReachableState) target).isFailureState();
       }
 
+      if ("descr".equalsIgnoreCase(attribute))
+      {
+         return ((ReachableState) target).toString();
+      }
       
       
       return null;

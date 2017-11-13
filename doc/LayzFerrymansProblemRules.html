@@ -855,15 +855,15 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"bank",
             "id":"L13 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lboat",
+            "cardinality":"many",
+            "property":"boat",
             "id":"L12 : LBoat"
          }
       },
@@ -1029,15 +1029,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L15 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L14 : LRiver"
          }
       },
@@ -2074,15 +2074,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L40 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L39 : LRiver"
          }
       },
@@ -2370,15 +2370,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L46 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L45 : LRiver"
          }
       },
@@ -2968,15 +2968,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L64 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L63 : LRiver"
          }
       },
@@ -3116,15 +3116,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L67 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L66 : LRiver"
          }
       },
@@ -3264,15 +3264,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L70 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L69 : LRiver"
          }
       },
@@ -3389,15 +3389,15 @@
    ],
    "edges":[
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"bank",
             "id":"L74 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lboat",
+            "cardinality":"many",
+            "property":"boat",
             "id":"L73 : LBoat"
          }
       },
@@ -3563,15 +3563,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L85 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L84 : LRiver"
          }
       },
@@ -3711,15 +3711,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L88 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L87 : LRiver"
          }
       },
@@ -4309,15 +4309,15 @@
          }
       },
       {
-         "type":"edge",
+         "type":"assoc",
          "source":{
             "cardinality":"many",
             "property":"banks",
             "id":"L107 : LBank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"lriver",
+            "cardinality":"many",
+            "property":"river",
             "id":"L106 : LRiver"
          }
       },
@@ -4388,6 +4388,7 @@
          "type":"clazz",
          "id":"R112 : ReachableState",
          "attributes":[
+            "descr=1 0.0\u000aleft cabbage goat wolf\u000aboat \\___/ at (left)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=1"
@@ -4411,6 +4412,7 @@
          "type":"clazz",
          "id":"R115 : ReachableState",
          "attributes":[
+            "descr=2 0.0\u000aleft cabbage wolf\u000aboat \\goat/ at (left)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=2"
@@ -4427,6 +4429,7 @@
          "type":"clazz",
          "id":"R117 : ReachableState",
          "attributes":[
+            "descr=3 0.0\u000aleft cabbage wolf\u000aboat \\___/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=3"
@@ -4457,6 +4460,7 @@
          "type":"clazz",
          "id":"R121 : ReachableState",
          "attributes":[
+            "descr=4 0.0\u000aleft cabbage wolf\u000aboat \\goat/ at (right)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=4"
@@ -4466,6 +4470,7 @@
          "type":"clazz",
          "id":"R122 : ReachableState",
          "attributes":[
+            "descr=5 0.0\u000aleft cabbage wolf\u000aboat \\___/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=5"
@@ -4503,6 +4508,7 @@
          "type":"clazz",
          "id":"R127 : ReachableState",
          "attributes":[
+            "descr=6 0.0\u000aleft wolf\u000aboat \\cabbage/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=6"
@@ -4519,6 +4525,7 @@
          "type":"clazz",
          "id":"R129 : ReachableState",
          "attributes":[
+            "descr=7 0.0\u000aleft cabbage\u000aboat \\wolf/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=7"
@@ -4535,6 +4542,7 @@
          "type":"clazz",
          "id":"R131 : ReachableState",
          "attributes":[
+            "descr=8 0.0\u000aleft wolf\u000aboat \\___/ at (right)\u000aright goat cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=8"
@@ -4565,6 +4573,7 @@
          "type":"clazz",
          "id":"R135 : ReachableState",
          "attributes":[
+            "descr=9 0.0\u000aleft cabbage\u000aboat \\___/ at (right)\u000aright goat wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=9"
@@ -4595,6 +4604,7 @@
          "type":"clazz",
          "id":"R139 : ReachableState",
          "attributes":[
+            "descr=10 0.0\u000aleft wolf\u000aboat \\goat/ at (right)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=10"
@@ -4611,6 +4621,7 @@
          "type":"clazz",
          "id":"R141 : ReachableState",
          "attributes":[
+            "descr=11 0.0\u000aleft wolf\u000aboat \\cabbage/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=11"
@@ -4620,6 +4631,7 @@
          "type":"clazz",
          "id":"R142 : ReachableState",
          "attributes":[
+            "descr=12 0.0\u000aleft cabbage\u000aboat \\goat/ at (right)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=12"
@@ -4636,6 +4648,7 @@
          "type":"clazz",
          "id":"R144 : ReachableState",
          "attributes":[
+            "descr=13 0.0\u000aleft cabbage\u000aboat \\wolf/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=13"
@@ -4645,6 +4658,7 @@
          "type":"clazz",
          "id":"R145 : ReachableState",
          "attributes":[
+            "descr=14 0.0\u000aleft wolf goat\u000aboat \\___/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=14"
@@ -4675,6 +4689,7 @@
          "type":"clazz",
          "id":"R149 : ReachableState",
          "attributes":[
+            "descr=15 0.0\u000aleft cabbage goat\u000aboat \\___/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=15"
@@ -4705,6 +4720,7 @@
          "type":"clazz",
          "id":"R153 : ReachableState",
          "attributes":[
+            "descr=16 0.0\u000aleft goat\u000aboat \\wolf/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=16"
@@ -4721,6 +4737,7 @@
          "type":"clazz",
          "id":"R155 : ReachableState",
          "attributes":[
+            "descr=17 0.0\u000aleft wolf\u000aboat \\goat/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=17"
@@ -4730,6 +4747,7 @@
          "type":"clazz",
          "id":"R156 : ReachableState",
          "attributes":[
+            "descr=18 0.0\u000aleft goat\u000aboat \\cabbage/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=18"
@@ -4746,6 +4764,7 @@
          "type":"clazz",
          "id":"R158 : ReachableState",
          "attributes":[
+            "descr=19 0.0\u000aleft cabbage\u000aboat \\goat/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=19"
@@ -4755,6 +4774,7 @@
          "type":"clazz",
          "id":"R159 : ReachableState",
          "attributes":[
+            "descr=20 0.0\u000aleft goat\u000aboat \\___/ at (right)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=20"
@@ -4792,6 +4812,7 @@
          "type":"clazz",
          "id":"R164 : ReachableState",
          "attributes":[
+            "descr=21 0.0\u000aleft goat\u000aboat \\cabbage/ at (right)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=21"
@@ -4801,6 +4822,7 @@
          "type":"clazz",
          "id":"R165 : ReachableState",
          "attributes":[
+            "descr=22 0.0\u000aleft goat\u000aboat \\wolf/ at (right)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=22"
@@ -4810,6 +4832,7 @@
          "type":"clazz",
          "id":"R166 : ReachableState",
          "attributes":[
+            "descr=23 0.0\u000aleft goat\u000aboat \\___/ at (left)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=23"
@@ -4833,6 +4856,7 @@
          "type":"clazz",
          "id":"R169 : ReachableState",
          "attributes":[
+            "descr=24 0.0\u000aleft \u000aboat \\goat/ at (left)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=24"
@@ -4849,6 +4873,7 @@
          "type":"clazz",
          "id":"R171 : ReachableState",
          "attributes":[
+            "descr=25 0.0\u000aleft \u000aboat \\___/ at (right)\u000aright cabbage wolf goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=25"
@@ -4865,6 +4890,7 @@
          "type":"clazz",
          "id":"R173 : ReachableState",
          "attributes":[
+            "descr=26 0.0\u000aleft \u000aboat \\goat/ at (right)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=26"
@@ -5832,17 +5858,6 @@
       },
       {
          "type":"clazz",
-         "id":"L101 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L102 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
          "id":"L103 : LRiver"
       },
       {
@@ -5878,26 +5893,7 @@
       },
       {
          "type":"clazz",
-         "id":"L109 : LRiver"
-      },
-      {
-         "type":"clazz",
          "id":"L11 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L110 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L111 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
-         ]
       },
       {
          "type":"clazz",
@@ -5943,28 +5939,9 @@
       },
       {
          "type":"clazz",
-         "id":"L19 : LRiver"
-      },
-      {
-         "type":"clazz",
          "id":"L2 : LBoat",
          "attributes":[
             "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L20 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L21 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
          ]
       },
       {
@@ -5998,17 +5975,6 @@
       {
          "type":"clazz",
          "id":"L27 : LBoat"
-      },
-      {
-         "type":"clazz",
-         "id":"L28 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L29 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
       },
       {
          "type":"clazz",
@@ -6156,25 +6122,6 @@
       },
       {
          "type":"clazz",
-         "id":"L51 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L52 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L53 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
-         ]
-      },
-      {
-         "type":"clazz",
          "id":"L54 : LRiver"
       },
       {
@@ -6187,25 +6134,6 @@
       {
          "type":"clazz",
          "id":"L56 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L57 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L58 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L59 : LBank",
          "attributes":[
             "age=0",
             "name=left"
@@ -6310,64 +6238,7 @@
       },
       {
          "type":"clazz",
-         "id":"L75 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L76 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L77 : LBank",
-         "attributes":[
-            "age=0",
-            "name=right"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L78 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L79 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
          "id":"L8 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L80 : LBank",
-         "attributes":[
-            "age=0",
-            "name=right"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L81 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L82 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L83 : LBank",
-         "attributes":[
-            "age=0",
-            "name=right"
-         ]
       },
       {
          "type":"clazz",
@@ -6422,44 +6293,6 @@
       },
       {
          "type":"clazz",
-         "id":"L92 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L93 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L94 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L95 : LRiver"
-      },
-      {
-         "type":"clazz",
-         "id":"L96 : LBoat",
-         "attributes":[
-            "cargo=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"L97 : LBank",
-         "attributes":[
-            "age=0",
-            "name=left"
-         ]
-      },
-      {
-         "type":"clazz",
          "id":"L98 : LRiver"
       },
       {
@@ -6474,6 +6307,7 @@
          "type":"clazz",
          "id":"R112 : ReachableState",
          "attributes":[
+            "descr=1 0.0\u000aleft cabbage goat wolf\u000aboat \\___/ at (left)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=1"
@@ -6497,6 +6331,7 @@
          "type":"clazz",
          "id":"R115 : ReachableState",
          "attributes":[
+            "descr=2 0.0\u000aleft cabbage wolf\u000aboat \\goat/ at (left)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=2"
@@ -6513,6 +6348,7 @@
          "type":"clazz",
          "id":"R117 : ReachableState",
          "attributes":[
+            "descr=3 0.0\u000aleft cabbage wolf\u000aboat \\___/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=3"
@@ -6543,6 +6379,7 @@
          "type":"clazz",
          "id":"R121 : ReachableState",
          "attributes":[
+            "descr=4 0.0\u000aleft cabbage wolf\u000aboat \\goat/ at (right)\u000aright \u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=4"
@@ -6552,6 +6389,7 @@
          "type":"clazz",
          "id":"R122 : ReachableState",
          "attributes":[
+            "descr=5 0.0\u000aleft cabbage wolf\u000aboat \\___/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=5"
@@ -6589,6 +6427,7 @@
          "type":"clazz",
          "id":"R127 : ReachableState",
          "attributes":[
+            "descr=6 0.0\u000aleft wolf\u000aboat \\cabbage/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=6"
@@ -6605,6 +6444,7 @@
          "type":"clazz",
          "id":"R129 : ReachableState",
          "attributes":[
+            "descr=7 0.0\u000aleft cabbage\u000aboat \\wolf/ at (left)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=7"
@@ -6621,6 +6461,7 @@
          "type":"clazz",
          "id":"R131 : ReachableState",
          "attributes":[
+            "descr=8 0.0\u000aleft wolf\u000aboat \\___/ at (right)\u000aright goat cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=8"
@@ -6651,6 +6492,7 @@
          "type":"clazz",
          "id":"R135 : ReachableState",
          "attributes":[
+            "descr=9 0.0\u000aleft cabbage\u000aboat \\___/ at (right)\u000aright goat wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=9"
@@ -6681,6 +6523,7 @@
          "type":"clazz",
          "id":"R139 : ReachableState",
          "attributes":[
+            "descr=10 0.0\u000aleft wolf\u000aboat \\goat/ at (right)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=10"
@@ -6697,6 +6540,7 @@
          "type":"clazz",
          "id":"R141 : ReachableState",
          "attributes":[
+            "descr=11 0.0\u000aleft wolf\u000aboat \\cabbage/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=11"
@@ -6706,6 +6550,7 @@
          "type":"clazz",
          "id":"R142 : ReachableState",
          "attributes":[
+            "descr=12 0.0\u000aleft cabbage\u000aboat \\goat/ at (right)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=12"
@@ -6722,6 +6567,7 @@
          "type":"clazz",
          "id":"R144 : ReachableState",
          "attributes":[
+            "descr=13 0.0\u000aleft cabbage\u000aboat \\wolf/ at (right)\u000aright goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=13"
@@ -6731,6 +6577,7 @@
          "type":"clazz",
          "id":"R145 : ReachableState",
          "attributes":[
+            "descr=14 0.0\u000aleft wolf goat\u000aboat \\___/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=14"
@@ -6761,6 +6608,7 @@
          "type":"clazz",
          "id":"R149 : ReachableState",
          "attributes":[
+            "descr=15 0.0\u000aleft cabbage goat\u000aboat \\___/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=15"
@@ -6791,6 +6639,7 @@
          "type":"clazz",
          "id":"R153 : ReachableState",
          "attributes":[
+            "descr=16 0.0\u000aleft goat\u000aboat \\wolf/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=16"
@@ -6807,6 +6656,7 @@
          "type":"clazz",
          "id":"R155 : ReachableState",
          "attributes":[
+            "descr=17 0.0\u000aleft wolf\u000aboat \\goat/ at (left)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=17"
@@ -6816,6 +6666,7 @@
          "type":"clazz",
          "id":"R156 : ReachableState",
          "attributes":[
+            "descr=18 0.0\u000aleft goat\u000aboat \\cabbage/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=18"
@@ -6832,6 +6683,7 @@
          "type":"clazz",
          "id":"R158 : ReachableState",
          "attributes":[
+            "descr=19 0.0\u000aleft cabbage\u000aboat \\goat/ at (left)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=19"
@@ -6841,6 +6693,7 @@
          "type":"clazz",
          "id":"R159 : ReachableState",
          "attributes":[
+            "descr=20 0.0\u000aleft goat\u000aboat \\___/ at (right)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=20"
@@ -6878,6 +6731,7 @@
          "type":"clazz",
          "id":"R164 : ReachableState",
          "attributes":[
+            "descr=21 0.0\u000aleft goat\u000aboat \\cabbage/ at (right)\u000aright wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=21"
@@ -6887,6 +6741,7 @@
          "type":"clazz",
          "id":"R165 : ReachableState",
          "attributes":[
+            "descr=22 0.0\u000aleft goat\u000aboat \\wolf/ at (right)\u000aright cabbage\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=22"
@@ -6896,6 +6751,7 @@
          "type":"clazz",
          "id":"R166 : ReachableState",
          "attributes":[
+            "descr=23 0.0\u000aleft goat\u000aboat \\___/ at (left)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=23"
@@ -6919,6 +6775,7 @@
          "type":"clazz",
          "id":"R169 : ReachableState",
          "attributes":[
+            "descr=24 0.0\u000aleft \u000aboat \\goat/ at (left)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=24"
@@ -6935,6 +6792,7 @@
          "type":"clazz",
          "id":"R171 : ReachableState",
          "attributes":[
+            "descr=25 0.0\u000aleft \u000aboat \\___/ at (right)\u000aright cabbage wolf goat\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=25"
@@ -6951,6 +6809,7 @@
          "type":"clazz",
          "id":"R173 : ReachableState",
          "attributes":[
+            "descr=26 0.0\u000aleft \u000aboat \\goat/ at (right)\u000aright cabbage wolf\u000a",
             "failureState=false",
             "metricValue=0.0",
             "number=26"
@@ -7278,240 +7137,6 @@
          "type":"assoc",
          "source":{
             "cardinality":"many",
-            "property":"bank",
-            "id":"L21 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L53 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L59 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L77 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L80 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L94 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L5 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L21 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L77 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L83 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L94 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L97 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L111 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L6 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L21 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L53 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L59 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L80 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L83 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L97 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"L7 : LCargo"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
             "property":"banks",
             "id":"L3 : LBank"
          },
@@ -8187,123 +7812,6 @@
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L21 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L19 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L53 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L51 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L59 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L57 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L77 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L75 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L80 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L78 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L83 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L81 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L94 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L92 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L97 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L95 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L111 : LBank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L109 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
             "cardinality":"one",
             "property":"boat",
             "id":"L2 : LBoat"
@@ -8657,298 +8165,12 @@
          "source":{
             "cardinality":"many",
             "property":"boat",
-            "id":"L29 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L13 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
             "id":"L91 : LBoat"
          },
          "target":{
             "cardinality":"many",
             "property":"bank",
             "id":"L61 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L102 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L74 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L29 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L28 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L20 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L19 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L52 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L51 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L58 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L57 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L102 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L101 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L76 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L75 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L79 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L78 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L82 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L81 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L93 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L92 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L96 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L95 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"L110 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L109 : LRiver"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L20 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L21 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L52 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L53 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L58 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L59 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L76 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L77 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L79 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L80 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L93 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L94 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L82 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L83 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L96 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L97 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"boat",
-            "id":"L110 : LBoat"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bank",
-            "id":"L111 : LBank"
          }
       },
       {
@@ -10392,175 +9614,6 @@
             "cardinality":"one",
             "property":"tgt",
             "id":"R173 : ReachableState"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L28 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L9 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L28 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L13 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L19 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L15 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L51 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L40 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L57 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L46 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L101 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L61 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L75 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L64 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L78 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L67 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L81 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L70 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L101 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L74 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L92 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L85 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L95 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L88 : LBank"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"river",
-            "id":"L109 : LRiver"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"L107 : LBank"
          }
       },
       {

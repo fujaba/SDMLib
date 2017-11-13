@@ -88,7 +88,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
    public void removeYou()
    {
       if (getMaze() != null) { getMaze().removeYou(); }
-      for (Box obj : new BoxSet(this.getBoxes())) { obj.removeYou(); }
+      // for (Box obj : new BoxSet(this.getBoxes())) { obj.removeYou(); }
+      for (Box obj : new BoxSet(this.getBoxes())) { this.withoutBoxes(obj);}
+      // if (getKarli() != null) { getKarli().removeYou(); }
+      this.setKarli(null);
       if (getKarli() != null) { getKarli().removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -288,7 +291,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
    {
       StringBuilder result = new StringBuilder();
 
-      result.append(this.getMaze() != null ? this.getMaze().toString() : " ");
+      result.append(this.getMaze() != null ? this.getMaze().toString(this) : " ");
       
       return result.substring(1);
    }

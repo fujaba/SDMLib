@@ -448,7 +448,7 @@ public  class Table implements SendableEntity
             + "</tbody>\n";
 
       String tableText = ""
-            + "<table class=\"table table-bordered table-condensed\">\n"
+            + "<table style=\"width: auto;\" class=\"table table-bordered table-condensed\">\n"
             + "tableHeader\n"
             + "tableRows\n"
             + "</table>\n";

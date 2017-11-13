@@ -9,21 +9,17 @@ public class IsomorphismComputation
 
    public static LinkedHashMap<Object, Object> calculateMatch(Object graph1, Object graph2, IdMap creators)
    {
-      IdMap map1 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
-      IdMap map2 = new IdMap().withSession("s").with(creators).withTimeStamp(1);
-
-      ReachableState rs1 = new ReachableState().withGraphRoot(graph1);
-      ReachableState rs2 = new ReachableState().withGraphRoot(graph2);
-
-      String s1cert = rs1.computeCertificate(map1);
-      String s2cert = rs2.computeCertificate(map2);
-
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-      reachabilityGraph.setMasterMap( new IdMap().withSession("s").with(creators));
-      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(reachabilityGraph.getMasterMap());
-      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
+      reachabilityGraph.withMasterMap ( new IdMap().withSession("s").with(creators));
+
+      ReachableState rs1 = new ReachableState().withGraphRoot(graph1).withParent(reachabilityGraph);
+      ReachableState rs2 = new ReachableState().withGraphRoot(graph2).withParent(reachabilityGraph);
+
+      String s1cert = rs1.lazyComputeCertificate();
+      String s2cert = rs2.lazyComputeCertificate();
+
       
-      return reachabilityGraph.match(rs1, rs2);
+      return reachabilityGraph.lazyMatch(rs1, rs2);
    }
 
    public static boolean isIsomorphic(Object graph1, Object graph2, IdMap creators)

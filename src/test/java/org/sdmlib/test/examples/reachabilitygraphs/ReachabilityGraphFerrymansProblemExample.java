@@ -72,14 +72,11 @@ public class ReachabilityGraphFerrymansProblemExample
       RiverCreator cc = new RiverCreator();
 
       IdMap map = cc.createIdMap("s");
-      map.with(ReachabilityGraphCreator.createIdMap("rg"));
 
-      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(map);
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
             .withMasterMap(map).withStates(rs1).withTodo(rs1);
-      reachabilityGraph.setLazyCloneOp(lazyCloneOp);
 
-      String s1cert = rs1.computeCertificate(map);
+      String s1cert = rs1.lazyComputeCertificate();
 
       storyboard.addPreformatted(s1cert);
 
@@ -95,7 +92,7 @@ public class ReachabilityGraphFerrymansProblemExample
       RiverPO riverPO = new RiverPO();
 
       Pattern loadPattern = (Pattern) riverPO.getPattern().withName("load").withDebugMode(Kanban.DEBUG_ON);
-      map.getId(loadPattern);
+      // map.getId(loadPattern);
 
       BoatPO boatPO = riverPO.hasBoat();
 
