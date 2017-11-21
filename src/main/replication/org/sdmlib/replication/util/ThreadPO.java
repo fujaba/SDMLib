@@ -32,4 +32,9 @@ public class ThreadPO extends PatternObject<ThreadPO, Thread>
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ThreadPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

@@ -3,6 +3,8 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.util.LogEntryPO;
+import org.sdmlib.replication.util.TaskPO;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {
@@ -81,6 +83,41 @@ public class TaskPO extends PatternObject<TaskPO, Task>
    public TaskPO filterLogEntries(LogEntryPO tgt)
    {
       return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES);
+   }
+
+
+   public TaskPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LogEntryPO createLogEntriesPO()
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Task.PROPERTY_LOGENTRIES, result);
+      
+      return result;
+   }
+
+   public LogEntryPO createLogEntriesPO(String modifier)
+   {
+      LogEntryPO result = new LogEntryPO(new LogEntry[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Task.PROPERTY_LOGENTRIES, result);
+      
+      return result;
+   }
+
+   public TaskPO createLogEntriesLink(LogEntryPO tgt)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES);
+   }
+
+   public TaskPO createLogEntriesLink(LogEntryPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Task.PROPERTY_LOGENTRIES, modifier);
    }
 
 }

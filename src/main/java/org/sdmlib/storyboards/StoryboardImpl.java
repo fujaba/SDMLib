@@ -2182,7 +2182,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             continue;
          }
 
-         if (statement.toString().startsWith(" new"))
+         if (statement.toString().startsWith(" new") && statement.getTokenList().size() >= 2)
          {
             // yes, an object is created try to refer to it
             String classUnderTestName = statement.getTokenList().get(1);

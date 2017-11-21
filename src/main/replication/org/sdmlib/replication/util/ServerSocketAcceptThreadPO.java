@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAcceptThreadPO, ServerSocketAcceptThread>
 {
@@ -162,6 +163,82 @@ public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAccept
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public ServerSocketAcceptThreadPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ServerSocketAcceptThreadPO createPortCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createPortCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createPortAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createReplicationNodeCondition(ReplicationNode value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_REPLICATIONNODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createReplicationNodeAssignment(ReplicationNode value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_REPLICATIONNODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

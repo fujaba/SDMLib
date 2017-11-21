@@ -28,6 +28,8 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
 
 public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThread>
 {
@@ -250,4 +252,93 @@ public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThr
    {
       this.addAll(objects);
    }
+
+
+   public ServerSocketAcceptThreadPO createServerSocketAcceptThreadPO()
+   {
+      return new ServerSocketAcceptThreadPO(this.toArray(new ServerSocketAcceptThread[this.size()]));
+   }
+
+
+   @Override
+   public ServerSocketAcceptThreadSet getNewList(boolean keyValue)
+   {
+      return new ServerSocketAcceptThreadSet();
+   }
+
+
+   public ServerSocketAcceptThreadSet filter(Condition<ServerSocketAcceptThread> condition) {
+      ServerSocketAcceptThreadSet filterList = new ServerSocketAcceptThreadSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the port attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet createPortCondition(int value)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (value == obj.getPort())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the port attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet createPortCondition(int lower, int upper)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (lower <= obj.getPort() && obj.getPort() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the replicationNode attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ServerSocketAcceptThread objects that match the parameter
+    */
+   public ServerSocketAcceptThreadSet createReplicationNodeCondition(ReplicationNode value)
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for (ServerSocketAcceptThread obj : this)
+      {
+         if (value == obj.getReplicationNode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

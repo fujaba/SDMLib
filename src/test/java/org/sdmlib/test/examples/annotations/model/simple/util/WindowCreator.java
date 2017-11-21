@@ -21,16 +21,28 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
-public class WindowCreator implements SendableEntityCreator
+public class WindowCreator implements AggregatedEntityCreator
 {
+   public static final WindowCreator it = new WindowCreator();
+   
    private final String[] properties = new String[]
    {
       Window.PROPERTY_HOUSE,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -40,10 +52,23 @@ public class WindowCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Window();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)

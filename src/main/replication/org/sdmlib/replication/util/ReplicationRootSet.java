@@ -29,6 +29,7 @@ import org.sdmlib.replication.ReplicationRoot;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
 {
@@ -408,4 +409,93 @@ public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
    {
       this.addAll(objects);
    }
+
+
+   public ReplicationRootPO createReplicationRootPO()
+   {
+      return new ReplicationRootPO(this.toArray(new ReplicationRoot[this.size()]));
+   }
+
+
+   @Override
+   public ReplicationRootSet getNewList(boolean keyValue)
+   {
+      return new ReplicationRootSet();
+   }
+
+
+   public ReplicationRootSet filter(Condition<ReplicationRoot> condition) {
+      ReplicationRootSet filterList = new ReplicationRootSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the applicationObject attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet createApplicationObjectCondition(Object value)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (value == obj.getApplicationObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet createNameCondition(String value)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationRoot objects that match the parameter
+    */
+   public ReplicationRootSet createNameCondition(String lower, String upper)
+   {
+      ReplicationRootSet result = new ReplicationRootSet();
+      
+      for (ReplicationRoot obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

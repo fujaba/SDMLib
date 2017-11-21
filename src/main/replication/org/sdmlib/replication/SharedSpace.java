@@ -62,6 +62,9 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import javafx.application.Platform;
+import org.sdmlib.replication.ReplicationChannel;
+import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.ReplicationNode;
 
 
 /**

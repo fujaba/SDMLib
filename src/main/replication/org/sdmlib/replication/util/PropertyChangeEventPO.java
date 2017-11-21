@@ -34,4 +34,9 @@ public class PropertyChangeEventPO extends PatternObject<PropertyChangeEventPO, 
       }
       newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public PropertyChangeEventPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

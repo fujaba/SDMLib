@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.RemoteTaskBoardPO;
+import org.sdmlib.replication.util.LanePO;
+import org.sdmlib.replication.util.BoardTaskPO;
 
 public class LanePO extends PatternObject<LanePO, Lane>
 {
@@ -214,6 +218,114 @@ public class LanePO extends PatternObject<LanePO, Lane>
    public LanePO filterTasks(BoardTaskPO tgt)
    {
       return hasLinkConstraint(tgt, Lane.PROPERTY_TASKS);
+   }
+
+
+   public LanePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LanePO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LanePO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LanePO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RemoteTaskBoardPO createBoardPO()
+   {
+      RemoteTaskBoardPO result = new RemoteTaskBoardPO(new RemoteTaskBoard[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Lane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public RemoteTaskBoardPO createBoardPO(String modifier)
+   {
+      RemoteTaskBoardPO result = new RemoteTaskBoardPO(new RemoteTaskBoard[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Lane.PROPERTY_BOARD, result);
+      
+      return result;
+   }
+
+   public LanePO createBoardLink(RemoteTaskBoardPO tgt)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_BOARD);
+   }
+
+   public LanePO createBoardLink(RemoteTaskBoardPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_BOARD, modifier);
+   }
+
+   public BoardTaskPO createTasksPO()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Lane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO createTasksPO(String modifier)
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Lane.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public LanePO createTasksLink(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_TASKS);
+   }
+
+   public LanePO createTasksLink(BoardTaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Lane.PROPERTY_TASKS, modifier);
    }
 
 }

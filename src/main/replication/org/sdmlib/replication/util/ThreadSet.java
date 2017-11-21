@@ -24,6 +24,13 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpaceSet;
+import org.sdmlib.replication.ReplicationChannel;
+import org.sdmlib.replication.util.ReplicationChannelSet;
+import org.sdmlib.replication.ServerSocketAcceptThread;
+import org.sdmlib.replication.util.ServerSocketAcceptThreadSet;
 
 public class ThreadSet extends SimpleSet<Thread>
 {
@@ -87,4 +94,68 @@ public class ThreadSet extends SimpleSet<Thread>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ThreadPO createThreadPO()
+   {
+      return new ThreadPO(this.toArray(new Thread[this.size()]));
+   }
+
+
+   @Override
+   public ThreadSet getNewList(boolean keyValue)
+   {
+      return new ThreadSet();
+   }
+
+
+   public ThreadSet filter(Condition<Thread> condition) {
+      ThreadSet filterList = new ThreadSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public SharedSpaceSet instanceOfSharedSpace()
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof SharedSpace)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet instanceOfReplicationChannel()
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof ReplicationChannel)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ServerSocketAcceptThreadSet instanceOfServerSocketAcceptThread()
+   {
+      ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof ServerSocketAcceptThread)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

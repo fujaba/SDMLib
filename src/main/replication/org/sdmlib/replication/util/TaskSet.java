@@ -29,6 +29,14 @@ import org.sdmlib.replication.Task;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.ReplicationChange;
+import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.replication.RemoteTask;
+import org.sdmlib.replication.util.RemoteTaskSet;
+import org.sdmlib.replication.util.LogEntrySet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -150,4 +158,68 @@ public class TaskSet extends SimpleSet<Task>
    {
       this.addAll(objects);
    }
-}
+
+
+   public TaskPO createTaskPO()
+   {
+      return new TaskPO(this.toArray(new Task[this.size()]));
+   }
+
+
+   @Override
+   public TaskSet getNewList(boolean keyValue)
+   {
+      return new TaskSet();
+   }
+
+
+   public TaskSet filter(Condition<Task> condition) {
+      TaskSet filterList = new TaskSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public ReplicationChangeSet instanceOfReplicationChange()
+   {
+      ReplicationChangeSet result = new ReplicationChangeSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof ReplicationChange)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet instanceOfBoardTask()
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof BoardTask)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RemoteTaskSet instanceOfRemoteTask()
+   {
+      RemoteTaskSet result = new RemoteTaskSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof RemoteTask)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

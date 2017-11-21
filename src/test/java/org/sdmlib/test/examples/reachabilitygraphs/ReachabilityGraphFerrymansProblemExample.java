@@ -76,9 +76,9 @@ public class ReachabilityGraphFerrymansProblemExample
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
             .withMasterMap(map).withStates(rs1).withTodo(rs1);
 
-      String s1cert = rs1.lazyComputeCertificate();
+      Object s1cert = rs1.lazyComputeCertificate();
 
-      storyboard.addPreformatted(s1cert);
+      storyboard.addPreformatted(s1cert.toString());
 
 
       // ================================================

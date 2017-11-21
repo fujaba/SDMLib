@@ -34,4 +34,9 @@ public class SocketPO extends PatternObject<SocketPO, Socket>
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public SocketPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

@@ -25,6 +25,7 @@ import java.net.Socket;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class SocketSet extends SimpleSet<Socket>
 {
@@ -88,4 +89,23 @@ public class SocketSet extends SimpleSet<Socket>
    {
       this.addAll(objects);
    }
-}
+
+
+   public SocketPO createSocketPO()
+   {
+      return new SocketPO(this.toArray(new Socket[this.size()]));
+   }
+
+
+   @Override
+   public SocketSet getNewList(boolean keyValue)
+   {
+      return new SocketSet();
+   }
+
+
+   public SocketSet filter(Condition<Socket> condition) {
+      SocketSet filterList = new SocketSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -32,4 +32,9 @@ public class RunnablePO extends PatternObject<RunnablePO, Runnable>
       }
       newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public RunnablePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

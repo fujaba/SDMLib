@@ -6,6 +6,8 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpacePO;
+import org.sdmlib.replication.util.ReplicationServerPO;
 
 public class ReplicationServerPO extends PatternObject<ReplicationServerPO, ReplicationServer>
 {
@@ -319,6 +321,41 @@ public class ReplicationServerPO extends PatternObject<ReplicationServerPO, Repl
    public ReplicationServerPO filterSharedSpaces(SharedSpacePO tgt)
    {
       return hasLinkConstraint(tgt, ReplicationNode.PROPERTY_SHAREDSPACES);
+   }
+
+
+   public ReplicationServerPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SharedSpacePO createSharedSpacesPO()
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationServer.PROPERTY_SHAREDSPACES, result);
+      
+      return result;
+   }
+
+   public SharedSpacePO createSharedSpacesPO(String modifier)
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ReplicationServer.PROPERTY_SHAREDSPACES, result);
+      
+      return result;
+   }
+
+   public ReplicationServerPO createSharedSpacesLink(SharedSpacePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationServer.PROPERTY_SHAREDSPACES);
+   }
+
+   public ReplicationServerPO createSharedSpacesLink(SharedSpacePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReplicationServer.PROPERTY_SHAREDSPACES, modifier);
    }
 
 }

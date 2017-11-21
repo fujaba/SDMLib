@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.BlockingQueue;
@@ -49,8 +50,6 @@ import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.ObjectCondition;
@@ -60,6 +59,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
@@ -68,7 +68,6 @@ import org.sdmlib.models.pattern.Pattern;
 
 /**
  * 
- * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'> PatternModelCodeGen.java</a>
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
@@ -284,10 +283,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public static final String PROPERTY_STATES = "states";
 
-   private TreeMap<String, Object> stateMap = new TreeMap<String, Object>();
+   private TreeMap<Object, Object> stateMap = new TreeMap<Object, Object>();
 
 
-   public ReachabilityGraph withStateMap(String certificate, ReachableState newState)
+   public ReachabilityGraph withStateMap(Object certificate, ReachableState newState)
    {
       Object oldEntry = stateMap.get(certificate);
 
@@ -317,7 +316,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    private ReachableStateSet oneElemSet = new ReachableStateSet();
 
 
-   public ReachableStateSet getStateMap(String certificate)
+   public ReachableStateSet getStateMap(Object certificate)
    {
       Object oldEntry = stateMap.get(certificate);
 
@@ -690,7 +689,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       // inital states get certificates
       for (ReachableState s : this.getStates())
       {
-         String newCertificate = s.lazyComputeCertificate();
+         Object newCertificate = null;
+         if (useLongCertificates)
+         {
+            newCertificate = s.longComputeCertificateAndCleanUp();
+         }
+         else
+         {
+            newCertificate = s.lazyComputeCertificateAndCleanUp();
+         }
+         
          this.withStateMap(newCertificate, s);
 
          s.setStartState(true);
@@ -752,16 +760,25 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             trafo.run(newGraphRoot);
             
             // merge with old states
-            String newCertificate = newReachableState.lazyComputeCertificate();
-
+            Object newCertificate = null; 
+            if (useLongCertificates)
+            {
+               newCertificate = newReachableState.longComputeCertificate();
+            }
+            else
+            {
+               newCertificate = newReachableState.lazyComputeCertificate();
+            }
+            
             // already known? 
             ReachableStateSet candidateStates = this.getStateMap(newCertificate);
 
-            LinkedHashMap<Object, Object> match = null;
+            SimpleKeyValueList<Object, Object> match = null;
 
             for (ReachableState oldState : candidateStates)
             {
                match = lazyMatch(oldState, newReachableState);
+               
                if (match != null)
                {
                   // newReachableState is isomorphic to oldState. Just add a
@@ -868,14 +885,27 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                rememberMatches(rule, srcMatch, tgtMatch);
 
                // is the new graph already known?
-               String newCertificate = newReachableState.lazyComputeCertificate();
-
+               Object newCertificate = null; 
+               if (useLongCertificates)
+               {
+                  newCertificate = newReachableState.longComputeCertificate();
+               }
+               else
+               {
+                  newCertificate = newReachableState.lazyComputeCertificate();
+               }
+               
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
 
-               LinkedHashMap<Object, Object> match = null;
-
+               SimpleKeyValueList<Object, Object> match = null;
+               
                match = findMatchingState(current, rule, newReachableState, srcMatch, tgtMatch, candidateStates, match);
 
+               if (useLongCertificates)
+               {
+                  newReachableState.setLongCert2Nodes(null);
+               }
+               
                if (match == null)
                {
                   // no isomorphic old state, add new state
@@ -958,20 +988,57 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return currentStateNum;
    }
 
+   private boolean doCleanUpTemps = false;
 
-   private LinkedHashMap<Object, Object> findMatchingState(ReachableState current, Pattern rule, ReachableState newReachableState, HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch, ReachableStateSet candidateStates, LinkedHashMap<Object, Object> match)
+   public boolean isDoCleanUpTemps()
+   {
+      return doCleanUpTemps;
+   }
+   
+   
+   public ReachabilityGraph withDoCleanUpTemps()
+   {
+      doCleanUpTemps = true;
+      return this;
+   }
+   
+   private boolean useLongCertificates = false;
+   
+   public boolean isUseLongCertificates()
+   {
+      return useLongCertificates;
+   }
+   
+   public ReachabilityGraph withUseLongCertificates()
+   {
+      this.useLongCertificates = true;
+      return this;
+   }
+   
+
+   private SimpleKeyValueList<Object, Object> findMatchingState(ReachableState current, Pattern rule, ReachableState newReachableState, HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch, ReachableStateSet candidateStates, SimpleKeyValueList<Object, Object> match)
    {
       for (ReachableState oldState : candidateStates)
       {
-         if (getLazyCloneOp() != null)
+         if (isDoCleanUpTemps())
          {
-            match = lazyMatch(oldState, newReachableState);
+            if (useLongCertificates)
+            {
+               oldState.longComputeCertificate();
+            }
+            else
+            {
+               oldState.lazyComputeCertificate();
+            }
          }
-         else
+         
+         match = lazyMatch(oldState, newReachableState);
+         
+         if (isDoCleanUpTemps())
          {
-            match = lazyMatch(oldState, newReachableState);
+            oldState.cleanUpCertificateTemps();
          }
-
+         
          if (match != null)
          {
             // newReachableState is isomorphic to oldState. Just add a
@@ -987,6 +1054,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             break;
          }
       }
+      
       return match;
    }
 
@@ -1177,7 +1245,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       private void doMatch(RuleApplication ruleApplication)
       {
          ReachableState newState = ruleApplication.getTgt();
-         LinkedHashMap<Object, Object> match = null;
+         SimpleKeyValueList<Object, Object> match = null;
 
          HashMap<PatternElement, Object> srcMatch;
          HashMap<PatternElement, Object> tgtMatch;
@@ -1241,8 +1309,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                   // is the new graph already known?
-                  String newCertificate = newReachableState.lazyComputeCertificate();
-
+                  Object newCertificate = null; 
+                  if (useLongCertificates)
+                  {
+                     newCertificate = newReachableState.longComputeCertificate();
+                  }
+                  else
+                  {
+                     newCertificate = newReachableState.lazyComputeCertificate();
+                  }
+                  
                   RuleApplication newRuleApplication = newState.createRuleapplications()
                      .withRule(rule)
                      .withDescription("" + rule.getName())
@@ -1261,10 +1337,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    }
 
-   public LinkedHashMap<Object, Object> lazyMatch(ReachableState s1, ReachableState s2)
+   public SimpleKeyValueList<Object, Object> lazyMatch(ReachableState s1, ReachableState s2)
    {
-      LinkedHashMap<Object, Object> fwdmapping = new LinkedHashMap<Object, Object>();
-      LinkedHashMap<Object, Object> bwdmapping = new LinkedHashMap<Object, Object>();
+      SimpleKeyValueList<Object, Object> fwdmapping = new SimpleKeyValueList<Object, Object>();
+      SimpleKeyValueList<Object, Object> bwdmapping = new SimpleKeyValueList<Object, Object>();
 
       Object root1 = s1.getGraphRoot();
       Object root2 = s2.getGraphRoot();
@@ -1331,7 +1407,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-   private boolean lazyMatch(ReachableState s1, ReachableState s2, Object cn1, LinkedHashMap<Object, Object> fwdmapping, LinkedHashMap<Object, Object> bwdmapping)
+   private boolean lazyMatch(ReachableState s1, ReachableState s2, Object cn1, SimpleKeyValueList<Object, Object> fwdmapping, SimpleKeyValueList<Object, Object> bwdmapping)
    {
       Object cn2 = fwdmapping.get(cn1);
       
@@ -1370,7 +1446,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   continue;
                }
                // might already have been matched? 
-               Object mapObject2 =fwdmapping.get(object1);
+               Object mapObject2 = fwdmapping.get(object1);
                
                if (mapObject2 != null)
                {
@@ -1385,6 +1461,39 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      return false;
                   }
                }
+               
+               // try to find partner via certificates
+               if (useLongCertificates)
+               {
+                  Long long1 = s1.getLongNode2CertNo().get(object1);
+                  
+                  ArrayList sameCert2Objects = s2.getLongCert2Nodes().get(long1);
+                  
+                  for (Object object2 : sameCert2Objects)
+                  {
+                     // might be a candidate, match it
+                     fwdmapping.put(object1, object2);
+                     bwdmapping.put(object2, object1);
+
+                     boolean match = lazyMatch(s1, s2, object1, fwdmapping, bwdmapping); 
+
+                     if (!match)
+                     {
+                        // did not work
+                        fwdmapping.remove(value1);
+                        bwdmapping.remove(value2);
+                        
+                        continue;
+                     }
+                     else
+                     {
+                        continue obj1RefLoop;
+                     }
+                  }
+                  
+                  return false;
+               }
+               
                
                // not yet mapped, search for mapping
                for (Object object2 : (Collection) value2)
@@ -1401,17 +1510,29 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      continue;
                   }
                   
-                  // do the certificates match?
-                  int cert1 = s1.getLazyNode2CertNo().get(object1);
-                  HashMap<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
-                  int cert2 = lazyNode2CertNo.get(object2);
-                  
-                  if (cert1 != cert2)
+                  if (useLongCertificates)
                   {
-                     // try some other object2
-                     continue;
+                     long long1 = s1.getLongNode2CertNo().get(object1);
+                     long long2 = s2.getLongNode2CertNo().get(object2);
+                     
+                     if (long1 != long2)
+                     {
+                        continue;
+                     }
                   }
-                  
+                  else
+                  {
+                     // do the certificates match?
+                     int cert1 = s1.getLazyNode2CertNo().get(object1);
+                     Map<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
+                     int cert2 = lazyNode2CertNo.get(object2);
+
+                     if (cert1 != cert2)
+                     {
+                        // try some other object2
+                        continue;
+                     }
+                  }
                   // might be a candidate, match it
                   fwdmapping.put(object1, object2);
                   bwdmapping.put(object2, object1);
@@ -1449,7 +1570,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             }
             
             // might already have been matched? 
-            Object mapValue2 =fwdmapping.get(value1);
+            Object mapValue2 = fwdmapping.get(value1);
             
             if (mapValue2 != null)
             {
@@ -1461,6 +1582,30 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                }
                else
                {
+                  return false;
+               }
+            }
+            
+            if (useLongCertificates)
+            {
+               long long1 = s1.getLongNode2CertNo().get(value1);
+               long long2 = s2.getLongNode2CertNo().get(value2);
+               
+               if (long1 != long2)
+               {
+                  return false;
+               }
+            }
+            else
+            {
+               // do the certificates match?
+               int cert1 = s1.getLazyNode2CertNo().get(value1);
+               Map<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
+               int cert2 = lazyNode2CertNo.get(value2);
+
+               if (cert1 != cert2)
+               {
+                  // try some other object2
                   return false;
                }
             }
@@ -1486,149 +1631,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
       }
       
-      return true;
-   }
-
-
-   public boolean match(ReachableState s1, JsonArray ja1, LinkedHashMap<String, JsonObject> joMap1,
-         ReachableState s2, JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2,
-         String cn1, LinkedHashMap<Object, Object> fwdmapping, LinkedHashMap<Object, Object> bwdmapping)
-   {
-      Object cn2 = fwdmapping.get(cn1);
-
-      // a mapping for currentNode has just been added. Validate it and compute
-      // mappings for neighbors
-      JsonObject currentJo1 = joMap1.get(cn1);
-      JsonObject currentJo2 = joMap2.get(cn2);
-
-      // certificates are equal, only check refs
-      // go through properties
-      JsonObject currentProps1 = currentJo1.getJsonObject(JsonTokener.PROPS);
-      JsonObject currentProps2 = currentJo2.getJsonObject(JsonTokener.PROPS);
-
-      for (Iterator<String> iter = currentProps1.keyIterator(); iter.hasNext();)
-      {
-         String key = iter.next();
-
-         Object value = currentProps1.get(key);
-
-         if (value instanceof JsonObject)
-         {
-            JsonObject ref = (JsonObject) value;
-            String tgt1 = ref.getString(IdMap.ID);
-
-            String tgt2 = currentProps2.getJsonObject(key).getString(IdMap.ID);
-
-            Object mappingOfTgt1 = fwdmapping.get(tgt1);
-
-            if (mappingOfTgt1 != null)
-            {
-               // already mapped. consistent?
-               if (!tgt2.equals(mappingOfTgt1))
-               {
-                  // inconsistent mapping
-                  return false;
-               }
-            }
-            else
-            {
-               // not yet mapped, thus add mapping and check it.
-               fwdmapping.put(tgt1, tgt2);
-               bwdmapping.put(tgt2, tgt1);
-
-               boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
-
-               if (!match)
-               {
-                  // did not work
-                  fwdmapping.remove(tgt1);
-                  bwdmapping.remove(tgt2);
-                  
-                  return false;
-               }
-            }
-         }
-         else if (value instanceof JsonArray)
-         {
-            // many refs loop through them, match each
-            obj1RefLoop: for (Object object : (JsonArray) value)
-            {
-               JsonObject ref = (JsonObject) object;
-
-               String tgt1 = ref.getString(IdMap.ID);
-
-               // might already have been matched
-               Object tgt1Map = fwdmapping.get(tgt1);
-
-               if (tgt1Map != null)
-               {
-                  // consistent?
-                  for (Object o : currentProps2.getJsonArray(key))
-                  {
-                     ref = (JsonObject) o;
-                     String tgt2 = ref.getString(IdMap.ID);
-
-                     if (tgt2.equals(tgt1Map))
-                     {
-                        continue obj1RefLoop; // <==================== this ref
-                                              // has a match, handle next ref in
-                                              // outer loop
-                     }
-                  }
-
-                  // inconsistent
-                  return false; // <========================== did not work out
-               }
-
-               // loop through the refs of the other object
-               for (Object o : currentProps2.getJsonArray(key))
-               {
-                  ref = (JsonObject) o;
-                  String tgt2 = ref.getString(IdMap.ID);
-
-                  // already used for other match?
-                  if (bwdmapping.get(tgt2) != null)
-                  {
-                     continue; // <=========================== this one is not a
-                               // match candidate, try another
-                  }
-
-                  // does the certificate match?
-                  String cert1 = s1.getNode2certificates().get(tgt1);
-                  String cert2 = s2.getNode2certificates().get(tgt2);
-                  if(cert1 == null) {
-                	  return cert2 == null;
-                  }
-
-                  if (cert1.equals(cert2))
-                  {
-                     // might be a candidate, match it
-                     fwdmapping.put(tgt1, tgt2);
-                     bwdmapping.put(tgt2, tgt1);
-
-                     boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
-
-                     if (!match)
-                     {
-                        // did not work
-                        fwdmapping.remove(tgt1);
-                        bwdmapping.remove(tgt2);
-                     }
-                     else
-                     {
-                        continue obj1RefLoop; // <==================== this ref
-                                              // has a match, handle next ref in
-                                              // outer loop
-                     }
-                  }
-               }
-
-               // did not find a match for current ref
-               return false;
-            }
-         }
-      }
-
       return true;
    }
 
@@ -1834,13 +1836,21 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public long explore(ReachableState startState)
    {
 
-      String s1cert = startState.lazyComputeCertificate();
+      Object newCertificate = null; 
+      if (useLongCertificates)
+      {
+         newCertificate = startState.longComputeCertificate();
+      }
+      else
+      {
+         newCertificate = startState.lazyComputeCertificate();
+      }
 
       this.withStates(startState);
 
       this.withTodo(startState);
 
-      this.withStateMap(s1cert, startState);
+      this.withStateMap(newCertificate, startState);
 
       return explore();
    }
@@ -1859,7 +1869,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public void findFinalStates(ReachableState finalState)
    {
-      String s1cert = finalState.lazyComputeCertificate();
+      Object newCertificate = null; 
+      if (useLongCertificates)
+      {
+         newCertificate = finalState.longComputeCertificate();
+      }
+      else
+      {
+         newCertificate = finalState.lazyComputeCertificate();
+      }
+      
       ReachableStateSet candidateStates = this.getStateMap(finalState.getCertificate());
       for (ReachableState oldState : candidateStates)
       {
@@ -1876,13 +1895,21 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public long explore(long i, ReachableState startState)
    {
-      String s1cert = startState.lazyComputeCertificate();
-
+      Object newCertificate = null; 
+      if (useLongCertificates)
+      {
+         newCertificate = startState.longComputeCertificate();
+      }
+      else
+      {
+         newCertificate = startState.lazyComputeCertificate();
+      }
+      
       this.withStates(startState);
 
       this.withTodo(startState);
 
-      this.withStateMap(s1cert, startState);
+      this.withStateMap(newCertificate, startState);
       return explore(i, Searchmode.DEPTH);
    }
 
@@ -1921,5 +1948,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       trafoList.put(trafoName, trafo);
    }
 
+   private SimpleKeyValueList<Object, Object> level1Nodes2Cert = null;
 
+   public SimpleKeyValueList getLevel1Nodes2Cert()
+   {
+      return level1Nodes2Cert;
+   }
+   
+   public void setLevel1Nodes2Cert(SimpleKeyValueList level1Nodes2Cert)
+   {
+      this.level1Nodes2Cert = level1Nodes2Cert;
+   }
+   
 }

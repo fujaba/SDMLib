@@ -33,6 +33,10 @@ import org.sdmlib.replication.SharedSpace;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.ReplicationServer;
+import org.sdmlib.replication.util.ReplicationServerSet;
+import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationNodeSet extends SimpleSet<ReplicationNode>
 {
@@ -384,4 +388,38 @@ public class ReplicationNodeSet extends SimpleSet<ReplicationNode>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ReplicationNodePO createReplicationNodePO()
+   {
+      return new ReplicationNodePO(this.toArray(new ReplicationNode[this.size()]));
+   }
+
+
+   @Override
+   public ReplicationNodeSet getNewList(boolean keyValue)
+   {
+      return new ReplicationNodeSet();
+   }
+
+
+   public ReplicationNodeSet filter(Condition<ReplicationNode> condition) {
+      ReplicationNodeSet filterList = new ReplicationNodeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public ReplicationServerSet instanceOfReplicationServer()
+   {
+      ReplicationServerSet result = new ReplicationServerSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof ReplicationServer)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

@@ -21,16 +21,28 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.House;
 
-public class DoorCreator implements SendableEntityCreator
+public class DoorCreator implements AggregatedEntityCreator
 {
+   public static final DoorCreator it = new DoorCreator();
+   
    private final String[] properties = new String[]
    {
       Door.PROPERTY_HOUSE,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -40,10 +52,23 @@ public class DoorCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Door();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)

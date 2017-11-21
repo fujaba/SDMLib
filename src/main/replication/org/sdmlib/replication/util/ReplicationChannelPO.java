@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.SharedSpacePO;
+import org.sdmlib.replication.util.ReplicationChannelPO;
 
 public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, ReplicationChannel>
 {
@@ -218,6 +221,112 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
    public ReplicationChannelPO filterSharedSpace(SharedSpacePO tgt)
    {
       return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
+   }
+
+
+   public ReplicationChannelPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ReplicationChannelPO createSocketCondition(Socket value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_SOCKET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO createSocketAssignment(Socket value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_SOCKET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO createTargetNodeIdCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_TARGETNODEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO createTargetNodeIdCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_TARGETNODEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO createTargetNodeIdAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_TARGETNODEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SharedSpacePO createSharedSpacePO()
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
+      
+      return result;
+   }
+
+   public SharedSpacePO createSharedSpacePO(String modifier)
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
+      
+      return result;
+   }
+
+   public ReplicationChannelPO createSharedSpaceLink(SharedSpacePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
+   }
+
+   public ReplicationChannelPO createSharedSpaceLink(SharedSpacePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE, modifier);
    }
 
 }

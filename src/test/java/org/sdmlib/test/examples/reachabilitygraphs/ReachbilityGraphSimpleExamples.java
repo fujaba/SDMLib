@@ -20,6 +20,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleState
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class ReachbilityGraphSimpleExamples
 {
@@ -121,14 +122,14 @@ public class ReachbilityGraphSimpleExamples
       ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
-      String s1cert = rs1.lazyComputeCertificate();
-      String s2cert = rs2.lazyComputeCertificate();
+      Object s1cert = rs1.lazyComputeCertificate();
+      Object s2cert = rs2.lazyComputeCertificate();
       
       storyboard.assertTrue("Both certificates are equal. ", s1cert.equals(s2cert));
       
-      storyboard.add(s1cert);
+      storyboard.add(s1cert.toString());
       
-      LinkedHashMap<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
+      SimpleKeyValueList<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
       
       storyboard.assertNotNull("Graphs are isomorphic:", match);
       storyboard.add(match.toString());
@@ -149,7 +150,7 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.assertTrue("Both certificates are again equal. ", s1cert.equals(s2cert));
       
-      storyboard.add(s1cert);
+      storyboard.add(s1cert.toString());
 
       match = reachabilityGraph.lazyMatch(rs1, rs2);
       
@@ -198,14 +199,14 @@ public class ReachbilityGraphSimpleExamples
       ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
-      String s1cert = rs1.lazyComputeCertificate();
-      String s2cert = rs2.lazyComputeCertificate();
+      Object s1cert = rs1.lazyComputeCertificate();
+      Object s2cert = rs2.lazyComputeCertificate();
       
       storyboard.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
       
-      storyboard.add(s1cert);
+      storyboard.add(s1cert.toString());
       
-      LinkedHashMap<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
+      SimpleKeyValueList<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
       
       storyboard.assertFalse("Graphs are not isomorphic:", false);
             

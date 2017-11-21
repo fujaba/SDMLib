@@ -35,6 +35,12 @@ import org.sdmlib.replication.SharedSpace;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.replication.util.ReplicationChannelSet;
+import org.sdmlib.replication.util.ChangeHistorySet;
+import org.sdmlib.replication.util.ReplicationNodeSet;
 
 public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {
@@ -709,4 +715,187 @@ public class SharedSpaceSet extends SimpleSet<SharedSpace>
    {
       this.addAll(objects);
    }
+
+
+   public SharedSpacePO createSharedSpacePO()
+   {
+      return new SharedSpacePO(this.toArray(new SharedSpace[this.size()]));
+   }
+
+
+   @Override
+   public SharedSpaceSet getNewList(boolean keyValue)
+   {
+      return new SharedSpaceSet();
+   }
+
+
+   public SharedSpaceSet filter(Condition<SharedSpace> condition) {
+      SharedSpaceSet filterList = new SharedSpaceSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the javaFXApplication attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createJavaFXApplicationCondition(boolean value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value == obj.isJavaFXApplication())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the lastChangeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createLastChangeIdCondition(long value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value == obj.getLastChangeId())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the lastChangeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createLastChangeIdCondition(long lower, long upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower <= obj.getLastChangeId() && obj.getLastChangeId() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the nodeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createNodeIdCondition(String value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value.equals(obj.getNodeId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the nodeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createNodeIdCondition(String lower, String upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower.compareTo(obj.getNodeId()) <= 0 && obj.getNodeId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the spaceId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createSpaceIdCondition(String value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (value.equals(obj.getSpaceId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the spaceId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SharedSpace objects that match the parameter
+    */
+   public SharedSpaceSet createSpaceIdCondition(String lower, String upper)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceId()) <= 0 && obj.getSpaceId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

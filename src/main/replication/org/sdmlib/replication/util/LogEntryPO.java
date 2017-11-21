@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.TaskPO;
+import org.sdmlib.replication.util.LogEntryPO;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {
@@ -328,6 +331,170 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    public LogEntryPO filterTask(TaskPO tgt)
    {
       return hasLinkConstraint(tgt, LogEntry.PROPERTY_TASK);
+   }
+
+
+   public LogEntryPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public LogEntryPO createExecutedByCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createExecutedByCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createExecutedByAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createStepNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createStepNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createStepNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createTimeStampCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createTimeStampCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public LogEntryPO createTimeStampAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TaskPO createTaskPO()
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntry.PROPERTY_TASK, result);
+      
+      return result;
+   }
+
+   public TaskPO createTaskPO(String modifier)
+   {
+      TaskPO result = new TaskPO(new Task[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(LogEntry.PROPERTY_TASK, result);
+      
+      return result;
+   }
+
+   public LogEntryPO createTaskLink(TaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_TASK);
+   }
+
+   public LogEntryPO createTaskLink(TaskPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, LogEntry.PROPERTY_TASK, modifier);
    }
 
 }

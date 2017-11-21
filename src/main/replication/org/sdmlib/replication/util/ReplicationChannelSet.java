@@ -30,6 +30,8 @@ import org.sdmlib.replication.SharedSpace;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
 {
@@ -300,4 +302,93 @@ public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
    {
       this.addAll(objects);
    }
+
+
+   public ReplicationChannelPO createReplicationChannelPO()
+   {
+      return new ReplicationChannelPO(this.toArray(new ReplicationChannel[this.size()]));
+   }
+
+
+   @Override
+   public ReplicationChannelSet getNewList(boolean keyValue)
+   {
+      return new ReplicationChannelSet();
+   }
+
+
+   public ReplicationChannelSet filter(Condition<ReplicationChannel> condition) {
+      ReplicationChannelSet filterList = new ReplicationChannelSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the socket attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet createSocketCondition(Socket value)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (value == obj.getSocket())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the targetNodeId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet createTargetNodeIdCondition(String value)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (value.equals(obj.getTargetNodeId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the targetNodeId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ReplicationChannel objects that match the parameter
+    */
+   public ReplicationChannelSet createTargetNodeIdCondition(String lower, String upper)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTargetNodeId()) <= 0 && obj.getTargetNodeId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

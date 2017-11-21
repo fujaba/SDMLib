@@ -9,6 +9,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
 
+import de.uniks.networkparser.list.SimpleKeyValueList;
+
 public class IsomorphismTest
 {
    @Test
@@ -38,7 +40,7 @@ public class IsomorphismTest
 
       storyboard.addObjectDiagram(s21);
 
-      LinkedHashMap<Object, Object> match = IsomorphismComputation.calculateMatch(s11, s21,
+      SimpleKeyValueList<Object, Object> match = IsomorphismComputation.calculateMatch(s11, s21,
          SimpleStateCreator.createIdMap("s"));
 
       storyboard.add("Graphs are isomorphic:");

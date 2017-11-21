@@ -3,6 +3,8 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationRoot;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.ReplicationRootPO;
 
 public class ReplicationRootPO extends PatternObject<ReplicationRootPO, ReplicationRoot>
 {
@@ -264,6 +266,142 @@ public class ReplicationRootPO extends PatternObject<ReplicationRootPO, Replicat
    public ReplicationRootPO filterKids(ReplicationRootPO tgt)
    {
       return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_KIDS);
+   }
+
+
+   public ReplicationRootPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ReplicationRootPO createApplicationObjectCondition(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_APPLICATIONOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO createApplicationObjectAssignment(Object value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_APPLICATIONOBJECT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ReplicationRoot.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ReplicationRootPO createParentPO()
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationRoot.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO createParentPO(String modifier)
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ReplicationRoot.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO createParentLink(ReplicationRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_PARENT);
+   }
+
+   public ReplicationRootPO createParentLink(ReplicationRootPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_PARENT, modifier);
+   }
+
+   public ReplicationRootPO createKidsPO()
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationRoot.PROPERTY_KIDS, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO createKidsPO(String modifier)
+   {
+      ReplicationRootPO result = new ReplicationRootPO(new ReplicationRoot[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ReplicationRoot.PROPERTY_KIDS, result);
+      
+      return result;
+   }
+
+   public ReplicationRootPO createKidsLink(ReplicationRootPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_KIDS);
+   }
+
+   public ReplicationRootPO createKidsLink(ReplicationRootPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, ReplicationRoot.PROPERTY_KIDS, modifier);
    }
 
 }

@@ -25,6 +25,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class PropertyChangeEventSet extends SimpleSet<PropertyChangeEvent>
 {
@@ -89,4 +90,23 @@ public class PropertyChangeEventSet extends SimpleSet<PropertyChangeEvent>
    {
       this.addAll(objects);
    }
-}
+
+
+   public PropertyChangeEventPO createPropertyChangeEventPO()
+   {
+      return new PropertyChangeEventPO(this.toArray(new PropertyChangeEvent[this.size()]));
+   }
+
+
+   @Override
+   public PropertyChangeEventSet getNewList(boolean keyValue)
+   {
+      return new PropertyChangeEventSet();
+   }
+
+
+   public PropertyChangeEventSet filter(Condition<PropertyChangeEvent> condition) {
+      PropertyChangeEventSet filterList = new PropertyChangeEventSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

@@ -21,13 +21,25 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 
-public class CubeCreator implements SendableEntityCreator
+public class CubeCreator implements AggregatedEntityCreator
 {
+   public static final CubeCreator it = new CubeCreator();
+   
    private final String[] properties = new String[]
+   {
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
    {
    };
    
@@ -38,10 +50,23 @@ public class CubeCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Cube();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)

@@ -31,6 +31,9 @@ import org.sdmlib.replication.RemoteTaskBoard;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.util.RemoteTaskBoardSet;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class LaneSet extends SimpleSet<Lane>
 {
@@ -299,4 +302,70 @@ public class LaneSet extends SimpleSet<Lane>
    {
       this.addAll(objects);
    }
+
+
+   public LanePO createLanePO()
+   {
+      return new LanePO(this.toArray(new Lane[this.size()]));
+   }
+
+
+   @Override
+   public LaneSet getNewList(boolean keyValue)
+   {
+      return new LaneSet();
+   }
+
+
+   public LaneSet filter(Condition<Lane> condition) {
+      LaneSet filterList = new LaneSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of Lane objects and collect those Lane objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Lane objects that match the parameter
+    */
+   public LaneSet createNameCondition(String value)
+   {
+      LaneSet result = new LaneSet();
+      
+      for (Lane obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Lane objects and collect those Lane objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Lane objects that match the parameter
+    */
+   public LaneSet createNameCondition(String lower, String upper)
+   {
+      LaneSet result = new LaneSet();
+      
+      for (Lane obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

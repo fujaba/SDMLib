@@ -24,6 +24,9 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.RemoteTask;
+import org.sdmlib.replication.util.RemoteTaskSet;
 
 public class RunnableSet extends SimpleSet<Runnable>
 {
@@ -88,4 +91,38 @@ public class RunnableSet extends SimpleSet<Runnable>
    {
       this.addAll(objects);
    }
-}
+
+
+   public RunnablePO createRunnablePO()
+   {
+      return new RunnablePO(this.toArray(new Runnable[this.size()]));
+   }
+
+
+   @Override
+   public RunnableSet getNewList(boolean keyValue)
+   {
+      return new RunnableSet();
+   }
+
+
+   public RunnableSet filter(Condition<Runnable> condition) {
+      RunnableSet filterList = new RunnableSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public RemoteTaskSet instanceOfRemoteTask()
+   {
+      RemoteTaskSet result = new RemoteTaskSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof RemoteTask)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }}

@@ -32,6 +32,9 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagSet;
+import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
 public class StationSet extends SimpleSet<Station>
 {

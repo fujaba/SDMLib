@@ -111,7 +111,7 @@ public class ReplicationModel
       story.dumpHTML();
    }
 
-   @Test
+   // deprecated  @Test
    public void testReplicationModel()
    {
       main(null);
