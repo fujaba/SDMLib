@@ -32,6 +32,7 @@ import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.SeppelSpaceProxy;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
@@ -663,6 +664,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    		listeners = new PropertyChangeSupport(this);
    	}
    	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
    	return true;
    }
 }

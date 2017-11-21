@@ -33,4 +33,9 @@ public class ChangeEventListPO extends PatternObject<ChangeEventListPO, ChangeEv
       }
       newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public ChangeEventListPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

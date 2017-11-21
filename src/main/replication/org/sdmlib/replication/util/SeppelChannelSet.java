@@ -30,6 +30,9 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelChannelSet extends SimpleSet<SeppelChannel>
 {
@@ -261,4 +264,69 @@ public class SeppelChannelSet extends SimpleSet<SeppelChannel>
    {
       this.addAll(objects);
    }
+
+
+   public SeppelChannelPO createSeppelChannelPO()
+   {
+      return new SeppelChannelPO(this.toArray(new SeppelChannel[this.size()]));
+   }
+
+
+   @Override
+   public SeppelChannelSet getNewList(boolean keyValue)
+   {
+      return new SeppelChannelSet();
+   }
+
+
+   public SeppelChannelSet filter(Condition<SeppelChannel> condition) {
+      SeppelChannelSet filterList = new SeppelChannelSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of SeppelChannel objects and collect those SeppelChannel objects where the loginValidated attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelChannel objects that match the parameter
+    */
+   public SeppelChannelSet createLoginValidatedCondition(boolean value)
+   {
+      SeppelChannelSet result = new SeppelChannelSet();
+      
+      for (SeppelChannel obj : this)
+      {
+         if (value == obj.isLoginValidated())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelChannel objects and collect those SeppelChannel objects where the socket attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelChannel objects that match the parameter
+    */
+   public SeppelChannelSet createSocketCondition(Socket value)
+   {
+      SeppelChannelSet result = new SeppelChannelSet();
+      
+      for (SeppelChannel obj : this)
+      {
+         if (value == obj.getSocket())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

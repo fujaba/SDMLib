@@ -27,6 +27,8 @@ import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class ChangeEventSet extends SimpleSet<ChangeEvent>
 {
@@ -982,4 +984,446 @@ public class ChangeEventSet extends SimpleSet<ChangeEvent>
    {
       this.addAll(objects);
    }
+
+
+   public ChangeEventPO createChangeEventPO()
+   {
+      return new ChangeEventPO(this.toArray(new ChangeEvent[this.size()]));
+   }
+
+
+   @Override
+   public ChangeEventSet getNewList(boolean keyValue)
+   {
+      return new ChangeEventSet();
+   }
+
+
+   public ChangeEventSet filter(Condition<ChangeEvent> condition) {
+      ChangeEventSet filterList = new ChangeEventSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the changeNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createChangeNoCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getChangeNo()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the changeNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createChangeNoCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getChangeNo()) <= 0 && obj.getChangeNo().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the newValue attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createNewValueCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getNewValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the newValue attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createNewValueCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getNewValue()) <= 0 && obj.getNewValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the objectId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createObjectIdCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getObjectId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the objectId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createObjectIdCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getObjectId()) <= 0 && obj.getObjectId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the objectType attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createObjectTypeCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getObjectType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the objectType attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createObjectTypeCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getObjectType()) <= 0 && obj.getObjectType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the oldValue attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createOldValueCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getOldValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the oldValue attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createOldValueCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getOldValue()) <= 0 && obj.getOldValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the property attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createPropertyCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getProperty()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the property attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createPropertyCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getProperty()) <= 0 && obj.getProperty().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the propertyKind attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createPropertyKindCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getPropertyKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the propertyKind attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createPropertyKindCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getPropertyKind()) <= 0 && obj.getPropertyKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the sessionId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createSessionIdCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getSessionId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the sessionId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createSessionIdCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getSessionId()) <= 0 && obj.getSessionId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the valueType attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createValueTypeCondition(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getValueType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the valueType attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of ChangeEvent objects that match the parameter
+    */
+   public ChangeEventSet createValueTypeCondition(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getValueType()) <= 0 && obj.getValueType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

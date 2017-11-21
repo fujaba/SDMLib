@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.replication.util.SeppelChannelPO;
 
 public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChannel>
 {
@@ -188,6 +191,97 @@ public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChanne
    public SeppelChannelPO filterSeppelSpaceProxy(SeppelSpaceProxyPO tgt)
    {
       return hasLinkConstraint(tgt, SeppelChannel.PROPERTY_SEPPELSPACEPROXY);
+   }
+
+
+   public SeppelChannelPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SeppelChannelPO createLoginValidatedCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_LOGINVALIDATED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelChannelPO createLoginValidatedAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_LOGINVALIDATED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelChannelPO createSocketCondition(Socket value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_SOCKET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelChannelPO createSocketAssignment(Socket value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelChannel.PROPERTY_SOCKET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO createSeppelSpaceProxyPO()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelChannel.PROPERTY_SEPPELSPACEPROXY, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO createSeppelSpaceProxyPO(String modifier)
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SeppelChannel.PROPERTY_SEPPELSPACEPROXY, result);
+      
+      return result;
+   }
+
+   public SeppelChannelPO createSeppelSpaceProxyLink(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelChannel.PROPERTY_SEPPELSPACEPROXY);
+   }
+
+   public SeppelChannelPO createSeppelSpaceProxyLink(SeppelSpaceProxyPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SeppelChannel.PROPERTY_SEPPELSPACEPROXY, modifier);
    }
 
 }

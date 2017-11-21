@@ -30,6 +30,8 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelScopeSet extends SimpleSet<SeppelScope>
 {
@@ -486,4 +488,70 @@ public class SeppelScopeSet extends SimpleSet<SeppelScope>
    {
       this.addAll(objects);
    }
+
+
+   public SeppelScopePO createSeppelScopePO()
+   {
+      return new SeppelScopePO(this.toArray(new SeppelScope[this.size()]));
+   }
+
+
+   @Override
+   public SeppelScopeSet getNewList(boolean keyValue)
+   {
+      return new SeppelScopeSet();
+   }
+
+
+   public SeppelScopeSet filter(Condition<SeppelScope> condition) {
+      SeppelScopeSet filterList = new SeppelScopeSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of SeppelScope objects and collect those SeppelScope objects where the scopeName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelScope objects that match the parameter
+    */
+   public SeppelScopeSet createScopeNameCondition(String value)
+   {
+      SeppelScopeSet result = new SeppelScopeSet();
+      
+      for (SeppelScope obj : this)
+      {
+         if (value.equals(obj.getScopeName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelScope objects and collect those SeppelScope objects where the scopeName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelScope objects that match the parameter
+    */
+   public SeppelScopeSet createScopeNameCondition(String lower, String upper)
+   {
+      SeppelScopeSet result = new SeppelScopeSet();
+      
+      for (SeppelScope obj : this)
+      {
+         if (lower.compareTo(obj.getScopeName()) <= 0 && obj.getScopeName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

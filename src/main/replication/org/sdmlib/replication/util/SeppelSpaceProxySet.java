@@ -34,6 +34,12 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.replication.util.SeppelChannelSet;
+import org.sdmlib.replication.util.SeppelScopeSet;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
 {
@@ -898,4 +904,281 @@ public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
    {
       this.addAll(objects);
    }
+
+
+   public SeppelSpaceProxyPO createSeppelSpaceProxyPO()
+   {
+      return new SeppelSpaceProxyPO(this.toArray(new SeppelSpaceProxy[this.size()]));
+   }
+
+
+   @Override
+   public SeppelSpaceProxySet getNewList(boolean keyValue)
+   {
+      return new SeppelSpaceProxySet();
+   }
+
+
+   public SeppelSpaceProxySet filter(Condition<SeppelSpaceProxy> condition) {
+      SeppelSpaceProxySet filterList = new SeppelSpaceProxySet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the acceptsConnectionRequests attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createAcceptsConnectionRequestsCondition(boolean value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value == obj.isAcceptsConnectionRequests())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the hostName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createHostNameCondition(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the hostName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createHostNameCondition(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the loginName attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createLoginNameCondition(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getLoginName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the loginName attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createLoginNameCondition(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getLoginName()) <= 0 && obj.getLoginName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the password attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createPasswordCondition(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getPassword()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the password attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createPasswordCondition(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getPassword()) <= 0 && obj.getPassword().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the portNo attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createPortNoCondition(int value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value == obj.getPortNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the portNo attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createPortNoCondition(int lower, int upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower <= obj.getPortNo() && obj.getPortNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the spaceId attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createSpaceIdCondition(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getSpaceId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the spaceId attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of SeppelSpaceProxy objects that match the parameter
+    */
+   public SeppelSpaceProxySet createSpaceIdCondition(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getSpaceId()) <= 0 && obj.getSpaceId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.util.SeppelScopePO;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 
 public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
 {
@@ -311,6 +314,174 @@ public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
    public SeppelScopePO filterSubScopes(SeppelScopePO tgt)
    {
       return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUBSCOPES);
+   }
+
+
+   public SeppelScopePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SeppelScopePO createScopeNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelScope.PROPERTY_SCOPENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelScopePO createScopeNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelScope.PROPERTY_SCOPENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelScopePO createScopeNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelScope.PROPERTY_SCOPENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ObjectPO createObservedObjectsPO()
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelScope.PROPERTY_OBSERVEDOBJECTS, result);
+      
+      return result;
+   }
+
+   public ObjectPO createObservedObjectsPO(String modifier)
+   {
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SeppelScope.PROPERTY_OBSERVEDOBJECTS, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createObservedObjectsLink(ObjectPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_OBSERVEDOBJECTS);
+   }
+
+   public SeppelScopePO createObservedObjectsLink(ObjectPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_OBSERVEDOBJECTS, modifier);
+   }
+
+   public SeppelSpaceProxyPO createSpacesPO()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelScope.PROPERTY_SPACES, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO createSpacesPO(String modifier)
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SeppelScope.PROPERTY_SPACES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createSpacesLink(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SPACES);
+   }
+
+   public SeppelScopePO createSpacesLink(SeppelSpaceProxyPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SPACES, modifier);
+   }
+
+   public SeppelScopePO createSuperScopesPO()
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelScope.PROPERTY_SUPERSCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createSuperScopesPO(String modifier)
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SeppelScope.PROPERTY_SUPERSCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createSuperScopesLink(SeppelScopePO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUPERSCOPES);
+   }
+
+   public SeppelScopePO createSuperScopesLink(SeppelScopePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUPERSCOPES, modifier);
+   }
+
+   public SeppelScopePO createSubScopesPO()
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelScope.PROPERTY_SUBSCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createSubScopesPO(String modifier)
+   {
+      SeppelScopePO result = new SeppelScopePO(new SeppelScope[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(SeppelScope.PROPERTY_SUBSCOPES, result);
+      
+      return result;
+   }
+
+   public SeppelScopePO createSubScopesLink(SeppelScopePO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUBSCOPES);
+   }
+
+   public SeppelScopePO createSubScopesLink(SeppelScopePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_SUBSCOPES, modifier);
    }
 
 }

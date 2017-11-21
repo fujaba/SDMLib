@@ -32,6 +32,9 @@ import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.BoardTask;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

@@ -31,6 +31,10 @@ import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.replication.util.ServerSocketAcceptThreadSet;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.util.SeppelSpaceSet;
+import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.util.SeppelChannelSet;
 
 public class ThreadSet extends SimpleSet<Thread>
 {
@@ -152,6 +156,36 @@ public class ThreadSet extends SimpleSet<Thread>
       for(Object obj : this)
       {
          if (obj instanceof ServerSocketAcceptThread)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceSet instanceOfSeppelSpace()
+   {
+      SeppelSpaceSet result = new SeppelSpaceSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof SeppelSpace)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelChannelSet instanceOfSeppelChannel()
+   {
+      SeppelChannelSet result = new SeppelChannelSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof SeppelChannel)
          {
             result.with(obj);
          }

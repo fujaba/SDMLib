@@ -9,6 +9,8 @@ import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.replication.util.BoardTaskPO;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {
@@ -562,6 +564,41 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    public BoardTaskPO filterNext(BoardTaskPO tgt)
    {
       return hasLinkConstraint(tgt, BoardTask.PROPERTY_NEXT);
+   }
+
+
+   public BoardTaskPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SeppelSpaceProxyPO createProxyPO()
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BoardTask.PROPERTY_PROXY, result);
+      
+      return result;
+   }
+
+   public SeppelSpaceProxyPO createProxyPO(String modifier)
+   {
+      SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(BoardTask.PROPERTY_PROXY, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO createProxyLink(SeppelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_PROXY);
+   }
+
+   public BoardTaskPO createProxyLink(SeppelSpaceProxyPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, BoardTask.PROPERTY_PROXY, modifier);
    }
 
 }

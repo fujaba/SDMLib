@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.models.pattern.Pattern;
 
 public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
 {
@@ -296,6 +297,153 @@ public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public SeppelSpacePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public SeppelSpacePO createHistoryCondition(ChangeEventList value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_HISTORY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createHistoryAssignment(ChangeEventList value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_HISTORY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createJavaFXApplicationCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_JAVAFXAPPLICATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createJavaFXApplicationAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_JAVAFXAPPLICATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createLastChangeIdCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createLastChangeIdCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createLastChangeIdAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createSpaceIdCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_SPACEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createSpaceIdCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_SPACEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createSpaceIdAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_SPACEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();

@@ -26,6 +26,7 @@ import java.util.Collection;
 import org.sdmlib.replication.ChangeEventList;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ChangeEventListSet extends SimpleSet<ChangeEventList>
 {
@@ -90,4 +91,23 @@ public class ChangeEventListSet extends SimpleSet<ChangeEventList>
    {
       this.addAll(objects);
    }
-}
+
+
+   public ChangeEventListPO createChangeEventListPO()
+   {
+      return new ChangeEventListPO(this.toArray(new ChangeEventList[this.size()]));
+   }
+
+
+   @Override
+   public ChangeEventListSet getNewList(boolean keyValue)
+   {
+      return new ChangeEventListSet();
+   }
+
+
+   public ChangeEventListSet filter(Condition<ChangeEventList> condition) {
+      ChangeEventListSet filterList = new ChangeEventListSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }}

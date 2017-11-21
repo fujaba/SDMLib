@@ -3,6 +3,7 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
 {
@@ -765,6 +766,398 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+
+   public ChangeEventPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChangeEventPO createChangeNoCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_CHANGENO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createChangeNoCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_CHANGENO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createChangeNoAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_CHANGENO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createNewValueCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_NEWVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createNewValueCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_NEWVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createNewValueAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_NEWVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectIdCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectIdCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectIdAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectTypeCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectTypeCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTTYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createObjectTypeAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OBJECTTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createOldValueCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OLDVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createOldValueCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OLDVALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createOldValueAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_OLDVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyKindCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyKindCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyKindAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createSessionIdCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_SESSIONID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createSessionIdCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_SESSIONID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createSessionIdAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_SESSIONID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createValueTypeCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_VALUETYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createValueTypeCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_VALUETYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createValueTypeAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_VALUETYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
       .withPattern(this.getPattern());
       
       super.filterAttr();
