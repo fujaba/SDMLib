@@ -74,6 +74,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    private Map<String, Integer> allCertificate2Number;
    private Map<Long, Long> longAllCertificate2Number;
 
+   private boolean uniqueCertificate = false;
+   
+   public boolean isUniqueCertificate()
+   {
+      return uniqueCertificate;
+   }
+
 
    public Object getCertificate()
    {
@@ -197,6 +204,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       
       ArrayList<Integer> valueCertNumbers = new ArrayList<Integer>();
 
+      boolean lastRound = false;
       
       while (true)
       {
@@ -283,7 +291,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == lazyGraph.size())
+         if (cert2Nodes.size() <= oldNumOfCertificates || lastRound)
          {
             // write state certificate
             StringBuilder buf = new StringBuilder();
@@ -303,8 +311,24 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             }
 
             this.certificate = buf.toString();
+            
+            if (this.isUniqueCertificate())
+            {
+               lazyNode2CertNo.clear();
+               lazyNode2CertNo = null; 
+               allCertificate2Number.clear();
+               allCertificate2Number = null;
+            }
 
             break;
+         }
+         
+         if (cert2Nodes.size() == lazyGraph.size())
+         {
+            lastRound = true;
+            // after the last round the certificate will be unique. This means, any isomorphic graph will compute the same certificate. 
+            // this a comparison of certificates is enough for isomorphism testing.
+            this.uniqueCertificate = true;
          }
 
          // do another round
