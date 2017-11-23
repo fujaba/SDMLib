@@ -6,7 +6,7 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
 public class IsomorphismComputation
 {
 
-   public static SimpleKeyValueList<Object, Object> calculateMatch(Object graph1, Object graph2, IdMap creators)
+   public static boolean calculateMatch(Object graph1, Object graph2, IdMap creators)
    {
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.withMasterMap ( new IdMap().withSession("s").with(creators));
@@ -18,11 +18,11 @@ public class IsomorphismComputation
       Object s2cert = rs2.lazyComputeCertificate();
 
       
-      return reachabilityGraph.lazyMatch(rs1, rs2);
+      return reachabilityGraph.lazyMatch(rs1, rs2) != null;
    }
 
    public static boolean isIsomorphic(Object graph1, Object graph2, IdMap creators)
    {
-      return calculateMatch(graph1, graph2, creators) != null;
+      return calculateMatch(graph1, graph2, creators);
    }
 }

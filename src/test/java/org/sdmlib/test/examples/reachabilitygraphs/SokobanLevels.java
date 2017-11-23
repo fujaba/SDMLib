@@ -33,6 +33,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class SokobanLevels
 {
@@ -74,9 +75,12 @@ public class SokobanLevels
       
       state2.lazyComputeCertificate();
       String cert2 = (String) state2.getCertificate();
-            
+      
       Assert.assertNotEquals("certifcates should not match ", cert1, cert2);
       
+      Object match = reachabilityGraph.lazyMatch(state1, state2);
+
+      Assert.assertTrue("no match", match == null);
    }
    
 

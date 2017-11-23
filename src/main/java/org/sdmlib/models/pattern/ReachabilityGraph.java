@@ -773,7 +773,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             // already known? 
             ReachableStateSet candidateStates = this.getStateMap(newCertificate);
 
-            SimpleKeyValueList<Object, Object> match = null;
+            Object match = null;
 
             for (ReachableState oldState : candidateStates)
             {
@@ -897,9 +897,9 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
 
-               SimpleKeyValueList<Object, Object> match = null;
+               Object match = null;
                
-               match = findMatchingState(current, rule, newReachableState, srcMatch, tgtMatch, candidateStates, match);
+               match = findMatchingState(current, rule, newReachableState, srcMatch, tgtMatch, candidateStates);
 
                if (useLongCertificates)
                {
@@ -1016,8 +1016,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
    
 
-   private SimpleKeyValueList<Object, Object> findMatchingState(ReachableState current, Pattern rule, ReachableState newReachableState, HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch, ReachableStateSet candidateStates, SimpleKeyValueList<Object, Object> match)
+   private Object findMatchingState(ReachableState current, Pattern rule, ReachableState newReachableState, 
+         HashMap<PatternElement, Object> srcMatch, HashMap<PatternElement, Object> tgtMatch, ReachableStateSet candidateStates)
    {
+      Object match = null;
       for (ReachableState oldState : candidateStates)
       {
          if (isDoCleanUpTemps())
@@ -1245,7 +1247,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       private void doMatch(RuleApplication ruleApplication)
       {
          ReachableState newState = ruleApplication.getTgt();
-         SimpleKeyValueList<Object, Object> match = null;
+         Object match = null;
 
          HashMap<PatternElement, Object> srcMatch;
          HashMap<PatternElement, Object> tgtMatch;
@@ -1337,8 +1339,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    }
 
-   public SimpleKeyValueList<Object, Object> lazyMatch(ReachableState s1, ReachableState s2)
+   public Boolean lazyMatch(ReachableState s1, ReachableState s2)
    {
+      if (s1.isUniqueCertificate())
+      {
+         return s1.getCertificate().equals(s2.getCertificate()) ? true : null;
+      }
+      
+      
       SimpleKeyValueList<Object, Object> fwdmapping = new SimpleKeyValueList<Object, Object>();
       SimpleKeyValueList<Object, Object> bwdmapping = new SimpleKeyValueList<Object, Object>();
 
@@ -1350,7 +1358,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       boolean match = lazyMatch(s1, s2, root1, fwdmapping, bwdmapping);
 
-      return match ? fwdmapping : null;     
+      return match ? true : null;     
    }
 
 

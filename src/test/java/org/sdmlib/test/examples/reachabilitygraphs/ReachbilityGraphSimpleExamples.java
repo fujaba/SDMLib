@@ -129,7 +129,7 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add(s1cert.toString());
       
-      SimpleKeyValueList<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
+      Object match = reachabilityGraph.lazyMatch(rs1, rs2);
       
       storyboard.assertNotNull("Graphs are isomorphic:", match);
       storyboard.add(match.toString());
@@ -206,9 +206,9 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.add(s1cert.toString());
       
-      SimpleKeyValueList<Object, Object> match = reachabilityGraph.lazyMatch(rs1, rs2);
+      Object match = reachabilityGraph.lazyMatch(rs1, rs2);
       
-      storyboard.assertFalse("Graphs are not isomorphic:", false);
+      storyboard.assertTrue("Graphs are not isomorphic:", match == null);
             
       storyboard.dumpHTML();
    }

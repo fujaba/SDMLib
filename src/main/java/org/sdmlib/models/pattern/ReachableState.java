@@ -151,6 +151,11 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
          this.longNode2CertNo.clear();
          this.longNode2CertNo = null;
       }
+      if (longCert2Nodes != null)
+      {
+         longCert2Nodes.clear();
+         longCert2Nodes = null;
+      }
    }
 
    public Object lazyComputeCertificate()
