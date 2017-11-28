@@ -51,16 +51,6 @@ public class YamlIdMap
       scanner = new Scanner(yaml);
       nextToken();
       nextToken();
-      
-      while ( ! "".equals(currentToken))
-      {
-         System.out.println(">"+currentToken+"<");
-         nextToken();
-      }
-      
-      scanner = new Scanner(yaml);
-      nextToken();
-      nextToken();
 
       root = parseObjectIds();
       
@@ -103,8 +93,65 @@ public class YamlIdMap
 
    private void parseObjectTableAttrs()
    {
-      // TODO Auto-generated method stub
+      // skip column names
+      String className = currentToken;
       
+      SendableEntityCreator creator = getCreator(className);
+      nextToken();
+      
+      ArrayList<String> colNameList = new ArrayList<String>();
+
+      while ( ! "".equals(currentToken) && lookAheadToken.endsWith(":"))
+      {
+         String colName = stripColon(currentToken);
+         colNameList.add(colName);
+         nextToken();
+      }
+      
+      while ( ! "".equals(currentToken) && ! "-".equals(currentToken))
+      {
+         String objectId = stripColon(currentToken);
+         nextToken();
+
+         Object obj = objIdMap.get(objectId);
+         
+         // column values
+         int colNum = 0;
+         while ( ! "".equals(currentToken) && ! currentToken.endsWith(":") && ! "-".equals(currentToken))
+         {
+            String attrName = colNameList.get(colNum);
+            
+            if (currentToken.startsWith("["))
+            {
+               String value = currentToken.substring(1);
+               if (value.trim().equals(""))
+               {
+                  value = nextToken();
+               }
+               setValue(creator, obj, attrName, value);
+               
+               while (! "".equals(currentToken) && ! currentToken.endsWith("]") )
+               {
+                  nextToken();
+                  value = currentToken;
+                  if (currentToken.endsWith("]"))
+                  {
+                     value = currentToken.substring(0, currentToken.length()-1);
+                  }
+                  if ( ! value.trim().equals(""))
+                  {
+                     setValue(creator, obj, attrName, value);
+                  }
+               }
+            }
+            else
+            {
+               setValue(creator, obj, attrName, currentToken);
+            }
+            colNum++;
+            nextToken();
+         }
+      }
    }
 
    private void parseUsualObjectAttrs()
@@ -123,25 +170,32 @@ public class YamlIdMap
          String attrName = stripColon(currentToken);
          nextToken();
          // many values
-         while ( ! currentToken.equals("") && ! currentToken.endsWith(":") )
+         while ( ! currentToken.equals("") 
+               && ! currentToken.endsWith(":")
+               && ! currentToken.equals("-"))
          {
             String attrValue = currentToken;
             
-            try
-            {
-               creator.setValue(obj, attrName, attrValue, "new");
-            }
-            catch (Exception e)
-            {
-               // maybe a node
-               Object targetObj = objIdMap.get(attrValue);
-               if (targetObj != null)
-               {
-                  creator.setValue(obj, attrName, targetObj, "new");
-               }
-            }
+            setValue(creator, obj, attrName, attrValue);
             
             nextToken();
+         }
+      }
+   }
+
+   private void setValue(SendableEntityCreator creator, Object obj, String attrName, String attrValue)
+   {
+      try
+      {
+         creator.setValue(obj, attrName, attrValue, "new");
+      }
+      catch (Exception e)
+      {
+         // maybe a node
+         Object targetObj = objIdMap.get(attrValue);
+         if (targetObj != null)
+         {
+            creator.setValue(obj, attrName, targetObj, "new");
          }
       }
    }
@@ -155,10 +209,28 @@ public class YamlIdMap
       {
          
          lookAheadToken = scanner.next();
+         lookAheadPos = scanner.match().start();
       }
       else
       {
          lookAheadToken = "";
+      }
+      
+      
+      
+      if (lookAheadToken.startsWith("\""))
+      {
+         // get up to end of string
+         int stringStartPos = lookAheadPos + 1;
+         String subToken = lookAheadToken;
+         int subTokenEnd = scanner.match().end() - 1;
+         while ( ! subToken.endsWith("\"") && scanner.hasNext())
+         {
+            subToken = scanner.next();
+            subTokenEnd = scanner.match().end() - 1;
+         }
+         
+         lookAheadToken = yaml.substring(stringStartPos, subTokenEnd);
       }
       
       return currentToken;

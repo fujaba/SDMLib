@@ -51,6 +51,7 @@ import org.sdmlib.models.tables.util.TablePO;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Prof;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
@@ -74,30 +75,34 @@ import de.uniks.networkparser.json.JsonArray;
 
 public class StudyRightWithAssignmentsStoryboards
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/Yaml.html'>Yaml.html</a>
+ */
    @Test
    public void testYaml()
    {
-      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+      Storyboard story = new Storyboard();
 
       story.addStep("Read graph from yaml text:");
 
       String yaml = ""
          + "- studyRight: University \n"
-         + "  name: \"Study Right\"\n"
-         + "  students: karli\n"
-         + "  rooms: mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
+         + "  name:       \"Study Right\"\n"
+         + "  students:   karli\n"
+         + "  rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
          + "\n"
          + "- karli: Student\n"
-         + "  id: 4242\n"
-         + "  name: Karli\n"
+         + "  id:    4242\n"
+         + "  name:  Karli\n"
          + "\n"
          + "- albert: Prof\n"
-         + "  topic: SE\n"
+         + "  topic:  SE\n"
          + "\n"
-         + "- Assignment   content:                       points: \n"
+         + "- Assignment   content:                     points: \n"
          + "  matrixMult:  \"Matrix Multiplication\"      5\n"
          + "  series:      \"Series\"                     6\n"
-         + "  a3:          \"Integrals\"                  8\n"
+         + "  a3:          Integrals                    8\n"
          + "\n"
          + "- Room                  topic:  credits: doors:                 students: assignments: \n"
          + "  mathRoom:             math    17       null                   karli     [matrixMult series a3]\n"
@@ -109,15 +114,25 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted(yaml);
       
+      story.addStep("Call YamlIdMap.decode:");
+      
+      story.markCodeStart();
       YamlIdMap yamlIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
       
-      University studYRight = (University) yamlIdMap.decode(yaml);
+      University studyRight = (University) yamlIdMap.decode(yaml);
+      story.addCode();
       
-      story.addObjectDiagram(studYRight);
+      story.addStep("Decoded object structure:");
       
-      story.assertNotNull("root object exists", studYRight);
+      story.addObjectDiagram(studyRight);
       
-      yamlIdMap.getObject("albert");
+      story.assertNotNull("root object exists", studyRight);
+      
+      Object albert = yamlIdMap.getObject("albert");
+      
+      story.assertNotNull("pojo albert exists", albert);
+      
+      story.assertEquals("pojo attr", "SE", ((Prof)albert).getTopic());
       
       story.dumpHTML();
    }
