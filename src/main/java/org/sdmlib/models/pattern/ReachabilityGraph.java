@@ -1341,12 +1341,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    public Boolean lazyMatch(ReachableState s1, ReachableState s2)
    {
-      if (s1.isUniqueCertificate())
-      {
-         return s1.getCertificate().equals(s2.getCertificate()) ? true : null;
-      }
-      
-      
       SimpleKeyValueList<Object, Object> fwdmapping = new SimpleKeyValueList<Object, Object>();
       SimpleKeyValueList<Object, Object> bwdmapping = new SimpleKeyValueList<Object, Object>();
 
@@ -1573,8 +1567,23 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             SendableEntityCreator value1Creator = masterMap.getCreatorClass(value1);
             if (value1Creator == null)
             {
-               // plain attribute, covered by certificate
-               continue; 
+               if (useLongCertificates)
+               {
+                  // better check
+                  if (value1.equals(value2))
+                  {
+                     continue;
+                  }
+                  else
+                  {
+                     return false;
+                  }
+               }
+               else
+               {
+                  // plain attribute, covered by text certificate
+                  continue; 
+               }
             }
             
             // might already have been matched? 

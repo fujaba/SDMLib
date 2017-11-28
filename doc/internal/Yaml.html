@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
+<p>Start: Read graph from yaml text:</p>
+<pre>- studyRight: University 
+  name: &quot;Study Right&quot;
+  students: karli
+  rooms: mathRoom artsRoom sportsRoom examRoom softwareEngineering 
+
+- karli: Student
+  id: 4242
+  name: Karli
+
+- albert: Prof
+  topic: SE
+
+- Assignment   content:                       points: 
+  matrixMult:  &quot;Matrix Multiplication&quot;      5
+  series:      &quot;Series&quot;                     6
+  a3:          &quot;Integrals&quot;                  8
+
+- Room                  topic:  credits: doors:                 students: assignments: 
+  mathRoom:             math    17       null                   karli     [matrixMult series a3]
+  artsRoom:             arts    16       mathRoom               null      null
+  sportsRoom:           sports  25       [mathRoom artsRoom]
+  examRoom:             exam     0       [sportsRoom artsRoom]
+  softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom, examRoom]
+</pre><script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R3 : Room",
+         "attributes":[
+            "credits=0",
+            "name=null",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R4 : Room",
+         "attributes":[
+            "credits=0",
+            "name=null",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=0",
+            "name=null",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=0",
+            "name=null",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=0",
+            "name=null",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=null",
+            "in=null",
+            "motivation=0",
+            "name=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=-",
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasYaml3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: root object exists -</p>
+
+</body>
+</html>

@@ -30,6 +30,8 @@ import java.nio.file.StandardOpenOption;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
+import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -72,6 +74,54 @@ import de.uniks.networkparser.json.JsonArray;
 
 public class StudyRightWithAssignmentsStoryboards
 {
+   @Test
+   public void testYaml()
+   {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
+      story.addStep("Read graph from yaml text:");
+
+      String yaml = ""
+         + "- studyRight: University \n"
+         + "  name: \"Study Right\"\n"
+         + "  students: karli\n"
+         + "  rooms: mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
+         + "\n"
+         + "- karli: Student\n"
+         + "  id: 4242\n"
+         + "  name: Karli\n"
+         + "\n"
+         + "- albert: Prof\n"
+         + "  topic: SE\n"
+         + "\n"
+         + "- Assignment   content:                       points: \n"
+         + "  matrixMult:  \"Matrix Multiplication\"      5\n"
+         + "  series:      \"Series\"                     6\n"
+         + "  a3:          \"Integrals\"                  8\n"
+         + "\n"
+         + "- Room                  topic:  credits: doors:                 students: assignments: \n"
+         + "  mathRoom:             math    17       null                   karli     [matrixMult series a3]\n"
+         + "  artsRoom:             arts    16       mathRoom               null      null\n"
+         + "  sportsRoom:           sports  25       [mathRoom artsRoom]\n"
+         + "  examRoom:             exam     0       [sportsRoom artsRoom]\n"
+         + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom, examRoom]\n"
+         + "";
+
+      story.addPreformatted(yaml);
+      
+      YamlIdMap yamlIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+      
+      University studYRight = (University) yamlIdMap.decode(yaml);
+      
+      story.addObjectDiagram(studYRight);
+      
+      story.assertNotNull("root object exists", studYRight);
+      
+      yamlIdMap.getObject("albert");
+      
+      story.dumpHTML();
+   }
+
    /**
     * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
     */

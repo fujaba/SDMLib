@@ -41,51 +41,6 @@ public class SokobanLevels
    private ReachabilityGraph reachabilityGraph;
 
    @Test
-   public void SokobanUniqueCertificates() throws Exception
-   {
-      level = ""
-            + "  wwww\n"
-            + "  w..w\n"
-            + "www..w\n"
-            + "woobkw\n"
-            + "wwwwww\n";
-      
-      Sokoban soko1 = createLevel(level);
-      
-      Tile leftTile = soko1.getMaze().getTile(1, 4);
-      
-      Tile rightTile = soko1.getMaze().getTile(2, 4);
-      
-      leftTile.withX(2);
-      rightTile.withX(1);
-      
-      ReachableState state1 = new ReachableState().withGraphRoot(soko1);
-     
-      Sokoban soko2 = createLevel(level);
-     
-      ReachableState state2 = new ReachableState().withGraphRoot(soko2);
-      
-      
-      reachabilityGraph = new ReachabilityGraph()
-            .withMasterMap(SokobanCreator.createIdMap("s"))
-            .withStates(state1, state2);
-      
-      state1.lazyComputeCertificate();
-      String cert1 = (String) state1.getCertificate();
-      
-      state2.lazyComputeCertificate();
-      String cert2 = (String) state2.getCertificate();
-      
-      Assert.assertNotEquals("certifcates should not match ", cert1, cert2);
-      
-      Object match = reachabilityGraph.lazyMatch(state1, state2);
-
-      Assert.assertTrue("no match", match == null);
-   }
-   
-
-   
-   @Test
    public void SokobanSimpleLevel() throws Exception
    {
       level = ""
@@ -253,10 +208,10 @@ public class SokobanLevels
       {
          Date now = Date.from(Instant.now());
          
-         String msg = String.format("%s memory lazy %s uselong %b certificates %d bytes %d millis \n", 
+         String msg = String.format("%s memory lazy %s uselong %s certificates %,d bytes %,d millis \n", 
             now.toString(), 
             cleanUp ? "clean" : "keep ",
-            useLong,
+            useLong ? "true " : "false",
             emptyMemory, usedMillis );
          System.out.println(msg);
          Files.write(Paths.get("Sokoban.log"), msg.getBytes(), StandardOpenOption.APPEND);
