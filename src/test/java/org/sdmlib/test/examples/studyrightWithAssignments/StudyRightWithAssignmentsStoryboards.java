@@ -94,7 +94,7 @@ public class StudyRightWithAssignmentsStoryboards
          + "\n"
          + "- karli: Student\n"
          + "  id:    4242\n"
-         + "  name:  Karli\n"
+         + "  name:  karli\n"
          + "\n"
          + "- albert: Prof\n"
          + "  topic:  SE\n"
@@ -133,6 +133,24 @@ public class StudyRightWithAssignmentsStoryboards
       story.assertNotNull("pojo albert exists", albert);
       
       story.assertEquals("pojo attr", "SE", ((Prof)albert).getTopic());
+      
+      story.addStep("Generate Yaml from model:");
+      
+      YamlIdMap yamlEncodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+      
+      String newYaml = yamlEncodeMap.encode(studyRight);
+      
+      story.addPreformatted(newYaml);
+      
+      story.assertTrue("yaml starts with - u...", newYaml.startsWith("- u"));
+      
+      YamlIdMap yamlDecodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+      
+      University newStudyRight = (University) yamlIdMap.decode(newYaml);
+      
+      story.addStep("decoded again:");
+      
+      story.addObjectDiagram(newStudyRight);
       
       story.dumpHTML();
    }

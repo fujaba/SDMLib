@@ -2,13 +2,17 @@ package org.sdmlib.models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Scanner;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.NullCreator;
 import org.sdmlib.storyboards.GenericCreator;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.AbstractArray;
@@ -268,7 +272,7 @@ public class YamlIdMap
       return root;
    }
    
-   private Map<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
+   private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
 
    private Object parseUsualObjectId()
    {
@@ -325,60 +329,6 @@ public class YamlIdMap
       return root;
    }
 
-   private Object parseYaml()
-   {
-      Object root = null;
-      
-      while (scanner.hasNext("-"))
-      {
-         String token = scanner.next("-");
-         String key = scanner.next();
-         String second = scanner.next();
-         
-         if (second.endsWith(":"))
-         {
-            root = parseObjList(key, second);
-         }
-         else
-         {
-            root = parsePlainObject(key, second);
-         }
-         
-      }
-      return root;
-   }
-
-   private Object parsePlainObject(String key, String className)
-   {
-      
-      // plainObject ::= - objId': ' type \n attr*
-      // attr ::= attrName': ' attrValue \n 
-      
-      String id = stripColon(key);
-      
-      // get creator
-      // create object
-      // store in id map
-      
-      // read attributes
-      
-      while ( ! scanner.hasNext("-") && scanner.hasNext())
-      {
-         String attrName = scanner.next();
-         parseValues(id, attrName);
-         
-         // put attr value
-      }
-      
-      return null;
-   }
-
-
-
-   private ArrayList<String> parseValues(String id, String attrName)
-   {
-      return null;
-   }
 
    private String stripColon(String key)
    {
@@ -493,6 +443,128 @@ public class YamlIdMap
    public Object getObject(String objId)
    {
       return objIdMap.get(objId);
+   }
+
+   public String encode(Object... rootObjList)
+   {
+      
+      SimpleList<Object> simpleList = new SimpleList<Object>();
+      simpleList.add(rootObjList);
+      
+      StringBuilder buf = new StringBuilder();
+      
+      // collect objects
+      while ( ! simpleList.isEmpty())
+      {
+         Object obj = simpleList.first();
+         simpleList.remove(0);
+         
+         // already known? 
+         String key = objIdMap.getKey(obj);
+         
+         if (key == null)
+         {
+            // add to map
+            String className = obj.getClass().getName();
+            
+            className = CGUtil.shortClassName(className);
+            
+            key = className.substring(0, 1).toLowerCase();
+            
+            int num = objIdMap.size() + 1;
+            
+            key += num;
+            
+            objIdMap.put(key, obj);
+            
+            // find neighbors
+            SendableEntityCreator creator = getCreator(className);
+            
+            for (String prop : creator.getProperties())
+            {
+               Object value = creator.getValue(obj, prop);
+               
+               if (value == null)
+               {
+                  continue;
+               }
+               
+               Class valueClass = value.getClass();
+               
+               if (value instanceof Collection)
+               {
+                  for (Object valueObj : (Collection) value)
+                  {
+                     simpleList.add(valueObj);
+                  }
+               }
+               else if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
+               {
+                  continue;
+               }
+               else
+               {
+                  simpleList.add(value);
+               }
+            }
+         }
+         
+      } // collect objects
+      
+      for ( Entry<String, Object> entry : objIdMap.entrySet())
+      {
+         String key = entry.getKey();
+         Object obj = entry.getValue();
+         String className = CGUtil.shortClassName(obj.getClass().getName());
+         
+         
+         buf.append("- ").append(key).append(": \t").append(className).append("\n");
+         
+         // attrs
+         SendableEntityCreator creator = creatorMap.get(className);
+         
+         for (String prop : creator.getProperties())
+         {
+            Object value = creator.getValue(obj, prop);
+            
+            if (value == null)
+            {
+               continue;
+            }
+            
+            if (value instanceof Collection)
+            {
+               if (((Collection) value).isEmpty())
+               {
+                  continue;
+               }
+               
+               buf.append("  ").append(prop).append(": \t");
+               for (Object valueObj : (Collection) value)
+               {
+                  String valueKey = objIdMap.getKey(valueObj);
+                  buf.append(valueKey).append(" \t");
+               }
+               buf.append("\n");
+            }
+            else
+            {
+               String valueKey = objIdMap.getKey(value);
+               
+               if (valueKey != null)
+               {
+                  buf.append("  ").append(prop).append(": \t").append(valueKey).append("\n");
+               }
+               else
+               {
+                  buf.append("  ").append(prop).append(": \t").append(value).append("\n");
+               }
+            }
+         }
+         buf.append("\n");
+      }
+      
+      return buf.toString();
    }
 
 }
