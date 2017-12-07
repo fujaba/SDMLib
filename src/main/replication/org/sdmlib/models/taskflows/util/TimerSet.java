@@ -24,10 +24,9 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 import java.util.Timer;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.taskflows.SDMTimer;
-import org.sdmlib.models.taskflows.util.SDMTimerSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TimerSet extends SimpleSet<Timer>
 {
@@ -103,13 +102,6 @@ public class TimerSet extends SimpleSet<Timer>
    public TimerSet getNewList(boolean keyValue)
    {
       return new TimerSet();
-   }
-
-
-   public TimerSet filter(Condition<Timer> condition) {
-      TimerSet filterList = new TimerSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public SDMTimerSet instanceOfSDMTimer()

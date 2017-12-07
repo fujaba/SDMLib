@@ -32,10 +32,6 @@ import org.sdmlib.modelspace.ModelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
-import org.sdmlib.modelspace.util.ModelCloudSet;
 
 public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
 {
@@ -418,12 +414,6 @@ public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
       return new ModelCloudProxySet();
    }
 
-
-   public ModelCloudProxySet filter(Condition<ModelCloudProxy> condition) {
-      ModelCloudProxySet filterList = new ModelCloudProxySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ModelCloudProxy objects and collect those ModelCloudProxy objects where the hostName attribute matches the parameter value. 
     * 

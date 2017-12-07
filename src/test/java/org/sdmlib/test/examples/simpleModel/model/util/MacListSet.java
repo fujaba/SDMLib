@@ -28,9 +28,6 @@ import org.sdmlib.test.examples.simpleModel.model.MacList;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class MacListSet extends SimpleSet<MacList>
 {
@@ -290,12 +287,6 @@ public class MacListSet extends SimpleSet<MacList>
       return new MacListSet();
    }
 
-
-   public MacListSet filter(Condition<MacList> condition) {
-      MacListSet filterList = new MacListSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of MacList objects and collect those MacList objects where the Name attribute matches the parameter value. 
     * 

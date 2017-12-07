@@ -28,11 +28,8 @@ import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Bid;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class ActorSet extends SimpleSet<Actor>
 {
@@ -79,12 +76,6 @@ public class ActorSet extends SimpleSet<Actor>
       return new ActorSet();
    }
 
-
-   public ActorSet filter(Condition<Actor> condition) {
-      ActorSet filterList = new ActorSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
 
    @SuppressWarnings("unchecked")
    public ActorSet with(Object value)

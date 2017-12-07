@@ -23,18 +23,13 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.replication.ReplicationChannel;
-import org.sdmlib.replication.util.ReplicationChannelSet;
-import org.sdmlib.replication.ServerSocketAcceptThread;
-import org.sdmlib.replication.util.ServerSocketAcceptThreadSet;
-import org.sdmlib.replication.SeppelSpace;
-import org.sdmlib.replication.util.SeppelSpaceSet;
 import org.sdmlib.replication.SeppelChannel;
-import org.sdmlib.replication.util.SeppelChannelSet;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.ServerSocketAcceptThread;
+import org.sdmlib.replication.SharedSpace;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ThreadSet extends SimpleSet<Thread>
 {
@@ -110,13 +105,6 @@ public class ThreadSet extends SimpleSet<Thread>
    public ThreadSet getNewList(boolean keyValue)
    {
       return new ThreadSet();
-   }
-
-
-   public ThreadSet filter(Condition<Thread> condition) {
-      ThreadSet filterList = new ThreadSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public SharedSpaceSet instanceOfSharedSpace()

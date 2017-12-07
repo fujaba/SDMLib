@@ -32,10 +32,6 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.TemplateSet;
 
 public class MatchSet extends SimpleSet<Match>
 {
@@ -822,12 +818,6 @@ public class MatchSet extends SimpleSet<Match>
       return new MatchSet();
    }
 
-
-   public MatchSet filter(Condition<Match> condition) {
-      MatchSet filterList = new MatchSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Match objects and collect those Match objects where the endPos attribute matches the parameter value. 
     * 

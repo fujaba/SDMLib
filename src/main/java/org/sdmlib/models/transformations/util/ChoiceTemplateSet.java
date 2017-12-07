@@ -33,12 +33,6 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
 public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
 {
@@ -1208,12 +1202,6 @@ public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
       return new ChoiceTemplateSet();
    }
 
-
-   public ChoiceTemplateSet filter(Condition<ChoiceTemplate> condition) {
-      ChoiceTemplateSet filterList = new ChoiceTemplateSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ChoiceTemplate objects and collect those ChoiceTemplate objects where the expandedText attribute matches the parameter value. 
     * 

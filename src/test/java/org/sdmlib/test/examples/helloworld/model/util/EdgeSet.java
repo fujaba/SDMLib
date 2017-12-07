@@ -27,7 +27,6 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
@@ -498,12 +497,6 @@ public class EdgeSet extends SimpleSet<Edge>
       return new EdgeSet();
    }
 
-
-   public EdgeSet filter(Condition<Edge> condition) {
-      EdgeSet filterList = new EdgeSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Edge objects and collect those Edge objects where the name attribute matches the parameter value. 
     * 

@@ -27,12 +27,9 @@ import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import org.sdmlib.test.examples.helloworld.Person;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.helloworld.util.PersonSet;
-import org.sdmlib.test.examples.helloworld.util.GreetingMessageSet;
 
 public class GreetingSet extends SimpleSet<Greeting>
 {
@@ -483,12 +480,6 @@ public class GreetingSet extends SimpleSet<Greeting>
       return new GreetingSet();
    }
 
-
-   public GreetingSet filter(Condition<Greeting> condition) {
-      GreetingSet filterList = new GreetingSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Greeting objects and collect those Greeting objects where the text attribute matches the parameter value. 
     * 

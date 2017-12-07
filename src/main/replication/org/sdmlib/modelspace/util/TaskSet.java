@@ -30,9 +30,6 @@ import org.sdmlib.modelspace.TaskLane;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -603,12 +600,6 @@ public class TaskSet extends SimpleSet<Task>
       return new TaskSet();
    }
 
-
-   public TaskSet filter(Condition<Task> condition) {
-      TaskSet filterList = new TaskSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Task objects and collect those Task objects where the fileName attribute matches the parameter value. 
     * 

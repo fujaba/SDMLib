@@ -29,9 +29,6 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class PeerProxySet extends SimpleSet<PeerProxy>
 {
@@ -367,12 +364,6 @@ public class PeerProxySet extends SimpleSet<PeerProxy>
       return new PeerProxySet();
    }
 
-
-   public PeerProxySet filter(Condition<PeerProxy> condition) {
-      PeerProxySet filterList = new PeerProxySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of PeerProxy objects and collect those PeerProxy objects where the idMap attribute matches the parameter value. 
     * 

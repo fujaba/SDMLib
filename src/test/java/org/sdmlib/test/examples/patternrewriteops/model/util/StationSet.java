@@ -29,12 +29,8 @@ import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
 
 public class StationSet extends SimpleSet<Station>
 {
@@ -79,13 +75,6 @@ public class StationSet extends SimpleSet<Station>
    public StationSet getNewList(boolean keyValue)
    {
       return new StationSet();
-   }
-
-
-   public StationSet filter(Condition<Station> condition) {
-      StationSet filterList = new StationSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

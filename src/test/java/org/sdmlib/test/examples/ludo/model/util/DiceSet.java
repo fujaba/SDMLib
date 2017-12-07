@@ -28,12 +28,8 @@ import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 
 public class DiceSet extends SimpleSet<Dice>
 {
@@ -306,12 +302,6 @@ public class DiceSet extends SimpleSet<Dice>
       return new DiceSet();
    }
 
-
-   public DiceSet filter(Condition<Dice> condition) {
-      DiceSet filterList = new DiceSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Dice objects and collect those Dice objects where the value attribute matches the parameter value. 
     * 

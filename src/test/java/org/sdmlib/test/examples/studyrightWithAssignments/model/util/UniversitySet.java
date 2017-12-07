@@ -29,12 +29,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -79,13 +75,6 @@ public class UniversitySet extends SimpleSet<University>
    public UniversitySet getNewList(boolean keyValue)
    {
       return new UniversitySet();
-   }
-
-
-   public UniversitySet filter(Condition<University> condition) {
-      UniversitySet filterList = new UniversitySet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

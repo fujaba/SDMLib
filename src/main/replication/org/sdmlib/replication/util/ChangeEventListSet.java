@@ -104,10 +104,4 @@ public class ChangeEventListSet extends SimpleSet<ChangeEventList>
    {
       return new ChangeEventListSet();
    }
-
-
-   public ChangeEventListSet filter(Condition<ChangeEventList> condition) {
-      ChangeEventListSet filterList = new ChangeEventListSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -103,10 +103,4 @@ public class ColorSet extends SimpleSet<Color>
    {
       return new ColorSet();
    }
-
-
-   public ColorSet filter(Condition<Color> condition) {
-      ColorSet filterList = new ColorSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

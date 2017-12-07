@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class ItemSet extends SimpleSet<Item>
 {
@@ -360,12 +357,6 @@ public class ItemSet extends SimpleSet<Item>
       return new ItemSet();
    }
 
-
-   public ItemSet filter(Condition<Item> condition) {
-      ItemSet filterList = new ItemSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Item objects and collect those Item objects where the description attribute matches the parameter value. 
     * 

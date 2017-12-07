@@ -25,7 +25,6 @@ import java.util.Collection;
 
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class LudoColorSet extends SimpleSet<LudoColor>
@@ -103,10 +102,4 @@ public class LudoColorSet extends SimpleSet<LudoColor>
    {
       return new LudoColorSet();
    }
-
-
-   public LudoColorSet filter(Condition<LudoColor> condition) {
-      LudoColorSet filterList = new LudoColorSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

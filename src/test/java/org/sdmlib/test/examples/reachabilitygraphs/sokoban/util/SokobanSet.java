@@ -21,18 +21,16 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class SokobanSet extends SimpleSet<Sokoban>
 {
@@ -77,13 +75,6 @@ public class SokobanSet extends SimpleSet<Sokoban>
    public SokobanSet getNewList(boolean keyValue)
    {
       return new SokobanSet();
-   }
-
-
-   public SokobanSet filter(Condition<Sokoban> condition) {
-      SokobanSet filterList = new SokobanSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

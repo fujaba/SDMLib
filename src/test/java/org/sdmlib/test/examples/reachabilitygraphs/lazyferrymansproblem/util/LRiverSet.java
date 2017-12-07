@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
@@ -90,13 +89,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    public LRiverSet getNewList(boolean keyValue)
    {
       return new LRiverSet();
-   }
-
-
-   public LRiverSet filter(Condition<LRiver> condition) {
-      LRiverSet filterList = new LRiverSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

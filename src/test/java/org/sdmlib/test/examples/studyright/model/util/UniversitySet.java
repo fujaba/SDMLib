@@ -31,7 +31,6 @@ import org.sdmlib.test.examples.studyright.model.University;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -324,12 +323,6 @@ public class UniversitySet extends SimpleSet<University>
       return new UniversitySet();
    }
 
-
-   public UniversitySet filter(Condition<University> condition) {
-      UniversitySet filterList = new UniversitySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
     * 

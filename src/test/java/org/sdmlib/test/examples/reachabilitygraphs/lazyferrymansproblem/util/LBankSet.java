@@ -21,19 +21,17 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LBankSet extends SimpleSet<LBank>
 {
@@ -78,13 +76,6 @@ public class LBankSet extends SimpleSet<LBank>
    public LBankSet getNewList(boolean keyValue)
    {
       return new LBankSet();
-   }
-
-
-   public LBankSet filter(Condition<LBank> condition) {
-      LBankSet filterList = new LBankSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

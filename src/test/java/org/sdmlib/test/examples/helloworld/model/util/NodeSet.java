@@ -28,11 +28,9 @@ import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -830,12 +828,6 @@ public class NodeSet extends SimpleSet<Node>
       return new NodeSet();
    }
 
-
-   public NodeSet filter(Condition<Node> condition) {
-      NodeSet filterList = new NodeSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Node objects and collect those Node objects where the name attribute matches the parameter value. 
     * 

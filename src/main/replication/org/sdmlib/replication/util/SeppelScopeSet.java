@@ -30,8 +30,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelScopeSet extends SimpleSet<SeppelScope>
 {
@@ -502,12 +500,6 @@ public class SeppelScopeSet extends SimpleSet<SeppelScope>
       return new SeppelScopeSet();
    }
 
-
-   public SeppelScopeSet filter(Condition<SeppelScope> condition) {
-      SeppelScopeSet filterList = new SeppelScopeSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SeppelScope objects and collect those SeppelScope objects where the scopeName attribute matches the parameter value. 
     * 

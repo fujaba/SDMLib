@@ -34,12 +34,6 @@ import org.sdmlib.test.examples.maumau.model.Suit;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.HolderSet;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
-import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
 
 public class MauMauSet extends SimpleSet<MauMau>
 {
@@ -652,12 +646,6 @@ public class MauMauSet extends SimpleSet<MauMau>
       return new MauMauSet();
    }
 
-
-   public MauMauSet filter(Condition<MauMau> condition) {
-      MauMauSet filterList = new MauMauSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of MauMau objects and collect those MauMau objects where the currentPlayer attribute matches the parameter value. 
     * 

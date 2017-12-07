@@ -30,8 +30,6 @@ import org.sdmlib.test.model.refactoring.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.model.refactoring.util.PlayerSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -346,14 +344,6 @@ public class LudoSet extends SimpleSet<Ludo>
    {
       return new LudoSet();
    }
-
-
-   public LudoSet filter(Condition<Ludo> condition) {
-      LudoSet filterList = new LudoSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }   
-
 
    /**
     * Loop through the current set of Ludo objects and collect those Ludo objects where the location attribute matches the parameter value. 

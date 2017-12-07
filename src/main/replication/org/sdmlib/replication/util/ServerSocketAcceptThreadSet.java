@@ -28,8 +28,6 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
 
 public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThread>
 {
@@ -266,12 +264,6 @@ public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThr
       return new ServerSocketAcceptThreadSet();
    }
 
-
-   public ServerSocketAcceptThreadSet filter(Condition<ServerSocketAcceptThread> condition) {
-      ServerSocketAcceptThreadSet filterList = new ServerSocketAcceptThreadSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ServerSocketAcceptThread objects and collect those ServerSocketAcceptThread objects where the port attribute matches the parameter value. 
     * 

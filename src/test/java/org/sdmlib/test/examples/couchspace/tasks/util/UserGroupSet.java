@@ -29,11 +29,8 @@ import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.User;
 import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.couchspace.tasks.util.UserSet;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 public class UserGroupSet extends SDMSet<UserGroup>
 {
@@ -76,13 +73,6 @@ public class UserGroupSet extends SDMSet<UserGroup>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public UserGroupSet filter(Condition<UserGroup> newValue) {
-      UserGroupSet filterList = new UserGroupSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**

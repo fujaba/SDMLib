@@ -24,17 +24,13 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.taskflows.FetchFileFlow;
+import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.taskflows.FetchFileFlow;
-import org.sdmlib.models.taskflows.util.FetchFileFlowSet;
-import org.sdmlib.models.taskflows.Logger;
-import org.sdmlib.models.taskflows.util.LoggerSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class TaskFlowSet extends SimpleSet<TaskFlow>
 {
@@ -417,13 +413,6 @@ public class TaskFlowSet extends SimpleSet<TaskFlow>
    public TaskFlowSet getNewList(boolean keyValue)
    {
       return new TaskFlowSet();
-   }
-
-
-   public TaskFlowSet filter(Condition<TaskFlow> condition) {
-      TaskFlowSet filterList = new TaskFlowSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public FetchFileFlowSet instanceOfFetchFileFlow()

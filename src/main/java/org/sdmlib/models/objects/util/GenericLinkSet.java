@@ -29,10 +29,6 @@ import org.sdmlib.models.objects.GenericObject;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.models.objects.util.GenericGraphSet;
-import org.sdmlib.models.objects.util.GenericObjectSet;
 
 public class GenericLinkSet extends SimpleSet<GenericLink>
 {
@@ -485,11 +481,4 @@ public class GenericLinkSet extends SimpleSet<GenericLink>
    {
       return new GenericLinkSet();
    }
-
-
-   public GenericLinkSet filter(Condition<GenericLink> condition) {
-      GenericLinkSet filterList = new GenericLinkSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
-
+}

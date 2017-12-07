@@ -30,15 +30,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 public class RoomSet extends SimpleSet<Room>
 {
@@ -83,13 +78,6 @@ public class RoomSet extends SimpleSet<Room>
    public RoomSet getNewList(boolean keyValue)
    {
       return new RoomSet();
-   }
-
-
-   public RoomSet filter(Condition<Room> condition) {
-      RoomSet filterList = new RoomSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

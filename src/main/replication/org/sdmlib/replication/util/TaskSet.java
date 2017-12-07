@@ -24,19 +24,14 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.RemoteTask;
+import org.sdmlib.replication.ReplicationChange;
 import org.sdmlib.replication.Task;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.util.ReplicationChangeSet;
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.util.BoardTaskSet;
-import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.util.RemoteTaskSet;
-import org.sdmlib.replication.util.LogEntrySet;
 
 public class TaskSet extends SimpleSet<Task>
 {
@@ -170,13 +165,6 @@ public class TaskSet extends SimpleSet<Task>
    public TaskSet getNewList(boolean keyValue)
    {
       return new TaskSet();
-   }
-
-
-   public TaskSet filter(Condition<Task> condition) {
-      TaskSet filterList = new TaskSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public ReplicationChangeSet instanceOfReplicationChange()

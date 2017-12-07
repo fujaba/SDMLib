@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class MoveUpSet extends SimpleSet<MoveUp>
 {
@@ -181,10 +180,4 @@ public class MoveUpSet extends SimpleSet<MoveUp>
    {
       return new MoveUpSet();
    }
-
-
-   public MoveUpSet filter(Condition<MoveUp> condition) {
-      MoveUpSet filterList = new MoveUpSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -21,18 +21,16 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LRiverSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LBoatSet extends SimpleSet<LBoat>
 {
@@ -77,13 +75,6 @@ public class LBoatSet extends SimpleSet<LBoat>
    public LBoatSet getNewList(boolean keyValue)
    {
       return new LBoatSet();
-   }
-
-
-   public LBoatSet filter(Condition<LBoat> condition) {
-      LBoatSet filterList = new LBoatSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

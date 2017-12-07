@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
 
 public class ChatMsgSet extends SimpleSet<ChatMsg>
 {
@@ -455,12 +452,6 @@ public class ChatMsgSet extends SimpleSet<ChatMsg>
       return new ChatMsgSet();
    }
 
-
-   public ChatMsgSet filter(Condition<ChatMsg> condition) {
-      ChatMsgSet filterList = new ChatMsgSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ChatMsg objects and collect those ChatMsg objects where the sender attribute matches the parameter value. 
     * 

@@ -28,10 +28,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 public class TaskFlowSet extends SDMSet<TaskFlow>
 {
@@ -74,13 +72,6 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public TaskFlowSet filter(Condition<TaskFlow> newValue) {
-      TaskFlowSet filterList = new TaskFlowSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**

@@ -32,10 +32,6 @@ import org.sdmlib.modelspace.ModelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
-import org.sdmlib.modelspace.util.ModelCloudProxySet;
 
 public class ModelCloudSet extends SimpleSet<ModelCloud>
 {
@@ -428,12 +424,6 @@ public class ModelCloudSet extends SimpleSet<ModelCloud>
       return new ModelCloudSet();
    }
 
-
-   public ModelCloudSet filter(Condition<ModelCloud> condition) {
-      ModelCloudSet filterList = new ModelCloudSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ModelCloud objects and collect those ModelCloud objects where the acceptPort attribute matches the parameter value. 
     * 

@@ -30,9 +30,6 @@ import org.sdmlib.models.modelsets.intList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelcouch.util.ModelDBListenerSet;
 
 public class ModelCouchSet extends SimpleSet<ModelCouch>
 {
@@ -440,12 +437,6 @@ public class ModelCouchSet extends SimpleSet<ModelCouch>
       return new ModelCouchSet();
    }
 
-
-   public ModelCouchSet filter(Condition<ModelCouch> condition) {
-      ModelCouchSet filterList = new ModelCouchSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ModelCouch objects and collect those ModelCouch objects where the hostName attribute matches the parameter value. 
     * 

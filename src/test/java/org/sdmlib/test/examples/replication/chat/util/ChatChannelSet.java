@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
 
 public class ChatChannelSet extends SDMSet<ChatChannel>
 {
@@ -225,10 +222,4 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
    {
       return new ChatChannelSet();
    }
-
-
-   public ChatChannelSet filter(Condition<ChatChannel> condition) {
-      ChatChannelSet filterList = new ChatChannelSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

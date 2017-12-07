@@ -32,9 +32,6 @@ import org.sdmlib.test.historymanagement.marketmodel.Offer;
 import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.BidSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.MarketSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.ActorSet;
 
 public class OfferSet extends SimpleSet<Offer>
 {
@@ -79,13 +76,6 @@ public class OfferSet extends SimpleSet<Offer>
    public OfferSet getNewList(boolean keyValue)
    {
       return new OfferSet();
-   }
-
-
-   public OfferSet filter(Condition<Offer> condition) {
-      OfferSet filterList = new OfferSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

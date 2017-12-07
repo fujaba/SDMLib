@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
 
 public class MSChatMemberSet extends SimpleSet<MSChatMember>
 {
@@ -317,12 +314,6 @@ public class MSChatMemberSet extends SimpleSet<MSChatMember>
       return new MSChatMemberSet();
    }
 
-
-   public MSChatMemberSet filter(Condition<MSChatMember> condition) {
-      MSChatMemberSet filterList = new MSChatMemberSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of MSChatMember objects and collect those MSChatMember objects where the name attribute matches the parameter value. 
     * 

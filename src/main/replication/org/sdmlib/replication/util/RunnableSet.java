@@ -23,10 +23,10 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.util.RemoteTaskSet;
+
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class RunnableSet extends SimpleSet<Runnable>
 {
@@ -103,13 +103,6 @@ public class RunnableSet extends SimpleSet<Runnable>
    public RunnableSet getNewList(boolean keyValue)
    {
       return new RunnableSet();
-   }
-
-
-   public RunnableSet filter(Condition<Runnable> condition) {
-      RunnableSet filterList = new RunnableSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public RemoteTaskSet instanceOfRemoteTask()

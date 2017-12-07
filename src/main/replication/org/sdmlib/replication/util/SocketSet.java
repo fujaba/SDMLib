@@ -25,7 +25,6 @@ import java.net.Socket;
 import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class SocketSet extends SimpleSet<Socket>
 {
@@ -102,10 +101,4 @@ public class SocketSet extends SimpleSet<Socket>
    {
       return new SocketSet();
    }
-
-
-   public SocketSet filter(Condition<Socket> condition) {
-      SocketSet filterList = new SocketSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

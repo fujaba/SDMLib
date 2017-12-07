@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class PersonSet extends SDMSet<Person>
@@ -70,13 +69,6 @@ public class PersonSet extends SDMSet<Person>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public PersonSet filter(Condition<Person> newValue) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**

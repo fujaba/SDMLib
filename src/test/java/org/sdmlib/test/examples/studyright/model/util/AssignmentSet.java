@@ -32,10 +32,6 @@ import org.sdmlib.test.examples.studyright.model.Student;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
@@ -417,12 +413,6 @@ public class AssignmentSet extends SimpleSet<Assignment>
       return new AssignmentSet();
    }
 
-
-   public AssignmentSet filter(Condition<Assignment> condition) {
-      AssignmentSet filterList = new AssignmentSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Assignment objects and collect those Assignment objects where the name attribute matches the parameter value. 
     * 

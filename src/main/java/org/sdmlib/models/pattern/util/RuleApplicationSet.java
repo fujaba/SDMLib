@@ -27,10 +27,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.ReachableStateSet;
 
 public class RuleApplicationSet extends SimpleSet<RuleApplication>
 {
@@ -381,10 +379,4 @@ public class RuleApplicationSet extends SimpleSet<RuleApplication>
    {
       return new RuleApplicationSet();
    }
-
-
-   public RuleApplicationSet filter(Condition<RuleApplication> condition) {
-      RuleApplicationSet filterList = new RuleApplicationSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

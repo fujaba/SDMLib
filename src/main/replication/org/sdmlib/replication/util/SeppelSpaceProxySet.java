@@ -34,12 +34,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.replication.util.SeppelChannelSet;
-import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
 {
@@ -918,12 +912,6 @@ public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
       return new SeppelSpaceProxySet();
    }
 
-
-   public SeppelSpaceProxySet filter(Condition<SeppelSpaceProxy> condition) {
-      SeppelSpaceProxySet filterList = new SeppelSpaceProxySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SeppelSpaceProxy objects and collect those SeppelSpaceProxy objects where the acceptsConnectionRequests attribute matches the parameter value. 
     * 

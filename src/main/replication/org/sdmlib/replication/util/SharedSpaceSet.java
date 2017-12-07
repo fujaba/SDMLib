@@ -35,12 +35,6 @@ import org.sdmlib.replication.SharedSpace;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.replication.util.ReplicationChannelSet;
-import org.sdmlib.replication.util.ChangeHistorySet;
-import org.sdmlib.replication.util.ReplicationNodeSet;
 
 public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {
@@ -729,12 +723,6 @@ public class SharedSpaceSet extends SimpleSet<SharedSpace>
       return new SharedSpaceSet();
    }
 
-
-   public SharedSpaceSet filter(Condition<SharedSpace> condition) {
-      SharedSpaceSet filterList = new SharedSpaceSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SharedSpace objects and collect those SharedSpace objects where the javaFXApplication attribute matches the parameter value. 
     * 

@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.modelsets.SDMSet;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.StringList;
 
 public class ClassModelSet extends SDMSet<ClassModel>
@@ -64,13 +63,6 @@ public class ClassModelSet extends SDMSet<ClassModel>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public ClassModelSet filter(Condition<ClassModel> newValue) {
-      ClassModelSet filterList = new ClassModelSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**

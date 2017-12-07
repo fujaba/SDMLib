@@ -33,11 +33,6 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
 public class TemplateSet extends SimpleSet<Template>
 {
@@ -1147,13 +1142,6 @@ public class TemplateSet extends SimpleSet<Template>
    public TemplateSet getNewList(boolean keyValue)
    {
       return new TemplateSet();
-   }
-
-
-   public TemplateSet filter(Condition<Template> condition) {
-      TemplateSet filterList = new TemplateSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public ChoiceTemplateSet instanceOfChoiceTemplate()

@@ -286,10 +286,4 @@ public class GraphSet extends SimpleSet<Graph>
    {
       return new GraphSet();
    }
-
-
-   public GraphSet filter(Condition<Graph> condition) {
-      GraphSet filterList = new GraphSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

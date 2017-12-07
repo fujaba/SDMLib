@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 
 public class DutySet extends SimpleSet<Duty>
 {
@@ -318,12 +315,6 @@ public class DutySet extends SimpleSet<Duty>
       return new DutySet();
    }
 
-
-   public DutySet filter(Condition<Duty> condition) {
-      DutySet filterList = new DutySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Duty objects and collect those Duty objects where the number attribute matches the parameter value. 
     * 

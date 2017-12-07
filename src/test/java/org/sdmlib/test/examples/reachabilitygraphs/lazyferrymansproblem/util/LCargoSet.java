@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
+import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class LCargoSet extends SimpleSet<LCargo>
 {
@@ -75,13 +74,6 @@ public class LCargoSet extends SimpleSet<LCargo>
    public LCargoSet getNewList(boolean keyValue)
    {
       return new LCargoSet();
-   }
-
-
-   public LCargoSet filter(Condition<LCargo> condition) {
-      LCargoSet filterList = new LCargoSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

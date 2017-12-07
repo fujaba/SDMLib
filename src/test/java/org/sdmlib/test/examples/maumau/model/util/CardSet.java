@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.maumau.model.Value;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
-import org.sdmlib.test.examples.maumau.model.util.HolderSet;
 
 public class CardSet extends SimpleSet<Card>
 {
@@ -328,12 +325,6 @@ public class CardSet extends SimpleSet<Card>
       return new CardSet();
    }
 
-
-   public CardSet filter(Condition<Card> condition) {
-      CardSet filterList = new CardSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Card objects and collect those Card objects where the suit attribute matches the parameter value. 
     * 

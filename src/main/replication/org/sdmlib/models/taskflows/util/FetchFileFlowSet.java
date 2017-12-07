@@ -32,8 +32,6 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
 
 public class FetchFileFlowSet extends SimpleSet<FetchFileFlow>
 {
@@ -591,12 +589,6 @@ public class FetchFileFlowSet extends SimpleSet<FetchFileFlow>
       return new FetchFileFlowSet();
    }
 
-
-   public FetchFileFlowSet filter(Condition<FetchFileFlow> condition) {
-      FetchFileFlowSet filterList = new FetchFileFlowSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of FetchFileFlow objects and collect those FetchFileFlow objects where the fileName attribute matches the parameter value. 
     * 

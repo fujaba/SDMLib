@@ -32,10 +32,6 @@ import org.sdmlib.modelspace.TaskLane;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelspace.util.TaskSet;
-import org.sdmlib.modelspace.util.TaskBoardSet;
 
 public class TaskLaneSet extends SimpleSet<TaskLane>
 {
@@ -476,12 +472,6 @@ public class TaskLaneSet extends SimpleSet<TaskLane>
       return new TaskLaneSet();
    }
 
-
-   public TaskLaneSet filter(Condition<TaskLane> condition) {
-      TaskLaneSet filterList = new TaskLaneSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of TaskLane objects and collect those TaskLane objects where the hostName attribute matches the parameter value. 
     * 

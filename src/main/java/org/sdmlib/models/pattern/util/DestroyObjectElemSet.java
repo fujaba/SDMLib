@@ -27,12 +27,9 @@ import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
 {
@@ -519,10 +516,4 @@ public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
    {
       return new DestroyObjectElemSet();
    }
-
-
-   public DestroyObjectElemSet filter(Condition<DestroyObjectElem> condition) {
-      DestroyObjectElemSet filterList = new DestroyObjectElemSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

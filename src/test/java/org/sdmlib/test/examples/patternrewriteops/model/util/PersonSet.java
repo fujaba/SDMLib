@@ -21,15 +21,14 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.Person;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
-import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+
+import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -74,13 +73,6 @@ public class PersonSet extends SimpleSet<Person>
    public PersonSet getNewList(boolean keyValue)
    {
       return new PersonSet();
-   }
-
-
-   public PersonSet filter(Condition<Person> condition) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

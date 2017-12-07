@@ -21,21 +21,18 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TileSet extends SimpleSet<Tile>
 {
@@ -80,13 +77,6 @@ public class TileSet extends SimpleSet<Tile>
    public TileSet getNewList(boolean keyValue)
    {
       return new TileSet();
-   }
-
-
-   public TileSet filter(Condition<Tile> condition) {
-      TileSet filterList = new TileSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

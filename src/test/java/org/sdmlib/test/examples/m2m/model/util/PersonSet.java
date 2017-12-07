@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -603,12 +600,6 @@ public class PersonSet extends SimpleSet<Person>
       return new PersonSet();
    }
 
-
-   public PersonSet filter(Condition<Person> condition) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Person objects and collect those Person objects where the firstName attribute matches the parameter value. 
     * 

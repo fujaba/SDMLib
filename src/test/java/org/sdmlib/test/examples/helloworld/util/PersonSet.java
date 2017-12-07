@@ -26,11 +26,9 @@ import java.util.Collection;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.Person;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
 public class PersonSet extends SimpleSet<Person>
 {
@@ -258,12 +256,6 @@ public class PersonSet extends SimpleSet<Person>
       return new PersonSet();
    }
 
-
-   public PersonSet filter(Condition<Person> condition) {
-      PersonSet filterList = new PersonSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
     * 

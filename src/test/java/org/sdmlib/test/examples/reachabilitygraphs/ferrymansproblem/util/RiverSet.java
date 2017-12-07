@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
@@ -236,10 +233,4 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet
    {
       return new RiverSet();
    }
-
-
-   public RiverSet filter(Condition<River> condition) {
-      RiverSet filterList = new RiverSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

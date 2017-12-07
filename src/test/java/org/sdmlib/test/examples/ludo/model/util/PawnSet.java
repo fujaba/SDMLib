@@ -28,13 +28,9 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
 public class PawnSet extends SimpleSet<Pawn>
 {
@@ -505,12 +501,6 @@ public class PawnSet extends SimpleSet<Pawn>
       return new PawnSet();
    }
 
-
-   public PawnSet filter(Condition<Pawn> condition) {
-      PawnSet filterList = new PawnSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Pawn objects and collect those Pawn objects where the color attribute matches the parameter value. 
     * 

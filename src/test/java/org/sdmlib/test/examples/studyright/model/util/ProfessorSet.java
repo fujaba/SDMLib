@@ -32,8 +32,6 @@ import org.sdmlib.test.examples.studyright.model.Topic;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.studyright.model.util.TopicSet;
 
 public class ProfessorSet extends SimpleSet<Professor>
 {
@@ -415,12 +413,6 @@ public class ProfessorSet extends SimpleSet<Professor>
       return new ProfessorSet();
    }
 
-
-   public ProfessorSet filter(Condition<Professor> condition) {
-      ProfessorSet filterList = new ProfessorSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Professor objects and collect those Professor objects where the name attribute matches the parameter value. 
     * 

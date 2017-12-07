@@ -21,14 +21,14 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
+
+import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class SignalFlagSet extends SimpleSet<SignalFlag>
 {
@@ -73,13 +73,6 @@ public class SignalFlagSet extends SimpleSet<SignalFlag>
    public SignalFlagSet getNewList(boolean keyValue)
    {
       return new SignalFlagSet();
-   }
-
-
-   public SignalFlagSet filter(Condition<SignalFlag> condition) {
-      SignalFlagSet filterList = new SignalFlagSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

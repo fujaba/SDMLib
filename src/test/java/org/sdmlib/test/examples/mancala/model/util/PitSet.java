@@ -24,16 +24,13 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.mancala.model.Kalah;
-import org.sdmlib.test.examples.mancala.model.util.KalahSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class PitSet extends SimpleSet<Pit>
 {
@@ -541,13 +538,6 @@ public class PitSet extends SimpleSet<Pit>
    public PitSet getNewList(boolean keyValue)
    {
       return new PitSet();
-   }
-
-
-   public PitSet filter(Condition<Pit> condition) {
-      PitSet filterList = new PitSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public KalahSet instanceOfKalah()
