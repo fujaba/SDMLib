@@ -431,7 +431,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          if (((ClassModel) model.getClassModel()).getFeature(Feature.SETCLASS).getClassValue().equals(SimpleSet.class)) 
          {
         	 insertGetNewListMethod(modelSetParser);
-        	 insertFilterMethod(modelSetParser);
+//        	 insertFilterMethod(modelSetParser);
          }
          insertInstanceOfMethods(modelSetParser);
          insertSetWithWithout(modelSetParser);
@@ -750,33 +750,33 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-   private void insertFilterMethod(Parser parser)
-   {
-      String shortClassName = CGUtil.shortClassName(model.getName(false));
-      String searchString = Parser.METHOD + ":filter(Condition<" + shortClassName + ">)";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-               "\n\n" +
-                  "   public ModelSetType filter(Condition<ModelType> condition) {\n" +
-                  "      ModelSetType filterList = new ModelSetType();\n" +
-                  "      filterItems(filterList, condition);\n" +
-                  "      return filterList;\n" +
-                  "   }");
-
-         CGUtil.replaceAll(text,
-            "ModelType", shortClassName,
-            "ModelSetType", shortClassName + "Set");
-
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-
-         parser.insertImport(Condition.class.getName());
-      }
-   }
+//   private void insertFilterMethod(Parser parser)
+//   {
+//      String shortClassName = CGUtil.shortClassName(model.getName(false));
+//      String searchString = Parser.METHOD + ":filter(Condition<" + shortClassName + ">)";
+//      int pos = parser.indexOf(searchString);
+//
+//      if (pos < 0)
+//      {
+//         StringBuilder text = new StringBuilder(
+//               "\n\n" +
+//                  "   public ModelSetType filter(Condition<ModelType> condition) {\n" +
+//                  "      ModelSetType filterList = new ModelSetType();\n" +
+//                  "      filterItems(filterList, condition);\n" +
+//                  "      return filterList;\n" +
+//                  "   }");
+//
+//         CGUtil.replaceAll(text,
+//            "ModelType", shortClassName,
+//            "ModelSetType", shortClassName + "Set");
+//
+//         pos = parser.indexOf(Parser.CLASS_END);
+//
+//         parser.insert(pos, text.toString());
+//
+//         parser.insertImport(Condition.class.getName());
+//      }
+//   }
 
 
    public String getModelSetClassName()
