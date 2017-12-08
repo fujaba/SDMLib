@@ -19,20 +19,19 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem;
+package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankSet;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
  */
-   public  class LRiver implements SendableEntity
+   public  class URiver implements SendableEntity
 {
 
    
@@ -87,49 +86,108 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    
    public void removeYou()
    {
+      for (UBank obj : new UBankSet(this.getBanks())) { obj.removeYou(); }
       if (getBoat() != null) { getBoat().removeYou(); }
-      for (LBank obj : new LBankSet(this.getBanks())) { obj.removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    /********************************************************************
     * <pre>
-    *              many                       one
-    * LRiver ----------------------------------- LBoat
-    *              river                   boat
+    *              one                       many
+    * URiver ----------------------------------- UBank
+    *              uriver                   banks
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BANKS = "banks";
+
+   private UBankSet banks = null;
+   
+   public UBankSet getBanks()
+   {
+      if (this.banks == null)
+      {
+         return UBankSet.EMPTY_SET;
+      }
+   
+      return this.banks;
+   }
+
+   public URiver withBanks(UBank... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (UBank item : value)
+      {
+         if (item != null)
+         {
+            if (this.banks == null)
+            {
+               this.banks = new UBankSet();
+            }
+            
+            boolean changed = this.banks.add (item);
+
+            if (changed)
+            {
+               firePropertyChange(PROPERTY_BANKS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public URiver withoutBanks(UBank... value)
+   {
+      for (UBank item : value)
+      {
+         if ((this.banks != null) && (item != null))
+         {
+            if (this.banks.remove(item))
+            {
+               firePropertyChange(PROPERTY_BANKS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public UBank createBanks()
+   {
+      UBank value = new UBank();
+      withBanks(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * URiver ----------------------------------- UBoat
+    *              uriver                   boat
     * </pre>
     */
    
    public static final String PROPERTY_BOAT = "boat";
 
-   private LBoat boat = null;
+   private UBoat boat = null;
 
-   public LBoat getBoat()
+   public UBoat getBoat()
    {
       return this.boat;
    }
 
-   public boolean setBoat(LBoat value)
+   public boolean setBoat(UBoat value)
    {
       boolean changed = false;
       
       if (this.boat != value)
       {
-         LBoat oldValue = this.boat;
-         
-         if (this.boat != null)
-         {
-            this.boat = null;
-            oldValue.withoutRiver(this);
-         }
+         UBoat oldValue = this.boat;
          
          this.boat = value;
-         
-         if (value != null)
-         {
-            value.withRiver(this);
-         }
          
          firePropertyChange(PROPERTY_BOAT, oldValue, value);
          changed = true;
@@ -138,110 +196,16 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       return changed;
    }
 
-   public LRiver withBoat(LBoat value)
+   public URiver withBoat(UBoat value)
    {
       setBoat(value);
       return this;
    } 
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public LBoat createBoat()
+   public UBoat createBoat()
    {
-      LBoat value = new LBoat();
+      UBoat value = new UBoat();
       withBoat(value);
       return value;
    } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * LRiver ----------------------------------- LBank
-    *              river                   banks
-    * </pre>
-    */
-   
-   public static final String PROPERTY_BANKS = "banks";
-
-   private LBankSet banks = null;
-   
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public LBankSet getBanks()
-   {
-      if (this.banks == null)
-      {
-         return LBankSet.EMPTY_SET;
-      }
-   
-      return this.banks;
-   }
-
-   public LRiver withBanks(LBank... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (LBank item : value)
-      {
-         if (item != null)
-         {
-            if (this.banks == null)
-            {
-               this.banks = new LBankSet();
-            }
-            
-            boolean changed = this.banks.add (item);
-
-            if (changed)
-            {
-               item.withRiver(this);
-               firePropertyChange(PROPERTY_BANKS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public LRiver withoutBanks(LBank... value)
-   {
-      for (LBank item : value)
-      {
-         if ((this.banks != null) && (item != null))
-         {
-            if (this.banks.remove(item))
-            {
-               item.withoutRiver(this);
-               firePropertyChange(PROPERTY_BANKS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public LBank createBanks()
-   {
-      LBank value = new LBank();
-      withBanks(value);
-      return value;
-   } 
-   
-   public String toString()
-   {
-      String str = this.getBanks().createNameCondition("left").first().toString() + "\n";
-      str += this.getBoat().toString() + "\n";
-      str += this.getBanks().createNameCondition("right").first().toString() + "\n";
-      return str;
-   }
-
-
 }

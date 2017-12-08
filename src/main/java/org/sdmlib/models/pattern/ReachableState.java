@@ -44,6 +44,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
 
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -73,6 +74,12 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private Map<String, Integer> allCertificate2Number;
    private Map<Long, Long> longAllCertificate2Number;
+
+   private ObjectSet dynNodes;
+
+   private SimpleList<Object> dynEdges;
+
+   private ObjectSet staticNodes = null;
 
    public Object getCertificate()
    {
@@ -150,6 +157,29 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
    }
 
+   
+   
+   public Object dynComputeCertificate()
+   {
+      Objects.requireNonNull(getParent());
+      
+      LazyCloneOp lazyCloneOp = getParent().getLazyCloneOp();
+      
+      Objects.requireNonNull(lazyCloneOp);dynNodes = new ObjectSet();
+      
+      dynEdges = new SimpleList<Object>();
+      if (staticNodes  == null)
+      {
+         staticNodes = new ObjectSet();
+      } 
+      
+      dynNodes.add(this.graphRoot);
+      lazyCloneOp.aggregate(dynNodes, dynEdges, staticNodes, this.getGraphRoot());
+      
+      
+      return dynNodes;
+   }   
+   
    public Object lazyComputeCertificate()
    {
       Objects.requireNonNull(getParent());
@@ -167,13 +197,13 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
       lazyNode2CertNo = new SimpleKeyValueList<Object, Integer>();
 
-      lazyGraph = new ObjectSet();
-      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot());
+      lazyGraph = new SimpleKeyValueList<Object, Object>();
+      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot(), this.getGraphRoot());
       
       allCertificate2Number = new TreeMap<String, Integer>();
       
       // collect new certificates
-      for (Object o : lazyGraph)
+      for (Object o : lazyGraph.keySet())
       {
          String simpleName = o.getClass().getSimpleName()+'\n';
 
@@ -189,7 +219,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       }
 
       // assign cert numbers to nodes
-      for (Object o : lazyGraph)
+      for (Object o : lazyGraph.keySet())
       {
          String simpleName = o.getClass().getSimpleName()+'\n';
          Integer certNo = allCertificate2Number.get(simpleName);
@@ -204,7 +234,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       while (true)
       {
          // collect new certificates
-         for (Object o : lazyGraph)
+         for (Object o : lazyGraph.keySet())
          {
             SendableEntityCreator creator = lazyCloneOp.getMap().getCreatorClass(o);
             
@@ -227,7 +257,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
                      for (Object valueElem : (Collection) value)
                      {
-                        if (lazyGraph.contains(valueElem))
+                        if (lazyGraph.get(valueElem) != null)
                         {
                            Integer valueCertNo = oldNode2CertNo.get(valueElem);
                            Objects.requireNonNull(valueCertNo);
@@ -247,7 +277,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                         newCertificate.append('\n');
                      }
                   }
-                  else if (lazyGraph.contains(value))
+                  else if (lazyGraph.get(value) != null)
                   {
                      Integer valueCertNo = oldNode2CertNo.get(value);
                      Objects.requireNonNull(valueCertNo);
@@ -344,8 +374,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
       longNode2CertNo = new SimpleKeyValueList<Object, Long>();
 
-      lazyGraph = new ObjectSet();
-      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot());
+      lazyGraph = new SimpleKeyValueList<Object, Object>();
+      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot(), this.getGraphRoot());
       
       // assign cert numbers to nodes
       for (Object o : lazyGraph)
@@ -1039,9 +1069,9 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    private boolean startState;
 
-   private ObjectSet lazyGraph;
+   private SimpleKeyValueList<Object, Object> lazyGraph;
 
-   public ObjectSet getLazyGraph()
+   public SimpleKeyValueList<Object, Object> getLazyGraph()
    {
       return lazyGraph;
    }

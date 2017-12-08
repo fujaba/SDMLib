@@ -84,39 +84,35 @@ public class ReachabilityGraphExampleModels
 
      /**
     * 
-    * @see <a href='../../../../../../../../doc/LazyFerryMansProblemModel.html'>LazyFerryMansProblemModel.html</a>
+    * @see <a href='../../../../../../../../doc/UniDirectFerryMansProblemModel.html'>UniDirectFerryMansProblemModel.html</a>
  */
    @Test
-   public void LazyFerryMansProblemModel()
+   public void UniDirectFerryMansProblemModel()
    {
       Storyboard storyboard = new Storyboard();
       
-      ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem");
       
-      Clazz river = model.createClazz("LRiver");
+      Clazz river = model.createClazz("URiver");
       
-      Clazz boat = model.createClazz("LBoat");
+      Clazz boat = model.createClazz("UBoat");
             
-      river.createBidirectional(boat, "boat", Cardinality.ONE, "river", Cardinality.MANY)
-      .with(AssociationTypes.AGGREGATION);
+      river.createUniDirectional(boat, "boat", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
       
-      Clazz bank = model.createClazz("LBank")
-            .withAttribute("name", DataType.STRING)
-            .withAttribute("age", DataType.INT);
+      Clazz bank = model.createClazz("UBank")
+            .withAttribute("name", DataType.STRING);
             
-      boat.withBidirectional(bank, "bank", Cardinality.MANY, "boat", Cardinality.MANY);
+      boat.createUniDirectional(bank, "bank", Cardinality.ONE);
       
-      river.createBidirectional(bank, "banks", Cardinality.MANY, "river", Cardinality.MANY)
-      .with(AssociationTypes.AGGREGATION);
+      river.createUniDirectional(bank, "banks", Cardinality.MANY).with(AssociationTypes.AGGREGATION);
       
-      Clazz cargo = model.createClazz("LCargo")
+      Clazz cargo = model.createClazz("UCargo")
             .withAttribute("name", DataType.STRING); 
             
-      bank.createBidirectional(cargo, "cargos", Cardinality.MANY, "bank", Cardinality.MANY)
-      .with(AssociationTypes.AGGREGATION);
+      bank.createUniDirectional(cargo, "cargos", Cardinality.MANY);
       
-      boat.createBidirectional(cargo, "cargo", Cardinality.ONE, "boat", Cardinality.MANY)
-      .with(AssociationTypes.AGGREGATION);
+      boat.createUniDirectional(cargo, "cargo", Cardinality.ONE);
+      // cargo.withBidirectional(boat, "boat", Cardinality.ONE, "cargo", Cardinality.ONE);
       
       storyboard.addClassDiagram(model);
       

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java' type='text/x-java'>UniDirFerrymansProblemRules</a></p>
+<p>initial situation:</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"U1 : URiver"
+      },
+      {
+         "type":"clazz",
+         "id":"U2 : UBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U3 : UBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U4 : UBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U5 : UCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U6 : UCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U7 : UCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"U2 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uboat",
+            "id":"U4 : UBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"U2 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"U3 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"U4 : UBoat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U5 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U6 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U7 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirFerrymansProblemRules2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"u1 : URiverPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"u2 : UBoatPO",
+         "attributes":[]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"u3 : UCargoPO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"u4 : UBankPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"u5 : UCargoPO",
+         "attributes":[]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"u6 : UCargoPO",
+               "attributes":[
+                  "name == goat"
+               ]
+            },
+            {
+               "type":"patternObject",
+               "id":"u7 : UCargoPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : URiverPO"
+         },
+         "target":{
+            "property":"boat",
+            "id":"u2 : UBoatPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"u3 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"u4 : UBankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u5 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u6 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u7 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u5 : UCargoPO"
+         },
+         "style":"destroy"
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"u5 : UCargoPO"
+         },
+         "style":"create"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirFerrymansProblemRulesPatternDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"u1 : URiverPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"u2 : UBoatPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"u3 : UBankPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"u4 : UBankPO",
+         "attributes":[]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"u5 : UCargoPO",
+               "attributes":[
+                  "name == goat"
+               ]
+            },
+            {
+               "type":"patternObject",
+               "id":"u6 : UCargoPO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"u7 : UCargoPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : URiverPO"
+         },
+         "target":{
+            "property":"boat",
+            "id":"u2 : UBoatPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"u3 : UBankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : URiverPO"
+         },
+         "target":{
+            "property":"banks",
+            "id":"u4 : UBankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u3 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u5 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u3 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u6 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"u3 : UBankPO"
+         },
+         "style":"destroy"
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"u4 : UBankPO"
+         },
+         "style":"create"
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"u7 : UCargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u2 : UBoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"u7 : UCargoPO"
+         },
+         "style":"destroy"
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u4 : UBankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"u7 : UCargoPO"
+         },
+         "style":"create"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirFerrymansProblemRulesPatternDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Reachable State 1</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"U1 : URiver"
+      },
+      {
+         "type":"clazz",
+         "id":"U2 : UBank",
+         "attributes":[
+            "age=0",
+            "name=left"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U3 : UBank",
+         "attributes":[
+            "age=0",
+            "name=right"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U4 : UBoat",
+         "attributes":[
+            "cargo=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U5 : UCargo",
+         "attributes":[
+            "name=cabbage"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U6 : UCargo",
+         "attributes":[
+            "name=goat"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U7 : UCargo",
+         "attributes":[
+            "name=wolf"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"U2 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uboat",
+            "id":"U4 : UBoat"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"U2 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"U3 : UBank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"U4 : UBoat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uriver",
+            "id":"U1 : URiver"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U5 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U6 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"U7 : UCargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ubank",
+            "id":"U2 : UBank"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirFerrymansProblemRules6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Number of Reachable States expected:  26 actual 1</p>
+
+</body>
+</html>

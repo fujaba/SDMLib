@@ -20,149 +20,148 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>LazyFerryMansProblemModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>UniDirectFerryMansProblemModel</a></p>
 <script>
    var json = {
    "typ":"class",
    "nodes":[
       {
          "typ":"node",
-         "id":"LBank",
-         "attributes":[
-            "age : int",
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"LBoat"
-      },
-      {
-         "typ":"node",
-         "id":"LCargo",
+         "id":"UBank",
          "attributes":[
             "name : String"
          ]
       },
       {
          "typ":"node",
-         "id":"LRiver"
+         "id":"UBoat"
+      },
+      {
+         "typ":"node",
+         "id":"UCargo",
+         "attributes":[
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"URiver"
       }
    ],
    "edges":[
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
-            "id":"LBank",
+            "id":"UBank",
             "cardinality":"one",
             "property":"bank"
          },
          "target":{
-            "id":"LBoat",
+            "id":"UBoat",
             "cardinality":"one",
-            "property":"boat"
+            "property":"uboat"
          }
       },
       {
-         "typ":"aggregation",
+         "typ":"unidirectional",
          "source":{
-            "id":"LBank",
-            "cardinality":"one",
-            "property":"bank"
-         },
-         "target":{
-            "id":"LCargo",
-            "cardinality":"many",
-            "property":"cargos"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"LBank",
+            "id":"UBank",
             "cardinality":"many",
             "property":"banks"
          },
          "target":{
-            "id":"LRiver",
+            "id":"URiver",
             "cardinality":"one",
-            "property":"river"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"LBoat",
-            "cardinality":"one",
-            "property":"boat"
-         },
-         "target":{
-            "id":"LRiver",
-            "cardinality":"one",
-            "property":"river"
-         }
-      },
-      {
-         "typ":"aggregation",
-         "source":{
-            "id":"LBoat",
-            "cardinality":"one",
-            "property":"boat"
-         },
-         "target":{
-            "id":"LBank",
-            "cardinality":"one",
-            "property":"bank"
+            "property":"uriver"
          }
       },
       {
          "typ":"unidirectional",
          "source":{
-            "id":"LCargo",
-            "cardinality":"one",
-            "property":"cargo"
-         },
-         "target":{
-            "id":"LBoat",
-            "cardinality":"one",
-            "property":"lboat"
-         }
-      },
-      {
-         "typ":"unidirectional",
-         "source":{
-            "id":"LCargo",
-            "cardinality":"one",
-            "property":"cargo"
-         },
-         "target":{
-            "id":"LBoat",
-            "cardinality":"one",
-            "property":"lboat"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"LCargo",
+            "id":"UCargo",
             "cardinality":"many",
             "property":"cargos"
          },
          "target":{
-            "id":"LBank",
+            "id":"UBank",
+            "cardinality":"one",
+            "property":"ubank"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"UBoat",
+            "cardinality":"one",
+            "property":"boat"
+         },
+         "target":{
+            "id":"URiver",
+            "cardinality":"one",
+            "property":"uriver"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"UBank",
             "cardinality":"one",
             "property":"bank"
+         },
+         "target":{
+            "id":"UBoat",
+            "cardinality":"one",
+            "property":"uboat"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"UCargo",
+            "cardinality":"one",
+            "property":"cargo"
+         },
+         "target":{
+            "id":"UBoat",
+            "cardinality":"one",
+            "property":"uboat"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"UCargo",
+            "cardinality":"one",
+            "property":"cargo"
+         },
+         "target":{
+            "id":"UBoat",
+            "cardinality":"one",
+            "property":"uboat"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"UCargo",
+            "cardinality":"many",
+            "property":"cargos"
+         },
+         "target":{
+            "id":"UBank",
+            "cardinality":"one",
+            "property":"ubank"
          }
       },
       {
          "typ":"aggregation",
          "source":{
-            "id":"LRiver",
+            "id":"URiver",
             "cardinality":"one",
-            "property":"river"
+            "property":"uriver"
          },
          "target":{
-            "id":"LBoat",
+            "id":"UBoat",
             "cardinality":"one",
             "property":"boat"
          }
@@ -170,19 +169,19 @@
       {
          "typ":"aggregation",
          "source":{
-            "id":"LRiver",
+            "id":"URiver",
             "cardinality":"one",
-            "property":"river"
+            "property":"uriver"
          },
          "target":{
-            "id":"LBank",
+            "id":"UBank",
             "cardinality":"many",
             "property":"banks"
          }
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasLazyFerryMansProblemModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasUniDirectFerryMansProblemModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

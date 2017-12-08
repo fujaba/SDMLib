@@ -19,27 +19,21 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
+package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public class LRiverCreator implements AggregatedEntityCreator
+
+public class UCargoCreator implements AggregatedEntityCreator
 {
-   public static final LRiverCreator it = new LRiverCreator();
+   public static final UCargoCreator it = new UCargoCreator();
    
    private final String[] properties = new String[]
    {
-      LRiver.PROPERTY_BOAT,
-      LRiver.PROPERTY_BANKS,
+      UCargo.PROPERTY_NAME,
    };
    
    private final String[] upProperties = new String[]
@@ -48,8 +42,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    
    private final String[] downProperties = new String[]
    {
-      LRiver.PROPERTY_BOAT,
-      LRiver.PROPERTY_BANKS,
    };
    
    @Override
@@ -73,7 +65,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new LRiver();
+      return new UCargo();
    }
    
    
@@ -88,14 +80,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
          attribute = attrName.substring(0, pos);
       }
 
-      if (LRiver.PROPERTY_BOAT.equalsIgnoreCase(attribute))
+      if (UCargo.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((LRiver) target).getBoat();
-      }
-
-      if (LRiver.PROPERTY_BANKS.equalsIgnoreCase(attribute))
-      {
-         return ((LRiver) target).getBanks();
+         return ((UCargo) target).getName();
       }
       
       return null;
@@ -104,47 +91,31 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (UCargo.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((UCargo) target).setName((String) value);
+         return true;
+      }
+
       if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
-           ((LRiver)target).removeYou();
+           ((UCargo)target).removeYou();
            return true;
       }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
-
-      if (LRiver.PROPERTY_BOAT.equalsIgnoreCase(attrName))
-      {
-         ((LRiver) target).setBoat((LBoat) value);
-         return true;
-      }
-
-      if (LRiver.PROPERTY_BANKS.equalsIgnoreCase(attrName))
-      {
-         ((LRiver) target).withBanks((LBank) value);
-         return true;
-      }
-      
-      if ((LRiver.PROPERTY_BANKS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((LRiver) target).withoutBanks((LBank) value);
-         return true;
-      }
       
       return false;
    }
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
    public static IdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((LRiver) entity).removeYou();
+      ((UCargo) entity).removeYou();
    }
 }

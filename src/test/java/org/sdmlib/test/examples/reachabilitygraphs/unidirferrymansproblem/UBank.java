@@ -19,21 +19,19 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem;
+package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.LBankSet;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
  */
-   public  class LCargo implements SendableEntity
+   public  class UBank implements SendableEntity
 {
 
    
@@ -88,8 +86,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    
    public void removeYou()
    {
-      withoutBoat(this.getBoat().toArray(new LBoat[this.getBoat().size()]));
-      withoutBank(this.getBank().toArray(new LBank[this.getBank().size()]));
+      withoutCargos(this.getCargos().toArray(new UCargo[this.getCargos().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -115,7 +112,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
       }
    }
    
-   public LCargo withName(String value)
+   public UBank withName(String value)
    {
       setName(value);
       return this;
@@ -136,151 +133,69 @@ import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
    /********************************************************************
     * <pre>
     *              one                       many
-    * LCargo ----------------------------------- LBoat
-    *              cargo                   boat
+    * UBank ----------------------------------- UCargo
+    *              ubank                   cargos
     * </pre>
     */
    
-   public static final String PROPERTY_BOAT = "boat";
+   public static final String PROPERTY_CARGOS = "cargos";
 
-   private LBoatSet boat = null;
+   private UCargoSet cargos = null;
    
-   public LBoatSet getBoat()
+   public UCargoSet getCargos()
    {
-      if (this.boat == null)
+      if (this.cargos == null)
       {
-         return LBoatSet.EMPTY_SET;
+         return UCargoSet.EMPTY_SET;
       }
    
-      return this.boat;
+      return this.cargos;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public LCargo withBoat(LBoat... value)
+   public UBank withCargos(UCargo... value)
    {
       if(value==null){
          return this;
       }
-      for (LBoat item : value)
+      for (UCargo item : value)
       {
          if (item != null)
          {
-            if (this.boat == null)
+            if (this.cargos == null)
             {
-               this.boat = new LBoatSet();
+               this.cargos = new UCargoSet();
             }
             
-            boolean changed = this.boat.add (item);
+            boolean changed = this.cargos.add (item);
 
             if (changed)
             {
-               item.withCargo(this);
-               firePropertyChange(PROPERTY_BOAT, null, item);
+               firePropertyChange(PROPERTY_CARGOS, null, item);
             }
          }
       }
       return this;
    } 
 
-   public LCargo withoutBoat(LBoat... value)
+   public UBank withoutCargos(UCargo... value)
    {
-      for (LBoat item : value)
+      for (UCargo item : value)
       {
-         if ((this.boat != null) && (item != null))
+         if ((this.cargos != null) && (item != null))
          {
-            if (this.boat.remove(item))
+            if (this.cargos.remove(item))
             {
-               item.setCargo(null);
-               firePropertyChange(PROPERTY_BOAT, item, null);
+               firePropertyChange(PROPERTY_CARGOS, item, null);
             }
          }
       }
       return this;
    }
 
-   public LBoat createBoat()
+   public UCargo createCargos()
    {
-      LBoat value = new LBoat();
-      withBoat(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * LCargo ----------------------------------- LBank
-    *              cargos                   bank
-    * </pre>
-    */
-   
-   public static final String PROPERTY_BANK = "bank";
-
-   private LBankSet bank = null;
-   
-   public LBankSet getBank()
-   {
-      if (this.bank == null)
-      {
-         return LBankSet.EMPTY_SET;
-      }
-   
-      return this.bank;
-   }
-
-   public LCargo withBank(LBank... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (LBank item : value)
-      {
-         if (item != null)
-         {
-            if (this.bank == null)
-            {
-               this.bank = new LBankSet();
-            }
-            
-            boolean changed = this.bank.add (item);
-
-            if (changed)
-            {
-               item.withCargos(this);
-               firePropertyChange(PROPERTY_BANK, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
- */
-   public LCargo withoutBank(LBank... value)
-   {
-      for (LBank item : value)
-      {
-         if ((this.bank != null) && (item != null))
-         {
-            if (this.bank.remove(item))
-            {
-               item.withoutCargos(this);
-               firePropertyChange(PROPERTY_BANK, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public LBank createBank()
-   {
-      LBank value = new LBank();
-      withBank(value);
+      UCargo value = new UCargo();
+      withCargos(value);
       return value;
    } 
 }

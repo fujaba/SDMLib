@@ -696,7 +696,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
          else
          {
-            newCertificate = s.lazyComputeCertificateAndCleanUp();
+            newCertificate = s.dynComputeCertificate();
          }
          
          this.withStateMap(newCertificate, s);
@@ -746,70 +746,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          this.withoutTodo(current);
          
-         for (String trafoName : trafoList.keySet())
-         {
-            Trafo trafo = trafoList.get(trafoName);
-            // clone current state
-            ObjectSet graph = new ObjectSet();
-            lazyCloneOp.clear();
-            lazyCloneOp.aggregate(graph, current.getGraphRoot());
-            Object newGraphRoot = lazyCloneOp.cloneComponent(graph, current.getGraphRoot());
-            ReachableState newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
-
-            // apply trafo
-            trafo.run(newGraphRoot);
-            
-            // merge with old states
-            Object newCertificate = null; 
-            if (useLongCertificates)
-            {
-               newCertificate = newReachableState.longComputeCertificate();
-            }
-            else
-            {
-               newCertificate = newReachableState.lazyComputeCertificate();
-            }
-            
-            // already known? 
-            ReachableStateSet candidateStates = this.getStateMap(newCertificate);
-
-            Object match = null;
-
-            for (ReachableState oldState : candidateStates)
-            {
-               match = lazyMatch(oldState, newReachableState);
-               
-               if (match != null)
-               {
-                  // newReachableState is isomorphic to oldState. Just add a
-                  // link from first to oldState
-                  if (current == oldState)
-                  {
-                     // trafo did not change the current state, do not create a rule application link
-                  }
-                  else
-                  {
-                     current.createRuleapplications().withTgt(oldState).withDescription(trafoName);
-                  }
-
-                  break;
-               }
-            }
-
-            if (match == null)
-            {
-               // new state is really new
-               this.withTodo(newReachableState).withStateMap(newCertificate,
-                  newReachableState);
-
-               current.createRuleapplications().withTgt(newReachableState).withDescription(trafoName);
-            }
-            else
-            {
-               this.withoutStates(newReachableState);
-            }
-
-         }
+         exploreTrafos(current);
 
          for (Pattern rule : getRules())
          {
@@ -986,6 +923,75 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
 
       return currentStateNum;
+   }
+
+
+   private void exploreTrafos(ReachableState current)
+   {
+      for (String trafoName : trafoList.keySet())
+      {
+         Trafo trafo = trafoList.get(trafoName);
+         // clone current state
+         SimpleKeyValueList<Object, Object> graph = new SimpleKeyValueList<Object, Object>();
+         lazyCloneOp.clear();
+         lazyCloneOp.aggregate(graph, current.getGraphRoot(), current.getGraphRoot());
+         Object newGraphRoot = lazyCloneOp.cloneComponent(graph, current.getGraphRoot());
+         ReachableState newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
+
+         // apply trafo
+         trafo.run(newGraphRoot);
+         
+         // merge with old states
+         Object newCertificate = null; 
+         if (useLongCertificates)
+         {
+            newCertificate = newReachableState.longComputeCertificate();
+         }
+         else
+         {
+            newCertificate = newReachableState.lazyComputeCertificate();
+         }
+         
+         // already known? 
+         ReachableStateSet candidateStates = this.getStateMap(newCertificate);
+
+         Object match = null;
+
+         for (ReachableState oldState : candidateStates)
+         {
+            match = lazyMatch(oldState, newReachableState);
+            
+            if (match != null)
+            {
+               // newReachableState is isomorphic to oldState. Just add a
+               // link from first to oldState
+               if (current == oldState)
+               {
+                  // trafo did not change the current state, do not create a rule application link
+               }
+               else
+               {
+                  current.createRuleapplications().withTgt(oldState).withDescription(trafoName);
+               }
+
+               break;
+            }
+         }
+
+         if (match == null)
+         {
+            // new state is really new
+            this.withTodo(newReachableState).withStateMap(newCertificate,
+               newReachableState);
+
+            current.createRuleapplications().withTgt(newReachableState).withDescription(trafoName);
+         }
+         else
+         {
+            this.withoutStates(newReachableState);
+         }
+
+      }
    }
 
    private boolean doCleanUpTemps = false;

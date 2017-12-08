@@ -148,8 +148,8 @@ public class SokobanLevels
       ReachableState startState = new ReachableState().withGraphRoot(soko);
       reachabilityGraph.withStart(startState);
       
-      ObjectSet startElems = new ObjectSet();
-      reachabilityGraph.getLazyCloneOp().aggregate(startElems, soko);
+      SimpleKeyValueList<Object, Object> startElems = new SimpleKeyValueList<Object, Object>();
+      reachabilityGraph.getLazyCloneOp().aggregate(startElems, soko, soko);
       
       //=============================================================
       long startTime = System.currentTimeMillis();
@@ -175,7 +175,7 @@ public class SokobanLevels
       startElems.clear();
       for (ReachableState state : reachabilityGraph.getStates())
       {
-         reachabilityGraph.getLazyCloneOp().aggregate(startElems, state.getGraphRoot());
+         reachabilityGraph.getLazyCloneOp().aggregate(startElems, state.getGraphRoot(), state.getGraphRoot());
       }
       int actualObjectNumber = startElems.size();
       stats.createRows("actual object number:", actualObjectNumber, " ");

@@ -227,7 +227,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   } " +
                   "\n";
             
-            if (this.model.getType()==AssociationTypes.EDGE)
+            if (partnerRole.getType()==AssociationTypes.UNDIRECTIONAL)
             {
                // uni directional no reverse call
                withMeth = CGUtil.replaceAll(withMeth, "\n               item.withMyRoleName(this);", "");
@@ -269,7 +269,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
             
-            if (this.model.getType()==AssociationTypes.EDGE)
+            if (partnerRole.getType()==AssociationTypes.UNDIRECTIONAL)
             {
                // uni directional no reverse call
                withOutMeth = CGUtil.replaceAll(withOutMeth, "\n               item.reverseWithoutCall(this);", "");
@@ -497,7 +497,7 @@ public class GenAssociation extends Generator<Association>
          if (GraphUtil.isInterface(clazz) == false)
          {
         	 String setMeth = "";
-        	 if (this.model.getType().equals(AssociationTypes.EDGE)) {
+        	 if (partnerRole.getType().equals(AssociationTypes.UNDIRECTIONAL)) {
         		 // unidirectional
         		 setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
                          "\n   {" +
@@ -1837,29 +1837,34 @@ public class GenAssociation extends Generator<Association>
 
 	public GenAssociation generate(String rootDir, String helperDir) {
 		// open source class and get or insert role implementation
-//		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
-//		ClassModelAdapter generator = classModel.getGenerator();
-//		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
+	   //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
+	   //		ClassModelAdapter generator = classModel.getGenerator();
+	   //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
 		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.GENERALISATION) {
 			return this;
 		}
 		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.IMPLEMENTS) {
 			return this;
 		}
+		if (model.getType() == AssociationTypes.UNDIRECTIONAL)
+		{
+		   return this;
+		}
+		
 		this.generate(rootDir, helperDir, model.getOther());
-//		if(model.getOtherClazz() == model.getClazz()) {
-//			this.generate(rootDir, helperDir, model);
-//		}
+		//		if(model.getOtherClazz() == model.getClazz()) {
+		//			this.generate(rootDir, helperDir, model);
+		//		}
 
 		// also for subclasses
 		fixSubclasses(model, rootDir, helperDir);
 		// Other subClasses		
 		fixSubclasses(model.getOther(), rootDir, helperDir);
 
-		if (model.getName() == null || model.getType()==AssociationTypes.EDGE) {
-			// uni directional assoc, do not generate reverse direction
-			return this;
-		}
+		//		if (model.getName() == null || model.getType()==AssociationTypes.EDGE || model.getType() == AssociationTypes.UNDIRECTIONAL) {
+		//			// uni directional assoc, do not generate reverse direction
+		//			return this;
+		//		}
 		return this;
 	}
 	

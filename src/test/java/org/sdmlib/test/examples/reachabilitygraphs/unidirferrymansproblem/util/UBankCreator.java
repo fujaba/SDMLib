@@ -19,38 +19,31 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
+package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LRiver;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 
-public class LBankCreator implements AggregatedEntityCreator
+public class UBankCreator implements AggregatedEntityCreator
 {
-   public static final LBankCreator it = new LBankCreator();
+   public static final UBankCreator it = new UBankCreator();
    
    private final String[] properties = new String[]
    {
-      LBank.PROPERTY_AGE,
-      LBank.PROPERTY_NAME,
-      LBank.PROPERTY_BOAT,
-      LBank.PROPERTY_CARGOS,
-      LBank.PROPERTY_RIVER,
+      UBank.PROPERTY_NAME,
+      UBank.PROPERTY_CARGOS,
    };
    
    private final String[] upProperties = new String[]
    {
-      LBank.PROPERTY_RIVER,
    };
    
    private final String[] downProperties = new String[]
    {
-      LBank.PROPERTY_CARGOS,
    };
    
    @Override
@@ -74,7 +67,7 @@ public class LBankCreator implements AggregatedEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new LBank();
+      return new UBank();
    }
    
    
@@ -89,29 +82,14 @@ public class LBankCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (LBank.PROPERTY_AGE.equalsIgnoreCase(attribute))
+      if (UBank.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((LBank) target).getAge();
+         return ((UBank) target).getName();
       }
 
-      if (LBank.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (UBank.PROPERTY_CARGOS.equalsIgnoreCase(attribute))
       {
-         return ((LBank) target).getName();
-      }
-
-      if (LBank.PROPERTY_BOAT.equalsIgnoreCase(attribute))
-      {
-         return ((LBank) target).getBoat();
-      }
-
-      if (LBank.PROPERTY_CARGOS.equalsIgnoreCase(attribute))
-      {
-         return ((LBank) target).getCargos();
-      }
-
-      if (LBank.PROPERTY_RIVER.equalsIgnoreCase(attribute))
-      {
-         return ((LBank) target).getRiver();
+         return ((UBank) target).getCargos();
       }
       
       return null;
@@ -120,20 +98,14 @@ public class LBankCreator implements AggregatedEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (LBank.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (UBank.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((LBank) target).setName((String) value);
-         return true;
-      }
-
-      if (LBank.PROPERTY_AGE.equalsIgnoreCase(attrName))
-      {
-         ((LBank) target).setAge(Integer.parseInt(value.toString()));
+         ((UBank) target).setName((String) value);
          return true;
       }
 
       if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
-           ((LBank)target).removeYou();
+           ((UBank)target).removeYou();
            return true;
       }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
@@ -141,39 +113,15 @@ public class LBankCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (LBank.PROPERTY_BOAT.equalsIgnoreCase(attrName))
+      if (UBank.PROPERTY_CARGOS.equalsIgnoreCase(attrName))
       {
-         ((LBank) target).withBoat((LBoat) value);
+         ((UBank) target).withCargos((UCargo) value);
          return true;
       }
       
-      if ((LBank.PROPERTY_BOAT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((UBank.PROPERTY_CARGOS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((LBank) target).withoutBoat((LBoat) value);
-         return true;
-      }
-
-      if (LBank.PROPERTY_CARGOS.equalsIgnoreCase(attrName))
-      {
-         ((LBank) target).withCargos((LCargo) value);
-         return true;
-      }
-      
-      if ((LBank.PROPERTY_CARGOS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((LBank) target).withoutCargos((LCargo) value);
-         return true;
-      }
-
-      if (LBank.PROPERTY_RIVER.equalsIgnoreCase(attrName))
-      {
-         ((LBank) target).withRiver((LRiver) value);
-         return true;
-      }
-      
-      if ((LBank.PROPERTY_RIVER + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((LBank) target).withoutRiver((LRiver) value);
+         ((UBank) target).withoutCargos((UCargo) value);
          return true;
       }
       
@@ -181,12 +129,12 @@ public class LBankCreator implements AggregatedEntityCreator
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((LBank) entity).removeYou();
+      ((UBank) entity).removeYou();
    }
 }

@@ -19,31 +19,28 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util;
+package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LCargo;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.LBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 
-public class LCargoCreator implements AggregatedEntityCreator
+public class UBoatCreator implements AggregatedEntityCreator
 {
-   public static final LCargoCreator it = new LCargoCreator();
+   public static final UBoatCreator it = new UBoatCreator();
    
    private final String[] properties = new String[]
    {
-      LCargo.PROPERTY_NAME,
-      LCargo.PROPERTY_BOAT,
-      LCargo.PROPERTY_BANK,
+      UBoat.PROPERTY_BANK,
+      UBoat.PROPERTY_CARGO,
    };
    
    private final String[] upProperties = new String[]
    {
-      LCargo.PROPERTY_BOAT,
-      LCargo.PROPERTY_BANK,
    };
    
    private final String[] downProperties = new String[]
@@ -71,7 +68,7 @@ public class LCargoCreator implements AggregatedEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new LCargo();
+      return new UBoat();
    }
    
    
@@ -86,19 +83,14 @@ public class LCargoCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (LCargo.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (UBoat.PROPERTY_BANK.equalsIgnoreCase(attribute))
       {
-         return ((LCargo) target).getName();
+         return ((UBoat) target).getBank();
       }
 
-      if (LCargo.PROPERTY_BOAT.equalsIgnoreCase(attribute))
+      if (UBoat.PROPERTY_CARGO.equalsIgnoreCase(attribute))
       {
-         return ((LCargo) target).getBoat();
-      }
-
-      if (LCargo.PROPERTY_BANK.equalsIgnoreCase(attribute))
-      {
-         return ((LCargo) target).getBank();
+         return ((UBoat) target).getCargo();
       }
       
       return null;
@@ -107,14 +99,8 @@ public class LCargoCreator implements AggregatedEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (LCargo.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((LCargo) target).setName((String) value);
-         return true;
-      }
-
       if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
-           ((LCargo)target).removeYou();
+           ((UBoat)target).removeYou();
            return true;
       }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
@@ -122,27 +108,15 @@ public class LCargoCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (LCargo.PROPERTY_BOAT.equalsIgnoreCase(attrName))
+      if (UBoat.PROPERTY_BANK.equalsIgnoreCase(attrName))
       {
-         ((LCargo) target).withBoat((LBoat) value);
-         return true;
-      }
-      
-      if ((LCargo.PROPERTY_BOAT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((LCargo) target).withoutBoat((LBoat) value);
+         ((UBoat) target).setBank((UBank) value);
          return true;
       }
 
-      if (LCargo.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      if (UBoat.PROPERTY_CARGO.equalsIgnoreCase(attrName))
       {
-         ((LCargo) target).withBank((LBank) value);
-         return true;
-      }
-      
-      if ((LCargo.PROPERTY_BANK + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((LCargo) target).withoutBank((LBank) value);
+         ((UBoat) target).setCargo((UCargo) value);
          return true;
       }
       
@@ -150,12 +124,12 @@ public class LCargoCreator implements AggregatedEntityCreator
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.test.examples.reachabilitygraphs.lazyferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((LCargo) entity).removeYou();
+      ((UBoat) entity).removeYou();
    }
 }
