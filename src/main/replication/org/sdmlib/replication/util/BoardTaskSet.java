@@ -34,8 +34,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class BoardTaskSet extends SimpleSet<BoardTask>
 {
@@ -760,10 +758,4 @@ public class BoardTaskSet extends SimpleSet<BoardTask>
    {
       return new BoardTaskSet();
    }
-
-
-   public BoardTaskSet filter(Condition<BoardTask> condition) {
-      BoardTaskSet filterList = new BoardTaskSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

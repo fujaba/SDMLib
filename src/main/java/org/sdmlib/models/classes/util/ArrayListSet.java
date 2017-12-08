@@ -26,8 +26,6 @@ import java.util.Collection;
 
 import org.sdmlib.models.modelsets.SDMSet;
 
-import de.uniks.networkparser.interfaces.Condition;
-
 public class ArrayListSet extends SDMSet<ArrayList<?>>
 {
 
@@ -63,12 +61,5 @@ public class ArrayListSet extends SDMSet<ArrayList<?>>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public ArrayListSet filter(Condition<ArrayList<?>> newValue) {
-      ArrayListSet filterList = new ArrayListSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 }

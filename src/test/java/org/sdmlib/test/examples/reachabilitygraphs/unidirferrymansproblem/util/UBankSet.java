@@ -76,12 +76,6 @@ public class UBankSet extends SimpleSet<UBank>
    }
 
 
-   public UBankSet filter(Condition<UBank> condition) {
-      UBankSet filterList = new UBankSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
-
    @SuppressWarnings("unchecked")
    public UBankSet with(Object value)
    {

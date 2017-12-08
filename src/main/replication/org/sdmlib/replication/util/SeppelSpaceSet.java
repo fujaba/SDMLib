@@ -30,10 +30,6 @@ import org.sdmlib.replication.SeppelSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import de.uniks.networkparser.list.NumberList;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
 {
@@ -422,12 +418,6 @@ public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
       return new SeppelSpaceSet();
    }
 
-
-   public SeppelSpaceSet filter(Condition<SeppelSpace> condition) {
-      SeppelSpaceSet filterList = new SeppelSpaceSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SeppelSpace objects and collect those SeppelSpace objects where the history attribute matches the parameter value. 
     * 

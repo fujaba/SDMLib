@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class GroupAccountSet extends SimpleSet<GroupAccount>
 {
@@ -314,12 +312,6 @@ public class GroupAccountSet extends SimpleSet<GroupAccount>
       return new GroupAccountSet();
    }
 
-
-   public GroupAccountSet filter(Condition<GroupAccount> condition) {
-      GroupAccountSet filterList = new GroupAccountSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute matches the parameter value. 
     * 

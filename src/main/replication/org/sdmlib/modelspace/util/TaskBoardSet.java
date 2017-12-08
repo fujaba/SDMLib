@@ -29,8 +29,6 @@ import org.sdmlib.modelspace.TaskLane;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskBoardSet extends SimpleSet<TaskBoard>
 {
@@ -166,10 +164,4 @@ public class TaskBoardSet extends SimpleSet<TaskBoard>
    {
       return new TaskBoardSet();
    }
-
-
-   public TaskBoardSet filter(Condition<TaskBoard> condition) {
-      TaskBoardSet filterList = new TaskBoardSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -30,9 +30,6 @@ import org.sdmlib.modelspace.CloudModelFile;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.modelspace.util.CloudModelDirectorySet;
 
 public class CloudModelFileSet extends SimpleSet<CloudModelFile>
 {
@@ -357,12 +354,6 @@ public class CloudModelFileSet extends SimpleSet<CloudModelFile>
       return new CloudModelFileSet();
    }
 
-
-   public CloudModelFileSet filter(Condition<CloudModelFile> condition) {
-      CloudModelFileSet filterList = new CloudModelFileSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of CloudModelFile objects and collect those CloudModelFile objects where the fileName attribute matches the parameter value. 
     * 

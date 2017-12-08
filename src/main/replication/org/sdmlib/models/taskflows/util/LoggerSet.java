@@ -33,9 +33,6 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SimpleSet<Logger>
 {
@@ -540,12 +537,6 @@ public class LoggerSet extends SimpleSet<Logger>
       return new LoggerSet();
    }
 
-
-   public LoggerSet filter(Condition<Logger> condition) {
-      LoggerSet filterList = new LoggerSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Logger objects and collect those Logger objects where the startPeer attribute matches the parameter value. 
     * 

@@ -21,17 +21,16 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
+
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
 import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class MazeSet extends SimpleSet<Maze>
 {
@@ -76,13 +75,6 @@ public class MazeSet extends SimpleSet<Maze>
    public MazeSet getNewList(boolean keyValue)
    {
       return new MazeSet();
-   }
-
-
-   public MazeSet filter(Condition<Maze> condition) {
-      MazeSet filterList = new MazeSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

@@ -33,11 +33,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -467,12 +462,6 @@ public class BankSet extends SimpleSet<Bank>
       return new BankSet();
    }
 
-
-   public BankSet filter(Condition<Bank> condition) {
-      BankSet filterList = new BankSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Bank objects and collect those Bank objects where the age attribute matches the parameter value. 
     * 

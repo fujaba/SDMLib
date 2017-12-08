@@ -28,13 +28,10 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class ReachableStateSet extends SimpleSet<ReachableState>
 {
@@ -616,10 +613,4 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
    {
       return new ReachableStateSet();
    }
-
-
-   public ReachableStateSet filter(Condition<ReachableState> condition) {
-      ReachableStateSet filterList = new ReachableStateSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -72,6 +72,7 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class StudyRightWithAssignmentsStoryboards
 {
@@ -658,7 +659,7 @@ public class StudyRightWithAssignmentsStoryboards
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
 
-      RoomSet roomsEven = university.getRooms().filter(value -> value.getCredits() % 2 == 0);
+      SimpleSet<Room> roomsEven = university.getRooms().filter(value -> value.getCredits() % 2 == 0);
 
       story.addCode();
 

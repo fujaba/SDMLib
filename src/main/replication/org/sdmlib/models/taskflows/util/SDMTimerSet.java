@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.models.taskflows.SDMTimer;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class SDMTimerSet extends SimpleSet<SDMTimer>
 {
@@ -115,10 +114,4 @@ public class SDMTimerSet extends SimpleSet<SDMTimer>
    {
       return new SDMTimerSet();
    }
-
-
-   public SDMTimerSet filter(Condition<SDMTimer> condition) {
-      SDMTimerSet filterList = new SDMTimerSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

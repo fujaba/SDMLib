@@ -253,7 +253,7 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.addObjectDiagram(reachabilityGraph);
 
       RiverSet rivers = new RiverSet().with(reachabilityGraph.getStates().getGraphRoot());
-      BankSet banks = rivers.getBanks()
+      SimpleSet<Bank> banks = rivers.getBanks()
             .hasName("right")
             .filter(bank -> bank.getCargos().size() == 3);
 

@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 
 public class CargoSet extends SimpleSet<Cargo>
 {
@@ -305,12 +302,6 @@ public class CargoSet extends SimpleSet<Cargo>
       return new CargoSet();
    }
 
-
-   public CargoSet filter(Condition<Cargo> condition) {
-      CargoSet filterList = new CargoSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Cargo objects and collect those Cargo objects where the name attribute matches the parameter value. 
     * 

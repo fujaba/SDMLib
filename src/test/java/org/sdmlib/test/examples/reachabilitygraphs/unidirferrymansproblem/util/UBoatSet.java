@@ -77,12 +77,6 @@ public class UBoatSet extends SimpleSet<UBoat>
    }
 
 
-   public UBoatSet filter(Condition<UBoat> condition) {
-      UBoatSet filterList = new UBoatSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
-
    @SuppressWarnings("unchecked")
    public UBoatSet with(Object value)
    {

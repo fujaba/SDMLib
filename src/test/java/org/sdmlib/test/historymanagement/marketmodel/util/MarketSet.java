@@ -27,10 +27,8 @@ import java.util.Collections;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class MarketSet extends SimpleSet<Market>
 {
@@ -77,12 +75,6 @@ public class MarketSet extends SimpleSet<Market>
       return new MarketSet();
    }
 
-
-   public MarketSet filter(Condition<Market> condition) {
-      MarketSet filterList = new MarketSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
 
    @SuppressWarnings("unchecked")
    public MarketSet with(Object value)

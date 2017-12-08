@@ -29,9 +29,6 @@ import org.sdmlib.models.modelsets.shortList;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
 {
@@ -529,12 +526,6 @@ public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
       return new BombermanPlayerSet();
    }
 
-
-   public BombermanPlayerSet filter(Condition<BombermanPlayer> condition) {
-      BombermanPlayerSet filterList = new BombermanPlayerSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }   
    //==========================================================================
    
    public BombermanPlayerSet keyPress(String key)

@@ -30,11 +30,7 @@ import org.sdmlib.models.tables.Cell;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.Table;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.models.tables.util.CellSet;
-import org.sdmlib.models.tables.util.TableSet;
 
 public class RowSet extends SDMSet<Row>
 {
@@ -333,12 +329,6 @@ public class RowSet extends SDMSet<Row>
       return new RowSet();
    }
 
-
-   public RowSet filter(Condition<Row> condition) {
-      RowSet filterList = new RowSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Row objects and collect those Row objects where the number attribute matches the parameter value. 
     * 

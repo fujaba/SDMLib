@@ -29,11 +29,8 @@ import org.sdmlib.models.tables.Column;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.Table;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.tables.util.ColumnSet;
-import org.sdmlib.models.tables.util.RowSet;
 
 public class TableSet extends SDMSet<Table>
 {
@@ -348,12 +345,6 @@ public class TableSet extends SDMSet<Table>
       return new TableSet();
    }
 
-
-   public TableSet filter(Condition<Table> condition) {
-      TableSet filterList = new TableSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Table objects and collect those Table objects where the name attribute matches the parameter value. 
     * 

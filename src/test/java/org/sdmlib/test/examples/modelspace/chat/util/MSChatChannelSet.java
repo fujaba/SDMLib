@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 
 public class MSChatChannelSet extends SimpleSet<MSChatChannel>
 {
@@ -267,12 +265,6 @@ public class MSChatChannelSet extends SimpleSet<MSChatChannel>
       return new MSChatChannelSet();
    }
 
-
-   public MSChatChannelSet filter(Condition<MSChatChannel> condition) {
-      MSChatChannelSet filterList = new MSChatChannelSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of MSChatChannel objects and collect those MSChatChannel objects where the task attribute matches the parameter value. 
     * 

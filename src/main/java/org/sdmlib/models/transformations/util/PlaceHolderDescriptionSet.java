@@ -32,10 +32,6 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.models.transformations.util.MatchSet;
-import org.sdmlib.models.transformations.util.TemplateSet;
 
 public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
 {
@@ -732,12 +728,6 @@ public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
       return new PlaceHolderDescriptionSet();
    }
 
-
-   public PlaceHolderDescriptionSet filter(Condition<PlaceHolderDescription> condition) {
-      PlaceHolderDescriptionSet filterList = new PlaceHolderDescriptionSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of PlaceHolderDescription objects and collect those PlaceHolderDescription objects where the attrName attribute matches the parameter value. 
     * 

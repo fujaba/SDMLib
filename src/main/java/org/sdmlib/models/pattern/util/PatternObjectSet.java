@@ -964,10 +964,4 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
    {
       return new PatternObjectSet();
    }
-
-
-   public PatternObjectSet filter(Condition<PatternObject> condition) {
-      PatternObjectSet filterList = new PatternObjectSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

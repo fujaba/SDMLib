@@ -26,11 +26,9 @@ import java.util.Collection;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
 {
@@ -452,10 +450,4 @@ public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp>
    {
       return new UnifyGraphsOpSet();
    }
-
-
-   public UnifyGraphsOpSet filter(Condition<UnifyGraphsOp> condition) {
-      UnifyGraphsOpSet filterList = new UnifyGraphsOpSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

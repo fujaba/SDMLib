@@ -29,9 +29,6 @@ import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.simpleEnumModel.model.util.TEnumSet;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class MacSet extends SimpleSet<Mac>
 {
@@ -462,15 +459,6 @@ public class MacSet extends SimpleSet<Mac>
       return new MacSet();
    }
 
-
-   public MacSet filter(Condition<Mac> condition) {
-      MacSet filterList = new MacSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }   
-
-
-   
    //==========================================================================
    
    public StringList concat(int p0)

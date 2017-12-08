@@ -30,8 +30,6 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
 
 public class SocketThreadSet extends SimpleSet<SocketThread>
 {
@@ -427,12 +425,6 @@ public class SocketThreadSet extends SimpleSet<SocketThread>
       return new SocketThreadSet();
    }
 
-
-   public SocketThreadSet filter(Condition<SocketThread> condition) {
-      SocketThreadSet filterList = new SocketThreadSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SocketThread objects and collect those SocketThread objects where the defaultTargetThread attribute matches the parameter value. 
     * 

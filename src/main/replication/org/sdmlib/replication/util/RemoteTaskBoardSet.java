@@ -29,8 +29,6 @@ import org.sdmlib.replication.RemoteTaskBoard;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.util.LaneSet;
 
 public class RemoteTaskBoardSet extends SimpleSet<RemoteTaskBoard>
 {
@@ -165,10 +163,4 @@ public class RemoteTaskBoardSet extends SimpleSet<RemoteTaskBoard>
    {
       return new RemoteTaskBoardSet();
    }
-
-
-   public RemoteTaskBoardSet filter(Condition<RemoteTaskBoard> condition) {
-      RemoteTaskBoardSet filterList = new RemoteTaskBoardSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

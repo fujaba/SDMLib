@@ -23,23 +23,16 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import java.util.Collection;
 
+import org.sdmlib.test.examples.gofpattern.strategy.Blast;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveDown;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveLeft;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveRight;
+import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
+import org.sdmlib.test.examples.gofpattern.strategy.Stay;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.gofpattern.strategy.MoveUp;
-import org.sdmlib.test.examples.gofpattern.strategy.util.MoveUpSet;
-import org.sdmlib.test.examples.gofpattern.strategy.MoveDown;
-import org.sdmlib.test.examples.gofpattern.strategy.util.MoveDownSet;
-import org.sdmlib.test.examples.gofpattern.strategy.MoveLeft;
-import org.sdmlib.test.examples.gofpattern.strategy.util.MoveLeftSet;
-import org.sdmlib.test.examples.gofpattern.strategy.MoveRight;
-import org.sdmlib.test.examples.gofpattern.strategy.util.MoveRightSet;
-import org.sdmlib.test.examples.gofpattern.strategy.Blast;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BlastSet;
-import org.sdmlib.test.examples.gofpattern.strategy.Stay;
-import org.sdmlib.test.examples.gofpattern.strategy.util.StaySet;
 
 public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
 {
@@ -299,13 +292,6 @@ public class BombermanStrategySet extends SimpleSet<BombermanStrategy>
    public BombermanStrategySet getNewList(boolean keyValue)
    {
       return new BombermanStrategySet();
-   }
-
-
-   public BombermanStrategySet filter(Condition<BombermanStrategy> condition) {
-      BombermanStrategySet filterList = new BombermanStrategySet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public MoveUpSet instanceOfMoveUp()

@@ -27,8 +27,6 @@ import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class AlexSet extends SimpleSet<Alex>
 {
@@ -251,10 +249,4 @@ public class AlexSet extends SimpleSet<Alex>
    {
       return new AlexSet();
    }
-
-
-   public AlexSet filter(Condition<Alex> condition) {
-      AlexSet filterList = new AlexSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

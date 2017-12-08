@@ -30,9 +30,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.BooleanList;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelChannelSet extends SimpleSet<SeppelChannel>
 {
@@ -278,12 +275,6 @@ public class SeppelChannelSet extends SimpleSet<SeppelChannel>
       return new SeppelChannelSet();
    }
 
-
-   public SeppelChannelSet filter(Condition<SeppelChannel> condition) {
-      SeppelChannelSet filterList = new SeppelChannelSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of SeppelChannel objects and collect those SeppelChannel objects where the loginValidated attribute matches the parameter value. 
     * 

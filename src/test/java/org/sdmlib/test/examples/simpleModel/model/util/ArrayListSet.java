@@ -24,10 +24,9 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
-import org.sdmlib.test.examples.simpleModel.model.util.MacListSet;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ArrayListSet extends SimpleSet<ArrayList>
 {
@@ -106,13 +105,6 @@ public class ArrayListSet extends SimpleSet<ArrayList>
    public ArrayListSet getNewList(boolean keyValue)
    {
       return new ArrayListSet();
-   }
-
-
-   public ArrayListSet filter(Condition<ArrayList> condition) {
-      ArrayListSet filterList = new ArrayListSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public MacListSet instanceOfMacList()

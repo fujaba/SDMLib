@@ -36,11 +36,9 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SimpleSet<PatternElement>
 {
@@ -461,13 +459,6 @@ public class PatternElementSet extends SimpleSet<PatternElement>
    public PatternElementSet getNewList(boolean keyValue)
    {
       return new PatternElementSet();
-   }
-
-
-   public PatternElementSet filter(Condition<PatternElement> condition) {
-      PatternElementSet filterList = new PatternElementSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public GenericConstraintSet instanceOfGenericConstraint()

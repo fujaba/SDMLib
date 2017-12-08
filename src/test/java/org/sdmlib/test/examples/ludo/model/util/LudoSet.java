@@ -31,12 +31,8 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.util.DiceSet;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {
@@ -339,12 +335,6 @@ public class LudoSet extends SimpleSet<Ludo>
       return new LudoSet();
    }
 
-
-   public LudoSet filter(Condition<Ludo> condition) {
-      LudoSet filterList = new LudoSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Ludo objects and collect those Ludo objects where the date attribute matches the parameter value. 
     * 

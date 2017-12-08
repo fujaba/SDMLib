@@ -28,11 +28,8 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.roombook.Building;
 import org.sdmlib.test.examples.roombook.Floor;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.roombook.util.BuildingSet;
 
 public class FloorSet extends SDMSet<Floor>
 {
@@ -75,13 +72,6 @@ public class FloorSet extends SDMSet<Floor>
    {
       this.remove(value);
       return this;
-   }
-
-   @Override
-   public FloorSet filter(Condition<Floor> newValue) {
-      FloorSet filterList = new FloorSet();
-      filterItems(filterList, newValue);
-      return filterList;
    }
 
    /**

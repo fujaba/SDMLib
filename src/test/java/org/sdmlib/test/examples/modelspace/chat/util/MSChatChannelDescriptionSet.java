@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
 
 public class MSChatChannelDescriptionSet extends SimpleSet<MSChatChannelDescription>
 {
@@ -416,12 +413,6 @@ public class MSChatChannelDescriptionSet extends SimpleSet<MSChatChannelDescript
       return new MSChatChannelDescriptionSet();
    }
 
-
-   public MSChatChannelDescriptionSet filter(Condition<MSChatChannelDescription> condition) {
-      MSChatChannelDescriptionSet filterList = new MSChatChannelDescriptionSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of MSChatChannelDescription objects and collect those MSChatChannelDescription objects where the location attribute matches the parameter value. 
     * 

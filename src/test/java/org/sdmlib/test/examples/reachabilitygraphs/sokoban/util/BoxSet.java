@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
+
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class BoxSet extends SimpleSet<Box>
 {
@@ -75,13 +74,6 @@ public class BoxSet extends SimpleSet<Box>
    public BoxSet getNewList(boolean keyValue)
    {
       return new BoxSet();
-   }
-
-
-   public BoxSet filter(Condition<Box> condition) {
-      BoxSet filterList = new BoxSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

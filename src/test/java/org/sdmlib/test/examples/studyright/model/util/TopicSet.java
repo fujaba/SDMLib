@@ -29,8 +29,6 @@ import org.sdmlib.test.examples.studyright.model.Topic;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.studyright.model.util.ProfessorSet;
 
 public class TopicSet extends SimpleSet<Topic>
 {
@@ -255,12 +253,6 @@ public class TopicSet extends SimpleSet<Topic>
       return new TopicSet();
    }
 
-
-   public TopicSet filter(Condition<Topic> condition) {
-      TopicSet filterList = new TopicSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Topic objects and collect those Topic objects where the title attribute matches the parameter value. 
     * 

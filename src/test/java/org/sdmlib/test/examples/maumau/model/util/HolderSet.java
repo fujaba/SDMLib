@@ -25,20 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
+import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.maumau.model.Player;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
-import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class HolderSet extends SimpleSet<Holder>
 {
@@ -269,13 +263,6 @@ public class HolderSet extends SimpleSet<Holder>
    public HolderSet getNewList(boolean keyValue)
    {
       return new HolderSet();
-   }
-
-
-   public HolderSet filter(Condition<Holder> condition) {
-      HolderSet filterList = new HolderSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    public PlayerSet instanceOfPlayer()

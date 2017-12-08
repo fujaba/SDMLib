@@ -78,12 +78,6 @@ public class URiverSet extends SimpleSet<URiver>
    }
 
 
-   public URiverSet filter(Condition<URiver> condition) {
-      URiverSet filterList = new URiverSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
-
    @SuppressWarnings("unchecked")
    public URiverSet with(Object value)
    {

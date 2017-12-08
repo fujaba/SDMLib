@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.gofpattern.strategy.Stay;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class StaySet extends SimpleSet<Stay>
 {
@@ -181,10 +180,4 @@ public class StaySet extends SimpleSet<Stay>
    {
       return new StaySet();
    }
-
-
-   public StaySet filter(Condition<Stay> condition) {
-      StaySet filterList = new StaySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

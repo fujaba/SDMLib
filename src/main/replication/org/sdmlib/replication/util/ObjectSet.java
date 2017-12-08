@@ -24,7 +24,6 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class ObjectSet extends SDMSet<Object>
 {
@@ -101,10 +100,4 @@ public class ObjectSet extends SDMSet<Object>
    {
       return new ObjectSet();
    }
-
-
-   public ObjectSet filter(Condition<Object> condition) {
-      ObjectSet filterList = new ObjectSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

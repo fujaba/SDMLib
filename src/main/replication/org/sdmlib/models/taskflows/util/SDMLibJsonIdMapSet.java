@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class SDMLibJsonIdMapSet extends SimpleSet<SDMLibJsonIdMap>
 {
@@ -103,10 +102,4 @@ public class SDMLibJsonIdMapSet extends SimpleSet<SDMLibJsonIdMap>
    {
       return new SDMLibJsonIdMapSet();
    }
-
-
-   public SDMLibJsonIdMapSet filter(Condition<SDMLibJsonIdMap> condition) {
-      SDMLibJsonIdMapSet filterList = new SDMLibJsonIdMapSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -34,9 +34,6 @@ import org.sdmlib.test.examples.studyright.model.University;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 
 public class StudentSet extends SimpleSet<Student>
 {
@@ -759,12 +756,6 @@ public class StudentSet extends SimpleSet<Student>
       return new StudentSet();
    }
 
-
-   public StudentSet filter(Condition<Student> condition) {
-      StudentSet filterList = new StudentSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Student objects and collect those Student objects where the credits attribute matches the parameter value. 
     * 

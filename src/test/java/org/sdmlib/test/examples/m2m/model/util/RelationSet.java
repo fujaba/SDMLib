@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
 public class RelationSet extends SimpleSet<Relation>
 {
@@ -500,12 +497,6 @@ public class RelationSet extends SimpleSet<Relation>
       return new RelationSet();
    }
 
-
-   public RelationSet filter(Condition<Relation> condition) {
-      RelationSet filterList = new RelationSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Relation objects and collect those Relation objects where the kind attribute matches the parameter value. 
     * 

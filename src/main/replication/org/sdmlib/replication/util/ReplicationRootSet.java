@@ -29,7 +29,6 @@ import org.sdmlib.replication.ReplicationRoot;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
 {
@@ -423,12 +422,6 @@ public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
       return new ReplicationRootSet();
    }
 
-
-   public ReplicationRootSet filter(Condition<ReplicationRoot> condition) {
-      ReplicationRootSet filterList = new ReplicationRootSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ReplicationRoot objects and collect those ReplicationRoot objects where the applicationObject attribute matches the parameter value. 
     * 

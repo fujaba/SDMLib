@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class NodeSet extends SimpleSet<Node>
 {
@@ -75,13 +74,6 @@ public class NodeSet extends SimpleSet<Node>
    public NodeSet getNewList(boolean keyValue)
    {
       return new NodeSet();
-   }
-
-
-   public NodeSet filter(Condition<Node> condition) {
-      NodeSet filterList = new NodeSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

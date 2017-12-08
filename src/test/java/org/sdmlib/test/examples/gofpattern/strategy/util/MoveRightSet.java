@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.gofpattern.strategy.MoveRight;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class MoveRightSet extends SimpleSet<MoveRight>
 {
@@ -181,10 +180,4 @@ public class MoveRightSet extends SimpleSet<MoveRight>
    {
       return new MoveRightSet();
    }
-
-
-   public MoveRightSet filter(Condition<MoveRight> condition) {
-      MoveRightSet filterList = new MoveRightSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

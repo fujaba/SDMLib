@@ -31,9 +31,6 @@ import org.sdmlib.replication.RemoteTaskBoard;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.util.RemoteTaskBoardSet;
-import org.sdmlib.replication.util.BoardTaskSet;
 
 public class LaneSet extends SimpleSet<Lane>
 {
@@ -316,12 +313,6 @@ public class LaneSet extends SimpleSet<Lane>
       return new LaneSet();
    }
 
-
-   public LaneSet filter(Condition<Lane> condition) {
-      LaneSet filterList = new LaneSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Lane objects and collect those Lane objects where the name attribute matches the parameter value. 
     * 

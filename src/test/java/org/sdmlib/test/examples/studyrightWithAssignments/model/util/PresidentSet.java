@@ -26,10 +26,8 @@ import java.util.Collection;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 public class PresidentSet extends SimpleSet<President>
 {
@@ -74,13 +72,6 @@ public class PresidentSet extends SimpleSet<President>
    public PresidentSet getNewList(boolean keyValue)
    {
       return new PresidentSet();
-   }
-
-
-   public PresidentSet filter(Condition<President> condition) {
-      PresidentSet filterList = new PresidentSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

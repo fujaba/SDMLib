@@ -23,7 +23,6 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class ObjectSet extends SimpleSet<Object>
@@ -69,13 +68,6 @@ public class ObjectSet extends SimpleSet<Object>
    public ObjectSet getNewList(boolean keyValue)
    {
       return new ObjectSet();
-   }
-
-
-   public ObjectSet filter(Condition<Object> condition) {
-      ObjectSet filterList = new ObjectSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

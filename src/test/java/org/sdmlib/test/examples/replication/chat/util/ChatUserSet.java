@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.replication.chat.ChatUser;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatRootSet;
 
 public class ChatUserSet extends SimpleSet<ChatUser>
 {
@@ -317,11 +314,6 @@ public class ChatUserSet extends SimpleSet<ChatUser>
    }
 
 
-   public ChatUserSet filter(Condition<ChatUser> condition) {
-      ChatUserSet filterList = new ChatUserSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ChatUser objects and collect those ChatUser objects where the userName attribute matches the parameter value. 
     * 

@@ -29,14 +29,10 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {
@@ -802,12 +798,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
       return new NegativeApplicationConditionSet();
    }
 
-
-   public NegativeApplicationConditionSet filter(Condition<NegativeApplicationCondition> condition) {
-      NegativeApplicationConditionSet filterList = new NegativeApplicationConditionSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }   /**
+   /**
     * Loop through the current set of NegativeApplicationCondition objects and collect a set of the ReachabilityGraph objects reached via rgraph. 
     * 
     * @return Set of ReachabilityGraph objects reachable via rgraph

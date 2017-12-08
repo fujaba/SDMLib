@@ -30,9 +30,6 @@ import org.sdmlib.replication.Task;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.replication.util.TaskSet;
 
 public class LogEntrySet extends SimpleSet<LogEntry>
 {
@@ -455,12 +452,6 @@ public class LogEntrySet extends SimpleSet<LogEntry>
       return new LogEntrySet();
    }
 
-
-   public LogEntrySet filter(Condition<LogEntry> condition) {
-      LogEntrySet filterList = new LogEntrySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of LogEntry objects and collect those LogEntry objects where the executedBy attribute matches the parameter value. 
     * 

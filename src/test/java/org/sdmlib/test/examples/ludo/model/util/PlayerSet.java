@@ -32,16 +32,9 @@ import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import java.util.ArrayList;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
-import org.sdmlib.test.examples.ludo.model.util.DiceSet;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
-import org.sdmlib.test.examples.ludo.model.util.PawnSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {
@@ -1023,12 +1016,6 @@ public class PlayerSet extends SimpleSet<Player>
       return new PlayerSet();
    }
 
-
-   public PlayerSet filter(Condition<Player> condition) {
-      PlayerSet filterList = new PlayerSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of Player objects and collect those Player objects where the color attribute matches the parameter value. 
     * 

@@ -30,8 +30,6 @@ import org.sdmlib.replication.SharedSpace;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
 {
@@ -316,12 +314,6 @@ public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
       return new ReplicationChannelSet();
    }
 
-
-   public ReplicationChannelSet filter(Condition<ReplicationChannel> condition) {
-      ReplicationChannelSet filterList = new ReplicationChannelSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ReplicationChannel objects and collect those ReplicationChannel objects where the socket attribute matches the parameter value. 
     * 

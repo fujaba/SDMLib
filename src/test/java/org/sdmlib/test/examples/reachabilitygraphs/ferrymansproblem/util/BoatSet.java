@@ -30,10 +30,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 public class BoatSet extends SimpleSet<Boat>
 {
@@ -254,10 +250,4 @@ public class BoatSet extends SimpleSet<Boat>
    {
       return new BoatSet();
    }
-
-
-   public BoatSet filter(Condition<Boat> condition) {
-      BoatSet filterList = new BoatSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

@@ -31,9 +31,6 @@ import org.sdmlib.modelspace.ModelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.modelspace.util.ModelCloudSet;
-import org.sdmlib.modelspace.util.ModelCloudProxySet;
 
 public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
 {
@@ -317,12 +314,6 @@ public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
       return new ModelSpaceProxySet();
    }
 
-
-   public ModelSpaceProxySet filter(Condition<ModelSpaceProxy> condition) {
-      ModelSpaceProxySet filterList = new ModelSpaceProxySet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ModelSpaceProxy objects and collect those ModelSpaceProxy objects where the location attribute matches the parameter value. 
     * 

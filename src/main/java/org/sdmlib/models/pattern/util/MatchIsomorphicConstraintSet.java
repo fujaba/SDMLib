@@ -26,11 +26,9 @@ import java.util.Collection;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.Pattern;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConstraint>
 {
@@ -452,10 +450,4 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
    {
       return new MatchIsomorphicConstraintSet();
    }
-
-
-   public MatchIsomorphicConstraintSet filter(Condition<MatchIsomorphicConstraint> condition) {
-      MatchIsomorphicConstraintSet filterList = new MatchIsomorphicConstraintSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }}
+}

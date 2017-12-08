@@ -27,12 +27,9 @@ import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Bid;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.ActorSet;
-import org.sdmlib.test.historymanagement.marketmodel.util.OfferSet;
 
 public class BidSet extends SimpleSet<Bid>
 {
@@ -77,13 +74,6 @@ public class BidSet extends SimpleSet<Bid>
    public BidSet getNewList(boolean keyValue)
    {
       return new BidSet();
-   }
-
-
-   public BidSet filter(Condition<Bid> condition) {
-      BidSet filterList = new BidSet();
-      filterItems(filterList, condition);
-      return filterList;
    }
 
    @SuppressWarnings("unchecked")

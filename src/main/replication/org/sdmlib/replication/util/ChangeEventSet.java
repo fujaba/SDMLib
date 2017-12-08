@@ -27,8 +27,6 @@ import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class ChangeEventSet extends SimpleSet<ChangeEvent>
 {
@@ -998,12 +996,6 @@ public class ChangeEventSet extends SimpleSet<ChangeEvent>
       return new ChangeEventSet();
    }
 
-
-   public ChangeEventSet filter(Condition<ChangeEvent> condition) {
-      ChangeEventSet filterList = new ChangeEventSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of ChangeEvent objects and collect those ChangeEvent objects where the changeNo attribute matches the parameter value. 
     * 

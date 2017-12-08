@@ -25,16 +25,12 @@ import java.util.Collection;
 
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
+import org.sdmlib.test.examples.m2m.model.Person;
+import org.sdmlib.test.examples.m2m.model.Relation;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.Person;
-import org.sdmlib.test.examples.m2m.model.util.PersonSet;
-import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 public class GraphComponentSet extends SimpleSet<GraphComponent>
 {
@@ -259,12 +255,6 @@ public class GraphComponentSet extends SimpleSet<GraphComponent>
       return new GraphComponentSet();
    }
 
-
-   public GraphComponentSet filter(Condition<GraphComponent> condition) {
-      GraphComponentSet filterList = new GraphComponentSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
    /**
     * Loop through the current set of GraphComponent objects and collect those GraphComponent objects where the text attribute matches the parameter value. 
     * 
