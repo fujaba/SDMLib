@@ -302,9 +302,13 @@ public class LazyCloneOp
          {
             for (Object elem : (Collection) value)
             {
-               if (isDownProp)
+               if (dynNodes.contains(root))
                {
                   dynEdges.add(root, prop, elem);
+               }
+
+               if (isDownProp)
+               {
                   if (! dynNodes.contains(elem) && ! staticNodes.contains(elem))
                   {
                      dynNodes.add(elem);
@@ -335,7 +339,7 @@ public class LazyCloneOp
             else
             {
                
-               if ( ! value.getClass().getName().startsWith("java.lang.") && ! dynNodes.contains(value)  && ! staticNodes.contains(value))
+               if ( value != null && ! value.getClass().getName().startsWith("java.lang.") && ! dynNodes.contains(value)  && ! staticNodes.contains(value))
                {
                   // model type
                   staticNodes.add(value);
