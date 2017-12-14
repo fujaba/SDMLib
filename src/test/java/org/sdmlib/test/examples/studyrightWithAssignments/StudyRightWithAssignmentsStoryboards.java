@@ -102,7 +102,7 @@ public class StudyRightWithAssignmentsStoryboards
          + "\n"
          + "- Assignment   content:                     points: \n"
          + "  matrixMult:  \"Matrix Multiplication\"      5\n"
-         + "  series:      \"Series\"                     6\n"
+         + "  series:      Series                      6\n"
          + "  a3:          Integrals                    8\n"
          + "\n"
          + "- Room                  topic:  credits: doors:                 students: assignments: \n"
