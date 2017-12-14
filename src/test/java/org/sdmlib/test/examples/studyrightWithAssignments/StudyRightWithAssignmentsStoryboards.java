@@ -78,10 +78,11 @@ public class StudyRightWithAssignmentsStoryboards
 {
      /**
     * 
+    * @throws IOException 
     * @see <a href='../../../../../../../../doc/Yaml.html'>Yaml.html</a>
  */
    @Test
-   public void testYaml()
+   public void testYaml() throws IOException
    {
       Storyboard story = new Storyboard();
 
@@ -110,7 +111,7 @@ public class StudyRightWithAssignmentsStoryboards
          + "  artsRoom:             arts    16       mathRoom               null      null\n"
          + "  sportsRoom:           sports  25       [mathRoom artsRoom]\n"
          + "  examRoom:             exam     0       [sportsRoom artsRoom]\n"
-         + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom, examRoom]\n"
+         + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom examRoom]\n"
          + "";
 
       story.addPreformatted(yaml);
@@ -152,6 +153,25 @@ public class StudyRightWithAssignmentsStoryboards
       story.addStep("decoded again:");
       
       story.addObjectDiagram(newStudyRight);
+      
+      story.addStep("now read from excel file");
+      
+      story.markCodeStart();
+      byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/StudyRightStartSituation.txt"));
+      String excelText = new String(readAllBytes);
+      
+      YamlIdMap excelIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+      
+      studyRight = (University) excelIdMap.decode(excelText);
+      story.addCode();
+      
+      story.add("doc/StudyRightStartSituation.txt");
+      
+      story.addPreformatted(excelText);
+      
+      story.add("result:");
+      
+      story.addObjectDiagram(studyRight);
       
       story.dumpHTML();
    }

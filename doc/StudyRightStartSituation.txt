@@ -1,0 +1,23 @@
+-	studyRight:	University				
+	name: 	"""Study Right"""				
+	students:	karli				
+	rooms: 	mathRoom	artsRoom	sportsRoom	examRoom	softwareEngineering
+						
+-	karli:	Student				
+	id:	4242				
+	name:	karli				
+						
+-	albert: 	Prof				
+	topic:	SE				
+						
+-	Assignment	content:	points:			
+	matrixMult:	"""Matrix Multiplication"""	5			
+	series:	Series	6			
+	a3:	Integrals	8			
+						
+-	Room	topic:	credits:	doors:	students:	assignments:
+	mathRoom:	math	17	null	karli	[matricMult series a3]
+	artsRoom:	arts	25	mathRoom		
+	sportsRoom:	sports	25	[mathRoom artsRoom]		
+	examRoom:	exam	0	[sportsRoom artsRoom]		
+	softwareEngineering:	"""Software Engineering"""	42	[artsRoom examRoom]		

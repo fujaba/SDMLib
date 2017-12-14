@@ -235,6 +235,10 @@ public class YamlIdMap
          }
          
          lookAheadToken = yaml.substring(stringStartPos, subTokenEnd);
+         if (lookAheadToken.startsWith("\"\""))
+         {
+            lookAheadToken = lookAheadToken.substring(2, lookAheadToken.length()-2);
+         }
       }
       
       return currentToken;
