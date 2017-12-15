@@ -10,15 +10,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.serialization.NullCreator;
 import org.sdmlib.storyboards.GenericCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
-import sun.security.util.Length;
 
 public class YamlIdMap
 {
