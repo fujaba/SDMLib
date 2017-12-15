@@ -73,12 +73,6 @@ public class UCargoSet extends SimpleSet<UCargo>
    }
 
 
-   public UCargoSet filter(Condition<UCargo> condition) {
-      UCargoSet filterList = new UCargoSet();
-      filterItems(filterList, condition);
-      return filterList;
-   }
-
    @SuppressWarnings("unchecked")
    public UCargoSet with(Object value)
    {
