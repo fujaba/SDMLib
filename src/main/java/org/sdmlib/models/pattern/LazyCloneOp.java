@@ -107,7 +107,7 @@ public class LazyCloneOp
             {
                Object srcOrig = cloneToOrigMap.get(src);
                Object srcClone = origToCloneMap.get(src);
-               if (srcOrig == null && srcClone == null)
+               if (! cloneTodo.contains(src) && srcOrig == null && srcClone == null)
                {
                   climbTodo.add(src);
                   cloneTodo.add(src);

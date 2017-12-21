@@ -152,7 +152,10 @@ public class ReachabilityGraphFerrymansProblemExample
       reachabilityGraph.addToRules(movePattern);
 
       // ================================================
+      
       long size = reachabilityGraph.explore();
+
+      // ================================================
 
       for (ReachableState s : reachabilityGraph.getStates())
       {
