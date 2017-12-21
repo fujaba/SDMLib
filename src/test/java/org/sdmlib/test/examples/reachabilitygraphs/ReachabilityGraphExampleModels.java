@@ -102,7 +102,7 @@ public class ReachabilityGraphExampleModels
       Clazz bank = model.createClazz("UBank")
             .withAttribute("name", DataType.STRING);
             
-      boat.createUniDirectional(bank, "bank", Cardinality.ONE);
+      boat.createUniDirectional(bank, "bank", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
       
       river.createUniDirectional(bank, "banks", Cardinality.MANY).with(AssociationTypes.AGGREGATION);
       
@@ -112,7 +112,6 @@ public class ReachabilityGraphExampleModels
       bank.createUniDirectional(cargo, "cargos", Cardinality.MANY);
       
       boat.createUniDirectional(cargo, "cargo", Cardinality.ONE);
-      // cargo.withBidirectional(boat, "boat", Cardinality.ONE, "cargo", Cardinality.ONE);
       
       storyboard.addClassDiagram(model);
       

@@ -35,6 +35,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.U
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.URiverSet;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
@@ -77,7 +78,7 @@ public class ReachabilityGraphFerrymansProblemExample
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
             .withMasterMap(map).withStates(rs1).withTodo(rs1);
 
-      Object s1cert = rs1.lazyComputeCertificate();
+      Object s1cert = rs1.dynComputeCertificate();
 
       storyboard.addPreformatted(s1cert.toString());
 
@@ -218,7 +219,6 @@ public class ReachabilityGraphFerrymansProblemExample
       IdMap map = cc.createIdMap("s");
       map.with(ReachabilityGraphCreator.createIdMap("rg"));
 
-      LazyCloneOp lazyCloneOp = new LazyCloneOp().setMap(map);
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
             .withMasterMap(map)
             .withStart(rs1)
@@ -351,7 +351,7 @@ public class ReachabilityGraphFerrymansProblemExample
 
       boat.withBank(left);
 
-      left.createCargos().withName("cabbage");
+      UCargo cabbage = left.createCargos().withName("cabbage");
       UCargo goat = left.createCargos().withName("goat");
       UCargo wolf = left.createCargos().withName("wolf");
 
@@ -432,8 +432,15 @@ public class ReachabilityGraphFerrymansProblemExample
 
 
       // ======================================================================================
+      
+      ObjectSet staticNodes = new ObjectSet();
+      staticNodes.with(goat, cabbage, wolf);
+      reachabilityGraph.setStaticNodes(staticNodes);
+      
       reachabilityGraph.explore();
-
+      
+      // ======================================================================================
+      
       long size = reachabilityGraph.getStates().size();
 
 
@@ -441,11 +448,7 @@ public class ReachabilityGraphFerrymansProblemExample
       for (ReachableState s : reachabilityGraph.getStates())
       {
          storyboard.add("Reachable State " + s.getNumber());
-         URiver r = (URiver) s.getGraphRoot();
-         SimpleKeyValueList<Object, Object> graph = new SimpleKeyValueList<Object, Object>();
-         reachabilityGraph.getLazyCloneOp().aggregate(graph, r, r);
-         // storyboard.addObjectDiagram(graph);
-         storyboard.addObjectDiagramOnlyWith(graph.keySet());
+         storyboard.addObjectDiagramOnlyWith(s.getDynNodes(), reachabilityGraph.getStaticNodes());
       }
 
 

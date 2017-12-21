@@ -87,6 +87,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo
    {
       setBank(null);
       setCargo(null);
+      if (getCargo() != null) { getCargo().removeYou(); }
+      if (getBank() != null) { getBank().removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -125,6 +127,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo
       return changed;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public UBoat withBank(UBank value)
    {
       setBank(value);

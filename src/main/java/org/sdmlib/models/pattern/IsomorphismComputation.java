@@ -14,8 +14,8 @@ public class IsomorphismComputation
       ReachableState rs1 = new ReachableState().withGraphRoot(graph1).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(graph2).withParent(reachabilityGraph);
 
-      Object s1cert = rs1.lazyComputeCertificate();
-      Object s2cert = rs2.lazyComputeCertificate();
+      Object s1cert = rs1.dynComputeCertificate();
+      Object s2cert = rs2.dynComputeCertificate();
 
       
       return reachabilityGraph.lazyMatch(rs1, rs2) != null;

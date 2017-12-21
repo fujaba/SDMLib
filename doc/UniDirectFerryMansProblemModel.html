@@ -102,16 +102,16 @@
          }
       },
       {
-         "typ":"unidirectional",
+         "typ":"aggregation",
          "source":{
-            "id":"UBank",
-            "cardinality":"one",
-            "property":"bank"
-         },
-         "target":{
             "id":"UBoat",
             "cardinality":"one",
             "property":"uboat"
+         },
+         "target":{
+            "id":"UBank",
+            "cardinality":"one",
+            "property":"bank"
          }
       },
       {

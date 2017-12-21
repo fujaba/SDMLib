@@ -45,6 +45,7 @@ public class UBoatCreator implements AggregatedEntityCreator
    
    private final String[] downProperties = new String[]
    {
+      UBoat.PROPERTY_BANK,
    };
    
    @Override

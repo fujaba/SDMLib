@@ -292,9 +292,9 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
 
       boolean done = false;
       
-      if (this.lazyCloneOp != null)
+      if (this.getLazyCloneOp() != null)
       {
-         this.lazyCloneOp.clear();
+         this.getLazyCloneOp().clear();
       }
 
       // start with the last element and go backward until a new choice is made,
@@ -355,9 +355,9 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
          pe.resetSearch();
       }
       
-      if (this.lazyCloneOp != null)
+      if (this.getLazyCloneOp() != null)
       {
-         this.lazyCloneOp.clear();
+         this.getLazyCloneOp().clear();
       }
    }
 
@@ -1734,48 +1734,56 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
       return value;
    }
 
-   private LazyCloneOp lazyCloneOp = null;
-
+   private ReachabilityGraph reachabilityGraph = null;
+   
+   public ReachabilityGraph getReachabilityGraph()
+   {
+      return reachabilityGraph;
+   }
+   
+   public void setReachabilityGraph(ReachabilityGraph reachabilityGraph)
+   {
+      this.reachabilityGraph = reachabilityGraph;
+   }
+   
    public LazyCloneOp getLazyCloneOp()
    {
-      return lazyCloneOp;
-   }
-
-
-
-   public Pattern<MP> setLazyCloneOp(LazyCloneOp lazyCloneOp2)
-   {
-      this.lazyCloneOp = lazyCloneOp2;
-      return this;
+      if (reachabilityGraph != null)
+      {
+         return reachabilityGraph.getLazyCloneOp();
+      }
+      
+      return null;
    }
 
    public void lazyClone(Object srcObj)
    {
-      if (this.lazyCloneOp == null)
+      if (this.getLazyCloneOp() == null)
       {
          return; // no lazy cloning
       }
       
-      if (this.lazyCloneOp.getCloneToOrigMap().get(srcObj) != null)
+      if (this.getLazyCloneOp().getCloneToOrigMap().get(srcObj) != null)
       {
          // srcObj is already a clone
          return;
       }
       
       // ensure root has already been / is cloned
-      if (this.lazyCloneOp.getOrigToCloneMap().isEmpty())
+      if (this.getLazyCloneOp().getOrigToCloneMap().isEmpty())
       {
          // get graph root and lazy clone it
          PatternObject firstPO = (PatternObject) this.getElements().first();
          Object root = firstPO.getCurrentMatch();
-         this.lazyCloneOp.clone(root);
+         this.getLazyCloneOp().clone(root);
       }
       
       // does srcObj already have a clone?
-      if (this.lazyCloneOp.getOrigToCloneMap().get(srcObj) == null)
+      if (this.getLazyCloneOp().getOrigToCloneMap().get(srcObj) == null)
       {
          // no, do it
-         this.lazyCloneOp.clone(srcObj);
+         this.getLazyCloneOp().clone(srcObj);
       }
-   } 
+   }
+
 }

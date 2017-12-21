@@ -34,12 +34,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
@@ -72,6 +75,20 @@ import org.sdmlib.models.pattern.Pattern;
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
+   
+   // ==========================================================================
+   private ObjectSet staticNodes = null;
+
+   public ObjectSet getStaticNodes()
+   {
+      return staticNodes;
+   }
+   
+   public void setStaticNodes(ObjectSet staticNodes)
+   {
+      this.staticNodes = staticNodes;
+   }
+   
    
    // ==========================================================================
    private final class OmitRootCondition implements ObjectCondition
@@ -752,13 +769,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          {
             PatternObject firstPO = (PatternObject) rule.getElements().first();
 
-            rule.setLazyCloneOp(lazyCloneOp);
+            rule.setReachabilityGraph(this);
             rule.resetSearch();
 
             ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(current.getGraphRoot());
 
-            while (rule.findMatch())
+            while (true)
             {
+               this.lazyCloneOp.reset();
+               if ( ! rule.findMatch())
+               {
+                  break;
+               }
+               
                // count matches found on this graph
                current.noOfRuleMatchesDone++;
 
@@ -829,7 +852,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                }
                else
                {
-                  newCertificate = newReachableState.lazyComputeCertificate();
+                  newCertificate = newReachableState.dynComputeCertificate();
                }
                
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
@@ -949,7 +972,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          }
          else
          {
-            newCertificate = newReachableState.lazyComputeCertificate();
+            newCertificate = newReachableState.dynComputeCertificate();
          }
          
          // already known? 
@@ -1036,7 +1059,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             }
             else
             {
-               oldState.lazyComputeCertificate();
+               oldState.dynComputeCertificate();
             }
          }
          
@@ -1121,7 +1144,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       RuleApplication newRuleApplication = new RuleApplication()
          .withTgt(startState);
 
-      Matcher matcher = matchers.get(Math.abs(startState.lazyComputeCertificate().hashCode()) % matchers.size());
+      Matcher matcher = matchers.get(Math.abs(startState.dynComputeCertificate().hashCode()) % matchers.size());
 
       matcher.apply(newRuleApplication);
 
@@ -1324,7 +1347,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   }
                   else
                   {
-                     newCertificate = newReachableState.lazyComputeCertificate();
+                     newCertificate = newReachableState.dynComputeCertificate();
                   }
                   
                   RuleApplication newRuleApplication = newState.createRuleapplications()
@@ -1447,12 +1470,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          {
             obj1RefLoop: for (Object object1 : (Collection) value1)
             {
-               // does object1 belong to the current graph? 
-               if ( ! s1.getLazyGraph().contains(object1))
-               {
-                  // ignore it
-                  continue;
-               }
                // might already have been matched? 
                Object mapObject2 = fwdmapping.get(object1);
                
@@ -1506,11 +1523,16 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                // not yet mapped, search for mapping
                for (Object object2 : (Collection) value2)
                {
-                  if ( ! s2.getLazyGraph().contains(object2))
+                  if (object1 == object2)
                   {
-                     // ignore it
-                     continue;
+                     // the object is actually shared by both states. 
+                     // thus it definitely matches to itself
+                     fwdmapping.put(object1, object2);
+                     bwdmapping.put(object2, object1);
+                     
+                     continue obj1RefLoop;
                   }
+                  
                   
                   if (bwdmapping.get(object2) != null)
                   {
@@ -1531,11 +1553,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   else
                   {
                      // do the certificates match?
-                     int cert1 = s1.getLazyNode2CertNo().get(object1);
-                     Map<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
-                     int cert2 = lazyNode2CertNo.get(object2);
+                     String cert1 = s1.getLazyNode2CertNo().get(object1);
+                     Map<Object,String> lazyNode2CertNo = s2.getLazyNode2CertNo();
+                     String cert2 = lazyNode2CertNo.get(object2);
 
-                     if (cert1 != cert2)
+                     if ( ! StrUtil.stringEquals(cert1, cert2))
                      {
                         // try some other object2
                         continue;
@@ -1622,11 +1644,11 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             else
             {
                // do the certificates match?
-               int cert1 = s1.getLazyNode2CertNo().get(value1);
-               Map<Object,Integer> lazyNode2CertNo = s2.getLazyNode2CertNo();
-               int cert2 = lazyNode2CertNo.get(value2);
+               String cert1 = s1.getLazyNode2CertNo().get(value1);
+               Map<Object,String> lazyNode2CertNo = s2.getLazyNode2CertNo();
+               String cert2 = lazyNode2CertNo.get(value2);
 
-               if (cert1 != cert2)
+               if ( ! StrUtil.stringEquals(cert1, cert2))
                {
                   // try some other object2
                   return false;
@@ -1866,7 +1888,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       else
       {
-         newCertificate = startState.lazyComputeCertificate();
+         newCertificate = startState.dynComputeCertificate();
       }
 
       this.withStates(startState);
@@ -1899,7 +1921,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       else
       {
-         newCertificate = finalState.lazyComputeCertificate();
+         newCertificate = finalState.dynComputeCertificate();
       }
       
       ReachableStateSet candidateStates = this.getStateMap(finalState.getCertificate());
@@ -1925,7 +1947,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       }
       else
       {
-         newCertificate = startState.lazyComputeCertificate();
+         newCertificate = startState.dynComputeCertificate();
       }
       
       this.withStates(startState);
@@ -1953,7 +1975,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public ReachabilityGraph withLazyCloning()
    {
       Objects.requireNonNull(this.masterMap);
-      this.lazyCloneOp = new LazyCloneOp().setMap(masterMap);
+      this.lazyCloneOp = new LazyCloneOp(this).setMap(masterMap);
       
       return this;
    }
@@ -1973,6 +1995,17 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private SimpleKeyValueList<Object, Object> level1Nodes2Cert = null;
 
+   private TreeMap<String, String> allStaticCertificate2Number = null;
+
+   private Map<Object, String> staticNode2CertNo;
+   
+   public Map<Object, String> getStaticNode2CertNo()
+   {
+      return staticNode2CertNo;
+   }
+
+   // private String staticCertificate;
+
    public SimpleKeyValueList getLevel1Nodes2Cert()
    {
       return level1Nodes2Cert;
@@ -1981,6 +2014,176 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public void setLevel1Nodes2Cert(SimpleKeyValueList level1Nodes2Cert)
    {
       this.level1Nodes2Cert = level1Nodes2Cert;
+   }
+
+   public void staticComputeCertificate()
+   {
+      if (staticNode2CertNo != null)
+      {
+         return;
+      }
+      
+      Map<Object, String> oldNode2CertNo = new SimpleKeyValueList<Object, String>();
+
+      long oldNumOfCertificates = 0;
+      
+      staticNode2CertNo = new SimpleKeyValueList<Object, String>();
+
+
+      allStaticCertificate2Number = new TreeMap<String, String>();
+      
+      // collect new certificates
+      for (Object o : staticNodes)
+      {
+         String simpleName = o.getClass().getSimpleName()+'\n';
+
+         allStaticCertificate2Number.put(simpleName, "S");
+      }
+      
+      // number new certificates
+      int numOfCerts = 0;
+      for (String cert : allStaticCertificate2Number.keySet())
+      {
+         numOfCerts++;
+         allStaticCertificate2Number.put(cert, "S" + numOfCerts);
+      }
+
+      // assign cert numbers to nodes
+      for (Object o : staticNodes)
+      {
+         String simpleName = o.getClass().getSimpleName()+'\n';
+         String certNo = allStaticCertificate2Number.get(simpleName);
+         oldNode2CertNo.put(o, certNo);
+      }
+      
+      TreeMap<String, ArrayList> cert2Nodes = new TreeMap<String, ArrayList>();
+      
+      // boolean stopNextRound = false;
+      
+      ArrayList<String> valueCertNumbers = new ArrayList<String>();
+
+      while (true)
+      {
+         // collect new certificates
+         for (Object o : staticNodes)
+         {
+            SendableEntityCreator creator = lazyCloneOp.getMap().getCreatorClass(o);
+            
+            String certNo = oldNode2CertNo.get(o);
+            Objects.requireNonNull(certNo);
+            StringBuilder newCertificate = new StringBuilder().append(certNo).append(": ");
+            
+            // loop through props
+            for (String prop : creator.getProperties())
+            {
+               Object value = creator.getValue(o, prop);
+               
+               if (value != null)
+               {
+                  if (value instanceof Collection)
+                  {
+                     Collection valueCollection = (Collection) value;
+
+                     valueCertNumbers.clear();
+
+                     for (Object valueElem : (Collection) value)
+                     {
+                        if (staticNodes.contains(valueElem))
+                        {
+                           String valueCertNo = oldNode2CertNo.get(valueElem);
+                           Objects.requireNonNull(valueCertNo);
+                           valueCertNumbers.add(valueCertNo);
+                        }
+                     }
+
+                     if ( ! valueCertNumbers.isEmpty())
+                     {
+                        valueCertNumbers.sort(null);
+
+                        newCertificate.append("   ").append(prop).append(": ");
+                        for (String no : valueCertNumbers)
+                        {
+                           newCertificate.append(no).append(' ');
+                        }
+                        newCertificate.append('\n');
+                     }
+                  }
+                  else if (staticNodes.contains(value))
+                  {
+                     String valueCertNo = oldNode2CertNo.get(value);
+                     Objects.requireNonNull(valueCertNo);
+                     newCertificate.append("   ").append(prop).append(": ").append(valueCertNo).append("\n");
+                  }
+                  else // plain value
+                  {
+                     newCertificate.append("   ").append(prop).append(": ").append(value.toString()).append("\n");
+                  }
+               }
+            } // for (String prop : creator.getProperties())
+
+            ArrayList nodeList = cert2Nodes.get(newCertificate.toString());
+            if (nodeList == null)
+            {
+               nodeList = new ArrayList();
+               cert2Nodes.put(newCertificate.toString(), nodeList);
+            }
+
+            nodeList.add(o);
+         } // for (Object o : graph)
+
+         // number certificates and assign numbers to nodes and count nodes per certificate
+         for (String newCert : cert2Nodes.keySet())
+         {
+            String certNo = allStaticCertificate2Number.get(newCert);
+            if (certNo == null)
+            {
+               certNo = "S" + (allStaticCertificate2Number.size() + 1);
+               allStaticCertificate2Number.put(newCert, certNo);
+            }
+            
+            for (Object elem : cert2Nodes.get(newCert))
+            {
+               staticNode2CertNo.put(elem, certNo);
+            }
+         }
+
+         if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == staticNodes.size())
+         {
+            //            // write state certificate
+            //            StringBuilder buf = new StringBuilder();
+            //            for (String cert : cert2Nodes.keySet())
+            //            {
+            //               Integer noOfNodes = cert2Nodes.get(cert).size();
+            //               Integer certNo = allStaticCertificate2Number.get(cert);
+            //
+            //               buf.append(certNo).append('*').append(noOfNodes)
+            //               .append('\n');
+            //            }
+            //
+            //            // append certNo certText list
+            //            for ( Entry<String, Integer> entry : allStaticCertificate2Number.entrySet())
+            //            {
+            //               buf.append(entry.getValue()).append(": ").append(entry.getKey());
+            //            }
+            //
+            //            this.staticCertificate = buf.toString();
+            
+            break;
+         }
+         
+
+         // do another round
+         oldNumOfCertificates = cert2Nodes.size();
+         cert2Nodes.clear();
+         
+         Map<Object, String> tmp = oldNode2CertNo;
+         oldNode2CertNo = staticNode2CertNo;
+
+         tmp.clear();
+         staticNode2CertNo = tmp;
+      } // while
+
+      
    }
    
 }

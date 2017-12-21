@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import org.sdmlib.models.modelsets.doubleList;
+import org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
@@ -26,6 +28,13 @@ public class LazyCloneOp
    private LinkedHashMap<Object, Object> origToCloneMap = new LinkedHashMap<Object, Object>();
    private LinkedHashMap<Object, Object> cloneToOrigMap = new LinkedHashMap<Object, Object>();
    
+   public void reset()
+   {
+      origToCloneMap.clear();
+      cloneToOrigMap.clear();
+   }
+
+   
    public LinkedHashMap<Object, Object> getOrigToCloneMap()
    {
       return origToCloneMap;
@@ -35,6 +44,15 @@ public class LazyCloneOp
    {
       return cloneToOrigMap;
    }
+   
+   
+   private ReachabilityGraph reachabilityGraph = null;
+   
+   public LazyCloneOp(ReachabilityGraph rg)
+   {
+      this.reachabilityGraph = rg;
+   }
+   
    
    public Object clone(Object orig)
    {
@@ -54,104 +72,81 @@ public class LazyCloneOp
       climbTodo.add(orig);
       cloneTodo.add(orig);
       
-      SimpleKeyValueList graph = new SimpleKeyValueList();
+      ObjectSet dynNodes = new ObjectSet();
+     
+      
+      SimpleList<Object> dynEdges = new SimpleList<Object>();
       
       // try to compute clone graph from first entry of origToCloneMap 
       if ( ! origToCloneMap.isEmpty())
       {
          orig = origToCloneMap.keySet().iterator().next();
          clone = origToCloneMap.get(orig);
-         aggregate(graph, clone, clone);
+         dynNodes.add(clone);
+         aggregate(dynNodes, dynEdges, reachabilityGraph.getStaticNodes(), clone);
       }
       else
       {
-         aggregate(graph, orig, orig);
+         dynNodes.add(orig);
+         aggregate(dynNodes, dynEdges, reachabilityGraph.getStaticNodes(), orig);
       }
       
       
       while ( ! climbTodo.isEmpty())
       {
          orig = climbTodo.pollFirst();
-         // climb up to root and add parents to todo list
-         SendableEntityCreator simpleCreator = map.getCreatorClass(orig);
-         
-         if ( ! (simpleCreator instanceof AggregatedEntityCreator))
-         {
-            return cloneComponent(graph, orig);
-         }
-         
-         AggregatedEntityCreator creator = (AggregatedEntityCreator) simpleCreator;
-      
-         if (creator.getUpProperties().length == 0 && creator.getDownProperties().length == 0)
-         {
-            // orig is not part of the aggregation tree. No sharing. Clone everything
-            return cloneComponent(graph, orig);
-         }
-         
-         Object parent = graph.get(orig);
 
-         clone = origToCloneMap.get(parent);
-         
-
-         if (clone != null || orig == parent || cloneToOrigMap.get(parent) != null)
+         // for any dyn edge that points to orig clone its src
+         for (int i = 0; i < dynEdges.size(); i += 3)
          {
-            break;
+            Object src = dynEdges.get(i);
+            Object prop = dynEdges.get(i+1);
+            Object tgt = dynEdges.get(i+2);
+            
+            if (tgt == orig)
+            {
+               Object srcOrig = cloneToOrigMap.get(src);
+               Object srcClone = origToCloneMap.get(src);
+               if (srcOrig == null && srcClone == null)
+               {
+                  climbTodo.add(src);
+                  cloneTodo.add(src);
+               }
+            }
          }
-         climbTodo.add(parent);
-         cloneTodo.add(parent);
-         
-         //         for (String upProp : creator.getUpProperties())
-         //         {
-         //            Object value = creator.getValue(orig, upProp);
-         //         
-         //            if (value != null && value instanceof Collection)
-         //            {
-         //               for (Object parent : (Collection) value)
-         //               {
-         //                  clone = origToCloneMap.get(parent);
-         //                  
-         //                  if (clone != null)
-         //                  {
-         //                     break;
-         //                  }
-         //                  
-         //                  if (graph.contains(parent))
-         //                  {
-         //                     // this parent belongs to the clone graph and does not yet have a clone
-         //                     climbTodo.add(parent);
-         //                     cloneTodo.add(parent);
-         //                  }
-         //               }
-         //            }
-         //         }
       }
       
-      
-      while (! cloneTodo.isEmpty())
+      for ( Object o : cloneTodo)
       {
-         orig = cloneTodo.pollLast();
-
-         AggregatedEntityCreator creator = (AggregatedEntityCreator) map.getCreatorClass(orig);
+         SendableEntityCreator creator =  map.getCreatorClass(o);
 
          // create clone
          clone = creator.getSendableInstance(false);
          
-         graph.remove(orig);
-         graph.put(clone, clone);
-
-         origToCloneMap.put(orig, clone);
-         cloneToOrigMap.put(clone, orig);
+         origToCloneMap.put(o, clone);
+         cloneToOrigMap.put(clone, o);
+      }
+      
+      
+      for ( Object o : cloneTodo)
+      {
+         clone = origToCloneMap.get(o);
+         
+         Objects.requireNonNull(clone);
+         
+         SendableEntityCreator creator =  map.getCreatorClass(o);
 
          // copy properties
          for ( String prop : creator.getProperties())
          {
-            Object value = creator.getValue(orig, prop);
+            Object value = creator.getValue(o, prop);
 
+            Object neighborOrig = null;
+            Object neighborClone = null;
+            
             if (value != null && value instanceof Collection)
             {
                // if our neighbor is currently cloned, we connect to that clone, only. 
-               Object neighborOrig = null;
-               Object neighborClone = null;
                ArrayList list = new ArrayList(((Collection)value).size());
                list.addAll((Collection)value);
                for (Object neighbor : (Collection)list)
@@ -159,19 +154,65 @@ public class LazyCloneOp
                   neighborClone = origToCloneMap.get(neighbor);
                   neighborOrig = cloneToOrigMap.get(neighbor);
                   
-                  if (graph.get(neighbor) != null)
+                  if (neighborOrig != null)
                   {
-                     if (neighborOrig != null)
-                     {
-                        creator.setValue(orig, prop, neighbor, SendableEntityCreator.REMOVE);
-                     }
+                     Logger.getGlobal().warning("x is about to be cloned, but points already to a clone. That should not happen");
+                  }
+                  else if (neighborClone == null)
+                  {
+                     // our clone should point to the neigbor
                      creator.setValue(clone, prop, neighbor, "new");
+                  }
+                  else
+                  {
+                     // our clone should point to the neighborClone
+                     creator.setValue(clone, prop, neighborClone, "new");
                   }
                }
             }
             else
             {
-               creator.setValue(clone, prop, value, "new");
+               neighborClone = origToCloneMap.get(value);
+               
+               if (neighborClone == null)
+               {
+                  // our clone should point to the value
+                  creator.setValue(clone, prop, value, "new");
+               }
+               else
+               {
+                  // our clone should point to the neighborClone
+                  creator.setValue(clone, prop, neighborClone, "new");
+               }
+            }
+         }
+         
+         // redirect incoming unidirectional edges
+         for (int i = 0; i < dynEdges.size(); i += 3)
+         {
+            Object src = dynEdges.get(i);
+            String prop = (String) dynEdges.get(i+1);
+            Object tgt = dynEdges.get(i+2);
+            
+            if (tgt == o)
+            {
+               // if source is a clone
+               Object srcOrig = cloneToOrigMap.get(src);
+               if (srcOrig != null)
+               {
+                  // src should point to clone
+                  SendableEntityCreator srcCreator = map.getCreatorClass(src);
+                  
+                  // in case of to-many remove old edge, first
+                  Object value = srcCreator.getValue(src, prop);
+                  
+                  if (value instanceof Collection)
+                  {
+                     srcCreator.setValue(src,  prop, o, SendableEntityCreator.REMOVE);
+                  }
+                  
+                  srcCreator.setValue(src,  prop, clone, "new");
+               }
             }
          }
       }
@@ -285,41 +326,21 @@ public class LazyCloneOp
       
       Objects.requireNonNull(plainCreator);
       
-      String[] downProperties = null;
-      
-      if (plainCreator instanceof AggregatedEntityCreator)
-      {
-         downProperties = ((AggregatedEntityCreator) plainCreator).getDownProperties();
-      }
-      
       for (String prop : plainCreator.getProperties())
       {
          Object value = plainCreator.getValue(root, prop);
-         
-         boolean isDownProp = isContained(downProperties, prop);
          
          if (value != null && value instanceof Collection)
          {
             for (Object elem : (Collection) value)
             {
-               if (dynNodes.contains(root))
+               if ( ! staticNodes.contains(elem))
                {
                   dynEdges.add(root, prop, elem);
-               }
 
-               if (isDownProp)
-               {
-                  if (! dynNodes.contains(elem) && ! staticNodes.contains(elem))
+                  if (! dynNodes.contains(elem))
                   {
                      dynNodes.add(elem);
-                     aggregate(dynNodes, dynEdges, staticNodes, elem);
-                  }
-               }
-               else
-               {
-                  if (! dynNodes.contains(elem) && ! staticNodes.contains(elem))
-                  {
-                     staticNodes.add(elem);
                      aggregate(dynNodes, dynEdges, staticNodes, elem);
                   }
                }
@@ -327,22 +348,14 @@ public class LazyCloneOp
          }
          else
          {
-            if (isDownProp)
+            if ( value != null && ! value.getClass().getName().startsWith("java.lang.") && ! staticNodes.contains(value))
             {
+               // model type
                dynEdges.add(root, prop, value);
-               if (! dynNodes.contains(value)  && ! staticNodes.contains(value))
+               
+               if ( ! dynNodes.contains(value))
                {
                   dynNodes.add(value);
-                  aggregate(dynNodes, dynEdges, staticNodes, value);
-               }
-            }
-            else
-            {
-               
-               if ( value != null && ! value.getClass().getName().startsWith("java.lang.") && ! dynNodes.contains(value)  && ! staticNodes.contains(value))
-               {
-                  // model type
-                  staticNodes.add(value);
                   aggregate(dynNodes, dynEdges, staticNodes, value);
                }
             }
@@ -491,4 +504,5 @@ public class LazyCloneOp
       
       return this;
    }
+
 }

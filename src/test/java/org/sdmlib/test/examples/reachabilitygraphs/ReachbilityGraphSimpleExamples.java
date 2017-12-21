@@ -122,8 +122,8 @@ public class ReachbilityGraphSimpleExamples
       ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
-      Object s1cert = rs1.lazyComputeCertificate();
-      Object s2cert = rs2.lazyComputeCertificate();
+      Object s1cert = rs1.dynComputeCertificate();
+      Object s2cert = rs2.dynComputeCertificate();
       
       storyboard.assertTrue("Both certificates are equal. ", s1cert.equals(s2cert));
       
@@ -145,8 +145,8 @@ public class ReachbilityGraphSimpleExamples
       
       storyboard.addObjectDiagram(s21);
       
-      s1cert = rs1.lazyComputeCertificate();
-      s2cert = rs2.lazyComputeCertificate();
+      s1cert = rs1.dynComputeCertificate();
+      s2cert = rs2.dynComputeCertificate();
       
       storyboard.assertTrue("Both certificates are again equal. ", s1cert.equals(s2cert));
       
@@ -199,8 +199,8 @@ public class ReachbilityGraphSimpleExamples
       ReachableState rs1 = new ReachableState().withGraphRoot(s11).withParent(reachabilityGraph);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21).withParent(reachabilityGraph);
       
-      Object s1cert = rs1.lazyComputeCertificate();
-      Object s2cert = rs2.lazyComputeCertificate();
+      Object s1cert = rs1.dynComputeCertificate();
+      Object s2cert = rs2.dynComputeCertificate();
       
       storyboard.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
       
