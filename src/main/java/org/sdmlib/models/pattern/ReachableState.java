@@ -200,9 +200,40 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       // collect new certificates
       for (Object o : dynNodes)
       {
-         String simpleName = o.getClass().getSimpleName()+'\n';
+         StringBuilder simpleCert = new StringBuilder(o.getClass().getSimpleName()).append('\n');
 
-         allCertificate2Number.put(simpleName, "");
+         SendableEntityCreator creator = lazyCloneOp.getMap().getCreatorClass(o);
+         
+         // loop through props
+         for (String prop : creator.getProperties())
+         {
+            Object value = creator.getValue(o, prop);
+            
+            if (value != null)
+            {
+               if (value instanceof Collection)
+               {
+                  // ignore sets of model objects
+                  continue;
+               }
+               else if (dynNodes.contains(value))
+               {
+                  // ignore model objects
+                  continue; 
+               }
+               else if (getParent().getStaticNodes().contains(value))
+               {
+                  // ignore model objects
+                  continue; 
+               }
+               else // plain value
+               {
+                  simpleCert.append("   ").append(prop).append(": ").append(value.toString()).append("\n");
+               }
+            }
+         } // for (String prop : creator.getProperties())
+         allCertificate2Number.put(simpleCert.toString(), "");
+         oldNode2CertNo.put(o, simpleCert.toString());
       }
       
       // number new certificates
@@ -216,8 +247,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       // assign cert numbers to nodes
       for (Object o : dynNodes)
       {
-         String simpleName = o.getClass().getSimpleName()+'\n';
-         String certNo = allCertificate2Number.get(simpleName);
+         String simpleCert = oldNode2CertNo.get(o);
+         String certNo = allCertificate2Number.get(simpleCert);
          oldNode2CertNo.put(o, certNo);
       }
       
@@ -292,7 +323,8 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                   }
                   else // plain value
                   {
-                     newCertificate.append("   ").append(prop).append(": ").append(value.toString()).append("\n");
+                     // already contained in simple cert, ignore
+                     continue;
                   }
                }
             } // for (String prop : creator.getProperties())

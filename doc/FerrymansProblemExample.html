@@ -176,35 +176,38 @@
    json["options"]={"canvasid":"canvasFerrymansProblemExample2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>5*1
-6*1
-7*1
-8*1
+<pre>8*1
 9*1
 10*1
 11*1
-5: 1:    name: left
-   age: 0
-   boat: 2
-   river: 4
-   cargos: 3 3 3 
-6: 1:    name: right
-   age: 0
-   river: 4
-7: 2:    river: 4
+12*1
+13*1
+14*1
+8: 1:    boat: 3
+   river: 7
+   cargos: 4 5 6 
+9: 2:    river: 7
+10: 3:    river: 7
    bank: 1
-8: 3:    name: cabbage
-   bank: 1
-9: 3:    name: goat
-   bank: 1
-10: 3:    name: wolf
-   bank: 1
-11: 4:    boat: 2
-   banks: 1 1 
+11: 4:    bank: 1
+12: 5:    bank: 1
+13: 6:    bank: 1
+14: 7:    boat: 3
+   banks: 1 2 
 1: Bank
-2: Boat
-3: Cargo
-4: River
+   name: left
+   age: 0
+2: Bank
+   name: right
+   age: 0
+3: Boat
+4: Cargo
+   name: cabbage
+5: Cargo
+   name: goat
+6: Cargo
+   name: wolf
+7: River
 </pre><script>
    var json = {
    "type":"object",
