@@ -133,7 +133,6 @@ public class GroupAccountAppSimpleTest
                }
                catch (Exception e1)
                {
-                  // TODO Auto-generated catch block
                   e1.printStackTrace();
                }
             }
@@ -141,7 +140,6 @@ public class GroupAccountAppSimpleTest
       }
       catch (Exception e1)
       {
-         // TODO Auto-generated catch block
          // start grouptaccount app for albert
          Thread firstClient = new Thread()
          {
@@ -186,7 +184,6 @@ public class GroupAccountAppSimpleTest
       }
       catch (InterruptedException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
       
@@ -215,7 +212,6 @@ public class GroupAccountAppSimpleTest
             }
             catch (InterruptedException e)
             {
-               // TODO Auto-generated catch block
                e.printStackTrace();
             }
          }
@@ -228,7 +224,6 @@ public class GroupAccountAppSimpleTest
       }
       catch (InterruptedException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
    }

@@ -1349,7 +1349,6 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    @Override
    public Iterator<Match> iterator()
    {
-      // TODO Auto-generated method stub
       return new Iterator<Match>()
       {
          private boolean needsNewMatch = false;

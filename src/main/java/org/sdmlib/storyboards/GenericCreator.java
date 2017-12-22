@@ -30,14 +30,12 @@ public class GenericCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      // TODO Auto-generated method stub
       super.removeObject(entity);
    }
 
    @Override
    public Object call(Object entity, String method, Object... args)
    {
-      // TODO Auto-generated method stub
       return super.call(entity, method, args);
    }
 
@@ -85,10 +83,8 @@ public class GenericCreator extends EntityFactory
       }
       catch (ClassNotFoundException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      // TODO Auto-generated method stub
       return super.getProperties();
    }
 
@@ -145,7 +141,6 @@ public class GenericCreator extends EntityFactory
          }
          catch (Exception e2)
          {
-            // TODO Auto-generated catch block
             // e.printStackTrace();
          }
 

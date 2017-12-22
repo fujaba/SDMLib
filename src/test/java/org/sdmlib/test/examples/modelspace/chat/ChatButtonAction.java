@@ -11,7 +11,7 @@ public class ChatButtonAction implements EventHandler<ActionEvent>
    public ChatButtonAction(MSChatClient chatClientApp)
    {
       this.app = chatClientApp;
-      // TODO Auto-generated constructor stub
+      // TODO AZ: this is really outdated, use lambdas instead. 
    }
 
    @Override
