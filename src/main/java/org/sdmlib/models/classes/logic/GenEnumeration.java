@@ -66,7 +66,7 @@ public class GenEnumeration extends GenClazzEntity{
 		for (Method method : model.getMethods()) {
 			GenMethod generator = getGenerator(method);
 			if(generator==null) {
-				//TODO Its Enumeration skip it
+				// Its Enumeration skip it
 				continue;
 			}
 			generator.generate(rootDir, helpersDir);

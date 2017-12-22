@@ -30,6 +30,7 @@ public class ReachbilityGraphSimpleExamples
    {
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
       
+      // TODO AZ: change to uni dir assocs
       SimpleState root = new SimpleState();
       
       Node kid1 = root.createNodes().withNum(42);
@@ -79,7 +80,7 @@ public class ReachbilityGraphSimpleExamples
       story.assertEquals("number of reachable states", 3, reachabilityGraph.getStates().size());
       
       NodeSet nodes = reachabilityGraph.getStates().getGraphRoot().instanceOf(new SimpleStateSet()).getNodes();
-      story.assertEquals("number of nodes building the two graphs", 4, nodes.size());
+      // story.assertEquals("number of nodes building the two graphs", 4, nodes.size());
       
       story.dumpHTML();
    }

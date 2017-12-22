@@ -153,7 +153,6 @@ public class ClientSocketHandler extends Thread
                                  }
                                  catch (IOException e)
                                  {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                  }
                               }
@@ -192,7 +191,6 @@ public class ClientSocketHandler extends Thread
             @Override
             public void run()
             {
-               // TODO Auto-generated method stub
                if (proxy != null) 
                {
                   proxy.setState("offline");
