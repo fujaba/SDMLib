@@ -132,6 +132,34 @@
    "nodes":[
       {
          "type":"clazz",
+         "id":"N12 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N13 : Node",
+         "attributes":[
+            "num=23"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N14 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"N15 : Node",
+         "attributes":[
+            "num=42"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"N2 : Node",
          "attributes":[
             "num=42"
@@ -146,23 +174,20 @@
       },
       {
          "type":"clazz",
-         "id":"N6 : Node",
+         "id":"R10 : RuleApplication",
          "attributes":[
-            "num=23"
+            "description=null"
          ]
       },
       {
          "type":"clazz",
-         "id":"N8 : Node",
-         "attributes":[
-            "num=42"
-         ]
+         "id":"R4 : ReachabilityGraph"
       },
       {
          "type":"clazz",
-         "id":"R10 : ReachableState",
+         "id":"R5 : ReachableState",
          "attributes":[
-            "descr=1 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@64d2d351",
+            "descr=1 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@6a472554",
             "failureState=false",
             "metricValue=0.0",
             "number=1"
@@ -170,9 +195,9 @@
       },
       {
          "type":"clazz",
-         "id":"R11 : ReachableState",
+         "id":"R6 : ReachableState",
          "attributes":[
-            "descr=2 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@57175e74",
+            "descr=2 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@4461c7e3",
             "failureState=false",
             "metricValue=0.0",
             "number=2"
@@ -180,9 +205,9 @@
       },
       {
          "type":"clazz",
-         "id":"R12 : ReachableState",
+         "id":"R7 : ReachableState",
          "attributes":[
-            "descr=3 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@4d826d77",
+            "descr=3 0.0\u000aorg.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState@731f8236",
             "failureState=false",
             "metricValue=0.0",
             "number=3"
@@ -190,21 +215,10 @@
       },
       {
          "type":"clazz",
-         "id":"R13 : RuleApplication",
+         "id":"R8 : RuleApplication",
          "attributes":[
             "description=null"
          ]
-      },
-      {
-         "type":"clazz",
-         "id":"R14 : RuleApplication",
-         "attributes":[
-            "description=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R9 : ReachabilityGraph"
       },
       {
          "type":"clazz",
@@ -212,11 +226,11 @@
       },
       {
          "type":"clazz",
-         "id":"S4 : SimpleState"
+         "id":"S11 : SimpleState"
       },
       {
          "type":"clazz",
-         "id":"S7 : SimpleState"
+         "id":"S9 : SimpleState"
       }
    ],
    "edges":[
@@ -230,7 +244,7 @@
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R10 : ReachableState"
+            "id":"R5 : ReachableState"
          }
       },
       {
@@ -238,12 +252,12 @@
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
-            "id":"S4 : SimpleState"
+            "id":"S9 : SimpleState"
          },
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R11 : ReachableState"
+            "id":"R6 : ReachableState"
          }
       },
       {
@@ -251,12 +265,12 @@
          "source":{
             "cardinality":"one",
             "property":"graphRoot",
-            "id":"S7 : SimpleState"
+            "id":"S11 : SimpleState"
          },
          "target":{
             "cardinality":"one",
             "property":"reachablestate",
-            "id":"R12 : ReachableState"
+            "id":"R7 : ReachableState"
          }
       },
       {
@@ -303,12 +317,12 @@
          "source":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N2 : Node"
+            "id":"N12 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"graph",
-            "id":"S4 : SimpleState"
+            "id":"S9 : SimpleState"
          }
       },
       {
@@ -316,12 +330,12 @@
          "source":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N6 : Node"
+            "id":"N13 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"graph",
-            "id":"S4 : SimpleState"
+            "id":"S9 : SimpleState"
          }
       },
       {
@@ -329,12 +343,12 @@
          "source":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N2 : Node"
+            "id":"N14 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"graph",
-            "id":"S7 : SimpleState"
+            "id":"S11 : SimpleState"
          }
       },
       {
@@ -342,12 +356,12 @@
          "source":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N8 : Node"
+            "id":"N15 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"graph",
-            "id":"S7 : SimpleState"
+            "id":"S11 : SimpleState"
          }
       },
       {
@@ -355,12 +369,12 @@
          "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"R13 : RuleApplication"
+            "id":"R8 : RuleApplication"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"R11 : ReachableState"
+            "id":"R6 : ReachableState"
          }
       },
       {
@@ -368,12 +382,12 @@
          "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"R14 : RuleApplication"
+            "id":"R10 : RuleApplication"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"R12 : ReachableState"
+            "id":"R7 : ReachableState"
          }
       },
       {
@@ -381,12 +395,12 @@
          "source":{
             "cardinality":"many",
             "property":"ruleapplications",
-            "id":"R13 : RuleApplication"
+            "id":"R8 : RuleApplication"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"R10 : ReachableState"
+            "id":"R5 : ReachableState"
          }
       },
       {
@@ -394,12 +408,12 @@
          "source":{
             "cardinality":"many",
             "property":"ruleapplications",
-            "id":"R14 : RuleApplication"
+            "id":"R10 : RuleApplication"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"R11 : ReachableState"
+            "id":"R6 : ReachableState"
          }
       },
       {
@@ -407,12 +421,12 @@
          "source":{
             "cardinality":"many",
             "property":"states",
-            "id":"R10 : ReachableState"
+            "id":"R5 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"R9 : ReachabilityGraph"
+            "id":"R4 : ReachabilityGraph"
          }
       },
       {
@@ -420,12 +434,12 @@
          "source":{
             "cardinality":"many",
             "property":"states",
-            "id":"R11 : ReachableState"
+            "id":"R6 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"R9 : ReachabilityGraph"
+            "id":"R4 : ReachabilityGraph"
          }
       },
       {
@@ -433,12 +447,12 @@
          "source":{
             "cardinality":"many",
             "property":"states",
-            "id":"R12 : ReachableState"
+            "id":"R7 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"R9 : ReachabilityGraph"
+            "id":"R4 : ReachabilityGraph"
          }
       }
    ]
@@ -447,7 +461,7 @@
    g.layout(100,100);
 </script>
 <p>Check: number of reachable states 3 actual 3</p>
-<p>Check: number of nodes building the two graphs 4 actual 4</p>
+<p>Check: number of nodes building the two graphs 4 actual 6</p>
 
 </body>
 </html>
