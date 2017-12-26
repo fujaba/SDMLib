@@ -30,7 +30,7 @@ public class SokobanModel
             .withAttribute("width", DataType.INT)
             .withAttribute("height", DataType.INT);
 
-      sokoban.createBidirectional(maze, "maze", Cardinality.ONE, "sokoban", Cardinality.MANY)
+      sokoban.createUniDirectional(maze, "maze", Cardinality.ONE)
       .with(AssociationTypes.AGGREGATION);
       
       Clazz tile = model.createClazz("Tile")
@@ -46,18 +46,17 @@ public class SokobanModel
       
       Clazz box = model.createClazz("Box");
       
-      sokoban.createBidirectional(box, "boxes", Cardinality.MANY, "sokoban", Cardinality.MANY)
+      sokoban.createUniDirectional(box, "boxes", Cardinality.MANY)
       .with(AssociationTypes.AGGREGATION);
       
-      box.createBidirectional(tile, "tile", Cardinality.ONE, "boxes", Cardinality.MANY);
-
+      box.createUniDirectional(tile, "tile", Cardinality.ONE);
       
       Clazz karli = model.createClazz("Karli");
 
-      sokoban.createBidirectional(karli, "karli", Cardinality.ONE, "sokoban", Cardinality.MANY)
+      sokoban.createUniDirectional(karli, "karli", Cardinality.ONE)
       .with(AssociationTypes.AGGREGATION);
 
-      karli.createBidirectional(tile, "tile", Cardinality.ONE, "karlis", Cardinality.MANY);
+      karli.createUniDirectional(tile, "tile", Cardinality.ONE);
 
       
       story.addClassDiagram(model);

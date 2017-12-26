@@ -2,15 +2,12 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 
 public class MazePO extends PatternObject<MazePO, Maze>
 {
@@ -47,84 +44,6 @@ public class MazePO extends PatternObject<MazePO, Maze>
    {
       this.setModifier(modifier);
    }
-   public SokobanPO createSokobanPO()
-   {
-      SokobanPO result = new SokobanPO(new Sokoban[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Maze.PROPERTY_SOKOBAN, result);
-      
-      return result;
-   }
-
-   public SokobanPO createSokobanPO(String modifier)
-   {
-      SokobanPO result = new SokobanPO(new Sokoban[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Maze.PROPERTY_SOKOBAN, result);
-      
-      return result;
-   }
-
-   public MazePO createSokobanLink(SokobanPO tgt)
-   {
-      return hasLinkConstraint(tgt, Maze.PROPERTY_SOKOBAN);
-   }
-
-   public MazePO createSokobanLink(SokobanPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Maze.PROPERTY_SOKOBAN, modifier);
-   }
-
-   public SokobanSet getSokoban()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Maze) this.getCurrentMatch()).getSokoban();
-      }
-      return null;
-   }
-
-   public TilePO createTilesPO()
-   {
-      TilePO result = new TilePO(new Tile[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Maze.PROPERTY_TILES, result);
-      
-      return result;
-   }
-
-   public TilePO createTilesPO(String modifier)
-   {
-      TilePO result = new TilePO(new Tile[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Maze.PROPERTY_TILES, result);
-      
-      return result;
-   }
-
-   public MazePO createTilesLink(TilePO tgt)
-   {
-      return hasLinkConstraint(tgt, Maze.PROPERTY_TILES);
-   }
-
-   public MazePO createTilesLink(TilePO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Maze.PROPERTY_TILES, modifier);
-   }
-
-   public TileSet getTiles()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Maze) this.getCurrentMatch()).getTiles();
-      }
-      return null;
-   }
-
    public MazePO createHeightCondition(int value)
    {
       new AttributeConstraint()
@@ -247,4 +166,43 @@ public class MazePO extends PatternObject<MazePO, Maze>
       return this;
    }
    
+   public TilePO createTilesPO()
+   {
+      TilePO result = new TilePO(new Tile[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Maze.PROPERTY_TILES, result);
+      
+      return result;
+   }
+
+   public TilePO createTilesPO(String modifier)
+   {
+      TilePO result = new TilePO(new Tile[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Maze.PROPERTY_TILES, result);
+      
+      return result;
+   }
+
+   public MazePO createTilesLink(TilePO tgt)
+   {
+      return hasLinkConstraint(tgt, Maze.PROPERTY_TILES);
+   }
+
+   public MazePO createTilesLink(TilePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Maze.PROPERTY_TILES, modifier);
+   }
+
+   public TileSet getTiles()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Maze) this.getCurrentMatch()).getTiles();
+      }
+      return null;
+   }
+
 }

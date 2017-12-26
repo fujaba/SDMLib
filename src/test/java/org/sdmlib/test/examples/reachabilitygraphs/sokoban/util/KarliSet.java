@@ -21,15 +21,13 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class KarliSet extends SimpleSet<Karli>
 {
@@ -76,6 +74,7 @@ public class KarliSet extends SimpleSet<Karli>
       return new KarliSet();
    }
 
+
    @SuppressWarnings("unchecked")
    public KarliSet with(Object value)
    {
@@ -98,86 +97,6 @@ public class KarliSet extends SimpleSet<Karli>
    public KarliSet without(Karli value)
    {
       this.remove(value);
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Karli objects and collect a set of the Sokoban objects reached via sokoban. 
-    * 
-    * @return Set of Sokoban objects reachable via sokoban
-    */
-   public SokobanSet getSokoban()
-   {
-      SokobanSet result = new SokobanSet();
-      
-      for (Karli obj : this)
-      {
-         result.with(obj.getSokoban());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Karli objects and collect all contained objects with reference sokoban pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as sokoban neighbor of the collected results. 
-    * 
-    * @return Set of Sokoban objects referring to value via sokoban
-    */
-   public KarliSet filterSokoban(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      KarliSet answer = new KarliSet();
-      
-      for (Karli obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getSokoban()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Karli object passed as parameter to the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Sokoban attributes.
-    */
-   public KarliSet withSokoban(Sokoban value)
-   {
-      for (Karli obj : this)
-      {
-         obj.withSokoban(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Karli object passed as parameter from the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public KarliSet withoutSokoban(Sokoban value)
-   {
-      for (Karli obj : this)
-      {
-         obj.withoutSokoban(value);
-      }
-      
       return this;
    }
 

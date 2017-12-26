@@ -26,8 +26,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 
 public class TileCreator implements AggregatedEntityCreator
@@ -40,10 +38,8 @@ public class TileCreator implements AggregatedEntityCreator
       Tile.PROPERTY_WALL,
       Tile.PROPERTY_X,
       Tile.PROPERTY_Y,
-      Tile.PROPERTY_BOXES,
-      Tile.PROPERTY_KARLIS,
-      Tile.PROPERTY_MAZE,
       Tile.PROPERTY_NEIGHBORS,
+      Tile.PROPERTY_MAZE,
    };
    
    private final String[] upProperties = new String[]
@@ -111,24 +107,14 @@ public class TileCreator implements AggregatedEntityCreator
          return ((Tile) target).getY();
       }
 
-      if (Tile.PROPERTY_BOXES.equalsIgnoreCase(attribute))
+      if (Tile.PROPERTY_NEIGHBORS.equalsIgnoreCase(attribute))
       {
-         return ((Tile) target).getBoxes();
-      }
-
-      if (Tile.PROPERTY_KARLIS.equalsIgnoreCase(attribute))
-      {
-         return ((Tile) target).getKarlis();
+         return ((Tile) target).getNeighbors();
       }
 
       if (Tile.PROPERTY_MAZE.equalsIgnoreCase(attribute))
       {
          return ((Tile) target).getMaze();
-      }
-
-      if (Tile.PROPERTY_NEIGHBORS.equalsIgnoreCase(attribute))
-      {
-         return ((Tile) target).getNeighbors();
       }
       
       return null;
@@ -170,27 +156,15 @@ public class TileCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (Tile.PROPERTY_BOXES.equalsIgnoreCase(attrName))
+      if (Tile.PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
       {
-         ((Tile) target).withBoxes((Box) value);
+         ((Tile) target).withNeighbors((Tile) value);
          return true;
       }
       
-      if ((Tile.PROPERTY_BOXES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((Tile.PROPERTY_NEIGHBORS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Tile) target).withoutBoxes((Box) value);
-         return true;
-      }
-
-      if (Tile.PROPERTY_KARLIS.equalsIgnoreCase(attrName))
-      {
-         ((Tile) target).withKarlis((Karli) value);
-         return true;
-      }
-      
-      if ((Tile.PROPERTY_KARLIS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Tile) target).withoutKarlis((Karli) value);
+         ((Tile) target).withoutNeighbors((Tile) value);
          return true;
       }
 
@@ -203,18 +177,6 @@ public class TileCreator implements AggregatedEntityCreator
       if ((Tile.PROPERTY_MAZE + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Tile) target).withoutMaze((Maze) value);
-         return true;
-      }
-
-      if (Tile.PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
-      {
-         ((Tile) target).withNeighbors((Tile) value);
-         return true;
-      }
-      
-      if ((Tile.PROPERTY_NEIGHBORS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Tile) target).withoutNeighbors((Tile) value);
          return true;
       }
       

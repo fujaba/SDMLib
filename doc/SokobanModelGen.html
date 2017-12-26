@@ -58,7 +58,7 @@
    ],
    "edges":[
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
             "id":"Box",
             "cardinality":"many",
@@ -66,25 +66,25 @@
          },
          "target":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
-            "id":"Box",
-            "cardinality":"many",
-            "property":"boxes"
-         },
-         "target":{
             "id":"Tile",
             "cardinality":"one",
             "property":"tile"
+         },
+         "target":{
+            "id":"Box",
+            "cardinality":"one",
+            "property":"box"
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
             "id":"Karli",
             "cardinality":"one",
@@ -92,25 +92,25 @@
          },
          "target":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
-            "id":"Karli",
-            "cardinality":"many",
-            "property":"karlis"
-         },
-         "target":{
             "id":"Tile",
             "cardinality":"one",
             "property":"tile"
+         },
+         "target":{
+            "id":"Karli",
+            "cardinality":"one",
+            "property":"karli"
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
             "id":"Maze",
             "cardinality":"one",
@@ -118,7 +118,7 @@
          },
          "target":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          }
       },
@@ -139,7 +139,7 @@
          "typ":"aggregation",
          "source":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          },
          "target":{
@@ -152,7 +152,7 @@
          "typ":"aggregation",
          "source":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          },
          "target":{
@@ -165,7 +165,7 @@
          "typ":"aggregation",
          "source":{
             "id":"Sokoban",
-            "cardinality":"many",
+            "cardinality":"one",
             "property":"sokoban"
          },
          "target":{
@@ -188,7 +188,7 @@
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
             "id":"Tile",
             "cardinality":"one",
@@ -196,12 +196,12 @@
          },
          "target":{
             "id":"Box",
-            "cardinality":"many",
-            "property":"boxes"
+            "cardinality":"one",
+            "property":"box"
          }
       },
       {
-         "typ":"assoc",
+         "typ":"unidirectional",
          "source":{
             "id":"Tile",
             "cardinality":"one",
@@ -209,8 +209,8 @@
          },
          "target":{
             "id":"Karli",
-            "cardinality":"many",
-            "property":"karlis"
+            "cardinality":"one",
+            "property":"karli"
          }
       },
       {

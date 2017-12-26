@@ -26,7 +26,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class KarliCreator implements AggregatedEntityCreator
@@ -35,13 +34,11 @@ public class KarliCreator implements AggregatedEntityCreator
    
    private final String[] properties = new String[]
    {
-      Karli.PROPERTY_SOKOBAN,
       Karli.PROPERTY_TILE,
    };
    
    private final String[] upProperties = new String[]
    {
-      Karli.PROPERTY_SOKOBAN,
    };
    
    private final String[] downProperties = new String[]
@@ -84,11 +81,6 @@ public class KarliCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Karli.PROPERTY_SOKOBAN.equalsIgnoreCase(attribute))
-      {
-         return ((Karli) target).getSokoban();
-      }
-
       if (Karli.PROPERTY_TILE.equalsIgnoreCase(attribute))
       {
          return ((Karli) target).getTile();
@@ -107,18 +99,6 @@ public class KarliCreator implements AggregatedEntityCreator
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Karli.PROPERTY_SOKOBAN.equalsIgnoreCase(attrName))
-      {
-         ((Karli) target).withSokoban((Sokoban) value);
-         return true;
-      }
-      
-      if ((Karli.PROPERTY_SOKOBAN + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Karli) target).withoutSokoban((Sokoban) value);
-         return true;
       }
 
       if (Karli.PROPERTY_TILE.equalsIgnoreCase(attrName))

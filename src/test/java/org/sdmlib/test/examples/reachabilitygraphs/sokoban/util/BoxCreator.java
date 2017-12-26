@@ -27,7 +27,6 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 
 public class BoxCreator implements AggregatedEntityCreator
 {
@@ -36,12 +35,10 @@ public class BoxCreator implements AggregatedEntityCreator
    private final String[] properties = new String[]
    {
       Box.PROPERTY_TILE,
-      Box.PROPERTY_SOKOBAN,
    };
    
    private final String[] upProperties = new String[]
    {
-      Box.PROPERTY_SOKOBAN,
    };
    
    private final String[] downProperties = new String[]
@@ -88,11 +85,6 @@ public class BoxCreator implements AggregatedEntityCreator
       {
          return ((Box) target).getTile();
       }
-
-      if (Box.PROPERTY_SOKOBAN.equalsIgnoreCase(attribute))
-      {
-         return ((Box) target).getSokoban();
-      }
       
       return null;
    }
@@ -112,18 +104,6 @@ public class BoxCreator implements AggregatedEntityCreator
       if (Box.PROPERTY_TILE.equalsIgnoreCase(attrName))
       {
          ((Box) target).setTile((Tile) value);
-         return true;
-      }
-
-      if (Box.PROPERTY_SOKOBAN.equalsIgnoreCase(attrName))
-      {
-         ((Box) target).withSokoban((Sokoban) value);
-         return true;
-      }
-      
-      if ((Box.PROPERTY_SOKOBAN + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Box) target).withoutSokoban((Sokoban) value);
          return true;
       }
       

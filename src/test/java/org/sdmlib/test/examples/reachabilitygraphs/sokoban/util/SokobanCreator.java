@@ -26,9 +26,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 
 public class SokobanCreator implements AggregatedEntityCreator
 {
@@ -36,9 +36,9 @@ public class SokobanCreator implements AggregatedEntityCreator
    
    private final String[] properties = new String[]
    {
-      Sokoban.PROPERTY_MAZE,
       Sokoban.PROPERTY_BOXES,
       Sokoban.PROPERTY_KARLI,
+      Sokoban.PROPERTY_MAZE,
    };
    
    private final String[] upProperties = new String[]
@@ -47,9 +47,9 @@ public class SokobanCreator implements AggregatedEntityCreator
    
    private final String[] downProperties = new String[]
    {
-      Sokoban.PROPERTY_MAZE,
       Sokoban.PROPERTY_BOXES,
       Sokoban.PROPERTY_KARLI,
+      Sokoban.PROPERTY_MAZE,
    };
    
    @Override
@@ -88,11 +88,6 @@ public class SokobanCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attribute))
-      {
-         return ((Sokoban) target).getMaze();
-      }
-
       if (Sokoban.PROPERTY_BOXES.equalsIgnoreCase(attribute))
       {
          return ((Sokoban) target).getBoxes();
@@ -101,6 +96,11 @@ public class SokobanCreator implements AggregatedEntityCreator
       if (Sokoban.PROPERTY_KARLI.equalsIgnoreCase(attribute))
       {
          return ((Sokoban) target).getKarli();
+      }
+
+      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attribute))
+      {
+         return ((Sokoban) target).getMaze();
       }
       
       return null;
@@ -118,12 +118,6 @@ public class SokobanCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attrName))
-      {
-         ((Sokoban) target).setMaze((Maze) value);
-         return true;
-      }
-
       if (Sokoban.PROPERTY_BOXES.equalsIgnoreCase(attrName))
       {
          ((Sokoban) target).withBoxes((Box) value);
@@ -139,6 +133,12 @@ public class SokobanCreator implements AggregatedEntityCreator
       if (Sokoban.PROPERTY_KARLI.equalsIgnoreCase(attrName))
       {
          ((Sokoban) target).setKarli((Karli) value);
+         return true;
+      }
+
+      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attrName))
+      {
+         ((Sokoban) target).setMaze((Maze) value);
          return true;
       }
       

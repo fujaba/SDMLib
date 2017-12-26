@@ -24,13 +24,9 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
@@ -90,10 +86,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
    
    public void removeYou()
    {
-      withoutBoxes(this.getBoxes().toArray(new Box[this.getBoxes().size()]));
-      withoutKarlis(this.getKarlis().toArray(new Karli[this.getKarlis().size()]));
-      withoutMaze(this.getMaze().toArray(new Maze[this.getMaze().size()]));
       withoutNeighbors(this.getNeighbors().toArray(new Tile[this.getNeighbors().size()]));
+      withoutMaze(this.getMaze().toArray(new Maze[this.getMaze().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -224,222 +218,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
    
    /********************************************************************
     * <pre>
-    *              one                       many
-    * Tile ----------------------------------- Box
-    *              tile                   boxes
-    * </pre>
-    */
-   
-   public static final String PROPERTY_BOXES = "boxes";
-
-   private BoxSet boxes = null;
-   
-   public BoxSet getBoxes()
-   {
-      if (this.boxes == null)
-      {
-         return BoxSet.EMPTY_SET;
-      }
-   
-      return this.boxes;
-   }
-
-   public Tile withBoxes(Box... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Box item : value)
-      {
-         if (item != null)
-         {
-            if (this.boxes == null)
-            {
-               this.boxes = new BoxSet();
-            }
-            
-            boolean changed = this.boxes.add (item);
-
-            if (changed)
-            {
-               item.withTile(this);
-               firePropertyChange(PROPERTY_BOXES, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Tile withoutBoxes(Box... value)
-   {
-      for (Box item : value)
-      {
-         if ((this.boxes != null) && (item != null))
-         {
-            if (this.boxes.remove(item))
-            {
-               item.setTile(null);
-               firePropertyChange(PROPERTY_BOXES, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Box createBoxes()
-   {
-      Box value = new Box();
-      withBoxes(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Tile ----------------------------------- Karli
-    *              tile                   karlis
-    * </pre>
-    */
-   
-   public static final String PROPERTY_KARLIS = "karlis";
-
-   private KarliSet karlis = null;
-   
-   public KarliSet getKarlis()
-   {
-      if (this.karlis == null)
-      {
-         return KarliSet.EMPTY_SET;
-      }
-   
-      return this.karlis;
-   }
-
-   public Tile withKarlis(Karli... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Karli item : value)
-      {
-         if (item != null)
-         {
-            if (this.karlis == null)
-            {
-               this.karlis = new KarliSet();
-            }
-            
-            boolean changed = this.karlis.add (item);
-
-            if (changed)
-            {
-               item.withTile(this);
-               firePropertyChange(PROPERTY_KARLIS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Tile withoutKarlis(Karli... value)
-   {
-      for (Karli item : value)
-      {
-         if ((this.karlis != null) && (item != null))
-         {
-            if (this.karlis.remove(item))
-            {
-               item.setTile(null);
-               firePropertyChange(PROPERTY_KARLIS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Karli createKarlis()
-   {
-      Karli value = new Karli();
-      withKarlis(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Tile ----------------------------------- Maze
-    *              tiles                   maze
-    * </pre>
-    */
-   
-   public static final String PROPERTY_MAZE = "maze";
-
-   private MazeSet maze = null;
-   
-   public MazeSet getMaze()
-   {
-      if (this.maze == null)
-      {
-         return MazeSet.EMPTY_SET;
-      }
-   
-      return this.maze;
-   }
-
-   public Tile withMaze(Maze... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Maze item : value)
-      {
-         if (item != null)
-         {
-            if (this.maze == null)
-            {
-               this.maze = new MazeSet();
-            }
-            
-            boolean changed = this.maze.add (item);
-
-            if (changed)
-            {
-               item.withTiles(this);
-               firePropertyChange(PROPERTY_MAZE, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Tile withoutMaze(Maze... value)
-   {
-      for (Maze item : value)
-      {
-         if ((this.maze != null) && (item != null))
-         {
-            if (this.maze.remove(item))
-            {
-               item.withoutTiles(this);
-               firePropertyChange(PROPERTY_MAZE, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Maze createMaze()
-   {
-      Maze value = new Maze();
-      withMaze(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
     *              many                       many
     * Tile ----------------------------------- Tile
     *              neighbors                   neighbors
@@ -512,6 +290,78 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
    {
       Tile value = new Tile();
       withNeighbors(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Tile ----------------------------------- Maze
+    *              tiles                   maze
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MAZE = "maze";
+
+   private MazeSet maze = null;
+   
+   public MazeSet getMaze()
+   {
+      if (this.maze == null)
+      {
+         return MazeSet.EMPTY_SET;
+      }
+   
+      return this.maze;
+   }
+
+   public Tile withMaze(Maze... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Maze item : value)
+      {
+         if (item != null)
+         {
+            if (this.maze == null)
+            {
+               this.maze = new MazeSet();
+            }
+            
+            boolean changed = this.maze.add (item);
+
+            if (changed)
+            {
+               item.withTiles(this);
+               firePropertyChange(PROPERTY_MAZE, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Tile withoutMaze(Maze... value)
+   {
+      for (Maze item : value)
+      {
+         if ((this.maze != null) && (item != null))
+         {
+            if (this.maze.remove(item))
+            {
+               item.withoutTiles(this);
+               firePropertyChange(PROPERTY_MAZE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Maze createMaze()
+   {
+      Maze value = new Maze();
+      withMaze(value);
       return value;
    } 
 }

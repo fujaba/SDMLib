@@ -4,17 +4,11 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 
 public class TilePO extends PatternObject<TilePO, Tile>
 {
@@ -265,80 +259,41 @@ public class TilePO extends PatternObject<TilePO, Tile>
       return this;
    }
    
-   public BoxPO createBoxesPO()
+   public TilePO createNeighborsPO()
    {
-      BoxPO result = new BoxPO(new Box[]{});
+      TilePO result = new TilePO(new Tile[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Tile.PROPERTY_BOXES, result);
+      super.hasLink(Tile.PROPERTY_NEIGHBORS, result);
       
       return result;
    }
 
-   public BoxPO createBoxesPO(String modifier)
+   public TilePO createNeighborsPO(String modifier)
    {
-      BoxPO result = new BoxPO(new Box[]{});
+      TilePO result = new TilePO(new Tile[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Tile.PROPERTY_BOXES, result);
+      super.hasLink(Tile.PROPERTY_NEIGHBORS, result);
       
       return result;
    }
 
-   public TilePO createBoxesLink(BoxPO tgt)
+   public TilePO createNeighborsLink(TilePO tgt)
    {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_BOXES);
+      return hasLinkConstraint(tgt, Tile.PROPERTY_NEIGHBORS);
    }
 
-   public TilePO createBoxesLink(BoxPO tgt, String modifier)
+   public TilePO createNeighborsLink(TilePO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_BOXES, modifier);
+      return hasLinkConstraint(tgt, Tile.PROPERTY_NEIGHBORS, modifier);
    }
 
-   public BoxSet getBoxes()
+   public TileSet getNeighbors()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Tile) this.getCurrentMatch()).getBoxes();
-      }
-      return null;
-   }
-
-   public KarliPO createKarlisPO()
-   {
-      KarliPO result = new KarliPO(new Karli[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Tile.PROPERTY_KARLIS, result);
-      
-      return result;
-   }
-
-   public KarliPO createKarlisPO(String modifier)
-   {
-      KarliPO result = new KarliPO(new Karli[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Tile.PROPERTY_KARLIS, result);
-      
-      return result;
-   }
-
-   public TilePO createKarlisLink(KarliPO tgt)
-   {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_KARLIS);
-   }
-
-   public TilePO createKarlisLink(KarliPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_KARLIS, modifier);
-   }
-
-   public KarliSet getKarlis()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Tile) this.getCurrentMatch()).getKarlis();
+         return ((Tile) this.getCurrentMatch()).getNeighbors();
       }
       return null;
    }
@@ -378,45 +333,6 @@ public class TilePO extends PatternObject<TilePO, Tile>
       if (this.getPattern().getHasMatch())
       {
          return ((Tile) this.getCurrentMatch()).getMaze();
-      }
-      return null;
-   }
-
-   public TilePO createNeighborsPO()
-   {
-      TilePO result = new TilePO(new Tile[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Tile.PROPERTY_NEIGHBORS, result);
-      
-      return result;
-   }
-
-   public TilePO createNeighborsPO(String modifier)
-   {
-      TilePO result = new TilePO(new Tile[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Tile.PROPERTY_NEIGHBORS, result);
-      
-      return result;
-   }
-
-   public TilePO createNeighborsLink(TilePO tgt)
-   {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_NEIGHBORS);
-   }
-
-   public TilePO createNeighborsLink(TilePO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Tile.PROPERTY_NEIGHBORS, modifier);
-   }
-
-   public TileSet getNeighbors()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Tile) this.getCurrentMatch()).getNeighbors();
       }
       return null;
    }

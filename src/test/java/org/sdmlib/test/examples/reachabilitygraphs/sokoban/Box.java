@@ -25,8 +25,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
@@ -87,16 +85,15 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
    public void removeYou()
    {
       setTile(null);
-      withoutSokoban(this.getSokoban().toArray(new Sokoban[this.getSokoban().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    /********************************************************************
     * <pre>
-    *              many                       one
+    *              one                       one
     * Box ----------------------------------- Tile
-    *              boxes                   tile
+    *              box                   tile
     * </pre>
     */
    
@@ -117,18 +114,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
       {
          Tile oldValue = this.tile;
          
-         if (this.tile != null)
-         {
-            this.tile = null;
-            oldValue.withoutBoxes(this);
-         }
-         
          this.tile = value;
-         
-         if (value != null)
-         {
-            value.withBoxes(this);
-         }
          
          firePropertyChange(PROPERTY_TILE, oldValue, value);
          changed = true;
@@ -147,78 +133,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
    {
       Tile value = new Tile();
       withTile(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Box ----------------------------------- Sokoban
-    *              boxes                   sokoban
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SOKOBAN = "sokoban";
-
-   private SokobanSet sokoban = null;
-   
-   public SokobanSet getSokoban()
-   {
-      if (this.sokoban == null)
-      {
-         return SokobanSet.EMPTY_SET;
-      }
-   
-      return this.sokoban;
-   }
-
-   public Box withSokoban(Sokoban... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Sokoban item : value)
-      {
-         if (item != null)
-         {
-            if (this.sokoban == null)
-            {
-               this.sokoban = new SokobanSet();
-            }
-            
-            boolean changed = this.sokoban.add (item);
-
-            if (changed)
-            {
-               item.withBoxes(this);
-               firePropertyChange(PROPERTY_SOKOBAN, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Box withoutSokoban(Sokoban... value)
-   {
-      for (Sokoban item : value)
-      {
-         if ((this.sokoban != null) && (item != null))
-         {
-            if (this.sokoban.remove(item))
-            {
-               item.withoutBoxes(this);
-               firePropertyChange(PROPERTY_SOKOBAN, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Sokoban createSokoban()
-   {
-      Sokoban value = new Sokoban();
-      withSokoban(value);
       return value;
    } 
 }

@@ -26,7 +26,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class MazeCreator implements AggregatedEntityCreator
@@ -35,15 +34,13 @@ public class MazeCreator implements AggregatedEntityCreator
    
    private final String[] properties = new String[]
    {
-      Maze.PROPERTY_SOKOBAN,
-      Maze.PROPERTY_TILES,
       Maze.PROPERTY_HEIGHT,
       Maze.PROPERTY_WIDTH,
+      Maze.PROPERTY_TILES,
    };
    
    private final String[] upProperties = new String[]
    {
-      Maze.PROPERTY_SOKOBAN,
    };
    
    private final String[] downProperties = new String[]
@@ -87,16 +84,6 @@ public class MazeCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Maze.PROPERTY_SOKOBAN.equalsIgnoreCase(attribute))
-      {
-         return ((Maze) target).getSokoban();
-      }
-
-      if (Maze.PROPERTY_TILES.equalsIgnoreCase(attribute))
-      {
-         return ((Maze) target).getTiles();
-      }
-
       if (Maze.PROPERTY_HEIGHT.equalsIgnoreCase(attribute))
       {
          return ((Maze) target).getHeight();
@@ -105,6 +92,11 @@ public class MazeCreator implements AggregatedEntityCreator
       if (Maze.PROPERTY_WIDTH.equalsIgnoreCase(attribute))
       {
          return ((Maze) target).getWidth();
+      }
+
+      if (Maze.PROPERTY_TILES.equalsIgnoreCase(attribute))
+      {
+         return ((Maze) target).getTiles();
       }
       
       return null;
@@ -132,18 +124,6 @@ public class MazeCreator implements AggregatedEntityCreator
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Maze.PROPERTY_SOKOBAN.equalsIgnoreCase(attrName))
-      {
-         ((Maze) target).withSokoban((Sokoban) value);
-         return true;
-      }
-      
-      if ((Maze.PROPERTY_SOKOBAN + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Maze) target).withoutSokoban((Sokoban) value);
-         return true;
       }
 
       if (Maze.PROPERTY_TILES.equalsIgnoreCase(attrName))

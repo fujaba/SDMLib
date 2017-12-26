@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class MazeSet extends SimpleSet<Maze>
 {
@@ -77,6 +76,7 @@ public class MazeSet extends SimpleSet<Maze>
       return new MazeSet();
    }
 
+
    @SuppressWarnings("unchecked")
    public MazeSet with(Object value)
    {
@@ -99,166 +99,6 @@ public class MazeSet extends SimpleSet<Maze>
    public MazeSet without(Maze value)
    {
       this.remove(value);
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Maze objects and collect a set of the Sokoban objects reached via sokoban. 
-    * 
-    * @return Set of Sokoban objects reachable via sokoban
-    */
-   public SokobanSet getSokoban()
-   {
-      SokobanSet result = new SokobanSet();
-      
-      for (Maze obj : this)
-      {
-         result.with(obj.getSokoban());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Maze objects and collect all contained objects with reference sokoban pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as sokoban neighbor of the collected results. 
-    * 
-    * @return Set of Sokoban objects referring to value via sokoban
-    */
-   public MazeSet filterSokoban(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MazeSet answer = new MazeSet();
-      
-      for (Maze obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getSokoban()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Maze object passed as parameter to the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Sokoban attributes.
-    */
-   public MazeSet withSokoban(Sokoban value)
-   {
-      for (Maze obj : this)
-      {
-         obj.withSokoban(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Maze object passed as parameter from the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public MazeSet withoutSokoban(Sokoban value)
-   {
-      for (Maze obj : this)
-      {
-         obj.withoutSokoban(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Maze objects and collect a set of the Tile objects reached via tiles. 
-    * 
-    * @return Set of Tile objects reachable via tiles
-    */
-   public TileSet getTiles()
-   {
-      TileSet result = new TileSet();
-      
-      for (Maze obj : this)
-      {
-         result.with(obj.getTiles());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Maze objects and collect all contained objects with reference tiles pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as tiles neighbor of the collected results. 
-    * 
-    * @return Set of Tile objects referring to value via tiles
-    */
-   public MazeSet filterTiles(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MazeSet answer = new MazeSet();
-      
-      for (Maze obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getTiles()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Maze object passed as parameter to the Tiles attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Tiles attributes.
-    */
-   public MazeSet withTiles(Tile value)
-   {
-      for (Maze obj : this)
-      {
-         obj.withTiles(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Maze object passed as parameter from the Tiles attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public MazeSet withoutTiles(Tile value)
-   {
-      for (Maze obj : this)
-      {
-         obj.withoutTiles(value);
-      }
-      
       return this;
    }
 
@@ -423,6 +263,86 @@ public class MazeSet extends SimpleSet<Maze>
       for (Maze obj : this)
       {
          obj.setWidth(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Maze objects and collect a set of the Tile objects reached via tiles. 
+    * 
+    * @return Set of Tile objects reachable via tiles
+    */
+   public TileSet getTiles()
+   {
+      TileSet result = new TileSet();
+      
+      for (Maze obj : this)
+      {
+         result.with(obj.getTiles());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Maze objects and collect all contained objects with reference tiles pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as tiles neighbor of the collected results. 
+    * 
+    * @return Set of Tile objects referring to value via tiles
+    */
+   public MazeSet filterTiles(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MazeSet answer = new MazeSet();
+      
+      for (Maze obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getTiles()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Maze object passed as parameter to the Tiles attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Tiles attributes.
+    */
+   public MazeSet withTiles(Tile value)
+   {
+      for (Maze obj : this)
+      {
+         obj.withTiles(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Maze object passed as parameter from the Tiles attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public MazeSet withoutTiles(Tile value)
+   {
+      for (Maze obj : this)
+      {
+         obj.withoutTiles(value);
       }
       
       return this;

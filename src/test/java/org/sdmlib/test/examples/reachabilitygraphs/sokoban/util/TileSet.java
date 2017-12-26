@@ -21,18 +21,17 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 
 public class TileSet extends SimpleSet<Tile>
 {
@@ -78,6 +77,7 @@ public class TileSet extends SimpleSet<Tile>
    {
       return new TileSet();
    }
+
 
    @SuppressWarnings("unchecked")
    public TileSet with(Object value)
@@ -389,246 +389,6 @@ public class TileSet extends SimpleSet<Tile>
    }
 
    /**
-    * Loop through the current set of Tile objects and collect a set of the Box objects reached via boxes. 
-    * 
-    * @return Set of Box objects reachable via boxes
-    */
-   public BoxSet getBoxes()
-   {
-      BoxSet result = new BoxSet();
-      
-      for (Tile obj : this)
-      {
-         result.with(obj.getBoxes());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Tile objects and collect all contained objects with reference boxes pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as boxes neighbor of the collected results. 
-    * 
-    * @return Set of Box objects referring to value via boxes
-    */
-   public TileSet filterBoxes(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TileSet answer = new TileSet();
-      
-      for (Tile obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getBoxes()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Tile object passed as parameter to the Boxes attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Boxes attributes.
-    */
-   public TileSet withBoxes(Box value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withBoxes(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Tile object passed as parameter from the Boxes attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public TileSet withoutBoxes(Box value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withoutBoxes(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Tile objects and collect a set of the Karli objects reached via karlis. 
-    * 
-    * @return Set of Karli objects reachable via karlis
-    */
-   public KarliSet getKarlis()
-   {
-      KarliSet result = new KarliSet();
-      
-      for (Tile obj : this)
-      {
-         result.with(obj.getKarlis());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Tile objects and collect all contained objects with reference karlis pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as karlis neighbor of the collected results. 
-    * 
-    * @return Set of Karli objects referring to value via karlis
-    */
-   public TileSet filterKarlis(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TileSet answer = new TileSet();
-      
-      for (Tile obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getKarlis()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Tile object passed as parameter to the Karlis attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Karlis attributes.
-    */
-   public TileSet withKarlis(Karli value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withKarlis(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Tile object passed as parameter from the Karlis attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public TileSet withoutKarlis(Karli value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withoutKarlis(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Tile objects and collect a set of the Maze objects reached via maze. 
-    * 
-    * @return Set of Maze objects reachable via maze
-    */
-   public MazeSet getMaze()
-   {
-      MazeSet result = new MazeSet();
-      
-      for (Tile obj : this)
-      {
-         result.with(obj.getMaze());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Tile objects and collect all contained objects with reference maze pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as maze neighbor of the collected results. 
-    * 
-    * @return Set of Maze objects referring to value via maze
-    */
-   public TileSet filterMaze(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TileSet answer = new TileSet();
-      
-      for (Tile obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getMaze()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Tile object passed as parameter to the Maze attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Maze attributes.
-    */
-   public TileSet withMaze(Maze value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withMaze(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Tile object passed as parameter from the Maze attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public TileSet withoutMaze(Maze value)
-   {
-      for (Tile obj : this)
-      {
-         obj.withoutMaze(value);
-      }
-      
-      return this;
-   }
-
-   /**
     * Loop through the current set of Tile objects and collect a set of the Tile objects reached via neighbors. 
     * 
     * @return Set of Tile objects reachable via neighbors
@@ -731,6 +491,86 @@ public class TileSet extends SimpleSet<Tile>
       for (Tile obj : this)
       {
          obj.withoutNeighbors(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Tile objects and collect a set of the Maze objects reached via maze. 
+    * 
+    * @return Set of Maze objects reachable via maze
+    */
+   public MazeSet getMaze()
+   {
+      MazeSet result = new MazeSet();
+      
+      for (Tile obj : this)
+      {
+         result.with(obj.getMaze());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Tile objects and collect all contained objects with reference maze pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as maze neighbor of the collected results. 
+    * 
+    * @return Set of Maze objects referring to value via maze
+    */
+   public TileSet filterMaze(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TileSet answer = new TileSet();
+      
+      for (Tile obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getMaze()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Tile object passed as parameter to the Maze attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Maze attributes.
+    */
+   public TileSet withMaze(Maze value)
+   {
+      for (Tile obj : this)
+      {
+         obj.withMaze(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Tile object passed as parameter from the Maze attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public TileSet withoutMaze(Maze value)
+   {
+      for (Tile obj : this)
+      {
+         obj.withoutMaze(value);
       }
       
       return this;

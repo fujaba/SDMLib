@@ -87,162 +87,10 @@ public  class Maze implements SendableEntity
 
    public void removeYou()
    {
-      withoutSokoban(this.getSokoban().toArray(new Sokoban[this.getSokoban().size()]));
-      // for (Tile obj : new TileSet(this.getTiles())) { obj.removeYou(); }
-      for (Tile obj : new TileSet(this.getTiles())) { this.withoutTiles(obj); }
-      
+      for (Tile obj : new TileSet(this.getTiles())) { obj.removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Maze ----------------------------------- Sokoban
-    *              maze                   sokoban
-    * </pre>
-    */
-
-   public static final String PROPERTY_SOKOBAN = "sokoban";
-
-   private SokobanSet sokoban = null;
-
-   public SokobanSet getSokoban()
-   {
-      if (this.sokoban == null)
-      {
-         return SokobanSet.EMPTY_SET;
-      }
-
-      return this.sokoban;
-   }
-
-   public Maze withSokoban(Sokoban... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Sokoban item : value)
-      {
-         if (item != null)
-         {
-            if (this.sokoban == null)
-            {
-               this.sokoban = new SokobanSet();
-            }
-
-            boolean changed = this.sokoban.add (item);
-
-            if (changed)
-            {
-               item.withMaze(this);
-               firePropertyChange(PROPERTY_SOKOBAN, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Maze withoutSokoban(Sokoban... value)
-   {
-      for (Sokoban item : value)
-      {
-         if ((this.sokoban != null) && (item != null))
-         {
-            if (this.sokoban.remove(item))
-            {
-               item.setMaze(null);
-               firePropertyChange(PROPERTY_SOKOBAN, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Sokoban createSokoban()
-   {
-      Sokoban value = new Sokoban();
-      withSokoban(value);
-      return value;
-   } 
-
-
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Maze ----------------------------------- Tile
-    *              maze                   tiles
-    * </pre>
-    */
-
-   public static final String PROPERTY_TILES = "tiles";
-
-   private TileSet tiles = null;
-
-   public TileSet getTiles()
-   {
-      if (this.tiles == null)
-      {
-         return TileSet.EMPTY_SET;
-      }
-
-      return this.tiles;
-   }
-
-   public Maze withTiles(Tile... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Tile item : value)
-      {
-         if (item != null)
-         {
-            if (this.tiles == null)
-            {
-               this.tiles = new TileSet();
-            }
-
-            boolean changed = this.tiles.add (item);
-
-            if (changed)
-            {
-               item.withMaze(this);
-               firePropertyChange(PROPERTY_TILES, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Maze withoutTiles(Tile... value)
-   {
-      for (Tile item : value)
-      {
-         if ((this.tiles != null) && (item != null))
-         {
-            if (this.tiles.remove(item))
-            {
-               item.withoutMaze(this);
-               firePropertyChange(PROPERTY_TILES, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Tile createTiles()
-   {
-      Tile value = new Tile();
-      withTiles(value);
-      return value;
-   }
-
-   public Tile getTile(int x, int y)
-   {
-      Tile result = this.getTiles().createXCondition(x).createYCondition(y).first();
-      return result;
-   } 
 
 
    //==========================================================================
@@ -370,38 +218,13 @@ public  class Maze implements SendableEntity
             {
                result.append('w');
             }
-            else if ( ! this.getSokoban().getBoxes().getTile().createXCondition(x).createYCondition(y).isEmpty())
+            else if (t.isGoal())
             {
-               if (t.isGoal())
-               {
-                  result.append('B');                  
-               }
-               else
-               {
-                  result.append('b');
-               }
-            }
-            else if ( ! this.getSokoban().getKarli().getTile().createXCondition(x).createYCondition(y).isEmpty())
-            {
-               if (t.isGoal())
-               {
-                  result.append('K');                  
-               }
-               else
-               {
-                  result.append('k');
-               }
+               result.append('o');                  
             }
             else
             {
-               if (t.isGoal())
-               {
-                  result.append('o');                  
-               }
-               else
-               {
-                  result.append('.');
-               }
+               result.append('.');
             }
          }
 
@@ -438,4 +261,83 @@ public  class Maze implements SendableEntity
       return this;
    }
 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Maze ----------------------------------- Tile
+    *              maze                   tiles
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TILES = "tiles";
+
+   private TileSet tiles = null;
+   
+   public TileSet getTiles()
+   {
+      if (this.tiles == null)
+      {
+         return TileSet.EMPTY_SET;
+      }
+   
+      return this.tiles;
+   }
+   
+   public Tile getTile(int x, int y)
+   {
+      Tile result = this.getTiles().createXCondition(x).createYCondition(y).first();
+      return result;
+   } 
+
+
+   public Maze withTiles(Tile... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Tile item : value)
+      {
+         if (item != null)
+         {
+            if (this.tiles == null)
+            {
+               this.tiles = new TileSet();
+            }
+            
+            boolean changed = this.tiles.add (item);
+
+            if (changed)
+            {
+               item.withMaze(this);
+               firePropertyChange(PROPERTY_TILES, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Maze withoutTiles(Tile... value)
+   {
+      for (Tile item : value)
+      {
+         if ((this.tiles != null) && (item != null))
+         {
+            if (this.tiles.remove(item))
+            {
+               item.withoutMaze(this);
+               firePropertyChange(PROPERTY_TILES, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Tile createTiles()
+   {
+      Tile value = new Tile();
+      withTiles(value);
+      return value;
+   } 
 }

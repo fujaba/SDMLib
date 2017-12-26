@@ -21,15 +21,13 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class BoxSet extends SimpleSet<Box>
 {
@@ -75,6 +73,7 @@ public class BoxSet extends SimpleSet<Box>
    {
       return new BoxSet();
    }
+
 
    @SuppressWarnings("unchecked")
    public BoxSet with(Object value)
@@ -161,86 +160,6 @@ public class BoxSet extends SimpleSet<Box>
       for (Box obj : this)
       {
          obj.withTile(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Box objects and collect a set of the Sokoban objects reached via sokoban. 
-    * 
-    * @return Set of Sokoban objects reachable via sokoban
-    */
-   public SokobanSet getSokoban()
-   {
-      SokobanSet result = new SokobanSet();
-      
-      for (Box obj : this)
-      {
-         result.with(obj.getSokoban());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Box objects and collect all contained objects with reference sokoban pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as sokoban neighbor of the collected results. 
-    * 
-    * @return Set of Sokoban objects referring to value via sokoban
-    */
-   public BoxSet filterSokoban(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      BoxSet answer = new BoxSet();
-      
-      for (Box obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getSokoban()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Box object passed as parameter to the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Sokoban attributes.
-    */
-   public BoxSet withSokoban(Sokoban value)
-   {
-      for (Box obj : this)
-      {
-         obj.withSokoban(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Box object passed as parameter from the Sokoban attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public BoxSet withoutSokoban(Sokoban value)
-   {
-      for (Box obj : this)
-      {
-         obj.withoutSokoban(value);
       }
       
       return this;

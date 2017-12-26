@@ -82,83 +82,36 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
    }
 
    
+
+   
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(this.getMaze() != null ? this.getMaze().toString(this) : " ");
+      
+      return result.substring(1);
+   }
+
+
+
+   
    //==========================================================================
    
    
    public void removeYou()
    {
-      if (getMaze() != null) { getMaze().removeYou(); }
-      // for (Box obj : new BoxSet(this.getBoxes())) { obj.removeYou(); }
-      for (Box obj : new BoxSet(this.getBoxes())) { this.withoutBoxes(obj);}
-      // if (getKarli() != null) { getKarli().removeYou(); }
-      this.setKarli(null);
+      for (Box obj : new BoxSet(this.getBoxes())) { obj.removeYou(); }
       if (getKarli() != null) { getKarli().removeYou(); }
+      if (getMaze() != null) { getMaze().removeYou(); }
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    /********************************************************************
     * <pre>
-    *              many                       one
-    * Sokoban ----------------------------------- Maze
-    *              sokoban                   maze
-    * </pre>
-    */
-   
-   public static final String PROPERTY_MAZE = "maze";
-
-   private Maze maze = null;
-
-   public Maze getMaze()
-   {
-      return this.maze;
-   }
-
-   public boolean setMaze(Maze value)
-   {
-      boolean changed = false;
-      
-      if (this.maze != value)
-      {
-         Maze oldValue = this.maze;
-         
-         if (this.maze != null)
-         {
-            this.maze = null;
-            oldValue.withoutSokoban(this);
-         }
-         
-         this.maze = value;
-         
-         if (value != null)
-         {
-            value.withSokoban(this);
-         }
-         
-         firePropertyChange(PROPERTY_MAZE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Sokoban withMaze(Maze value)
-   {
-      setMaze(value);
-      return this;
-   } 
-
-   public Maze createMaze()
-   {
-      Maze value = new Maze();
-      withMaze(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
+    *              one                       many
     * Sokoban ----------------------------------- Box
     *              sokoban                   boxes
     * </pre>
@@ -196,7 +149,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 
             if (changed)
             {
-               item.withSokoban(this);
                firePropertyChange(PROPERTY_BOXES, null, item);
             }
          }
@@ -212,7 +164,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
          {
             if (this.boxes.remove(item))
             {
-               item.withoutSokoban(this);
                firePropertyChange(PROPERTY_BOXES, item, null);
             }
          }
@@ -230,7 +181,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
    
    /********************************************************************
     * <pre>
-    *              many                       one
+    *              one                       one
     * Sokoban ----------------------------------- Karli
     *              sokoban                   karli
     * </pre>
@@ -253,18 +204,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
       {
          Karli oldValue = this.karli;
          
-         if (this.karli != null)
-         {
-            this.karli = null;
-            oldValue.withoutSokoban(this);
-         }
-         
          this.karli = value;
-         
-         if (value != null)
-         {
-            value.withSokoban(this);
-         }
          
          firePropertyChange(PROPERTY_KARLI, oldValue, value);
          changed = true;
@@ -285,16 +225,52 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
       withKarli(value);
       return value;
    } 
-   
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
 
-      result.append(this.getMaze() != null ? this.getMaze().toString(this) : " ");
-      
-      return result.substring(1);
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Sokoban ----------------------------------- Maze
+    *              sokoban                   maze
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MAZE = "maze";
+
+   private Maze maze = null;
+
+   public Maze getMaze()
+   {
+      return this.maze;
    }
 
+   public boolean setMaze(Maze value)
+   {
+      boolean changed = false;
+      
+      if (this.maze != value)
+      {
+         Maze oldValue = this.maze;
+         
+         this.maze = value;
+         
+         firePropertyChange(PROPERTY_MAZE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
 
+   public Sokoban withMaze(Maze value)
+   {
+      setMaze(value);
+      return this;
+   } 
+
+   public Maze createMaze()
+   {
+      Maze value = new Maze();
+      withMaze(value);
+      return value;
+   } 
 }

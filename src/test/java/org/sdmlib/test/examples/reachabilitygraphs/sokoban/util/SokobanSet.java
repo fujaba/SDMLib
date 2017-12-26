@@ -21,16 +21,18 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 
 public class SokobanSet extends SimpleSet<Sokoban>
 {
@@ -77,6 +79,7 @@ public class SokobanSet extends SimpleSet<Sokoban>
       return new SokobanSet();
    }
 
+
    @SuppressWarnings("unchecked")
    public SokobanSet with(Object value)
    {
@@ -99,71 +102,6 @@ public class SokobanSet extends SimpleSet<Sokoban>
    public SokobanSet without(Sokoban value)
    {
       this.remove(value);
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Sokoban objects and collect a set of the Maze objects reached via maze. 
-    * 
-    * @return Set of Maze objects reachable via maze
-    */
-   public MazeSet getMaze()
-   {
-      MazeSet result = new MazeSet();
-      
-      for (Sokoban obj : this)
-      {
-         result.with(obj.getMaze());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Sokoban objects and collect all contained objects with reference maze pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as maze neighbor of the collected results. 
-    * 
-    * @return Set of Maze objects referring to value via maze
-    */
-   public SokobanSet filterMaze(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      SokobanSet answer = new SokobanSet();
-      
-      for (Sokoban obj : this)
-      {
-         if (neighbors.contains(obj.getMaze()) || (neighbors.isEmpty() && obj.getMaze() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Sokoban object passed as parameter to the Maze attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Maze attributes.
-    */
-   public SokobanSet withMaze(Maze value)
-   {
-      for (Sokoban obj : this)
-      {
-         obj.withMaze(value);
-      }
-      
       return this;
    }
 
@@ -307,6 +245,71 @@ public class SokobanSet extends SimpleSet<Sokoban>
       for (Sokoban obj : this)
       {
          obj.withKarli(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Sokoban objects and collect a set of the Maze objects reached via maze. 
+    * 
+    * @return Set of Maze objects reachable via maze
+    */
+   public MazeSet getMaze()
+   {
+      MazeSet result = new MazeSet();
+      
+      for (Sokoban obj : this)
+      {
+         result.with(obj.getMaze());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Sokoban objects and collect all contained objects with reference maze pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as maze neighbor of the collected results. 
+    * 
+    * @return Set of Maze objects referring to value via maze
+    */
+   public SokobanSet filterMaze(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      SokobanSet answer = new SokobanSet();
+      
+      for (Sokoban obj : this)
+      {
+         if (neighbors.contains(obj.getMaze()) || (neighbors.isEmpty() && obj.getMaze() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Sokoban object passed as parameter to the Maze attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Maze attributes.
+    */
+   public SokobanSet withMaze(Maze value)
+   {
+      for (Sokoban obj : this)
+      {
+         obj.withMaze(value);
       }
       
       return this;

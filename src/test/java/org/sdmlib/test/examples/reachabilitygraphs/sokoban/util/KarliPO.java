@@ -2,12 +2,9 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
 
 public class KarliPO extends PatternObject<KarliPO, Karli>
 {
@@ -44,45 +41,6 @@ public class KarliPO extends PatternObject<KarliPO, Karli>
    {
       this.setModifier(modifier);
    }
-   public SokobanPO createSokobanPO()
-   {
-      SokobanPO result = new SokobanPO(new Sokoban[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Karli.PROPERTY_SOKOBAN, result);
-      
-      return result;
-   }
-
-   public SokobanPO createSokobanPO(String modifier)
-   {
-      SokobanPO result = new SokobanPO(new Sokoban[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Karli.PROPERTY_SOKOBAN, result);
-      
-      return result;
-   }
-
-   public KarliPO createSokobanLink(SokobanPO tgt)
-   {
-      return hasLinkConstraint(tgt, Karli.PROPERTY_SOKOBAN);
-   }
-
-   public KarliPO createSokobanLink(SokobanPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Karli.PROPERTY_SOKOBAN, modifier);
-   }
-
-   public SokobanSet getSokoban()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Karli) this.getCurrentMatch()).getSokoban();
-      }
-      return null;
-   }
-
    public TilePO createTilePO()
    {
       TilePO result = new TilePO(new Tile[]{});

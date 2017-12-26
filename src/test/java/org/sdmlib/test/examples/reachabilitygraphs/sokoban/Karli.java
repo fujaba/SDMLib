@@ -81,12 +81,23 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
    }
 
    
+ 
+   
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      return result.substring(1);
+   }
+
+
+   
    //==========================================================================
    
    
    public void removeYou()
    {
-      withoutSokoban(this.getSokoban().toArray(new Sokoban[this.getSokoban().size()]));
       setTile(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -94,81 +105,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
    
    /********************************************************************
     * <pre>
-    *              one                       many
-    * Karli ----------------------------------- Sokoban
-    *              karli                   sokoban
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SOKOBAN = "sokoban";
-
-   private SokobanSet sokoban = null;
-   
-   public SokobanSet getSokoban()
-   {
-      if (this.sokoban == null)
-      {
-         return SokobanSet.EMPTY_SET;
-      }
-   
-      return this.sokoban;
-   }
-
-   public Karli withSokoban(Sokoban... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Sokoban item : value)
-      {
-         if (item != null)
-         {
-            if (this.sokoban == null)
-            {
-               this.sokoban = new SokobanSet();
-            }
-            
-            boolean changed = this.sokoban.add (item);
-
-            if (changed)
-            {
-               item.withKarli(this);
-               firePropertyChange(PROPERTY_SOKOBAN, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Karli withoutSokoban(Sokoban... value)
-   {
-      for (Sokoban item : value)
-      {
-         if ((this.sokoban != null) && (item != null))
-         {
-            if (this.sokoban.remove(item))
-            {
-               item.setKarli(null);
-               firePropertyChange(PROPERTY_SOKOBAN, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Sokoban createSokoban()
-   {
-      Sokoban value = new Sokoban();
-      withSokoban(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
+    *              one                       one
     * Karli ----------------------------------- Tile
-    *              karlis                   tile
+    *              karli                   tile
     * </pre>
     */
    
@@ -189,18 +128,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
       {
          Tile oldValue = this.tile;
          
-         if (this.tile != null)
-         {
-            this.tile = null;
-            oldValue.withoutKarlis(this);
-         }
-         
          this.tile = value;
-         
-         if (value != null)
-         {
-            value.withKarlis(this);
-         }
          
          firePropertyChange(PROPERTY_TILE, oldValue, value);
          changed = true;
@@ -221,15 +149,4 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
       withTile(value);
       return value;
    } 
-   
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-
-      result.append(this.getSokoban().last() != null ? this.getSokoban().last().toString() : " ");
-      
-      return result.substring(1);
-   }
-
 }

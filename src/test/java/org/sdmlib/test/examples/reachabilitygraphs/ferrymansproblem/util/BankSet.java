@@ -33,6 +33,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
 public class BankSet extends SimpleSet<Bank>
 {

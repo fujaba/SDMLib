@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 public class NodeSet extends SimpleSet<Node>
 {

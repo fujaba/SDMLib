@@ -2,14 +2,14 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 
 public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
 {
@@ -46,45 +46,6 @@ public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
    {
       this.setModifier(modifier);
    }
-   public MazePO createMazePO()
-   {
-      MazePO result = new MazePO(new Maze[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Sokoban.PROPERTY_MAZE, result);
-      
-      return result;
-   }
-
-   public MazePO createMazePO(String modifier)
-   {
-      MazePO result = new MazePO(new Maze[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Sokoban.PROPERTY_MAZE, result);
-      
-      return result;
-   }
-
-   public SokobanPO createMazeLink(MazePO tgt)
-   {
-      return hasLinkConstraint(tgt, Sokoban.PROPERTY_MAZE);
-   }
-
-   public SokobanPO createMazeLink(MazePO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Sokoban.PROPERTY_MAZE, modifier);
-   }
-
-   public Maze getMaze()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Sokoban) this.getCurrentMatch()).getMaze();
-      }
-      return null;
-   }
-
    public BoxPO createBoxesPO()
    {
       BoxPO result = new BoxPO(new Box[]{});
@@ -159,6 +120,45 @@ public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
       if (this.getPattern().getHasMatch())
       {
          return ((Sokoban) this.getCurrentMatch()).getKarli();
+      }
+      return null;
+   }
+
+   public MazePO createMazePO()
+   {
+      MazePO result = new MazePO(new Maze[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Sokoban.PROPERTY_MAZE, result);
+      
+      return result;
+   }
+
+   public MazePO createMazePO(String modifier)
+   {
+      MazePO result = new MazePO(new Maze[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Sokoban.PROPERTY_MAZE, result);
+      
+      return result;
+   }
+
+   public SokobanPO createMazeLink(MazePO tgt)
+   {
+      return hasLinkConstraint(tgt, Sokoban.PROPERTY_MAZE);
+   }
+
+   public SokobanPO createMazeLink(MazePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Sokoban.PROPERTY_MAZE, modifier);
+   }
+
+   public Maze getMaze()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Sokoban) this.getCurrentMatch()).getMaze();
       }
       return null;
    }
