@@ -51,7 +51,7 @@ public class SokobanLevels
             + "woobkw\n"
             + "wwwwww\n";
       
-      long usedMillis = SokobanLevel1(false, false, "Level0", level, 3000);
+      long usedMillis = SokobanLevel1(false, true, "Level0", level, 3000);
       
       int size = reachabilityGraph.getStates().size();
       
@@ -64,7 +64,18 @@ public class SokobanLevels
    }
    
    
-   @Test
+   public static void main(String[] args)
+   {
+      try
+      {
+         new SokobanLevels().SokobanLevel1();
+      }
+      catch (Exception e)
+      {
+         Logger.getGlobal().warning(e.getStackTrace().toString());
+      }
+   }
+   
    public void SokobanLevel1() throws Exception
    {
       
@@ -90,10 +101,21 @@ public class SokobanLevels
       long prevCleanTimeString = Long.MAX_VALUE;
       long newKeepTimeString = Long.MAX_VALUE - 1;
       long newCleanTimeString = Long.MAX_VALUE - 1;
+      
+      int abortCount = 0;
 
-      while (newKeepTimeLong < prevKeepTimeLong && newCleanTimeLong < prevCleanTimeLong 
-            && newKeepTimeString < prevKeepTimeString && newCleanTimeString < prevCleanTimeString)
+      while (abortCount < 2)
       {
+         if (newKeepTimeLong < prevKeepTimeLong && newCleanTimeLong < prevCleanTimeLong 
+         && newKeepTimeString < prevKeepTimeString && newCleanTimeString < prevCleanTimeString)
+         {
+            abortCount = 0;
+         }
+         else
+         {
+            abortCount++;
+         }
+         
          prevCleanTimeLong = newCleanTimeLong;
          
          newCleanTimeLong = SokobanLevel1(true, true, "Level1", level, 3000);

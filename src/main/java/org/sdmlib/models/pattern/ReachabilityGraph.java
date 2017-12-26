@@ -2151,25 +2151,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
          if (cert2Nodes.size() <= oldNumOfCertificates || cert2Nodes.size() == staticNodes.size())
          {
-            //            // write state certificate
-            //            StringBuilder buf = new StringBuilder();
-            //            for (String cert : cert2Nodes.keySet())
-            //            {
-            //               Integer noOfNodes = cert2Nodes.get(cert).size();
-            //               Integer certNo = allStaticCertificate2Number.get(cert);
-            //
-            //               buf.append(certNo).append('*').append(noOfNodes)
-            //               .append('\n');
-            //            }
-            //
-            //            // append certNo certText list
-            //            for ( Entry<String, Integer> entry : allStaticCertificate2Number.entrySet())
-            //            {
-            //               buf.append(entry.getValue()).append(": ").append(entry.getKey());
-            //            }
-            //
-            //            this.staticCertificate = buf.toString();
-            
             break;
          }
          

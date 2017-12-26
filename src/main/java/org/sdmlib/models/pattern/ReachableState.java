@@ -136,8 +136,6 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
    public void cleanUpCertificateTemps()
    {
-      this.lazyGraph.clear();
-      this.lazyGraph = null;
       if (allCertificate2Number != null)
       {
          this.allCertificate2Number.clear();
@@ -655,7 +653,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       while (true)
       {
          // collect new certificates
-         for (Object o : lazyGraph)
+         for (Object o : dynNodes)
          {
             Long certNo = oldNode2CertNo.get(o);
             Objects.requireNonNull(certNo);
@@ -679,7 +677,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
                      for (Object valueElem : (Collection) value)
                      {
-                        if (lazyGraph.contains(valueElem))
+                        if (dynNodes.contains(valueElem))
                         {
                            Long valueCertNo = oldNode2CertNo.get(valueElem);
                            Objects.requireNonNull(valueCertNo);
@@ -698,7 +696,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                         }
                      }
                   }
-                  else if (lazyGraph.contains(value))
+                  else if (dynNodes.contains(value))
                   {
                      Long valueCertNo = oldNode2CertNo.get(value);
                      Objects.requireNonNull(valueCertNo);
@@ -723,7 +721,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             }
          }
 
-         if (longCert2Nodes.size() <= oldNumOfCertificates || longCert2Nodes.size() == lazyGraph.size())
+         if (longCert2Nodes.size() <= oldNumOfCertificates || longCert2Nodes.size() == dynNodes.size())
          {
             this.longCertificate = 0L;
             // write state certificate
@@ -1286,8 +1284,6 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    private boolean finalState;
 
    private boolean startState;
-
-   private SimpleKeyValueList<Object, Object> lazyGraph;
 
    private SimpleKeyValueList<Long, ArrayList> longCert2Nodes;
 
