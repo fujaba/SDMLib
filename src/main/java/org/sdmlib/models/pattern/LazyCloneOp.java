@@ -221,12 +221,12 @@ public class LazyCloneOp
    }
 
 
-   public Object cloneComponent(SimpleKeyValueList<Object, Object> graph, Object orig)
+   public Object cloneComponent(ObjectSet dynNodes, Object orig)
    {
       ObjectSet cloneGraph = new ObjectSet();
       
       // first clone objects, 
-      for (Object obj : graph.keySet())
+      for (Object obj : dynNodes)
       {
          Object origObj = cloneToOrigMap.get(obj);
          if (origObj != null)
@@ -376,48 +376,48 @@ public class LazyCloneOp
       return false;
    }
 
-   public void aggregate(SimpleKeyValueList<Object, Object> graph, Object root, Object parent)
-   {
-      if (root == null || graph.get(root) != null)
-      {
-         return;
-      }
-      
-      SendableEntityCreator plainCreator = map.getCreatorClass(root);
-      
-      Objects.requireNonNull(plainCreator);
-      
-      if ( ! (plainCreator instanceof AggregatedEntityCreator))
-      {
-         collectComponent(graph, root);
-         
-         return;
-      }
-      
-      graph.put(root, parent);
-      
-      AggregatedEntityCreator creator = (AggregatedEntityCreator) map.getCreatorClass(root);
-      
-      String[] downProperties = creator.getDownProperties();
-      
-      for (String prop : downProperties)
-      {
-         Object value = creator.getValue(root, prop);
-         
-         if (value != null && value instanceof Collection)
-         {
-            for (Object elem : (Collection) value)
-            {
-               aggregate(graph, elem, root);
-            }
-         }
-         else
-         {
-            aggregate(graph, value, root);
-         }
-      }
-      
-   }
+//   public void aggregate(SimpleKeyValueList<Object, Object> graph, Object root, Object parent)
+//   {
+//      if (root == null || graph.get(root) != null)
+//      {
+//         return;
+//      }
+//      
+//      SendableEntityCreator plainCreator = map.getCreatorClass(root);
+//      
+//      Objects.requireNonNull(plainCreator);
+//      
+//      if ( ! (plainCreator instanceof AggregatedEntityCreator))
+//      {
+//         collectComponent(graph, root);
+//         
+//         return;
+//      }
+//      
+//      graph.put(root, parent);
+//      
+//      AggregatedEntityCreator creator = (AggregatedEntityCreator) map.getCreatorClass(root);
+//      
+//      String[] downProperties = creator.getDownProperties();
+//      
+//      for (String prop : downProperties)
+//      {
+//         Object value = creator.getValue(root, prop);
+//         
+//         if (value != null && value instanceof Collection)
+//         {
+//            for (Object elem : (Collection) value)
+//            {
+//               aggregate(graph, elem, root);
+//            }
+//         }
+//         else
+//         {
+//            aggregate(graph, value, root);
+//         }
+//      }
+//      
+//   }
 
 
 
@@ -460,16 +460,16 @@ public class LazyCloneOp
    }
 
    
-   public void collectComponent(SimpleKeyValueList<Object, Object> graph, Object root)
+   public void collectComponent(ObjectSet graph, Object root)
    {
-      if (root == null || graph.get(root) != null)
+      if (root == null || graph.contains(root))
       {
          return;
       }
       
       SendableEntityCreator creator = map.getCreatorClass(root);
       
-      graph.put(root, root);
+      graph.add(root);
       
       String[] properties = creator.getProperties();
       

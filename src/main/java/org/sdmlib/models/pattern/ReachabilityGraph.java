@@ -63,6 +63,7 @@ import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
 
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
@@ -77,7 +78,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 {
    
    // ==========================================================================
-   private ObjectSet staticNodes = null;
+   private ObjectSet staticNodes = new ObjectSet();
 
    public ObjectSet getStaticNodes()
    {
@@ -573,7 +574,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private boolean rememberMatches = true;
 
-
    public PatternSet getRules()
    {
       if (this.rules == null)
@@ -955,10 +955,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       {
          Trafo trafo = trafoList.get(trafoName);
          // clone current state
-         SimpleKeyValueList<Object, Object> graph = new SimpleKeyValueList<Object, Object>();
+         ObjectSet dynNodes = new ObjectSet();
+         SimpleList<Object> dynEdges = new SimpleList<Object>();
          lazyCloneOp.clear();
-         lazyCloneOp.aggregate(graph, current.getGraphRoot(), current.getGraphRoot());
-         Object newGraphRoot = lazyCloneOp.cloneComponent(graph, current.getGraphRoot());
+         
+         lazyCloneOp.aggregate(dynNodes, dynEdges, staticNodes, current.getGraphRoot());
+         Object newGraphRoot = lazyCloneOp.cloneComponent(dynNodes, current.getGraphRoot());
          ReachableState newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
 
          // apply trafo

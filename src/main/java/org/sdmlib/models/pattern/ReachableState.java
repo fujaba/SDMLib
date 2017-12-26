@@ -590,14 +590,58 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
 
       longNode2CertNo = new SimpleKeyValueList<Object, Long>();
 
-      lazyGraph = new SimpleKeyValueList<Object, Object>();
-      lazyCloneOp.aggregate(lazyGraph, this.getGraphRoot(), this.getGraphRoot());
+      dynNodes = new ObjectSet();
+      
+      dynEdges = new SimpleList<Object>();
+      
+      if (getParent().getStaticNodes()  == null)
+      {
+         getParent().setStaticNodes(new ObjectSet());
+      } 
+      
+      dynNodes.add(this.graphRoot);
+      
+      lazyCloneOp.aggregate(dynNodes, dynEdges, getParent().getStaticNodes(), this.getGraphRoot());
+      
+      getParent().staticComputeCertificate();
       
       // assign cert numbers to nodes
-      for (Object o : lazyGraph)
+      for (Object o : dynNodes)
       {
-         long simpleName = o.getClass().getSimpleName().hashCode();
-         oldNode2CertNo.put(o, simpleName);
+         long simpleCert = o.getClass().getSimpleName().hashCode();
+         
+         SendableEntityCreator creator = lazyCloneOp.getMap().getCreatorClass(o);
+         
+         // loop through props
+         for (String prop : creator.getProperties())
+         {
+            Object value = creator.getValue(o, prop);
+            
+            if (value != null)
+            {
+               if (value instanceof Collection)
+               {
+                  // ignore sets of model objects
+                  continue;
+               }
+               else if (dynNodes.contains(value))
+               {
+                  // ignore model objects
+                  continue; 
+               }
+               else if (getParent().getStaticNodes().contains(value))
+               {
+                  // ignore model objects
+                  continue; 
+               }
+               else // plain value
+               {
+                  simpleCert = (simpleCert * 31 + prop.hashCode()) * 31 + value.toString().hashCode();
+               }
+            }
+         } // for (String prop : creator.getProperties())
+         
+         oldNode2CertNo.put(o, simpleCert);
       }
       
       longCert2Nodes = new SimpleKeyValueList<Long, ArrayList>();
@@ -606,52 +650,15 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
       
       ArrayList<Long> valueCertNumbers = new ArrayList<Long>();
 
-      int certLevel = 0;
-      
       SimpleKeyValueList level1Nodes2Cert = this.getParent().getLevel1Nodes2Cert();
-      
-      boolean firstTimeLevel1Certs = false;
-      
-      if (level1Nodes2Cert == null)
-      {
-         // first time, create it
-         level1Nodes2Cert = new SimpleKeyValueList<Object, Object>();
-         this.getParent().setLevel1Nodes2Cert(level1Nodes2Cert);
-         firstTimeLevel1Certs = true;
-      }
       
       while (true)
       {
-         certLevel++;
-         
          // collect new certificates
          for (Object o : lazyGraph)
          {
             Long certNo = oldNode2CertNo.get(o);
             Objects.requireNonNull(certNo);
-            
-//            if (certLevel > 1)
-//            {
-//               ArrayList arrayList = oldCert2Nodes.get(certNo);
-//               Objects.requireNonNull(arrayList);
-//               if (arrayList.size() == 1)
-//               {
-//                  // old certificate was already unique. Reuse it. 
-//                  addToCert2Nodes(cert2Nodes, o, certNo);
-//                  continue;
-//               }
-//            }
-//            
-//            if ( certLevel == 1 && ! firstTimeLevel1Certs)
-//            {
-//               // try to reuse level 1 cert from previous graph. Works with lazy copy
-//               Object level1Cert = level1Nodes2Cert.get(o);
-//               if (level1Cert != null)
-//               {
-//                  addToCert2Nodes(cert2Nodes, o, (Long) level1Cert);
-//                  continue;
-//               }
-//            }
             
             long newCertificate = certNo;
             
@@ -699,7 +706,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                   }
                   else // plain value
                   {
-                     newCertificate = (newCertificate * 31 + prop.hashCode()) * 31 + value.toString().hashCode();
+                     // already contained
                   }
                }
             } // for (String prop : creator.getProperties())
@@ -713,11 +720,6 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             for (Object elem : longCert2Nodes.get(newCert))
             {
                longNode2CertNo.put(elem, newCert);
-               
-//               if ( certLevel == 1 && firstTimeLevel1Certs)
-//               {
-//                  level1Nodes2Cert.put(elem, newCert);
-//               }
             }
          }
 

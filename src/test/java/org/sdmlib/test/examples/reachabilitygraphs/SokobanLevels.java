@@ -34,6 +34,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
 
 public class SokobanLevels
 {
@@ -148,8 +149,9 @@ public class SokobanLevels
       ReachableState startState = new ReachableState().withGraphRoot(soko);
       reachabilityGraph.withStart(startState);
       
-      SimpleKeyValueList<Object, Object> startElems = new SimpleKeyValueList<Object, Object>();
-      reachabilityGraph.getLazyCloneOp().aggregate(startElems, soko, soko);
+      ObjectSet startElems = new ObjectSet();
+      SimpleList<Object> dynEdges = new SimpleList<Object>();
+      reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), soko);
       
       //=============================================================
       long startTime = System.currentTimeMillis();
@@ -173,9 +175,11 @@ public class SokobanLevels
       stats.createRows("product:", expectedObjectNumber, " ");
       
       startElems.clear();
+      dynEdges.clear();
+      
       for (ReachableState state : reachabilityGraph.getStates())
       {
-         reachabilityGraph.getLazyCloneOp().aggregate(startElems, state.getGraphRoot(), state.getGraphRoot());
+         reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), state.getGraphRoot());
       }
       int actualObjectNumber = startElems.size();
       stats.createRows("actual object number:", actualObjectNumber, " ");
