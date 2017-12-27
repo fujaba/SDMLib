@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -348,7 +349,10 @@ public class LazyCloneOp
          }
          else
          {
-            if ( value != null && ! value.getClass().getName().startsWith("java.lang.") && ! staticNodes.contains(value))
+            if ( value != null 
+                  && ! value.getClass().getName().startsWith("java.lang.") 
+                  && ! staticNodes.contains(value)
+                  && ! (value.getClass().isEnum()))
             {
                // model type
                dynEdges.add(root, prop, value);
