@@ -1489,38 +1489,6 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   }
                }
                
-               // try to find partner via certificates
-               if (useLongCertificates)
-               {
-                  Long long1 = s1.getLongNode2CertNo().get(object1);
-                  
-                  ArrayList sameCert2Objects = s2.getLongCert2Nodes().get(long1);
-                  
-                  for (Object object2 : sameCert2Objects)
-                  {
-                     // might be a candidate, match it
-                     fwdmapping.put(object1, object2);
-                     bwdmapping.put(object2, object1);
-
-                     boolean match = lazyMatch(s1, s2, object1, fwdmapping, bwdmapping); 
-
-                     if (!match)
-                     {
-                        // did not work
-                        fwdmapping.remove(value1);
-                        bwdmapping.remove(value2);
-                        
-                        continue;
-                     }
-                     else
-                     {
-                        continue obj1RefLoop;
-                     }
-                  }
-                  
-                  return false;
-               }
-               
                
                // not yet mapped, search for mapping
                for (Object object2 : (Collection) value2)
@@ -1542,12 +1510,25 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      continue;
                   }
                   
-                  if (useLongCertificates)
+                  String staticCert1 = staticNode2CertNo.get(object1);
+                  if (staticCert1 != null)
                   {
-                     long long1 = s1.getLongNode2CertNo().get(object1);
-                     long long2 = s2.getLongNode2CertNo().get(object2);
+                     String staticCert2 = staticNode2CertNo.get(object2);
                      
-                     if (long1 != long2)
+                     if ( ! StrUtil.stringEquals(staticCert1, staticCert2))
+                     {
+                        // try some other object2
+                        return false;
+                     }
+                  }
+                  else if (useLongCertificates)
+                  {
+                     Long long1 = s1.getLongNode2CertNo().get(object1);
+                     Long long2 = s2.getLongNode2CertNo().get(object2);
+                     
+                     boolean equal = long1 == null ? long2 == null : long1.equals(long2);
+                     
+                     if ( ! equal)
                      {
                         continue;
                      }
@@ -1633,12 +1614,26 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                }
             }
             
-            if (useLongCertificates)
+            String staticCert1 = staticNode2CertNo.get(value1);
+            if (staticCert1 != null)
             {
-               long long1 = s1.getLongNode2CertNo().get(value1);
-               long long2 = s2.getLongNode2CertNo().get(value2);
+               String staticCert2 = staticNode2CertNo.get(value2);
                
-               if (long1 != long2)
+               if ( ! StrUtil.stringEquals(staticCert1, staticCert2))
+               {
+                  // try some other object2
+                  return false;
+               }
+            }
+            else if (useLongCertificates)
+            {
+               Map<Object, Long> longNode2CertNo = s1.getLongNode2CertNo();
+               Long long1 = longNode2CertNo.get(value1);
+               Long long2 = s2.getLongNode2CertNo().get(value2);
+               
+               boolean equal = long1 == null ? long2 == null : long1.equals(long2);
+               
+               if ( ! equal)
                {
                   return false;
                }

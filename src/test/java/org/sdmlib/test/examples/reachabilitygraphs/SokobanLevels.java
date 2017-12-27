@@ -1,26 +1,20 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.tables.Table;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
@@ -33,7 +27,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
 
 public class SokobanLevels
@@ -51,7 +44,7 @@ public class SokobanLevels
             + "woobkw\n"
             + "wwwwww\n";
       
-      long usedMillis = SokobanLevel1(false, true, "Level0", level, 3000);
+      long usedMillis = SokobanLevel1(false, false, "Level0", level, 3000);
       
       int size = reachabilityGraph.getStates().size();
       
@@ -72,7 +65,7 @@ public class SokobanLevels
       }
       catch (Exception e)
       {
-         Logger.getGlobal().warning(e.getStackTrace().toString());
+         Logger.getGlobal().warning(e.toString());
       }
    }
    
@@ -158,6 +151,10 @@ public class SokobanLevels
             .withRules("move karl", sokoPO)
             .withRules("push box", pushBoxSokoPO);
       
+      ObjectSet statics = new ObjectSet();
+      statics.with(soko.getMaze()).withList(soko.getMaze().getTiles());
+      reachabilityGraph.setStaticNodes(statics);
+      
       if (cleanUp)
       {
          reachabilityGraph.withDoCleanUpTemps();
@@ -173,7 +170,7 @@ public class SokobanLevels
       
       ObjectSet startElems = new ObjectSet();
       SimpleList<Object> dynEdges = new SimpleList<Object>();
-      reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), soko);
+      // reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), soko);
       
       //=============================================================
       long startTime = System.currentTimeMillis();

@@ -696,6 +696,14 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
                         }
                      }
                   }
+                  else if (getParent().getStaticNodes().contains(value))
+                  {
+                     Map<Object, String> staticNode2CertNo = getParent().getStaticNode2CertNo();
+                     String certString = staticNode2CertNo.get(value);
+                     Long valueCertNo = (long) certString.hashCode();
+                     Objects.requireNonNull(valueCertNo);
+                     newCertificate = (newCertificate * 31 + prop.hashCode()) * 31 + valueCertNo;
+                  }
                   else if (dynNodes.contains(value))
                   {
                      Long valueCertNo = oldNode2CertNo.get(value);
@@ -728,6 +736,7 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
             ArrayList<Long> certList = new ArrayList<Long>(longCert2Nodes.size());
             certList.addAll(longCert2Nodes.keySet());
             certList.sort(null);
+            
             for (Long cert : certList)
             {
                Integer noOfNodes = longCert2Nodes.get(cert).size();
