@@ -1,25 +1,15 @@
 package org.sdmlib.models.pattern;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples;
-
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleEntity;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
 
 public class LazyCloneOp
