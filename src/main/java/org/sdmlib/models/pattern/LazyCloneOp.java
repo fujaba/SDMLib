@@ -348,11 +348,16 @@ public class LazyCloneOp
             }
          }
          else
-         {
-            if ( value != null 
-                  && ! value.getClass().getName().startsWith("java.lang.") 
-                  && ! staticNodes.contains(value)
-                  && ! (value.getClass().isEnum()))
+         { 
+            // better getCreator() != null
+            
+            //            if ( value != null 
+            //                  && ! value.getClass().getName().startsWith("java.lang.") 
+            //                  && ! staticNodes.contains(value)
+            //                  && ! (value.getClass().isEnum()))
+            
+            SendableEntityCreator valueCreator = map.getCreatorClass(value);
+            if (valueCreator != null)
             {
                // model type
                dynEdges.add(root, prop, value);
