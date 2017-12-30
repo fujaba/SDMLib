@@ -39,6 +39,7 @@ public class SokobanLevels
 {
    private String level;
    private ReachabilityGraph reachabilityGraph;
+   private Storyboard story;
 
    @Test
    public void SokobanAbstraction() throws Exception
@@ -50,8 +51,58 @@ public class SokobanLevels
             + "woobkw\n"
             + "wwwwww\n";
       
-      long noOfStates = 3000;
-      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+      int size = sokobanAbstractLevel();
+      
+      printStates();
+      
+      story.dumpHTML();
+      
+      assertEquals("wrong number of levels", 8, size);
+      
+      level = ""
+            + "     wwwww\n"
+            + "    ww.o.w\n"
+            + "   ww.bo.w\n"
+            + "  ww.b...w\n"
+            + " ww.bk.www\n"
+            + " w.b..ww  \n"
+            + " woo.ww   \n"
+            + " w...ww   \n"
+            + " wwwwww   \n";
+      
+      size = sokobanAbstractLevel();
+      
+      story.dumpHTML();
+   }
+
+
+   private void printStates()
+   {
+      StringBuilder buf = new StringBuilder();
+      
+      for (ReachableState s : reachabilityGraph.getStates())
+      {
+         for (RuleApplication r : s.getResultOf())
+         {
+            ReachableState src = r.getSrc();
+            
+            buf.append(src.getNumber()).append(" -").append(r.getDescription()).append("->\n");
+         }
+         
+         String stateDescription = s.toString();
+         buf.append(stateDescription).append("\n\n");
+      }
+      
+      System.out.println(buf.toString());
+      
+      story.addPreformatted(buf.toString());
+   }
+
+
+   private int sokobanAbstractLevel()
+   {
+      long noOfStates = 30000;
+      story = new Storyboard().withDocDirName("doc/internal");
             
       story.addStep("First Level");
       
@@ -69,7 +120,7 @@ public class SokobanLevels
       
       doAbstraction(sokobanPO);
       
-      story.assertEquals("akarli reaches tiles:", 4, akarli.getTiles().size());
+      // story.assertEquals("akarli reaches tiles:", 4, akarli.getTiles().size());
       
       // story.addObjectDiagram(soko);
       
@@ -164,36 +215,40 @@ public class SokobanLevels
          //exception handling left as an exercise for the reader
       }
       
-      
-      // story.addObjectDiagramOnlyWith(reachabilityGraph.getStates(), reachabilityGraph.getStates().getRuleapplications());
-      
-      
+      for (ReachableState r : reachabilityGraph.getStates())
+      {
+         Sokoban finalSoko = (Sokoban) r.getGraphRoot();
+         
+         int size = finalSoko.getBoxes().getTile().createGoalCondition(true).size();
+         
+         if (size == finalSoko.getBoxes().size())
+         {
+            // all boxes on goal fields
+            
+            StringBuilder buf = new StringBuilder();
+            
+            for (RuleApplication ra : r.getResultOf())
+            {
+               ReachableState src = ra.getSrc();
+               
+               buf.append(src.getNumber()).append(" -").append(ra.getDescription()).append("->\n");
+            }
+            
+            String stateDescription = finalSoko.toString();
+            buf.append(stateDescription).append("\n\n");
+            System.out.println(buf.toString());
+            
+            story.addPreformatted(buf.toString());
+
+            break;
+         }
+      }
       
       long usedMillis = usedMillis1;
       
       int size = reachabilityGraph.getStates().size();
       
-      StringBuilder buf = new StringBuilder();
-      
-      for (ReachableState s : reachabilityGraph.getStates())
-      {
-         for (RuleApplication r : s.getResultOf())
-         {
-            ReachableState src = r.getSrc();
-            
-            buf.append(src.getNumber()).append(" -").append(r.getDescription()).append("->\n");
-         }
-         
-         String stateDescription = s.toString();
-         buf.append(stateDescription).append("\n\n");
-      }
-      
-      System.out.println(buf.toString());
-      
-      story.addPreformatted(buf.toString());
-      story.dumpHTML();
-      
-      assertEquals("wrong number of levels", 8, size);
+      return size;
    }
    
    
