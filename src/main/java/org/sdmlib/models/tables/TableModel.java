@@ -7,6 +7,7 @@ import static de.uniks.networkparser.graph.DataType.STRING;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Clazz;
@@ -21,7 +22,7 @@ public class TableModel
    @Test
    public void testTableModel() throws Exception
    {
-      StoryboardImpl story = new StoryboardImpl();
+      Storyboard story = new Storyboard();
 
       ClassModel model = new ClassModel("org.sdmlib.models.tables");
 

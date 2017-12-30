@@ -2,16 +2,21 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.AKarliPO;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-
-public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
+   public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
 {
 
     public SokobanSet allMatches()
@@ -31,10 +36,18 @@ public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
    public SokobanPO(){
       newInstance(null);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
    public SokobanPO(Sokoban... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
@@ -42,10 +55,53 @@ public class SokobanPO extends PatternObject<SokobanPO, Sokoban>
       newInstance(null, hostGraphObject);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
    public SokobanPO(String modifier)
    {
       this.setModifier(modifier);
    }
+   public AKarliPO createAkarliPO()
+   {
+      AKarliPO result = new AKarliPO(new AKarli[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Sokoban.PROPERTY_AKARLI, result);
+      
+      return result;
+   }
+
+   public AKarliPO createAkarliPO(String modifier)
+   {
+      AKarliPO result = new AKarliPO(new AKarli[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Sokoban.PROPERTY_AKARLI, result);
+      
+      return result;
+   }
+
+   public SokobanPO createAkarliLink(AKarliPO tgt)
+   {
+      return hasLinkConstraint(tgt, Sokoban.PROPERTY_AKARLI);
+   }
+
+   public SokobanPO createAkarliLink(AKarliPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Sokoban.PROPERTY_AKARLI, modifier);
+   }
+
+   public AKarli getAkarli()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Sokoban) this.getCurrentMatch()).getAkarli();
+      }
+      return null;
+   }
+
    public BoxPO createBoxesPO()
    {
       BoxPO result = new BoxPO(new Box[]{});

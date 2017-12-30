@@ -57,6 +57,14 @@ public class SokobanModel
       .with(AssociationTypes.AGGREGATION);
 
       karli.createUniDirectional(tile, "tile", Cardinality.ONE);
+      
+      Clazz akarli = model.createClazz("AKarli");
+
+      sokoban.createUniDirectional(akarli, "akarli", Cardinality.ONE);
+
+      akarli.createUniDirectional(tile, "tiles", Cardinality.MANY);
+      
+      
 
       
       story.addClassDiagram(model);

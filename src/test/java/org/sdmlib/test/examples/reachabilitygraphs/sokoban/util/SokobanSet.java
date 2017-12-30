@@ -26,6 +26,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.AKarliSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
 import java.util.Collections;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
@@ -102,6 +104,71 @@ public class SokobanSet extends SimpleSet<Sokoban>
    public SokobanSet without(Sokoban value)
    {
       this.remove(value);
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Sokoban objects and collect a set of the AKarli objects reached via akarli. 
+    * 
+    * @return Set of AKarli objects reachable via akarli
+    */
+   public AKarliSet getAkarli()
+   {
+      AKarliSet result = new AKarliSet();
+      
+      for (Sokoban obj : this)
+      {
+         result.with(obj.getAkarli());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Sokoban objects and collect all contained objects with reference akarli pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as akarli neighbor of the collected results. 
+    * 
+    * @return Set of AKarli objects referring to value via akarli
+    */
+   public SokobanSet filterAkarli(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      SokobanSet answer = new SokobanSet();
+      
+      for (Sokoban obj : this)
+      {
+         if (neighbors.contains(obj.getAkarli()) || (neighbors.isEmpty() && obj.getAkarli() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Sokoban object passed as parameter to the Akarli attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Akarli attributes.
+    */
+   public SokobanSet withAkarli(AKarli value)
+   {
+      for (Sokoban obj : this)
+      {
+         obj.withAkarli(value);
+      }
+      
       return this;
    }
 

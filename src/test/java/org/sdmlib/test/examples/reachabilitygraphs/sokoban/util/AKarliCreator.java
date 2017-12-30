@@ -22,25 +22,19 @@
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
-public class SokobanCreator implements AggregatedEntityCreator
+public class AKarliCreator implements AggregatedEntityCreator
 {
-   public static final SokobanCreator it = new SokobanCreator();
+   public static final AKarliCreator it = new AKarliCreator();
    
    private final String[] properties = new String[]
    {
-      Sokoban.PROPERTY_AKARLI,
-      Sokoban.PROPERTY_BOXES,
-      Sokoban.PROPERTY_KARLI,
-      Sokoban.PROPERTY_MAZE,
+      AKarli.PROPERTY_TILES,
    };
    
    private final String[] upProperties = new String[]
@@ -49,9 +43,6 @@ public class SokobanCreator implements AggregatedEntityCreator
    
    private final String[] downProperties = new String[]
    {
-      Sokoban.PROPERTY_BOXES,
-      Sokoban.PROPERTY_KARLI,
-      Sokoban.PROPERTY_MAZE,
    };
    
    @Override
@@ -75,7 +66,7 @@ public class SokobanCreator implements AggregatedEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Sokoban();
+      return new AKarli();
    }
    
    
@@ -90,24 +81,9 @@ public class SokobanCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Sokoban.PROPERTY_AKARLI.equalsIgnoreCase(attribute))
+      if (AKarli.PROPERTY_TILES.equalsIgnoreCase(attribute))
       {
-         return ((Sokoban) target).getAkarli();
-      }
-
-      if (Sokoban.PROPERTY_BOXES.equalsIgnoreCase(attribute))
-      {
-         return ((Sokoban) target).getBoxes();
-      }
-
-      if (Sokoban.PROPERTY_KARLI.equalsIgnoreCase(attribute))
-      {
-         return ((Sokoban) target).getKarli();
-      }
-
-      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attribute))
-      {
-         return ((Sokoban) target).getMaze();
+         return ((AKarli) target).getTiles();
       }
       
       return null;
@@ -117,7 +93,7 @@ public class SokobanCreator implements AggregatedEntityCreator
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
-           ((Sokoban)target).removeYou();
+           ((AKarli)target).removeYou();
            return true;
       }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
@@ -125,33 +101,15 @@ public class SokobanCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (Sokoban.PROPERTY_AKARLI.equalsIgnoreCase(attrName))
+      if (AKarli.PROPERTY_TILES.equalsIgnoreCase(attrName))
       {
-         ((Sokoban) target).setAkarli((AKarli) value);
-         return true;
-      }
-
-      if (Sokoban.PROPERTY_BOXES.equalsIgnoreCase(attrName))
-      {
-         ((Sokoban) target).withBoxes((Box) value);
+         ((AKarli) target).withTiles((Tile) value);
          return true;
       }
       
-      if ((Sokoban.PROPERTY_BOXES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((AKarli.PROPERTY_TILES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Sokoban) target).withoutBoxes((Box) value);
-         return true;
-      }
-
-      if (Sokoban.PROPERTY_KARLI.equalsIgnoreCase(attrName))
-      {
-         ((Sokoban) target).setKarli((Karli) value);
-         return true;
-      }
-
-      if (Sokoban.PROPERTY_MAZE.equalsIgnoreCase(attrName))
-      {
-         ((Sokoban) target).setMaze((Maze) value);
+         ((AKarli) target).withoutTiles((Tile) value);
          return true;
       }
       
@@ -165,6 +123,6 @@ public class SokobanCreator implements AggregatedEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((Sokoban) entity).removeYou();
+      ((AKarli) entity).removeYou();
    }
 }

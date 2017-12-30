@@ -27,6 +27,10 @@
    "nodes":[
       {
          "typ":"node",
+         "id":"AKarli"
+      },
+      {
+         "typ":"node",
          "id":"Box"
       },
       {
@@ -60,6 +64,32 @@
       {
          "typ":"unidirectional",
          "source":{
+            "id":"AKarli",
+            "cardinality":"one",
+            "property":"akarli"
+         },
+         "target":{
+            "id":"Sokoban",
+            "cardinality":"one",
+            "property":"sokoban"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"tiles"
+         },
+         "target":{
+            "id":"AKarli",
+            "cardinality":"one",
+            "property":"akarli"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
             "id":"Box",
             "cardinality":"many",
             "property":"boxes"
@@ -175,6 +205,19 @@
          }
       },
       {
+         "typ":"unidirectional",
+         "source":{
+            "id":"AKarli",
+            "cardinality":"one",
+            "property":"akarli"
+         },
+         "target":{
+            "id":"Sokoban",
+            "cardinality":"one",
+            "property":"sokoban"
+         }
+      },
+      {
          "typ":"assoc",
          "source":{
             "id":"Tile",
@@ -224,6 +267,19 @@
             "id":"Maze",
             "cardinality":"many",
             "property":"maze"
+         }
+      },
+      {
+         "typ":"unidirectional",
+         "source":{
+            "id":"Tile",
+            "cardinality":"many",
+            "property":"tiles"
+         },
+         "target":{
+            "id":"AKarli",
+            "cardinality":"one",
+            "property":"akarli"
          }
       }
    ]

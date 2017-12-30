@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
@@ -105,6 +106,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
       for (Box obj : new BoxSet(this.getBoxes())) { obj.removeYou(); }
       if (getKarli() != null) { getKarli().removeYou(); }
       if (getMaze() != null) { getMaze().removeYou(); }
+      setAkarli(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -191,11 +193,19 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 
    private Karli karli = null;
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
    public Karli getKarli()
    {
       return this.karli;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
    public boolean setKarli(Karli value)
    {
       boolean changed = false;
@@ -271,6 +281,59 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
    {
       Maze value = new Maze();
       withMaze(value);
+      return value;
+   } 
+
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Sokoban ----------------------------------- AKarli
+    *              sokoban                   akarli
+    * </pre>
+    */
+   
+   public static final String PROPERTY_AKARLI = "akarli";
+
+   private AKarli akarli = null;
+
+   public AKarli getAkarli()
+   {
+      return this.akarli;
+   }
+
+   public boolean setAkarli(AKarli value)
+   {
+      boolean changed = false;
+      
+      if (this.akarli != value)
+      {
+         AKarli oldValue = this.akarli;
+         
+         this.akarli = value;
+         
+         firePropertyChange(PROPERTY_AKARLI, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Sokoban withAkarli(AKarli value)
+   {
+      setAkarli(value);
+      return this;
+   } 
+
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>
+ */
+   public AKarli createAkarli()
+   {
+      AKarli value = new AKarli();
+      withAkarli(value);
       return value;
    } 
 }

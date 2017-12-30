@@ -287,7 +287,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       String storyName = testMethodName;
 
-      if ("main".equals(storyName))
+      if ("main".equals(storyName) && true)
       {
          storyName = testClassName;
       }

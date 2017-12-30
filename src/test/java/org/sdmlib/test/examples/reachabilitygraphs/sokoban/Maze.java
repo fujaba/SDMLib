@@ -174,7 +174,7 @@ public  class Maze implements SendableEntity
                   result.append('b');
                }
             }
-            else if (currentSokoban.getKarli().getTile() == t)
+            else if (currentSokoban.getKarli() != null && currentSokoban.getKarli().getTile() == t)
             {
                if (t.isGoal())
                {
@@ -183,6 +183,17 @@ public  class Maze implements SendableEntity
                else
                {
                   result.append('k');
+               }
+            }
+            else if (currentSokoban.getAkarli() != null && currentSokoban.getAkarli().getTiles().contains(t))
+            {
+               if (t.isGoal())
+               {
+                  result.append('A');                  
+               }
+               else
+               {
+                  result.append('a');
                }
             }
             else

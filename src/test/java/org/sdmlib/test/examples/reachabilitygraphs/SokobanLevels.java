@@ -15,16 +15,22 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.models.tables.Table;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.AKarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleList;
@@ -33,6 +39,198 @@ public class SokobanLevels
 {
    private String level;
    private ReachabilityGraph reachabilityGraph;
+
+   @Test
+   public void SokobanAbstraction() throws Exception
+   {
+      level = ""
+            + "  wwww\n"
+            + "  w..w\n"
+            + "wwwb.w\n"
+            + "woobkw\n"
+            + "wwwwww\n";
+      
+      long noOfStates = 3000;
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+            
+      story.addStep("First Level");
+      
+      Sokoban soko = createLevel(level);
+      
+      Tile oldKarliTile = soko.getKarli().getTile();
+      soko.getKarli().removeYou();
+      soko.setKarli(null);
+      
+      AKarli akarli = soko.createAkarli();
+      
+      akarli.withTiles(oldKarliTile);
+      
+      SokobanPO sokobanPO = new SokobanPO(soko);
+      
+      doAbstraction(sokobanPO);
+      
+      story.assertEquals("akarli reaches tiles:", 4, akarli.getTiles().size());
+      
+      // story.addObjectDiagram(soko);
+      
+      SokobanPO pushBoxSokoPO = createAbstractPushBoxRule();
+      
+      reachabilityGraph = new ReachabilityGraph()
+            .withMasterMap(SokobanCreator.createIdMap("s"))
+            .withRules("push box", pushBoxSokoPO);
+      
+      ObjectSet statics = new ObjectSet();
+      statics.with(soko.getMaze()).withList(soko.getMaze().getTiles());
+      reachabilityGraph.setStaticNodes(statics);
+      
+      ReachableState startState = new ReachableState().withGraphRoot(soko);
+      reachabilityGraph.withStart(startState);
+      
+      ObjectSet startElems = new ObjectSet();
+      SimpleList<Object> dynEdges = new SimpleList<Object>();
+      // reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), soko);
+      
+      //=============================================================
+      long startTime = System.currentTimeMillis();
+      reachabilityGraph.explore(noOfStates, Searchmode.DEFAULT);
+      long endTime = System.currentTimeMillis();
+      long usedMillis1 = endTime - startTime;
+      //=============================================================
+      
+      Table stats = new Table();
+      stats.createColumns().withName("Descr").withTdCssClass("text-right col-md-1");
+      stats.createColumns().withName("Data").withTdCssClass("text-right col-md-1");
+      stats.createColumns().withName(" ").withTdCssClass("text-right col-md-6");
+      
+      int startElemsSize = startElems.size();
+      stats.createRows("nodes per state:", startElemsSize, " ");
+      
+      noOfStates = reachabilityGraph.getStates().size();
+      stats.createRows("number of states:", noOfStates, " ");
+      
+      long expectedObjectNumber = startElemsSize * noOfStates;
+      stats.createRows("product:", expectedObjectNumber, " ");
+      
+      startElems.clear();
+      dynEdges.clear();
+      
+      for (ReachableState state : reachabilityGraph.getStates())
+      {
+         reachabilityGraph.getLazyCloneOp().aggregate(startElems, dynEdges, reachabilityGraph.getStaticNodes(), state.getGraphRoot());
+      }
+      
+      int actualObjectNumber = startElems.size();
+      stats.createRows("actual object number:", actualObjectNumber, " ");
+      
+      startElems.clear();
+      reachabilityGraph.getLazyCloneOp().collectComponent(startElems, soko);
+      int collectedComponentSize = startElems.size();
+      
+      stats.createRows("collectable object number:", collectedComponentSize, " ");
+      int garbageSize = collectedComponentSize - actualObjectNumber;
+      stats.createRows("garbage object number:", garbageSize, " ");
+      
+      double ratio = 1.0 * actualObjectNumber / expectedObjectNumber * 100;
+      String txt = String.format("%.2f", ratio);
+      stats.createRows("ratio:", txt+"%", " ");
+      
+      story.addStep("Statistics:");
+      story.addTable(stats);
+      
+      // story.assertEquals("Garbage size", 0, garbageSize);
+      // printStates(story, reachabilityGraph);
+      
+      Runtime runtime = Runtime.getRuntime();
+      // Run the garbage collector
+      runtime.gc();
+      // Calculate the used memory
+      long emptyMemory = runtime.totalMemory() - runtime.freeMemory();
+      
+      try 
+      {
+         Date now = Date.from(Instant.now());
+         
+         String msg = String.format("%s memory lazy %s uselong %s certificates %,d bytes %,d millis \n", 
+            now.toString(), 
+            false ? "clean" : "keep ",
+            false ? "true " : "false",
+            emptyMemory, usedMillis1 );
+         System.out.println(msg);
+         Files.write(Paths.get("Sokoban.log"), msg.getBytes(), StandardOpenOption.APPEND);
+         story.add(msg);
+      }
+      catch (IOException e) 
+      {
+         //exception handling left as an exercise for the reader
+      }
+      
+      
+      // story.addObjectDiagramOnlyWith(reachabilityGraph.getStates(), reachabilityGraph.getStates().getRuleapplications());
+      
+      
+      
+      long usedMillis = usedMillis1;
+      
+      int size = reachabilityGraph.getStates().size();
+      
+      StringBuilder buf = new StringBuilder();
+      
+      for (ReachableState s : reachabilityGraph.getStates())
+      {
+         for (RuleApplication r : s.getResultOf())
+         {
+            ReachableState src = r.getSrc();
+            
+            buf.append(src.getNumber()).append(" -").append(r.getDescription()).append("->\n");
+         }
+         
+         String stateDescription = s.toString();
+         buf.append(stateDescription).append("\n\n");
+      }
+      
+      System.out.println(buf.toString());
+      
+      story.addPreformatted(buf.toString());
+      story.dumpHTML();
+      
+      assertEquals("wrong number of levels", 8, size);
+   }
+   
+   
+   private boolean doAbstraction(SokobanPO sokobanPO)
+   {
+      Sokoban soko = sokobanPO.getCurrentMatch();
+      
+      AKarli akarli = soko.getAkarli();
+      
+      TileSet todo = new TileSet();
+      todo.addAll(akarli.getTiles());
+      
+      while ( ! todo.isEmpty())
+      {
+         Tile current = todo.remove(0);
+         
+         // add neighbors that akarli could move to
+         for (Tile neighbor : current.getNeighbors())
+         {
+            if ( neighbor.isWall() || soko.getBoxes().getTile().contains(neighbor))
+            {
+               continue;
+            }
+            
+            if ( akarli.getTiles().contains(neighbor))
+            {
+               continue;
+            }
+            
+            akarli.withTiles(neighbor);
+            todo.add(neighbor);
+         }
+      }
+      
+      return true;
+   }
+
 
    @Test
    public void SokobanSimpleLevel() throws Exception
@@ -324,6 +522,105 @@ public class SokobanLevels
       
       return sokoPO;
    }
+
+   
+   private SokobanPO createAbstractPushBoxRule()
+   {
+      SokobanPO sokoPO = new SokobanPO();
+      
+      AKarliPO aKarliPO = sokoPO.createAkarliPO().withPatternObjectName("karli");
+      
+      TilePO karliPosPO = aKarliPO.createTilesPO();
+      
+      BoxPO boxPO = sokoPO.createBoxesPO();
+      
+      TilePO boxPosPO = boxPO.createTilePO();
+      
+      karliPosPO.createNeighborsLink(boxPosPO);
+      
+      TilePO newBoxPosPO = boxPosPO.createNeighborsPO();
+      
+      newBoxPosPO.createWallCondition(false);
+      
+      newBoxPosPO.createCondition( p -> straight(karliPosPO, boxPosPO, newBoxPosPO), "straight karliPos, boxPos, newBoxPos");
+      
+      sokoPO.startNAC();
+      
+      BoxPO obstacleBoxPO = sokoPO.createBoxesPO();
+      
+      obstacleBoxPO.createTileLink(newBoxPosPO);
+      
+      sokoPO.endNAC();
+      
+      boxPO.createTileLink(newBoxPosPO, Pattern.CREATE);
+
+      
+      aKarliPO.startSubPattern();
+      
+      TilePO abstractPosPO = aKarliPO.createTilesPO();
+      
+      aKarliPO.createTilesLink(abstractPosPO, Pattern.DESTROY);
+      
+      abstractPosPO.doAllMatches();
+      
+      aKarliPO.endSubPattern();
+      
+      
+      aKarliPO.createTilesLink(boxPosPO, Pattern.CREATE);
+      
+      
+      aKarliPO.startSubPattern();
+      
+      TilePO newAbstractPosPO = aKarliPO.createTilesPO();
+      
+      TilePO newNeighborPosPO = newAbstractPosPO.createPath(firstTile -> getReachableNeighbors(sokoPO, firstTile), new TilePO());
+      
+      aKarliPO.createTilesLink(newNeighborPosPO, Pattern.CREATE);
+      
+      newNeighborPosPO.doAllMatches();
+      
+      aKarliPO.endSubPattern();
+      
+      
+      return sokoPO;
+   }
+
+   
+   private TileSet getReachableNeighbors(SokobanPO sokoPO, Object firstTile)
+   {
+      TileSet result = new TileSet();
+      result.add(firstTile);
+      
+      Sokoban soko = sokoPO.getCurrentMatch();
+      
+      TileSet todo = new TileSet();
+      todo.add(firstTile);
+      
+      while ( ! todo.isEmpty())
+      {
+         Tile current = todo.remove(0);
+         
+         // add neighbors that akarli could move to
+         for (Tile neighbor : current.getNeighbors())
+         {
+            if ( neighbor.isWall() || soko.getBoxes().getTile().contains(neighbor))
+            {
+               continue;
+            }
+            
+            if ( result.contains(neighbor))
+            {
+               continue;
+            }
+            
+            result.add(neighbor);
+            todo.add(neighbor);
+         }
+      }
+      
+      return result;
+   }
+
 
    private boolean straight(TilePO karliPosPO, TilePO boxPosPO, TilePO newBoxPosPO)
    {

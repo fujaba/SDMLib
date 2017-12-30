@@ -1507,7 +1507,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                      if ( ! StrUtil.stringEquals(staticCert1, staticCert2))
                      {
                         // try some other object2
-                        return false;
+                        continue;
                      }
                   }
                   else if (useLongCertificates)
@@ -1535,6 +1535,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                         continue;
                      }
                   }
+                  
                   // might be a candidate, match it
                   fwdmapping.put(object1, object2);
                   bwdmapping.put(object2, object1);
@@ -1601,6 +1602,12 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                {
                   return false;
                }
+            }
+            
+            if (value1 == value2)
+            {
+               // definitely isomorph
+               continue;
             }
             
             String staticCert1 = staticNode2CertNo.get(value1);

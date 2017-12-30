@@ -7,6 +7,8 @@ class CreatorCreator{
    public static IdMap createIdMap(String session)
    {
       IdMap jsonIdMap = new IdMap().withSession(session);
+      jsonIdMap.with(new AKarliCreator());
+      jsonIdMap.with(new AKarliPOCreator());
       jsonIdMap.with(new BoxCreator());
       jsonIdMap.with(new BoxPOCreator());
       jsonIdMap.with(new KarliCreator());
