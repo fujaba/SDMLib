@@ -946,14 +946,62 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
          // clone current state
          ObjectSet dynNodes = new ObjectSet();
          SimpleList<Object> dynEdges = new SimpleList<Object>();
+         
+         dynNodes.add(current.getGraphRoot());
+         
          lazyCloneOp.clear();
          
          lazyCloneOp.aggregate(dynNodes, dynEdges, staticNodes, current.getGraphRoot());
-         Object newGraphRoot = lazyCloneOp.cloneComponent(dynNodes, current.getGraphRoot());
-         ReachableState newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
+         
+         Object newGraphRoot = null;
+         ReachableState newReachableState = null;
+         
+         if (lazyBackup)
+         {
+            handleModelObjectChange.changesList.clear();
+            // subscribe to dyn nodes
+            for (Object o : dynNodes)
+            {
+               if (o instanceof SendableEntity)
+               {
+                  SendableEntity se  = (SendableEntity) o;
+                  
+                  se.addPropertyChangeListener(handleModelObjectChange);
+               }
+            }
+            
+            newGraphRoot = current.getGraphRoot();
+         }
+         else
+         {
+            newGraphRoot = lazyCloneOp.cloneComponent(dynNodes, current.getGraphRoot());
+            newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
+         }
+         
 
          // apply trafo
          trafo.run(newGraphRoot);
+         
+         if (lazyBackup)
+         {
+            // unsubscribe from dyn nodes
+            for (Object o : dynNodes)
+            {
+               if (o instanceof SendableEntity)
+               {
+                  SendableEntity se  = (SendableEntity) o;
+                  
+                  se.removePropertyChangeListener(handleModelObjectChange);
+               }
+            }
+            
+            newReachableState = handleModelObjectChange.transferChangesToClone(current, dynNodes);
+            
+            if (newReachableState == null)
+            {
+               continue;
+            }
+         }
          
          // merge with old states
          Object newCertificate = null; 
@@ -1007,6 +1055,137 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
       }
    }
+   
+   @SuppressWarnings("synthetic-access")
+   private LayzBackupHandleModelObjectChange handleModelObjectChange = new LayzBackupHandleModelObjectChange();
+   
+   private class LayzBackupHandleModelObjectChange implements PropertyChangeListener
+   {
+      public ArrayList<PropertyChangeEvent> changesList = new ArrayList<PropertyChangeEvent>();
+
+      @SuppressWarnings("synthetic-access")
+      @Override
+      public void propertyChange(PropertyChangeEvent e)
+      {
+         changesList.add(e);
+      }
+      
+      
+      public ReachableState transferChangesToClone(ReachableState current, ObjectSet dynNodes)
+      {
+         if (changesList.isEmpty())
+         {
+            return null;
+         }
+         
+         
+         Object newGraphRoot = lazyCloneOp.clone(current.getGraphRoot());
+         
+         ReachableState newReachableState = createStates().withGraphRoot(newGraphRoot).withParent(ReachabilityGraph.this);
+         
+         
+         PropertyChangeEvent e;
+         
+         // undo changes to current graph
+         for (int i = changesList.size() - 1; i >= 0; i--)
+         {
+            e = changesList.get(i);
+            
+            Object source = e.getSource();
+            
+            String prop = e.getPropertyName();
+            Object newValue = e.getNewValue();
+            Object oldValue = e.getOldValue();
+            
+            SendableEntityCreator creator = masterMap.getCreatorClass(source);
+            
+            Object value = creator.getValue(source, prop);
+            
+            if (value instanceof Collection)
+            {
+               if (newValue != null)
+               {
+                  // newValue has been added to container, for undo, remove it 
+                  creator.setValue(source, prop, newValue, SendableEntityCreator.REMOVE);
+               }
+               else
+               {
+                  creator.setValue(source, prop, oldValue, null);
+               }
+            }
+            else
+            {
+               creator.setValue(source, prop, oldValue, null);
+            }
+         }
+         
+         
+         // apply changes to clone graph
+         for (int i = 0; i < changesList.size(); i++)
+         {
+            e = changesList.get(i);
+            
+            Object source = e.getSource();
+            
+            //            String prop = e.getPropertyName();
+            //            Object newValue = e.getNewValue();
+            //            Object oldValue = e.getOldValue();
+            
+            lazyCloneOp.clone(source);
+         }
+
+         for (int i = 0; i < changesList.size(); i++)
+         {
+            e = changesList.get(i);
+            
+            Object source = e.getSource();
+            
+            String prop = e.getPropertyName();
+            Object newValue = e.getNewValue();
+            Object oldValue = e.getOldValue();
+            
+            Object sourceClone = lazyCloneOp.getOrigToCloneMap().get(source);
+            
+            Objects.requireNonNull(sourceClone);
+            
+            Object newValueClone = lazyCloneOp.getOrigToCloneMap().get(newValue);
+            if (newValueClone == null)
+            {
+               newValueClone = newValue;
+            }
+            
+            Object oldValueClone = lazyCloneOp.getOrigToCloneMap().get(oldValue);
+            if (oldValueClone == null)
+            {
+               oldValueClone = oldValue;
+            }
+            
+            SendableEntityCreator creator = masterMap.getCreatorClass(source);
+            
+            Object value = creator.getValue(source, prop);
+            
+            if (value instanceof Collection)
+            {
+               if (newValue == null)
+               {
+                  // newValue has been removed from collection,  
+                  creator.setValue(sourceClone, prop, oldValueClone, SendableEntityCreator.REMOVE);
+               }
+               else
+               {
+                  creator.setValue(sourceClone, prop, newValueClone, null);
+               }
+            }
+            else
+            {
+               creator.setValue(sourceClone, prop, newValueClone, null);
+            }
+         }
+         
+         return newReachableState;
+      }
+   }
+
 
    private boolean doCleanUpTemps = false;
 
@@ -1956,6 +2135,19 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    public LazyCloneOp getLazyCloneOp()
    {
       return lazyCloneOp;
+   }
+   
+   private boolean lazyBackup = false;
+   
+   public ReachabilityGraph withLazyBackup()
+   {
+      lazyBackup = true;
+      return this;
+   }
+   
+   public boolean isLazyBackup()
+   {
+      return lazyBackup;
    }
    
    public ReachabilityGraph setLazyCloneOp(LazyCloneOp lazyCloneOp)

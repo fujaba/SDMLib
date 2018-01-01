@@ -31,18 +31,29 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.U
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBoatSet;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
-
-public class URiverSet extends SimpleSet<URiver>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
+   public class URiverSet extends SimpleSet<URiver>
 {
 	public Class<?> getTypClass() {
 		return URiver.class;
 	}
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public URiverSet()
    {
       // empty
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public URiverSet(URiver... objects)
    {
       for (URiver obj : objects)
@@ -51,6 +62,10 @@ public class URiverSet extends SimpleSet<URiver>
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public URiverSet(Collection<URiver> objects)
    {
       this.addAll(objects);
@@ -107,7 +122,8 @@ public class URiverSet extends SimpleSet<URiver>
     * Loop through the current set of URiver objects and collect a set of the UBank objects reached via banks. 
     * 
     * @return Set of UBank objects reachable via banks
-    */
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ */
    public UBankSet getBanks()
    {
       UBankSet result = new UBankSet();
