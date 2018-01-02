@@ -43,6 +43,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.pattern.ReachabilityGraph.PathTrafo;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
@@ -940,119 +941,127 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private void exploreTrafos(ReachableState current)
    {
-      for (String trafoName : trafoList.keySet())
+      for (PathTrafo pathTrafo : pathTrafosList)
       {
-         Trafo trafo = trafoList.get(trafoName);
-         // clone current state
-         ObjectSet dynNodes = new ObjectSet();
-         SimpleList<Object> dynEdges = new SimpleList<Object>();
-         
-         dynNodes.add(current.getGraphRoot());
-         
-         lazyCloneOp.clear();
-         
-         lazyCloneOp.aggregate(dynNodes, dynEdges, staticNodes, current.getGraphRoot());
-         
-         Object newGraphRoot = null;
-         ReachableState newReachableState = null;
-         
-         if (lazyBackup)
-         {
-            handleModelObjectChange.changesList.clear();
-            // subscribe to dyn nodes
-            for (Object o : dynNodes)
-            {
-               if (o instanceof SendableEntity)
-               {
-                  SendableEntity se  = (SendableEntity) o;
-                  
-                  se.addPropertyChangeListener(handleModelObjectChange);
-               }
-            }
-            
-            newGraphRoot = current.getGraphRoot();
-         }
-         else
-         {
-            newGraphRoot = lazyCloneOp.cloneComponent(dynNodes, current.getGraphRoot());
-            newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
-         }
-         
+         ObjectSet handles = pathTrafo.path.run(current.getGraphRoot());
 
-         // apply trafo
-         trafo.run(newGraphRoot);
-         
-         if (lazyBackup)
-         {
-            // unsubscribe from dyn nodes
-            for (Object o : dynNodes)
-            {
-               if (o instanceof SendableEntity)
-               {
-                  SendableEntity se  = (SendableEntity) o;
-                  
-                  se.removePropertyChangeListener(handleModelObjectChange);
-               }
-            }
-            
-            newReachableState = handleModelObjectChange.transferChangesToClone(current, dynNodes);
-            
-            if (newReachableState == null)
-            {
-               continue;
-            }
-         }
-         
-         // merge with old states
-         Object newCertificate = null; 
-         if (useLongCertificates)
-         {
-            newCertificate = newReachableState.longComputeCertificate();
-         }
-         else
-         {
-            newCertificate = newReachableState.dynComputeCertificate();
-         }
-         
-         // already known? 
-         ReachableStateSet candidateStates = this.getStateMap(newCertificate);
+         String trafoName = pathTrafo.name;
 
-         Object match = null;
+         Trafo2 trafo = pathTrafo.trafo;
 
-         for (ReachableState oldState : candidateStates)
+         for (Object h : handles)
          {
-            match = lazyMatch(oldState, newReachableState);
-            
-            if (match != null)
+
+            // clone current state
+            ObjectSet dynNodes = new ObjectSet();
+            SimpleList<Object> dynEdges = new SimpleList<Object>();
+
+            dynNodes.add(current.getGraphRoot());
+
+            lazyCloneOp.clear();
+
+            lazyCloneOp.aggregate(dynNodes, dynEdges, staticNodes, current.getGraphRoot());
+
+            Object newGraphRoot = null;
+            ReachableState newReachableState = null;
+
+            if (lazyBackup)
             {
-               // newReachableState is isomorphic to oldState. Just add a
-               // link from first to oldState
-               if (current == oldState)
+               handleModelObjectChange.changesList.clear();
+               // subscribe to dyn nodes
+               for (Object o : dynNodes)
                {
-                  // trafo did not change the current state, do not create a rule application link
-               }
-               else
-               {
-                  current.createRuleapplications().withTgt(oldState).withDescription(trafoName);
+                  if (o instanceof SendableEntity)
+                  {
+                     SendableEntity se  = (SendableEntity) o;
+
+                     se.addPropertyChangeListener(handleModelObjectChange);
+                  }
                }
 
-               break;
+               newGraphRoot = current.getGraphRoot();
+            }
+            else
+            {
+               newGraphRoot = lazyCloneOp.cloneComponent(dynNodes, current.getGraphRoot());
+               newReachableState = this.createStates().withGraphRoot(newGraphRoot).withParent(this);
+            }
+
+
+            // apply trafo
+            trafo.run(current.getGraphRoot(), h);
+
+            if (lazyBackup)
+            {
+               // unsubscribe from dyn nodes
+               for (Object o : dynNodes)
+               {
+                  if (o instanceof SendableEntity)
+                  {
+                     SendableEntity se  = (SendableEntity) o;
+
+                     se.removePropertyChangeListener(handleModelObjectChange);
+                  }
+               }
+
+               newReachableState = handleModelObjectChange.transferChangesToClone(current, dynNodes);
+
+               if (newReachableState == null)
+               {
+                  continue;
+               }
+            }
+
+            // merge with old states
+            Object newCertificate = null; 
+            if (useLongCertificates)
+            {
+               newCertificate = newReachableState.longComputeCertificate();
+            }
+            else
+            {
+               newCertificate = newReachableState.dynComputeCertificate();
+            }
+
+            // already known? 
+            ReachableStateSet candidateStates = this.getStateMap(newCertificate);
+
+            Object match = null;
+
+            for (ReachableState oldState : candidateStates)
+            {
+               match = lazyMatch(oldState, newReachableState);
+
+               if (match != null)
+               {
+                  // newReachableState is isomorphic to oldState. Just add a
+                  // link from first to oldState
+                  if (current == oldState)
+                  {
+                     // trafo did not change the current state, do not create a rule application link
+                  }
+                  else
+                  {
+                     current.createRuleapplications().withTgt(oldState).withDescription(trafoName);
+                  }
+
+                  break;
+               }
+            }
+
+            if (match == null)
+            {
+               // new state is really new
+               this.withTodo(newReachableState).withStateMap(newCertificate,
+                  newReachableState);
+
+               current.createRuleapplications().withTgt(newReachableState).withDescription(trafoName);
+            }
+            else
+            {
+               this.withoutStates(newReachableState);
             }
          }
-
-         if (match == null)
-         {
-            // new state is really new
-            this.withTodo(newReachableState).withStateMap(newCertificate,
-               newReachableState);
-
-            current.createRuleapplications().withTgt(newReachableState).withDescription(trafoName);
-         }
-         else
-         {
-            this.withoutStates(newReachableState);
-         }
-
       }
    }
    
@@ -2166,18 +2175,57 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
    @FunctionalInterface
+   public interface Path
+   {
+      public ObjectSet run(Object root);
+   }
+
+   @FunctionalInterface
    public interface Trafo
    {
       public void run(Object root);
    }
+   
+   @FunctionalInterface
+   public interface Trafo2
+   {
+      public void run(Object root, Object handle);
+   }
 
    private LinkedHashMap<String, ReachabilityGraph.Trafo> trafoList = new LinkedHashMap<String, ReachabilityGraph.Trafo>();
    
-   public void withTrafo(String trafoName, Trafo trafo)
+   public ReachabilityGraph withTrafo(String trafoName, Trafo trafo)
    {
       trafoList.put(trafoName, trafo);
+      
+      this.withTrafo(trafoName, g -> new ObjectSet().with(g), (g,h) -> trafo.run(g));
+      
+      return this;
    }
 
+   public class PathTrafo
+   {
+      public String name;
+      public Path path;
+      public Trafo2 trafo;
+   }
+   
+   private ArrayList<PathTrafo> pathTrafosList = new ArrayList<ReachabilityGraph.PathTrafo>();
+   
+   public ReachabilityGraph withTrafo(String trafoName, Path path, Trafo2 trafo)
+   {
+      PathTrafo pathTrafo = new PathTrafo();
+      
+      pathTrafo.name = trafoName;
+      pathTrafo.path = path;
+      pathTrafo.trafo = trafo;
+      
+      pathTrafosList.add(pathTrafo);
+      
+      return this;
+   }
+   
+   
    private SimpleKeyValueList<Object, Object> level1Nodes2Cert = null;
 
    private TreeMap<String, String> allStaticCertificate2Number = null;

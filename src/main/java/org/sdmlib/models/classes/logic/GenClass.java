@@ -648,10 +648,9 @@ public class GenClass extends GenClazzEntity
       if (pos < 0) {
     	  parser.replaceAll(
     			  "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
-    					  "\n   	if (listeners == null) {" +
+    					  "\n   	if (listeners != null) {" +
     					  "\n   		listeners.removePropertyChangeListener(listener);" +
     					  "\n   	}" +
-    					  "\n   	listeners.removePropertyChangeListener(listener);" +
     					  "\n   	return true;" +
     					  "\n   }"+
     					  "\n"
