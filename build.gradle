@@ -78,9 +78,9 @@ dependencies {
    	if ( ! project.hasProperty('useLocalDependencies'))
    	{
 		if((gitVersion.isMaster() || isTravisSnapshot())== false) {
-			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources", changing: true
+			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
 		} else {
-			compile 'de.uniks:NetworkParser:[4,):sources'
+			compile 'de.uniks:NetworkParser:[4,):sources18'
 		}
 	}
 	else
