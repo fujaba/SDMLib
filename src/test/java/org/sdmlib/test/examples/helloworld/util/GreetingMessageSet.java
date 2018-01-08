@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
 public class GreetingMessageSet extends SimpleSet<GreetingMessage>
 {

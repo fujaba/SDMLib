@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 
 public class TaskFlowSet extends SDMSet<TaskFlow>
 {

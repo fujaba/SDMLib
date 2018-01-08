@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
 public class PawnSet extends SimpleSet<Pawn>
 {

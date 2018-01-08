@@ -32,6 +32,9 @@ import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.couchspace.tasks.util.TaskFlowSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserSet;
+import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupSet;
 
 public class TaskSet extends SDMSet<Task>
 {

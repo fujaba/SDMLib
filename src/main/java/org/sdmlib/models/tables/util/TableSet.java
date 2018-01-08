@@ -31,6 +31,8 @@ import org.sdmlib.models.tables.Table;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.tables.util.ColumnSet;
+import org.sdmlib.models.tables.util.RowSet;
 
 public class TableSet extends SDMSet<Table>
 {

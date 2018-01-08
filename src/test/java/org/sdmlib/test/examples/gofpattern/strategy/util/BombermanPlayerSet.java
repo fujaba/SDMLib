@@ -29,6 +29,8 @@ import org.sdmlib.models.modelsets.shortList;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
 {

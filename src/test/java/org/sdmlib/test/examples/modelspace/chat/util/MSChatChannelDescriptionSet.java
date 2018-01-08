@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupSet;
 
 public class MSChatChannelDescriptionSet extends SimpleSet<MSChatChannelDescription>
 {

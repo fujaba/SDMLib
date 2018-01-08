@@ -989,7 +989,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
 
             // apply trafo
-            trafo.run(current.getGraphRoot(), h);
+            trafo.run(newGraphRoot, h);
 
             if (lazyBackup)
             {
@@ -2146,7 +2146,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
       return lazyCloneOp;
    }
    
-   private boolean lazyBackup = false;
+   private boolean lazyBackup = true;
    
    public ReachabilityGraph withLazyBackup()
    {

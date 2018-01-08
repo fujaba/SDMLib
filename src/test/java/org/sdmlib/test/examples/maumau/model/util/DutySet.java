@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 
 public class DutySet extends SimpleSet<Duty>
 {

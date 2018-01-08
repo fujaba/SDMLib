@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class GroupAccountSet extends SimpleSet<GroupAccount>
 {

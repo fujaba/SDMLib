@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,16 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.annotations.model.simple.Door;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
-
-import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.annotations.model.simple.House;
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.test.examples.annotations.model.simple.Door;
+import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
 
 public class HouseSet extends SimpleSet<House>
 {
@@ -75,6 +76,7 @@ public class HouseSet extends SimpleSet<House>
    {
       return new HouseSet();
    }
+
 
    @SuppressWarnings("unchecked")
    public HouseSet with(Object value)

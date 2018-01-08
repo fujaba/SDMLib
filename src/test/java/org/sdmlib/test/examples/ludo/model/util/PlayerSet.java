@@ -35,6 +35,12 @@ import org.sdmlib.test.examples.ludo.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import java.util.ArrayList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.ludo.model.util.FieldSet;
+import org.sdmlib.test.examples.ludo.model.util.DiceSet;
+import org.sdmlib.test.examples.ludo.model.util.LudoSet;
+import org.sdmlib.test.examples.ludo.model.util.PawnSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {

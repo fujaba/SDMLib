@@ -33,6 +33,8 @@ import org.sdmlib.test.examples.maumau.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.maumau.model.util.CardSet;
+import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
 
 public class HolderSet extends SimpleSet<Holder>
 {

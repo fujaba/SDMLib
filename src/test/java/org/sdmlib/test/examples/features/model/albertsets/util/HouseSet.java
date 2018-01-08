@@ -30,6 +30,8 @@ import org.sdmlib.test.examples.features.model.albertsets.Window;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.features.model.albertsets.util.DoorSet;
+import org.sdmlib.test.examples.features.model.albertsets.util.WindowSet;
 
 public class HouseSet extends SimpleSet<House>
 {

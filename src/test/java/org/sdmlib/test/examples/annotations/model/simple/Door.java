@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -64,10 +64,9 @@ import org.sdmlib.test.examples.annotations.model.simple.House;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
+   	if (listeners != null) {
    		listeners.removePropertyChangeListener(listener);
    	}
-   	listeners.removePropertyChangeListener(listener);
    	return true;
    }
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,12 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import de.uniks.networkparser.interfaces.Condition;
+import org.sdmlib.test.examples.annotations.model.simple.House;
+import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
+import java.util.Collection;
 
 public class CubeSet extends SimpleSet<Cube>
 {

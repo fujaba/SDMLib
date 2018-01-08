@@ -32,6 +32,9 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountSet;
 
 public class PersonSet extends SimpleSet<Person>
 {

@@ -82,7 +82,8 @@ public class Storyboard {
 	 * Adds a diagram of an classmodel to the storyboard.
 	 * 
 	 * @param model object of the classmodel, that will be displayed as a diagram
-	*/
+	* @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
 	public void addClassDiagram(ClassModel model) {
 		storyboard.addClassDiagram(model);
 	}
@@ -171,7 +172,8 @@ public class Storyboard {
 	
 	/**
 	 * Creates an html file, that contains the storyboard.
-	*/
+	* @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ */
 	public void dumpHTML() {
 		storyboard.dumpHTML();
 	}

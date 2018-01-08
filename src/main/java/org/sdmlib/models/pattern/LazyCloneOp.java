@@ -56,6 +56,8 @@ public class LazyCloneOp
          // already done
          return clone;
       }
+      
+      Object origOrig = orig;
 
       LinkedList<Object> climbTodo = new LinkedList<Object>();
       LinkedList<Object> cloneTodo = new LinkedList<Object>();
@@ -208,6 +210,7 @@ public class LazyCloneOp
          }
       }
       
+      clone = origToCloneMap.get(origOrig);
       return clone;
    }
 
