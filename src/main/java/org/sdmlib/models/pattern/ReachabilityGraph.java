@@ -1733,8 +1733,8 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
                   if (!match)
                   {
                      // did not work
-                     fwdmapping.remove(value1);
-                     bwdmapping.remove(value2);
+                     fwdmapping.remove(object1);
+                     bwdmapping.remove(object2);
                      
                      continue;
                   }
