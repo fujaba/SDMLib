@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,23 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-
+import de.uniks.networkparser.interfaces.Condition;
+import java.util.Collection;
+import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.StringList;
+import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 public class RoomSet extends SimpleSet<Room>
 {
@@ -80,6 +84,7 @@ public class RoomSet extends SimpleSet<Room>
       return new RoomSet();
    }
 
+
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
    {
@@ -122,6 +127,89 @@ public class RoomSet extends SimpleSet<Room>
 
 
    /**
+    * Loop through the current set of Room objects and collect a list of the credits attribute values. 
+    * 
+    * @return List of int objects reachable via credits attribute
+    */
+   public NumberList getCredits()
+   {
+      NumberList result = new NumberList();
+      
+      for (Room obj : this)
+      {
+         result.add(obj.getCredits());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createCreditsCondition(int value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and collect those Room objects where the credits attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Room objects that match the parameter
+    */
+   public RoomSet createCreditsCondition(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Room objects and assign value to the credits attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Room objects now with new attribute values.
+    */
+   public RoomSet withCredits(int value)
+   {
+      for (Room obj : this)
+      {
+         obj.setCredits(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
     * Loop through the current set of Room objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
@@ -146,7 +234,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterName(String value)
+   public RoomSet createNameCondition(String value)
    {
       RoomSet result = new RoomSet();
       
@@ -170,7 +258,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterName(String lower, String upper)
+   public RoomSet createNameCondition(String lower, String upper)
    {
       RoomSet result = new RoomSet();
       
@@ -229,7 +317,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterTopic(String value)
+   public RoomSet createTopicCondition(String value)
    {
       RoomSet result = new RoomSet();
       
@@ -253,7 +341,7 @@ public class RoomSet extends SimpleSet<Room>
     * 
     * @return Subset of Room objects that match the parameter
     */
-   public RoomSet filterTopic(String lower, String upper)
+   public RoomSet createTopicCondition(String lower, String upper)
    {
       RoomSet result = new RoomSet();
       
@@ -281,234 +369,6 @@ public class RoomSet extends SimpleSet<Room>
       for (Room obj : this)
       {
          obj.setTopic(value);
-      }
-      
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and collect a list of the credits attribute values. 
-    * 
-    * @return List of int objects reachable via credits attribute
-    */
-   public NumberList getCredits()
-   {
-      NumberList result = new NumberList();
-      
-      for (Room obj : this)
-      {
-         result.add(obj.getCredits());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and collect those Room objects where the credits attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Room objects that match the parameter
-    */
-   public RoomSet filterCredits(int value)
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (value == obj.getCredits())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and collect those Room objects where the credits attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Room objects that match the parameter
-    */
-   public RoomSet filterCredits(int lower, int upper)
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and assign value to the credits attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Room objects now with new attribute values.
-    */
-   public RoomSet withCredits(int value)
-   {
-      for (Room obj : this)
-      {
-         obj.setCredits(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect a set of the University objects reached via university. 
-    * 
-    * @return Set of University objects reachable via university
-    */
-   public UniversitySet getUniversity()
-   {
-      UniversitySet result = new UniversitySet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getUniversity());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect all contained objects with reference university pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as university neighbor of the collected results. 
-    * 
-    * @return Set of University objects referring to value via university
-    */
-   public RoomSet filterUniversity(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (neighbors.contains(obj.getUniversity()) || (neighbors.isEmpty() && obj.getUniversity() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the University attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
-    */
-   public RoomSet withUniversity(University value)
-   {
-      for (Room obj : this)
-      {
-         obj.withUniversity(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect a set of the Student objects reached via students. 
-    * 
-    * @return Set of Student objects reachable via students
-    */
-   public StudentSet getStudents()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getStudents());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Room objects and collect all contained objects with reference students pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as students neighbor of the collected results. 
-    * 
-    * @return Set of Student objects referring to value via students
-    */
-   public RoomSet filterStudents(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
-    */
-   public RoomSet withStudents(Student value)
-   {
-      for (Room obj : this)
-      {
-         obj.withStudents(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public RoomSet withoutStudents(Student value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutStudents(value);
       }
       
       return this;
@@ -617,6 +477,86 @@ public class RoomSet extends SimpleSet<Room>
       for (Room obj : this)
       {
          obj.withoutDoors(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Room objects and collect a set of the Student objects reached via students. 
+    * 
+    * @return Set of Student objects reachable via students
+    */
+   public StudentSet getStudents()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Room obj : this)
+      {
+         result.with(obj.getStudents());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Room objects and collect all contained objects with reference students pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as students neighbor of the collected results. 
+    * 
+    * @return Set of Student objects referring to value via students
+    */
+   public RoomSet filterStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    */
+   public RoomSet withStudents(Student value)
+   {
+      for (Room obj : this)
+      {
+         obj.withStudents(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Students attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public RoomSet withoutStudents(Student value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutStudents(value);
       }
       
       return this;
@@ -782,144 +722,69 @@ public class RoomSet extends SimpleSet<Room>
       return this;
    }
 
-
    /**
-    * Loop through the current set of Room objects and collect those Room objects where the credits attribute matches the parameter value. 
+    * Loop through the current set of Room objects and collect a set of the University objects reached via university. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of Room objects that match the parameter
+    * @return Set of University objects reachable via university
     */
-   public RoomSet createCreditsCondition(int value)
+   public UniversitySet getUniversity()
    {
-      RoomSet result = new RoomSet();
+      UniversitySet result = new UniversitySet();
       
       for (Room obj : this)
       {
-         if (value == obj.getCredits())
-         {
-            result.add(obj);
-         }
+         result.with(obj.getUniversity());
       }
       
       return result;
    }
 
-
    /**
-    * Loop through the current set of Room objects and collect those Room objects where the credits attribute is between lower and upper. 
+    * Loop through the current set of Room objects and collect all contained objects with reference university pointing to the object passed as parameter. 
     * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
+    * @param value The object required as university neighbor of the collected results. 
     * 
-    * @return Subset of Room objects that match the parameter
+    * @return Set of University objects referring to value via university
     */
-   public RoomSet createCreditsCondition(int lower, int upper)
+   public RoomSet filterUniversity(Object value)
    {
-      RoomSet result = new RoomSet();
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
       
       for (Room obj : this)
       {
-         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         if (neighbors.contains(obj.getUniversity()) || (neighbors.isEmpty() && obj.getUniversity() == null))
          {
-            result.add(obj);
+            answer.add(obj);
          }
       }
       
-      return result;
+      return answer;
    }
-
 
    /**
-    * Loop through the current set of Room objects and collect those Room objects where the name attribute matches the parameter value. 
+    * Loop through current set of ModelType objects and attach the Room object passed as parameter to the University attribute of each of it. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of Room objects that match the parameter
+    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
     */
-   public RoomSet createNameCondition(String value)
+   public RoomSet withUniversity(University value)
    {
-      RoomSet result = new RoomSet();
-      
       for (Room obj : this)
       {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
+         obj.withUniversity(value);
       }
       
-      return result;
+      return this;
    }
 
-
-   /**
-    * Loop through the current set of Room objects and collect those Room objects where the name attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Room objects that match the parameter
-    */
-   public RoomSet createNameCondition(String lower, String upper)
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and collect those Room objects where the topic attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Room objects that match the parameter
-    */
-   public RoomSet createTopicCondition(String value)
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (value.equals(obj.getTopic()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Room objects and collect those Room objects where the topic attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Room objects that match the parameter
-    */
-   public RoomSet createTopicCondition(String lower, String upper)
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (lower.compareTo(obj.getTopic()) <= 0 && obj.getTopic().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
 }

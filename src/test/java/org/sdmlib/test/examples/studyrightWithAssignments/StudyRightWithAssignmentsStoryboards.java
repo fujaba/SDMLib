@@ -662,8 +662,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      RoomSet rooms17 = university.getRooms().filterCredits(17);
-      RoomSet roomsGE20 = university.getRooms().filterCredits(20, Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
 
       story.addCode();
 
@@ -672,14 +672,11 @@ public class StudyRightWithAssignmentsStoryboards
       story.addPreformatted("      rooms17: " + rooms17.toString()
          + "\n      roomsGE20: " + roomsGE20);
 
-      story.addStep("Filter for attribute greater than:");
+      story.addStep("Filter for even values:");
 
       story.markCodeStart();
 
-      // Java 8:
-      // (Room elem) -> elem.getCredits() > 20
-
-      SimpleSet<Room> roomsEven = university.getRooms().filter(value -> value.getCredits() % 2 == 0);
+      SimpleSet<Room> roomsEven = university.getRooms().filter(r -> r.getCredits() % 2 == 0);
 
       story.addCode();
 
@@ -687,6 +684,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted("      " + roomsEven);
 
+      
       // ====================================================
       story.addStep("Filter for type: ");
 
@@ -698,6 +696,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted("" + taStudents);
 
+      
       // ====================================================
       story.addStep("Write operations on sets: ");
 
@@ -709,6 +708,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addObjectDiagramOnlyWith(university.getStudents());
 
+      
       // =====================================================
       story.addStep("Rooms with two students that are friends (and need supervision): ");
 
@@ -730,6 +730,7 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.addPreformatted("      " + rooms.toString());
 
+      
       // =====================================================
       story.addStep("Rooms with two students with low motivation that are friends (and need supervision): ");
 

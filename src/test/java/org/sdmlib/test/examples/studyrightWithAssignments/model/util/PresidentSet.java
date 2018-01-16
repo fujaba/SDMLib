@@ -28,6 +28,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 public class PresidentSet extends SimpleSet<President>
 {
