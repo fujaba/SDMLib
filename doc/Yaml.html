@@ -23,7 +23,7 @@
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
 <p>Start: Read graph from yaml text:</p>
 <pre>- studyRight: University 
-  name:       &quot;Study Right&quot;
+  name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
   students:   karli
   rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering 
 
@@ -136,7 +136,7 @@
          "type":"clazz",
          "id":"U1 : University",
          "attributes":[
-            "name=Study Right",
+            "name=\"Study \" Right\"And\"Fast now\"",
             "president=null"
          ]
       }
@@ -368,11 +368,11 @@
    json["options"]={"canvasid":"canvasYaml6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: root object exists Study Right</p>
-<p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@28ac3dc3</p>
+<p>Check: root object exists "Study " Right"And"Fast now"</p>
+<p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@1d371b2d</p>
 <p>Check: pojo attr SE actual SE</p>
 <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
-  name: 	Study Right
+  name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
   students: 	s2 	
   rooms: 	r3 	r4 	r5 	r6 	r7 	
 
@@ -412,13 +412,13 @@
   doors: 	r5 	r4 	r7 	
 
 - r7: 	Room
-  topic: 	Software Engineering
+  topic: 	&quot;Software Engineering&quot;
   credits: 	42
   university: 	u1
   doors: 	r4 	r6 	
 
 - a8: 	Assignment
-  content: 	Matrix Multiplication
+  content: 	&quot;Matrix Multiplication&quot;
   points: 	5
   room: 	r3
 
@@ -441,7 +441,7 @@
          "type":"clazz",
          "id":"A18 : Assignment",
          "attributes":[
-            "content=Multiplication",
+            "content=Matrix Multiplication",
             "points=5"
          ]
       },
@@ -503,7 +503,7 @@
          "attributes":[
             "credits=42",
             "name=null",
-            "topic=Engineering"
+            "topic=Software Engineering"
          ]
       },
       {
@@ -521,7 +521,7 @@
          "type":"clazz",
          "id":"U11 : University",
          "attributes":[
-            "name=Right",
+            "name=\"Study \" Right\"And\"Fast now\"",
             "president=null"
          ]
       }
@@ -846,7 +846,7 @@
          "attributes":[
             "credits=42",
             "name=null",
-            "topic=Software Engineering"
+            "topic=\"\"Software Engineering\"\""
          ]
       },
       {
@@ -864,7 +864,7 @@
          "type":"clazz",
          "id":"U21 : University",
          "attributes":[
-            "name=Study Right",
+            "name=\"\"Study Right\"\"",
             "president=null"
          ]
       }

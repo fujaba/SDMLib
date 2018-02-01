@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.storyboards.GenericCreator;
@@ -35,15 +36,42 @@ public class YamlIdMap
       this.packageNames = new ArrayList<String>(list);
    }
 
-   // yaml grammar
-   // yaml ::= objects*
-   // object ::= plainObject | objectList
-   // plainObject ::= - objId': ' type\n attr*
-   // attr ::= attrName': ' attrValue\n 
-   // attrValue ::= id | string | '[' attrValue * ']'
-   // objectList ::= type colName:* \n key: attrValue* \n*
-   // valueRow ::= attrValue* \n
+   public Object decode(String yaml, Object root)
+   {
+      String className = root.getClass().getName();
+      
+      className = CGUtil.shortClassName(className);
+      
+      String key = className.substring(0, 1).toLowerCase();
+      
+      int num = objIdMap.size() + 1;
+      
+      key += num;
+      
+      objIdMap.put(key, root);
+      
+      decode(yaml);
+      
+      return root;
+   }
    
+   /**
+    * Object decode(String yaml)
+    * Decode string and create typed object structure.
+    * 
+    * yaml grammar
+    * yaml ::= objects*
+    * object ::= plainObject | objectList
+    * plainObject ::= - objId': ' type\n attr*
+    * attr ::= attrName': ' attrValue\n 
+    * attrValue ::= id | string | '[' attrValue * ']'
+    * objectList ::= type colName:* \n key: attrValue* \n*
+    * valueRow ::= attrValue* \n
+    * 
+    * @param yaml string describing object structure
+    * @return first object
+    * @see <a href='(StudyRightWithAssignmentsStoryboards.java:122)'>StudyRightWithAssignmentsStoryboards.java:122</a>
+    */
    public Object decode(String yaml)
    {
       this.yaml = yaml;
@@ -224,18 +252,18 @@ public class YamlIdMap
          // get up to end of string
          int stringStartPos = lookAheadPos + 1;
          String subToken = lookAheadToken;
-         int subTokenEnd = scanner.match().end() - 1;
-         while ( ! subToken.endsWith("\"") && scanner.hasNext())
+         MatchResult match = scanner.match();
+         int subTokenEnd = match.end() - 1;
+         while ( subTokenEnd < stringStartPos || ( ! subToken.endsWith("\"") || subToken.endsWith("\\\"")) 
+               && scanner.hasNext())
          {
             subToken = scanner.next();
             subTokenEnd = scanner.match().end() - 1;
          }
          
          lookAheadToken = yaml.substring(stringStartPos, subTokenEnd);
-         if (lookAheadToken.startsWith("\"\""))
-         {
-            lookAheadToken = lookAheadToken.substring(2, lookAheadToken.length()-2);
-         }
+         
+         lookAheadToken = deEncapsulate(lookAheadToken);
       }
       
       return currentToken;
@@ -279,12 +307,17 @@ public class YamlIdMap
    {
       String objectId = stripColon(currentToken);
       String className = nextToken();
+      
+      Object obj = objIdMap.get(objectId);
+      
+      if (obj == null)
+      {
+         SendableEntityCreator creator = getCreator(className);
 
-      SendableEntityCreator creator = getCreator(className);
-      
-      Object obj = creator.getSendableInstance(false);
-      
-      objIdMap.put(objectId, obj);
+         obj = creator.getSendableInstance(false);
+
+         objIdMap.put(objectId, obj);
+      }
       
       // skip attributes
       while ( ! currentToken.equals("") && ! currentToken.equals("-"))
@@ -558,6 +591,10 @@ public class YamlIdMap
                }
                else
                {
+                  if (value instanceof String)
+                  {
+                     value = encapsulate((String) value);
+                  }
                   buf.append("  ").append(prop).append(": \t").append(value).append("\n");
                }
             }
@@ -566,6 +603,22 @@ public class YamlIdMap
       }
       
       return buf.toString();
+   }
+
+   private String deEncapsulate(String value)
+   {
+      value = value.replaceAll("\\\\\"", "\"");
+      return value;
+   }
+   
+   private String encapsulate(String value)
+   {
+      if (value.matches("[a-zA-Z0-9_]*"))
+      {
+         return value;
+      }
+      value = value.replaceAll("\"", "\\\\\"");
+      return "\"" + value + "\"";
    }
 
 }

@@ -84,13 +84,16 @@ public class StudyRightWithAssignmentsStoryboards
    @Test
    public void testYaml() throws IOException
    {
+      
+      System.out.println(" (StudyRightWithAssignmentsStoryboards.java:85)");
+      
       Storyboard story = new Storyboard();
 
       story.addStep("Read graph from yaml text:");
 
       String yaml = ""
          + "- studyRight: University \n"
-         + "  name:       \"Study Right\"\n"
+         + "  name:       \"\\\"Study \\\" Right\\\"And\\\"Fast now\\\"\"\n"
          + "  students:   karli\n"
          + "  rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
          + "\n"
