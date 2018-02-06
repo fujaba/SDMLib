@@ -3,26 +3,25 @@ package org.sdmlib.models.classes.gui;
 import org.sdmlib.StrUtil;
 
 import de.uniks.networkparser.ext.generic.ReflectionLoader;
-import de.uniks.networkparser.ext.javafx.DiagramController;
+import de.uniks.networkparser.ext.javafx.DiagramEditor;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class SDMDiagramEditor extends Application {
-	private DiagramController controller;
+	private DiagramEditor editor;
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		ReflectionLoader.logger = System.err;
-		controller = new DiagramController(primaryStage);
-		controller.withIcon(StrUtil.class.getResource("sdmlib.png").toString());
-		controller.show();
+		editor = DiagramEditor.create(primaryStage);
+		editor.withIcon(StrUtil.class.getResource("sdmlib.png").toString());
+//		editor.withListener(this);
+		editor.show();
 	}
-	
-//	
 //	@Override
 //	public boolean generate(JsonObject model) {
 ////		super.generate(model);
