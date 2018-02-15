@@ -62,8 +62,13 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  */
    public ClassModel() {
-		name = DEFAULTPACKAGE;
+		name = getDefaultPackage();
 		setAuthorName(System.getProperty("user.name"));
+	}
+   
+   @Override
+	public String getDefaultPackage() {
+		return DEFAULTPACKAGE;
 	}
 
    /**

@@ -2,8 +2,8 @@ package org.sdmlib.models.classes.gui;
 
 import org.sdmlib.StrUtil;
 
+import de.uniks.networkparser.ext.DiagramEditor;
 import de.uniks.networkparser.ext.generic.ReflectionLoader;
-import de.uniks.networkparser.ext.javafx.DiagramEditor;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
