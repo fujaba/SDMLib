@@ -25,14 +25,13 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.test.examples.groupaccount.model.Party;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
-import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+import org.sdmlib.test.examples.groupaccount.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
  */
-   public  class Person implements SendableEntity
+   public  class Party implements SendableEntity
 {
 
    
@@ -86,36 +85,35 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
    
    public void removeYou()
    {
-      setParty(null);
-      withoutItems(this.getItems().toArray(new Item[this.getItems().size()]));
+      withoutGuests(this.getGuests().toArray(new Person[this.getGuests().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    //==========================================================================
    
-   public static final String PROPERTY_NAME = "name";
+   public static final String PROPERTY_PARTYNAME = "partyName";
    
-   private String name;
+   private String partyName;
 
-   public String getName()
+   public String getPartyName()
    {
-      return this.name;
+      return this.partyName;
    }
    
-   public void setName(String value)
+   public void setPartyName(String value)
    {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
+      if ( ! EntityUtil.stringEquals(this.partyName, value)) {
       
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+         String oldValue = this.partyName;
+         this.partyName = value;
+         this.firePropertyChange(PROPERTY_PARTYNAME, oldValue, value);
       }
    }
    
-   public Person withName(String value)
+   public Party withPartyName(String value)
    {
-      setName(value);
+      setPartyName(value);
       return this;
    } 
 
@@ -125,8 +123,8 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
    {
       StringBuilder result = new StringBuilder();
       
-      result.append(" ").append(this.getName());
-      result.append(" ").append(this.getSaldo());
+      result.append(" ").append(this.getPartyName());
+      result.append(" ").append(this.getShare());
       result.append(" ").append(this.getTotal());
       return result.substring(1);
    }
@@ -135,28 +133,28 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
    
    //==========================================================================
    
-   public static final String PROPERTY_SALDO = "saldo";
+   public static final String PROPERTY_SHARE = "share";
    
-   private double saldo;
+   private double share;
 
-   public double getSaldo()
+   public double getShare()
    {
-      return this.saldo;
+      return this.share;
    }
    
-   public void setSaldo(double value)
+   public void setShare(double value)
    {
-      if (this.saldo != value) {
+      if (this.share != value) {
       
-         double oldValue = this.saldo;
-         this.saldo = value;
-         this.firePropertyChange(PROPERTY_SALDO, oldValue, value);
+         double oldValue = this.share;
+         this.share = value;
+         this.firePropertyChange(PROPERTY_SHARE, oldValue, value);
       }
    }
    
-   public Person withSaldo(double value)
+   public Party withShare(double value)
    {
-      setSaldo(value);
+      setShare(value);
       return this;
    } 
 
@@ -182,7 +180,7 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
       }
    }
    
-   public Person withTotal(double value)
+   public Party withTotal(double value)
    {
       setTotal(value);
       return this;
@@ -191,131 +189,72 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
    
    /********************************************************************
     * <pre>
-    *              many                       one
-    * Person ----------------------------------- Party
-    *              guests                   party
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PARTY = "party";
-
-   private Party party = null;
-
-   public Party getParty()
-   {
-      return this.party;
-   }
-
-   public boolean setParty(Party value)
-   {
-      boolean changed = false;
-      
-      if (this.party != value)
-      {
-         Party oldValue = this.party;
-         
-         if (this.party != null)
-         {
-            this.party = null;
-            oldValue.withoutGuests(this);
-         }
-         
-         this.party = value;
-         
-         if (value != null)
-         {
-            value.withGuests(this);
-         }
-         
-         firePropertyChange(PROPERTY_PARTY, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Person withParty(Party value)
-   {
-      setParty(value);
-      return this;
-   } 
-
-   public Party createParty()
-   {
-      Party value = new Party();
-      withParty(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
     *              one                       many
-    * Person ----------------------------------- Item
-    *              person                   items
+    * Party ----------------------------------- Person
+    *              party                   guests
     * </pre>
     */
    
-   public static final String PROPERTY_ITEMS = "items";
+   public static final String PROPERTY_GUESTS = "guests";
 
-   private ItemSet items = null;
+   private PersonSet guests = null;
    
-   public ItemSet getItems()
+   public PersonSet getGuests()
    {
-      if (this.items == null)
+      if (this.guests == null)
       {
-         return ItemSet.EMPTY_SET;
+         return PersonSet.EMPTY_SET;
       }
    
-      return this.items;
+      return this.guests;
    }
 
-   public Person withItems(Item... value)
+   public Party withGuests(Person... value)
    {
       if(value==null){
          return this;
       }
-      for (Item item : value)
+      for (Person item : value)
       {
          if (item != null)
          {
-            if (this.items == null)
+            if (this.guests == null)
             {
-               this.items = new ItemSet();
+               this.guests = new PersonSet();
             }
             
-            boolean changed = this.items.add (item);
+            boolean changed = this.guests.add (item);
 
             if (changed)
             {
-               item.withPerson(this);
-               firePropertyChange(PROPERTY_ITEMS, null, item);
+               item.withParty(this);
+               firePropertyChange(PROPERTY_GUESTS, null, item);
             }
          }
       }
       return this;
    } 
 
-   public Person withoutItems(Item... value)
+   public Party withoutGuests(Person... value)
    {
-      for (Item item : value)
+      for (Person item : value)
       {
-         if ((this.items != null) && (item != null))
+         if ((this.guests != null) && (item != null))
          {
-            if (this.items.remove(item))
+            if (this.guests.remove(item))
             {
-               item.setPerson(null);
-               firePropertyChange(PROPERTY_ITEMS, item, null);
+               item.setParty(null);
+               firePropertyChange(PROPERTY_GUESTS, item, null);
             }
          }
       }
       return this;
    }
 
-   public Item createItems()
+   public Person createGuests()
    {
-      Item value = new Item();
-      withItems(value);
+      Person value = new Person();
+      withGuests(value);
       return value;
    } 
 }

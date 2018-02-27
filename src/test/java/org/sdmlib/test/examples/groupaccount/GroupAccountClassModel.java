@@ -23,31 +23,29 @@ public class GroupAccountClassModel
       storyboard.add("Start situation: Nothing here yet. Generate classes");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
-      
-      Clazz groupAccountClass = model.createClazz("GroupAccount")
-            .withAttribute("task", DataType.STRING);
-            
-      groupAccountClass.createMethod("updateBalances");
-      
+
+      Clazz partyClass = model.createClazz("Party")
+            .withAttribute("partyName", DataType.STRING)
+            .withAttribute("total", DataType.DOUBLE)
+            .withAttribute("share", DataType.DOUBLE)
+            ;
+
       Clazz personClass = model.createClazz("Person")
             .withAttribute("name", DataType.STRING)
-            .withAttribute("balance", DataType.DOUBLE);
+            .withAttribute("total", DataType.DOUBLE)
+            .withAttribute("saldo", DataType.DOUBLE)
+            ;
 
-      
-      groupAccountClass.withBidirectional(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
-      
-      Clazz itemClass = model.createClazz("Item") 
+      partyClass.createBidirectional(personClass, "guests", Cardinality.MANY, 
+         "party", Cardinality.ONE);
+
+      Clazz itemClass = model.createClazz("Item")
             .withAttribute("description", DataType.STRING)
-            .withAttribute("value", DataType.DOUBLE);
-      
-      personClass.withBidirectional(itemClass, "item", Cardinality.MANY, "buyer", Cardinality.ONE);
+            .withAttribute("price", DataType.DOUBLE);
 
-      // model.updateFromCode("examples", "examples", "org.sdmlib.test.examples.groupAccount");
-      
-      // model.insertModelCreationCodeHere("examples");
-      
-      // model.removeAllGeneratedCode("examples");
-      
+      personClass.createBidirectional(itemClass, "items", Cardinality.MANY, 
+         "person", Cardinality.ONE);
+
       model.generate("src/test/java");
       
       storyboard.addClassDiagram(model);

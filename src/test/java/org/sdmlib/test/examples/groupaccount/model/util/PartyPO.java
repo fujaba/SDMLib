@@ -1,28 +1,26 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.groupaccount.model.util.PartyPO;
-import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemPO;
-import org.sdmlib.test.examples.groupaccount.model.Item;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
+import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.util.PartyPO;
+import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
-public class PersonPO extends PatternObject<PersonPO, Person>
+public class PartyPO extends PatternObject<PartyPO, Party>
 {
 
-    public PersonSet allMatches()
+    public PartySet allMatches()
    {
       this.setDoAllMatches(true);
       
-      PersonSet matches = new PersonSet();
+      PartySet matches = new PartySet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Person) this.getCurrentMatch());
+         matches.add((Party) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -31,25 +29,25 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    }
 
 
-   public PersonPO(){
+   public PartyPO(){
       newInstance(null);
    }
 
-   public PersonPO(Person... hostGraphObject) {
+   public PartyPO(Party... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(null, hostGraphObject);
    }
 
-   public PersonPO(String modifier)
+   public PartyPO(String modifier)
    {
       this.setModifier(modifier);
    }
-   public PersonPO createNameCondition(String value)
+   public PartyPO createPartyNameCondition(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
+      .withAttrName(Party.PROPERTY_PARTYNAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -60,10 +58,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createNameCondition(String lower, String upper)
+   public PartyPO createPartyNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
+      .withAttrName(Party.PROPERTY_PARTYNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -75,10 +73,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createNameAssignment(String value)
+   public PartyPO createPartyNameAssignment(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_NAME)
+      .withAttrName(Party.PROPERTY_PARTYNAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -89,28 +87,28 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public String getName()
+   public String getPartyName()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) getCurrentMatch()).getName();
+         return ((Party) getCurrentMatch()).getPartyName();
       }
       return null;
    }
    
-   public PersonPO withName(String value)
+   public PartyPO withPartyName(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Person) getCurrentMatch()).setName(value);
+         ((Party) getCurrentMatch()).setPartyName(value);
       }
       return this;
    }
    
-   public PersonPO createSaldoCondition(double value)
+   public PartyPO createShareCondition(double value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_SALDO)
+      .withAttrName(Party.PROPERTY_SHARE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -121,10 +119,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createSaldoCondition(double lower, double upper)
+   public PartyPO createShareCondition(double lower, double upper)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_SALDO)
+      .withAttrName(Party.PROPERTY_SHARE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -136,10 +134,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createSaldoAssignment(double value)
+   public PartyPO createShareAssignment(double value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_SALDO)
+      .withAttrName(Party.PROPERTY_SHARE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -150,28 +148,28 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public double getSaldo()
+   public double getShare()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) getCurrentMatch()).getSaldo();
+         return ((Party) getCurrentMatch()).getShare();
       }
       return 0;
    }
    
-   public PersonPO withSaldo(double value)
+   public PartyPO withShare(double value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Person) getCurrentMatch()).setSaldo(value);
+         ((Party) getCurrentMatch()).setShare(value);
       }
       return this;
    }
    
-   public PersonPO createTotalCondition(double value)
+   public PartyPO createTotalCondition(double value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_TOTAL)
+      .withAttrName(Party.PROPERTY_TOTAL)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -182,10 +180,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createTotalCondition(double lower, double upper)
+   public PartyPO createTotalCondition(double lower, double upper)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_TOTAL)
+      .withAttrName(Party.PROPERTY_TOTAL)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -197,10 +195,10 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
-   public PersonPO createTotalAssignment(double value)
+   public PartyPO createTotalAssignment(double value)
    {
       new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_TOTAL)
+      .withAttrName(Party.PROPERTY_TOTAL)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -215,94 +213,55 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) getCurrentMatch()).getTotal();
+         return ((Party) getCurrentMatch()).getTotal();
       }
       return 0;
    }
    
-   public PersonPO withTotal(double value)
+   public PartyPO withTotal(double value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Person) getCurrentMatch()).setTotal(value);
+         ((Party) getCurrentMatch()).setTotal(value);
       }
       return this;
    }
    
-   public PartyPO createPartyPO()
+   public PersonPO createGuestsPO()
    {
-      PartyPO result = new PartyPO(new Party[]{});
+      PersonPO result = new PersonPO(new Person[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_PARTY, result);
+      super.hasLink(Party.PROPERTY_GUESTS, result);
       
       return result;
    }
 
-   public PartyPO createPartyPO(String modifier)
+   public PersonPO createGuestsPO(String modifier)
    {
-      PartyPO result = new PartyPO(new Party[]{});
+      PersonPO result = new PersonPO(new Person[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Person.PROPERTY_PARTY, result);
+      super.hasLink(Party.PROPERTY_GUESTS, result);
       
       return result;
    }
 
-   public PersonPO createPartyLink(PartyPO tgt)
+   public PartyPO createGuestsLink(PersonPO tgt)
    {
-      return hasLinkConstraint(tgt, Person.PROPERTY_PARTY);
+      return hasLinkConstraint(tgt, Party.PROPERTY_GUESTS);
    }
 
-   public PersonPO createPartyLink(PartyPO tgt, String modifier)
+   public PartyPO createGuestsLink(PersonPO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Person.PROPERTY_PARTY, modifier);
+      return hasLinkConstraint(tgt, Party.PROPERTY_GUESTS, modifier);
    }
 
-   public Party getParty()
+   public PersonSet getGuests()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) this.getCurrentMatch()).getParty();
-      }
-      return null;
-   }
-
-   public ItemPO createItemsPO()
-   {
-      ItemPO result = new ItemPO(new Item[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_ITEMS, result);
-      
-      return result;
-   }
-
-   public ItemPO createItemsPO(String modifier)
-   {
-      ItemPO result = new ItemPO(new Item[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Person.PROPERTY_ITEMS, result);
-      
-      return result;
-   }
-
-   public PersonPO createItemsLink(ItemPO tgt)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_ITEMS);
-   }
-
-   public PersonPO createItemsLink(ItemPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Person.PROPERTY_ITEMS, modifier);
-   }
-
-   public ItemSet getItems()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Person) this.getCurrentMatch()).getItems();
+         return ((Party) this.getCurrentMatch()).getGuests();
       }
       return null;
    }

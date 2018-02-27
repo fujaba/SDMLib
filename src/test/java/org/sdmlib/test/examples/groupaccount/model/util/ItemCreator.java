@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,30 @@
    
 package org.sdmlib.test.examples.groupaccount.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.groupaccount.model.Item;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
-import de.uniks.networkparser.IdMap;
-
-public class ItemCreator extends EntityFactory
+public class ItemCreator implements AggregatedEntityCreator
 {
+   public static final ItemCreator it = new ItemCreator();
+   
    private final String[] properties = new String[]
    {
       Item.PROPERTY_DESCRIPTION,
-      Item.PROPERTY_VALUE,
-      Item.PROPERTY_BUYER,
+      Item.PROPERTY_PRICE,
+      Item.PROPERTY_PERSON,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -43,10 +54,23 @@ public class ItemCreator extends EntityFactory
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Item();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -64,14 +88,14 @@ public class ItemCreator extends EntityFactory
          return ((Item) target).getDescription();
       }
 
-      if (Item.PROPERTY_VALUE.equalsIgnoreCase(attribute))
+      if (Item.PROPERTY_PRICE.equalsIgnoreCase(attribute))
       {
-         return ((Item) target).getValue();
+         return ((Item) target).getPrice();
       }
 
-      if (Item.PROPERTY_BUYER.equalsIgnoreCase(attribute))
+      if (Item.PROPERTY_PERSON.equalsIgnoreCase(attribute))
       {
-         return ((Item) target).getBuyer();
+         return ((Item) target).getPerson();
       }
       
       return null;
@@ -80,26 +104,30 @@ public class ItemCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (REMOVE.equals(type) && value != null)
+      if (Item.PROPERTY_PRICE.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((Item) target).setPrice(Double.parseDouble(value.toString()));
+         return true;
       }
 
       if (Item.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
       {
-         ((Item) target).withDescription((String) value);
+         ((Item) target).setDescription((String) value);
          return true;
       }
 
-      if (Item.PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Item)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
-         ((Item) target).withValue(Double.parseDouble(value.toString()));
-         return true;
+         attrName = attrName + type;
       }
 
-      if (Item.PROPERTY_BUYER.equalsIgnoreCase(attrName))
+      if (Item.PROPERTY_PERSON.equalsIgnoreCase(attrName))
       {
-         ((Item) target).setBuyer((Person) value);
+         ((Item) target).setPerson((Person) value);
          return true;
       }
       
@@ -111,9 +139,7 @@ public class ItemCreator extends EntityFactory
    }
    
    //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((Item) entity).removeYou();
    }

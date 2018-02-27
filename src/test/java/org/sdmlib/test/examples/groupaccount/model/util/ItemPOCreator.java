@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.groupaccount.model.Item;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.groupaccount.model.Item;
 
 public class ItemPOCreator extends PatternObjectCreator
 {

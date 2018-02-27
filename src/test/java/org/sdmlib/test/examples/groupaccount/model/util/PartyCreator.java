@@ -22,24 +22,22 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.Party;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.groupaccount.model.Party;
-import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 
-public class PersonCreator implements AggregatedEntityCreator
+public class PartyCreator implements AggregatedEntityCreator
 {
-   public static final PersonCreator it = new PersonCreator();
+   public static final PartyCreator it = new PartyCreator();
    
    private final String[] properties = new String[]
    {
-      Person.PROPERTY_NAME,
-      Person.PROPERTY_SALDO,
-      Person.PROPERTY_TOTAL,
-      Person.PROPERTY_PARTY,
-      Person.PROPERTY_ITEMS,
+      Party.PROPERTY_PARTYNAME,
+      Party.PROPERTY_SHARE,
+      Party.PROPERTY_TOTAL,
+      Party.PROPERTY_GUESTS,
    };
    
    private final String[] upProperties = new String[]
@@ -71,7 +69,7 @@ public class PersonCreator implements AggregatedEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Person();
+      return new Party();
    }
    
    
@@ -86,29 +84,24 @@ public class PersonCreator implements AggregatedEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (Person.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Party.PROPERTY_PARTYNAME.equalsIgnoreCase(attribute))
       {
-         return ((Person) target).getName();
+         return ((Party) target).getPartyName();
       }
 
-      if (Person.PROPERTY_SALDO.equalsIgnoreCase(attribute))
+      if (Party.PROPERTY_SHARE.equalsIgnoreCase(attribute))
       {
-         return ((Person) target).getSaldo();
+         return ((Party) target).getShare();
       }
 
-      if (Person.PROPERTY_TOTAL.equalsIgnoreCase(attribute))
+      if (Party.PROPERTY_TOTAL.equalsIgnoreCase(attribute))
       {
-         return ((Person) target).getTotal();
+         return ((Party) target).getTotal();
       }
 
-      if (Person.PROPERTY_PARTY.equalsIgnoreCase(attribute))
+      if (Party.PROPERTY_GUESTS.equalsIgnoreCase(attribute))
       {
-         return ((Person) target).getParty();
-      }
-
-      if (Person.PROPERTY_ITEMS.equalsIgnoreCase(attribute))
-      {
-         return ((Person) target).getItems();
+         return ((Party) target).getGuests();
       }
       
       return null;
@@ -117,26 +110,26 @@ public class PersonCreator implements AggregatedEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Person.PROPERTY_TOTAL.equalsIgnoreCase(attrName))
+      if (Party.PROPERTY_TOTAL.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setTotal(Double.parseDouble(value.toString()));
+         ((Party) target).setTotal(Double.parseDouble(value.toString()));
          return true;
       }
 
-      if (Person.PROPERTY_SALDO.equalsIgnoreCase(attrName))
+      if (Party.PROPERTY_SHARE.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setSaldo(Double.parseDouble(value.toString()));
+         ((Party) target).setShare(Double.parseDouble(value.toString()));
          return true;
       }
 
-      if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Party.PROPERTY_PARTYNAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setName((String) value);
+         ((Party) target).setPartyName((String) value);
          return true;
       }
 
       if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
-           ((Person)target).removeYou();
+           ((Party)target).removeYou();
            return true;
       }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
@@ -144,21 +137,15 @@ public class PersonCreator implements AggregatedEntityCreator
          attrName = attrName + type;
       }
 
-      if (Person.PROPERTY_PARTY.equalsIgnoreCase(attrName))
+      if (Party.PROPERTY_GUESTS.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setParty((Party) value);
-         return true;
-      }
-
-      if (Person.PROPERTY_ITEMS.equalsIgnoreCase(attrName))
-      {
-         ((Person) target).withItems((Item) value);
+         ((Party) target).withGuests((Person) value);
          return true;
       }
       
-      if ((Person.PROPERTY_ITEMS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((Party.PROPERTY_GUESTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Person) target).withoutItems((Item) value);
+         ((Party) target).withoutGuests((Person) value);
          return true;
       }
       
@@ -172,6 +159,6 @@ public class PersonCreator implements AggregatedEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((Person) entity).removeYou();
+      ((Party) entity).removeYou();
    }
 }

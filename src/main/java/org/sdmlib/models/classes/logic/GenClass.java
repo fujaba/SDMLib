@@ -26,7 +26,6 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
@@ -277,7 +276,7 @@ public class GenClass extends GenClazzEntity
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 		ClassModel model = (ClassModel) clazz.getClassModel();
-		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(ClazzType.INTERFACE) == false) {
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -793,7 +792,7 @@ public class GenClass extends GenClazzEntity
          return null;
       }
 
-      if (model.getType().equals(ClazzType.INTERFACE)) {
+      if (model.getType().equals(Clazz.TYPE_INTERFACE)) {
     	  return null;
       }
       

@@ -18,7 +18,6 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeMap;
 import de.uniks.networkparser.graph.DataTypeSet;
@@ -958,7 +957,7 @@ public class GenAttribute extends Generator<Attribute>
       DataType dataType = model.getType();
       String value = dataType.getName(false);
       for (Clazz item : clazz.getClassModel().getClazzes()) {
-         if (item.getType() != ClazzType.ENUMERATION) {
+         if (item.getType() != Clazz.TYPE_ENUMERATION) {
             continue;
          }
          String fullName;

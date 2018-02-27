@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,66 +21,71 @@
    
 package org.sdmlib.test.examples.groupaccount.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-/**
- * 
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
  */
-public class Item implements PropertyChangeInterface, SendableEntity
+   public  class Item implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	return true;
+   }
 
-	public boolean removePropertyChangeListener(String property, PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
+   }
+
    
    //==========================================================================
    
    
    public void removeYou()
    {
-      setBuyer(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setPerson(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -88,7 +93,7 @@ public class Item implements PropertyChangeInterface, SendableEntity
    
    public static final String PROPERTY_DESCRIPTION = "description";
    
-   private String description = "Item?";
+   private String description;
 
    public String getDescription()
    {
@@ -97,11 +102,11 @@ public class Item implements PropertyChangeInterface, SendableEntity
    
    public void setDescription(String value)
    {
-      if ( ! StrUtil.stringEquals(this.description, value))
-      {
+      if ( ! EntityUtil.stringEquals(this.description, value)) {
+      
          String oldValue = this.description;
          this.description = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DESCRIPTION, oldValue, value);
+         this.firePropertyChange(PROPERTY_DESCRIPTION, oldValue, value);
       }
    }
    
@@ -115,111 +120,98 @@ public class Item implements PropertyChangeInterface, SendableEntity
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getDescription());
-      s.append(" ").append(this.getValue());
-      return s.substring(1);
+      result.append(" ").append(this.getDescription());
+      result.append(" ").append(this.getPrice());
+      return result.substring(1);
    }
 
 
    
    //==========================================================================
    
-   public static final String PROPERTY_VALUE = "value";
+   public static final String PROPERTY_PRICE = "price";
    
-   private double value;
+   private double price;
 
-   public double getValue()
+   public double getPrice()
    {
-      return this.value;
+      return this.price;
    }
    
-   public void setValue(double value)
+   public void setPrice(double value)
    {
-      if (this.value != value)
-      {
-         double oldValue = this.value;
-         this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+      if (this.price != value) {
+      
+         double oldValue = this.price;
+         this.price = value;
+         this.firePropertyChange(PROPERTY_PRICE, oldValue, value);
       }
    }
    
-   public Item withValue(double value)
+   public Item withPrice(double value)
    {
-      setValue(value);
+      setPrice(value);
       return this;
    } 
-
-   
-   public static final ItemSet EMPTY_SET = new ItemSet().withFlag(ItemSet.READONLY);
 
    
    /********************************************************************
     * <pre>
     *              many                       one
     * Item ----------------------------------- Person
-    *              item                   buyer
+    *              items                   person
     * </pre>
     */
    
-   public static final String PROPERTY_BUYER = "buyer";
+   public static final String PROPERTY_PERSON = "person";
 
-   private Person buyer = null;
+   private Person person = null;
 
-   public Person getBuyer()
+   public Person getPerson()
    {
-      return this.buyer;
+      return this.person;
    }
 
-   public boolean setBuyer(Person value)
+   public boolean setPerson(Person value)
    {
       boolean changed = false;
       
-      if (this.buyer != value)
+      if (this.person != value)
       {
-         Person oldValue = this.buyer;
+         Person oldValue = this.person;
          
-         if (this.buyer != null)
+         if (this.person != null)
          {
-            this.buyer = null;
-            oldValue.withoutItem(this);
+            this.person = null;
+            oldValue.withoutItems(this);
          }
          
-         this.buyer = value;
+         this.person = value;
          
          if (value != null)
          {
-            value.withItem(this);
+            value.withItems(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BUYER, oldValue, value);
+         firePropertyChange(PROPERTY_PERSON, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
 
-   public Item withBuyer(Person value)
+   public Item withPerson(Person value)
    {
-      setBuyer(value);
+      setPerson(value);
       return this;
    } 
 
-   public Person createBuyer()
+   public Person createPerson()
    {
       Person value = new Person();
-      withBuyer(value);
+      withPerson(value);
       return value;
    } 
-
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
-
+}

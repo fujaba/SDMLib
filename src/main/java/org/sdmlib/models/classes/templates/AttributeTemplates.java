@@ -5,7 +5,7 @@ import org.sdmlib.codegen.Parser;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.ClazzType;
+import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
@@ -82,7 +82,7 @@ public class AttributeTemplates {
 	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + attribute.getType().getName(true) + ")");
 	    	  attrSetter.withVariable(ReplaceText.create("pgold", Feature.PROPERTYCHANGESUPPORT, "\n         {{type}} oldValue = this.{{name}};"));
 	    	  ReplaceText propertyChange = ReplaceText.create("propertychange", Feature.PROPERTYCHANGESUPPORT, "\n         this.firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);");
-	    	  propertyChange.withCondition(attribute.getClazz().getType()!=ClazzType.ENUMERATION);
+	    	  propertyChange.withCondition(attribute.getClazz().getType()!=Clazz.TYPE_ENUMERATION);
 
 	    	  attrSetter.withVariable(propertyChange);
 	    	  attrSetter.withVariable(ReplaceText.create("valuecompare", "String".equalsIgnoreCase(attribute.getType().getName(false)), EntityUtil.class.getName(), " ! EntityUtil.stringEquals(this.{{name}}, value)", "this.{{name}} != value"));

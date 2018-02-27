@@ -28,28 +28,28 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"GroupAccount",
+         "id":"Item",
          "attributes":[
-            "task : String"
-         ],
-         "methods":[
-            "updateBalances()"
+            "description : String",
+            "price : double"
          ]
       },
       {
          "typ":"node",
-         "id":"Item",
+         "id":"Party",
          "attributes":[
-            "description : String",
-            "value : double"
+            "partyName : String",
+            "share : double",
+            "total : double"
          ]
       },
       {
          "typ":"node",
          "id":"Person",
          "attributes":[
-            "balance : double",
-            "name : String"
+            "name : String",
+            "saldo : double",
+            "total : double"
          ]
       }
    ],
@@ -57,27 +57,40 @@
       {
          "typ":"assoc",
          "source":{
-            "id":"GroupAccount",
-            "cardinality":"one",
-            "property":"parent"
-         },
-         "target":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"persons"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
             "id":"Item",
             "cardinality":"many",
-            "property":"item"
+            "property":"items"
          },
          "target":{
             "id":"Person",
             "cardinality":"one",
-            "property":"buyer"
+            "property":"person"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Party",
+            "cardinality":"one",
+            "property":"party"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"guests"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"guests"
+         },
+         "target":{
+            "id":"Party",
+            "cardinality":"one",
+            "property":"party"
          }
       },
       {
@@ -85,25 +98,12 @@
          "source":{
             "id":"Person",
             "cardinality":"one",
-            "property":"buyer"
+            "property":"person"
          },
          "target":{
             "id":"Item",
             "cardinality":"many",
-            "property":"item"
-         }
-      },
-      {
-         "typ":"assoc",
-         "source":{
-            "id":"Person",
-            "cardinality":"many",
-            "property":"persons"
-         },
-         "target":{
-            "id":"GroupAccount",
-            "cardinality":"one",
-            "property":"parent"
+            "property":"items"
          }
       }
    ]

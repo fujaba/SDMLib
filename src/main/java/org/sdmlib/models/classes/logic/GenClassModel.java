@@ -46,7 +46,6 @@ import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphMember;
@@ -74,7 +73,7 @@ public class GenClassModel implements ClassModelAdapter
    };
 
    public GenClazzEntity getOrCreate(Clazz clazz) {
-	   if(clazz.getType()==ClazzType.ENUMERATION) {
+	   if(clazz.getType()==Clazz.TYPE_ENUMERATION) {
  		  return getOrCreateEnum(clazz);
  	  } else {
  		  return getOrCreateClazz(clazz);
@@ -169,7 +168,7 @@ public class GenClassModel implements ClassModelAdapter
    }
    
    private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir) {
-	      if(item.getType() ==  ClazzType.ENUMERATION) {
+	      if(item.getType() ==  Clazz.TYPE_ENUMERATION) {
 	          SimpleSet<Literal> literals = item.getValues();
 	          SimpleSet<Attribute> attributes = item.getAttributes();
 	          for(Literal literal : literals) {
@@ -259,7 +258,7 @@ public class GenClassModel implements ClassModelAdapter
          int count = 0;
          for (Clazz clazz : model.getClazzes())
          {
-        	 if(clazz.getType()==ClazzType.CLAZZ) {
+        	 if(clazz.getType()==Clazz.TYPE_CLASS) {
         		 count += getOrCreateClazz(clazz).printAll(getShowDiff(), this.ignoreDiff);
         	 }
          }
@@ -783,7 +782,7 @@ public class GenClassModel implements ClassModelAdapter
       refreshMethodScan(signature, modelCreationClass, rootDir);
       for (Clazz clazz : model.getClazzes())
       {
-    	  if(clazz.getType()!=ClazzType.CLAZZ) {
+    	  if(clazz.getType()!= Clazz.TYPE_CLASS) {
     		  continue;
     	  }
          String modelClassName = clazz.getName(false);
@@ -1369,7 +1368,7 @@ public class GenClassModel implements ClassModelAdapter
          if ("withMethod".equals(init.get(0)) && ("\"" + method.getName() + "\"").equals(init.get(1)))
          {
             // looks good, do we need to check more?
-            if (init.size() <= 7 && method.getParameter().size() == 0)
+            if (init.size() <= 7 && method.getParameters().size() == 0)
                return true;
 
             // there should be more:
@@ -1385,7 +1384,7 @@ public class GenClassModel implements ClassModelAdapter
                try
                {
                   int j = 6;
-                  Iterator<Parameter> paramIter = method.getParameter().iterator();
+                  Iterator<Parameter> paramIter = method.getParameters().iterator();
                   while (j < init.size() && paramIter.hasNext())
                   {
                      Parameter searchParam = paramIter.next();
@@ -1849,7 +1848,7 @@ public class GenClassModel implements ClassModelAdapter
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
 
       StringBuilder paString = new StringBuilder();
-      for (Parameter parameter : method.getParameter())
+      for (Parameter parameter : method.getParameters())
       {
          paString.append(", new Parameter(" + parameter.getType().toString() + ")");
       }

@@ -17,7 +17,6 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
@@ -982,7 +981,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          return null;
       }
 
-      if (model.getType().equals(ClazzType.INTERFACE)) {
+      if (model.getType().equals(Clazz.TYPE_INTERFACE)) {
     	  return null;
       }
       
@@ -1163,7 +1162,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                }
             }
             
-            if (model.getType() == ClazzType.ENUMERATION)
+            if (model.getType() == Clazz.TYPE_ENUMERATION)
             {
                removeYouClause = "";
             }

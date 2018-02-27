@@ -1,19 +1,18 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
-
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.test.examples.groupaccount.model.Party;
 
-public class GroupAccountPOCreator extends PatternObjectCreator
+public class PartyPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new GroupAccountPO(new GroupAccount[]{});
+          return new PartyPO(new Party[]{});
       } else {
-          return new GroupAccountPO();
+          return new PartyPO();
       }
    }
    
