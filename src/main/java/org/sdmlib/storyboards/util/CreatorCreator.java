@@ -19,6 +19,12 @@ class CreatorCreator{
       jsonIdMap.with(new LogEntryStoryBoardCreator());
       jsonIdMap.with(new LogEntryStoryBoardPOCreator());
       
+      jsonIdMap.with(new GoalCreator());
+      jsonIdMap.with(new GoalPOCreator());
+      jsonIdMap.with(new LogEntryCreator());
+      jsonIdMap.with(new LogEntryPOCreator());
+      jsonIdMap.with(new MikadoLogCreator());
+      jsonIdMap.with(new MikadoLogPOCreator());
       return jsonIdMap;
    }
 }

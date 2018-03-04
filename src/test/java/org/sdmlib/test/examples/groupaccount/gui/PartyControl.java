@@ -37,22 +37,28 @@ public class PartyControl
       party.addPropertyChangeListener(Party.PROPERTY_PARTYNAME, e -> logicNameChange());
       
       // total and share
+      Label pre = new Label(" ");
+      pre.setPrefWidth(120);
       Label totalLabel = new Label("Total:");
       Label totalField = new Label("0,00");
+      Label euroLabel = new Label("€");
+      euroLabel.setPrefWidth(20);
       totalField.setStyle("-fx-background-color: white;");
-      totalField.setPrefWidth(100);
+      totalField.setPrefWidth(110);
       totalField.setAlignment(Pos.CENTER_RIGHT);
       party.addPropertyChangeListener(Party.PROPERTY_TOTAL, e -> updateTotalField(totalField));
       
       Label shareLabel = new Label("Share:");
       Label shareField = new Label("0,00");
+      Label euro2 = new Label("€");
+
       shareField.setStyle("-fx-background-color: white;");
       shareField.setPrefWidth(100);
       shareField.setAlignment(Pos.CENTER_RIGHT);
       party.addPropertyChangeListener(Party.PROPERTY_SHARE, e -> updateShareField(shareField));
       
       HBox totalBox = new HBox(9);
-      totalBox.getChildren().addAll(totalLabel, totalField, shareLabel, shareField);
+      totalBox.getChildren().addAll(pre, totalLabel, totalField, euroLabel, shareLabel, shareField, euro2);
       totalBox.setAlignment(Pos.CENTER_LEFT);
       
       personsVBox = new VBox(36);
@@ -69,7 +75,7 @@ public class PartyControl
 
    private void updateShareField(Label shareField)
    {
-      String string = String.format("%.2f", party.getShare());;
+      String string = String.format("%.2f", party.getShare());
       
       shareField.setText(string);
       
@@ -77,9 +83,7 @@ public class PartyControl
 
    private void updateTotalField(Label totalField)
    {
-      NumberFormat format = NumberFormat.getInstance();
-      
-      String string = format.format(party.getTotal());
+      String string = String.format("%.2f", party.getTotal());
       
       totalField.setText(string);
    }

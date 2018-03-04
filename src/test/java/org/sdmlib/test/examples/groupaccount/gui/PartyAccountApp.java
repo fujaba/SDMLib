@@ -25,6 +25,7 @@ public class PartyAccountApp extends Application
    private Party party;
    private ScheduledExecutorService executor;
    private String userName;
+   public VBox root;
    
    public Party getParty()
    {
@@ -39,14 +40,15 @@ public class PartyAccountApp extends Application
    @Override
    public void start(Stage stage) throws Exception
    {
-      VBox root = getRoot();
+      root = getRoot();
    
       Scene scene = new Scene(root, 600, 700);
       
       stage.setScene(scene);
       stage.setTitle(userName);
+      stage.setX(1300);
       stage.show();
-      
+
       stage.setOnCloseRequest(e -> System.exit(0));
 
 //      executor = Executors.newSingleThreadScheduledExecutor();
@@ -83,15 +85,21 @@ public class PartyAccountApp extends Application
 
    public VBox getRoot()
    {
-      List<String> params = getParameters().getRaw();
+      Parameters parameters = getParameters();
       
-      if ( ! params.isEmpty())
+      if ( parameters != null)
       {
-         userName = params.get(0);
+         List<String> params = parameters.getRaw();
+         
+         if ( ! params.isEmpty())
+         {
+            userName = params.get(0);
+         }
       }
       
       VBox root = new VBox(18);
       root.setPadding(new Insets(27));
+      root.setStyle("-fx-background-color: white;");
       
       root.setPrefSize(600, 700);
       

@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.groupaccount.gui;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
+import javafx.beans.Observable;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 
 import javafx.geometry.Pos;
@@ -35,6 +36,8 @@ public class ItemControl
       priceField.setAlignment(Pos.CENTER_RIGHT);
       
       priceField.textProperty().addListener(e -> priceFieldListener(priceField));
+
+      priceField.focusedProperty().addListener(e -> priceFieldFocusListener(item, priceField));
       
       item.addPropertyChangeListener(Item.PROPERTY_PRICE, e -> priceAttrListener(priceField));
       
@@ -45,6 +48,15 @@ public class ItemControl
       itemListVBox.getChildren().add(hBox);
       
       descriptionField.requestFocus();
+   }
+
+   private void priceFieldFocusListener(Item item, TextField field)
+   {
+      if ( ! field.isFocused())
+      {
+         String string = String.format("%.2f", item.getPrice());
+         field.setText(string);
+      }
    }
 
    private void descriptionAttrListener(TextField descriptionField)
@@ -60,7 +72,7 @@ public class ItemControl
    private void priceAttrListener(TextField priceField)
    {
       double newPrice = item.getPrice();
-      
+
       NumberFormat format = NumberFormat.getInstance();
 
       String string = format.format(newPrice);

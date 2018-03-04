@@ -1368,7 +1368,7 @@ public class GenClassModel implements ClassModelAdapter
          if ("withMethod".equals(init.get(0)) && ("\"" + method.getName() + "\"").equals(init.get(1)))
          {
             // looks good, do we need to check more?
-            if (init.size() <= 7 && method.getParameters().size() == 0)
+            if (init.size() <= 7 && method.getParameter().size() == 0)
                return true;
 
             // there should be more:
@@ -1384,7 +1384,7 @@ public class GenClassModel implements ClassModelAdapter
                try
                {
                   int j = 6;
-                  Iterator<Parameter> paramIter = method.getParameters().iterator();
+                  Iterator<Parameter> paramIter = method.getParameter().iterator();
                   while (j < init.size() && paramIter.hasNext())
                   {
                      Parameter searchParam = paramIter.next();
@@ -1848,7 +1848,7 @@ public class GenClassModel implements ClassModelAdapter
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
 
       StringBuilder paString = new StringBuilder();
-      for (Parameter parameter : method.getParameters())
+      for (Parameter parameter : method.getParameter())
       {
          paString.append(", new Parameter(" + parameter.getType().toString() + ")");
       }

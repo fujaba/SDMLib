@@ -767,6 +767,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
             while (true)
             {
                this.lazyCloneOp.reset();
+
                if ( ! rule.findMatch())
                {
                   break;

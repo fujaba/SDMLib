@@ -29,11 +29,15 @@ public class PersonControl
       VBox onePersonBox = new VBox(18);
       
       personNameField = new TextField();
+      personNameField.setPrefWidth(160);
       personNameField.textProperty().addListener(e->nameFieldChange());
       person.addPropertyChangeListener(Person.PROPERTY_NAME, e -> logicNameChange());
-      
+
+      Label blank = new Label(" ");
+      blank.setPrefWidth(140);
       Label saldoLabel = new Label("Saldo:");
       Label saldoValue = new Label("0,00");
+      Label euro = new Label("€");
       saldoValue.setAlignment(Pos.CENTER_RIGHT);
       saldoValue.setStyle("-fx-background-color: white;");
       saldoValue.setPrefWidth(100);
@@ -42,7 +46,7 @@ public class PersonControl
       
       HBox nameLine = new HBox(9);
       nameLine.setAlignment(Pos.CENTER_LEFT);
-      nameLine.getChildren().addAll(personNameField, saldoLabel, saldoValue);
+      nameLine.getChildren().addAll(personNameField, blank, saldoLabel, saldoValue, euro);
       
       itemListVBox = new VBox(18);
       

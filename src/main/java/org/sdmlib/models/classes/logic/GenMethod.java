@@ -149,7 +149,7 @@ public class GenMethod extends Generator<Method>
 
    private SymTabEntry getMethodSymTabEntry(String type, Clazz clazz, Parser parser) {
       String signature = type + ":" +model.getName()+ "(";
-      SimpleSet<Parameter> parameters = model.getParameters();
+      SimpleSet<Parameter> parameters = model.getParameter();
       for(int i = 0; i < parameters.size(); i++) {
          Parameter param = parameters.get(i); 
          if(i > 0) {
@@ -231,7 +231,7 @@ public class GenMethod extends Generator<Method>
          parser.insert(pos, text.toString());
 
          // Add Imports for all Parameters to Clazz-File
-         for (Parameter param : model.getParameters()) 
+         for (Parameter param : model.getParameter())
          {
             String paramType = param.getType().getClazz().getName();
             int endOfName = paramType.length();
@@ -412,7 +412,7 @@ public class GenMethod extends Generator<Method>
 
    private void calculateParameters(Parser parser, StringBuilder formalParameter, StringBuilder actualParameter) {
       int i=0;
-      SimpleSet<Parameter> parameters = model.getParameters();
+      SimpleSet<Parameter> parameters = model.getParameter();
       for (int p = 0; p < parameters.size(); p++) {
          Parameter param = parameters.get(p);
          formalParameter.append(param.getType().getName(false)).append(" ");

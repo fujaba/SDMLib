@@ -1,0 +1,45 @@
+-;Goal;description:;parents:;;;
+;sdmlib:;Wide Spread Use;null;;;
+;relwt1819:;"Winter ; 18/19 Release";sdmlib;;;
+;;;;;;
+;;;;;;
+-;sdmliblog:;MikadoLog;;;;
+;mainGoal:;sdmlib;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+-;Goal;description:;parents:;;;
+;relst18:;Summer 18 Release;sdmlib;;;
+;mikado:;Mikado planning support;relst18;;;
+;csvFiles:;Allow editing with Excel CSV;mikado;;;
+;;;;;;
+;yaml:;Yaml based id map;relst18;;;
+;;;;;;
+;;;;;;
+-;relst18log:;MikadoLog;;;;
+;mainGoal:;relst18;;;;
+;;;;;;
+-;LogEntry;date:;goal:;hoursDone:;hoursRemaining: ;parent:
+;l1:;2018-01-03T12:00:00+01:00;yaml;8;0;relst18log
+;l2:;2018-01-04T12:00:00+01:00;mikado;1;3;relst18log
+;l3:;2018-03-03T12:00:00+01:00;csvFiles;1;6;relst18log
+;l4:;2018-03-04T00:52:00+01:00;csvFiles;1;0;relst18log
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+;;;;;;
+-;Goal;description:;parents:;;;
+;relwt1718:;Winter 17/18 Release;sdmlib;;;
+;emfer:;EMF Reachabilit Graphs;relwt1718;;;
+;party:;Party Account GUI with Lambdas;relwt1718;;;

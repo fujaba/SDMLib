@@ -1398,7 +1398,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          "<script src=\"includes/dagre.min.js\"></script>\n" +
          "<script src=\"includes/drawer.js\"></script>\n" +
          "<script src=\"includes/graph.js\"></script>\n" +
-         "<style>\n" + 
+         "<script src=\"includes/Chart.bundle.js\"></script>\n" +
+         "<style>\n" +
          "    canvas{\n" + 
          "        -moz-user-select: none;\n" + 
          "        -webkit-user-select: none;\n" + 

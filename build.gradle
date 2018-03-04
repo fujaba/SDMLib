@@ -75,6 +75,7 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
+	testImplementation 'org.testfx:testfx-junit:4.0+'
    	if ( ! project.hasProperty('useLocalDependencies'))
    	{
 		if((gitVersion.isMaster() || isTravisSnapshot())== false) {

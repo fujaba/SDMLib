@@ -1,17 +1,21 @@
 package org.sdmlib.models;
 
+import java.beans.PropertyChangeEvent;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.MatchResult;
-
-import org.sdmlib.CGUtil;
-import org.sdmlib.storyboards.GenericCreator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.AbstractArray;
@@ -34,13 +38,99 @@ public class YamlIdMap
       Objects.requireNonNull(packageNames);
       List<String> list = Arrays.asList(packageNames);
       this.packageNames = new ArrayList<String>(list);
+      creatorMap = new CreatorMap(this.packageNames);
    }
+
+
+   public Object decodeCSV(String fileName)
+   {
+      try
+      {
+         byte[] bytes = Files.readAllBytes(Paths.get(fileName));
+
+         String csvText = new String(bytes);
+
+         String yamlText = convertCsv2Yaml(csvText);
+
+         System.out.println(yamlText);
+
+         return this.decode(yamlText);
+
+      } catch (IOException e)
+      {
+         Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+      }
+
+      return null;
+   }
+
+   private String convertCsv2Yaml(String csvText)
+   {
+      String[] split = csvText.split(";");
+
+      for (int i = 0; i < split.length; i++)
+      {
+         String token = split[i];
+
+
+         if (token.startsWith("\"") && token.endsWith("\""))
+
+         {
+            // already done
+            continue;
+         }
+
+         if (token.startsWith("\"") && !token.endsWith("\""))
+         {
+            // there is a semicolon within "   ;   " , recombine it
+            int j = i;
+            String nextToken;
+            while (true)
+            {
+               j++;
+               nextToken = split[j];
+               split[j] = "";
+               token = token + ";" + nextToken;
+               if (nextToken.endsWith("\""))
+               {
+                  split[i] = token;
+                  i = j;
+                  break;
+               }
+            }
+            continue;
+         }
+
+         if (token.trim().length() == 0)
+         {
+            continue;
+         }
+
+         Pattern pattern = Pattern.compile("\\s");
+         Matcher matcher = pattern.matcher(token.trim());
+         boolean found = matcher.find();
+
+         if (found)
+         {
+            token = encapsulate(token);
+            split[i] = token;
+         }
+      }
+
+      StringBuilder buf = new StringBuilder();
+
+      for (int i = 0; i < split.length; i++)
+      {
+         buf.append(split[i]).append(" ");
+      }
+
+      return buf.toString();
+   }
+
 
    public Object decode(String yaml, Object root)
    {
-      String className = root.getClass().getName();
-      
-      className = CGUtil.shortClassName(className);
+      String className = root.getClass().getSimpleName();
       
       String key = className.substring(0, 1).toLowerCase();
       
@@ -214,9 +304,25 @@ public class YamlIdMap
 
    private void setValue(SendableEntityCreator creator, Object obj, String attrName, String attrValue)
    {
+      String type = "new";
+
+      if (attrName.endsWith(".remove"))
+      {
+         attrName = attrName.substring(0, attrName.length() - ".remove".length());
+
+         if (creator.getValue(obj, attrName) instanceof Collection)
+         {
+            type = SendableEntityCreator.REMOVE;
+         }
+         else
+         {
+            attrValue = null;
+         }
+      }
+
       try
       {
-         creator.setValue(obj, attrName, attrValue, "new");
+         creator.setValue(obj, attrName, attrValue, type);
       }
       catch (Exception e)
       {
@@ -224,7 +330,7 @@ public class YamlIdMap
          Object targetObj = objIdMap.get(attrValue);
          if (targetObj != null)
          {
-            creator.setValue(obj, attrName, targetObj, "new");
+            creator.setValue(obj, attrName, targetObj, type);
          }
       }
    }
@@ -408,71 +514,16 @@ public class YamlIdMap
       
       return null;
    }
-   
-   Map<String, SendableEntityCreator> creatorMap = new SimpleKeyValueList<String, SendableEntityCreator>();
-   
-   public SendableEntityCreator getCreator(String clazzName) 
-   {
-      // already known? 
-      SendableEntityCreator creator = creatorMap.get(clazzName);
-      
-      if (creator != null)
-      {
-         return creator;
-      }
-      
-      // try reflection
-      String creatorName = null;
-         
-      for (String packageName : packageNames)
-      {
-         String fullCreatorName = packageName + ".util." + clazzName + "Creator"; 
-         
-         try
-         {
-            Class<?> creatorClass = Class.forName(fullCreatorName);
-            
-            creator = (SendableEntityCreator) creatorClass.newInstance();
-            
-            if (creator != null)
-            {
-               creatorMap.put(clazzName, creator);
-               return creator;
-            }
-         }
-         catch (Exception e)
-         {
-            creator = null;
-         }
-      }
-      
-      // GenericCreator?
-      for (String packageName : packageNames)
-      {
-         String fullClassName = packageName + "." + clazzName; 
-         
-         try
-         {
-            Class<?> theClass = Class.forName(fullClassName);
-            
-            if (theClass != null)
-            {
-               creator = new GenericCreator().withClassName(fullClassName);
-               creatorMap.put(clazzName, creator);
-               return creator;
-            }
-         }
-         catch (Exception e)
-         {
-            creator = null;
-         }
-      }
-      
-      
 
-      
-      return creator;
+
+   CreatorMap creatorMap;
+
+   public SendableEntityCreator getCreator(String clazzName)
+   {
+      return creatorMap.getCreator(clazzName);
    }
+
+
 
    public Object getObject(String objId)
    {
@@ -492,24 +543,62 @@ public class YamlIdMap
       {
          Object obj = simpleList.first();
          simpleList.remove(0);
-         
+
+         if (obj instanceof PropertyChangeEvent)
+         {
+            PropertyChangeEvent event = (PropertyChangeEvent) obj;
+
+            obj = event.getSource();
+
+            // already known?
+            String key = getOrCreateKey(obj);
+
+            String className = obj.getClass().getSimpleName();
+
+            buf.append("- ").append(key).append(": \t").append(className).append("\n");
+
+            String propertyName = event.getPropertyName();
+
+            Object value = event.getNewValue();
+
+            if (value == null)
+            {
+               value = event.getOldValue();
+
+               propertyName = propertyName + ".remove";
+            }
+
+            Class valueClass = value.getClass();
+
+            if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
+            {
+               buf.append("  ").append(propertyName).append(": \t").append(encapsulate(value.toString())).append("\n");
+            }
+            else
+            {
+               // value is an object
+               String valueKey = getOrCreateKey(value);
+
+               buf.append("  ").append(propertyName).append(": \t").append(valueKey).append("\n");
+
+               if (event.getNewValue() != null)
+               {
+                  buf.append("- ").append(valueKey).append(": \t").append(valueClass.getSimpleName()).append("\n");
+               }
+            }
+
+            return buf.toString();
+         }
+
          // already known? 
          String key = objIdMap.getKey(obj);
          
          if (key == null)
          {
             // add to map
-            String className = obj.getClass().getName();
-            
-            className = CGUtil.shortClassName(className);
-            
-            key = className.substring(0, 1).toLowerCase();
-            
-            int num = objIdMap.size() + 1;
-            
-            key += num;
-            
-            objIdMap.put(key, obj);
+            key = addToObjIdMap(obj);
+
+            String className = obj.getClass().getSimpleName();
             
             // find neighbors
             SendableEntityCreator creator = getCreator(className);
@@ -549,13 +638,13 @@ public class YamlIdMap
       {
          String key = entry.getKey();
          Object obj = entry.getValue();
-         String className = CGUtil.shortClassName(obj.getClass().getName());
+         String className = obj.getClass().getSimpleName();
          
          
          buf.append("- ").append(key).append(": \t").append(className).append("\n");
          
          // attrs
-         SendableEntityCreator creator = creatorMap.get(className);
+         SendableEntityCreator creator = getCreator(className);
          
          for (String prop : creator.getProperties())
          {
@@ -605,6 +694,32 @@ public class YamlIdMap
       return buf.toString();
    }
 
+   private String getOrCreateKey(Object obj)
+   {
+      String key = objIdMap.getKey(obj);
+
+      if (key == null)
+      {
+         key = addToObjIdMap(obj);
+      }
+      return key;
+   }
+
+   private String addToObjIdMap(Object obj)
+   {
+      String className = obj.getClass().getSimpleName();
+
+      String key = className.substring(0, 1).toLowerCase();
+
+      int num = objIdMap.size() + 1;
+
+      key += num;
+
+      objIdMap.put(key, obj);
+
+      return key;
+   }
+
    private String deEncapsulate(String value)
    {
       value = value.replaceAll("\\\\\"", "\"");
@@ -613,7 +728,7 @@ public class YamlIdMap
    
    private String encapsulate(String value)
    {
-      if (value.matches("[a-zA-Z0-9_]*"))
+      if (value.matches("[a-zA-Z0-9_\\.]+"))
       {
          return value;
       }
