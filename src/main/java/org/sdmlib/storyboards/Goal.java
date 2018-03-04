@@ -203,12 +203,15 @@ import org.sdmlib.storyboards.util.GoalSet;
    
    public GoalSet getParents()
    {
-      if (this.parents == null)
-      {
-         return GoalSet.EMPTY_SET;
-      }
+      // always return empty set in order to clip to subtree for story.addObjectDiagram
+      return GoalSet.EMPTY_SET;
+
+//      if (this.parents == null)
+//      {
+//         return GoalSet.EMPTY_SET;
+//      }
    
-      return this.parents;
+//      return this.parents;
    }
    public GoalSet getParentsTransitive()
    {
