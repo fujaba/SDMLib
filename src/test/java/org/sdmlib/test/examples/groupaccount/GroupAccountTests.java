@@ -40,11 +40,82 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 
 public class GroupAccountTests implements PropertyChangeInterface 
 {
+
+   private YamlIdMap copyMap;
+
    /**
     * 
-    * @see <a href='../../../../../../../../doc/GroupAccountStoryboard1.html'>GroupAccountStoryboard1.html</a>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
  */
+   @Test
+   public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
+   {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
+      story.addStep("Create two parties");
+      
+      Party victoryParty = new Party().withPartyName("Lectures Wrong");
+      Person albert = victoryParty.createGuests().withName("Albert");
+      Person nata = victoryParty.createGuests().withName("Nathalie");
+
+      Party copyParty = new Party().withPartyName("Lectures Right").withShare(23);
+      Person ann = copyParty.createGuests().withName("Ann");
+
+
+      story.addStep("record changes");
+
+      String packageName = victoryParty.getClass().getPackage().getName();
+      idMap = new YamlIdMap(packageName).withUserId("ann");
+      new SDMComponentListener(victoryParty, e -> yamlLogPropertyChange(e, idMap, buf));
+
+      Thread.sleep(10);
+
+      copyMap = new YamlIdMap(packageName).withUserId("bob");
+      new SDMComponentListener(copyParty, e -> yamlLogPropertyChange(e, copyMap, copyBuf));
+
+      Thread.sleep(10);
+
+      victoryParty.setShare(42);
+
+      Logger.getGlobal().info("\norig buf: \n" + buf.toString());
+      Logger.getGlobal().info("\ncopy buf: \n" + copyBuf.toString());
+
+      story.addPreformatted("\norig buf: \n" + buf.toString());
+      story.addPreformatted("\ncopy buf: \n" + copyBuf.toString());
+
+
+      story.addStep("apply changes");
+
+      idMap.decode(copyBuf.toString());
+
+      Logger.getGlobal().info("\norig buf: \n" + buf.toString());
+      story.addPreformatted("\norig buf: \n" + buf.toString());
+      story.addObjectDiagram(victoryParty);
+
+      copyMap.decode(buf.toString());
+
+      story.addObjectDiagram(copyParty);
+
+
+      story.assertEquals("Number of guests after merge:", 3, victoryParty.getGuests().size());
+
+      //----------------------------------------------------------------------------
+      story.addStep("change both with conflict");
+
+      //----------------------------------------------------------------------------
+      story.addStep("change both with remove edit conflict");
+
+      //----------------------------------------------------------------------------
+      story.addStep("do it with gui");
+
+      story.dumpHTML();
+   }
+
+
+   /**
+    *
+    * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
+    */
    @Test
    public void testGroupAccountMultiUserYaml()
    {
@@ -56,9 +127,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       story.addStep("create a party data structure and store it with YamlIdMap");
 
       Party victoryParty = new Party().withPartyName("Lectures Done");
-
       Person albert = victoryParty.createGuests().withName("Albert");
-
       Person nata = victoryParty.createGuests().withName("Nathalie");
 
       story.addObjectDiagram(victoryParty);
@@ -68,9 +137,9 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       String packageName = victoryParty.getClass().getPackage().getName();
 
-      idMap = new YamlIdMap(packageName);
+      idMap = new YamlIdMap(packageName).withUserId("albert");
 
-      new SDMComponentListener(victoryParty, e -> yamlLogPropertyChange(e));
+      new SDMComponentListener(victoryParty, e -> yamlLogPropertyChange(e, idMap, buf));
 
 
       //----------------------------------------------------------------------------
@@ -78,7 +147,9 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       YamlIdMap copyMap = new YamlIdMap(packageName);
 
-      Object copyParty = copyMap.decode(buf.toString());
+      Party copyParty = (Party) copyMap.decode(buf.toString());
+
+      new SDMComponentListener(copyParty, e -> yamlLogPropertyChange(e, copyMap, copyBuf));
 
       story.addStep("check isomorphism");
 
@@ -138,9 +209,19 @@ public class GroupAccountTests implements PropertyChangeInterface
       story.add("cloned model");
       story.addObjectDiagram(copyParty);
 
+      //----------------------------------------------------------------------------
+      story.addStep("add objects after removal");
+
+      // buf.setLength(0);
+
+      Person ann = victoryParty.createGuests().withName("Ann");
+
+      Logger.getGlobal().info("\n" + buf.toString());
+
+      story.addPreformatted(buf.toString());
 
       //----------------------------------------------------------------------------
-      story.addStep("do it with gui");
+     
 
       story.dumpHTML();
    }
@@ -178,9 +259,9 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       Goal sessionIds = yamlDeltas.createPreGoals().withDescription("session ids");
 
-      yamlDeltas.createPreGoals().withDescription("merge conflicts");
+      Goal mergeConflicts = yamlDeltas.createPreGoals().withDescription("merge conflicts");
 
-      yamlDeltas.createPreGoals().withDescription("timeStamps");
+      Goal timeStamps = yamlDeltas.createPreGoals().withDescription("timeStamps");
 
 
       MikadoLog mikadoLog = new MikadoLog().withMainGoal(multiUserGroupAccount);
@@ -233,6 +314,25 @@ public class GroupAccountTests implements PropertyChangeInterface
               .withHoursDone(1)
               .withHoursRemaining(0);
 
+      mikadoLog.createEntries()
+              .withGoal(removeObject)
+              .withDate("2018-03-09T14:00:00+01:00")
+              .withHoursDone(0.5)
+              .withHoursRemaining(2);
+
+      mikadoLog.createEntries()
+              .withGoal(sessionIds)
+              .withDate("2018-03-11T22:00:00+01:00")
+              .withHoursDone(2)
+              .withHoursRemaining(0);
+
+      mikadoLog.createEntries()
+              .withGoal(timeStamps)
+              .withDate("2018-03-11T23:57:00+01:00")
+              .withHoursDone(2)
+              .withHoursRemaining(0);
+
+
       story.add(mikadoLog.burnDownChart());
 
       Goal done = multiUserGroupAccount.clipDone();
@@ -250,13 +350,15 @@ public class GroupAccountTests implements PropertyChangeInterface
 
    private StringBuilder buf = new StringBuilder();
 
-   private void yamlLogPropertyChange(PropertyChangeEvent e)
+   private StringBuilder copyBuf = new StringBuilder();
+
+   private void yamlLogPropertyChange(PropertyChangeEvent e, YamlIdMap tgtIdMap, StringBuilder tgtBuf)
    {
-      String yaml = idMap.encode(e);
+      String yaml = tgtIdMap.encode(e);
 
-      buf.append(yaml);
+      tgtBuf.append(yaml);
 
-      Logger.getGlobal().info("\n" + yaml);
+      // Logger.getGlobal().info("\n" + yaml);
    }
 
    //==========================================================================

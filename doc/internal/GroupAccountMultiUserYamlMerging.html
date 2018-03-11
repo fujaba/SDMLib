@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYamlMerging</a></p>
+<p>Start: Create two parties</p>
+<p><a name = 'step_1'>Step 1: record changes</a></p><pre>
+orig buf: 
+- p1: 	Party
+  partyName: 	&quot;Lectures Wrong&quot;
+  partyName.time: 	2018-03-11T23:58:24.618.ann
+- p1: 	Party
+  share: 	0.0
+  share.time: 	2018-03-11T23:58:24.627.ann
+- p1: 	Party
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.627.ann
+- ann.p2: 	Person
+  name: 	Albert
+  name.time: 	2018-03-11T23:58:24.631.ann
+- ann.p2: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.631.ann
+- ann.p2: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.632.ann
+- ann.p2: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.632.ann
+- p1: 	Party
+- p1: 	Party
+  guests: 	ann.p2
+  guests.time: 	2018-03-11T23:58:24.634.ann
+- ann.p2: 	Person
+- ann.p3: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.634.ann
+- p1: 	Party
+- p1: 	Party
+  guests: 	ann.p3
+  guests.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+- p1: 	Party
+  share: 	42.0
+  share.time: 	2018-03-11T23:58:24.660.ann
+</pre><pre>
+copy buf: 
+- p1: 	Party
+  partyName: 	&quot;Lectures Right&quot;
+  partyName.time: 	2018-03-11T23:58:24.645.bob
+- p1: 	Party
+  share: 	23.0
+  share.time: 	2018-03-11T23:58:24.648.bob
+- p1: 	Party
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.649.bob
+- bob.p2: 	Person
+  name: 	Ann
+  name.time: 	2018-03-11T23:58:24.649.bob
+- bob.p2: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.649.bob
+- bob.p2: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.649.bob
+- bob.p2: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.649.bob
+- p1: 	Party
+- p1: 	Party
+  guests: 	bob.p2
+  guests.time: 	2018-03-11T23:58:24.650.bob
+- bob.p2: 	Person
+</pre><p><a name = 'step_2'>Step 2: apply changes</a></p><pre>
+orig buf: 
+- p1: 	Party
+  partyName: 	&quot;Lectures Wrong&quot;
+  partyName.time: 	2018-03-11T23:58:24.618.ann
+- p1: 	Party
+  share: 	0.0
+  share.time: 	2018-03-11T23:58:24.627.ann
+- p1: 	Party
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.627.ann
+- ann.p2: 	Person
+  name: 	Albert
+  name.time: 	2018-03-11T23:58:24.631.ann
+- ann.p2: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.631.ann
+- ann.p2: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.632.ann
+- ann.p2: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.632.ann
+- p1: 	Party
+- p1: 	Party
+  guests: 	ann.p2
+  guests.time: 	2018-03-11T23:58:24.634.ann
+- ann.p2: 	Person
+- ann.p3: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.634.ann
+- p1: 	Party
+- p1: 	Party
+  guests: 	ann.p3
+  guests.time: 	2018-03-11T23:58:24.634.ann
+- ann.p3: 	Person
+- p1: 	Party
+  share: 	42.0
+  share.time: 	2018-03-11T23:58:24.660.ann
+- p1: 	Party
+  partyName: 	&quot;Lectures Right&quot;
+  partyName.time: 	2018-03-11T23:58:24.701.ann
+- bob.p2: 	Person
+  name: 	Ann
+  name.time: 	2018-03-11T23:58:24.703.ann
+- bob.p2: 	Person
+  saldo: 	0.0
+  saldo.time: 	2018-03-11T23:58:24.704.ann
+- bob.p2: 	Person
+  total: 	0.0
+  total.time: 	2018-03-11T23:58:24.704.ann
+- bob.p2: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.704.ann
+- p1: 	Party
+- p1: 	Party
+  guests: 	bob.p2
+  guests.time: 	2018-03-11T23:58:24.704.ann
+- bob.p2: 	Person
+- bob.p2: 	Person
+  party: 	p1
+  party.time: 	2018-03-11T23:58:24.704.ann
+- p1: 	Party
+</pre><script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"P1 : Party",
+         "attributes":[
+            "partyName=Lectures Right",
+            "share=42.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P2 : Person",
+         "attributes":[
+            "name=Albert",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P3 : Person",
+         "attributes":[
+            "name=Nathalie",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P4 : Person",
+         "attributes":[
+            "name=Ann",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P1 : Party"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P1 : Party"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P1 : Party"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYamlMerging7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"P5 : Party",
+         "attributes":[
+            "partyName=3:58:24.627.an",
+            "share=42.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P6 : Person",
+         "attributes":[
+            "name=Ann",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P7 : Person",
+         "attributes":[
+            "name=Albert",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"P8 : Person",
+         "attributes":[
+            "name=Nathalie",
+            "saldo=0.0",
+            "total=0.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P5 : Party"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P7 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P5 : Party"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"guests",
+            "id":"P8 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"party",
+            "id":"P5 : Party"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYamlMerging8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Number of guests after merge: 3 actual 3</p>
+<p><a name = 'step_3'>Step 3: change both with conflict</a></p><p><a name = 'step_4'>Step 4: change both with remove edit conflict</a></p><p><a name = 'step_5'>Step 5: do it with gui</a></p>
+</body>
+</html>

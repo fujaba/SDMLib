@@ -4,13 +4,12 @@ import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.MatchResult;
@@ -32,6 +31,8 @@ public class YamlIdMap
    private String lookAheadToken;
    private int currentPos;
    private int lookAheadPos;
+   private String userId = null;
+
 
    public YamlIdMap(String... packageNames)
    {
@@ -130,16 +131,7 @@ public class YamlIdMap
 
    public Object decode(String yaml, Object root)
    {
-      String className = root.getClass().getSimpleName();
-      
-      String key = className.substring(0, 1).toLowerCase();
-      
-      int num = objIdMap.size() + 1;
-      
-      key += num;
-      
-      objIdMap.put(key, root);
-      
+      getOrCreateKey(root);
       decode(yaml);
       
       return root;
@@ -279,6 +271,12 @@ public class YamlIdMap
       String className = nextToken();
       nextToken();
 
+      if (className.endsWith(".remove"))
+      {
+         objIdMap.remove(objectId);
+         return;
+      }
+
       SendableEntityCreator creator = getCreator(className);
       
       Object obj = objIdMap.get(objectId);
@@ -294,9 +292,23 @@ public class YamlIdMap
                && ! currentToken.equals("-"))
          {
             String attrValue = currentToken;
-            
-            setValue(creator, obj, attrName, attrValue);
-            
+
+            if (lookAheadToken.endsWith(".time:"))
+            {
+               String propWithTime = nextToken();
+               String newTimeStamp = nextToken();
+               String oldTimeStamp = attrTimeStamps.get(objectId + "." + attrName);
+
+               if (oldTimeStamp == null || oldTimeStamp.compareTo(newTimeStamp) <= 0)
+               {
+                  setValue(creator, obj, attrName, attrValue);
+               }
+            }
+            else
+            {
+               setValue(creator, obj, attrName, attrValue);
+            }
+
             nextToken();
          }
       }
@@ -409,19 +421,28 @@ public class YamlIdMap
    
    private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
 
+   private int maxUsedIdNum = 0;
+
    private Object parseUsualObjectId()
    {
       String objectId = stripColon(currentToken);
+      int pos = objectId.lastIndexOf('.');
+      String numPart = objectId.substring(pos + 2);
+      int objectNum = Integer.parseInt(numPart);
+
+      if (objectNum > maxUsedIdNum)
+      {
+         maxUsedIdNum = objectNum;
+      }
+
       String className = nextToken();
       
       Object obj = objIdMap.get(objectId);
       
-      if (obj == null)
+      if (obj == null && ! className.endsWith(".remove"))
       {
          SendableEntityCreator creator = getCreator(className);
-
          obj = creator.getSendableInstance(false);
-
          objIdMap.put(objectId, obj);
       }
       
@@ -546,46 +567,7 @@ public class YamlIdMap
 
          if (obj instanceof PropertyChangeEvent)
          {
-            PropertyChangeEvent event = (PropertyChangeEvent) obj;
-
-            obj = event.getSource();
-
-            // already known?
-            String key = getOrCreateKey(obj);
-
-            String className = obj.getClass().getSimpleName();
-
-            buf.append("- ").append(key).append(": \t").append(className).append("\n");
-
-            String propertyName = event.getPropertyName();
-
-            Object value = event.getNewValue();
-
-            if (value == null)
-            {
-               value = event.getOldValue();
-
-               propertyName = propertyName + ".remove";
-            }
-
-            Class valueClass = value.getClass();
-
-            if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
-            {
-               buf.append("  ").append(propertyName).append(": \t").append(encapsulate(value.toString())).append("\n");
-            }
-            else
-            {
-               // value is an object
-               String valueKey = getOrCreateKey(value);
-
-               buf.append("  ").append(propertyName).append(": \t").append(valueKey).append("\n");
-
-               if (event.getNewValue() != null)
-               {
-                  buf.append("- ").append(valueKey).append(": \t").append(valueClass.getSimpleName()).append("\n");
-               }
-            }
+            encodePropertyChange(buf, obj);
 
             return buf.toString();
          }
@@ -694,6 +676,92 @@ public class YamlIdMap
       return buf.toString();
    }
 
+   private HashMap<String, String> attrTimeStamps = new HashMap<>();
+
+   private void encodePropertyChange(StringBuilder buf, Object obj)
+   {
+      PropertyChangeEvent event = (PropertyChangeEvent) obj;
+
+      obj = event.getSource();
+
+      String propertyName = event.getPropertyName();
+
+      Object value = event.getNewValue();
+
+      // already known?
+      String key = getOrCreateKey(obj);
+
+      String className = obj.getClass().getSimpleName();
+
+      if (propertyName.equals(SendableEntityCreator.REMOVE_YOU))
+      {
+         // send - o42: C1.remove
+         //        remove.time: 2018-03-11T22:11:02.123+01:00
+         value = event.getOldValue();
+
+         String valueKey = getOrCreateKey(value);
+
+         buf.append("- ").append(valueKey).append(": \t").append(className).append(".remove\n");
+
+         if (userId != null)
+         {
+            String now = "" + LocalDateTime.now() + "." + userId;
+            buf.append("  ").append(className).append(".remove.time: \t").append(now).append("\n");
+         }
+
+         // remove it from our id map
+         this.objIdMap.remove(valueKey);
+
+         return;
+      }
+
+      if (value == null)
+      {
+         value = event.getOldValue();
+
+         propertyName = propertyName + ".remove";
+
+         if (value == null)
+         {
+            // no old nor new value, do nothing
+            return;
+         }
+      }
+
+      buf.append("- ").append(key).append(": \t").append(className).append("\n");
+
+      Class valueClass = value.getClass();
+
+      if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
+      {
+         buf.append("  ").append(propertyName).append(": \t").append(encapsulate(value.toString())).append("\n");
+         if (userId != null)
+         {
+            String now = "" + LocalDateTime.now() + "." + userId;
+            buf.append("  ").append(propertyName).append(".time: \t").append(now).append("\n");
+            attrTimeStamps.put(key + "." + propertyName, now);
+         }
+      }
+      else
+      {
+         // value is an object
+         String valueKey = getOrCreateKey(value);
+
+         buf.append("  ").append(propertyName).append(": \t").append(valueKey).append("\n");
+         if (userId != null)
+         {
+            String now = "" + LocalDateTime.now() + "." + userId;
+            buf.append("  ").append(propertyName).append(".time: \t").append(now).append("\n");
+            attrTimeStamps.put(key + "." + propertyName, now);
+         }
+
+         if (event.getNewValue() != null)
+         {
+            buf.append("- ").append(valueKey).append(": \t").append(valueClass.getSimpleName()).append("\n");
+         }
+      }
+   }
+
    private String getOrCreateKey(Object obj)
    {
       String key = objIdMap.getKey(obj);
@@ -711,9 +779,15 @@ public class YamlIdMap
 
       String key = className.substring(0, 1).toLowerCase();
 
-      int num = objIdMap.size() + 1;
+      maxUsedIdNum++;
 
-      key += num;
+      key += maxUsedIdNum;
+
+      if (maxUsedIdNum > 1 && userId != null)
+      {
+         // all but the first get a userId prefix
+         key = userId + "." + key;
+      }
 
       objIdMap.put(key, obj);
 
@@ -736,4 +810,9 @@ public class YamlIdMap
       return "\"" + value + "\"";
    }
 
+   public YamlIdMap withUserId(String userId)
+   {
+      this.userId = userId;
+      return this;
+   }
 }
