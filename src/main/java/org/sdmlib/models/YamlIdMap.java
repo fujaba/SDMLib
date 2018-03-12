@@ -25,13 +25,14 @@ public class YamlIdMap
 {
 
    private ArrayList<String> packageNames;
-   private Scanner scanner;
+   private StringTokenizer tokenizer;
    private String yaml;
    private String currentToken;
    private String lookAheadToken;
    private int currentPos;
    private int lookAheadPos;
    private String userId = null;
+   private boolean decodingPropertyChange;
 
 
    public YamlIdMap(String... packageNames)
@@ -156,16 +157,21 @@ public class YamlIdMap
     */
    public Object decode(String yaml)
    {
+      decodingPropertyChange = false;
+      yamlChangeText = null;
+
       this.yaml = yaml;
       Object root = null;
       
-      scanner = new Scanner(yaml);
+      tokenizer = new StringTokenizer(yaml);
+      lookAheadToken = "";
       nextToken();
       nextToken();
 
       root = parseObjectIds();
-      
-      scanner = new Scanner(yaml);
+
+      tokenizer = new StringTokenizer(yaml);
+      lookAheadToken = "";
       nextToken();
       nextToken();
 
@@ -285,7 +291,14 @@ public class YamlIdMap
       while ( ! currentToken.equals("") && ! currentToken.equals("-"))
       {
          String attrName = stripColon(currentToken);
+
+//         if (attrName.equals("share"))
+//         {
+//            System.out.println();
+//         }
+
          nextToken();
+
          // many values
          while ( ! currentToken.equals("") 
                && ! currentToken.endsWith(":")
@@ -301,7 +314,16 @@ public class YamlIdMap
 
                if (oldTimeStamp == null || oldTimeStamp.compareTo(newTimeStamp) <= 0)
                {
+                  this.setDecodingPropertyChange(true);
+
+                  if (yamlChangeText == null)
+                  {
+                     yamlChangeText = yaml;
+                  }
+
                   setValue(creator, obj, attrName, attrValue);
+
+                  attrTimeStamps.put(objectId + "." + attrName, newTimeStamp);
                }
             }
             else
@@ -352,11 +374,12 @@ public class YamlIdMap
       currentToken = lookAheadToken;
       currentPos = lookAheadPos;
       
-      if (scanner.hasNext())
+      if (tokenizer.hasMoreTokens())
       {
          
-         lookAheadToken = scanner.next();
-         lookAheadPos = scanner.match().start();
+         lookAheadToken = tokenizer.nextToken();
+         lookAheadPos = yaml.indexOf(lookAheadToken, lookAheadPos + currentToken.length());
+         // lookAheadPos = scanner.match().start();
       }
       else
       {
@@ -370,16 +393,16 @@ public class YamlIdMap
          // get up to end of string
          int stringStartPos = lookAheadPos + 1;
          String subToken = lookAheadToken;
-         MatchResult match = scanner.match();
-         int subTokenEnd = match.end() - 1;
+         //MatchResult match = scanner.match();
+         int subTokenEnd = lookAheadPos + subToken.length();
          while ( subTokenEnd < stringStartPos || ( ! subToken.endsWith("\"") || subToken.endsWith("\\\"")) 
-               && scanner.hasNext())
+               && tokenizer.hasMoreTokens())
          {
-            subToken = scanner.next();
-            subTokenEnd = scanner.match().end() - 1;
+            subToken = tokenizer.nextToken();
+            subTokenEnd = yaml.indexOf(subToken, subTokenEnd) + subToken.length();
          }
          
-         lookAheadToken = yaml.substring(stringStartPos, subTokenEnd);
+         lookAheadToken = yaml.substring(stringStartPos, subTokenEnd - 1);
          
          lookAheadToken = deEncapsulate(lookAheadToken);
       }
@@ -428,7 +451,16 @@ public class YamlIdMap
       String objectId = stripColon(currentToken);
       int pos = objectId.lastIndexOf('.');
       String numPart = objectId.substring(pos + 2);
-      int objectNum = Integer.parseInt(numPart);
+      int objectNum = 0;
+
+      try
+      {
+         objectNum = Integer.parseInt(numPart);
+      }
+      catch (NumberFormatException e)
+      {
+         objectNum = objIdMap.size() + 1;
+      }
 
       if (objectNum > maxUsedIdNum)
       {
@@ -750,9 +782,15 @@ public class YamlIdMap
          buf.append("  ").append(propertyName).append(": \t").append(valueKey).append("\n");
          if (userId != null)
          {
-            String now = "" + LocalDateTime.now() + "." + userId;
-            buf.append("  ").append(propertyName).append(".time: \t").append(now).append("\n");
-            attrTimeStamps.put(key + "." + propertyName, now);
+            // add timestamp only for to-one assocs
+            SendableEntityCreator creator = creatorMap.getCreator(obj);
+            Object fieldValue = creator.getValue(obj, event.getPropertyName());
+            if (fieldValue == null || ! (fieldValue instanceof Collection))
+            {
+               String now = "" + LocalDateTime.now() + "." + userId;
+               buf.append("  ").append(propertyName).append(".time: \t").append(now).append("\n");
+               attrTimeStamps.put(key + "." + propertyName, now);
+            }
          }
 
          if (event.getNewValue() != null)
@@ -814,5 +852,24 @@ public class YamlIdMap
    {
       this.userId = userId;
       return this;
+   }
+
+   public boolean isDecodingPropertyChange()
+   {
+      return decodingPropertyChange;
+   }
+
+   public void setDecodingPropertyChange(boolean decodingPropertyChange)
+   {
+      this.decodingPropertyChange = decodingPropertyChange;
+   }
+
+   private String yamlChangeText = null;
+
+   public String getYamlChange()
+   {
+      String result = yamlChangeText;
+      yamlChangeText = "";
+      return result;
    }
 }

@@ -32,17 +32,18 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             {
                 label: "Burn Down",
                 data: [
-                    {x: "2018-02-28T12:00:00+01:00", y: 38.5},
-{x: "2018-02-28T15:00:00+01:00", y: 36.5},
-{x: "2018-02-28T16:00:00+01:00", y: 34.5},
-{x: "2018-03-01T21:30:00+01:00", y: 33.5},
-{x: "2018-03-01T22:30:00+01:00", y: 32.5},
-{x: "2018-03-01T23:30:00+01:00", y: 32.5},
-{x: "2018-03-02T00:30:00+01:00", y: 31.5},
-{x: "2018-03-02T14:17:00+01:00", y: 30.5},
-{x: "2018-03-09T14:00:00+01:00", y: 30.0},
-{x: "2018-03-11T22:00:00+01:00", y: 28.0},
-{x: "2018-03-11T23:57:00+01:00", y: 26.0},
+                    {x: "2018-02-28T12:00:00+01:00", y: 36.5},
+{x: "2018-02-28T15:00:00+01:00", y: 34.5},
+{x: "2018-02-28T16:00:00+01:00", y: 32.5},
+{x: "2018-03-01T21:30:00+01:00", y: 31.5},
+{x: "2018-03-01T22:30:00+01:00", y: 30.5},
+{x: "2018-03-01T23:30:00+01:00", y: 30.5},
+{x: "2018-03-02T00:30:00+01:00", y: 29.5},
+{x: "2018-03-02T14:17:00+01:00", y: 28.5},
+{x: "2018-03-09T14:00:00+01:00", y: 28.0},
+{x: "2018-03-11T22:00:00+01:00", y: 26.0},
+{x: "2018-03-11T23:57:00+01:00", y: 24.0},
+{x: "2018-03-12T18:30:00+01:00", y: 22.0},
                 ]
             }
         ]
@@ -147,15 +148,6 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             "hoursDone=0.5",
             "hoursTodo=2.0"
          ]
-      },
-      {
-         "type":"clazz",
-         "id":"G7 : Goal",
-         "attributes":[
-            "description=merge conflicts",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
       }
    ],
    "edges":[
@@ -236,19 +228,6 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             "property":"goal",
             "id":"G4 : Goal"
          }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G7 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G4 : Goal"
-         }
       }
    ]
 }   ;
@@ -263,15 +242,6 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "type":"clazz",
          "id":"G10 : Goal",
          "attributes":[
-            "description=Component Listener",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G11 : Goal",
-         "attributes":[
             "description=Write",
             "hoursDone=1.0",
             "hoursTodo=0.0"
@@ -279,7 +249,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G12 : Goal",
+         "id":"G11 : Goal",
          "attributes":[
             "description=Read",
             "hoursDone=1.0",
@@ -288,7 +258,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G13 : Goal",
+         "id":"G12 : Goal",
          "attributes":[
             "description=Remove Link",
             "hoursDone=1.0",
@@ -297,9 +267,18 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G14 : Goal",
+         "id":"G13 : Goal",
          "attributes":[
             "description=session ids",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G14 : Goal",
+         "attributes":[
+            "description=merge conflicts",
             "hoursDone=2.0",
             "hoursTodo=0.0"
          ]
@@ -324,7 +303,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G8 : Goal",
+         "id":"G7 : Goal",
          "attributes":[
             "description=done",
             "hoursDone=0.0",
@@ -333,9 +312,18 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G9 : Goal",
+         "id":"G8 : Goal",
          "attributes":[
             "description=Simple party objects",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G9 : Goal",
+         "attributes":[
+            "description=Component Listener",
             "hoursDone=2.0",
             "hoursTodo=0.0"
          ]
@@ -347,12 +335,25 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"preGoals",
+            "id":"G8 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G7 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
             "id":"G9 : Goal"
          },
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -365,7 +366,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -378,7 +379,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -391,7 +392,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -404,7 +405,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -417,7 +418,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -430,7 +431,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       },
       {
@@ -443,7 +444,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G7 : Goal"
          }
       }
    ]
@@ -518,10 +519,9 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
 <p><a name = 'step_4'>Step 4: add component listener and log changes in yaml format</a></p><p><a name = 'step_5'>Step 5: load changes into second model, continuously. </a></p><p><a name = 'step_6'>Step 6: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
 <p><a name = 'step_7'>Step 7: deal with link removal</a></p><pre>- albert.p3: 	Person
   party.remove: 	p1
-  party.remove.time: 	2018-03-11T23:58:27.818.albert
+  party.remove.time: 	2018-03-12T18:35:16.389.albert
 - p1: 	Party
   guests.remove: 	albert.p3
-  guests.remove.time: 	2018-03-11T23:58:27.818.albert
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>original model</p>
 <script>
@@ -610,7 +610,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    g.layout(100,100);
 </script>
 <p><a name = 'step_8'>Step 8: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-11T23:58:27.825.albert
+  Person.remove.time: 	2018-03-12T18:35:16.397.albert
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>Check: orig idmap has removed natanull</p>
 <p>original model</p>
@@ -700,24 +700,23 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    g.layout(100,100);
 </script>
 <p><a name = 'step_9'>Step 9: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-11T23:58:27.825.albert
+  Person.remove.time: 	2018-03-12T18:35:16.397.albert
 - albert.p4: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-11T23:58:27.832.albert
+  saldo.time: 	2018-03-12T18:35:16.397.albert
 - albert.p4: 	Person
   total: 	0.0
-  total.time: 	2018-03-11T23:58:27.833.albert
+  total.time: 	2018-03-12T18:35:16.397.albert
 - albert.p4: 	Person
   party: 	p1
-  party.time: 	2018-03-11T23:58:27.833.albert
+  party.time: 	2018-03-12T18:35:16.397.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p4
-  guests.time: 	2018-03-11T23:58:27.833.albert
 - albert.p4: 	Person
 - albert.p4: 	Person
   name: 	Ann
-  name.time: 	2018-03-11T23:58:27.833.albert
+  name.time: 	2018-03-12T18:35:16.397.albert
 </pre>
 </body>
 </html>

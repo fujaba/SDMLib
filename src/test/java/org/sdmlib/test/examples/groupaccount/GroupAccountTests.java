@@ -332,6 +332,12 @@ public class GroupAccountTests implements PropertyChangeInterface
               .withHoursDone(2)
               .withHoursRemaining(0);
 
+      mikadoLog.createEntries()
+              .withGoal(mergeConflicts)
+              .withDate("2018-03-12T18:30:00+01:00")
+              .withHoursDone(2)
+              .withHoursRemaining(0);
+
 
       story.add(mikadoLog.burnDownChart());
 
@@ -352,13 +358,18 @@ public class GroupAccountTests implements PropertyChangeInterface
 
    private StringBuilder copyBuf = new StringBuilder();
 
+
    private void yamlLogPropertyChange(PropertyChangeEvent e, YamlIdMap tgtIdMap, StringBuilder tgtBuf)
    {
-      String yaml = tgtIdMap.encode(e);
-
-      tgtBuf.append(yaml);
-
-      // Logger.getGlobal().info("\n" + yaml);
+      if (tgtIdMap.isDecodingPropertyChange())
+      {
+         tgtBuf.append(tgtIdMap.getYamlChange());
+      }
+      else
+      {
+         String yaml = tgtIdMap.encode(e);
+         tgtBuf.append(yaml);
+      }
    }
 
    //==========================================================================
