@@ -5,9 +5,9 @@ master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)
 
 develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fujaba/SDMLib/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/fujaba/SDMLib/?branch=develop)
 
-[![SDMLIB-PM](http://se.cs.uni-kassel.de/maven/icon?project=SDMLib&left=SDMLib-PM%20for%20standard%20User)](http://se.cs.uni-kassel.de/maven/org/sdmlib/SDMLib/latest/SDMLib-pm.jar)
-
-[![SDMLIB-PM](http://se.cs.uni-kassel.de/maven/icon?project=SDMLib&left=SDMLib-PM%20for%20standard%20User)](http://se.cs.uni-kassel.de/maven/org/sdmlib/SDMLib/latest/SDMLib-pm.jar)
+[![SDMLIB-PM](
+![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/org/sdmlib/SDMLib/maven-metadata.xml.svg)
+)](https://github.com/fujaba/SDMLib/releases/download/latest/SDMLib-pm.jar)
 
 Welcome to SDMLib
 
@@ -53,7 +53,7 @@ or for SNAPSHOT-Builds:
 ~~~groovy
 repositories {
 	maven {
-        url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local"
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
     }
 }
 
@@ -67,7 +67,7 @@ In order to get started, just add the following Maven dependency:
     <dependency>
         <groupId>org.sdmlib</groupId>
         <artifactId>SDMLib</artifactId>
-        <version>2.3.204</version>
+        <version>2.3.+</version>
     </dependency>
 
 In addition to class models, SDMLib will also support object diagrams, storyboards and model transformations. 
