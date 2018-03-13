@@ -23,7 +23,6 @@ import de.uniks.networkparser.list.SimpleList;
 
 public class YamlIdMap
 {
-
    private ArrayList<String> packageNames;
    private StringTokenizer tokenizer;
    private String yaml;
@@ -33,7 +32,13 @@ public class YamlIdMap
    private int lookAheadPos;
    private String userId = null;
    private boolean decodingPropertyChange;
+   private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
+   private int maxUsedIdNum = 0;
 
+   public SimpleKeyValueList<String, Object> getObjIdMap()
+   {
+      return objIdMap;
+   }
 
    public YamlIdMap(String... packageNames)
    {
@@ -176,7 +181,12 @@ public class YamlIdMap
       nextToken();
 
       parseObjectAttrs();
-      
+
+      // reset property change decoding
+      this.setDecodingPropertyChange(false);
+
+      yamlChangeText = null;
+
       return root;
    }
 
@@ -298,6 +308,13 @@ public class YamlIdMap
 //         }
 
          nextToken();
+
+         if (obj == null)
+         {
+            // no object created by parseObjectIds. Object has been removed.
+            // ignore attr changes
+            continue;
+         }
 
          // many values
          while ( ! currentToken.equals("") 
@@ -442,9 +459,6 @@ public class YamlIdMap
       return root;
    }
    
-   private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
-
-   private int maxUsedIdNum = 0;
 
    private Object parseUsualObjectId()
    {
@@ -470,20 +484,41 @@ public class YamlIdMap
       String className = nextToken();
       
       Object obj = objIdMap.get(objectId);
-      
-      if (obj == null && ! className.endsWith(".remove"))
+
+      String changerId = null;
+
+      // skip attributes
+      while ( ! currentToken.equals("") && ! currentToken.equals("-"))
+      {
+         String token = nextToken();
+         if (token.endsWith(".time:"))
+         {
+            token = nextToken();
+
+            changerId = token.substring(token.lastIndexOf('.') + 1);
+         }
+      }
+
+      boolean foreignChange = false;
+
+      if (changerId != null)
+      {
+         int dotIndex = objectId.indexOf('.');
+
+         if (dotIndex > 0)
+         {
+            String ownerId = objectId.substring(0, dotIndex);
+            foreignChange = ! changerId.equals(ownerId);
+         }
+      }
+
+      if (obj == null && ! className.endsWith(".remove") && ! foreignChange)
       {
          SendableEntityCreator creator = getCreator(className);
          obj = creator.getSendableInstance(false);
          objIdMap.put(objectId, obj);
       }
-      
-      // skip attributes
-      while ( ! currentToken.equals("") && ! currentToken.equals("-"))
-      {
-         nextToken();
-      }
-      
+
       return obj;
    }
 

@@ -40,8 +40,10 @@ import org.sdmlib.test.examples.groupaccount.model.Person;
 
 public class GroupAccountTests implements PropertyChangeInterface 
 {
-
+   private YamlIdMap idMap;
    private YamlIdMap copyMap;
+   private StringBuilder buf = new StringBuilder();
+   private StringBuilder copyBuf = new StringBuilder();
 
    /**
     * 
@@ -96,14 +98,26 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       story.addObjectDiagram(copyParty);
 
-
       story.assertEquals("Number of guests after merge:", 3, victoryParty.getGuests().size());
 
       //----------------------------------------------------------------------------
-      story.addStep("change both with conflict");
-
-      //----------------------------------------------------------------------------
       story.addStep("change both with remove edit conflict");
+
+      buf.setLength(0);
+      copyBuf.setLength(0);
+
+      nata.removeYou();
+
+      Person copyNata = copyParty.getGuests().createNameCondition("Nathalie").first();
+
+      copyNata.setSaldo(84);
+
+      idMap.decode(copyBuf.toString());
+      copyMap.decode(buf.toString());
+
+      story.assertEquals("Number of objects in orig idMap", 3, idMap.getObjIdMap().size());
+      story.assertEquals("Number of objects in copy idMap", 3, copyMap.getObjIdMap().size());
+
 
       //----------------------------------------------------------------------------
       story.addStep("do it with gui");
@@ -338,6 +352,20 @@ public class GroupAccountTests implements PropertyChangeInterface
               .withHoursDone(2)
               .withHoursRemaining(0);
 
+      mikadoLog.createEntries()
+              .withGoal(removeObject)
+              .withDate("2018-03-13T15:45:00+01:00")
+              .withHoursDone(2)
+              .withHoursRemaining(0);
+
+      mikadoLog.createEntries()
+              .withGoal(yamlDeltas)
+              .withDate("2018-03-13T16:00:00+01:00")
+              .withHoursDone(0.1)
+              .withHoursRemaining(0);
+
+
+
 
       story.add(mikadoLog.burnDownChart());
 
@@ -351,12 +379,6 @@ public class GroupAccountTests implements PropertyChangeInterface
       story.addObjectDiagram(done);
 
    }
-
-   private YamlIdMap idMap;
-
-   private StringBuilder buf = new StringBuilder();
-
-   private StringBuilder copyBuf = new StringBuilder();
 
 
    private void yamlLogPropertyChange(PropertyChangeEvent e, YamlIdMap tgtIdMap, StringBuilder tgtBuf)
