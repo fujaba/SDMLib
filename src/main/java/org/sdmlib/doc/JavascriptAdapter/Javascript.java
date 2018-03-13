@@ -133,7 +133,7 @@ public class Javascript implements GuiAdapter
          for (Method method : clazz.getMethods())
          {
         	 Method newMethod = node.createMethod(method.getName());
-        	 for(Parameter param : method.getParameter()){
+        	 for(Parameter param : method.getParameters()){
         		 newMethod.withParameter(param.getName(), param.getType());
         	 }
          }
