@@ -78,16 +78,26 @@ dependencies {
 	testImplementation 'org.testfx:testfx-junit:4.0+'
    	if ( ! project.hasProperty('useLocalDependencies'))
    	{
-		if((gitVersion.isMaster() || isTravisSnapshot())== false) {
+		if (new File("../NetworkParser/build/libs/networkparser.local.jar").exists() )
+		{
+			println "using local networkparser.local.jar"
+			compile files("../NetworkParser/build/libs/networkparser.local.jar")
+		}
+		else if((gitVersion.isMaster() || isTravisSnapshot())== false)
+		{
+			println "using master networkparser.jar "
 			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
-		} else {
+		}
+		else
+		{
+			println "using snapshot jar"
 			compile 'de.uniks:NetworkParser:[4,):sources18'
 		}
 	}
 	else
 	{
 		println "using local networkparser"
-		compile fileTree(dir: "../NetworkParser", include: ['NetworkParser.jar'])
+		compile fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
 	}
 }
 

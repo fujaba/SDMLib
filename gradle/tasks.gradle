@@ -7,7 +7,7 @@ ext.sharedManifest = manifest {
 			'Built-By': "${System.properties['user.name']}",
 			'Location': "${System.properties['user.language']}",
 			'Version': gitVersion.revision,
-			'Author': 'Stefan Lindel',
+			'Author': 'Albert Zuendorf',
 			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
 			'GIT-Revision': gitVersion.revision,
 			'Java-Version': "${System.properties['java.version']}",
@@ -22,6 +22,18 @@ task sourceJar(type: Jar) {
 
     from sourceSets.main.allSource;
     classifier = 'sources'
+	manifest = project.manifest {from sharedManifest}
+}
+
+task localJar(type: Jar) {
+	def file = new File("build/libs")
+	group "Jar"
+	file.mkdirs()
+	archiveName='sdmlib.local.jar'
+	from {files(sourceSets.main.output, sourceSets.main.allSource,
+			configurations.compile.filter({it.name.indexOf("NetworkParser")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}))
+	}
+	classifier = 'sources'
 	manifest = project.manifest {from sharedManifest}
 }
 
