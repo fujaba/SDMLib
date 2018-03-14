@@ -1,6 +1,10 @@
 language: java
 jdk:
  - oraclejdk8
+
+git:
+  depth: 42000
+
 before_script:
   - sudo service postgresql stop || true
   - sudo service mysql stop || true
