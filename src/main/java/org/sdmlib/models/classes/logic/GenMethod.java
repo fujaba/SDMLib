@@ -11,7 +11,6 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.ClazzType;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
@@ -283,9 +282,9 @@ public class GenMethod extends Generator<Method>
    public void generate(String rootDir, String helpersDir)
    {
       if (model.getClazz() != null) {
-         if(model.getClazz().getType()==ClazzType.CLAZZ || model.getClazz().getType()==ClazzType.INTERFACE) {
+         if(Clazz.TYPE_CLASS.equals(model.getClazz().getType()) || Clazz.TYPE_INTERFACE.equals(model.getClazz().getType())) {
             generateClazz(model.getClazz(), rootDir, helpersDir);
-         } else if(model.getClazz().getType()==ClazzType.ENUMERATION) {
+         } else if(Clazz.TYPE_ENUMERATION.equals(model.getClazz().getType())) {
             generateEnum(model.getClazz(), rootDir, helpersDir);
          }
       }
