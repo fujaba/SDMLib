@@ -25,10 +25,13 @@ package org.sdmlib.test.examples.groupaccount;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.sdmlib.models.SDMComponentListener;
+import org.sdmlib.models.YamlFileMap;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.pattern.ModelIsomorphimOp;
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -45,10 +48,38 @@ public class GroupAccountTests implements PropertyChangeInterface
    private StringBuilder buf = new StringBuilder();
    private StringBuilder copyBuf = new StringBuilder();
 
+   @Test
+   public void testGroupAccountYamlWithUserEncoding() throws InterruptedException
+   {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
+      story.addStep("Create a party");
+
+      ExecutorService modelThread = Executors.newSingleThreadExecutor();
+
+      Party victoryParty = new Party().withPartyName("Lectures Wrong");
+
+      String packageName = victoryParty.getClass().getPackage().getName();
+
+      YamlFileMap yamlFileMap = new YamlFileMap("abu", "aStore/LecturesParty.Abu.yaml", victoryParty, modelThread);
+
+      modelThread.execute(()-> abuAddGuests(victoryParty));
+
+      modelThread.execute(() -> yamlFileMap.compressLogFile());
+
+      System.out.println();
+   }
+
+   private void abuAddGuests(Party victoryParty)
+   {
+      Person albert = victoryParty.createGuests().withName("Albert");
+      Person nata = victoryParty.createGuests().withName("Nathalie");
+   }
+
    /**
-    * 
-    * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
- */
+       *
+       * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
+    */
    @Test
    public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
    {
@@ -134,9 +165,6 @@ public class GroupAccountTests implements PropertyChangeInterface
    public void testGroupAccountMultiUserYaml()
    {
       Storyboard story = new Storyboard();
-
-      projectPlan(story);
-
 
       story.addStep("create a party data structure and store it with YamlIdMap");
 
@@ -240,8 +268,12 @@ public class GroupAccountTests implements PropertyChangeInterface
       story.dumpHTML();
    }
 
-   private void projectPlan(Storyboard story)
+
+   @Test
+   public void testMultiUserGroupAccountProjectPlan()
    {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
       story.addStep("Project plan: ");
 
       Goal multiUserGroupAccount = new Goal().withDescription("Multi User Group Account");
@@ -259,7 +291,7 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       Goal yamlDeltas = yamlReplication.createPreGoals().withDescription("Yaml Deltas");
 
-      yamlReplication.createPreGoals().withDescription("Persistence");
+      Goal persistence = yamlReplication.createPreGoals().withDescription("Persistence");
 
       Goal write = yamlDeltas.createPreGoals().withDescription("Write").withHoursTodo(2);
 
@@ -364,7 +396,11 @@ public class GroupAccountTests implements PropertyChangeInterface
               .withHoursDone(0.1)
               .withHoursRemaining(0);
 
-
+      mikadoLog.createEntries()
+              .withGoal(persistence)
+              .withDate("2018-03-16T14:30:00+01:00")
+              .withHoursDone(3)
+              .withHoursRemaining(0);
 
 
       story.add(mikadoLog.burnDownChart());
@@ -378,6 +414,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       story.addStep("closed goals");
       story.addObjectDiagram(done);
 
+      story.dumpHTML();
    }
 
 

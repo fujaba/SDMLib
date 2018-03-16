@@ -83,7 +83,7 @@ dependencies {
 			println "using local networkparser.local.jar"
 			compile files("../NetworkParser/build/libs/networkparser.local.jar")
 		}
-		else if((gitVersion.isMaster() || isTravisSnapshot())== false)
+		else if((gitVersion.isMaster())) //  || isTravisSnapshot())== false)
 		{
 			println "using master networkparser.jar "
 			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true

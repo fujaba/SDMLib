@@ -22,445 +22,14 @@
 </head>
 <body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYaml</a></p>
-<p>Start: Project plan: </p>
-<canvas id="myChart" width="1000" height="600"></canvas>
+<p>Start: create a party data structure and store it with YamlIdMap</p>
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        datasets: [
-            {
-                label: "Burn Down",
-                data: [
-                    {x: "2018-02-28T12:00:00+01:00", y: 32.6},
-{x: "2018-02-28T15:00:00+01:00", y: 30.6},
-{x: "2018-02-28T16:00:00+01:00", y: 28.6},
-{x: "2018-03-01T21:30:00+01:00", y: 27.6},
-{x: "2018-03-01T22:30:00+01:00", y: 26.6},
-{x: "2018-03-01T23:30:00+01:00", y: 26.6},
-{x: "2018-03-02T00:30:00+01:00", y: 25.6},
-{x: "2018-03-02T14:17:00+01:00", y: 24.6},
-{x: "2018-03-09T14:00:00+01:00", y: 24.1},
-{x: "2018-03-11T22:00:00+01:00", y: 22.1},
-{x: "2018-03-11T23:57:00+01:00", y: 20.1},
-{x: "2018-03-12T18:30:00+01:00", y: 18.1},
-{x: "2018-03-13T15:45:00+01:00", y: 16.1},
-{x: "2018-03-13T16:00:00+01:00", y: 16.0},
-                ]
-            }
-        ]
-    },
-    options: {
-        responsive: false,
-        scales: {
-            xAxes: [{
-                type: "time",
-                time: {
-                    displayFormats: {
-                       'millisecond': 'DD MMM hh:mm',
-                       'second': 'DD MMM hh:mm',
-                       'minute': 'DD MMM hh:mm',
-                       'hour': 'DD MMM hh:mm',
-                       'day': 'DD MMM',
-                       'week': 'DD MMM',
-                       'month': 'MMM YYYY',
-                       'quarter': 'MMM YYYY',
-                       'year': 'YYYY',
-                    }
-                },
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Date'
-                },
-                ticks: {
-                    major: {
-                        fontStyle: "bold",
-                        fontColor: "#FF0000"
-                    }
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'hours'
-                },
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }});
-</script>
-<p><a name = 'step_1'>Step 1: open goals</a></p><script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
       {
          "type":"clazz",
-         "id":"G1 : Goal",
-         "attributes":[
-            "description=Multi User Group Account",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G2 : Goal",
-         "attributes":[
-            "description=Gui Integration",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G3 : Goal",
-         "attributes":[
-            "description=YamlReplication",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G4 : Goal",
-         "attributes":[
-            "description=Persistence",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G2 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G3 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G3 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G2 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G4 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G3 : Goal"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p><a name = 'step_2'>Step 2: closed goals</a></p><script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"G10 : Goal",
-         "attributes":[
-            "description=Write",
-            "hoursDone=1.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G11 : Goal",
-         "attributes":[
-            "description=Read",
-            "hoursDone=1.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G12 : Goal",
-         "attributes":[
-            "description=Remove Link",
-            "hoursDone=1.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G13 : Goal",
-         "attributes":[
-            "description=Remove Object",
-            "hoursDone=2.5",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G14 : Goal",
-         "attributes":[
-            "description=session ids",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G15 : Goal",
-         "attributes":[
-            "description=merge conflicts",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G16 : Goal",
-         "attributes":[
-            "description=timeStamps",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G5 : Goal",
-         "attributes":[
-            "description=done",
-            "hoursDone=0.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G6 : Goal",
-         "attributes":[
-            "description=Simple party objects",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G7 : Goal",
-         "attributes":[
-            "description=Component Listener",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G8 : Goal",
-         "attributes":[
-            "description=Yaml Deltas",
-            "hoursDone=0.1",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G9 : Goal",
-         "attributes":[
-            "description=Isomorphism Check",
-            "hoursDone=1.0",
-            "hoursTodo=0.0"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G6 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G5 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G7 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G5 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G8 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G5 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G9 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G5 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G10 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G11 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G12 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G13 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G14 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G15 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G16 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G8 : Goal"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p><a name = 'step_3'>Step 3: create a party data structure and store it with YamlIdMap</a></p><script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"P17 : Party",
+         "id":"P1 : Party",
          "attributes":[
             "partyName=Lectures Done",
             "share=0.0",
@@ -469,7 +38,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P18 : Person",
+         "id":"P2 : Person",
          "attributes":[
             "name=Albert",
             "saldo=0.0",
@@ -478,7 +47,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P19 : Person",
+         "id":"P3 : Person",
          "attributes":[
             "name=Nathalie",
             "saldo=0.0",
@@ -492,12 +61,12 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P18 : Person"
+            "id":"P2 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P17 : Party"
+            "id":"P1 : Party"
          }
       },
       {
@@ -505,23 +74,23 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P19 : Person"
+            "id":"P3 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P17 : Party"
+            "id":"P1 : Party"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_4'>Step 4: add component listener and log changes in yaml format</a></p><p><a name = 'step_5'>Step 5: load changes into second model, continuously. </a></p><p><a name = 'step_6'>Step 6: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-<p><a name = 'step_7'>Step 7: deal with link removal</a></p><pre>- albert.p3: 	Person
+<p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+<p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
   party.remove: 	p1
-  party.remove.time: 	2018-03-13T15:47:46.345.albert
+  party.remove.time: 	2018-03-16T16:26:37.951.albert
 - p1: 	Party
   guests.remove: 	albert.p3
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
@@ -532,7 +101,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "nodes":[
       {
          "type":"clazz",
-         "id":"P17 : Party",
+         "id":"P1 : Party",
          "attributes":[
             "partyName=Lectures Done",
             "share=0.0",
@@ -541,7 +110,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P18 : Person",
+         "id":"P2 : Person",
          "attributes":[
             "name=Albert",
             "saldo=0.0",
@@ -555,17 +124,17 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P18 : Person"
+            "id":"P2 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P17 : Party"
+            "id":"P1 : Party"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml17", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>cloned model</p>
@@ -575,7 +144,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "nodes":[
       {
          "type":"clazz",
-         "id":"P20 : Party",
+         "id":"P4 : Party",
          "attributes":[
             "partyName=Lectures Done",
             "share=0.0",
@@ -584,7 +153,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P21 : Person",
+         "id":"P5 : Person",
          "attributes":[
             "name=Albert",
             "saldo=0.0",
@@ -598,21 +167,21 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P21 : Person"
+            "id":"P5 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P20 : Party"
+            "id":"P4 : Party"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_8'>Step 8: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-13T15:47:46.349.albert
+<p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
+  Person.remove.time: 	2018-03-16T16:26:37.956.albert
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>Check: orig idmap has removed natanull</p>
 <p>original model</p>
@@ -622,7 +191,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "nodes":[
       {
          "type":"clazz",
-         "id":"P17 : Party",
+         "id":"P1 : Party",
          "attributes":[
             "partyName=Lectures Done",
             "share=0.0",
@@ -631,7 +200,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P18 : Person",
+         "id":"P2 : Person",
          "attributes":[
             "name=Albert",
             "saldo=0.0",
@@ -645,17 +214,17 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P18 : Person"
+            "id":"P2 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P17 : Party"
+            "id":"P1 : Party"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml25", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>cloned model</p>
@@ -665,7 +234,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "nodes":[
       {
          "type":"clazz",
-         "id":"P20 : Party",
+         "id":"P4 : Party",
          "attributes":[
             "partyName=Lectures Done",
             "share=0.0",
@@ -674,7 +243,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"P21 : Person",
+         "id":"P5 : Person",
          "attributes":[
             "name=Albert",
             "saldo=0.0",
@@ -688,37 +257,37 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"guests",
-            "id":"P21 : Person"
+            "id":"P5 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"party",
-            "id":"P20 : Party"
+            "id":"P4 : Party"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml27", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml21", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_9'>Step 9: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-13T15:47:46.349.albert
+<p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
+  Person.remove.time: 	2018-03-16T16:26:37.956.albert
 - albert.p4: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-13T15:47:46.352.albert
+  saldo.time: 	2018-03-16T16:26:37.962.albert
 - albert.p4: 	Person
   total: 	0.0
-  total.time: 	2018-03-13T15:47:46.352.albert
+  total.time: 	2018-03-16T16:26:37.962.albert
 - albert.p4: 	Person
   party: 	p1
-  party.time: 	2018-03-13T15:47:46.352.albert
+  party.time: 	2018-03-16T16:26:37.962.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p4
 - albert.p4: 	Person
 - albert.p4: 	Person
   name: 	Ann
-  name.time: 	2018-03-13T15:47:46.352.albert
+  name.time: 	2018-03-16T16:26:37.962.albert
 </pre>
 </body>
 </html>

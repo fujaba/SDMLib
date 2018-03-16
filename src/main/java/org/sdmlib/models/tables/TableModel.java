@@ -16,7 +16,7 @@ import de.uniks.networkparser.graph.DataType;
 public class TableModel
 {
    /**
-    * 
+    * @throws an exception
     * @see <a href='../../../../../../../doc/TableModel.html'>TableModel.html</a>
     */
    @Test

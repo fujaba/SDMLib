@@ -1,0 +1,55 @@
+- p1: 	Party
+  partyName: 	"AlbertHo Ho Ho: X Mas Party SE 2017"
+  partyName.time: 	2018-03-16T16:26:48.324.abu
+  share: 	0.0
+  share.time: 	2018-03-16T16:26:40.292.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:40.295.abu
+  guests: 	abu.p2 	abu.p5 	
+
+- abu.p2: 	Person
+  name: 	" Beer"
+  name.time: 	2018-03-16T16:26:48.858.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:26:40.410.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:40.416.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:04:00.607.abu
+  items: 	abu.i3 	abu.i4 	
+
+- abu.i3: 	Item
+  description: 	23
+  description.time: 	2018-03-16T16:26:49.114.abu
+  price: 	0.0
+  price.time: 	2018-03-16T16:26:40.485.abu
+  person: 	abu.p2
+  person.time: 	2018-03-16T16:04:00.630.abu
+
+- abu.i4: 	Item
+  description: 	Tacos
+  description.time: 	2018-03-16T16:04:00.659.abu
+  price: 	0.0
+  price.time: 	2018-03-16T16:26:40.544.abu
+  person: 	abu.p2
+  person.time: 	2018-03-16T16:04:00.647.abu
+
+- abu.p5: 	Person
+  name: 	Nina
+  name.time: 	2018-03-16T16:04:00.684.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:26:40.581.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:40.585.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:04:00.674.abu
+  items: 	abu.i6 	
+
+- abu.i6: 	Item
+  description: 	Meat
+  description.time: 	2018-03-16T16:04:00.705.abu
+  price: 	0.0
+  price.time: 	2018-03-16T16:26:40.619.abu
+  person: 	abu.p5
+  person.time: 	2018-03-16T16:04:00.695.abu
+

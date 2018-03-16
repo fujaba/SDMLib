@@ -33,12 +33,33 @@ public class TestPartyAccount extends ApplicationTest
    @Override
    public void start(Stage primaryStage) throws Exception
    {
-      partyAccountApp = new PartyAccountApp();
+      partyAccountApp = new PartyAccountApp().withUserName("abu");
       partyAccountApp.start(primaryStage);
    }
 
 
-     /**
+   @Test
+   public void testGroupAccountYamlPersistence() throws InterruptedException
+   {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
+      story.addStep("Start a Party GUI and load changes from file");
+
+      story.addStep("do some editing and log changes to file");
+
+      story.addStep("stop gui");
+
+      story.addStep("restart and load file with changes");
+
+      story.addStep("compress changes");
+
+      story.dumpHTML();
+   }
+
+
+
+
+   /**
     * 
     * @see <a href='../../../../../../doc/Party.html'>Party.html</a>
  * @see <a href='../../../../../../../../doc/Party.html'>Party.html</a>

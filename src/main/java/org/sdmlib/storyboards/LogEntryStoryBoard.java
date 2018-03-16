@@ -31,6 +31,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
 */
+   @Deprecated
    public  class LogEntryStoryBoard implements PropertyChangeInterface, SendableEntity
 {
 

@@ -1,0 +1,129 @@
+- p1: 	Party
+  partyName: 	"Lectures Wrong"
+  partyName.time: 	2018-03-16T16:26:34.016.abu
+  share: 	0.0
+  share.time: 	2018-03-16T16:26:34.034.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:34.038.abu
+  guests: 	abu.p2 	abu.p3 	abu.p4 	abu.p5 	abu.p6 	abu.p7 	abu.p8 	abu.p9 	abu.p10 	abu.p11 	abu.p12 	abu.p13 	
+
+- abu.p2: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T14:01:26.455.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T14:01:26.427.abu
+  total: 	0.0
+  total.time: 	2018-03-16T14:01:26.431.abu
+  party: 	p1
+  party.time: 	2018-03-16T14:01:26.442.abu
+
+- abu.p3: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T14:01:26.641.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T14:01:26.497.abu
+  total: 	0.0
+  total.time: 	2018-03-16T14:01:26.581.abu
+  party: 	p1
+  party.time: 	2018-03-16T14:01:26.613.abu
+
+- abu.p4: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T14:15:06.995.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T14:15:06.986.abu
+  total: 	0.0
+  total.time: 	2018-03-16T14:15:06.988.abu
+  party: 	p1
+  party.time: 	2018-03-16T14:15:06.991.abu
+
+- abu.p5: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T14:15:07.014.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T14:15:06.999.abu
+  total: 	0.0
+  total.time: 	2018-03-16T14:15:07.002.abu
+  party: 	p1
+  party.time: 	2018-03-16T14:15:07.005.abu
+
+- abu.p6: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T15:53:07.443.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T15:53:07.431.abu
+  total: 	0.0
+  total.time: 	2018-03-16T15:53:07.434.abu
+  party: 	p1
+  party.time: 	2018-03-16T15:53:07.437.abu
+
+- abu.p7: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T15:53:07.458.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T15:53:07.447.abu
+  total: 	0.0
+  total.time: 	2018-03-16T15:53:07.449.abu
+  party: 	p1
+  party.time: 	2018-03-16T15:53:07.452.abu
+
+- abu.p8: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T15:54:00.855.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T15:54:00.842.abu
+  total: 	0.0
+  total.time: 	2018-03-16T15:54:00.845.abu
+  party: 	p1
+  party.time: 	2018-03-16T15:54:00.848.abu
+
+- abu.p9: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T15:54:00.871.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T15:54:00.859.abu
+  total: 	0.0
+  total.time: 	2018-03-16T15:54:00.861.abu
+  party: 	p1
+  party.time: 	2018-03-16T15:54:00.862.abu
+
+- abu.p10: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T16:03:47.775.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:03:47.759.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:03:47.759.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:03:47.767.abu
+
+- abu.p11: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T16:03:47.791.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:03:47.783.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:03:47.783.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:03:47.783.abu
+
+- abu.p12: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T16:26:34.080.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:26:34.062.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:34.068.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:26:34.071.abu
+
+- abu.p13: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T16:26:34.099.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T16:26:34.084.abu
+  total: 	0.0
+  total.time: 	2018-03-16T16:26:34.090.abu
+  party: 	p1
+  party.time: 	2018-03-16T16:26:34.093.abu
+

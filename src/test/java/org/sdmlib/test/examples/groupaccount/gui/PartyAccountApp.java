@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.sdmlib.models.YamlFileMap;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.test.examples.groupaccount.model.Party;
-import org.sdmlib.test.examples.groupaccount.model.util.PartyCreator;
 
-import de.uniks.networkparser.ext.petaf.NodeProxy;
-import de.uniks.networkparser.ext.petaf.Space;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -26,7 +24,21 @@ public class PartyAccountApp extends Application
    private ScheduledExecutorService executor;
    private String userName;
    public VBox root;
-   
+
+
+   public PartyAccountApp withUserName(String userName)
+   {
+      this.userName = userName;
+      return this;
+   }
+
+   public String getUserName()
+   {
+      return userName;
+   }
+
+
+
    public Party getParty()
    {
       return party;
@@ -51,37 +63,8 @@ public class PartyAccountApp extends Application
 
       stage.setOnCloseRequest(e -> System.exit(0));
 
-//      executor = Executors.newSingleThreadScheduledExecutor();
-//      
-//      executor.schedule(()-> runLaterAutoStore(), 5, TimeUnit.SECONDS);
    }
 
-   private void runLaterAutoStore()
-   {
-      Platform.runLater(()->autoStore());
-   }
-
-   private void autoStore()
-   {
-      try
-      {
-         // save
-         YamlIdMap idMap = new YamlIdMap("uks.pmwt1718.ha7.model");
-
-         String text = idMap.encode(party);
-         
-         Files.write(Paths.get("aStore/party.yaml"), text.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      finally {
-         // schedule again
-         executor.schedule(()-> runLaterAutoStore(), 5, TimeUnit.SECONDS);
-      }
-   }
 
    public VBox getRoot()
    {
@@ -105,36 +88,12 @@ public class PartyAccountApp extends Application
       
       // model
       party = new Party();
-      
-      //  new SDMComponentListener(party, e -> myChangeLogger(e));
 
       new PartyControl().init(root, party);
 
-      Space space = new Space();
-      space.withCreator(PartyCreator.createIdMap("s"));
-      space.createModel(party);
-      space.createServer(42000);
-      NodeProxy server = space.connectToPeer("localhost", 42000);     
-      
-      
-      //      try
-      //      {
-      //         byte[] readAllBytes = Files.readAllBytes(Paths.get("aStore/party.yaml"));
-      //
-      //         String text = new String(readAllBytes);
-      //
-      //         YamlIdMap idMap = new YamlIdMap("uks.pmwt1718.ha7.model");
-      //
-      //         Object obj = idMap.decode(text, party);
-      //      }
-      //      catch (IOException e)
-      //      {
-      //         // TODO Auto-generated catch block
-      //         e.printStackTrace();
-      //      }
-      //      
+      new YamlFileMap(userName,"aStore/TermStart.abu.yaml", party);
 
       return root;
    }
-   
+
 }

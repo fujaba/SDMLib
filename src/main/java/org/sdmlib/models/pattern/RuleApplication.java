@@ -324,6 +324,7 @@ import org.sdmlib.models.pattern.ReachableState;
 
    /**
     * @param srcMatch the srcMatch to set
+    * @return this
     */
    public RuleApplication withSrcMatch(HashMap<PatternElement, Object> srcMatch)
    {
@@ -354,6 +355,7 @@ import org.sdmlib.models.pattern.ReachableState;
 
    /**
     * @param tgtMatch the tgtMatch to set
+    * @return this
     */
    public RuleApplication withTgtMatch(HashMap<PatternElement, Object> tgtMatch)
    {

@@ -886,6 +886,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * Depricated. Use filter() instead.
     * 
     * @param condition The condition used for filtering
+    * @param text to be shown in graphical representations of the pattern
     * @return this
     */
    @Deprecated

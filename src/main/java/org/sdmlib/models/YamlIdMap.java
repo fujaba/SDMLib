@@ -40,6 +40,11 @@ public class YamlIdMap
       return objIdMap;
    }
 
+   private YamlIdMap()
+   {
+      // always pass package to constructor
+   }
+
    public YamlIdMap(String... packageNames)
    {
       Objects.requireNonNull(packageNames);
@@ -158,7 +163,6 @@ public class YamlIdMap
     * 
     * @param yaml string describing object structure
     * @return first object
-    * @see <a href='(StudyRightWithAssignmentsStoryboards.java:122)'>StudyRightWithAssignmentsStoryboards.java:122</a>
     */
    public Object decode(String yaml)
    {
@@ -290,6 +294,13 @@ public class YamlIdMap
       if (className.endsWith(".remove"))
       {
          objIdMap.remove(objectId);
+
+         // skip time stamp, if necessary
+         while ( ! currentToken.equals("")
+                 && ! currentToken.equals("-"))
+         {
+            nextToken();
+         }
          return;
       }
 
@@ -734,6 +745,18 @@ public class YamlIdMap
                      value = encapsulate((String) value);
                   }
                   buf.append("  ").append(prop).append(": \t").append(value).append("\n");
+               }
+
+               // add time stamp?
+               if (userId != null)
+               {
+                  String timeKey =  key + "." + prop;
+                  String timeStamp = attrTimeStamps.get(timeKey);
+
+                  if (timeStamp != null)
+                  {
+                     buf.append("  ").append(prop).append(".time: \t").append(timeStamp).append("\n");
+                  }
                }
             }
          }
