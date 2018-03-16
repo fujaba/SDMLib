@@ -1,11 +1,11 @@
 - p1: 	Party
   partyName: 	"Lectures Wrong"
-  partyName.time: 	2018-03-16T17:09:51.732.abu
+  partyName.time: 	2018-03-16T17:23:53.565.abu
   share: 	0.0
-  share.time: 	2018-03-16T17:09:51.818.abu
+  share.time: 	2018-03-16T17:23:53.579.abu
   total: 	0.0
-  total.time: 	2018-03-16T17:09:51.842.abu
-  guests: 	abu.p2 	abu.p3 	abu.p4 	abu.p5 	abu.p6 	abu.p7 	abu.p8 	abu.p9 	abu.p10 	abu.p11 	abu.p12 	abu.p13 	abu.p14 	abu.p15 	abu.p16 	abu.p17 	abu.p18 	abu.p19 	abu.p20 	abu.p21 	
+  total.time: 	2018-03-16T17:23:53.583.abu
+  guests: 	abu.p2 	abu.p3 	abu.p4 	abu.p5 	abu.p6 	abu.p7 	abu.p8 	abu.p9 	abu.p10 	abu.p11 	abu.p12 	abu.p13 	abu.p14 	abu.p15 	abu.p16 	abu.p17 	abu.p18 	abu.p19 	abu.p20 	abu.p21 	abu.p22 	abu.p23 	
 
 - abu.p2: 	Person
   name: 	Albert
@@ -206,4 +206,24 @@
   total.time: 	2018-03-16T17:09:51.956.abu
   party: 	p1
   party.time: 	2018-03-16T17:09:51.959.abu
+
+- abu.p22: 	Person
+  name: 	Albert
+  name.time: 	2018-03-16T17:23:53.622.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T17:23:53.608.abu
+  total: 	0.0
+  total.time: 	2018-03-16T17:23:53.613.abu
+  party: 	p1
+  party.time: 	2018-03-16T17:23:53.616.abu
+
+- abu.p23: 	Person
+  name: 	Nathalie
+  name.time: 	2018-03-16T17:23:53.636.abu
+  saldo: 	0.0
+  saldo.time: 	2018-03-16T17:23:53.626.abu
+  total: 	0.0
+  total.time: 	2018-03-16T17:23:53.628.abu
+  party: 	p1
+  party.time: 	2018-03-16T17:23:53.631.abu
 
