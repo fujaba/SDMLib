@@ -430,7 +430,8 @@ public class GoalSet extends SimpleSet<Goal>
 
    /**
     * Loop through current set of ModelType objects and attach the Goal object passed as parameter to the Parents attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Parents attributes.
     */
    public GoalSet withParents(Goal value)
@@ -445,7 +446,8 @@ public class GoalSet extends SimpleSet<Goal>
 
    /**
     * Loop through current set of ModelType objects and remove the Goal object passed as parameter from the Parents attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public GoalSet withoutParents(Goal value)
@@ -538,7 +540,8 @@ public class GoalSet extends SimpleSet<Goal>
 
    /**
     * Loop through current set of ModelType objects and attach the Goal object passed as parameter to the PreGoals attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their PreGoals attributes.
     */
    public GoalSet withPreGoals(Goal value)
@@ -553,7 +556,8 @@ public class GoalSet extends SimpleSet<Goal>
 
    /**
     * Loop through current set of ModelType objects and remove the Goal object passed as parameter from the PreGoals attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public GoalSet withoutPreGoals(Goal value)

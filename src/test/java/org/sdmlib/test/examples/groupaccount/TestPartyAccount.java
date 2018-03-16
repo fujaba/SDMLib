@@ -2,6 +2,9 @@ package org.sdmlib.test.examples.groupaccount;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
 
@@ -33,6 +36,11 @@ public class TestPartyAccount extends ApplicationTest
    @Override
    public void start(Stage primaryStage) throws Exception
    {
+      Path path = Paths.get("aStore/TermStart.abu.yaml");
+      if (Files.exists(path)) Files.delete(path);
+      path = Paths.get("aStore/TermStart.abu.yaml.log");
+      if (Files.exists(path)) Files.delete(path);
+
       partyAccountApp = new PartyAccountApp().withUserName("abu");
       partyAccountApp.start(primaryStage);
    }

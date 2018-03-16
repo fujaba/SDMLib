@@ -324,6 +324,12 @@ public class YamlIdMap
          {
             // no object created by parseObjectIds. Object has been removed.
             // ignore attr changes
+            while ( ! currentToken.equals("")
+                    && ! currentToken.endsWith(":")
+                    && ! currentToken.equals("-"))
+            {
+               nextToken();
+            }
             continue;
          }
 
@@ -423,7 +429,7 @@ public class YamlIdMap
          String subToken = lookAheadToken;
          //MatchResult match = scanner.match();
          int subTokenEnd = lookAheadPos + subToken.length();
-         while ( subTokenEnd < stringStartPos || ( ! subToken.endsWith("\"") || subToken.endsWith("\\\"")) 
+         while ( subTokenEnd < stringStartPos+1 || ( ! subToken.endsWith("\"") || subToken.endsWith("\\\""))
                && tokenizer.hasMoreTokens())
          {
             subToken = tokenizer.nextToken();

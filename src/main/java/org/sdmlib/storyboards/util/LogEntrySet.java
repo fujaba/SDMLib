@@ -404,7 +404,8 @@ public class LogEntrySet extends SimpleSet<LogEntry>
 
    /**
     * Loop through current set of ModelType objects and attach the LogEntry object passed as parameter to the Goal attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Goal attributes.
     */
    public LogEntrySet withGoal(Goal value)
@@ -469,7 +470,8 @@ public class LogEntrySet extends SimpleSet<LogEntry>
 
    /**
     * Loop through current set of ModelType objects and attach the LogEntry object passed as parameter to the Parent attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Parent attributes.
     */
    public LogEntrySet withParent(MikadoLog value)

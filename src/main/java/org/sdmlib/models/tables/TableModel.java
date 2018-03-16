@@ -16,11 +16,10 @@ import de.uniks.networkparser.graph.DataType;
 public class TableModel
 {
    /**
-    * @throws an exception
     * @see <a href='../../../../../../../doc/TableModel.html'>TableModel.html</a>
     */
    @Test
-   public void testTableModel() throws Exception
+   public void testTableModel()
    {
       Storyboard story = new Storyboard();
 

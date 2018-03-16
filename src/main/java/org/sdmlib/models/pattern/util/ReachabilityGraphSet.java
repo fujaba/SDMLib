@@ -147,7 +147,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachabilityGraph object passed as parameter to the Rules attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Rules attributes.
     */
    public ReachabilityGraphSet withRules(Pattern value)
@@ -162,7 +163,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachabilityGraph object passed as parameter from the Rules attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachabilityGraphSet withoutRules(Pattern value)
@@ -227,7 +229,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachabilityGraph object passed as parameter to the FinalStates attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their FinalStates attributes.
     */
    public ReachabilityGraphSet withFinalStates(ReachableState value)
@@ -242,7 +245,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachabilityGraph object passed as parameter from the FinalStates attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachabilityGraphSet withoutFinalStates(ReachableState value)
@@ -307,7 +311,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachabilityGraph object passed as parameter to the States attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their States attributes.
     */
    public ReachabilityGraphSet withStates(ReachableState value)
@@ -322,7 +327,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachabilityGraph object passed as parameter from the States attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachabilityGraphSet withoutStates(ReachableState value)
@@ -387,7 +393,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachabilityGraph object passed as parameter to the Todo attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Todo attributes.
     */
    public ReachabilityGraphSet withTodo(ReachableState value)
@@ -402,7 +409,8 @@ public class ReachabilityGraphSet extends SimpleSet<ReachabilityGraph>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachabilityGraph object passed as parameter from the Todo attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachabilityGraphSet withoutTodo(ReachableState value)

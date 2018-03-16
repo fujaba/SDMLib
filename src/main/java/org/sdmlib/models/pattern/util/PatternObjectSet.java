@@ -769,7 +769,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the CardConstraints attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their CardConstraints attributes.
     */
    public PatternObjectSet withCardConstraints(CardinalityConstraint value)
@@ -784,7 +785,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and remove the PatternObject object passed as parameter from the CardConstraints attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public PatternObjectSet withoutCardConstraints(CardinalityConstraint value)
@@ -849,7 +851,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the MatchOtherThen attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their MatchOtherThen attributes.
     */
    public PatternObjectSet withMatchOtherThen(MatchOtherThen value)
@@ -864,7 +867,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and remove the PatternObject object passed as parameter from the MatchOtherThen attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public PatternObjectSet withoutMatchOtherThen(MatchOtherThen value)
@@ -929,7 +933,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the Excluders attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Excluders attributes.
     */
    public PatternObjectSet withExcluders(MatchOtherThen value)
@@ -944,7 +949,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and remove the PatternObject object passed as parameter from the Excluders attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public PatternObjectSet withoutExcluders(MatchOtherThen value)

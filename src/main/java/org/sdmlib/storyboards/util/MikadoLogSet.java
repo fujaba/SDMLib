@@ -155,7 +155,8 @@ public class MikadoLogSet extends SimpleSet<MikadoLog>
 
    /**
     * Loop through current set of ModelType objects and attach the MikadoLog object passed as parameter to the Entries attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Entries attributes.
     */
    public MikadoLogSet withEntries(LogEntry value)
@@ -170,7 +171,8 @@ public class MikadoLogSet extends SimpleSet<MikadoLog>
 
    /**
     * Loop through current set of ModelType objects and remove the MikadoLog object passed as parameter from the Entries attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public MikadoLogSet withoutEntries(LogEntry value)
@@ -235,7 +237,8 @@ public class MikadoLogSet extends SimpleSet<MikadoLog>
 
    /**
     * Loop through current set of ModelType objects and attach the MikadoLog object passed as parameter to the MainGoal attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their MainGoal attributes.
     */
    public MikadoLogSet withMainGoal(Goal value)

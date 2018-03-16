@@ -374,7 +374,8 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the Parent attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Parent attributes.
     */
    public ReachableStateSet withParent(ReachabilityGraph value)
@@ -439,7 +440,8 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
 
    /**
     * Loop through current set of ModelType objects and attach the ReachableState object passed as parameter to the Ruleapplications attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Ruleapplications attributes.
     */
    public ReachableStateSet withRuleapplications(RuleApplication value)
@@ -454,7 +456,8 @@ public class ReachableStateSet extends SimpleSet<ReachableState>
 
    /**
     * Loop through current set of ModelType objects and remove the ReachableState object passed as parameter from the Ruleapplications attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public ReachableStateSet withoutRuleapplications(RuleApplication value)

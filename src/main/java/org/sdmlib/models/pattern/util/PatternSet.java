@@ -601,7 +601,8 @@ public class PatternSet extends SimpleSet<Pattern>
 
    /**
     * Loop through current set of ModelType objects and attach the Pattern object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public PatternSet withPattern(Pattern value)
@@ -666,7 +667,8 @@ public class PatternSet extends SimpleSet<Pattern>
 
    /**
     * Loop through current set of ModelType objects and attach the Pattern object passed as parameter to the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Elements attributes.
     */
    public PatternSet withElements(PatternElement value)
@@ -681,7 +683,8 @@ public class PatternSet extends SimpleSet<Pattern>
 
    /**
     * Loop through current set of ModelType objects and remove the Pattern object passed as parameter from the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public PatternSet withoutElements(PatternElement value)
@@ -777,7 +780,8 @@ public class PatternSet extends SimpleSet<Pattern>
 
    /**
     * Loop through current set of ModelType objects and attach the Pattern object passed as parameter to the CurrentSubPattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their CurrentSubPattern attributes.
     */
    public PatternSet withCurrentSubPattern(Pattern value)
@@ -879,7 +883,8 @@ public class PatternSet extends SimpleSet<Pattern>
 
    /**
     * Loop through current set of ModelType objects and attach the Pattern object passed as parameter to the Rgraph attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Rgraph attributes.
     */
    public PatternSet withRgraph(ReachabilityGraph value)
