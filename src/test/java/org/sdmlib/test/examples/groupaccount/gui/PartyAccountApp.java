@@ -91,7 +91,7 @@ public class PartyAccountApp extends Application
 
       new PartyControl().init(root, party);
 
-      new YamlFileMap(userName,"aStore/TermStart.abu.yaml", party);
+      new YamlFileMap(userName,"aStore/TermStart", party);
 
       return root;
    }

@@ -32,21 +32,23 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             {
                 label: "Burn Down",
                 data: [
-                    {x: "2018-02-28T12:00:00+01:00", y: 31.6},
-{x: "2018-02-28T15:00:00+01:00", y: 29.6},
-{x: "2018-02-28T16:00:00+01:00", y: 27.6},
-{x: "2018-03-01T21:30:00+01:00", y: 26.6},
-{x: "2018-03-01T22:30:00+01:00", y: 25.6},
-{x: "2018-03-01T23:30:00+01:00", y: 25.6},
-{x: "2018-03-02T00:30:00+01:00", y: 24.6},
-{x: "2018-03-02T14:17:00+01:00", y: 23.6},
-{x: "2018-03-09T14:00:00+01:00", y: 23.1},
-{x: "2018-03-11T22:00:00+01:00", y: 21.1},
-{x: "2018-03-11T23:57:00+01:00", y: 19.1},
-{x: "2018-03-12T18:30:00+01:00", y: 17.1},
-{x: "2018-03-13T15:45:00+01:00", y: 15.1},
-{x: "2018-03-13T16:00:00+01:00", y: 15.0},
-{x: "2018-03-16T14:30:00+01:00", y: 12.0},
+                    {x: "2018-02-28T12:00:00+01:00", y: 37.6},
+{x: "2018-02-28T15:00:00+01:00", y: 35.6},
+{x: "2018-02-28T16:00:00+01:00", y: 33.6},
+{x: "2018-03-01T21:30:00+01:00", y: 32.6},
+{x: "2018-03-01T22:30:00+01:00", y: 31.6},
+{x: "2018-03-01T23:30:00+01:00", y: 31.6},
+{x: "2018-03-02T00:30:00+01:00", y: 30.6},
+{x: "2018-03-02T14:17:00+01:00", y: 29.6},
+{x: "2018-03-09T14:00:00+01:00", y: 29.1},
+{x: "2018-03-11T22:00:00+01:00", y: 27.1},
+{x: "2018-03-11T23:57:00+01:00", y: 25.1},
+{x: "2018-03-12T18:30:00+01:00", y: 23.1},
+{x: "2018-03-13T15:45:00+01:00", y: 21.1},
+{x: "2018-03-13T16:00:00+01:00", y: 21.0},
+{x: "2018-03-16T14:30:00+01:00", y: 18.0},
+{x: "2018-03-17T15:12:00+01:00", y: 17.0},
+{x: "2018-03-17T16:00:00+01:00", y: 16.0},
                 ]
             }
         ]
@@ -124,6 +126,15 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             "hoursDone=0.0",
             "hoursTodo=4.0"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"G4 : Goal",
+         "attributes":[
+            "description=session protocols",
+            "hoursDone=0.0",
+            "hoursTodo=4.0"
+         ]
       }
    ],
    "edges":[
@@ -146,6 +157,19 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             "cardinality":"many",
             "property":"preGoals",
             "id":"G3 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G1 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G4 : Goal"
          },
          "target":{
             "cardinality":"one",
@@ -179,7 +203,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "type":"clazz",
          "id":"G10 : Goal",
          "attributes":[
-            "description=Write",
+            "description=Isomorphism Check",
             "hoursDone=1.0",
             "hoursTodo=0.0"
          ]
@@ -188,7 +212,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "type":"clazz",
          "id":"G11 : Goal",
          "attributes":[
-            "description=Read",
+            "description=plain yaml",
             "hoursDone=1.0",
             "hoursTodo=0.0"
          ]
@@ -197,7 +221,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "type":"clazz",
          "id":"G12 : Goal",
          "attributes":[
-            "description=Remove Link",
+            "description=Write",
             "hoursDone=1.0",
             "hoursTodo=0.0"
          ]
@@ -206,6 +230,24 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "type":"clazz",
          "id":"G13 : Goal",
          "attributes":[
+            "description=Read",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G14 : Goal",
+         "attributes":[
+            "description=Remove Link",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G15 : Goal",
+         "attributes":[
             "description=Remove Object",
             "hoursDone=2.5",
             "hoursTodo=0.0"
@@ -213,7 +255,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G14 : Goal",
+         "id":"G16 : Goal",
          "attributes":[
             "description=session ids",
             "hoursDone=2.0",
@@ -222,7 +264,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G15 : Goal",
+         "id":"G17 : Goal",
          "attributes":[
             "description=merge conflicts",
             "hoursDone=2.0",
@@ -231,7 +273,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G16 : Goal",
+         "id":"G18 : Goal",
          "attributes":[
             "description=timeStamps",
             "hoursDone=2.0",
@@ -240,7 +282,16 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G4 : Goal",
+         "id":"G19 : Goal",
+         "attributes":[
+            "description=yaml reader",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G5 : Goal",
          "attributes":[
             "description=done",
             "hoursDone=0.0",
@@ -249,7 +300,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G5 : Goal",
+         "id":"G6 : Goal",
          "attributes":[
             "description=Simple party objects",
             "hoursDone=2.0",
@@ -258,7 +309,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G6 : Goal",
+         "id":"G7 : Goal",
          "attributes":[
             "description=Component Listener",
             "hoursDone=2.0",
@@ -267,7 +318,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G7 : Goal",
+         "id":"G8 : Goal",
          "attributes":[
             "description=Yaml Deltas",
             "hoursDone=0.1",
@@ -276,19 +327,10 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       },
       {
          "type":"clazz",
-         "id":"G8 : Goal",
+         "id":"G9 : Goal",
          "attributes":[
             "description=Persistence",
             "hoursDone=3.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G9 : Goal",
-         "attributes":[
-            "description=Isomorphism Check",
-            "hoursDone=1.0",
             "hoursTodo=0.0"
          ]
       }
@@ -299,25 +341,12 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"preGoals",
-            "id":"G5 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G4 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
             "id":"G6 : Goal"
          },
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G4 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -330,7 +359,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G4 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -343,7 +372,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G4 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -356,7 +385,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G4 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -369,7 +398,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -382,7 +411,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G5 : Goal"
          }
       },
       {
@@ -395,7 +424,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G8 : Goal"
          }
       },
       {
@@ -408,7 +437,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G8 : Goal"
          }
       },
       {
@@ -421,7 +450,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G8 : Goal"
          }
       },
       {
@@ -434,7 +463,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G8 : Goal"
          }
       },
       {
@@ -447,7 +476,46 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G7 : Goal"
+            "id":"G8 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G17 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G8 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G18 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G8 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G19 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G11 : Goal"
          }
       }
    ]

@@ -2,7 +2,6 @@ package org.sdmlib.models;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
@@ -16,9 +15,10 @@ import java.util.logging.Logger;
 
 public class YamlFileMap
 {
+   private SDMComponentListener sdmComponentListener;
    private YamlIdMap yamlIdMap = null;
    private ScheduledExecutorService timer = null;
-   private String userName;
+   private String userName = null;
    private String fileName;
    private SendableEntity modelRoot;
    private ExecutorService modelThread;
@@ -26,6 +26,7 @@ public class YamlFileMap
    private boolean loadingFile;
    private LocalDateTime lastChange;
    private int changeCount = 0;
+   private boolean closed = false;
 
    private YamlFileMap()
    {
@@ -51,7 +52,7 @@ public class YamlFileMap
       // first, add Listener and protocol changes
       buf = new StringBuilder();
       this.yamlIdMap = new YamlIdMap(modelRoot.getClass().getPackage().getName()).withUserId(userName);
-      new SDMComponentListener(modelRoot, e -> changeListener(e));
+      sdmComponentListener = new SDMComponentListener(modelRoot, e -> changeListener(e));
 
       // load old file
       loadFile();
@@ -73,7 +74,7 @@ public class YamlFileMap
       // first, add Listener and protocol changes
       buf = new StringBuilder();
       this.yamlIdMap = new YamlIdMap(modelRoot.getClass().getPackage().getName());
-      new SDMComponentListener(modelRoot, e -> changeListener(e));
+      sdmComponentListener = new SDMComponentListener(modelRoot, e -> changeListener(e));
 
       // load old file
       loadFile();
@@ -83,8 +84,17 @@ public class YamlFileMap
       timer.schedule(() -> checkFileCompression(), 10, TimeUnit.SECONDS);
    }
 
+   public void removeYou()
+   {
+      this.closed = true;
+      sdmComponentListener.removeYou();
+      timer.shutdown();
+   }
+
    private void checkFileCompression()
    {
+      if (closed) return;
+
       try
       {
          if (modelThread != null)
@@ -106,6 +116,8 @@ public class YamlFileMap
    // run by javafx
    private void doCheckFileCompression()
    {
+      if (closed) return;
+
       LocalDateTime checkTime = LocalDateTime.now();
 
       if (Duration.between(lastChange, checkTime).toMillis() > 15*1000 && changeCount >= 10)
@@ -122,11 +134,11 @@ public class YamlFileMap
       try
       {
          String yamlText = yamlIdMap.encode(modelRoot);
-         Path path = Paths.get(fileName);
+         Path path = Paths.get(getYamlFileName());
          Files.createDirectories(path.getParent());
          Files.write(path, yamlText.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-         Path logPath = Paths.get(fileName + ".log");
+         Path logPath = Paths.get(getYamlFileName() + ".log");
          Files.write(logPath, "".getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
          changeCount = 0;
       }
@@ -141,7 +153,8 @@ public class YamlFileMap
    {
       try
       {
-         Path path = Paths.get(fileName);
+         String yamlFileName = getYamlFileName();
+         Path path = Paths.get(yamlFileName);
          if (Files.exists(path))
          {
             byte[] bytes = Files.readAllBytes(path);
@@ -150,7 +163,7 @@ public class YamlFileMap
             yamlIdMap.decode(yamlText, modelRoot);
          }
 
-         Path logPath = Paths.get(fileName + ".log");
+         Path logPath = Paths.get(yamlFileName + ".log");
          if (Files.exists(logPath))
          {
             byte[] logBytes = Files.readAllBytes(logPath);
@@ -168,9 +181,19 @@ public class YamlFileMap
       }
    }
 
+   private String getYamlFileName()
+   {
+      String yamlFileName = fileName + ".yaml";
+      if (userName != null)
+      {
+         yamlFileName = fileName + "." + userName + ".yaml";
+      }
+      return yamlFileName;
+   }
+
    private void changeListener(PropertyChangeEvent e)
    {
-      if (loadingFile)
+      if (loadingFile || closed)
       {
          return;
       }
@@ -181,7 +204,7 @@ public class YamlFileMap
       // write to log file
       try
       {
-         Path path = Paths.get(fileName + ".log");
+         Path path = Paths.get(getYamlFileName() + ".log");
          if (path.getParent() != null)
          {
             Files.createDirectories(path.getParent());
@@ -197,6 +220,7 @@ public class YamlFileMap
       lastChange = LocalDateTime.now();
       changeCount++;
    }
+
 
 
 }

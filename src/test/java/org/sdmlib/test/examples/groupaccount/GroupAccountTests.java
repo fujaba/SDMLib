@@ -24,15 +24,21 @@ package org.sdmlib.test.examples.groupaccount;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import io.moquette.server.Server;
+import org.eclipse.paho.client.mqttv3.*;
 import org.junit.Test;
-import org.sdmlib.models.SDMComponentListener;
-import org.sdmlib.models.YamlFileMap;
-import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.models.*;
 import org.sdmlib.models.pattern.ModelIsomorphimOp;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Goal;
@@ -41,34 +47,107 @@ import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 
-public class GroupAccountTests implements PropertyChangeInterface 
+public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 {
    private YamlIdMap idMap;
    private YamlIdMap copyMap;
    private StringBuilder buf = new StringBuilder();
    private StringBuilder copyBuf = new StringBuilder();
+   private YamlFileMap xiaFileMap;
+   private YamlFileMap abuFileMap;
+
+   /**
+    * 
+    * @see <a href='../../../../../../../../doc/PlainYaml.html'>PlainYaml.html</a>
+ */
+   @Test
+   public void testPlainYaml()
+   {
+      Storyboard story = new Storyboard();
+
+      story.addStep("plain yaml to be decoded to map");
+
+      String yaml = "" +
+              "joining: abu\n" +
+              "lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia";
+
+      story.addPreformatted(yaml);
+
+      Yamler yamler = new Yamler();
+
+      LinkedHashMap<String, String> map = yamler.decode(yaml);
+
+      story.addPreformatted(map.toString());
+
+      story.assertEquals("value for joining", "abu", map.get("joining"));
+
+      story.dumpHTML();
+   }
+
+
+   LinkedBlockingQueue<String> testInbox = new LinkedBlockingQueue<>();
 
    @Test
-   public void testGroupAccountYamlWithUserEncoding() throws InterruptedException
+   public void testGroupAccountYamlWithUserEncoding() throws InterruptedException, IOException, MqttException
    {
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
-      story.addStep("Create a party");
+      story.addStep("start mqtt broker");
+
+      Server mqttBroker = new Server();
+      mqttBroker.startServer();
+
+      story.addStep("test mqtt broker");
+
+      MqttClient mqttClient = new MqttClient("tcp://localhost:1883", "testGroupAccountYamlWithUserEncoding");
+      mqttClient.setCallback(this);
+
+      mqttClient.connect();
+      mqttClient.subscribe("hello");
+
+      mqttClient.publish("hello", new MqttMessage("World".getBytes()));
+
+      String msg = testInbox.take();
+
+      story.assertEquals("got mqtt message", "World", msg);
+
+      story.addStep("Abu creates a party and adds Albert and Nathalie");
 
       ExecutorService modelThread = Executors.newSingleThreadExecutor();
 
-      Party victoryParty = new Party().withPartyName("Lectures Wrong");
+      Files.deleteIfExists(Paths.get("aStore/LecturesParty.abu.yaml"));
+      Files.deleteIfExists(Paths.get("aStore/LecturesParty.abu.yaml.log"));
+      Files.deleteIfExists(Paths.get("aStore/LecturesParty.xia.yaml"));
+      Files.deleteIfExists(Paths.get("aStore/LecturesParty.xia.yaml.log"));
 
+      Party victoryParty = new Party().withPartyName("Lectures Wrong");
       String packageName = victoryParty.getClass().getPackage().getName();
 
-      YamlFileMap yamlFileMap = new YamlFileMap("abu", "aStore/LecturesParty.Abu.yaml", victoryParty, modelThread);
+      story.addStep("xia creates a party and adds Eyshe");
+      Party copyParty = new Party().withPartyName("Lectures Copy");
+      xiaFileMap = new YamlFileMap("xia", "aStore/LecturesParty", copyParty, modelThread);
+      modelThread.execute(()-> xiaAddGuests(copyParty));
+      modelThread.execute(() -> xiaFileMap.compressLogFile());
+      modelThread.execute(() -> xiaFileMap.removeYou());
 
+      abuFileMap = new YamlFileMap("abu", "aStore/LecturesParty", victoryParty, modelThread);
       modelThread.execute(()-> abuAddGuests(victoryParty));
+      modelThread.execute(() -> abuFileMap.compressLogFile());
+      modelThread.execute(() -> abuFileMap.removeYou());
+      story.addStep("Abu opens party with mqtt map");
 
-      modelThread.execute(() -> yamlFileMap.compressLogFile());
 
-      System.out.println();
+      modelThread.shutdown();
+      modelThread.awaitTermination(10, TimeUnit.SECONDS);
+
+      story.dumpHTML();
    }
+
+   private void xiaAddGuests(Party party)
+   {
+      Person eyshe = party.createGuests().withName("Eyshe");
+   }
+
 
    private void abuAddGuests(Party victoryParty)
    {
@@ -309,6 +388,12 @@ public class GroupAccountTests implements PropertyChangeInterface
 
       Goal timeStamps = yamlDeltas.createPreGoals().withDescription("timeStamps");
 
+      Goal plainYaml = multiUserGroupAccount.createPreGoals().withDescription("plain yaml");
+
+      Goal yamler = plainYaml.createPreGoals().withDescription("yaml reader");
+
+      Goal sessionProtocols = multiUserGroupAccount.createPreGoals().withDescription("session protocols");
+
 
       MikadoLog mikadoLog = new MikadoLog().withMainGoal(multiUserGroupAccount);
 
@@ -402,6 +487,21 @@ public class GroupAccountTests implements PropertyChangeInterface
               .withHoursDone(3)
               .withHoursRemaining(0);
 
+      mikadoLog.createEntries()
+              .withGoal(plainYaml)
+              .withDate("2018-03-17T15:12:00+01:00")
+              .withHoursDone(1)
+              .withHoursRemaining(0);
+
+      mikadoLog.createEntries()
+              .withGoal(yamler)
+              .withDate("2018-03-17T16:00:00+01:00")
+              .withHoursDone(1)
+              .withHoursRemaining(0);
+
+      Goal refactorFileMap = multiUserGroupAccount.createPreGoals().withDescription("refactor yaml file map");
+
+
 
       story.add(mikadoLog.burnDownChart());
 
@@ -463,6 +563,24 @@ public class GroupAccountTests implements PropertyChangeInterface
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   @Override
+   public void connectionLost(Throwable cause)
+   {
+
+   }
+
+   @Override
+   public void messageArrived(String topic, MqttMessage message) throws Exception
+   {
+      testInbox.put(message.toString());
+   }
+
+   @Override
+   public void deliveryComplete(IMqttDeliveryToken token)
+   {
+
    }
 }
 

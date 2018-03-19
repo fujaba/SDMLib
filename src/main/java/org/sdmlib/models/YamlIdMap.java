@@ -4,15 +4,11 @@ import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,14 +22,11 @@ public class YamlIdMap
    private ArrayList<String> packageNames;
    private StringTokenizer tokenizer;
    private String yaml;
-   private String currentToken;
-   private String lookAheadToken;
-   private int currentPos;
-   private int lookAheadPos;
    private String userId = null;
    private boolean decodingPropertyChange;
    private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
    private int maxUsedIdNum = 0;
+   private Yamler yamler = new Yamler();
 
    public SimpleKeyValueList<String, Object> getObjIdMap()
    {
@@ -124,7 +117,7 @@ public class YamlIdMap
 
          if (found)
          {
-            token = encapsulate(token);
+            token = yamler.encapsulate(token);
             split[i] = token;
          }
       }
@@ -138,6 +131,7 @@ public class YamlIdMap
 
       return buf.toString();
    }
+
 
 
    public Object decode(String yaml, Object root)
@@ -171,18 +165,17 @@ public class YamlIdMap
 
       this.yaml = yaml;
       Object root = null;
-      
-      tokenizer = new StringTokenizer(yaml);
-      lookAheadToken = "";
-      nextToken();
-      nextToken();
+
+      yamler = new Yamler(yaml);
+
+      if ( ! yamler.getCurrentToken().equals("-"))
+      {
+         return yamler.decode(yaml);
+      }
 
       root = parseObjectIds();
 
-      tokenizer = new StringTokenizer(yaml);
-      lookAheadToken = "";
-      nextToken();
-      nextToken();
+      yamler = new Yamler(yaml);
 
       parseObjectAttrs();
 
@@ -194,18 +187,19 @@ public class YamlIdMap
       return root;
    }
 
+
    private void parseObjectAttrs()
    {
-      while ( ! "".equals(currentToken))
+      while ( ! "".equals(yamler.getCurrentToken()))
       {
-         if ( ! "-".equals(currentToken) )
+         if ( ! "-".equals(yamler.getCurrentToken()) )
          {
-            printError("'-' expected");
-            nextToken();
+            yamler.printError("'-' expected");
+            yamler.nextToken();
             continue;
          }
 
-         String key = nextToken();
+         String key = yamler.nextToken();
          
          if ( key.endsWith(":"))
          {
@@ -225,49 +219,49 @@ public class YamlIdMap
    private void parseObjectTableAttrs()
    {
       // skip column names
-      String className = currentToken;
+      String className = yamler.getCurrentToken();
       
       SendableEntityCreator creator = getCreator(className);
-      nextToken();
-      
+      yamler.nextToken();
+
       ArrayList<String> colNameList = new ArrayList<String>();
 
-      while ( ! "".equals(currentToken) && lookAheadToken.endsWith(":"))
+      while ( ! "".equals(yamler.getCurrentToken()) && yamler.getLookAheadToken().endsWith(":"))
       {
-         String colName = stripColon(currentToken);
+         String colName = yamler.stripColon(yamler.getCurrentToken());
          colNameList.add(colName);
-         nextToken();
+         yamler.nextToken();
       }
-      
-      while ( ! "".equals(currentToken) && ! "-".equals(currentToken))
+
+      while ( ! "".equals(yamler.getCurrentToken()) && ! "-".equals(yamler.getCurrentToken()))
       {
-         String objectId = stripColon(currentToken);
-         nextToken();
+         String objectId = yamler.stripColon(yamler.getCurrentToken());
+         yamler.nextToken();
 
          Object obj = objIdMap.get(objectId);
          
          // column values
          int colNum = 0;
-         while ( ! "".equals(currentToken) && ! currentToken.endsWith(":") && ! "-".equals(currentToken))
+         while ( ! "".equals(yamler.getCurrentToken()) && ! yamler.getCurrentToken().endsWith(":") && ! "-".equals(yamler.getCurrentToken()))
          {
             String attrName = colNameList.get(colNum);
-            
-            if (currentToken.startsWith("["))
+
+            if (yamler.getCurrentToken().startsWith("["))
             {
-               String value = currentToken.substring(1);
+               String value = yamler.getCurrentToken().substring(1);
                if (value.trim().equals(""))
                {
-                  value = nextToken();
+                  value = yamler.nextToken();
                }
                setValue(creator, obj, attrName, value);
-               
-               while (! "".equals(currentToken) && ! currentToken.endsWith("]") )
+
+               while (! "".equals(yamler.getCurrentToken()) && ! yamler.getCurrentToken().endsWith("]") )
                {
-                  nextToken();
-                  value = currentToken;
-                  if (currentToken.endsWith("]"))
+                  yamler.nextToken();
+                  value = yamler.getCurrentToken();
+                  if (yamler.getCurrentToken().endsWith("]"))
                   {
-                     value = currentToken.substring(0, currentToken.length()-1);
+                     value = yamler.getCurrentToken().substring(0, yamler.getCurrentToken().length()-1);
                   }
                   if ( ! value.trim().equals(""))
                   {
@@ -277,29 +271,29 @@ public class YamlIdMap
             }
             else
             {
-               setValue(creator, obj, attrName, currentToken);
+               setValue(creator, obj, attrName, yamler.getCurrentToken());
             }
             colNum++;
-            nextToken();
+            yamler.nextToken();
          }
       }
    }
 
    private void parseUsualObjectAttrs()
    {
-      String objectId = stripColon(currentToken);
-      String className = nextToken();
-      nextToken();
+      String objectId = yamler.stripColon(yamler.getCurrentToken());
+      String className = yamler.nextToken();
+      yamler.nextToken();
 
       if (className.endsWith(".remove"))
       {
          objIdMap.remove(objectId);
 
          // skip time stamp, if necessary
-         while ( ! currentToken.equals("")
-                 && ! currentToken.equals("-"))
+         while ( ! yamler.getCurrentToken().equals("")
+                 && ! yamler.getCurrentToken().equals("-"))
          {
-            nextToken();
+            yamler.nextToken();
          }
          return;
       }
@@ -309,41 +303,41 @@ public class YamlIdMap
       Object obj = objIdMap.get(objectId);
       
       // read attributes
-      while ( ! currentToken.equals("") && ! currentToken.equals("-"))
+      while ( ! yamler.getCurrentToken().equals("") && ! yamler.getCurrentToken().equals("-"))
       {
-         String attrName = stripColon(currentToken);
+         String attrName = yamler.stripColon(yamler.getCurrentToken());
 
 //         if (attrName.equals("share"))
 //         {
 //            System.out.println();
 //         }
 
-         nextToken();
+         yamler.nextToken();
 
          if (obj == null)
          {
             // no object created by parseObjectIds. Object has been removed.
             // ignore attr changes
-            while ( ! currentToken.equals("")
-                    && ! currentToken.endsWith(":")
-                    && ! currentToken.equals("-"))
+            while ( ! yamler.getCurrentToken().equals("")
+                    && ! yamler.getCurrentToken().endsWith(":")
+                    && ! yamler.getCurrentToken().equals("-"))
             {
-               nextToken();
+               yamler.nextToken();
             }
             continue;
          }
 
          // many values
-         while ( ! currentToken.equals("") 
-               && ! currentToken.endsWith(":")
-               && ! currentToken.equals("-"))
+         while ( ! yamler.getCurrentToken().equals("")
+               && ! yamler.getCurrentToken().endsWith(":")
+               && ! yamler.getCurrentToken().equals("-"))
          {
-            String attrValue = currentToken;
+            String attrValue = yamler.getCurrentToken();
 
-            if (lookAheadToken.endsWith(".time:"))
+            if (yamler.getLookAheadToken().endsWith(".time:"))
             {
-               String propWithTime = nextToken();
-               String newTimeStamp = nextToken();
+               String propWithTime = yamler.nextToken();
+               String newTimeStamp = yamler.nextToken();
                String oldTimeStamp = attrTimeStamps.get(objectId + "." + attrName);
 
                if (oldTimeStamp == null || oldTimeStamp.compareTo(newTimeStamp) <= 0)
@@ -365,7 +359,7 @@ public class YamlIdMap
                setValue(creator, obj, attrName, attrValue);
             }
 
-            nextToken();
+            yamler.nextToken();
          }
       }
    }
@@ -403,60 +397,19 @@ public class YamlIdMap
       }
    }
 
-   private String nextToken()
-   {
-      currentToken = lookAheadToken;
-      currentPos = lookAheadPos;
-      
-      if (tokenizer.hasMoreTokens())
-      {
-         
-         lookAheadToken = tokenizer.nextToken();
-         lookAheadPos = yaml.indexOf(lookAheadToken, lookAheadPos + currentToken.length());
-         // lookAheadPos = scanner.match().start();
-      }
-      else
-      {
-         lookAheadToken = "";
-      }
-      
-      
-      
-      if (lookAheadToken.startsWith("\""))
-      {
-         // get up to end of string
-         int stringStartPos = lookAheadPos + 1;
-         String subToken = lookAheadToken;
-         //MatchResult match = scanner.match();
-         int subTokenEnd = lookAheadPos + subToken.length();
-         while ( subTokenEnd < stringStartPos+1 || ( ! subToken.endsWith("\"") || subToken.endsWith("\\\""))
-               && tokenizer.hasMoreTokens())
-         {
-            subToken = tokenizer.nextToken();
-            subTokenEnd = yaml.indexOf(subToken, subTokenEnd) + subToken.length();
-         }
-         
-         lookAheadToken = yaml.substring(stringStartPos, subTokenEnd - 1);
-         
-         lookAheadToken = deEncapsulate(lookAheadToken);
-      }
-      
-      return currentToken;
-   }
-
    private Object parseObjectIds()
    {
       Object root = null;
-      while ( ! "".equals(currentToken))
+      while ( ! "".equals(yamler.getCurrentToken()))
       {
-         if ( ! "-".equals(currentToken) )
+         if ( ! "-".equals(yamler.getCurrentToken()) )
          {
-            printError("'-' expected");
-            nextToken();
+            yamler.printError("'-' expected");
+            yamler.nextToken();
             continue;
          }
 
-         String key = nextToken();
+         String key = yamler.nextToken();
          
          if ( key.endsWith(":"))
          {
@@ -479,7 +432,7 @@ public class YamlIdMap
 
    private Object parseUsualObjectId()
    {
-      String objectId = stripColon(currentToken);
+      String objectId = yamler.stripColon(yamler.getCurrentToken());
       int pos = objectId.lastIndexOf('.');
       String numPart = objectId.substring(pos + 2);
       int objectNum = 0;
@@ -498,19 +451,19 @@ public class YamlIdMap
          maxUsedIdNum = objectNum;
       }
 
-      String className = nextToken();
+      String className = yamler.nextToken();
       
       Object obj = objIdMap.get(objectId);
 
       String changerId = null;
 
       // skip attributes
-      while ( ! currentToken.equals("") && ! currentToken.equals("-"))
+      while ( ! yamler.getCurrentToken().equals("") && ! yamler.getCurrentToken().equals("-"))
       {
-         String token = nextToken();
+         String token = yamler.nextToken();
          if (token.endsWith(".time:"))
          {
-            token = nextToken();
+            token = yamler.nextToken();
 
             changerId = token.substring(token.lastIndexOf('.') + 1);
          }
@@ -544,19 +497,19 @@ public class YamlIdMap
       Object root = null;
       
       // skip column names
-      String className = currentToken;
+      String className = yamler.getCurrentToken();
       
       SendableEntityCreator creator = getCreator(className);
 
-      while ( ! "".equals(currentToken) && lookAheadToken.endsWith(":"))
+      while ( ! "".equals(yamler.getCurrentToken()) && yamler.getLookAheadToken().endsWith(":"))
       {
-         nextToken();
+         yamler.nextToken();
       }
-      
-      while ( ! "".equals(currentToken) && ! "-".equals(currentToken))
+
+      while ( ! "".equals(yamler.getCurrentToken()) && ! "-".equals(yamler.getCurrentToken()))
       {
-         String objectId = stripColon(currentToken);
-         nextToken();
+         String objectId = yamler.stripColon(yamler.getCurrentToken());
+         yamler.nextToken();
 
          Object obj = creator.getSendableInstance(false);
          
@@ -565,54 +518,15 @@ public class YamlIdMap
          if (root == null) root = obj;
          
          // skip column values
-         while (! "".equals(currentToken) && ! currentToken.endsWith(":") && ! "-".equals(currentToken))
+         while (! "".equals(yamler.getCurrentToken()) && ! yamler.getCurrentToken().endsWith(":") && ! "-".equals(yamler.getCurrentToken()))
          {
-            nextToken();
+            yamler.nextToken();
          }
       }
       
       return root;
    }
 
-
-   private String stripColon(String key)
-   {
-      String id = key;
-
-      if (key.endsWith(":"))
-      {
-         id = key.substring(0, key.length() - 1);
-      }
-      else
-      {
-         printError("key does not end with ':' " + key);
-      }
-      
-      return id;
-   }
-
-   private void printError(String msg)
-   {
-      int startPos = currentPos;
-      
-      if (startPos >=  10)
-      { 
-         startPos -= 10;
-      }
-      else
-      {
-         startPos = 0;
-      }
-      
-      int endPos = currentPos + 20;
-      
-      if (endPos >=  yaml.length())
-      { 
-         endPos = yaml.length();
-      }
-
-      System.err.println(yaml.substring(startPos, currentPos) + "<--" + msg + "-->" + yaml.substring(currentPos, endPos));
-   }
 
    private Object parseObjList(String key, String second)
    {
@@ -748,7 +662,7 @@ public class YamlIdMap
                {
                   if (value instanceof String)
                   {
-                     value = encapsulate((String) value);
+                     value = yamler.encapsulate((String) value);
                   }
                   buf.append("  ").append(prop).append(": \t").append(value).append("\n");
                }
@@ -830,7 +744,7 @@ public class YamlIdMap
 
       if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
       {
-         buf.append("  ").append(propertyName).append(": \t").append(encapsulate(value.toString())).append("\n");
+         buf.append("  ").append(propertyName).append(": \t").append(yamler.encapsulate(value.toString())).append("\n");
          if (userId != null)
          {
             String now = "" + LocalDateTime.now() + "." + userId;
@@ -894,22 +808,6 @@ public class YamlIdMap
       objIdMap.put(key, obj);
 
       return key;
-   }
-
-   private String deEncapsulate(String value)
-   {
-      value = value.replaceAll("\\\\\"", "\"");
-      return value;
-   }
-   
-   private String encapsulate(String value)
-   {
-      if (value.matches("[a-zA-Z0-9_\\.]+"))
-      {
-         return value;
-      }
-      value = value.replaceAll("\"", "\\\\\"");
-      return "\"" + value + "\"";
    }
 
    public YamlIdMap withUserId(String userId)

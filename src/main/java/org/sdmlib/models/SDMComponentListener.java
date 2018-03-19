@@ -16,21 +16,28 @@ public class SDMComponentListener implements PropertyChangeListener
    private Set<SendableEntity> componentElements = new LinkedHashSet<SendableEntity>();
 
    private CreatorMap creatorMap;
+   private boolean closed = false;
 
    public SDMComponentListener(SendableEntity root, PropertyChangeListener elementListener)
    {
       this.elementListener = elementListener;
-
       String packageName = root.getClass().getPackage().getName();
-
       ArrayList<String> packageNameList = new ArrayList<>();
-
       packageNameList.add(packageName);
-
       creatorMap = new CreatorMap(packageNameList);
-
       subscribeTo(root);
    }
+
+   public void removeYou()
+   {
+      this.closed = true;
+
+      for (SendableEntity obj : supervisedObjects)
+      {
+         obj.removePropertyChangeListener(this);
+      }
+   }
+
 
    private void subscribeTo(SendableEntity newObject)
    {
@@ -71,6 +78,8 @@ public class SDMComponentListener implements PropertyChangeListener
    @Override
    public void propertyChange(PropertyChangeEvent evt)
    {
+      if (closed) return;
+
       // just forward
       if (evt.getNewValue() != null && evt.getNewValue() instanceof SendableEntity)
       {
