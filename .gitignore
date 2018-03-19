@@ -20,3 +20,4 @@ gradle.properties
 *.gpg
 out/
 coverage/
+aStore/
