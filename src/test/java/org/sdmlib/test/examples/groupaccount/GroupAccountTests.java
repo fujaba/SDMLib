@@ -24,7 +24,9 @@ package org.sdmlib.test.examples.groupaccount;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -46,6 +48,8 @@ import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.SimpleLogger;
 
 public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 {
@@ -55,6 +59,8 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    private StringBuilder copyBuf = new StringBuilder();
    private YamlFileMap xiaFileMap;
    private YamlFileMap abuFileMap;
+   private YamlMqttMap abuMqttMap;
+   private YamlMqttMap xiaMqttMap;
 
    /**
     * 
@@ -81,6 +87,23 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
       story.assertEquals("value for joining", "abu", map.get("joining"));
 
+      story.addStep("Alternatively, use special object type map");
+
+      yaml = "" +
+              "- m: .Map\n" +
+              "  joining: abu\n" +
+              "  lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia";
+
+      story.addPreformatted(yaml);
+
+      idMap = new YamlIdMap("");
+
+      map = (LinkedHashMap<String, String>) idMap.decode(yaml);
+
+      story.addPreformatted(map.toString());
+
+      story.assertEquals("value for joining", "abu", map.get("joining"));
+
       story.dumpHTML();
    }
 
@@ -93,6 +116,8 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("start mqtt broker");
+
+      System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
 
       Server mqttBroker = new Server();
       mqttBroker.startServer();
@@ -120,25 +145,84 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       Files.deleteIfExists(Paths.get("aStore/LecturesParty.xia.yaml"));
       Files.deleteIfExists(Paths.get("aStore/LecturesParty.xia.yaml.log"));
 
-      Party victoryParty = new Party().withPartyName("Lectures Wrong");
-      String packageName = victoryParty.getClass().getPackage().getName();
+      Party abuParty = new Party().withPartyName("Lectures Wrong");
+      String packageName = abuParty.getClass().getPackage().getName();
 
       story.addStep("xia creates a party and adds Eyshe");
-      Party copyParty = new Party().withPartyName("Lectures Copy");
-      xiaFileMap = new YamlFileMap("xia", "aStore/LecturesParty", copyParty, modelThread);
-      modelThread.execute(()-> xiaAddGuests(copyParty));
+      Party xiaParty = new Party().withPartyName("Lectures Copy");
+      xiaFileMap = new YamlFileMap("xia", "aStore/LecturesParty", xiaParty, modelThread);
+      modelThread.execute(()-> xiaAddGuests(xiaParty));
       modelThread.execute(() -> xiaFileMap.compressLogFile());
       modelThread.execute(() -> xiaFileMap.removeYou());
 
-      abuFileMap = new YamlFileMap("abu", "aStore/LecturesParty", victoryParty, modelThread);
-      modelThread.execute(()-> abuAddGuests(victoryParty));
+      abuFileMap = new YamlFileMap("abu", "aStore/LecturesParty", abuParty, modelThread);
+      modelThread.execute(()-> abuAddGuests(abuParty));
       modelThread.execute(() -> abuFileMap.compressLogFile());
       modelThread.execute(() -> abuFileMap.removeYou());
       story.addStep("Abu opens party with mqtt map");
 
+      story.addStep("now start abu with mqtt");
+
+      mqttClient.subscribe("aStore/LecturesParty/lobby");
+      mqttClient.subscribe("aStore/LecturesParty/model");
+
+      modelThread.execute(()->
+              abuMqttMap = new YamlMqttMap("tcp://localhost:1883", "abu", "aStore/LecturesParty", abuParty, modelThread));
+
+      msg = testInbox.take();
+
+      LinkedHashMap<String, String> msgMap = new Yamler().decode(msg);
+
+      String msgType = msgMap.get("msg");
+
+      story.add("Got message:");
+      story.addPreformatted(msg);
+
+      story.assertEquals("its a lobby message: ", "hello", msgType);
+
+      modelThread.execute(()->
+              xiaMqttMap = new YamlMqttMap("tcp://localhost:1883", "xia", "aStore/LecturesParty", xiaParty, modelThread));
+
+      msg = testInbox.take();
+      msgMap = new Yamler().decode(msg);
+      String userName = msgMap.get("user");
+      story.add("Got message:");
+      story.addPreformatted(msg);
+      story.assertEquals("its a lobby message from: ", "xia", userName);
+
+      msg = testInbox.take();
+      msgMap = new Yamler().decode(msg);
+      msgType = msgMap.get("msg");
+      story.add("Got message:");
+      story.addPreformatted(msg);
+      story.assertEquals("its a lobby message: ", "welcome", msgType);
+
+      String expected = "welcome.xia";
+
+      while (! expected.trim().equals(""))
+      {
+         msg = testInbox.poll(5, TimeUnit.SECONDS);
+
+         if (msg == null) break;
+
+         if (msg.startsWith("-"))
+         {
+            // model message
+            story.addPreformatted(msg);
+         }
+         else
+         {
+            msgMap = new Yamler().decode(msg);
+            msgType = msgMap.get("msg");
+            story.add("Got message:");
+            story.addPreformatted(msg);
+            story.assertEquals("its a lobby message: ", "welcome", msgType);
+         }
+      }
+
 
       modelThread.shutdown();
-      modelThread.awaitTermination(10, TimeUnit.SECONDS);
+      modelThread.awaitTermination(1, TimeUnit.HOURS);
 
       story.dumpHTML();
    }

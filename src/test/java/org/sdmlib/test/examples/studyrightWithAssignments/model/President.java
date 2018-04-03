@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
    public  class President implements SendableEntity
 {

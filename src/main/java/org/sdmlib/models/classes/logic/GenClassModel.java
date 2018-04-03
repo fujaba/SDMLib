@@ -306,7 +306,7 @@ public class GenClassModel implements ClassModelAdapter
       }
       
       String classModelConstructionClass = callEntry.getClassName();
-      
+      String classModelConstructionMethod = callEntry.getMethodName();
 
       // search for a subdirectory containing the javaTestFile of the
       // execution directory and search for the subdi
@@ -326,7 +326,8 @@ public class GenClassModel implements ClassModelAdapter
             
             String fullClazzFileName = rootDir + "/" + clazz.getName(false).replaceAll("\\.", "/") + ".java";
             
-            story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + CGUtil.shortClassName(clazz.getName()), story.getJavaTestFileName().substring(3));
+            story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + CGUtil.shortClassName(clazz.getName()),
+                    classModelConstructionClass, classModelConstructionMethod);
          }
          System.out.println();
       }

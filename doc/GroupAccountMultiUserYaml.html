@@ -90,7 +90,7 @@
 <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
 <p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
   party.remove: 	p1
-  party.remove.time: 	2018-03-17T15:53:52.635.albert
+  party.remove.time: 	2018-03-22T15:06:08.311.albert
 - p1: 	Party
   guests.remove: 	albert.p3
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
@@ -181,7 +181,7 @@
    g.layout(100,100);
 </script>
 <p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-17T15:53:52.640.albert
+  Person.remove.time: 	2018-03-22T15:06:08.315.albert
 </pre><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>Check: orig idmap has removed natanull</p>
 <p>original model</p>
@@ -271,23 +271,23 @@
    g.layout(100,100);
 </script>
 <p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-03-17T15:53:52.640.albert
+  Person.remove.time: 	2018-03-22T15:06:08.315.albert
 - albert.p4: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-17T15:53:52.642.albert
+  saldo.time: 	2018-03-22T15:06:08.319.albert
 - albert.p4: 	Person
   total: 	0.0
-  total.time: 	2018-03-17T15:53:52.642.albert
+  total.time: 	2018-03-22T15:06:08.320.albert
 - albert.p4: 	Person
   party: 	p1
-  party.time: 	2018-03-17T15:53:52.642.albert
+  party.time: 	2018-03-22T15:06:08.320.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p4
 - albert.p4: 	Person
 - albert.p4: 	Person
   name: 	Ann
-  name.time: 	2018-03-17T15:53:52.643.albert
+  name.time: 	2018-03-22T15:06:08.320.albert
 </pre>
 </body>
 </html>

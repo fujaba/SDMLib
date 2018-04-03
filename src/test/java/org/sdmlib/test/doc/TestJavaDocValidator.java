@@ -10,6 +10,8 @@ import org.sdmlib.doc.util.JavaDocValidator;
  * 
  * @author Sebastian Copei
  *
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
  */
 public class TestJavaDocValidator {
 	
@@ -23,4 +25,16 @@ public class TestJavaDocValidator {
 		val.validateFileTree(new File("src/main/java"), false, false);
 		
 	}
+
+
+	/**
+	 *
+	 * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
+	 * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ */
+	public String hello()
+	{
+		return "world";
+	}
+
 }

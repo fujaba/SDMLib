@@ -246,7 +246,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                // got it
                this.rootDir = subDir.getPath().replaceAll("\\\\", "/");
 
-               javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
+               javaTestFileName = rootDir + "/" + javaTestFileName;
 
                return true;
             }
@@ -1279,7 +1279,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
                   if (lineNo >= codeEndLineNumber)
                   {
-                     this.add("<pre>" + StrUtil.htmlEncode(buf.toString()) + "</pre>");
+                     this.add("<pre>      " + StrUtil.htmlEncode(buf.toString()) + "</pre>\n");
                      in.close();
                      return;
                   }
@@ -1361,14 +1361,24 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+   public void dumpJavaDoc(String targetName)
+   {
+      this.dumpHTML(targetName, null);
+   }
+
    /**
     * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
-    * 
-    * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
-    * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- */
+    */
    public void dumpHTML()
+   {
+      this.dumpHTML(null, null);
+   }
+
+
+   /**
+    * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
+    */
+   public void dumpHTML(String targetClassName, String targetMethodName)
    {
       try
       {
@@ -1421,8 +1431,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       String shortFileName = "" + storyboardName + ".html";
       String pathname = docDirName + "/" + shortFileName;
 
-      addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD + ":" + testMethodName, pathname);
-
       StringBuffer text = new StringBuffer();
 
       for (StoryboardStep step : this.getStoryboardSteps())
@@ -1448,7 +1456,23 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          }
       } // for
 
-      int pos = htmlText.indexOf("$text");
+      int pos = javaTestFileName.lastIndexOf("../");
+      if (pos >= 0)
+      {
+         javaTestFileName = javaTestFileName.substring(pos + 3);
+      }
+
+      addStoryToJavaDoc(javaTestFileName, Parser.METHOD + ":" + testMethodName, text.toString());
+
+      if (targetClassName != null)
+      {
+         String targetShortName = CGUtil.shortClassName(targetClassName);
+         String targetFileName = javaFileTable.get( targetShortName + ".java");
+         addStoryToJavaDoc(targetFileName, Parser.CONSTRUCTOR + ":" + targetShortName, text.toString());
+         addStoryToJavaDoc(targetFileName, Parser.CLASS + ":" + targetShortName, text.toString());
+      }
+
+      pos = htmlText.indexOf("$text");
 
       htmlText = htmlText.substring(0, pos)
          + text.toString()
@@ -2052,7 +2076,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    {
       expandedText = StrUtil.htmlEncode(expandedText);
 
-      this.add("<pre>" + expandedText + "</pre>");
+      this.add("<pre>" + expandedText + "</pre>\n");
 
    }
 
@@ -2192,8 +2216,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             {
                // add reference to javadoc
                addReferenceToJavaDoc(fullClassUnderTestName, Parser.CONSTRUCTOR + ":" + classUnderTestName,
-                  fullFileName);
-               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CLASS + ":" + classUnderTestName, fullFileName);
+                  className, methodName);
+               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CLASS + ":" + classUnderTestName, className, methodName);
             }
          }
          else
@@ -2221,15 +2245,187 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             String classUnderTestName = localVarTableEntry.getType();
 
+            if (classUnderTestName.equals("Storyboard"))
+            {
+               continue;
+            }
+
             String fullClassUnderTestName = findJavaFile(classUnderTestName, symTab);
 
             if (fullClassUnderTestName == null)
                continue; // <==== sudden death
 
-            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD + ":" + methodUnderTestName, fullFileName);
+            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD + ":" + methodUnderTestName,
+                    className, methodName);
          }
       }
    }
+
+
+
+   public void addStoryToJavaDoc(String classUnderTestName, String methodUnderTestName, String storyText)
+   {
+      try
+      {
+         // parse the class under test
+         Parser parser = new Parser().withFileName(classUnderTestName);
+
+         File javaFile = new File(classUnderTestName);
+
+         if (!javaFile.exists())
+            return; // <=================== sudden death
+
+         parser.withFileBody(CGUtil.readFile(javaFile));
+
+         parser.parse();
+
+         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
+
+         for (int k = symTabEntries.size() - 1; k >= 0; k--)
+         {
+            SymTabEntry symTabEntry = symTabEntries.get(k);
+
+            int javaDocStartPos = symTabEntry.getPreCommentStartPos();
+            int javaDocEndPos = symTabEntry.getPreCommentEndPos();
+            String javaDocText = null;
+            if (javaDocStartPos == 0)
+            {
+               // no javadoc yet
+               javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos() - 1;
+               javaDocText = " /**\n"
+                       + "    * \n"
+                       + "    */\n"
+                       + "   ";
+            }
+            else
+            {
+               javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos + 1);
+            }
+
+            StringBuilder buf = new StringBuilder();
+            String[] split = storyText.split("\n");
+            for (String line : split)
+            {
+               buf.append("    * ").append(line).append("\n");
+            }
+
+            buf.replace(0, 4, "");
+            buf.append("    ");
+
+            String hrefText = buf.toString();
+
+            if (javaDocText.indexOf(hrefText) < 0)
+            {
+               // remove old stuff
+               int oldStartPos = javaDocText.indexOf("* <p>");
+               int oldEndPos = javaDocText.indexOf("* @");
+
+               if (oldEndPos < 0)
+               {
+                  oldEndPos = javaDocText.indexOf("*/");
+               }
+
+               if (oldStartPos < 0 || oldStartPos > oldEndPos)
+               {
+                  oldStartPos = oldEndPos;
+               }
+
+               // add story
+
+               if (oldEndPos < 0)
+                  continue; // <================ sudden death
+
+               javaDocText = javaDocText.substring(0, oldStartPos)
+                       + hrefText + javaDocText.substring(oldEndPos);
+
+               // write new javadoc
+               parser.getFileBody().replace(javaDocStartPos, javaDocEndPos + 1, javaDocText);
+               parser.withFileChanged(true);
+               CGUtil.printFile(parser);
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         // This may fail if the java source is not available, e.g. if run from
+         // a jar file
+         // No problem, just ignore it.
+         // e.printStackTrace();
+      }
+   }
+
+
+
+
+   public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testClass, String testMethod)
+   {
+      try
+      {
+         // parse the class under test
+         Parser parser = new Parser().withFileName(classUnderTestName);
+
+         File javaFile = new File(classUnderTestName);
+
+         if (!javaFile.exists())
+            return; // <=================== sudden death
+
+         parser.withFileBody(CGUtil.readFile(javaFile));
+
+         parser.parse();
+
+         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
+
+         for (int k = symTabEntries.size() - 1; k >= 0; k--)
+         {
+            SymTabEntry symTabEntry = symTabEntries.get(k);
+
+            int javaDocStartPos = symTabEntry.getPreCommentStartPos();
+            int javaDocEndPos = symTabEntry.getPreCommentEndPos();
+            String javaDocText = null;
+            if (javaDocStartPos == 0)
+            {
+               // no javadoc yet
+               javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos() - 1;
+               javaDocText = "   /**\n"
+                       + "    * \n"
+                       + "    */\n"
+                       + "   ";
+            }
+            else
+            {
+               javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos + 1);
+            }
+
+            String hrefText = "* @see " + testClass + "#" + testMethod;
+
+            if (javaDocText.indexOf(hrefText) < 0)
+            {
+               // add reference
+
+               int insertPos = javaDocText.indexOf("*/");
+
+               if (insertPos < 0)
+                  continue; // <================ sudden death
+
+               javaDocText = javaDocText.substring(0, insertPos)
+                       + hrefText + "\n " + javaDocText.substring(insertPos);
+
+               // write new javadoc
+               parser.getFileBody().replace(javaDocStartPos, javaDocEndPos + 1, javaDocText);
+               parser.withFileChanged(true);
+               CGUtil.printFile(parser);
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         // This may fail if the java source is not available, e.g. if run from
+         // a jar file
+         // No problem, just ignore it.
+         // e.printStackTrace();
+      }
+   }
+
 
 
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
@@ -2359,6 +2555,26 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          javaFileTable = new LinkedHashMap<String, String>();
 
          searchJavaFiles(".", this.getRootDir(), "", importedPackages);
+
+         File srcDir = new File("./src");
+
+         if (srcDir.isDirectory())
+         {
+            for (File kid : srcDir.listFiles())
+            {  // e.g ./src/main
+               if (kid.isDirectory())
+               {
+                  for (File grandKid : kid.listFiles())
+                  { // e.g ./src/main/java
+                     if (grandKid.isDirectory() && grandKid.getName().equals("java"))
+                     {
+                        searchJavaFiles(".", "./src/" + kid.getName() + "/" + grandKid.getName(), "", importedPackages);
+                     }
+                  }
+               }
+            }
+         }
+
       }
 
       return javaFileTable.get(classUnderTestName + ".java");

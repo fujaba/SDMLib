@@ -28,6 +28,13 @@ public class YamlFileMap
    private int changeCount = 0;
    private boolean closed = false;
 
+
+   public YamlIdMap getYamlIdMap()
+   {
+      return yamlIdMap;
+   }
+
+
    private YamlFileMap()
    {
       // use with parameters.

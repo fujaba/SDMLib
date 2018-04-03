@@ -177,7 +177,13 @@ public class Storyboard {
 	public void dumpHTML() {
 		storyboard.dumpHTML();
 	}
-	
+
+	public void dumpJavaDoc(String targetName)
+	{
+		storyboard.dumpJavaDoc(targetName);
+	}
+
+
 	/**
 	 * Asserts, that an expected and actual value are equal
 	 * within range delta and adds the result to the storyboard.<br>
@@ -307,5 +313,6 @@ public class Storyboard {
    public int size()
    {
       return storyboard.getStoryboardSteps().size();
-   }  
+   }
+
 }

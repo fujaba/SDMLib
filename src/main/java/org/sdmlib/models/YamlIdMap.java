@@ -16,8 +16,13 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
-
-public class YamlIdMap
+import org.sdmlib.CGUtil;
+   /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ */
+   public class YamlIdMap
 {
    private ArrayList<String> packageNames;
    private StringTokenizer tokenizer;
@@ -27,17 +32,33 @@ public class YamlIdMap
    private SimpleKeyValueList<String, Object> objIdMap = new SimpleKeyValueList<String, Object>().withFlag(AbstractArray.BIDI);
    private int maxUsedIdNum = 0;
    private Yamler yamler = new Yamler();
+   private HashMap<String, String> attrTimeStamps = new HashMap<>();
 
    public SimpleKeyValueList<String, Object> getObjIdMap()
    {
       return objIdMap;
    }
+   public HashMap<String, String> getAttrTimeStamps()
+   {
+      return attrTimeStamps;
+   }
 
+
+     /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ */
    private YamlIdMap()
    {
       // always pass package to constructor
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ */
    public YamlIdMap(String... packageNames)
    {
       Objects.requireNonNull(packageNames);
@@ -145,16 +166,47 @@ public class YamlIdMap
    /**
     * Object decode(String yaml)
     * Decode string and create typed object structure.
-    * 
-    * yaml grammar
-    * yaml ::= objects*
-    * object ::= plainObject | objectList
-    * plainObject ::= - objId': ' type\n attr*
-    * attr ::= attrName': ' attrValue\n 
-    * attrValue ::= id | string | '[' attrValue * ']'
-    * objectList ::= type colName:* \n key: attrValue* \n*
-    * valueRow ::= attrValue* \n
-    * 
+    *
+    * <pre>
+    *
+    * Example:
+    *
+    * String yaml = ""
+    * + "- studyRight: University \n"
+    * + "  name:       \"\\\"Study \\\" Right\\\"And\\\"Fast now\\\"\"\n"
+    * + "  students:   karli\n"
+    * + "  rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
+    * + "\n"
+    * + "- karli: Student\n"
+    * + "  id:    4242\n"
+    * + "  name:  karli\n"
+    * + "\n"
+    * + "- albert: Prof\n"
+    * + "  topic:  SE\n"
+    * + "\n"
+    * + "- Assignment   content:                      points: \n"
+    * + "  matrixMult:  \"Matrix Multiplication\"     5\n"
+    * + "  series:      \"Series\"                    6\n"
+    * + "  a3:          Integrals                     8\n"
+    * + "\n"
+    * + "- Room                  topic:  credits: doors:                 students: assignments: \n"
+    * + "  mathRoom:             math    17       null                   karli     [matrixMult series a3]\n"
+    * + "  artsRoom:             arts    16       mathRoom               null      null\n"
+    * + "  sportsRoom:           sports  25       [mathRoom artsRoom]\n"
+    * + "  examRoom:             exam     0       [sportsRoom artsRoom]\n"
+    * + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom examRoom]\n"
+    * + "";
+    *
+    * YamlIdMap yamlIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+    *
+    * University studyRight = (University) yamlIdMap.decode(yaml);
+    * </pre>
+    *
+    * result:
+    *
+    * <img src="./doc-files/resultObjDiagram.png" />
+    *
+    *
     * @param yaml string describing object structure
     * @return first object
     */
@@ -298,68 +350,92 @@ public class YamlIdMap
          return;
       }
 
-      SendableEntityCreator creator = getCreator(className);
-      
-      Object obj = objIdMap.get(objectId);
-      
-      // read attributes
-      while ( ! yamler.getCurrentToken().equals("") && ! yamler.getCurrentToken().equals("-"))
+      if (className.equals(".Map"))
       {
-         String attrName = yamler.stripColon(yamler.getCurrentToken());
+         LinkedHashMap<String, String> map = (LinkedHashMap<String, String>) objIdMap.get(objectId);
+
+         while (yamler.getCurrentToken().endsWith(":"))
+         {
+            String attrName = yamler.stripColon(yamler.getCurrentToken());
+            yamler.nextToken();
+            String value = "";
+            int valueStart = yamler.getCurrentPos();
+
+            // many values
+            while ( ! yamler.getCurrentToken().equals("")
+                    && ! yamler.getCurrentToken().endsWith(":"))
+            {
+               value = yaml.substring(valueStart, yamler.getCurrentPos() + yamler.getCurrentToken().length());
+               yamler.nextToken();
+            }
+
+            map.put(attrName, value);
+         }
+      }
+      else
+      {
+         SendableEntityCreator creator = getCreator(className);
+
+         Object obj = objIdMap.get(objectId);
+
+         // read attributes
+         while (!yamler.getCurrentToken().equals("") && !yamler.getCurrentToken().equals("-"))
+         {
+            String attrName = yamler.stripColon(yamler.getCurrentToken());
 
 //         if (attrName.equals("share"))
 //         {
 //            System.out.println();
 //         }
 
-         yamler.nextToken();
+            yamler.nextToken();
 
-         if (obj == null)
-         {
-            // no object created by parseObjectIds. Object has been removed.
-            // ignore attr changes
-            while ( ! yamler.getCurrentToken().equals("")
-                    && ! yamler.getCurrentToken().endsWith(":")
-                    && ! yamler.getCurrentToken().equals("-"))
+            if (obj == null)
             {
+               // no object created by parseObjectIds. Object has been removed.
+               // ignore attr changes
+               while (!yamler.getCurrentToken().equals("")
+                       && !yamler.getCurrentToken().endsWith(":")
+                       && !yamler.getCurrentToken().equals("-"))
+               {
+                  yamler.nextToken();
+               }
+               continue;
+            }
+
+            // many values
+            while (!yamler.getCurrentToken().equals("")
+                    && !yamler.getCurrentToken().endsWith(":")
+                    && !yamler.getCurrentToken().equals("-"))
+            {
+               String attrValue = yamler.getCurrentToken();
+
+               if (yamler.getLookAheadToken().endsWith(".time:"))
+               {
+                  String propWithTime = yamler.nextToken();
+                  String newTimeStamp = yamler.nextToken();
+                  String oldTimeStamp = attrTimeStamps.get(objectId + "." + attrName);
+
+                  if (oldTimeStamp == null || oldTimeStamp.compareTo(newTimeStamp) <= 0)
+                  {
+                     this.setDecodingPropertyChange(true);
+
+                     if (yamlChangeText == null)
+                     {
+                        yamlChangeText = yaml;
+                     }
+
+                     setValue(creator, obj, attrName, attrValue);
+
+                     attrTimeStamps.put(objectId + "." + attrName, newTimeStamp);
+                  }
+               } else
+               {
+                  setValue(creator, obj, attrName, attrValue);
+               }
+
                yamler.nextToken();
             }
-            continue;
-         }
-
-         // many values
-         while ( ! yamler.getCurrentToken().equals("")
-               && ! yamler.getCurrentToken().endsWith(":")
-               && ! yamler.getCurrentToken().equals("-"))
-         {
-            String attrValue = yamler.getCurrentToken();
-
-            if (yamler.getLookAheadToken().endsWith(".time:"))
-            {
-               String propWithTime = yamler.nextToken();
-               String newTimeStamp = yamler.nextToken();
-               String oldTimeStamp = attrTimeStamps.get(objectId + "." + attrName);
-
-               if (oldTimeStamp == null || oldTimeStamp.compareTo(newTimeStamp) <= 0)
-               {
-                  this.setDecodingPropertyChange(true);
-
-                  if (yamlChangeText == null)
-                  {
-                     yamlChangeText = yaml;
-                  }
-
-                  setValue(creator, obj, attrName, attrValue);
-
-                  attrTimeStamps.put(objectId + "." + attrName, newTimeStamp);
-               }
-            }
-            else
-            {
-               setValue(creator, obj, attrName, attrValue);
-            }
-
-            yamler.nextToken();
          }
       }
    }
@@ -455,7 +531,7 @@ public class YamlIdMap
       
       Object obj = objIdMap.get(objectId);
 
-      String changerId = null;
+      String userId = null;
 
       // skip attributes
       while ( ! yamler.getCurrentToken().equals("") && ! yamler.getCurrentToken().equals("-"))
@@ -465,27 +541,35 @@ public class YamlIdMap
          {
             token = yamler.nextToken();
 
-            changerId = token.substring(token.lastIndexOf('.') + 1);
+            userId = token.substring(token.lastIndexOf('.') + 1);
          }
       }
 
       boolean foreignChange = false;
 
-      if (changerId != null)
+      if (userId != null)
       {
          int dotIndex = objectId.indexOf('.');
 
          if (dotIndex > 0)
          {
             String ownerId = objectId.substring(0, dotIndex);
-            foreignChange = ! changerId.equals(ownerId);
+            foreignChange = ! userId.equals(ownerId);
          }
       }
 
       if (obj == null && ! className.endsWith(".remove") && ! foreignChange)
       {
-         SendableEntityCreator creator = getCreator(className);
-         obj = creator.getSendableInstance(false);
+         if (className.equals(".Map"))
+         {
+            obj = new LinkedHashMap<String, String>();
+         }
+         else
+         {
+            SendableEntityCreator creator = getCreator(className);
+            obj = creator.getSendableInstance(false);
+         }
+
          objIdMap.put(objectId, obj);
       }
 
@@ -686,8 +770,6 @@ public class YamlIdMap
       return buf.toString();
    }
 
-   private HashMap<String, String> attrTimeStamps = new HashMap<>();
-
    private void encodePropertyChange(StringBuilder buf, Object obj)
    {
       PropertyChangeEvent event = (PropertyChangeEvent) obj;
@@ -697,9 +779,6 @@ public class YamlIdMap
       String propertyName = event.getPropertyName();
 
       Object value = event.getNewValue();
-
-      // already known?
-      String key = getOrCreateKey(obj);
 
       String className = obj.getClass().getSimpleName();
 
@@ -738,6 +817,16 @@ public class YamlIdMap
          }
       }
 
+      encodeAttrValue(buf, obj, propertyName, value);
+   }
+
+   public void encodeAttrValue(StringBuilder buf, Object obj, String propertyName, Object value)
+   {
+      // already known?
+      String key = getOrCreateKey(obj);
+      String className = obj.getClass().getSimpleName();
+
+
       buf.append("- ").append(key).append(": \t").append(className).append("\n");
 
       Class valueClass = value.getClass();
@@ -762,7 +851,12 @@ public class YamlIdMap
          {
             // add timestamp only for to-one assocs
             SendableEntityCreator creator = creatorMap.getCreator(obj);
-            Object fieldValue = creator.getValue(obj, event.getPropertyName());
+            String fieldName = propertyName;
+            if (propertyName.endsWith(".remove"))
+            {
+               fieldName = propertyName.substring(0, propertyName.lastIndexOf('.'));
+            }
+            Object fieldValue = creator.getValue(obj, fieldName);
             if (fieldValue == null || ! (fieldValue instanceof Collection))
             {
                String now = "" + LocalDateTime.now() + "." + userId;
@@ -771,7 +865,7 @@ public class YamlIdMap
             }
          }
 
-         if (event.getNewValue() != null)
+         if (value != null && ! propertyName.endsWith(".remove"))
          {
             buf.append("- ").append(valueKey).append(": \t").append(valueClass.getSimpleName()).append("\n");
          }
@@ -834,4 +928,53 @@ public class YamlIdMap
       yamlChangeText = "";
       return result;
    }
+
+   public String getLastTimeStamps()
+   {
+      LinkedHashMap<String, String> user2TimeStampMap = getLastTimeStampMap();
+
+      StringBuilder buf = new StringBuilder();
+      for ( Entry<String, String> e  : user2TimeStampMap.entrySet())
+      {
+         buf.append(e.getValue()).append(" ");
+      }
+
+      return buf.toString();
+   }
+
+   public LinkedHashMap<String, String> getLastTimeStampMap(String lastTimeStamps)
+   {
+      LinkedHashMap<String, String> user2TimeStampMap = new LinkedHashMap<String, String>();
+
+      String[] split = lastTimeStamps.split("\\s+");
+
+      for (String s : split)
+      {
+         int pos = s.lastIndexOf('.');
+         String user = s.substring(pos + 1);
+         user2TimeStampMap.put(user, s);
+      }
+
+      return user2TimeStampMap;
+   }
+
+      public LinkedHashMap<String, String> getLastTimeStampMap()
+   {
+      LinkedHashMap<String, String> user2TimeStampMap = new LinkedHashMap<String, String>();
+
+      for ( Entry<String, String> e  : attrTimeStamps.entrySet())
+      {
+         String timeStamp = e.getValue();
+         int pos = timeStamp.lastIndexOf('.');
+         String userName = timeStamp.substring(pos+1);
+         String oldTimeStamp = user2TimeStampMap.get(userName);
+
+         if (oldTimeStamp == null || oldTimeStamp.compareTo(timeStamp) < 0)
+         {
+            user2TimeStampMap.put(userName, timeStamp);
+         }
+      }
+      return user2TimeStampMap;
+   }
+
 }

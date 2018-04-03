@@ -47,6 +47,7 @@ import de.uniks.networkparser.list.SimpleSet;
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
@@ -59,6 +60,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
    /**
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
    public ClassModel() {
 		name = getDefaultPackage();
@@ -74,7 +76,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * Constructor
     * @param packageName PackageName of ClassModel 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    */
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ */
    public ClassModel(String packageName)
 	   {
 		  this();
@@ -84,6 +87,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
    /**
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
    public ClassModel generate() 
    {
@@ -94,6 +98,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
    /**
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
    public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);

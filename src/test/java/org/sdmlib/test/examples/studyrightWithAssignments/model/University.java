@@ -36,9 +36,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 /**
  * 
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  */
 public  class University implements SendableEntity
 {
@@ -309,6 +307,7 @@ public  class University implements SendableEntity
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  */
    public Room createRooms()
    {

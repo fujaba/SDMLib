@@ -347,6 +347,11 @@ import org.sdmlib.storyboards.util.GoalSet;
       return value;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ */
    public Goal clipDone()
    {
       Goal done = new Goal().withDescription("done").withHoursTodo(0);
@@ -356,6 +361,11 @@ import org.sdmlib.storyboards.util.GoalSet;
       return done;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ */
    private void clipDone(Goal done)
    {
       ArrayList<Goal> preGoals = new ArrayList<>();
