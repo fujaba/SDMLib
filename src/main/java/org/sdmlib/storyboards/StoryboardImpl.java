@@ -2317,7 +2317,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             if (javaDocText.indexOf(hrefText) < 0)
             {
                // remove old stuff
-               int oldStartPos = javaDocText.indexOf("* <p>");
+               int oldStartPos = javaDocText.indexOf("* <");
                int oldEndPos = javaDocText.indexOf("* @");
 
                if (oldEndPos < 0)

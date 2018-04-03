@@ -23,66 +23,12 @@ public class TestJavaDocStories
     *             {
     *                 label: "Burn Down",
     *                 data: [
-    *                     {x: "2018-04-03T12:15:00+01:00", y: 30.5},
-    * {x: "2018-04-03T15:00:00+01:00", y: 28.0},
-    *                 ]
-    *             }
-    *         ]
-    *     },
-    *     options: {
-    *         responsive: false,
-    *         scales: {
-    *             xAxes: [{
-    *                 type: "time",
-    *                 time: {
-    *                     displayFormats: {
-    *                        'millisecond': 'DD MMM hh:mm',
-    *                        'second': 'DD MMM hh:mm',
-    *                        'minute': 'DD MMM hh:mm',
-    *                        'hour': 'DD MMM hh:mm',
-    *                        'day': 'DD MMM',
-    *                        'week': 'DD MMM',
-    *                        'month': 'MMM YYYY',
-    *                        'quarter': 'MMM YYYY',
-    *                        'year': 'YYYY',
-    *                     }
-    *                 },
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'Date'
-    *                 },
-    *                 ticks: {
-    *                     major: {
-    *                         fontStyle: "bold",
-    *                         fontColor: "#FF0000"
-    *                     }
-    *                 }
-    *             }],
-    *             yAxes: [{
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'hours'
-    *                 },
-    *                 ticks: {
-    *                     beginAtZero: true
-    *                 }
-    *             }]
-    *         }
-    *     }});
-    * </script>
-    * <canvas id="myChart" width="1000" height="600"></canvas>
-    * <script>
-    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    *     type: 'line',
-    *     data: {
-    *         datasets: [
-    *             {
-    *                 label: "Burn Down",
-    *                 data: [
-    *                     {x: "2018-04-03T12:15:00+01:00", y: 30.5},
-    * {x: "2018-04-03T15:00:00+01:00", y: 28.0},
+    *                     {x: "2018-04-03T12:15:00+01:00", y: 24.0},
+    * {x: "2018-04-03T15:00:00+01:00", y: 21.5},
+    * {x: "2018-04-03T20:00:00+01:00", y: 19.0},
+    * {x: "2018-04-03T20:00:00+01:00", y: 18.0},
+    * {x: "2018-04-03T20:00:00+01:00", y: 17.0},
+    * {x: "2018-04-03T20:00:00+01:00", y: 16.0},
     *                 ]
     *             }
     *         ]
@@ -148,7 +94,7 @@ public class TestJavaDocStories
     *          "type":"clazz",
     *          "id":"G2 : Goal",
     *          "attributes":[
-    *             "description=add gen javadoc methods to storyBaord",
+    *             "description=object diagrams as image",
     *             "hoursDone=0.0",
     *             "hoursTodo=4.0"
     *          ]
@@ -157,7 +103,7 @@ public class TestJavaDocStories
     *          "type":"clazz",
     *          "id":"G3 : Goal",
     *          "attributes":[
-    *             "description=generate javadoc text",
+    *             "description=object diagrams as image",
     *             "hoursDone=0.0",
     *             "hoursTodo=4.0"
     *          ]
@@ -166,34 +112,7 @@ public class TestJavaDocStories
     *          "type":"clazz",
     *          "id":"G4 : Goal",
     *          "attributes":[
-    *             "description=insert javadoc in class",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G5 : Goal",
-    *          "attributes":[
-    *             "description=object diagrams as image",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G6 : Goal",
-    *          "attributes":[
     *             "description=generate charts as png",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G7 : Goal",
-    *          "attributes":[
-    *             "description=insert Story as TestMethod javadoc",
     *             "hoursDone=0.0",
     *             "hoursTodo=4.0"
     *          ]
@@ -238,45 +157,6 @@ public class TestJavaDocStories
     *             "property":"goal",
     *             "id":"G1 : Goal"
     *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G5 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G6 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G7 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G4 : Goal"
-    *          }
     *       }
     *    ]
     * }   ;
@@ -289,7 +169,16 @@ public class TestJavaDocStories
     *    "nodes":[
     *       {
     *          "type":"clazz",
-    *          "id":"G8 : Goal",
+    *          "id":"G10 : Goal",
+    *          "attributes":[
+    *             "description=replace see ../xy.java by see xy",
+    *             "hoursDone=2.5",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G5 : Goal",
     *          "attributes":[
     *             "description=done",
     *             "hoursDone=0.0",
@@ -298,9 +187,36 @@ public class TestJavaDocStories
     *       },
     *       {
     *          "type":"clazz",
+    *          "id":"G6 : Goal",
+    *          "attributes":[
+    *             "description=add gen javadoc methods to storyBaord",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G7 : Goal",
+    *          "attributes":[
+    *             "description=generate javadoc text",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G8 : Goal",
+    *          "attributes":[
+    *             "description=insert javadoc in class",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
     *          "id":"G9 : Goal",
     *          "attributes":[
-    *             "description=replace see ../xy.java by see xy",
+    *             "description=insert Story as TestMethod javadoc",
     *             "hoursDone=2.5",
     *             "hoursTodo=0.0"
     *          ]
@@ -312,7 +228,59 @@ public class TestJavaDocStories
     *          "source":{
     *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "id":"G6 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G5 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G7 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G5 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G8 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G5 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
     *             "id":"G9 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G8 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G10 : Goal"
     *          },
     *          "target":{
     *             "cardinality":"one",
@@ -338,6 +306,7 @@ public class TestJavaDocStories
               "  insertStoryInTest:    \"insert Story as TestMethod javadoc\"     insertJavaDocInClass       \n" +
               "  genSeeRefsAsLinks:    \"replace see ../xy.java by see xy\"       insertJavaDocInClass       \n" +
               "  graphVizObjectDiags:  \"object diagrams as image\"               main       \n" +
+              "  graphVizClazzDiags:   \"object diagrams as image\"               main       \n" +
               "  chartsAsPng:          \"generate charts as png\"                 main       \n" +
               "  \n" +
               "- mikadoLog: MikadoLog                                                        \n" +
@@ -346,6 +315,10 @@ public class TestJavaDocStories
               "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
               "  l1:       main               2018-04-03T12:15:00+01:00        0           4              mikadoLog      \n" +
               "  l2:       genSeeRefsAsLinks  2018-04-03T15:00:00+01:00        2.5         0              mikadoLog      \n" +
+              "  l3:       insertStoryInTest  2018-04-03T20:00:00+01:00        2.5         0              mikadoLog      \n" +
+              "  l4:       insertJavaDocInClass  2018-04-03T20:00:00+01:00     1           0              mikadoLog      \n" +
+              "  l5:       generateJavaDocText  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
+              "  l6:       storyBoardExtension  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
               "";
 
       YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
