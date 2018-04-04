@@ -133,6 +133,13 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    private IdMap jsonIdMap = null;
 
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
+   private StackTraceElement callEntry;
+   private String methodName;
+   private String className;
+   private String classFileName;
+   private String fullFileName;
+   private Parser parser;
+   private SimpleKeyValueList<String, SymTabEntry> symTab;
 
 
    public String getJavaTestFileName()
@@ -1361,9 +1368,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   public void dumpJavaDoc(String targetName)
+   public void dumpJavaDoc(String targetClassName)
    {
-      this.dumpHTML(targetName, null);
+      this.dumpHTML(targetClassName, null);
+   }
+
+   public void dumpJavaDoc(String targetClassName, String targetMethodName)
+   {
+      this.dumpHTML(targetClassName, targetMethodName);
    }
 
    /**
@@ -1382,6 +1394,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    {
       try
       {
+         parseTestMethod();
          generateJavaDoc();
       }
       catch (java.lang.StringIndexOutOfBoundsException e)
@@ -1464,12 +1477,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       addStoryToJavaDoc(javaTestFileName, Parser.METHOD + ":" + testMethodName, text.toString());
 
-      if (targetClassName != null)
+      if (targetClassName != null && targetMethodName == null)
       {
          String targetShortName = CGUtil.shortClassName(targetClassName);
-         String targetFileName = javaFileTable.get( targetShortName + ".java");
+         String targetFileName = findJavaFile(targetShortName, symTab);
          addStoryToJavaDoc(targetFileName, Parser.CONSTRUCTOR + ":" + targetShortName, text.toString());
          addStoryToJavaDoc(targetFileName, Parser.CLASS + ":" + targetShortName, text.toString());
+      }
+      else if (targetClassName != null && targetMethodName != null)
+      {
+         // javadoc for method
+         String targetShortName = CGUtil.shortClassName(targetClassName);
+         String targetFileName = findJavaFile(targetShortName, symTab);
+         addStoryToJavaDoc(targetFileName, Parser.METHOD + ":" + targetMethodName, text.toString());
       }
 
       pos = htmlText.indexOf("$text");
@@ -2145,49 +2165,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void generateJavaDoc()
    {
-      // search the (test) method that creates this story for methods it calls /
-      // tests.
-      // create a javadoc on such methods that refers to the test method.
 
-      // where am I called?
-      Exception e = new RuntimeException();
-      StackTraceElement[] stackTrace = e.getStackTrace();
-      StackTraceElement callEntry = stackTrace[1];
-
-      // find first method outside Storyboard and StoryPage
-      int i = 1;
-
-      while (true)
-      {
-         callEntry = stackTrace[i];
-
-         if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
-            || callEntry.getClassName().equals(Storyboard.class.getName())
-            || callEntry.getClassName().equals(StoryPage.class.getName()))
-         {
-            i++;
-            continue;
-         }
-         else
-         {
-            break;
-         }
-      }
-
-      String methodName = callEntry.getMethodName();
-      String className = callEntry.getClassName();
-      String classFileName = className.replaceAll("\\.", "/") + ".java";
-      String fullFileName = this.rootDir + "/" + classFileName;
-
-      // parse the test method body
-      Parser parser = new Parser().withFileName(fullFileName);
-      File javaFile = new File(fullFileName);
-
-      parser.withFileBody(CGUtil.readFile(javaFile));
-
-      parser.parse();
-
-      SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
 
       SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName + "()");
 
@@ -2216,7 +2194,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             {
                // add reference to javadoc
                addReferenceToJavaDoc(fullClassUnderTestName, Parser.CONSTRUCTOR + ":" + classUnderTestName,
-                  className, methodName);
+                       className, methodName);
                addReferenceToJavaDoc(fullClassUnderTestName, Parser.CLASS + ":" + classUnderTestName, className, methodName);
             }
          }
@@ -2261,6 +2239,59 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
    }
 
+   private void parseTestMethod()
+   {
+      // search the (test) method that creates this story for methods it calls /
+      // tests.
+
+      // create a javadoc on such methods that refers to the test method.
+      callEntry = getMyStackTraceElement();
+
+
+      methodName = callEntry.getMethodName();
+      className = callEntry.getClassName();
+      classFileName = className.replaceAll("\\.", "/") + ".java";
+      fullFileName = this.rootDir + "/" + classFileName;
+
+      // parse the test method body
+      parser = new Parser().withFileName(fullFileName);
+      File javaFile = new File(fullFileName);
+
+      parser.withFileBody(CGUtil.readFile(javaFile));
+
+      parser.parse();
+
+      symTab = parser.getSymTab();
+   }
+
+   private StackTraceElement getMyStackTraceElement()
+   {
+      // where am I called?
+      Exception e = new RuntimeException();
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+
+      // find first method outside Storyboard and StoryPage
+      int i = 1;
+
+      while (true)
+      {
+         callEntry = stackTrace[i];
+
+         if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
+            || callEntry.getClassName().equals(Storyboard.class.getName())
+            || callEntry.getClassName().equals(StoryPage.class.getName()))
+         {
+            i++;
+            continue;
+         }
+         else
+         {
+            break;
+         }
+      }
+      return callEntry;
+   }
 
 
    public void addStoryToJavaDoc(String classUnderTestName, String methodUnderTestName, String storyText)

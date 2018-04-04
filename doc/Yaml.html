@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
 <p>Start: Read graph from yaml text:</p>
 <pre>- studyRight: University 
   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -46,10 +46,12 @@
   sportsRoom:           sports  25       [mathRoom artsRoom]
   examRoom:             exam     0       [sportsRoom artsRoom]
   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
-</pre><p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>      YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+</pre>
+<p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
       
       University studyRight = (University) yamlIdMap.decode(yaml);
-</pre><p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+</pre>
+<p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -370,7 +372,7 @@
    g.layout(100,100);
 </script>
 <p>Check: root object exists "Study " Right"And"Fast now"</p>
-<p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@481a15ff</p>
+<p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
 <p>Check: pojo attr SE actual SE</p>
 <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -433,7 +435,8 @@
   points: 	8
   room: 	r3
 
-</pre><p>Check: yaml starts with - u... true</p>
+</pre>
+<p>Check: yaml starts with - u... true</p>
 <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
    var json = {
    "type":"objectdiagram",
@@ -754,13 +757,14 @@
    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
-      String excelText = new String(readAllBytes);
-      
-      YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-      
-      studyRight = (University) excelIdMap.decode(excelText);
-</pre><p>doc/StudyRightStartSituation.txt</p>
+<p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+      story.addPattern(roomPO, false);
+
+      story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
+
+      story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
+</pre>
+<p>doc/StudyRightStartSituation.txt</p>
 <pre>-	studyRight:	University				
 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
 	students:	karli				
@@ -784,7 +788,8 @@
 	sportsRoom:	sports	25	[mathRoom artsRoom]		
 	examRoom:	exam	0	[sportsRoom artsRoom]		
 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
-</pre><p>result:</p>
+</pre>
+<p>result:</p>
 <script>
    var json = {
    "type":"objectdiagram",

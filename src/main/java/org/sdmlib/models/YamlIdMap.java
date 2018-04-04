@@ -19,6 +19,1073 @@ import de.uniks.networkparser.list.SimpleList;
 import org.sdmlib.CGUtil;
    /**
     * 
+    * <p>Start: Read graph from yaml text:</p>
+    * <pre>- studyRight: University 
+    *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students:   karli
+    *   rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering 
+    * 
+    * - karli: Student
+    *   id:    4242
+    *   name:  karli
+    * 
+    * - albert: Prof
+    *   topic:  SE
+    * 
+    * - Assignment   content:                      points: 
+    *   matrixMult:  &quot;Matrix Multiplication&quot;     5
+    *   series:      &quot;Series&quot;                    6
+    *   a3:          Integrals                     8
+    * 
+    * - Room                  topic:  credits: doors:                 students: assignments: 
+    *   mathRoom:             math    17       null                   karli     [matrixMult series a3]
+    *   artsRoom:             arts    16       mathRoom               null      null
+    *   sportsRoom:           sports  25       [mathRoom artsRoom]
+    *   examRoom:             exam     0       [sportsRoom artsRoom]
+    *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
+    * </pre>
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    *       
+    *       University studyRight = (University) yamlIdMap.decode(yaml);
+    * </pre>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A10 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A8 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A9 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R7 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S2 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A8 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A9 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A10 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: root object exists "Study " Right"And"Fast now"</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo attr SE actual SE</p>
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students: 	s2 	
+    *   rooms: 	r3 	r4 	r5 	r6 	r7 	
+    * 
+    * - s2: 	Student
+    *   name: 	karli
+    *   id: 	4242
+    *   assignmentPoints: 	0
+    *   motivation: 	0
+    *   credits: 	0
+    *   university: 	u1
+    *   in: 	r3
+    * 
+    * - r3: 	Room
+    *   topic: 	math
+    *   credits: 	17
+    *   university: 	u1
+    *   students: 	s2 	
+    *   doors: 	r4 	r5 	
+    *   assignments: 	a8 	a9 	a10 	
+    * 
+    * - r4: 	Room
+    *   topic: 	arts
+    *   credits: 	16
+    *   university: 	u1
+    *   doors: 	r3 	r5 	r6 	r7 	
+    * 
+    * - r5: 	Room
+    *   topic: 	sports
+    *   credits: 	25
+    *   university: 	u1
+    *   doors: 	r3 	r4 	r6 	
+    * 
+    * - r6: 	Room
+    *   topic: 	exam
+    *   credits: 	0
+    *   university: 	u1
+    *   doors: 	r5 	r4 	r7 	
+    * 
+    * - r7: 	Room
+    *   topic: 	&quot;Software Engineering&quot;
+    *   credits: 	42
+    *   university: 	u1
+    *   doors: 	r4 	r6 	
+    * 
+    * - a8: 	Assignment
+    *   content: 	&quot;Matrix Multiplication&quot;
+    *   points: 	5
+    *   room: 	r3
+    * 
+    * - a9: 	Assignment
+    *   content: 	Series
+    *   points: 	6
+    *   room: 	r3
+    * 
+    * - a10: 	Assignment
+    *   content: 	Integrals
+    *   points: 	8
+    *   room: 	r3
+    * 
+    * </pre>
+    * <p>Check: yaml starts with - u... true</p>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A18 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A19 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A20 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R13 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R14 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R15 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R16 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R17 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S12 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U11 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A18 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A19 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A20 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    *       story.addPattern(roomPO, false);
+    * 
+    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
+    * 
+    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
+    * </pre>
+    * <p>doc/StudyRightStartSituation.txt</p>
+    * <pre>-	studyRight:	University				
+    * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
+    * 	students:	karli				
+    * 	rooms: 	mathRoom	artsRoom	sportsRoom	examRoom	softwareEngineering
+    * 						
+    * -	karli:	Student				
+    * 	id:	4242				
+    * 	name:	karli				
+    * 						
+    * -	albert: 	Prof				
+    * 	topic:	SE				
+    * 						
+    * -	Assignment	content:	points:			
+    * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
+    * 	series:	Series	6			
+    * 	a3:	Integrals	8			
+    * 						
+    * -	Room	topic:	credits:	doors:	students:	assignments:
+    * 	mathRoom:	math	17	null	karli	[matricMult series a3]
+    * 	artsRoom:	arts	25	mathRoom		
+    * 	sportsRoom:	sports	25	[mathRoom artsRoom]		
+    * 	examRoom:	exam	0	[sportsRoom artsRoom]		
+    * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
+    * </pre>
+    * <p>result:</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A28 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A29 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R23 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R24 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R25 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R26 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R27 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=\"\"Software Engineering\"\""
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S22 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U21 : University",
+    *          "attributes":[
+    *             "name=\"\"Study Right\"\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A28 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A29 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  */
@@ -46,6 +1113,1073 @@ import org.sdmlib.CGUtil;
 
      /**
     * 
+    * <p>Start: Read graph from yaml text:</p>
+    * <pre>- studyRight: University 
+    *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students:   karli
+    *   rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering 
+    * 
+    * - karli: Student
+    *   id:    4242
+    *   name:  karli
+    * 
+    * - albert: Prof
+    *   topic:  SE
+    * 
+    * - Assignment   content:                      points: 
+    *   matrixMult:  &quot;Matrix Multiplication&quot;     5
+    *   series:      &quot;Series&quot;                    6
+    *   a3:          Integrals                     8
+    * 
+    * - Room                  topic:  credits: doors:                 students: assignments: 
+    *   mathRoom:             math    17       null                   karli     [matrixMult series a3]
+    *   artsRoom:             arts    16       mathRoom               null      null
+    *   sportsRoom:           sports  25       [mathRoom artsRoom]
+    *   examRoom:             exam     0       [sportsRoom artsRoom]
+    *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
+    * </pre>
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    *       
+    *       University studyRight = (University) yamlIdMap.decode(yaml);
+    * </pre>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A10 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A8 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A9 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R7 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S2 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A8 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A9 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A10 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: root object exists "Study " Right"And"Fast now"</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo attr SE actual SE</p>
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students: 	s2 	
+    *   rooms: 	r3 	r4 	r5 	r6 	r7 	
+    * 
+    * - s2: 	Student
+    *   name: 	karli
+    *   id: 	4242
+    *   assignmentPoints: 	0
+    *   motivation: 	0
+    *   credits: 	0
+    *   university: 	u1
+    *   in: 	r3
+    * 
+    * - r3: 	Room
+    *   topic: 	math
+    *   credits: 	17
+    *   university: 	u1
+    *   students: 	s2 	
+    *   doors: 	r4 	r5 	
+    *   assignments: 	a8 	a9 	a10 	
+    * 
+    * - r4: 	Room
+    *   topic: 	arts
+    *   credits: 	16
+    *   university: 	u1
+    *   doors: 	r3 	r5 	r6 	r7 	
+    * 
+    * - r5: 	Room
+    *   topic: 	sports
+    *   credits: 	25
+    *   university: 	u1
+    *   doors: 	r3 	r4 	r6 	
+    * 
+    * - r6: 	Room
+    *   topic: 	exam
+    *   credits: 	0
+    *   university: 	u1
+    *   doors: 	r5 	r4 	r7 	
+    * 
+    * - r7: 	Room
+    *   topic: 	&quot;Software Engineering&quot;
+    *   credits: 	42
+    *   university: 	u1
+    *   doors: 	r4 	r6 	
+    * 
+    * - a8: 	Assignment
+    *   content: 	&quot;Matrix Multiplication&quot;
+    *   points: 	5
+    *   room: 	r3
+    * 
+    * - a9: 	Assignment
+    *   content: 	Series
+    *   points: 	6
+    *   room: 	r3
+    * 
+    * - a10: 	Assignment
+    *   content: 	Integrals
+    *   points: 	8
+    *   room: 	r3
+    * 
+    * </pre>
+    * <p>Check: yaml starts with - u... true</p>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A18 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A19 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A20 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R13 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R14 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R15 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R16 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R17 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S12 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U11 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A18 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A19 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A20 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    *       story.addPattern(roomPO, false);
+    * 
+    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
+    * 
+    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
+    * </pre>
+    * <p>doc/StudyRightStartSituation.txt</p>
+    * <pre>-	studyRight:	University				
+    * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
+    * 	students:	karli				
+    * 	rooms: 	mathRoom	artsRoom	sportsRoom	examRoom	softwareEngineering
+    * 						
+    * -	karli:	Student				
+    * 	id:	4242				
+    * 	name:	karli				
+    * 						
+    * -	albert: 	Prof				
+    * 	topic:	SE				
+    * 						
+    * -	Assignment	content:	points:			
+    * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
+    * 	series:	Series	6			
+    * 	a3:	Integrals	8			
+    * 						
+    * -	Room	topic:	credits:	doors:	students:	assignments:
+    * 	mathRoom:	math	17	null	karli	[matricMult series a3]
+    * 	artsRoom:	arts	25	mathRoom		
+    * 	sportsRoom:	sports	25	[mathRoom artsRoom]		
+    * 	examRoom:	exam	0	[sportsRoom artsRoom]		
+    * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
+    * </pre>
+    * <p>result:</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A28 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A29 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R23 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R24 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R25 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R26 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R27 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=\"\"Software Engineering\"\""
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S22 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U21 : University",
+    *          "attributes":[
+    *             "name=\"\"Study Right\"\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A28 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A29 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  */
@@ -56,6 +2190,1073 @@ import org.sdmlib.CGUtil;
 
      /**
     * 
+    * <p>Start: Read graph from yaml text:</p>
+    * <pre>- studyRight: University 
+    *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students:   karli
+    *   rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering 
+    * 
+    * - karli: Student
+    *   id:    4242
+    *   name:  karli
+    * 
+    * - albert: Prof
+    *   topic:  SE
+    * 
+    * - Assignment   content:                      points: 
+    *   matrixMult:  &quot;Matrix Multiplication&quot;     5
+    *   series:      &quot;Series&quot;                    6
+    *   a3:          Integrals                     8
+    * 
+    * - Room                  topic:  credits: doors:                 students: assignments: 
+    *   mathRoom:             math    17       null                   karli     [matrixMult series a3]
+    *   artsRoom:             arts    16       mathRoom               null      null
+    *   sportsRoom:           sports  25       [mathRoom artsRoom]
+    *   examRoom:             exam     0       [sportsRoom artsRoom]
+    *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
+    * </pre>
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    *       
+    *       University studyRight = (University) yamlIdMap.decode(yaml);
+    * </pre>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A10 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A8 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A9 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R7 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S2 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A8 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A9 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A10 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R6 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R7 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S2 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U1 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: root object exists "Study " Right"And"Fast now"</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo attr SE actual SE</p>
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students: 	s2 	
+    *   rooms: 	r3 	r4 	r5 	r6 	r7 	
+    * 
+    * - s2: 	Student
+    *   name: 	karli
+    *   id: 	4242
+    *   assignmentPoints: 	0
+    *   motivation: 	0
+    *   credits: 	0
+    *   university: 	u1
+    *   in: 	r3
+    * 
+    * - r3: 	Room
+    *   topic: 	math
+    *   credits: 	17
+    *   university: 	u1
+    *   students: 	s2 	
+    *   doors: 	r4 	r5 	
+    *   assignments: 	a8 	a9 	a10 	
+    * 
+    * - r4: 	Room
+    *   topic: 	arts
+    *   credits: 	16
+    *   university: 	u1
+    *   doors: 	r3 	r5 	r6 	r7 	
+    * 
+    * - r5: 	Room
+    *   topic: 	sports
+    *   credits: 	25
+    *   university: 	u1
+    *   doors: 	r3 	r4 	r6 	
+    * 
+    * - r6: 	Room
+    *   topic: 	exam
+    *   credits: 	0
+    *   university: 	u1
+    *   doors: 	r5 	r4 	r7 	
+    * 
+    * - r7: 	Room
+    *   topic: 	&quot;Software Engineering&quot;
+    *   credits: 	42
+    *   university: 	u1
+    *   doors: 	r4 	r6 	
+    * 
+    * - a8: 	Assignment
+    *   content: 	&quot;Matrix Multiplication&quot;
+    *   points: 	5
+    *   room: 	r3
+    * 
+    * - a9: 	Assignment
+    *   content: 	Series
+    *   points: 	6
+    *   room: 	r3
+    * 
+    * - a10: 	Assignment
+    *   content: 	Integrals
+    *   points: 	8
+    *   room: 	r3
+    * 
+    * </pre>
+    * <p>Check: yaml starts with - u... true</p>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A18 : Assignment",
+    *          "attributes":[
+    *             "content=Matrix Multiplication",
+    *             "points=5"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A19 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A20 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R13 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R14 : Room",
+    *          "attributes":[
+    *             "credits=16",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R15 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R16 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R17 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=Software Engineering"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S12 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U11 : University",
+    *          "attributes":[
+    *             "name=\"Study \" Right\"And\"Fast now\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A18 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A19 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A20 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R13 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R14 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R15 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R16 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R13 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R14 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R15 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R16 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R17 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S12 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U11 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    *       story.addPattern(roomPO, false);
+    * 
+    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
+    * 
+    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
+    * </pre>
+    * <p>doc/StudyRightStartSituation.txt</p>
+    * <pre>-	studyRight:	University				
+    * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
+    * 	students:	karli				
+    * 	rooms: 	mathRoom	artsRoom	sportsRoom	examRoom	softwareEngineering
+    * 						
+    * -	karli:	Student				
+    * 	id:	4242				
+    * 	name:	karli				
+    * 						
+    * -	albert: 	Prof				
+    * 	topic:	SE				
+    * 						
+    * -	Assignment	content:	points:			
+    * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
+    * 	series:	Series	6			
+    * 	a3:	Integrals	8			
+    * 						
+    * -	Room	topic:	credits:	doors:	students:	assignments:
+    * 	mathRoom:	math	17	null	karli	[matricMult series a3]
+    * 	artsRoom:	arts	25	mathRoom		
+    * 	sportsRoom:	sports	25	[mathRoom artsRoom]		
+    * 	examRoom:	exam	0	[sportsRoom artsRoom]		
+    * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
+    * </pre>
+    * <p>result:</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"A28 : Assignment",
+    *          "attributes":[
+    *             "content=Series",
+    *             "points=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"A29 : Assignment",
+    *          "attributes":[
+    *             "content=Integrals",
+    *             "points=8"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R23 : Room",
+    *          "attributes":[
+    *             "credits=17",
+    *             "name=null",
+    *             "topic=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R24 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R25 : Room",
+    *          "attributes":[
+    *             "credits=25",
+    *             "name=null",
+    *             "topic=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R26 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "name=null",
+    *             "topic=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R27 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "name=null",
+    *             "topic=\"\"Software Engineering\"\""
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S22 : Student",
+    *          "attributes":[
+    *             "assignmentPoints=0",
+    *             "credits=0",
+    *             "id=4242",
+    *             "motivation=0",
+    *             "name=karli"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U21 : University",
+    *          "attributes":[
+    *             "name=\"\"Study Right\"\"",
+    *             "president=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A28 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"assignments",
+    *             "id":"A29 : Assignment"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"room",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R23 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R24 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R25 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"doors",
+    *             "id":"R26 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R23 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R24 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R25 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R26 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R27 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S22 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"university",
+    *             "id":"U21 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  */

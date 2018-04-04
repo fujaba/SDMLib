@@ -178,11 +178,15 @@ public class Storyboard {
 		storyboard.dumpHTML();
 	}
 
-	public void dumpJavaDoc(String targetName)
+	public void dumpJavaDoc(String targetClassName)
 	{
-		storyboard.dumpJavaDoc(targetName);
+		storyboard.dumpJavaDoc(targetClassName);
 	}
 
+	public void dumpJavaDoc(String targetClassName, String targetMethodName)
+	{
+		storyboard.dumpJavaDoc(targetClassName, targetMethodName);
+	}
 
 	/**
 	 * Asserts, that an expected and actual value are equal

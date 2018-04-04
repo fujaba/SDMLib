@@ -346,30 +346,30 @@ public class TestJavaDocStories
 
 
    /**
-    * <p>Yamler reads and writes simple key value pairs in YAML syntax.</p>
+    * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
     *               &quot;msgType: newPlayer\n&quot; +
     *               &quot;login: albert\n&quot; +
-    *               &quot;color: blue\n&quot;;
+    *               &quot;colors: blue red \n&quot;;
     * 
     *       Yamler yamler = new Yamler();
     *       LinkedHashMap&lt;String, String&gt; map = yamler.decode(yaml);
     * </pre>
-    * <pre>{msgType=newPlayer, login=albert, color=blue}</pre>
+    * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
     */
    @Test
    public void testGenJavaDocStory()
    {
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
-      story.add("Yamler reads and writes simple key value pairs in YAML syntax.");
+      story.add("Yamler reads simple key value pairs in YAML syntax.");
       story.add("Example:");
       story.markCodeStart();
       String yaml = "" +
               "msgType: newPlayer\n" +
               "login: albert\n" +
-              "color: blue\n";
+              "colors: blue red \n";
 
       Yamler yamler = new Yamler();
       LinkedHashMap<String, String> map = yamler.decode(yaml);
@@ -386,6 +386,7 @@ public class TestJavaDocStories
       story.addPreformatted(map.toString());
 
       story.dumpJavaDoc(Yamler.class.getName());
+      story.dumpJavaDoc(Yamler.class.getName(), "decode(String)");
 
       story.dumpHTML();
    }
