@@ -428,7 +428,7 @@ public class StudyRightWithAssignmentsStoryboards
     *    g.layout(100,100);
     * </script>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@1cab0bfb</p>
     * <p>Check: pojo attr SE actual SE</p>
     * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;

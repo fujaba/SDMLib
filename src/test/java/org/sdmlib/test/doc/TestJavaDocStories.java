@@ -14,156 +14,9 @@ public class TestJavaDocStories
 {
    /**
     * 
-    * <canvas id="myChart" width="1000" height="600"></canvas>
-    * <script>
-    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    *     type: 'line',
-    *     data: {
-    *         datasets: [
-    *             {
-    *                 label: "Burn Down",
-    *                 data: [
-    *                     {x: "2018-04-03T12:15:00+01:00", y: 24.0},
-    * {x: "2018-04-03T15:00:00+01:00", y: 21.5},
-    * {x: "2018-04-03T20:00:00+01:00", y: 19.0},
-    * {x: "2018-04-03T20:00:00+01:00", y: 18.0},
-    * {x: "2018-04-03T20:00:00+01:00", y: 17.0},
-    * {x: "2018-04-03T20:00:00+01:00", y: 16.0},
-    *                 ]
-    *             }
-    *         ]
-    *     },
-    *     options: {
-    *         responsive: false,
-    *         scales: {
-    *             xAxes: [{
-    *                 type: "time",
-    *                 time: {
-    *                     displayFormats: {
-    *                        'millisecond': 'DD MMM hh:mm',
-    *                        'second': 'DD MMM hh:mm',
-    *                        'minute': 'DD MMM hh:mm',
-    *                        'hour': 'DD MMM hh:mm',
-    *                        'day': 'DD MMM',
-    *                        'week': 'DD MMM',
-    *                        'month': 'MMM YYYY',
-    *                        'quarter': 'MMM YYYY',
-    *                        'year': 'YYYY',
-    *                     }
-    *                 },
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'Date'
-    *                 },
-    *                 ticks: {
-    *                     major: {
-    *                         fontStyle: "bold",
-    *                         fontColor: "#FF0000"
-    *                     }
-    *                 }
-    *             }],
-    *             yAxes: [{
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'hours'
-    *                 },
-    *                 ticks: {
-    *                     beginAtZero: true
-    *                 }
-    *             }]
-    *         }
-    *     }});
-    * </script>
-    * <p>Start: open goals</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G1 : Goal",
-    *          "attributes":[
-    *             "description=JavaDoc Stories",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G2 : Goal",
-    *          "attributes":[
-    *             "description=object diagrams as image",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G3 : Goal",
-    *          "attributes":[
-    *             "description=object diagrams as image",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G4 : Goal",
-    *          "attributes":[
-    *             "description=generate charts as png",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G2 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G3 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G4 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasJavaDocStoriesMikadoPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * <p><a name = 'step_1'>Step 1: closed goals</a></p><script>
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
+    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep0.png"></img><p>Start: open goals</p>
+    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img><p><a name = 'step_1'>Step 1: closed goals</a></p><script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -312,7 +165,7 @@ public class TestJavaDocStories
               "- mikadoLog: MikadoLog                                                        \n" +
               "  mainGoal: main                                                              \n" +
               "  \n" +
-              "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
+              "- LogEntry  goal:              date:                           hoursDone: hoursRemaining:  parent:        \n" +
               "  l1:       main               2018-04-03T12:15:00+01:00        0           4              mikadoLog      \n" +
               "  l2:       genSeeRefsAsLinks  2018-04-03T15:00:00+01:00        2.5         0              mikadoLog      \n" +
               "  l3:       insertStoryInTest  2018-04-03T20:00:00+01:00        2.5         0              mikadoLog      \n" +
@@ -322,26 +175,24 @@ public class TestJavaDocStories
               "";
 
       YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
-
       Goal root = (Goal) idMap.decode(yaml);
-
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
-
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-
-      story.add(mikadoLog.burnDownChart());
-
+      story.addAsImage("<h1>look at this</h1>\n" + mikadoLog.burnDownChart());
       Goal done = root.clipDone();
-
       story.addStep("open goals");
-
-      story.addObjectDiagram(root);
-
+      story.addObjectDiagramAsImage(root);
       story.addStep("closed goals");
       story.addObjectDiagram(done);
-
-
       story.dumpHTML();
+
+      try
+      {
+         Thread.sleep(10 * 1000);
+      } catch (InterruptedException e)
+      {
+         e.printStackTrace();
+      }
    }
 
 

@@ -241,7 +241,322 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
        *
-       * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
+       * <p>Start: create a party data structure and store it with YamlIdMap</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P3 : Person",
+    *          "attributes":[
+    *             "name=Nathalie",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P3 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><pre>- p1: 	Party
+    *   partyName: 	&quot;Lectures Done&quot;
+    *   partyName.time: 	2018-04-04T23:45:19.962.albert
+    * - p1: 	Party
+    *   share: 	0.0
+    *   share.time: 	2018-04-04T23:45:19.969.albert
+    * - p1: 	Party
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:45:19.969.albert
+    * - albert.p2: 	Person
+    *   name: 	Albert
+    *   name.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:45:19.972.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p2
+    *   guests.albert.p2.time: 	2018-04-04T23:45:37.148.albert
+    * - albert.p2: 	Person
+    * - albert.p3: 	Person
+    *   name: 	Nathalie
+    *   name.time: 	2018-04-04T23:46:20.479.albert
+    * - albert.p3: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:46:20.480.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p3
+    *   guests.albert.p3.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    * </pre>
+    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
+    *   party.remove: 	p1
+    *   party.remove.time: 	2018-04-04T23:46:20.496.albert
+    * - p1: 	Party
+    *   guests.remove: 	albert.p3
+    *   guests.remove.albert.p3.time: 	2018-04-04T23:46:20.496.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>original model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>cloned model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P4 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P5 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P5 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P4 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>Check: orig idmap has removed natanull</p>
+    * <p>original model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>cloned model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P4 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P5 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P5 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P4 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * - albert.p4: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:46:20.530.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p4
+    *   guests.albert.p4.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    * - albert.p4: 	Person
+    *   name: 	Ann
+    *   name.time: 	2018-04-04T23:46:20.531.albert
+    * </pre>
+    * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
    @Test
    public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
@@ -322,6 +637,321 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     *
+    * <p>Start: create a party data structure and store it with YamlIdMap</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P3 : Person",
+    *          "attributes":[
+    *             "name=Nathalie",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P3 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><pre>- p1: 	Party
+    *   partyName: 	&quot;Lectures Done&quot;
+    *   partyName.time: 	2018-04-04T23:45:19.962.albert
+    * - p1: 	Party
+    *   share: 	0.0
+    *   share.time: 	2018-04-04T23:45:19.969.albert
+    * - p1: 	Party
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:45:19.969.albert
+    * - albert.p2: 	Person
+    *   name: 	Albert
+    *   name.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:45:19.971.albert
+    * - albert.p2: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:45:19.972.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p2
+    *   guests.albert.p2.time: 	2018-04-04T23:45:37.148.albert
+    * - albert.p2: 	Person
+    * - albert.p3: 	Person
+    *   name: 	Nathalie
+    *   name.time: 	2018-04-04T23:46:20.479.albert
+    * - albert.p3: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:46:20.480.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p3
+    *   guests.albert.p3.time: 	2018-04-04T23:46:20.480.albert
+    * - albert.p3: 	Person
+    * </pre>
+    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
+    *   party.remove: 	p1
+    *   party.remove.time: 	2018-04-04T23:46:20.496.albert
+    * - p1: 	Party
+    *   guests.remove: 	albert.p3
+    *   guests.remove.albert.p3.time: 	2018-04-04T23:46:20.496.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>original model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>cloned model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P4 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P5 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P5 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P4 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>Check: orig idmap has removed natanull</p>
+    * <p>original model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P1 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P2 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P1 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>cloned model</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P4 : Party",
+    *          "attributes":[
+    *             "partyName=Lectures Done",
+    *             "share=0.0",
+    *             "total=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P5 : Person",
+    *          "attributes":[
+    *             "name=Albert",
+    *             "saldo=0.0",
+    *             "total=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"guests",
+    *             "id":"P5 : Person"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"party",
+    *             "id":"P4 : Party"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * - albert.p4: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-04-04T23:46:20.530.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p4
+    *   guests.albert.p4.time: 	2018-04-04T23:46:20.530.albert
+    * - albert.p4: 	Person
+    * - albert.p4: 	Person
+    *   name: 	Ann
+    *   name.time: 	2018-04-04T23:46:20.531.albert
+    * </pre>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
    @Test
@@ -346,6 +976,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
       new SDMComponentListener(victoryParty, e -> yamlLogPropertyChange(e, idMap, buf));
 
+      story.addPreformatted(buf.toString());
 
       //----------------------------------------------------------------------------
       story.addStep("load changes into second model, continuously. ");

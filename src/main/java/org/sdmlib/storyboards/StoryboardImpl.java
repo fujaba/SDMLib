@@ -35,13 +35,19 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import de.uniks.networkparser.ext.DiagramEditor;
 import org.junit.Assert;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -1036,7 +1042,17 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+   public void addObjectDiagramAsImage(Object... elems)
+   {
+      this.addObjectDiagramInternal(true, elems);
+   }
+
    public void addObjectDiagram(Object... elems)
+   {
+      this.addObjectDiagramInternal(false, elems);
+   }
+
+   private void addObjectDiagramInternal(boolean addAsImage, Object... elems)
    {
       String objectName;
       String objectIcon;
@@ -1152,12 +1168,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (restrictToExplicitElems)
       {
          RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
-         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
+         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter, addAsImage);
       }
       else
       {
          AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
+         addObjectDiagram(jsonIdMap, explicitElems, conditionMap, addAsImage);
       }
    }
 
@@ -1170,7 +1186,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter)
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, boolean addAsImage)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
 
@@ -1180,10 +1196,17 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          largestRoot = root;
       }
 
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+      String javaScript4Diag = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
          .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
 
-      this.addToSteps(imgLink);
+      if (addAsImage)
+      {
+         addAsImage(javaScript4Diag);
+      }
+      else
+      {
+         this.addToSteps(javaScript4Diag);
+      }
 
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
@@ -1386,6 +1409,71 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.dumpHTML(null, null);
    }
 
+   public void addAsImage(String htmlbody)
+   {
+      // create a doc-files directory relative to doc dir
+      try
+      {
+         Files.createDirectories(Paths.get(this.docDirName + "/doc-files"));
+      }
+      catch (IOException e)
+      {
+         Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+      }
+
+      // generate html containing only this step
+      String newHtml = getPageTemplate();
+      int pos = newHtml.indexOf("$text");
+
+      newHtml = newHtml.substring(0, pos)
+              + htmlbody.toString()
+              + newHtml.substring(pos + "$text".length());
+
+
+      // compare with old html,
+      String shortStepName = getName() + "Step" + this.getStepCounter();
+      String fullStepHtmlName = this.docDirName + "/_" + shortStepName + ".html";
+      Path htmlFile = Paths.get(fullStepHtmlName);
+      boolean htmlHasChanged = true;
+      if (Files.exists(htmlFile))
+      {
+         try
+         {
+            byte[] bytes = Files.readAllBytes(htmlFile);
+            String oldHtml = new String(bytes);
+            oldHtml = oldHtml.replaceAll("\r", "");
+
+            htmlHasChanged = ! oldHtml.equals(newHtml);
+         }
+         catch (IOException e)
+         {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+         }
+      }
+
+      // if new / changed
+      // if (! htmlHasChanged) return;
+
+      // generate image in doc-files
+      try
+      {
+         Files.write(htmlFile, newHtml.getBytes());
+      }
+      catch (IOException e)
+      {
+         Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+      }
+
+      File file = new File(fullStepHtmlName);
+      // String urlString = file.toURI().toURL().toString();
+      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png");
+
+
+      // insert link to image in this storyboard
+      this.add("<p>Hello Story</p><img src=\"doc-files/" + shortStepName + ".png\"></img>");
+   }
+
+
 
    /**
     * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
@@ -1405,46 +1493,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       dumpIndexHtml();
 
       // generate the html text
-      String htmlText = "<!DOCTYPE html>\n"
-         + "<html>\n" +
-         "<head>" +
-         "<meta charset=\"utf-8\">\n" +
-         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-         "\n" +
-         "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
-         "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" + 
-         "" +
-         "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
-         "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
-         "\n" +
-         "<script src=\"includes/dagre.min.js\"></script>\n" +
-         "<script src=\"includes/drawer.js\"></script>\n" +
-         "<script src=\"includes/graph.js\"></script>\n" +
-         "<script src=\"includes/Chart.bundle.js\"></script>\n" +
-         "<style>\n" +
-         "    canvas{\n" + 
-         "        -moz-user-select: none;\n" + 
-         "        -webkit-user-select: none;\n" + 
-         "        -ms-user-select: none;\n" + 
-         "    }\n" + 
-         "</style>\n" +
-         "</head>\n" +
-         "<body>\n" +
-         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-         "$text\n" +
-         "</body>\n" +
-         "</html>\n";
+      String htmlText = getPageTemplate();
 
       String storyboardName = this.getName();
 
-      htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
-      htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
+      String storyNameLine = "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n";
+
+      storyNameLine = storyNameLine.replaceFirst("storyboardName", storyboardName);
+      storyNameLine = storyNameLine.replaceFirst("testfilename", javaTestFileName);
 
       String shortFileName = "" + storyboardName + ".html";
       String pathname = docDirName + "/" + shortFileName;
 
-      StringBuffer text = new StringBuffer();
+      StringBuffer text = new StringBuffer(storyNameLine);
 
       for (StoryboardStep step : this.getStoryboardSteps())
       {
@@ -1504,6 +1565,39 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       addEntryToRefsHtml(docDirName, entry);
 
       // coverage4GeneratedModelCode(largestRoot);
+   }
+
+   private String getPageTemplate()
+   {
+      return "<!DOCTYPE html>\n"
+            + "<html>\n" +
+            "<head>" +
+            "<meta charset=\"utf-8\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+            "\n" +
+            "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
+            "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" +
+            "" +
+            "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
+            "\n" +
+            "<script src=\"includes/dagre.min.js\"></script>\n" +
+            "<script src=\"includes/drawer.js\"></script>\n" +
+            "<script src=\"includes/graph.js\"></script>\n" +
+            "<script src=\"includes/Chart.bundle.js\"></script>\n" +
+            "<style>\n" +
+            "    canvas{\n" +
+            "        -moz-user-select: none;\n" +
+            "        -webkit-user-select: none;\n" +
+            "        -ms-user-select: none;\n" +
+            "    }\n" +
+            "</style>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "$text\n" +
+            "</body>\n" +
+            "</html>\n";
    }
 
 
@@ -2373,6 +2467,28 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                parser.getFileBody().replace(javaDocStartPos, javaDocEndPos + 1, javaDocText);
                parser.withFileChanged(true);
                CGUtil.printFile(parser);
+            }
+
+            // copy images to doc-files
+            Path docFilesDir = Paths.get(docDirName + "/doc-files");
+            Path targetDir = Paths.get(fullFileName).getParent();
+            Path targetDocFilesDir = Paths.get(targetDir.toString() + "/doc-files");
+
+            if ( ! Files.exists(targetDocFilesDir))
+            {
+               Files.createDirectories(targetDocFilesDir);
+            }
+
+            for(String fileName : new File(docDirName + "/doc-files").list())
+            {
+               Path srcFile = docFilesDir.resolve(fileName);
+               FileTime srclastModifiedTime = Files.getLastModifiedTime(srcFile);
+               Path targetFile = targetDocFilesDir.resolve(fileName);
+
+               if ( ! Files.exists(targetFile) || Files.getLastModifiedTime(targetFile).compareTo(srclastModifiedTime) < 0)
+               {
+                  Files.copy(srcFile, targetFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+               }
             }
          }
       }

@@ -97,7 +97,13 @@ public class Storyboard {
 	public void addObjectDiagram(Object... elems) {
 		storyboard.addObjectDiagram(elems);
 	}
-	
+
+	public void addObjectDiagramAsImage(Object... elems)
+	{
+		storyboard.addObjectDiagramAsImage(elems);
+	}
+
+
 	/**
 	 * Adds an object diagram to the storyboard, that only consists of the given objects.
 	 * 
@@ -172,9 +178,10 @@ public class Storyboard {
 	
 	/**
 	 * Creates an html file, that contains the storyboard.
-	* @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- */
-	public void dumpHTML() {
+	 * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+	 */
+	public void dumpHTML()
+	{
 		storyboard.dumpHTML();
 	}
 
@@ -192,12 +199,12 @@ public class Storyboard {
 	 * Asserts, that an expected and actual value are equal
 	 * within range delta and adds the result to the storyboard.<br>
 	 * If this is not the case, a message will be printed.
-	 * 
+	 *
 	 * @param message the message, that will be displayed, in case, that the assertion failed
 	 * @param expected the expected value
 	 * @param actual the actual value
 	 * @param delta allowed deviation between the two values
-	*/
+	 */
 	public void assertEquals(String message, double expected, double actual, double delta) {
 		storyboard.assertEquals(message, expected, actual, delta);
 	}
@@ -318,5 +325,10 @@ public class Storyboard {
    {
       return storyboard.getStoryboardSteps().size();
    }
+
+	public void addAsImage(String htmlText)
+	{
+		storyboard.addAsImage(htmlText);
+	}
 
 }

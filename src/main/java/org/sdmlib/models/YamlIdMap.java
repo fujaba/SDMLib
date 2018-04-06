@@ -1088,6 +1088,7 @@ import org.sdmlib.CGUtil;
     * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  */
    public class YamlIdMap
 {
@@ -2182,6 +2183,7 @@ import org.sdmlib.CGUtil;
     * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  */
    private YamlIdMap()
    {
@@ -3259,6 +3261,7 @@ import org.sdmlib.CGUtil;
     * </script>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  */
    public YamlIdMap(String... packageNames)
    {
@@ -3583,12 +3586,6 @@ import org.sdmlib.CGUtil;
          while (!yamler.getCurrentToken().equals("") && !yamler.getCurrentToken().equals("-"))
          {
             String attrName = yamler.stripColon(yamler.getCurrentToken());
-
-//         if (attrName.equals("share"))
-//         {
-//            System.out.println();
-//         }
-
             yamler.nextToken();
 
             if (obj == null)
@@ -3627,10 +3624,10 @@ import org.sdmlib.CGUtil;
                      }
 
                      setValue(creator, obj, attrName, attrValue);
-
                      attrTimeStamps.put(objectId + "." + attrName, newTimeStamp);
                   }
-               } else
+               }
+               else
                {
                   setValue(creator, obj, attrName, attrValue);
                }
@@ -3974,13 +3971,9 @@ import org.sdmlib.CGUtil;
    private void encodePropertyChange(StringBuilder buf, Object obj)
    {
       PropertyChangeEvent event = (PropertyChangeEvent) obj;
-
       obj = event.getSource();
-
       String propertyName = event.getPropertyName();
-
       Object value = event.getNewValue();
-
       String className = obj.getClass().getSimpleName();
 
       if (propertyName.equals(SendableEntityCreator.REMOVE_YOU))
@@ -3988,9 +3981,7 @@ import org.sdmlib.CGUtil;
          // send - o42: C1.remove
          //        remove.time: 2018-03-11T22:11:02.123+01:00
          value = event.getOldValue();
-
          String valueKey = getOrCreateKey(value);
-
          buf.append("- ").append(valueKey).append(": \t").append(className).append(".remove\n");
 
          if (userId != null)
@@ -4008,7 +3999,6 @@ import org.sdmlib.CGUtil;
       if (value == null)
       {
          value = event.getOldValue();
-
          propertyName = propertyName + ".remove";
 
          if (value == null)
@@ -4026,10 +4016,7 @@ import org.sdmlib.CGUtil;
       // already known?
       String key = getOrCreateKey(obj);
       String className = obj.getClass().getSimpleName();
-
-
       buf.append("- ").append(key).append(": \t").append(className).append("\n");
-
       Class valueClass = value.getClass();
 
       if (  valueClass.getName().startsWith("java.lang.") || valueClass == String.class)
@@ -4063,6 +4050,12 @@ import org.sdmlib.CGUtil;
                String now = "" + LocalDateTime.now() + "." + userId;
                buf.append("  ").append(propertyName).append(".time: \t").append(now).append("\n");
                attrTimeStamps.put(key + "." + propertyName, now);
+            }
+            else if (fieldValue != null && fieldValue instanceof Collection)
+            {
+               String now = "" + LocalDateTime.now() + "." + userId;
+               buf.append("  ").append(propertyName).append('.').append(valueKey).append(".time: \t").append(now).append("\n");
+               attrTimeStamps.put(key + "." + propertyName + "." + valueKey, now);
             }
          }
 

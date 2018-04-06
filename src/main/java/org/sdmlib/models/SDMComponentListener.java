@@ -6,8 +6,11 @@ import java.util.*;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-
-public class SDMComponentListener implements PropertyChangeListener
+   /**
+    * 
+    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
+ */
+   public class SDMComponentListener implements PropertyChangeListener
 {
    private HashSet<SendableEntity> supervisedObjects = new HashSet<SendableEntity>();
 
@@ -18,6 +21,10 @@ public class SDMComponentListener implements PropertyChangeListener
    private CreatorMap creatorMap;
    private boolean closed = false;
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
+ */
    public SDMComponentListener(SendableEntity root, PropertyChangeListener elementListener)
    {
       this.elementListener = elementListener;

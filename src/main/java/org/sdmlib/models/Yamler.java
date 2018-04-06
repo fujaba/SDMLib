@@ -68,8 +68,7 @@ public class Yamler
     * </pre>
     * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
     * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
- */
+    */
    public Yamler()
    {
       // empty

@@ -120,7 +120,7 @@ public class YamlFileMap
       }
    }
 
-   // run by javafx
+   // run by javafx or model thread
    private void doCheckFileCompression()
    {
       if (closed) return;
