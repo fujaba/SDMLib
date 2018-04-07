@@ -15,8 +15,11 @@ public class TestJavaDocStories
    /**
     * 
     * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
-    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep0.png"></img><p>Start: open goals</p>
-    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img><p><a name = 'step_1'>Step 1: closed goals</a></p><p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep2.png"></img>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep0.png"></img>
+    * <p>Start: open goals</p>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img>
+    * <p><a name = 'step_1'>Step 1: closed goals</a></p>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep2.png"></img>
     */
    @Test
    public void testJavaDocStoriesMikadoPlan()
@@ -49,17 +52,18 @@ public class TestJavaDocStories
       Goal root = (Goal) idMap.decode(yaml);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage("<h1>look</h1>\n" + mikadoLog.burnDownChart());
+      story.addAsImage(mikadoLog.burnDownChart(), 900, 650);
       Goal done = root.clipDone();
       story.addStep("open goals");
-      story.addObjectDiagramAsImage(root);
+      story.addObjectDiagramAsImage(root, 900, 450);
       story.addStep("closed goals");
-      story.addObjectDiagramAsImage(done);
+      story.addObjectDiagramAsImage(done, 950, 600);
       story.dumpHTML();
    }
 
 
    /**
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
@@ -88,14 +92,6 @@ public class TestJavaDocStories
       Yamler yamler = new Yamler();
       LinkedHashMap<String, String> map = yamler.decode(yaml);
       story.addCode();
-
-      TestJavaDocValidator self = new TestJavaDocValidator();
-
-      //      University uni = new University();
-      //      uni.createRooms().withName("Math").withCredits(42);
-      //      story.addObjectDiagram(uni);
-
-      self.hello();
 
       story.addPreformatted(map.toString());
 

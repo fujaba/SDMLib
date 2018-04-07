@@ -21,8 +21,8 @@
 </style>
 </head>
 <body>
-<h1>look</h1>
-<canvas id="myChart" width="1000" height="600"></canvas>
+<!-- 900, 650 -->
+<canvas id="myChart" width="880" height="550"></canvas>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -42,6 +42,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
         ]
     },
     options: {
+        animation: false,
         responsive: false,
         scales: {
             xAxes: [{

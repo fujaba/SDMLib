@@ -48,6 +48,7 @@ import de.uniks.networkparser.list.SimpleSet;
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
@@ -61,6 +62,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
    public ClassModel() {
 		name = getDefaultPackage();
@@ -77,6 +79,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @param packageName PackageName of ClassModel 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
    public ClassModel(String packageName)
 	   {
@@ -88,6 +91,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
    public ClassModel generate() 
    {
@@ -99,6 +103,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
    public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);

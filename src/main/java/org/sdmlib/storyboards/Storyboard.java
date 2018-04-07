@@ -326,9 +326,13 @@ public class Storyboard {
       return storyboard.getStoryboardSteps().size();
    }
 
-	public void addAsImage(String htmlText)
+	public void addAsImage(String htmlText, int... dimensions)
 	{
-		storyboard.addAsImage(htmlText);
+		storyboard.addAsImage(htmlText, dimensions);
 	}
 
+	public void addClassDiagramAsImage(ClassModel model, int... dimensions)
+	{
+		storyboard.addClassDiagramAsImage(model, dimensions);
+	}
 }

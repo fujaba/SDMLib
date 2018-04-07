@@ -43,7 +43,7 @@ public  class MikadoLog implements SendableEntity
    {
       StringBuilder buf = new StringBuilder();
 
-      buf     .append("<canvas id=\"myChart\" width=\"1000\" height=\"600\"></canvas>\n")
+      buf     .append("<canvas id=\"myChart\" width=\"880\" height=\"550\"></canvas>\n")
               .append("<script>\n")
               .append("var ctx = document.getElementById(\"myChart\").getContext('2d');")
               .append("var myLineChart = new Chart(ctx, {\n")
@@ -60,6 +60,7 @@ public  class MikadoLog implements SendableEntity
                       "    },\n" +
                       "    ")
               .append("options: {\n" +
+                      "        animation: false,\n" +
                       "        responsive: false,\n" +
                       "        scales: {\n" +
                       "            xAxes: [{\n" +

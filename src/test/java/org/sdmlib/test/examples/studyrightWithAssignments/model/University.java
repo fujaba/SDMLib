@@ -37,6 +37,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 /**
  * 
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
  */
 public  class University implements SendableEntity
 {
@@ -308,6 +309,7 @@ public  class University implements SendableEntity
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
  */
    public Room createRooms()
    {

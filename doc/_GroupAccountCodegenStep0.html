@@ -21,92 +21,94 @@
 </style>
 </head>
 <body>
-<!-- 900, 450 -->
+<!-- 400, 350 -->
 <script>
    var json = {
-   "type":"objectdiagram",
+   "typ":"class",
    "nodes":[
       {
-         "type":"clazz",
-         "id":"G1 : Goal",
+         "typ":"node",
+         "id":"Item",
          "attributes":[
-            "description=JavaDoc Stories",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
+            "description : String",
+            "price : double"
          ]
       },
       {
-         "type":"clazz",
-         "id":"G2 : Goal",
+         "typ":"node",
+         "id":"Party",
          "attributes":[
-            "description=object diagrams as image",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
+            "partyName : String",
+            "share : double",
+            "total : double"
          ]
       },
       {
-         "type":"clazz",
-         "id":"G3 : Goal",
+         "typ":"node",
+         "id":"Person",
          "attributes":[
-            "description=object diagrams as image",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G4 : Goal",
-         "attributes":[
-            "description=generate charts as png",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
+            "name : String",
+            "saldo : double",
+            "total : double"
          ]
       }
    ],
    "edges":[
       {
-         "type":"edge",
+         "typ":"assoc",
          "source":{
+            "id":"Item",
             "cardinality":"many",
-            "property":"preGoals",
-            "id":"G2 : Goal"
+            "property":"items"
          },
          "target":{
+            "id":"Person",
             "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
+            "property":"person"
          }
       },
       {
-         "type":"edge",
+         "typ":"assoc",
          "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G3 : Goal"
+            "id":"Party",
+            "cardinality":"one",
+            "property":"party"
          },
          "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
+            "id":"Person",
+            "cardinality":"many",
+            "property":"guests"
          }
       },
       {
-         "type":"edge",
+         "typ":"assoc",
          "source":{
+            "id":"Person",
             "cardinality":"many",
-            "property":"preGoals",
-            "id":"G4 : Goal"
+            "property":"guests"
          },
          "target":{
+            "id":"Party",
             "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
+            "property":"party"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"items"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasJavaDocStoriesMikadoPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasGroupAccountCodegenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 
 </body>

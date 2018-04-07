@@ -5,7 +5,8 @@ import java.util.StringTokenizer;
 
 /**
  *
- * <p>Yamler reads simple key value pairs in YAML syntax.</p>
+ * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
+    * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
     *               &quot;msgType: newPlayer\n&quot; +
@@ -30,6 +31,7 @@ public class Yamler
 
    /**
     *
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
@@ -56,6 +58,7 @@ public class Yamler
 
    /**
     *
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
@@ -75,6 +78,7 @@ public class Yamler
    }
 
    /**
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +

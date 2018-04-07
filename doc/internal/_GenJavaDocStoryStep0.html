@@ -21,9 +21,47 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
-<p>Start situation: Nothing here yet. Generate classes</p>
-<img src="doc-files/GroupAccountCodegenStep0.png"></img>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R2 : Room",
+         "attributes":[
+            "credits=42",
+            "name=Math",
+            "topic=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "name=null",
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R2 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasGenJavaDocStory4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

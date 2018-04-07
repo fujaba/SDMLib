@@ -454,7 +454,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
       else
       {
-         StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>");
+         StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>\n");
          CGUtil.replaceAll(buf,
             "stepCounter", "" + stepCounter,
             "text", txt);
@@ -1027,10 +1027,20 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
  */
    public void addClassDiagram(ClassModel model)
    {
-      String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      diagName = model.dumpClassDiagram(diagName);
-      this.add(diagName);
+      String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
+      diagScript = model.dumpClassDiagram(diagScript);
+      this.add(diagScript);
    }
+
+
+   public void addClassDiagramAsImage(ClassModel model, int... dimensions)
+   {
+      String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
+      diagScript = model.dumpClassDiagram(diagScript);
+      this.addAsImage(diagScript, dimensions);
+   }
+
+
 
 
    public void addObjectDiagramWith(Object... elems)
@@ -1060,6 +1070,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       Object root = null;
       LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
       boolean restrictToExplicitElems = false;
+      int[] dimensions = new int[]{900, 600};
 
       // do we have a JsonIdMap?
       if (jsonIdMap == null)
@@ -1107,6 +1118,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
          if (object == null)
          {
+            continue;
+         }
+
+         if (object instanceof Integer && i < elems.length && elems[i] instanceof Integer)
+         {
+            dimensions[0] = (Integer) object;
+            dimensions[1] = (Integer) elems[i];
+            i++;
             continue;
          }
 
@@ -1168,12 +1187,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (restrictToExplicitElems)
       {
          RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
-         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter, addAsImage);
+         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter, addAsImage, dimensions);
       }
       else
       {
          AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         addObjectDiagram(jsonIdMap, explicitElems, conditionMap, addAsImage);
+         addObjectDiagram(jsonIdMap, explicitElems, conditionMap, addAsImage, dimensions);
       }
    }
 
@@ -1186,7 +1205,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, boolean addAsImage)
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, boolean addAsImage, int... dimensions)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
 
@@ -1201,7 +1220,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       if (addAsImage)
       {
-         addAsImage(javaScript4Diag);
+         addAsImage(javaScript4Diag, dimensions);
       }
       else
       {
@@ -1409,7 +1428,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.dumpHTML(null, null);
    }
 
-   public void addAsImage(String htmlbody)
+   public void addAsImage(String htmlbody, int... dimensions)
    {
       // create a doc-files directory relative to doc dir
       try
@@ -1425,7 +1444,15 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       String newHtml = getPageTemplate();
       int pos = newHtml.indexOf("$text");
 
+      String dimString = "null";
+
+      if (dimensions != null)
+      {
+         dimString = "" + dimensions[0] + ", " + dimensions[1];
+      }
+
       newHtml = newHtml.substring(0, pos)
+              + "<!-- " + dimString + " -->\n"
               + htmlbody.toString()
               + newHtml.substring(pos + "$text".length());
 
@@ -1451,8 +1478,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          }
       }
 
+      // insert link to image in this storyboard
+      this.add("<img src=\"doc-files/" + shortStepName + ".png\"></img>\n");
+
       // if new / changed
-      // if (! htmlHasChanged) return;
+      if (! htmlHasChanged) return;
 
       // generate image in doc-files
       try
@@ -1466,16 +1496,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       File file = new File(fullStepHtmlName);
       // String urlString = file.toURI().toURL().toString();
-      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png");
+      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", dimensions);
 
-
-      // insert link to image in this storyboard
-      this.add("<p>Hello Story</p><img src=\"doc-files/" + shortStepName + ".png\"></img>");
 
       try
       {
          Thread.sleep(4000);
-      } catch (InterruptedException e)
+      }
+      catch (InterruptedException e)
       {
          e.printStackTrace();
       }

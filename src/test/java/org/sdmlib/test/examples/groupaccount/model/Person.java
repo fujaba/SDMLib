@@ -31,6 +31,7 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
  */
    public  class Person implements SendableEntity
 {
