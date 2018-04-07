@@ -1471,6 +1471,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       // insert link to image in this storyboard
       this.add("<p>Hello Story</p><img src=\"doc-files/" + shortStepName + ".png\"></img>");
+
+      try
+      {
+         Thread.sleep(4000);
+      } catch (InterruptedException e)
+      {
+         e.printStackTrace();
+      }
    }
 
 

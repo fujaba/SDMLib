@@ -16,136 +16,7 @@ public class TestJavaDocStories
     * 
     * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
     * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep0.png"></img><p>Start: open goals</p>
-    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img><p><a name = 'step_1'>Step 1: closed goals</a></p><script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G10 : Goal",
-    *          "attributes":[
-    *             "description=replace see ../xy.java by see xy",
-    *             "hoursDone=2.5",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G5 : Goal",
-    *          "attributes":[
-    *             "description=done",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G6 : Goal",
-    *          "attributes":[
-    *             "description=add gen javadoc methods to storyBaord",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G7 : Goal",
-    *          "attributes":[
-    *             "description=generate javadoc text",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G8 : Goal",
-    *          "attributes":[
-    *             "description=insert javadoc in class",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G9 : Goal",
-    *          "attributes":[
-    *             "description=insert Story as TestMethod javadoc",
-    *             "hoursDone=2.5",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G6 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G5 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G7 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G5 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G8 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G5 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G9 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G8 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G10 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G8 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasJavaDocStoriesMikadoPlan5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img><p><a name = 'step_1'>Step 1: closed goals</a></p><p>Hello Story</p><img src="doc-files/JavaDocStoriesMikadoPlanStep2.png"></img>
     */
    @Test
    public void testJavaDocStoriesMikadoPlan()
@@ -178,21 +49,13 @@ public class TestJavaDocStories
       Goal root = (Goal) idMap.decode(yaml);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage("<h1>look at this</h1>\n" + mikadoLog.burnDownChart());
+      story.addAsImage("<h1>look</h1>\n" + mikadoLog.burnDownChart());
       Goal done = root.clipDone();
       story.addStep("open goals");
       story.addObjectDiagramAsImage(root);
       story.addStep("closed goals");
-      story.addObjectDiagram(done);
+      story.addObjectDiagramAsImage(done);
       story.dumpHTML();
-
-      try
-      {
-         Thread.sleep(10 * 1000);
-      } catch (InterruptedException e)
-      {
-         e.printStackTrace();
-      }
    }
 
 
