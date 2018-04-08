@@ -30,6 +30,15 @@
          "type":"clazz",
          "id":"G10 : Goal",
          "attributes":[
+            "description=insert Story as TestMethod javadoc",
+            "hoursDone=2.5",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G11 : Goal",
+         "attributes":[
             "description=replace see ../xy.java by see xy",
             "hoursDone=2.5",
             "hoursTodo=0.0"
@@ -37,7 +46,7 @@
       },
       {
          "type":"clazz",
-         "id":"G5 : Goal",
+         "id":"G3 : Goal",
          "attributes":[
             "description=done",
             "hoursDone=0.0",
@@ -46,7 +55,7 @@
       },
       {
          "type":"clazz",
-         "id":"G6 : Goal",
+         "id":"G4 : Goal",
          "attributes":[
             "description=add gen javadoc methods to storyBaord",
             "hoursDone=1.0",
@@ -55,7 +64,7 @@
       },
       {
          "type":"clazz",
-         "id":"G7 : Goal",
+         "id":"G5 : Goal",
          "attributes":[
             "description=generate javadoc text",
             "hoursDone=1.0",
@@ -64,7 +73,7 @@
       },
       {
          "type":"clazz",
-         "id":"G8 : Goal",
+         "id":"G6 : Goal",
          "attributes":[
             "description=insert javadoc in class",
             "hoursDone=1.0",
@@ -73,10 +82,28 @@
       },
       {
          "type":"clazz",
+         "id":"G7 : Goal",
+         "attributes":[
+            "description=object diagrams as image",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G8 : Goal",
+         "attributes":[
+            "description=class diagrams as image",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
          "id":"G9 : Goal",
          "attributes":[
-            "description=insert Story as TestMethod javadoc",
-            "hoursDone=2.5",
+            "description=generate charts as png",
+            "hoursDone=2.0",
             "hoursTodo=0.0"
          ]
       }
@@ -87,12 +114,38 @@
          "source":{
             "cardinality":"many",
             "property":"preGoals",
+            "id":"G4 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G3 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G5 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G3 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
             "id":"G6 : Goal"
          },
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G5 : Goal"
+            "id":"G3 : Goal"
          }
       },
       {
@@ -105,7 +158,7 @@
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G5 : Goal"
+            "id":"G3 : Goal"
          }
       },
       {
@@ -118,7 +171,7 @@
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G5 : Goal"
+            "id":"G3 : Goal"
          }
       },
       {
@@ -131,7 +184,7 @@
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G3 : Goal"
          }
       },
       {
@@ -144,7 +197,20 @@
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G8 : Goal"
+            "id":"G6 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G11 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G6 : Goal"
          }
       }
    ]

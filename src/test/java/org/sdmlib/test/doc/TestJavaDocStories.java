@@ -33,8 +33,9 @@ public class TestJavaDocStories
               "  insertStoryInTest:    \"insert Story as TestMethod javadoc\"     insertJavaDocInClass       \n" +
               "  genSeeRefsAsLinks:    \"replace see ../xy.java by see xy\"       insertJavaDocInClass       \n" +
               "  graphVizObjectDiags:  \"object diagrams as image\"               main       \n" +
-              "  graphVizClazzDiags:   \"object diagrams as image\"               main       \n" +
+              "  graphVizClazzDiags:   \"class diagrams as image\"                main       \n" +
               "  chartsAsPng:          \"generate charts as png\"                 main       \n" +
+              "  objectTables:         \"have object tables in javadocs\"         main       \n" +
               "  \n" +
               "- mikadoLog: MikadoLog                                                        \n" +
               "  mainGoal: main                                                              \n" +
@@ -46,16 +47,19 @@ public class TestJavaDocStories
               "  l4:       insertJavaDocInClass  2018-04-03T20:00:00+01:00     1           0              mikadoLog      \n" +
               "  l5:       generateJavaDocText  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
               "  l6:       storyBoardExtension  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
+              "  l7:       graphVizObjectDiags  2018-04-08T17:00:00+01:00      2           0              mikadoLog      \n" +
+              "  l8:       graphVizClazzDiags   2018-04-08T17:10:00+01:00      2           0              mikadoLog      \n" +
+              "  l9:       chartsAsPng          2018-04-08T17:20:00+01:00      2           0              mikadoLog      \n" +
               "";
 
       YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
       Goal root = (Goal) idMap.decode(yaml);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage(mikadoLog.burnDownChart(), 900, 650);
+      story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
       Goal done = root.clipDone();
       story.addStep("open goals");
-      story.addObjectDiagramAsImage(root, 900, 450);
+      story.addObjectDiagramAsImage(root, 901, 450);
       story.addStep("closed goals");
       story.addObjectDiagramAsImage(done, 950, 600);
       story.dumpHTML();

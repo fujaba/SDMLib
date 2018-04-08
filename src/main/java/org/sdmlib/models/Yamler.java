@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
     * </pre>
     * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
     * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  */
 public class Yamler
 {
@@ -45,6 +46,7 @@ public class Yamler
     * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
     * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  */
    public Yamler(String yaml)
    {
@@ -71,7 +73,8 @@ public class Yamler
     * </pre>
     * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
     * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    */
+    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
+ */
    public Yamler()
    {
       // empty
@@ -93,7 +96,8 @@ public class Yamler
     * @param yaml yaml text
     * @return key value table
     * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    */
+    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
+ */
    public LinkedHashMap<String,String> decode(String yaml)
    {
       this.yaml = yaml;

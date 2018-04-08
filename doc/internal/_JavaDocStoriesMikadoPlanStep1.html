@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<!-- 900, 450 -->
+<!-- 901, 450 -->
 <script>
    var json = {
    "type":"objectdiagram",
@@ -39,25 +39,7 @@
          "type":"clazz",
          "id":"G2 : Goal",
          "attributes":[
-            "description=object diagrams as image",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G3 : Goal",
-         "attributes":[
-            "description=object diagrams as image",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G4 : Goal",
-         "attributes":[
-            "description=generate charts as png",
+            "description=have object tables in javadocs",
             "hoursDone=0.0",
             "hoursTodo=4.0"
          ]
@@ -70,32 +52,6 @@
             "cardinality":"many",
             "property":"preGoals",
             "id":"G2 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G3 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G4 : Goal"
          },
          "target":{
             "cardinality":"one",
