@@ -20,7 +20,7 @@ public class SDMDiagramEditor extends Application {
 		editor = DiagramEditor.create(primaryStage);
 		editor.withIcon(StrUtil.class.getResource("sdmlib.png").toString());
 //		editor.withListener(this);
-		editor.show();
+		editor.show(false);
 	}
 //	@Override
 //	public boolean generate(JsonObject model) {
