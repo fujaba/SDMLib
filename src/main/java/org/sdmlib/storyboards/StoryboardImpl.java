@@ -1037,7 +1037,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
       diagScript = model.dumpClassDiagram(diagScript);
-      this.addAsImage(diagScript, dimensions);
+      this.addAsImage(diagScript, true, dimensions);
    }
 
 
@@ -1220,7 +1220,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       if (addAsImage)
       {
-         addAsImage(javaScript4Diag, dimensions);
+         addAsImage(javaScript4Diag, true, dimensions);
       }
       else
       {
@@ -1428,7 +1428,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.dumpHTML(null, null);
    }
 
-   public void addAsImage(String htmlbody, int... dimensions)
+   public void addAsImage(String htmlbody, boolean autoClose, int... dimensions)
    {
       // create a doc-files directory relative to doc dir
       try
@@ -1497,9 +1497,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       File file = new File(fullStepHtmlName);
       // String urlString = file.toURI().toURL().toString();
-      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", dimensions);
-
-
+//      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", autoClose);
+      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", true, autoClose, dimensions);
       try
       {
          Thread.sleep(4000);

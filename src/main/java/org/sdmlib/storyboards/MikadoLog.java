@@ -62,6 +62,12 @@ public  class MikadoLog implements SendableEntity
               .append("options: {\n" +
                       "        animation: false,\n" +
                       "        responsive: false,\n" +
+                      "         animation: {\n" +
+                      "            onComplete: function(animation) {\n" +
+                      "                    java.screendump(\"42\");\n"+
+                      "                    java.close();\n"+
+                      "                }\n"+
+                      "         },\n"+
                       "        scales: {\n" +
                       "            xAxes: [{\n" +
                       "                type: \"time\",\n" +

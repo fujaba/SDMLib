@@ -56,7 +56,7 @@ public class TestJavaDocStories
       Goal root = (Goal) idMap.decode(yaml);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
+      story.addAsImage(mikadoLog.burnDownChart(), false, 910, 650);
       Goal done = root.clipDone();
       story.addStep("open goals");
       story.addObjectDiagramAsImage(root, 901, 450);
