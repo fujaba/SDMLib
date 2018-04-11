@@ -85,9 +85,10 @@ dependencies {
 	testImplementation "io.moquette:moquette-broker:0.10"
 	testImplementation 'org.slf4j:slf4j-simple:1.7.10'
 
+	testImplementation "com.structurizr:structurizr-client:1.0.0-RC5"
+	testImplementation "guru.nidi:graphviz-java:+"
 
-
-   	if ( ! project.hasProperty('useLocalDependencies'))
+	if ( ! project.hasProperty('useLocalDependencies'))
    	{
 		if (new File("../NetworkParser/build/libs/networkparser.local.jar").exists() )
 		{

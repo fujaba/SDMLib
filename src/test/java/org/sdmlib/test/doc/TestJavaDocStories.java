@@ -15,11 +15,11 @@ public class TestJavaDocStories
    /**
     * 
     * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep0.png"></img>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep0.png" alt="JavaDocStoriesMikadoPlanStep0.png">
     * <p>Start: open goals</p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep1.png"></img>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep2.png" alt="JavaDocStoriesMikadoPlanStep2.png">
     * <p><a name = 'step_1'>Step 1: closed goals</a></p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep2.png"></img>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep4.png" alt="JavaDocStoriesMikadoPlanStep4.png">
     */
    @Test
    public void testJavaDocStoriesMikadoPlan()
@@ -56,12 +56,12 @@ public class TestJavaDocStories
       Goal root = (Goal) idMap.decode(yaml);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage(mikadoLog.burnDownChart(), false, 910, 650);
+      story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
       Goal done = root.clipDone();
       story.addStep("open goals");
       story.addObjectDiagramAsImage(root, 901, 450);
       story.addStep("closed goals");
-      story.addObjectDiagramAsImage(done, 950, 600);
+      story.addObjectDiagramAsImage(done, 950, 607);
       story.dumpHTML();
    }
 

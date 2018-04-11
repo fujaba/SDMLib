@@ -1459,7 +1459,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       newHtml = newHtml.replaceAll("\r", "");
 
       // compare with old html,
-      String shortStepName = getName() + "Step" + this.storyboardSteps.size();
+      int num = 0;
+      if (this.storyboardSteps != null)
+      {
+         num = this.storyboardSteps.size();
+      }
+      String shortStepName = getName() + "Step" + num;
       String fullStepHtmlName = this.docDirName + "/_" + shortStepName + ".html";
       Path htmlFile = Paths.get(fullStepHtmlName);
       boolean htmlHasChanged = true;
@@ -1480,7 +1485,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       // insert link to image in this storyboard
-      this.add("<img src=\"doc-files/" + shortStepName + ".png\"></img>\n");
+      this.add("<img src=\"doc-files/" + shortStepName + ".png\" alt=\"" + shortStepName + ".png\">\n");
 
       // if new / changed
       if (! htmlHasChanged) return;
@@ -1498,7 +1503,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       File file = new File(fullStepHtmlName);
       // String urlString = file.toURI().toURL().toString();
 //      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", autoClose);
-      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", true, autoClose, dimensions);
+      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", true, true, dimensions);
       try
       {
          Thread.sleep(4000);

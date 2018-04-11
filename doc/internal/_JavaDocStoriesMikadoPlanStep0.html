@@ -47,6 +47,12 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
     options: {
         animation: false,
         responsive: false,
+         animation: {
+            onComplete: function(animation) {
+                    java.screendump("42");
+                    java.close();
+                }
+         },
         scales: {
             xAxes: [{
                 type: "time",
