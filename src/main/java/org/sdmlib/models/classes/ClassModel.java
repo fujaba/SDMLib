@@ -45,6 +45,59 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
+    * <p>1. generate class University</p>
+    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png"></img>
+    * <p>2. generate class Student</p>
+    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;id&quot;, DataType.STRING)
+    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png"></img>
+    * <p>3. add University --> Student association</p>
+    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png"></img>
+    * <p>4. add University --> Room association</p>
+    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * 
+    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
+    * 
+    *       &#x2F;&#x2F;Association universityToRoom = 
+    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+    *       
+    *       &#x2F;&#x2F; Association doors = 
+    *       roomClass.withBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
+    * 
+    *       &#x2F;&#x2F; Association studentsInRoom = 
+    *       studentClass.withBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+    *       studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+    *       
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png"></img>
+    * <p>5. add assignments:</p>
+    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
+    *                .withAttribute(&quot;content&quot;, DataType.STRING)
+    *                .withAttribute(&quot;points&quot;, DataType.INT)
+    *                .withBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
+    *       
+    *       studentClass.withBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png"></img>
+    * <p>6. generate class source files.</p>
+    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
+    * </pre>
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
@@ -60,6 +113,59 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
+    * <p>1. generate class University</p>
+    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png"></img>
+    * <p>2. generate class Student</p>
+    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;id&quot;, DataType.STRING)
+    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png"></img>
+    * <p>3. add University --> Student association</p>
+    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png"></img>
+    * <p>4. add University --> Room association</p>
+    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * 
+    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
+    * 
+    *       &#x2F;&#x2F;Association universityToRoom = 
+    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+    *       
+    *       &#x2F;&#x2F; Association doors = 
+    *       roomClass.withBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
+    * 
+    *       &#x2F;&#x2F; Association studentsInRoom = 
+    *       studentClass.withBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+    *       studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+    *       
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png"></img>
+    * <p>5. add assignments:</p>
+    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
+    *                .withAttribute(&quot;content&quot;, DataType.STRING)
+    *                .withAttribute(&quot;points&quot;, DataType.INT)
+    *                .withBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
+    *       
+    *       studentClass.withBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png"></img>
+    * <p>6. generate class source files.</p>
+    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
+    * </pre>
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
@@ -76,6 +182,59 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 
    /**
     * Constructor
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
+    * <p>1. generate class University</p>
+    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png"></img>
+    * <p>2. generate class Student</p>
+    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;id&quot;, DataType.STRING)
+    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png"></img>
+    * <p>3. add University --> Student association</p>
+    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png"></img>
+    * <p>4. add University --> Room association</p>
+    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * 
+    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
+    * 
+    *       &#x2F;&#x2F;Association universityToRoom = 
+    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+    *       
+    *       &#x2F;&#x2F; Association doors = 
+    *       roomClass.withBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
+    * 
+    *       &#x2F;&#x2F; Association studentsInRoom = 
+    *       studentClass.withBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+    *       studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+    *       
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png"></img>
+    * <p>5. add assignments:</p>
+    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
+    *                .withAttribute(&quot;content&quot;, DataType.STRING)
+    *                .withAttribute(&quot;points&quot;, DataType.INT)
+    *                .withBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
+    *       
+    *       studentClass.withBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
+    * </pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png"></img>
+    * <p>6. generate class source files.</p>
+    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
+    * </pre>
     * @param packageName PackageName of ClassModel 
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration

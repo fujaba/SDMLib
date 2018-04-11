@@ -1446,7 +1446,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       String dimString = "null";
 
-      if (dimensions != null)
+      if (dimensions != null && dimensions.length >= 2)
       {
          dimString = "" + dimensions[0] + ", " + dimensions[1];
       }
@@ -1456,9 +1456,10 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
               + htmlbody.toString()
               + newHtml.substring(pos + "$text".length());
 
+      newHtml = newHtml.replaceAll("\r", "");
 
       // compare with old html,
-      String shortStepName = getName() + "Step" + this.getStepCounter();
+      String shortStepName = getName() + "Step" + this.storyboardSteps.size();
       String fullStepHtmlName = this.docDirName + "/_" + shortStepName + ".html";
       Path htmlFile = Paths.get(fullStepHtmlName);
       boolean htmlHasChanged = true;
@@ -1469,8 +1470,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             byte[] bytes = Files.readAllBytes(htmlFile);
             String oldHtml = new String(bytes);
             oldHtml = oldHtml.replaceAll("\r", "");
-
-            htmlHasChanged = ! oldHtml.equals(newHtml);
+            boolean equal = oldHtml.equals(newHtml);
+            htmlHasChanged = !equal;
          }
          catch (IOException e)
          {
@@ -2507,7 +2508,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             // copy images to doc-files
             Path docFilesDir = Paths.get(docDirName + "/doc-files");
-            Path targetDir = Paths.get(fullFileName).getParent();
+            Path targetDir = Paths.get(classUnderTestName).getParent();
             Path targetDocFilesDir = Paths.get(targetDir.toString() + "/doc-files");
 
             if ( ! Files.exists(targetDocFilesDir))

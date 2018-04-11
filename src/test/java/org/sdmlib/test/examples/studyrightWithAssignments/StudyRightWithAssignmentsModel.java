@@ -36,28 +36,14 @@ public class StudyRightWithAssignmentsModel
 {
 
 	/**
-	 * <p>1. generate class University</p>
+	 * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
+    * <p>1. generate class University</p>
     * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
     *       Clazz universityClass = model.createClazz(&quot;University&quot;)
     *             .withAttribute(&quot;name&quot;, DataType.STRING);
     * </pre>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"University",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png"></img>
     * <p>2. generate class Student</p>
     * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
     *             .withAttribute(&quot;name&quot;, DataType.STRING)
@@ -66,90 +52,11 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </pre>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"Student",
-    *          "attributes":[
-    *             "assignmentPoints : int",
-    *             "credits : int",
-    *             "id : String",
-    *             "motivation : int",
-    *             "name : String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"University",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png"></img>
     * <p>3. add University --> Student association</p>
     * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </pre>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"Student",
-    *          "attributes":[
-    *             "assignmentPoints : int",
-    *             "credits : int",
-    *             "id : String",
-    *             "motivation : int",
-    *             "name : String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"University",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram8", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png"></img>
     * <p>4. add University --> Room association</p>
     * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
     *             .withAttribute(&quot;name&quot;, DataType.STRING)
@@ -169,150 +76,7 @@ public class StudyRightWithAssignmentsModel
     *       studentClass.withBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
     *       
     * </pre>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"Room",
-    *          "attributes":[
-    *             "credits : int",
-    *             "name : String",
-    *             "topic : String"
-    *          ],
-    *          "methods":[
-    *             "findPath(int motivation) String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Student",
-    *          "attributes":[
-    *             "assignmentPoints : int",
-    *             "credits : int",
-    *             "id : String",
-    *             "motivation : int",
-    *             "name : String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"University",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"doors"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"doors"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"in"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"rooms"
-    *          },
-    *          "target":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"friends"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"friends"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"in"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"rooms"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram11", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png"></img>
     * <p>5. add assignments:</p>
     * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
     *                .withAttribute(&quot;content&quot;, DataType.STRING)
@@ -321,210 +85,7 @@ public class StudyRightWithAssignmentsModel
     *       
     *       studentClass.withBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
     * </pre>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"Assignment",
-    *          "attributes":[
-    *             "content : String",
-    *             "points : int"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Room",
-    *          "attributes":[
-    *             "credits : int",
-    *             "name : String",
-    *             "topic : String"
-    *          ],
-    *          "methods":[
-    *             "findPath(int motivation) String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Student",
-    *          "attributes":[
-    *             "assignmentPoints : int",
-    *             "credits : int",
-    *             "id : String",
-    *             "motivation : int",
-    *             "name : String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"University",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Assignment",
-    *             "cardinality":"many",
-    *             "property":"assignments"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"room"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Assignment",
-    *             "cardinality":"many",
-    *             "property":"done"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"doors"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"doors"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"in"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"room"
-    *          },
-    *          "target":{
-    *             "id":"Assignment",
-    *             "cardinality":"many",
-    *             "property":"assignments"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"rooms"
-    *          },
-    *          "target":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"friends"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"friends"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"one",
-    *             "property":"in"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          },
-    *          "target":{
-    *             "id":"Assignment",
-    *             "cardinality":"many",
-    *             "property":"done"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          },
-    *          "target":{
-    *             "id":"Student",
-    *             "cardinality":"many",
-    *             "property":"students"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"University",
-    *             "cardinality":"one",
-    *             "property":"university"
-    *          },
-    *          "target":{
-    *             "id":"Room",
-    *             "cardinality":"many",
-    *             "property":"rooms"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram14", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png"></img>
     * <p>6. generate class source files.</p>
     * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
     * </pre>
@@ -549,7 +110,7 @@ public class StudyRightWithAssignmentsModel
             .withAttribute("name", DataType.STRING);
       story.addCode();
       
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model, 400, 200);
 
       //============================================================
       story.add("2. generate class Student");
@@ -563,7 +124,7 @@ public class StudyRightWithAssignmentsModel
             .withAttribute("credits", DataType.INT);
       story.addCode();
 
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model, 400, 240);
 
 
       //============================================================
@@ -574,7 +135,7 @@ public class StudyRightWithAssignmentsModel
       universityClass.withBidirectional(studentClass, "students", Cardinality.MANY, "university", Cardinality.ONE);
       story.addCode();
 
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model, 400, 400);
 
 
       //============================================================
@@ -592,15 +153,15 @@ public class StudyRightWithAssignmentsModel
       universityClass.createBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
       
       // Association doors = 
-      roomClass.withBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
+      roomClass.createBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
 
       // Association studentsInRoom = 
-      studentClass.withBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
-      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       story.addCode();
 
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model, 400, 500);
       
       
       
@@ -610,19 +171,20 @@ public class StudyRightWithAssignmentsModel
       story.markCodeStart();
       Clazz assignmentClass = model.createClazz("Assignment")
                .withAttribute("content", DataType.STRING)
-               .withAttribute("points", DataType.INT)
-               .withBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
+               .withAttribute("points", DataType.INT);
+
+      assignmentClass.createBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
       
-      studentClass.withBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
+      studentClass.createBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
       story.addCode();
       
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model, 450, 600);
       
-      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       
       // some more classes for model navigation tests
-      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       model.createClazz("TeachingAssistant")
       .withSuperClazz(studentClass)
@@ -643,7 +205,7 @@ public class StudyRightWithAssignmentsModel
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
       story.addCode();
       
-
+      story.dumpJavaDoc(ClassModel.class.getName());
       story.dumpHTML();
    }
 
