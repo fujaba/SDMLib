@@ -102,6 +102,21 @@ import de.uniks.networkparser.list.SimpleSet;
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
+ * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
+ * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
  */
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
@@ -169,6 +184,21 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
+ * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
+ * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
  */
    public ClassModel() {
 		name = getDefaultPackage();
@@ -239,6 +269,21 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
+ * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
+ * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
  */
    public ClassModel(String packageName)
 	   {
@@ -251,6 +296,16 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
  */
    public ClassModel generate() 
    {
@@ -263,6 +318,16 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
     * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
  */
    public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);

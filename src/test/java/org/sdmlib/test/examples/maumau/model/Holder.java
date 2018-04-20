@@ -33,7 +33,8 @@ import org.sdmlib.test.examples.maumau.model.MauMau;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.maumau.GenModel#genModel
+ */
    public  class Holder implements PropertyChangeInterface, SendableEntity
 {
 

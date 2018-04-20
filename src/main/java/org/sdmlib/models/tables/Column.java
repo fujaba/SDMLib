@@ -34,6 +34,7 @@ import org.sdmlib.models.tables.Table;
 /**
  * 
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
 public class Column implements SendableEntity
 {

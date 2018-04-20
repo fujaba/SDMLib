@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<!-- 400, 350 -->
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Item",
+         "attributes":[
+            "description : String",
+            "price : double"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Party",
+         "attributes":[
+            "partyName : String",
+            "share : double",
+            "total : double"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+            "name : String",
+            "saldo : double",
+            "total : double"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"items"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Party",
+            "cardinality":"one",
+            "property":"party"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"guests"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"guests"
+         },
+         "target":{
+            "id":"Party",
+            "cardinality":"one",
+            "property":"party"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"person"
+         },
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"items"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasGroupAccountCodegenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>

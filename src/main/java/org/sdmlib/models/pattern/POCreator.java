@@ -8,8 +8,11 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleSet;
-
-public class POCreator
+   /**
+    * 
+    * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
+   public class POCreator
 {
 
    LinkedHashMap<SendableEntity, PatternObject<PatternObject, SendableEntity>> alreadyCreatedPOs = new LinkedHashMap<>();

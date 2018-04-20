@@ -25,7 +25,7 @@ public class MSChatClientTest
     * 
     * @see <a href='../../../../../../../../../doc/DirectChat.html'>DirectChat.html</a>
 */
-   @Test
+   // @Test model space shall be deleted AZ
    public void testDirectChat() throws Exception
    {
       // System.out.println("Testing model space");

@@ -22,48 +22,31 @@
 </head>
 <body>
 <!-- 901, 450 -->
-<script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"G1 : Goal",
-         "attributes":[
-            "description=JavaDoc Stories",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G2 : Goal",
-         "attributes":[
-            "description=have object tables in javadocs",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
-         ]
+[
+   {
+      "class":"org.sdmlib.storyboards.Goal",
+      "id":"G1",
+      "prop":{
+         "description":"JavaDoc Stories",
+         "hoursTodo":4,
+         "preGoals":[
+            {
+               "class":"org.sdmlib.storyboards.Goal",
+               "id":"G2"
+            }
+         ],
+         "hoursDone":0
       }
-   ],
-   "edges":[
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"preGoals",
-            "id":"G2 : Goal"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"goal",
-            "id":"G1 : Goal"
-         }
+   },
+   {
+      "class":"org.sdmlib.storyboards.Goal",
+      "id":"G2",
+      "prop":{
+         "description":"have object tables in javadocs",
+         "hoursTodo":4,
+         "hoursDone":0
       }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasJavaDocStoriesMikadoPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-
+   }
+]
 </body>
 </html>

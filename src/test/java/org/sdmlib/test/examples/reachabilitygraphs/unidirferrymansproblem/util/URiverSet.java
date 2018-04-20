@@ -34,6 +34,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public class URiverSet extends SimpleSet<URiver>
 {
@@ -44,6 +45,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public URiverSet()
    {
@@ -53,6 +55,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public URiverSet(URiver... objects)
    {
@@ -65,6 +68,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public URiverSet(Collection<URiver> objects)
    {
@@ -123,6 +127,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
     * 
     * @return Set of UBank objects reachable via banks
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public UBankSet getBanks()
    {

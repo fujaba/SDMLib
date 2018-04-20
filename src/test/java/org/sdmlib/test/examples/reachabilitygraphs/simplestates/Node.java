@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
  */
    public  class Node implements SendableEntity
 {
@@ -117,6 +118,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
  */
    public Node withNum(int value)
    {
@@ -245,6 +247,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public Node withNext(Node... value)
    {

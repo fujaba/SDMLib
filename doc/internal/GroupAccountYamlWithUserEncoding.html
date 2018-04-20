@@ -21,47 +21,42 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountYamlWithUserEncoding</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountYamlWithUserEncoding</a></p>
 <p>Start: start mqtt broker</p>
-<p><a name = 'step_1'>Step 1: test mqtt broker</a></p><p>Check: got mqtt message World actual World</p>
-<p><a name = 'step_2'>Step 2: Abu creates a party and adds Albert and Nathalie</a></p><p><a name = 'step_3'>Step 3: xia creates a party and adds Eyshe</a></p><p><a name = 'step_4'>Step 4: Abu opens party with mqtt map</a></p><p><a name = 'step_5'>Step 5: now start abu with mqtt</a></p><p>Got message:</p>
+<p><a name = 'step_1'>Step 1: test mqtt broker</a></p>
+<p>Check: got mqtt message World actual World</p>
+<p><a name = 'step_2'>Step 2: Abu creates a party and adds Albert and Nathalie</a></p>
+<p><a name = 'step_3'>Step 3: xia creates a party and adds Eyshe</a></p>
+<p><a name = 'step_4'>Step 4: Abu opens party with mqtt map</a></p>
+<p><a name = 'step_5'>Step 5: now start abu with mqtt</a></p>
+<p>Got message:</p>
 <pre>msg: hello
 user: abu
-lastTimeStamps: 2018-03-23T14:49:48.815.abu 
-</pre><p>Check: its a lobby message:  hello actual hello</p>
+lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+</pre>
+<p>Check: its a lobby message:  hello actual hello</p>
 <p>Got message:</p>
 <pre>msg: hello
 user: xia
-lastTimeStamps: 2018-03-23T14:49:48.927.xia 
-</pre><p>Check: its a lobby message from:  xia actual xia</p>
+lastTimeStamps: 2018-04-20T17:34:08.815.xia 
+</pre>
+<p>Check: its a lobby message from:  xia actual xia</p>
 <p>Got message:</p>
 <pre>msg: welcome
 newUser: xia
 oldUser: abu
-lastTimeStamps: 2018-03-23T14:49:48.815.abu 
-</pre><p>Check: its a lobby message:  welcome actual welcome</p>
+lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+</pre>
+<p>Check: its a lobby message:  welcome actual welcome</p>
 <pre>- xia.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-23T14:49:48.992.xia
-</pre><pre>- xia.p2: 	Person
-  total: 	0.0
-  total.time: 	2018-03-23T14:49:49.011.xia
-</pre><pre>- xia.p2: 	Person
-  name: 	Eyshe
-  name.time: 	2018-03-23T14:49:49.024.xia
-</pre><pre>- p1: 	Party
-  share: 	0.0
-  share.time: 	2018-03-23T14:49:49.032.xia
-</pre><pre>- xia.p2: 	Person
-  party: 	p1
-  party.time: 	2018-03-23T14:49:49.042.xia
-- p1: 	Party
-</pre><pre>- p1: 	Party
-  total: 	0.0
-  total.time: 	2018-03-23T14:49:49.053.xia
-</pre><pre>- p1: 	Party
-  partyName: 	&quot;Lectures Copy&quot;
-  partyName.time: 	2018-03-23T14:49:49.061.xia
+  saldo.time: 	2018-04-20T17:34:09.047.xia
 </pre>
+<pre>- p1: 	Party
+  guests: 	xia.p3
+  guests.xia.p3.time: 	2018-04-20T17:34:09.057.xia
+- xia.p3: 	PersonSet
+</pre>
+
 </body>
 </html>

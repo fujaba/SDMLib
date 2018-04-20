@@ -9,6 +9,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
    /**
     * 
     * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
  */
    public class SDMComponentListener implements PropertyChangeListener
 {
@@ -24,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
      /**
     * 
     * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
  */
    public SDMComponentListener(SendableEntity root, PropertyChangeListener elementListener)
    {

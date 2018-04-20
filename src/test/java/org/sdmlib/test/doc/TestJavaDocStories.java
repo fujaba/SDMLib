@@ -12,22 +12,28 @@ import java.util.LinkedHashMap;
 
 public class TestJavaDocStories
 {
+   public static void main(String[] args)
+   {
+      System.out.println("Hello");
+   }
+
    /**
-    * 
+    *
+    * {@link TestJavaDocStories#testGenJavaDocStory()}
+    *
     * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep0.png" alt="JavaDocStoriesMikadoPlanStep0.png">
-    * <p>Start: open goals</p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep2.png" alt="JavaDocStoriesMikadoPlanStep2.png">
-    * <p><a name = 'step_1'>Step 1: closed goals</a></p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep4.png" alt="JavaDocStoriesMikadoPlanStep4.png">
+    * <p>Start: open goals:</p>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep1.png" alt="JavaDocStoriesMikadoPlanStep1.png">
+    * <p><a name = 'step_1'>Step 1: closed goals:</a></p>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep3.png" alt="JavaDocStoriesMikadoPlanStep3.png">
     */
    @Test
    public void testJavaDocStoriesMikadoPlan()
    {
-      String yaml = "" +
+      String mikadoText = "" +
               "- Goal                  description:                               parents:   \n" +
               "  main:                 \"JavaDoc Stories\"                        null       \n" +
-              "  storyBoardExtension:  \"add gen javadoc methods to storyBaord\"  main       \n" +
+              "  storyBoardExtension:  \"add gen javadoc methods to storyBoard\"  main       \n" +
               "  generateJavaDocText:  \"generate javadoc text\"                  main       \n" +
               "  insertJavaDocInClass: \"insert javadoc in class\"                main       \n" +
               "  insertStoryInTest:    \"insert Story as TestMethod javadoc\"     insertJavaDocInClass       \n" +
@@ -53,15 +59,15 @@ public class TestJavaDocStories
               "";
 
       YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
-      Goal root = (Goal) idMap.decode(yaml);
+      Goal root = (Goal) idMap.decode(mikadoText);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
+      // story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
       Goal done = root.clipDone();
-      story.addStep("open goals");
-      story.addObjectDiagramAsImage(root, 901, 450);
-      story.addStep("closed goals");
-      story.addObjectDiagramAsImage(done, 950, 607);
+      story.addStep("open goals:");
+      story.addObjectDiagramViaGraphViz(root, 901, 451);
+      story.addStep("closed goals:");
+      story.addObjectDiagramViaGraphViz(done, 950, 600);
       story.dumpHTML();
    }
 

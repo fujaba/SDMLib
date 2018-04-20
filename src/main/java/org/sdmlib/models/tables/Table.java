@@ -38,6 +38,7 @@ import org.sdmlib.models.tables.Row;
  * 
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
 public  class Table implements SendableEntity
 {

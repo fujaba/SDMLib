@@ -35,7 +35,8 @@ import org.sdmlib.test.examples.mancala.model.Pit;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
-*/
+* @see org.sdmlib.test.examples.mancala.MancalaModel#MancalaModelCreation
+ */
    public class Mancala implements PropertyChangeInterface, SendableEntity
 {
 

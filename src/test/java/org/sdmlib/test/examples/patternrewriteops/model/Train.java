@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public  class Train implements SendableEntity
 {
@@ -185,6 +187,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public boolean setStation(Station value)
    {
@@ -223,6 +226,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public Station createStation()
    {

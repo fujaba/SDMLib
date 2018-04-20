@@ -38,6 +38,7 @@ import org.sdmlib.replication.ReplicationChange;
 * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public class ChangeHistory implements PropertyChangeInterface, SendableEntity
 {
@@ -216,7 +217,8 @@ import org.sdmlib.replication.ReplicationChange;
       * Create a new ReplicationChange
     * @return The created ReplicationChange 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public ReplicationChange createChanges()
    {
       ReplicationChange value = new ReplicationChange();

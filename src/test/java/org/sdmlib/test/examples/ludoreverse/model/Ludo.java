@@ -33,7 +33,8 @@ import org.sdmlib.test.examples.ludoreverse.model.Player;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludoreverse/LudoReverseModel.java'>LudoReverseModel.java</a>
-*/
+* @see org.sdmlib.test.examples.ludoreverse.LudoReverseModel#LudoModelCreation
+ */
    public class Ludo implements PropertyChangeInterface, SendableEntity
 {
 

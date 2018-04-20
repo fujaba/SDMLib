@@ -1,0 +1,40 @@
+<svg width="182pt" height="151pt"
+ viewBox="0.00 0.00 181.64 151.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 147.2)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-147.2 177.6368,-147.2 177.6368,4 -4,4"/>
+<text text-anchor="middle" x="86.8184" y="-128.4" font-family="Verdana" font-size="12.00" fill="#000000">GroupAccount &#45; System Context</text>
+<!-- c0 -->
+<g id="node1" class="node">
+<title>c0</title>
+<polygon fill="none" stroke="#000000" points="23.8184,-84.3 23.8184,-120.3 77.8184,-120.3 77.8184,-84.3 23.8184,-84.3"/>
+<text text-anchor="middle" x="50.5632" y="-99.6" font-family="Verdana" font-size="9.00" fill="#000000">Alice</text>
+</g>
+<!-- c2 -->
+<g id="node2" class="node">
+<title>c2</title>
+<polygon fill="none" stroke="#000000" points="52.0776,-.5 52.0776,-36.5 121.5592,-36.5 121.5592,-.5 52.0776,-.5"/>
+<text text-anchor="middle" x="86.8184" y="-15.8" font-family="Verdana" font-size="9.00" fill="#000000">GroupAccount</text>
+</g>
+<!-- c0&#45;&gt;c2 -->
+<g id="edge1" class="edge">
+<title>c0&#45;&gt;c2</title>
+<path fill="none" stroke="#000000" d="M58.6299,-84.1166C63.3945,-73.0255 69.5794,-58.6286 74.9413,-46.1472"/>
+<polygon fill="#000000" stroke="#000000" points="78.2908,-47.2174 79.0222,-36.6479 71.8592,-44.4544 78.2908,-47.2174"/>
+<text text-anchor="middle" x="79.5661" y="-57.7" font-family="Verdana" font-size="9.00" fill="#000000">uses</text>
+</g>
+<!-- c1 -->
+<g id="node3" class="node">
+<title>c1</title>
+<polygon fill="none" stroke="#000000" points="95.8184,-84.3 95.8184,-120.3 149.8184,-120.3 149.8184,-84.3 95.8184,-84.3"/>
+<text text-anchor="middle" x="122.3195" y="-99.6" font-family="Verdana" font-size="9.00" fill="#000000">Bob</text>
+</g>
+<!-- c1&#45;&gt;c2 -->
+<g id="edge2" class="edge">
+<title>c1&#45;&gt;c2</title>
+<path fill="none" stroke="#000000" d="M115.0069,-84.1166C110.2423,-73.0255 104.0574,-58.6286 98.6955,-46.1472"/>
+<polygon fill="#000000" stroke="#000000" points="101.7776,-44.4544 94.6146,-36.6479 95.346,-47.2174 101.7776,-44.4544"/>
+<text text-anchor="middle" x="114.5661" y="-57.7" font-family="Verdana" font-size="9.00" fill="#000000">uses</text>
+</g>
+</g>
+</svg>

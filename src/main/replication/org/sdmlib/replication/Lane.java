@@ -328,7 +328,8 @@ import org.sdmlib.replication.BoardTask;
    /**
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    */
+    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public BoardTask createTasks()
    {
       BoardTask value = new BoardTask();
@@ -341,7 +342,8 @@ import org.sdmlib.replication.BoardTask;
     * @param taskName The Name of BoardTask
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    */
+    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public BoardTask createTask(String taskName)
    {
       BoardTask task = new BoardTask().withName(taskName);

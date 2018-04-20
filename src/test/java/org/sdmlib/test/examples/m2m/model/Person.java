@@ -37,7 +37,9 @@ import org.sdmlib.test.examples.m2m.model.Relation;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MModelGen.java'>BanfM2MModelGen.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MTransformations.java'>BanfM2MTransformations.java</a>
-*/
+* @see org.sdmlib.test.examples.m2m.BanfM2MModelGen#genModel
+ * @see org.sdmlib.test.examples.m2m.BanfM2MTransformations#testBanfM2MTransformation
+ */
    public class Person extends GraphComponent implements PropertyChangeInterface, SendableEntity
 {
 

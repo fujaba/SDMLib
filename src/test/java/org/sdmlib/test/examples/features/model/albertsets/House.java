@@ -34,7 +34,8 @@ import org.sdmlib.test.examples.features.model.albertsets.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>
-*/
+* @see org.sdmlib.test.examples.features.FeatureTest#testFeaturesAlbertSets
+ */
    public class House implements PropertyChangeInterface, SendableEntity
 {
 

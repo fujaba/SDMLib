@@ -1090,6 +1090,7 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
  */
    public class YamlIdMap
 {
@@ -2186,6 +2187,7 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
  */
    private YamlIdMap()
    {
@@ -3265,6 +3267,7 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
  */
    public YamlIdMap(String... packageNames)
    {

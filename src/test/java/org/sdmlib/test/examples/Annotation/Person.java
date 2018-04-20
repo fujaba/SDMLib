@@ -30,7 +30,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/examples/Annotation/GenModel.java'>GenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.Annotation.GenModel#genModel
+ */
    public  class Person implements PropertyChangeInterface, SendableEntity
 {
 

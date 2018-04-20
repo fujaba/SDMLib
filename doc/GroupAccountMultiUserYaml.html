@@ -87,57 +87,61 @@
    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><pre>- p1: 	Party
+<p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
+<pre>- p1: 	Party
   partyName: 	&quot;Lectures Done&quot;
-  partyName.time: 	2018-04-04T23:45:19.962.albert
+  partyName.time: 	2018-04-20T17:34:28.401.albert
 - p1: 	Party
   share: 	0.0
-  share.time: 	2018-04-04T23:45:19.969.albert
+  share.time: 	2018-04-20T17:34:28.402.albert
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-04-04T23:45:19.969.albert
+  total.time: 	2018-04-20T17:34:28.402.albert
 - albert.p2: 	Person
   name: 	Albert
-  name.time: 	2018-04-04T23:45:19.971.albert
+  name.time: 	2018-04-20T17:34:28.405.albert
 - albert.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-04T23:45:19.971.albert
+  saldo.time: 	2018-04-20T17:34:28.405.albert
 - albert.p2: 	Person
   total: 	0.0
-  total.time: 	2018-04-04T23:45:19.971.albert
+  total.time: 	2018-04-20T17:34:28.405.albert
 - albert.p2: 	Person
   party: 	p1
-  party.time: 	2018-04-04T23:45:19.972.albert
+  party.time: 	2018-04-20T17:34:28.405.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p2
-  guests.albert.p2.time: 	2018-04-04T23:45:37.148.albert
+  guests.albert.p2.time: 	2018-04-20T17:34:28.405.albert
 - albert.p2: 	Person
 - albert.p3: 	Person
   name: 	Nathalie
-  name.time: 	2018-04-04T23:46:20.479.albert
+  name.time: 	2018-04-20T17:34:28.405.albert
 - albert.p3: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-04T23:46:20.480.albert
+  saldo.time: 	2018-04-20T17:34:28.405.albert
 - albert.p3: 	Person
   total: 	0.0
-  total.time: 	2018-04-04T23:46:20.480.albert
+  total.time: 	2018-04-20T17:34:28.405.albert
 - albert.p3: 	Person
   party: 	p1
-  party.time: 	2018-04-04T23:46:20.480.albert
+  party.time: 	2018-04-20T17:34:28.406.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p3
-  guests.albert.p3.time: 	2018-04-04T23:46:20.480.albert
+  guests.albert.p3.time: 	2018-04-20T17:34:28.406.albert
 - albert.p3: 	Person
 </pre>
-<p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-<p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
+<p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
+<p><a name = 'step_3'>Step 3: check isomorphism</a></p>
+<p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+<p><a name = 'step_4'>Step 4: deal with link removal</a></p>
+<pre>- albert.p3: 	Person
   party.remove: 	p1
-  party.remove.time: 	2018-04-04T23:46:20.496.albert
+  party.remove.time: 	2018-04-20T17:34:28.418.albert
 - p1: 	Party
   guests.remove: 	albert.p3
-  guests.remove.albert.p3.time: 	2018-04-04T23:46:20.496.albert
+  guests.remove.albert.p3.time: 	2018-04-20T17:34:28.418.albert
 </pre>
 <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>original model</p>
@@ -226,8 +230,9 @@
    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-04-04T23:46:20.519.albert
+<p><a name = 'step_5'>Step 5: deal with object removal</a></p>
+<pre>- albert.p3: 	Person.remove
+  Person.remove.time: 	2018-04-20T17:34:28.428.albert
 </pre>
 <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>Check: orig idmap has removed natanull</p>
@@ -317,25 +322,26 @@
    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-04-04T23:46:20.519.albert
+<p><a name = 'step_6'>Step 6: add objects after removal</a></p>
+<pre>- albert.p3: 	Person.remove
+  Person.remove.time: 	2018-04-20T17:34:28.428.albert
 - albert.p4: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-04T23:46:20.530.albert
+  saldo.time: 	2018-04-20T17:34:28.441.albert
 - albert.p4: 	Person
   total: 	0.0
-  total.time: 	2018-04-04T23:46:20.530.albert
+  total.time: 	2018-04-20T17:34:28.441.albert
 - albert.p4: 	Person
   party: 	p1
-  party.time: 	2018-04-04T23:46:20.530.albert
+  party.time: 	2018-04-20T17:34:28.441.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p4
-  guests.albert.p4.time: 	2018-04-04T23:46:20.530.albert
+  guests.albert.p4.time: 	2018-04-20T17:34:28.441.albert
 - albert.p4: 	Person
 - albert.p4: 	Person
   name: 	Ann
-  name.time: 	2018-04-04T23:46:20.531.albert
+  name.time: 	2018-04-20T17:34:28.442.albert
 </pre>
 
 </body>

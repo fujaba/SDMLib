@@ -35,6 +35,7 @@ import org.sdmlib.replication.ReplicationNode;
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface, SendableEntity
@@ -50,7 +51,8 @@ import org.sdmlib.replication.ReplicationNode;
     * @param replicationNode The ReplicationNode
     * @param replicationServerPort The PortNumber
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
    {
@@ -61,7 +63,8 @@ import org.sdmlib.replication.ReplicationNode;
      /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public ServerSocketAcceptThread()
    {
       // blank
@@ -71,7 +74,8 @@ import org.sdmlib.replication.ReplicationNode;
     * @param sharedSpace The SharedSpace
     * @param port The Portnumber 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    */
+    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
    {
       this.sharedSpace = sharedSpace;

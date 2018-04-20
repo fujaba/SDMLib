@@ -21,9 +21,9 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
 <p>Start: Project plan: </p>
-<canvas id="myChart" width="1000" height="600"></canvas>
+<canvas id="myChart" width="880" height="550"></canvas>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -54,7 +54,14 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
         ]
     },
     options: {
+        animation: false,
         responsive: false,
+         animation: {
+            onComplete: function(animation) {
+                    java.screendump("42");
+                    java.close();
+                }
+         },
         scales: {
             xAxes: [{
                 type: "time",
@@ -96,7 +103,8 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
         }
     }});
 </script>
-<p><a name = 'step_1'>Step 1: open goals</a></p><script>
+<p><a name = 'step_1'>Step 1: open goals</a></p>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -217,7 +225,8 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    json["options"]={"canvasid":"canvasMultiUserGroupAccountProjectPlan4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_2'>Step 2: closed goals</a></p><script>
+<p><a name = 'step_2'>Step 2: closed goals</a></p>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[

@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,15 +21,16 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java' type='text/x-java'>POCreatorLargeModel</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java' type='text/x-java'>POCreatorLargeModel</a></p>
 <p>Start: At first we instanciate a Model</p>
-<pre>      University university = new University().withName(&quot;StudyRight University&quot;);
+<pre>            University university = new University().withName(&quot;StudyRight University&quot;);
       Room mathRoom = university.createRooms().withCredits(6).withName(&quot;Multiply&quot;).withTopic(&quot;Math&quot;);
       Student joan = mathRoom.createStudents().withName(&quot;Jane Doe&quot;);
       Student peter = mathRoom.createStudentsTeachingAssistant().withName(&quot;Peter Teacher&quot;).withIn(mathRoom);
       mathRoom.createAssignments().withContent(&quot;1*1&quot;).withPoints(2).withStudents(joan);
       university.withStudents(joan, peter);
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -179,11 +181,15 @@
    json["options"]={"canvasid":"canvasPOCreatorLargeModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Now the corresponding Pattern is generated</a></p><pre>      POCreator poCreator = new POCreator();
+<p><a name = 'step_1'>Step 1: Now the corresponding Pattern is generated</a></p>
+<pre>            POCreator poCreator = new POCreator();
       PatternObject po = poCreator
          .createPO(university);
-</pre><p><a name = 'step_2'>Step 2: Now we want to rebind the patternObject to the University model and look for the matches</a></p><pre>      po.rebind(university);
-</pre><script>
+</pre>
+<p><a name = 'step_2'>Step 2: Now we want to rebind the patternObject to the University model and look for the matches</a></p>
+<pre>            po.rebind(university);
+</pre>
+<script>
    var json = {
    "type":"object",
    "nodes":[

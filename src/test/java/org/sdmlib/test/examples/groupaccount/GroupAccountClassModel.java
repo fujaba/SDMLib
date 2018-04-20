@@ -15,7 +15,7 @@ public class GroupAccountClassModel
     * 
     * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
     * <p>Start situation: Nothing here yet. Generate classes</p>
-    * <img src="doc-files/GroupAccountCodegenStep0.png"></img>
+    * <img src="doc-files/GroupAccountCodegenStep1.png" alt="GroupAccountCodegenStep1.png">
     * @see <a href='../../../../../../../../doc/GroupAccountCodegen.html'>GroupAccountCodegen.html</a>
 */
    @Test

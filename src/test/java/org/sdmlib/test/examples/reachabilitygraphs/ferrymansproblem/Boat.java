@@ -33,7 +33,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
-*/
+* @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
+ */
    public class Boat implements PropertyChangeInterface, SendableEntity
 {
 

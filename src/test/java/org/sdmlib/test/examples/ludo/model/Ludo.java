@@ -38,7 +38,8 @@ import org.sdmlib.test.examples.ludo.model.Field;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoModel.java'>LudoModel.java</a>
-*/
+* @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
+ */
    public class Ludo implements PropertyChangeInterface, SendableEntity
 {
 

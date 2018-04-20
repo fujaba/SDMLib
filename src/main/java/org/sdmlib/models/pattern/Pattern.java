@@ -1589,6 +1589,10 @@ public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInte
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
+ */
    public CloneOp createCloneOp()
    {
       CloneOp value = new CloneOp();

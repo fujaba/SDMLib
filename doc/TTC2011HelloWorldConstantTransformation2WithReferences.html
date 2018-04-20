@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
 <script>
@@ -105,7 +105,7 @@
    new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>The code that builds and runs the transformation / pattern looks like: </p>
-<pre>      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+<pre>            GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
             .startCreate()
             .has(new GreetingPO());
 
@@ -114,7 +114,8 @@
 
       PersonPO personPO = greetingPO.hasPerson()
             .hasName(&quot;TTC Participants&quot;);
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"object",
    "nodes":[
@@ -299,7 +300,7 @@
    g.layout(100,100);
 </script>
 <p>For fairness, the java code that does this transformation looks like: </p>
-<pre>      Greeting greeting = new Greeting();
+<pre>            Greeting greeting = new Greeting();
 
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
             .withText(&quot;Hello&quot;);
@@ -307,5 +308,6 @@
       Person person = greeting.createPerson()
             .withName(&quot;TTC Participants&quot;);
 </pre>
+
 </body>
 </html>

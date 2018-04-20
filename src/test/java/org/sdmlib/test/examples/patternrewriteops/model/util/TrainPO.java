@@ -12,6 +12,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public class TrainPO extends PatternObject<TrainPO, Train>
 {
@@ -36,6 +37,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public TrainPO(){
       newInstance(null);
@@ -44,6 +46,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public TrainPO(Train... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
@@ -55,6 +58,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public TrainPO(String modifier)
    {
@@ -102,6 +106,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public StationPO createStationPO()
    {
@@ -116,6 +121,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Station;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public StationPO createStationPO(String modifier)
    {

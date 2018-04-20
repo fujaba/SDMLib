@@ -33,7 +33,9 @@ import org.sdmlib.test.examples.ludo.model.Ludo;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoModel.java'>LudoModel.java</a>
-*/
+* @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
+ * @see org.sdmlib.test.examples.ludo.LudoStoryboard#testLudoStoryboardManual
+ */
    public class Dice implements PropertyChangeInterface, SendableEntity
 {
 

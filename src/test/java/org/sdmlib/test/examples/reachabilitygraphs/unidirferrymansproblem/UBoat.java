@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
  */
    public  class UBoat implements SendableEntity
 {
@@ -130,6 +131,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#UniDirFerrymansProblemRules
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
  */
    public UBoat withBank(UBank value)
    {

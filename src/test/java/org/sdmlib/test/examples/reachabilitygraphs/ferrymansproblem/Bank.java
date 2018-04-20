@@ -36,7 +36,8 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>
-*/
+* @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
+ */
    public class Bank implements PropertyChangeInterface, SendableEntity
 {
 
@@ -354,7 +355,9 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
-*/
+* @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
+ */
    public Cargo createCargos()
    {
       Cargo value = new Cargo();

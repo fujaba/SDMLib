@@ -1,0 +1,8 @@
+Error: null
+Start: 17.04.2018 23:05:31
+Startdate: 17.04.2018 23:05:47
+Date: 17.04.2018 23:05:47
+Thread: JavaFX Application Thread
+PID: 8444
+Version: 4.7.1152
+IP: 192.168.99.1

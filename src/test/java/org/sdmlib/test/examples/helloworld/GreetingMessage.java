@@ -31,7 +31,8 @@ import org.sdmlib.test.examples.helloworld.Greeting;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ */
    public class GreetingMessage implements PropertyChangeInterface, SendableEntity
 {
 

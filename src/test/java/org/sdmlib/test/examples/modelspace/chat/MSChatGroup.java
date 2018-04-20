@@ -35,7 +35,8 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
-*/
+* @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
+ */
    public  class MSChatGroup implements PropertyChangeInterface, SendableEntity
 {
 

@@ -45,6 +45,694 @@ public class LudoStoryboard
 
      /**
     * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
+    * <p>Start situation: </p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"D4 : Dice",
+    *          "attributes":[
+    *             "game=null",
+    *             "value=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F10 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F11 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F12 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F13 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F5 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=blue",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=start",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F6 : Field",
+    *          "attributes":[
+    *             "color=blue",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=base",
+    *             "lander=null",
+    *             "landing=null",
+    *             "next=null",
+    *             "point=null",
+    *             "prev=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F8 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=red",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=start",
+    *             "lander=null",
+    *             "landing=null",
+    *             "next=null",
+    *             "point=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"L1 : Ludo",
+    *          "attributes":[
+    *             "date=null",
+    *             "dice=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Player",
+    *          "attributes":[
+    *             "color=blue",
+    *             "enumColor=blue",
+    *             "landing=null",
+    *             "name=Tom",
+    *             "next=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P3 : Player",
+    *          "attributes":[
+    *             "base=null",
+    *             "color=red",
+    *             "dice=null",
+    *             "enumColor=red",
+    *             "landing=null",
+    *             "name=Sabine",
+    *             "next=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P7 : Pawn",
+    *          "attributes":[
+    *             "color=blue",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P9 : Pawn",
+    *          "attributes":[
+    *             "color=red",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"base",
+    *             "id":"F6 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"baseowner",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"dice",
+    *             "id":"D4 : Dice"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F10 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F5 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F11 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F10 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F12 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F11 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F13 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F12 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P7 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P9 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P3 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P9 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"pos",
+    *             "id":"F5 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P7 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"pos",
+    *             "id":"F6 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"players",
+    *             "id":"P2 : Player"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"game",
+    *             "id":"L1 : Ludo"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"players",
+    *             "id":"P3 : Player"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"game",
+    *             "id":"L1 : Ludo"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"start",
+    *             "id":"F5 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"starter",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"start",
+    *             "id":"F8 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"starter",
+    *             "id":"P3 : Player"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboard2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>now the pawn may move to Tom's start field</p>
+    * <pre>            &#x2F;&#x2F; build move operation with SDM model transformations
+    *       PawnPO pawnPO = new PawnPO(p2);
+    *       
+    *       PlayerPO playerPO = pawnPO.hasPlayer();
+    *       
+    *       DicePO diePO = playerPO.hasDice().hasValue(6);
+    *       
+    *       FieldPO baseField = pawnPO.hasPos().hasKind(&quot;base&quot;);
+    *       
+    *       playerPO.hasBase(baseField);
+    *       
+    *       FieldPO startFieldPO = playerPO.hasStart();
+    *       
+    *       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p1 : PawnPO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p2 : PlayerPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"d3 : DicePO",
+    *          "attributes":[
+    *             "value == 6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f4 : FieldPO",
+    *          "attributes":[
+    *             "kind == base"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f5 : FieldPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"p6 : PawnPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"dice",
+    *             "id":"d3 : DicePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"base",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"start",
+    *             "id":"f5 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "target":{
+    *             "property":"pawns",
+    *             "id":"p6 : PawnPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p6 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <pre>            pawnPO.startDestroy();
+    *       pawnPO.hasPos(baseField);
+    *       
+    *       pawnPO.startCreate();
+    *       pawnPO.hasPos(startFieldPO);
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p1 : PawnPO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p2 : PlayerPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"d3 : DicePO",
+    *          "attributes":[
+    *             "value == 6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f4 : FieldPO",
+    *          "attributes":[
+    *             "kind == base"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f5 : FieldPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"p6 : PawnPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"dice",
+    *             "id":"d3 : DicePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"base",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"start",
+    *             "id":"f5 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "target":{
+    *             "property":"pawns",
+    *             "id":"p6 : PawnPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p6 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          },
+    *          "style":"destroy"
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "style":"create"
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Pattern has match: true</p>
     * @see <a href='../../../../../../../../doc/LudoStoryboard.html'>LudoStoryboard.html</a>
 */
    @Test
@@ -136,6 +824,694 @@ public class LudoStoryboard
 
      /**
     * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
+    * <p>Start situation: </p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"D4 : Dice",
+    *          "attributes":[
+    *             "game=null",
+    *             "value=6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F10 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F11 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F12 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F13 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=null",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=null",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F5 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=blue",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=start",
+    *             "lander=null",
+    *             "landing=null",
+    *             "point=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F6 : Field",
+    *          "attributes":[
+    *             "color=blue",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=base",
+    *             "lander=null",
+    *             "landing=null",
+    *             "next=null",
+    *             "point=null",
+    *             "prev=null",
+    *             "starter=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"F8 : Field",
+    *          "attributes":[
+    *             "baseowner=null",
+    *             "color=red",
+    *             "entry=null",
+    *             "game=null",
+    *             "kind=start",
+    *             "lander=null",
+    *             "landing=null",
+    *             "next=null",
+    *             "point=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"L1 : Ludo",
+    *          "attributes":[
+    *             "date=null",
+    *             "dice=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P2 : Player",
+    *          "attributes":[
+    *             "color=blue",
+    *             "enumColor=blue",
+    *             "landing=null",
+    *             "name=Tom",
+    *             "next=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P3 : Player",
+    *          "attributes":[
+    *             "base=null",
+    *             "color=red",
+    *             "dice=null",
+    *             "enumColor=red",
+    *             "landing=null",
+    *             "name=Sabine",
+    *             "next=null",
+    *             "prev=null",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P7 : Pawn",
+    *          "attributes":[
+    *             "color=blue",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P9 : Pawn",
+    *          "attributes":[
+    *             "color=red",
+    *             "x=0",
+    *             "y=0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"base",
+    *             "id":"F6 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"baseowner",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"dice",
+    *             "id":"D4 : Dice"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F10 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F5 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F11 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F10 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F12 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F11 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"next",
+    *             "id":"F13 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"prev",
+    *             "id":"F12 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P7 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P9 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"player",
+    *             "id":"P3 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P9 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"pos",
+    *             "id":"F5 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"pawns",
+    *             "id":"P7 : Pawn"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"pos",
+    *             "id":"F6 : Field"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"players",
+    *             "id":"P2 : Player"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"game",
+    *             "id":"L1 : Ludo"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"players",
+    *             "id":"P3 : Player"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"game",
+    *             "id":"L1 : Ludo"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"start",
+    *             "id":"F5 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"starter",
+    *             "id":"P2 : Player"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"start",
+    *             "id":"F8 : Field"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"starter",
+    *             "id":"P3 : Player"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboard2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>now the pawn may move to Tom's start field</p>
+    * <pre>            &#x2F;&#x2F; build move operation with SDM model transformations
+    *       PawnPO pawnPO = new PawnPO(p2);
+    *       
+    *       PlayerPO playerPO = pawnPO.hasPlayer();
+    *       
+    *       DicePO diePO = playerPO.hasDice().hasValue(6);
+    *       
+    *       FieldPO baseField = pawnPO.hasPos().hasKind(&quot;base&quot;);
+    *       
+    *       playerPO.hasBase(baseField);
+    *       
+    *       FieldPO startFieldPO = playerPO.hasStart();
+    *       
+    *       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p1 : PawnPO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p2 : PlayerPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"d3 : DicePO",
+    *          "attributes":[
+    *             "value == 6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f4 : FieldPO",
+    *          "attributes":[
+    *             "kind == base"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f5 : FieldPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"p6 : PawnPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"dice",
+    *             "id":"d3 : DicePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"base",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"start",
+    *             "id":"f5 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "target":{
+    *             "property":"pawns",
+    *             "id":"p6 : PawnPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p6 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <pre>            pawnPO.startDestroy();
+    *       pawnPO.hasPos(baseField);
+    *       
+    *       pawnPO.startCreate();
+    *       pawnPO.hasPos(startFieldPO);
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p1 : PawnPO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"p2 : PlayerPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"d3 : DicePO",
+    *          "attributes":[
+    *             "value == 6"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f4 : FieldPO",
+    *          "attributes":[
+    *             "kind == base"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"f5 : FieldPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"p6 : PawnPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"dice",
+    *             "id":"d3 : DicePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"base",
+    *             "id":"f4 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p2 : PlayerPO"
+    *          },
+    *          "target":{
+    *             "property":"start",
+    *             "id":"f5 : FieldPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "target":{
+    *             "property":"pawns",
+    *             "id":"p6 : PawnPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p6 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"player",
+    *             "id":"p2 : PlayerPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f4 : FieldPO"
+    *          },
+    *          "style":"destroy"
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"p1 : PawnPO"
+    *          },
+    *          "target":{
+    *             "property":"pos",
+    *             "id":"f5 : FieldPO"
+    *          },
+    *          "style":"create"
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Pattern has match: true</p>
     * @see <a href='../../../../../../../../doc/LudoStoryboardManual.html'>LudoStoryboardManual.html</a>
 * @see <a href='../../../../../../../../doc/LudoStoryboard.html'>LudoStoryboard.html</a>
 */

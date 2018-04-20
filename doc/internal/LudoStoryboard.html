@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
 <p>Start situation: </p>
 <script>
    var json = {
@@ -401,7 +401,7 @@
    g.layout(100,100);
 </script>
 <p>now the pawn may move to Tom's start field</p>
-<pre>      &#x2F;&#x2F; build move operation with SDM model transformations
+<pre>            &#x2F;&#x2F; build move operation with SDM model transformations
       PawnPO pawnPO = new PawnPO(p2);
       
       PlayerPO playerPO = pawnPO.hasPlayer();
@@ -415,7 +415,8 @@
       FieldPO startFieldPO = playerPO.hasStart();
       
       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"object",
    "nodes":[
@@ -546,12 +547,13 @@
    json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      pawnPO.startDestroy();
+<pre>            pawnPO.startDestroy();
       pawnPO.hasPos(baseField);
       
       pawnPO.startCreate();
       pawnPO.hasPos(startFieldPO);
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"object",
    "nodes":[

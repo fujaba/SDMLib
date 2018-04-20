@@ -30,7 +30,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
-*/
+* @see org.sdmlib.test.examples.mancala.MancalaModel#MancalaAttributeTypeCreation
+ */
    public class Color implements PropertyChangeInterface, SendableEntity
 {
 

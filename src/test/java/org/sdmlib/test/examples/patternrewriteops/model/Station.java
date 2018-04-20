@@ -33,6 +33,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
  */
    public  class Station implements SendableEntity
 {
@@ -223,6 +224,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public Station createNext()
    {
@@ -299,6 +301,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public Person createPeople()
    {
@@ -362,6 +365,7 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public SignalFlag createFlag()
    {

@@ -34,7 +34,8 @@ import org.sdmlib.test.examples.features.model.all.Window;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>
-*/
+* @see org.sdmlib.test.examples.features.FeatureTest#testFeaturesAll
+ */
    public class House implements PropertyChangeInterface, SendableEntity
 {
 

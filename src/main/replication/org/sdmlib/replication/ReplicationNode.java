@@ -41,6 +41,7 @@ import org.sdmlib.replication.SharedSpace;
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
 public class ReplicationNode extends Thread implements PropertyChangeInterface, SendableEntity
 {
@@ -224,7 +225,8 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface, 
     * Create a SharedSpace
     * @return The created Sharedspace 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public SharedSpace createSharedSpaces()
    {
       SharedSpace value = new SharedSpace();

@@ -14,6 +14,7 @@ import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.parse.Parser;
 import org.junit.Test;
@@ -23,12 +24,19 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import static guru.nidi.graphviz.model.Factory.graph;
+import static guru.nidi.graphviz.model.Factory.node;
+
 public class TestStructurizr
 {
    /**
-    *
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestStructurizr.java' type='text/x-java'>StructurizrDiagrams</a></p>
-    * <p>Capture some architecture information with structurizr</p>
+    * PNG Image:
+    * <img src="doc-files/alicebob.png" alt="JavaDocStoriesMikadoPlanStep0.png" usemap="#planetmap">
+    * <map name="planetmap">
+    *   <area shape="rect" coords="0,0,182,126" href="sun.htm" alt="Sun">
+    *   <area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury">
+    *   <area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus">
+    * </map>
     */
    @Test
    public void testStructurizrDiagrams()
@@ -40,8 +48,8 @@ public class TestStructurizr
       Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
       Model model = workspace.getModel();
 
-      Person alice = model.addPerson("Alice", "Alice uses GroupAccount.");
-      Person bob = model.addPerson("Bob", "Alice uses GroupAccount.");
+      Person alice = model.addPerson("Alice", "Alice enters the data.");
+      Person bob = model.addPerson("Bob", "Bob pays his share.");
       SoftwareSystem softwareSystem = model.addSoftwareSystem("GroupAccount", "Doing accounting for groups.");
       alice.uses(softwareSystem, "uses");
       bob.uses(softwareSystem, "uses");
@@ -51,34 +59,16 @@ public class TestStructurizr
       contextView.addAllSoftwareSystems();
       contextView.addAllPeople();
 
-//      StructurizrClient structurizrClient = new StructurizrClient("11066b8b-930b-4de8-a5b8-164a6da0d2c9 ", "aeb9d278-a826-43b9-96f5-2c71d414b758");
-//      try
-//      {
-//         structurizrClient.putWorkspace( 38847, workspace);
-//      } catch (StructurizrClientException e)
-//      {
-//         e.printStackTrace();
-//      }
-
-      StringWriter stringWriter = new StringWriter();
-      DotWriter dotWriter = new DotWriter();
-      dotWriter.write(workspace, stringWriter);
-      System.out.println(stringWriter);
-
-      String dotText = stringWriter.toString();
-      int pos = dotText.indexOf("digraph");
-      dotText = dotText.substring(pos);
 
       try
       {
-         MutableGraph g = Parser.read(dotText);
-         Graphviz.fromGraph(g).width(600).render(Format.PNG).toFile(new File("doc/ex4-1.png"));
-      }
+         Graph g = graph("example1").directed().with(node("a").link(node("b")));
+         Graphviz.fromGraph(g).width(200).render(Format.PNG).toFile(new File("doc/doc-files/ex1.png"));      }
       catch (IOException e)
       {
          e.printStackTrace();
       }
 
-      story.dumpHTML();
+      // story.dumpHTML();
    }
 }

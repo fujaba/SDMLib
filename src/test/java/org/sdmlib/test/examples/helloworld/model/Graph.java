@@ -35,7 +35,10 @@ import org.sdmlib.test.examples.helloworld.model.Node;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
+ */
    public class Graph implements PropertyChangeInterface, SendableEntity
 {
 

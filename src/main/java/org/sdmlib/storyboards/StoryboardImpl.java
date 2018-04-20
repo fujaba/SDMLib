@@ -39,15 +39,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.uniks.networkparser.ext.DiagramEditor;
+import de.uniks.networkparser.json.JsonObject;
+import guru.nidi.graphviz.attribute.Font;
+import guru.nidi.graphviz.attribute.Label;
+import guru.nidi.graphviz.attribute.Shape;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.LinkTarget;
+import guru.nidi.graphviz.model.Node;
 import org.junit.Assert;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -79,6 +83,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+
+import static guru.nidi.graphviz.model.Factory.graph;
+import static guru.nidi.graphviz.model.Factory.node;
+import static guru.nidi.graphviz.model.Factory.to;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. This html page will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
@@ -239,6 +247,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          // search for a subdirectory containing the javaTestFile of the
          // execution directory and search for the subdi
          File projectDir = new File(".");
+         String path = projectDir.getAbsolutePath();
          searchDirectoryTree(projectDir);
 
       }
@@ -316,6 +325,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    private void addToSteps(String text)
    {
       StoryboardStep storyStep = new StoryboardStep().withText(text);
@@ -465,6 +479,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void add(String string)
    {
       synchronized (this)
@@ -475,12 +494,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addText(String string)
    {
       this.add(string);
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addTable(Table table)
    {
       String tableText = table.getHtmlTable();
@@ -488,6 +517,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.add(tableText);
    }
    
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addLineChart(Table table)
    {
       String tableText = table.getHtmlLineChart("tableChart"+getStoryboardSteps().size());
@@ -496,6 +530,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addBarChart(Table table)
    {
       String tableText = table.getHtmlBarChart("tableChart"+getStoryboardSteps().size());
@@ -1024,6 +1063,9 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @param model The ClassModel for drawing
     * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
     * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+ * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
  */
    public void addClassDiagram(ClassModel model)
    {
@@ -1033,6 +1075,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ */
    public void addClassDiagramAsImage(ClassModel model, int... dimensions)
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1043,6 +1091,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void addObjectDiagramWith(Object... elems)
    {
       ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
@@ -1052,17 +1106,48 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
+   public void addObjectDiagramViaGraphViz(Object... elems)
+   {
+      this.addObjectDiagramInternal("graphviz-java", elems);
+   }
+
+
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void addObjectDiagramAsImage(Object... elems)
    {
-      this.addObjectDiagramInternal(true, elems);
+      this.addObjectDiagramInternal("diagramEditor", elems);
    }
 
+
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void addObjectDiagram(Object... elems)
    {
-      this.addObjectDiagramInternal(false, elems);
+      this.addObjectDiagramInternal("javaScript", elems);
    }
 
-   private void addObjectDiagramInternal(boolean addAsImage, Object... elems)
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
+   private void addObjectDiagramInternal(String addAsImageMode, Object... elems)
    {
       String objectName;
       String objectIcon;
@@ -1187,12 +1272,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (restrictToExplicitElems)
       {
          RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
-         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter, addAsImage, dimensions);
+         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter, addAsImageMode, dimensions);
       }
       else
       {
          AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         addObjectDiagram(jsonIdMap, explicitElems, conditionMap, addAsImage, dimensions);
+         addObjectDiagram(jsonIdMap, explicitElems, conditionMap, addAsImageMode, dimensions);
       }
    }
 
@@ -1205,7 +1290,13 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, boolean addAsImage, int... dimensions)
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
+   private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, String addAsImageMode, int... dimensions)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
 
@@ -1215,12 +1306,20 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          largestRoot = root;
       }
 
-      String javaScript4Diag = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-         .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
-
-      if (addAsImage)
+      String javaScript4Diag = "";
+      if (addAsImageMode.equals("graphviz-java"))
       {
-         addAsImage(javaScript4Diag, true, dimensions);
+         javaScript4Diag = jsonArray.toString(3);
+      }
+      else
+      {
+         javaScript4Diag = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+                 .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
+      }
+
+      if (addAsImageMode.equals("diagramEditor") || addAsImageMode.equals("graphviz-java"))
+      {
+         addAsImage(javaScript4Diag, true, addAsImageMode, dimensions);
       }
       else
       {
@@ -1235,7 +1334,9 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * Add an image to your storyboard. Example: storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
     * 
     * @param image
-    */
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
 
    void addSVGImage(String imageFile)
    {
@@ -1243,6 +1344,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addImage(String imageFile)
    {
       this.addToSteps("<img src='" + imageFile + "'>");
@@ -1255,6 +1361,10 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void markCodeStart()
    {
       // store code start line number
@@ -1271,12 +1381,24 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void addCode()
    {
       addCode(this.getRootDir());
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ */
    public void addCode(String rootDir)
    {
       String className = "";
@@ -1377,12 +1499,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addGenericObjectDiag(GenericGraph graph)
    {
       this.addGenericObjectDiag(graph, GenericObject.EMPTY_SET);
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph,
@@ -1390,12 +1522,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
       this.addGenericObjectDiag(diagramName, graph, GenericObject.EMPTY_SET);
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       String link = this.getAdapter().addGenericObjectDiag(diagramName, graph, hiddenObjects);
@@ -1422,13 +1564,31 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    /**
     * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
-    */
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ */
    public void dumpHTML()
    {
       this.dumpHTML(null, null);
    }
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addAsImage(String htmlbody, boolean autoClose, int... dimensions)
+   {
+      addAsImage(htmlbody, autoClose, "diagramEditor", dimensions);
+   }
+
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
+   public void addAsImage(String htmlbody, boolean autoClose, String addAsImageMode, int... dimensions)
    {
       // create a doc-files directory relative to doc dir
       try
@@ -1488,9 +1648,139 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.add("<img src=\"doc-files/" + shortStepName + ".png\" alt=\"" + shortStepName + ".png\">\n");
 
       // if new / changed
-      if (! htmlHasChanged) return;
+      // if (! htmlHasChanged) return;
 
       // generate image in doc-files
+      if (addAsImageMode.equals("graphviz-java"))
+      {
+         generateImageInDocFilesWithGraphVizJava(autoClose, htmlbody, shortStepName, fullStepHtmlName, htmlFile, dimensions);
+      }
+      else
+      {
+         generateImageInDocFilesWithDiagramEditor(autoClose, newHtml, shortStepName, fullStepHtmlName, htmlFile, dimensions);
+      }
+   }
+
+   private void generateImageInDocFilesWithGraphVizJava(boolean autoClose, String jsonArrayString, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
+   {
+      try
+      {
+         JsonArray jsonArray = new JsonArray().withValue(jsonArrayString);
+
+         LinkedHashMap<String, Node> nodeMap = new LinkedHashMap<String, Node>();
+
+         StringBuilder dotString = new StringBuilder();
+         dotString.append("" +
+                 "digraph H {\n" +
+                 "nodes \n" +
+                 "edges \n" +
+                 "}\n");
+
+
+         String nodesString = makeNodes(jsonArray);
+         String edgesString = makeEdges(jsonArray);
+
+         CGUtil.replaceAll(dotString,
+                 "nodes", nodesString,
+                 "edges", edgesString);
+         String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
+         Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+   }
+
+   private String makeEdges(JsonArray jsonArray)
+   {
+      StringBuilder buf = new StringBuilder();
+
+      for (Object o : jsonArray)
+      {
+         JsonObject jsonObj = (JsonObject) o;
+
+         String objId = (String) jsonObj.get("id");
+         objId = StrUtil.downFirstChar(objId);
+         String shortClassName = CGUtil.shortClassName(jsonObj.getString("class"));
+
+         JsonObject props = jsonObj.getJsonObject("prop");
+
+         for (String key : props.keySet())
+         {
+            Object value = props.getValue(key);
+
+            if (value instanceof JsonArray)
+            {
+               ArrayList<LinkTarget> elemList = new ArrayList<LinkTarget>();
+
+               for (Object elem : (JsonArray) value)
+               {
+                  JsonObject jsonElem = (JsonObject) elem;
+                  String elemId = jsonElem.getString("id");
+                  elemId = StrUtil.downFirstChar(elemId);
+
+                  buf.append(objId).append(" -> ").append(elemId).append(" [arrowhead=none fontsize=\"10\" headlabel=\"" +
+                          key + "\"];\n");
+               }
+            }
+         }
+      }
+
+      return buf.toString();
+   }
+
+
+   private String makeNodes(JsonArray jsonArray)
+   {
+      StringBuilder buf = new StringBuilder();
+
+      for (Object o : jsonArray)
+      {
+         JsonObject jsonObj = (JsonObject) o;
+
+         String objId = (String) jsonObj.get("id");
+         objId = StrUtil.downFirstChar(objId);
+         String shortClassName = CGUtil.shortClassName(jsonObj.getString("class"));
+
+         buf.append(objId).append(" " +
+                 "[\n" +
+                 "   shape=plaintext\n" +
+                 "   fontsize=\"10\"" +
+                 "   label=<\n" +
+                 "     <table border='0' cellborder='1' cellspacing='0'>\n" +
+                 "       <tr><td><u>")
+                 .append(objId).append(": ").append(shortClassName)
+                 .append("</u></td></tr>\n" +
+                 "       <tr><td>");
+
+         JsonObject props = jsonObj.getJsonObject("prop");
+
+         for (String key : props.keySet())
+         {
+            Object value = props.getValue(key);
+
+            if (value instanceof JsonArray)
+            {
+
+            }
+            else
+            {
+               buf.append(key).append(": ").append(value.toString()).append("<br  align='left'/>");
+            }
+         }
+
+         buf.append("</td></tr>\n" +
+                 "     </table>\n" +
+                 "  >];\n");
+      }
+
+      return buf.toString();
+   }
+
+
+   private void generateImageInDocFilesWithDiagramEditor(boolean autoClose, String newHtml, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
+   {
       try
       {
          Files.write(htmlFile, newHtml.getBytes());
@@ -1503,7 +1793,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       File file = new File(fullStepHtmlName);
       // String urlString = file.toURI().toURL().toString();
 //      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", autoClose);
-      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", true, true, dimensions);
+      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", false, autoClose, dimensions);
       try
       {
          Thread.sleep(4000);
@@ -1515,10 +1805,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-
    /**
     * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
-    */
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ */
    public void dumpHTML(String targetClassName, String targetMethodName)
    {
       try
@@ -1642,6 +1934,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    private void addEntryToRefsHtml(String dirName, String entry)
    {
       int pos;
@@ -1905,6 +2202,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
@@ -1912,6 +2214,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
@@ -1984,6 +2291,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public boolean addToStoryboardSteps(StoryboardStep value)
    {
       boolean changed = false;
@@ -2227,6 +2539,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addPreformatted(String expandedText)
    {
       expandedText = StrUtil.htmlEncode(expandedText);
@@ -2236,12 +2553,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addPattern(PatternObject patternObject, boolean showMatch)
    {
       addPattern(patternObject.getPattern(), showMatch);
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addPattern(Pattern pattern, boolean showMatch)
    {
       String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();
@@ -2358,7 +2685,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             String classUnderTestName = localVarTableEntry.getType();
 
-            if (classUnderTestName.equals("Storyboard"))
+            if (classUnderTestName == null || classUnderTestName.startsWith("Storyboard"))
             {
                continue;
             }
@@ -2429,6 +2756,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addStoryToJavaDoc(String classUnderTestName, String methodUnderTestName, String storyText)
    {
       try
@@ -2545,6 +2877,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testClass, String testMethod)
    {
       try
@@ -2616,6 +2953,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ */
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
    {
       try

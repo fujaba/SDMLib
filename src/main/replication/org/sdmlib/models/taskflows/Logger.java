@@ -39,6 +39,7 @@ import org.sdmlib.models.taskflows.TaskFlow;
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
 * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+ * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
    public class Logger extends TaskFlow implements PropertyChangeInterface
 {
@@ -213,6 +214,7 @@ import org.sdmlib.models.taskflows.TaskFlow;
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
 	 * @return the LogEntry
 	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+ * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
 	public LogEntry createEntries()
    {

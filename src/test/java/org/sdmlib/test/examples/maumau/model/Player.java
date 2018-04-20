@@ -31,7 +31,8 @@ import org.sdmlib.test.examples.maumau.model.Duty;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.maumau.GenModel#genModel
+ */
    public  class Player extends Holder
 {
 

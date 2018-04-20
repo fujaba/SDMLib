@@ -36,6 +36,7 @@ import org.sdmlib.storyboards.Goal;
 /**
  *
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
+ * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
  */
 public  class MikadoLog implements SendableEntity
 {
@@ -313,6 +314,10 @@ public  class MikadoLog implements SendableEntity
       return this;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
+ */
    public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();

@@ -40,7 +40,8 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ */
    public GreetingPO hasText(String value)
    {
       new AttributeConstraint()
@@ -58,7 +59,8 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
+ */
    public GreetingPO hasText(String lower, String upper)
    {
       new AttributeConstraint()
@@ -101,7 +103,9 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldModelToText
+ */
    public GreetingMessagePO hasGreetingMessage()
    {
       GreetingMessagePO result = new GreetingMessagePO();
@@ -120,7 +124,9 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldModelToText
+ */
    public GreetingPO hasGreetingMessage(GreetingMessagePO tgt)
    {
       return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE);
@@ -143,7 +149,9 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldModelToText
+ */
    public PersonPO hasPerson()
    {
       PersonPO result = new PersonPO();
@@ -162,7 +170,9 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
-*/
+* @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
+ * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldModelToText
+ */
    public GreetingPO hasPerson(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON);

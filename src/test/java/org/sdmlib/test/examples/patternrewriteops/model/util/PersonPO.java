@@ -12,6 +12,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonSet allMatches()
    {
@@ -68,6 +69,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createTrainLink(TrainPO tgt)
    {
@@ -77,6 +79,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createTrainLink(TrainPO tgt, String modifier)
    {
@@ -115,6 +118,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createStationLink(StationPO tgt)
    {
@@ -124,6 +128,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createStationLink(StationPO tgt, String modifier)
    {

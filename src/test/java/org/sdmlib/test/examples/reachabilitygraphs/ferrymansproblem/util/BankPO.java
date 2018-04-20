@@ -219,7 +219,8 @@ public class BankPO extends PatternObject<BankPO, Bank>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
-*/
+* @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
+ */
    public CargoPO hasCargos()
    {
       CargoPO result = new CargoPO(new Cargo[]{});
@@ -238,7 +239,8 @@ public class BankPO extends PatternObject<BankPO, Bank>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
-*/
+* @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
+ */
    public BankPO hasCargos(CargoPO tgt)
    {
       return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS);

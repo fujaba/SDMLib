@@ -26,7 +26,8 @@ import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java'>StrategyModel.java</a>
-*/
+* @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
+ */
    public  class MoveDown extends BombermanStrategy
 {
 

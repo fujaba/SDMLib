@@ -55,6 +55,115 @@ public class HelloWorldTTC2011
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation1</a></p>
+    * <p>A constant transformation that creates a Greeting object</p>
+    * <p>Create class model and generate implementation:</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Greeting",
+    *          "attributes":[
+    *             "text : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Greeting",
+    *             "cardinality":"one",
+    *             "property":"tgt"
+    *          },
+    *          "target":{
+    *             "id":"Greeting",
+    *             "cardinality":"one",
+    *             "property":"greeting"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation1ClassDiagram2", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>The code that builds and runs the transformation / pattern looks like: </p>
+    * <pre>      
+    *       GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+    *             .startCreate()
+    *             .has(new GreetingPO());
+    * 
+    *       greetingPO.hasText(&quot;Hello World&quot;);
+    * 
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "style":"create",
+    *          "id":"g1 : GreetingPO",
+    *          "attributes":[
+    *             "<< create>>",
+    *             "text == Hello World"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Constant transformation has match true</p>
+    * <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "style":"create",
+    *          "id":"g1 : GreetingPO",
+    *          "attributes":[
+    *             "<< create>>",
+    *             "text == Hello World"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>For completeness just the host graph:</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"G1 : Greeting",
+    *          "attributes":[
+    *             "greeting=null",
+    *             "greetingMessage=null",
+    *             "person=null",
+    *             "text=Hello World",
+    *             "tgt=null"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":null
+    * }   ;
+    *    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation111", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
+    * <p>For fairness, the java code that does this transformation looks like: </p>
+    * <pre>            Greeting greeting = new Greeting()
+    *       .withText(&quot;Hello World&quot;);
+    * </pre>
     * @see <a href='../../../../../../../../doc/TTC2011HelloWorldConstantTransformation1.html'>TTC2011HelloWorldConstantTransformation1.html</a>
 */
    @Test

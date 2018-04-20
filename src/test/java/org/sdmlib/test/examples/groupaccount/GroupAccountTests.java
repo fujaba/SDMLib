@@ -122,6 +122,45 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    LinkedBlockingQueue<String> testInbox = new LinkedBlockingQueue<>();
 
+   /**
+    * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountYamlWithUserEncoding</a></p>
+    * <p>Start: start mqtt broker</p>
+    * <p><a name = 'step_1'>Step 1: test mqtt broker</a></p>
+    * <p>Check: got mqtt message World actual World</p>
+    * <p><a name = 'step_2'>Step 2: Abu creates a party and adds Albert and Nathalie</a></p>
+    * <p><a name = 'step_3'>Step 3: xia creates a party and adds Eyshe</a></p>
+    * <p><a name = 'step_4'>Step 4: Abu opens party with mqtt map</a></p>
+    * <p><a name = 'step_5'>Step 5: now start abu with mqtt</a></p>
+    * <p>Got message:</p>
+    * <pre>msg: hello
+    * user: abu
+    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * </pre>
+    * <p>Check: its a lobby message:  hello actual hello</p>
+    * <p>Got message:</p>
+    * <pre>msg: hello
+    * user: xia
+    * lastTimeStamps: 2018-04-20T17:34:08.815.xia 
+    * </pre>
+    * <p>Check: its a lobby message from:  xia actual xia</p>
+    * <p>Got message:</p>
+    * <pre>msg: welcome
+    * newUser: xia
+    * oldUser: abu
+    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * </pre>
+    * <p>Check: its a lobby message:  welcome actual welcome</p>
+    * <pre>- xia.p2: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-04-20T17:34:09.047.xia
+    * </pre>
+    * <pre>- p1: 	Party
+    *   guests: 	xia.p3
+    *   guests.xia.p3.time: 	2018-04-20T17:34:09.057.xia
+    * - xia.p3: 	PersonSet
+    * </pre>
+    */
    @Test
    public void testGroupAccountYamlWithUserEncoding() throws InterruptedException, IOException, MqttException
    {
@@ -253,7 +292,8 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
        *
-       * <p>Start: create a party data structure and store it with YamlIdMap</p>
+       * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYaml</a></p>
+    * <p>Start: create a party data structure and store it with YamlIdMap</p>
     * <script>
     *    var json = {
     *    "type":"objectdiagram",
@@ -318,57 +358,61 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><pre>- p1: 	Party
+    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
+    * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-04T23:45:19.962.albert
+    *   partyName.time: 	2018-04-20T17:34:28.401.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-04T23:45:19.969.albert
+    *   share.time: 	2018-04-20T17:34:28.402.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:45:19.969.albert
+    *   total.time: 	2018-04-20T17:34:28.402.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-04T23:45:19.971.albert
+    *   name.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:45:19.971.albert
+    *   saldo.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:45:19.971.albert
+    *   total.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:45:19.972.albert
+    *   party.time: 	2018-04-20T17:34:28.405.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-04T23:45:37.148.albert
+    *   guests.albert.p2.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-04T23:46:20.479.albert
+    *   name.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:46:20.480.albert
+    *   saldo.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:46:20.480.albert
+    *   total.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:46:20.480.albert
+    *   party.time: 	2018-04-20T17:34:28.406.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-04T23:46:20.480.albert
+    *   guests.albert.p3.time: 	2018-04-20T17:34:28.406.albert
     * - albert.p3: 	Person
     * </pre>
-    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
+    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
+    * <p><a name = 'step_3'>Step 3: check isomorphism</a></p>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
+    * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-04T23:46:20.496.albert
+    *   party.remove.time: 	2018-04-20T17:34:28.418.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-04T23:46:20.496.albert
+    *   guests.remove.albert.p3.time: 	2018-04-20T17:34:28.418.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
@@ -457,8 +501,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
@@ -548,25 +593,26 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:46:20.530.albert
+    *   saldo.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:46:20.530.albert
+    *   total.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:46:20.530.albert
+    *   party.time: 	2018-04-20T17:34:28.441.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-04T23:46:20.530.albert
+    *   guests.albert.p4.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-04T23:46:20.531.albert
+    *   name.time: 	2018-04-20T17:34:28.442.albert
     * </pre>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
@@ -649,6 +695,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     *
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYaml</a></p>
     * <p>Start: create a party data structure and store it with YamlIdMap</p>
     * <script>
     *    var json = {
@@ -714,57 +761,61 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p><pre>- p1: 	Party
+    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
+    * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-04T23:45:19.962.albert
+    *   partyName.time: 	2018-04-20T17:34:28.401.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-04T23:45:19.969.albert
+    *   share.time: 	2018-04-20T17:34:28.402.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:45:19.969.albert
+    *   total.time: 	2018-04-20T17:34:28.402.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-04T23:45:19.971.albert
+    *   name.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:45:19.971.albert
+    *   saldo.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:45:19.971.albert
+    *   total.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:45:19.972.albert
+    *   party.time: 	2018-04-20T17:34:28.405.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-04T23:45:37.148.albert
+    *   guests.albert.p2.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-04T23:46:20.479.albert
+    *   name.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:46:20.480.albert
+    *   saldo.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:46:20.480.albert
+    *   total.time: 	2018-04-20T17:34:28.405.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:46:20.480.albert
+    *   party.time: 	2018-04-20T17:34:28.406.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-04T23:46:20.480.albert
+    *   guests.albert.p3.time: 	2018-04-20T17:34:28.406.albert
     * - albert.p3: 	Person
     * </pre>
-    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p><p><a name = 'step_3'>Step 3: check isomorphism</a></p><p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p><pre>- albert.p3: 	Person
+    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
+    * <p><a name = 'step_3'>Step 3: check isomorphism</a></p>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
+    * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-04T23:46:20.496.albert
+    *   party.remove.time: 	2018-04-20T17:34:28.418.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-04T23:46:20.496.albert
+    *   guests.remove.albert.p3.time: 	2018-04-20T17:34:28.418.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
@@ -853,8 +904,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p><pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
@@ -944,25 +996,26 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p><pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-04T23:46:20.519.albert
+    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-04T23:46:20.530.albert
+    *   saldo.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-04T23:46:20.530.albert
+    *   total.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-04T23:46:20.530.albert
+    *   party.time: 	2018-04-20T17:34:28.441.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-04T23:46:20.530.albert
+    *   guests.albert.p4.time: 	2018-04-20T17:34:28.441.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-04T23:46:20.531.albert
+    *   name.time: 	2018-04-20T17:34:28.442.albert
     * </pre>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
@@ -1075,6 +1128,542 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    }
 
 
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
+    * <p>Start: Project plan: </p>
+    * <canvas id="myChart" width="880" height="550"></canvas>
+    * <script>
+    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
+    *     type: 'line',
+    *     data: {
+    *         datasets: [
+    *             {
+    *                 label: "Burn Down",
+    *                 data: [
+    *                     {x: "2018-02-28T12:00:00+01:00", y: 41.6},
+    * {x: "2018-02-28T15:00:00+01:00", y: 39.6},
+    * {x: "2018-02-28T16:00:00+01:00", y: 37.6},
+    * {x: "2018-03-01T21:30:00+01:00", y: 36.6},
+    * {x: "2018-03-01T22:30:00+01:00", y: 35.6},
+    * {x: "2018-03-01T23:30:00+01:00", y: 35.6},
+    * {x: "2018-03-02T00:30:00+01:00", y: 34.6},
+    * {x: "2018-03-02T14:17:00+01:00", y: 33.6},
+    * {x: "2018-03-09T14:00:00+01:00", y: 33.1},
+    * {x: "2018-03-11T22:00:00+01:00", y: 31.1},
+    * {x: "2018-03-11T23:57:00+01:00", y: 29.1},
+    * {x: "2018-03-12T18:30:00+01:00", y: 27.1},
+    * {x: "2018-03-13T15:45:00+01:00", y: 25.1},
+    * {x: "2018-03-13T16:00:00+01:00", y: 25.0},
+    * {x: "2018-03-16T14:30:00+01:00", y: 22.0},
+    * {x: "2018-03-17T15:12:00+01:00", y: 21.0},
+    * {x: "2018-03-17T16:00:00+01:00", y: 20.0},
+    *                 ]
+    *             }
+    *         ]
+    *     },
+    *     options: {
+    *         animation: false,
+    *         responsive: false,
+    *          animation: {
+    *             onComplete: function(animation) {
+    *                     java.screendump("42");
+    *                     java.close();
+    *                 }
+    *          },
+    *         scales: {
+    *             xAxes: [{
+    *                 type: "time",
+    *                 time: {
+    *                     displayFormats: {
+    *                        'millisecond': 'DD MMM hh:mm',
+    *                        'second': 'DD MMM hh:mm',
+    *                        'minute': 'DD MMM hh:mm',
+    *                        'hour': 'DD MMM hh:mm',
+    *                        'day': 'DD MMM',
+    *                        'week': 'DD MMM',
+    *                        'month': 'MMM YYYY',
+    *                        'quarter': 'MMM YYYY',
+    *                        'year': 'YYYY',
+    *                     }
+    *                 },
+    *                 display: true,
+    *                 scaleLabel: {
+    *                     display: true,
+    *                     labelString: 'Date'
+    *                 },
+    *                 ticks: {
+    *                     major: {
+    *                         fontStyle: "bold",
+    *                         fontColor: "#FF0000"
+    *                     }
+    *                 }
+    *             }],
+    *             yAxes: [{
+    *                 display: true,
+    *                 scaleLabel: {
+    *                     display: true,
+    *                     labelString: 'hours'
+    *                 },
+    *                 ticks: {
+    *                     beginAtZero: true
+    *                 }
+    *             }]
+    *         }
+    *     }});
+    * </script>
+    * <p><a name = 'step_1'>Step 1: open goals</a></p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"G1 : Goal",
+    *          "attributes":[
+    *             "description=Multi User Group Account",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=4.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G2 : Goal",
+    *          "attributes":[
+    *             "description=Gui Integration",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=4.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G3 : Goal",
+    *          "attributes":[
+    *             "description=YamlReplication",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=4.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G4 : Goal",
+    *          "attributes":[
+    *             "description=session protocols",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=4.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G5 : Goal",
+    *          "attributes":[
+    *             "description=refactor yaml file map",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=4.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G2 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G1 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G3 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G1 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G4 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G1 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G5 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G1 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G3 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G2 : Goal"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasMultiUserGroupAccountProjectPlan4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_2'>Step 2: closed goals</a></p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"G10 : Goal",
+    *          "attributes":[
+    *             "description=Persistence",
+    *             "hoursDone=3.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G11 : Goal",
+    *          "attributes":[
+    *             "description=Isomorphism Check",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G12 : Goal",
+    *          "attributes":[
+    *             "description=plain yaml",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G13 : Goal",
+    *          "attributes":[
+    *             "description=Write",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G14 : Goal",
+    *          "attributes":[
+    *             "description=Read",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G15 : Goal",
+    *          "attributes":[
+    *             "description=Remove Link",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G16 : Goal",
+    *          "attributes":[
+    *             "description=Remove Object",
+    *             "hoursDone=2.5",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G17 : Goal",
+    *          "attributes":[
+    *             "description=session ids",
+    *             "hoursDone=2.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G18 : Goal",
+    *          "attributes":[
+    *             "description=merge conflicts",
+    *             "hoursDone=2.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G19 : Goal",
+    *          "attributes":[
+    *             "description=timeStamps",
+    *             "hoursDone=2.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G20 : Goal",
+    *          "attributes":[
+    *             "description=yaml reader",
+    *             "hoursDone=1.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G6 : Goal",
+    *          "attributes":[
+    *             "description=done",
+    *             "hoursDone=0.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G7 : Goal",
+    *          "attributes":[
+    *             "description=Simple party objects",
+    *             "hoursDone=2.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G8 : Goal",
+    *          "attributes":[
+    *             "description=Component Listener",
+    *             "hoursDone=2.0",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"G9 : Goal",
+    *          "attributes":[
+    *             "description=Yaml Deltas",
+    *             "hoursDone=0.1",
+    *             "hoursTodo=0.0"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G7 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G8 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G9 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G10 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G11 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G12 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G6 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G13 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G14 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G15 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G16 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G17 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G18 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G19 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G9 : Goal"
+    *          }
+    *       },
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"preGoals",
+    *             "id":"G20 : Goal"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"goal",
+    *             "id":"G12 : Goal"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasMultiUserGroupAccountProjectPlan6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    */
    @Test
    public void testMultiUserGroupAccountProjectPlan()
    {

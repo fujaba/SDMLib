@@ -196,6 +196,10 @@ import org.sdmlib.models.pattern.ReachableState;
 
    private ReachableState src = null;
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
+ */
    public ReachableState getSrc()
    {
       return this.src;
@@ -306,7 +310,8 @@ import org.sdmlib.models.pattern.ReachableState;
 
    /**
     * @return the srcMatch
-    */
+    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
+ */
    public HashMap<PatternElement, Object> getSrcMatch()
    {
       return srcMatch;

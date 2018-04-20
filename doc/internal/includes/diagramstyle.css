@@ -18,14 +18,17 @@
 	border-color: #f00;
 	color: #f00;
 	box-shadow: inset 0 3px 4px #888;
+	border-style: solid;
 }
 .Ok{
 	border-color: #009B00;
 	box-shadow: inset 0 3px 4px #888;
+	border-style: solid;
 }
 .Add{
 	border-color: yellow;
 	box-shadow: inset 0 3px 4px #888;
+	border-style: solid;
 }
 .code_box {
 	position: absolute;
@@ -189,8 +192,7 @@
 	background:lightblue;
 }
 .patternElement table{
-	border-spacing:0;
-
+	border-spacing:0
 	cursor: hand;
 }
 .patternElement .head{
@@ -222,6 +224,15 @@
 .draggable {
 	cursor: move;
 }
+.draggable:hover{
+	border: 1px dashed black;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	cursor: move;
+	opacity: 0.50;
+	fill: #ddd;
+}
 .selection{
 	cursor: hand;
 	opacity:0;
@@ -230,10 +241,6 @@
 	cursor: hand;
 	opacity:0.3;
 	fill: #FF9;
-}
-.saveBtn:hover{
-	opacity:0.75;
-	cursor: hand;
 }
 .btn:hover{
 	opacity:0.75;
@@ -247,17 +254,11 @@
 	fill:url(#reflect);
 	filter: drop-shadow(5px 5px 2px black);
 }
-
-.draggable{
+.saveBtn:hover {
+	opacity: 0.75;
+	cursor: hand;
 }
 
-.draggable:hover{
-	border:1px dashed black;
-	-moz-border-radius: 8px;-webkit-border-radius: 8px;border-radius: 8px;
-	cursor: move;
-	opacity:0.50;
-	fill:#ddd;
-}
 .hljs-line-numbers {
 	text-align: right;
 	border-right: 1px solid #ccc;
@@ -330,3 +331,492 @@ pre .title {text-align:center}
 .notify-yellow { background: #fff8c4; border-color: #f7deae; }
 .notify-red { background: #ffecec; border-color: #fad9d7; }
 .notify-green { background: #e9ffd9; border-color: #D1FAB6; }
+
+// Sergej
+.SVGBtn {
+	fill:url(#reflect);
+}
+.SVGChoice {
+	opacity: 0.1;
+	fill:#FFF;
+}
+.SVGChoiceCaption {
+	font-weight: bold;
+	opacity: 0.1;
+	fill:#FFF;
+}
+.SVGChoiceText {
+	opacity: 0.1;
+	fill:#FFF;
+	cursor: auto;
+}
+
+.SVGChoice:hover {
+	opacity: 0.3;
+	fill: #FF9;
+}
+
+.SVGTEXT {
+	font-weight: bold;
+}
+.SVGTEXTITEM {
+	font-weight: bold;
+}
+
+.diagram {
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.diagramLoadFile{
+	background-color: #aeddff;
+	border-style: dashed;
+	border-width: 2px;
+}
+
+.logo {
+	position: absolute;
+	left: 20px;
+}
+
+.toolbar {
+	width: 100%;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	background: #ccc;
+	-webkit-box-shadow: 0 -3px 20px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 -3px 20px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 -3px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+.toolbar button{
+	background-color: white;
+	border-radius: 3px;
+	border: 1px solid #888;
+}
+
+.toolbar button:hover{
+	background-color: rgb(233, 233, 233);
+	border-radius: 3px;
+	border: 1px solid #FFA033;
+}
+
+.toolbar select:hover{
+	border: 1px solid #FFA033;
+}
+
+.palette {
+	width: 70px;
+	border: 1px solid #888;
+	position: absolute;
+	top: 100px;
+	left: 15px;
+	z-index: 2;
+	background: rgb(204, 204, 204);
+	border: 1px solid rgb(200, 200, 200);
+	-webkit-box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.25);
+	box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.palette button {
+	min-width: 0;
+	margin: 6px;
+	padding: 1px;
+	width: 58px;
+	height: 45px;
+}
+
+.palette button svg, .palette button svg line, .palette button svg polygon, .palette button svg rect, .palette button svg text {
+	transition: 250ms;
+	transition-timing-function: ease-in-out;
+	-webkit-transition: 250ms;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+.palette button svg line, .palette button svg rect {
+	fill: none;
+	stroke: #888;
+}
+
+.palette button svg polygon, .palette button svg text {
+	alignment-baseline: central;
+	font-family: 'Helvetica';
+	font-weight: bold;
+	fill: #888;
+}
+
+.palette button:hover svg rect, .palette button:hover svg line {
+	stroke: black;
+}
+
+.palette button:hover svg polygon, .palette button:hover svg text {
+	fill: black;
+}
+
+#trashcan[visibility=visible] > circle{
+	transition: 0.3s;
+}
+
+#trashcan:hover circle {
+	stroke-width: 1;
+	stroke: #333;
+	fill: #ff9c9c;
+	transition: 0.3s;
+}
+
+#copyNode[visibility=visible] > circle{
+	transition: 0.3s;
+}
+
+#copyNode:hover circle{
+	stroke-width: 1;
+	stroke: #333;
+	fill: #fff68f;
+	transition: 0.3s;
+}
+
+#addEdge[visibility=visible] > circle{
+	transition: 0.3s;
+}
+
+#addEdge:hover circle {
+	stroke-width: 1;
+	stroke: #333;
+	fill: #8fff93;
+	transition: 0.3s;
+}
+
+.centercenter {
+	width: 300px;
+	height: 500px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -250px;
+	text-align: center;
+}
+
+.editor {
+	width: 400px;
+	height: 550px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 42;
+	margin-left: -200px;
+	margin-top: -275px;
+	padding: 10px 30px;
+	text-align: center;
+	background: rgb(245, 245, 245);
+	border: 1px solid rgb(200, 200, 200);
+	-webkit-box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.editor h2 {
+	margin: 0.5em 0;
+}
+
+.editor hr {
+	margin-bottom: 15px;
+}
+
+.editor h3 {
+	font-size: 16px;
+	text-align: left;
+	margin: 0.5em 0;
+	color: #333;
+}
+
+.editor h4 {
+	font-size: 12px;
+	text-align: left;
+	font-weight: normal;
+	margin: 0.5em 0;
+	color: #888;
+}
+
+.editor input {
+	width: 350px;
+}
+
+.editor textarea {
+	width: 350px;
+	height: 100px;
+}
+
+.editor .methods, .editor .attributes {
+	margin: 20px 0;
+}
+
+.Clazz {
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute;
+	background: #ffffff;
+}
+
+.ClazzHeader {
+	background-image: linear-gradient(left, white 0%, lightgray 50%);
+	background-image: linear-gradient(top, white 0%, lightgray 50%);
+	background-image: linear-gradient(45deg, white 0%, lightgray 50%);
+	height: 30px;
+}
+
+.Clazz .first {
+	border-top: 1px solid black;
+}
+
+.Clazz .methods {
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.Clazz .attributes {
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: left;
+	vertical-align: top;
+}
+
+
+.btn:hover {
+	opacity: 0.75;
+	cursor: pointer;
+}
+
+.propertiespanel, .propertiespanel-hidden{
+    border: 1px solid #888;
+	background-color: #ccc;
+	border-top-left-radius: 5px;
+    width: 500px;
+    height: 250px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    transition: height 0.5s;
+    z-index: 100;
+}
+.propertiespanel-hidden{
+    width: 500px;
+    height: 25px;
+}
+
+.properties, .properties-hidden{
+    padding-top: 5px;
+    transition: opacity 0.5s;
+    opacity: 1;
+    z-index: 100;
+}
+
+.properties-hidden{
+    opacity: 0;
+}
+
+.btnHideProp{
+    float: right;
+    border: none;
+    cursor: pointer;
+	background-color: #ccc;
+}
+
+.btnHideProp:hover{
+    background-color: #ddd;
+}
+
+.tabbedpane{
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tabbedpane button{
+    background-color: inherit;
+    float: left;
+    border: 1px solid transparent;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 5px;
+    transition: 0.3s;
+	font-size: 12px;
+}
+
+.tabbedpane button:hover{
+    background-color: #ddd;
+    border-top-color:coral;
+    border-left-color:coral;
+    border-right-color:coral;
+}
+
+.tabbedpane button.active{
+    background-color: #ccc;
+    border-top-color:coral;
+    border-left-color:coral;
+    border-right-color:coral;
+}
+
+.tabcontent {
+    display: none;
+    padding: 5px 5px;
+    border: 1px solid #ccc;
+    border-top: none;
+	font-size: 12px;
+	overflow: auto;
+	height: 190px;
+}
+
+.SVGEdge{
+	stroke-width: 1;
+	stroke: black;
+}
+
+.SVGEdge:hover{
+	stroke-width: 2;
+	stroke: #FFA033;
+    transition: 0.3s;
+}
+
+.SVGEdge-selected{
+	stroke-width: 3;
+	stroke: #FFA033;
+}
+
+.SVGEdgeInfo{
+	font-family: 'Verdana';
+	font-size: 12px;
+	fill: black;
+	cursor: inherit;
+	stroke-width: 0;
+}
+
+.SVGClazz > rect{
+	stroke-width: 1;
+	stroke: #888;
+	fill: white;
+    transition: 0.3s;
+}
+
+.SVGClazz > line{
+	stroke-width: 1;
+	stroke: #888;
+}
+
+.SVGClazz:hover > rect{
+	stroke:rgb(255, 160, 51);
+	stroke-width: 2;
+    transition: 0.3s;
+}
+
+.SVGClazz-selected > rect{
+	stroke: #FFA033 !important;
+	fill: rgb(255, 241, 225) !important;
+}
+
+.SVGClazz-drawedge > rect{
+	stroke: rgb(0, 162, 0);
+	fill: rgba(0, 162, 0, 0.125);
+    transition: 0.3s;
+}
+
+.SVGClazz-drawedge > line{
+	stroke-width: 1;
+	stroke: #888;
+}
+
+.SVGClazz-readyToConnect > rect{
+	stroke: rgb(0, 162, 0);
+	fill: rgba(0, 162, 0, 0.125);
+    transition: 0.3s;
+}
+
+.SVGClazzProperty{
+	font-family: 'Verdana';
+	font-size: 12px;
+	fill: black;
+	cursor: inherit;
+}
+
+.SVGClazzMethod{
+
+}
+
+.SVGClazzAttribute{
+
+}
+
+.SVGAddNode{
+	stroke: rgb(255, 160, 51);
+	stroke-width: 1;
+	fill: rgba(255, 160, 51, 0.125);
+}
+
+.SVGAddNode-ready{
+	stroke: rgb(0, 162, 0);
+	stroke-width: 1;
+	fill: rgba(0, 162, 0, 0.250);
+}
+
+
+/* DivTable.com */
+.divTable{
+	display: table;
+	width: 75%;
+	margin-top: 5px;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	/* border: 1px solid #999999; */
+	display: table-cell;
+	padding-bottom: 5px;
+}
+
+.divTableCell > .col2 {
+	width: 100%;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
+}
+

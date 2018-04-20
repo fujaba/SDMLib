@@ -85,6 +85,505 @@ public class ReachbilityGraphSimpleExamples
       story.dumpHTML();
    }
    /**
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilityGraphSimpleIsomorphismTest</a></p>
+    * <p>Create two rings of three nodes with a mark at one node.</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N2 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N3 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N4 : Node",
+    *          "attributes":[
+    *             "num=42"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S1 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N2 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N3 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N2 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N2 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N6 : Node",
+    *          "attributes":[
+    *             "num=42"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N7 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N8 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S5 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N7 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N6 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N7 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N6 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N7 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N6 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>compute certificates</p>
+    * <p>Check: Both certificates are equal.  true</p>
+    * <p>4*1
+    * 5*1
+    * 6*1
+    * 7*1
+    * 4: 1:    prev: 1 
+    *    next: 2 
+    *    graph: 3 
+    * 5: 1:    prev: 2 
+    *    next: 1 
+    *    graph: 3 
+    * 6: 2:    prev: 1 
+    *    next: 1 
+    *    graph: 3 
+    * 7: 3:    nodes: 1 1 2 
+    * 1: Node
+    *    num: 0
+    * 2: Node
+    *    num: 42
+    * 3: SimpleState
+    * </p>
+    * <p>Check: Graphs are isomorphic: true</p>
+    * <p>true</p>
+    * <p>removing the num</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N2 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N3 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N4 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S1 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N2 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N3 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N2 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N2 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N6 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N7 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N8 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S5 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N7 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N6 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N7 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N6 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N7 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S5 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N6 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Both certificates are again equal.  true</p>
+    * <p>5*3
+    * 6*1
+    * 3: 1:    prev: 1 
+    *    next: 1 
+    *    graph: 2 
+    * 4: 2:    nodes: 1 1 1 
+    * 5: 3:    prev: 3 
+    *    next: 3 
+    *    graph: 4 
+    * 6: 4:    nodes: 3 3 3 
+    * 1: Node
+    *    num: 0
+    * 2: SimpleState
+    * </p>
+    * <p>Check: Graphs are isomorphic: true</p>
     * @see <a href='../../../../../../../../doc/internal/ReachabilityGraphSimpleIsomorphismTest.html'>ReachabilityGraphSimpleIsomorphismTest.html</a>
     */
    @Test
@@ -162,6 +661,294 @@ public class ReachbilityGraphSimpleExamples
 
     /**
     * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilitGraphSameCertificatesNonIsomorphic</a></p>
+    * <p>graph 1 two rings of two nodes</p>
+    * <p>graph 2 one ring of four nodes</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N2 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N3 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N4 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N5 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S1 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N2 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N4 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N5 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S1 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N3 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N2 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N5 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N4 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilitGraphSameCertificatesNonIsomorphic3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"N10 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N7 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N8 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"N9 : Node",
+    *          "attributes":[
+    *             "num=0"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S6 : SimpleState"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N7 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N9 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N8 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N10 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N9 : Node"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N7 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S6 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N8 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S6 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N9 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S6 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"nodes",
+    *             "id":"N10 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"graph",
+    *             "id":"S6 : SimpleState"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"prev",
+    *             "id":"N10 : Node"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"next",
+    *             "id":"N7 : Node"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasReachabilitGraphSameCertificatesNonIsomorphic4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>compute certificates</p>
+    * <p>Both certificates are equal: true</p>
+    * <p>5*4
+    * 6*1
+    * 3: 1:    prev: 1 
+    *    next: 1 
+    *    graph: 2 
+    * 4: 2:    nodes: 1 1 1 1 
+    * 5: 3:    prev: 3 
+    *    next: 3 
+    *    graph: 4 
+    * 6: 4:    nodes: 3 3 3 3 
+    * 1: Node
+    *    num: 0
+    * 2: SimpleState
+    * </p>
+    * <p>Check: Graphs are not isomorphic: true</p>
     * @see <a href='../../../../../../../../doc/internal/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
  */
    @Test

@@ -127,6 +127,7 @@ public class StationPO extends PatternObject<StationPO, Station>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createPeoplePO()
    {
@@ -141,6 +142,7 @@ public class StationPO extends PatternObject<StationPO, Station>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public PersonPO createPeoplePO(String modifier)
    {
@@ -174,6 +176,7 @@ public class StationPO extends PatternObject<StationPO, Station>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public SignalFlagPO createFlagPO()
    {
@@ -188,6 +191,7 @@ public class StationPO extends PatternObject<StationPO, Station>
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+ * @see org.sdmlib.test.examples.patternrewriteops.TrainStoryboards#trainCollectPassengers
  */
    public SignalFlagPO createFlagPO(String modifier)
    {

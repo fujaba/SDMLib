@@ -21,153 +21,164 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYamlMerging</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYamlMerging</a></p>
 <p>Start: Create two parties</p>
-<p><a name = 'step_1'>Step 1: record changes</a></p><pre>
+<p><a name = 'step_1'>Step 1: record changes</a></p>
+<pre>
 orig buf: 
 - p1: 	Party
   partyName: 	&quot;Lectures Wrong&quot;
-  partyName.time: 	2018-03-22T15:06:06.734.ann
+  partyName.time: 	2018-04-20T17:34:22.901.ann
 - p1: 	Party
   share: 	0.0
-  share.time: 	2018-03-22T15:06:06.734.ann
+  share.time: 	2018-04-20T17:34:22.901.ann
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   name: 	Albert
-  name.time: 	2018-03-22T15:06:06.734.ann
+  name.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.734.ann
+  saldo.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.902.ann
 - ann.p2: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.734.ann
+  party.time: 	2018-04-20T17:34:22.902.ann
 - p1: 	Party
 - p1: 	Party
   guests: 	ann.p2
+  guests.ann.p2.time: 	2018-04-20T17:34:22.902.ann
 - ann.p2: 	Person
 - ann.p3: 	Person
   name: 	Nathalie
-  name.time: 	2018-03-22T15:06:06.734.ann
+  name.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.734.ann
+  saldo.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.734.ann
+  party.time: 	2018-04-20T17:34:22.902.ann
 - p1: 	Party
 - p1: 	Party
   guests: 	ann.p3
+  guests.ann.p3.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
 - p1: 	Party
   share: 	42.0
-  share.time: 	2018-03-22T15:06:06.766.ann
-</pre><pre>
+  share.time: 	2018-04-20T17:34:22.924.ann
+</pre>
+<pre>
 copy buf: 
 - p1: 	Party
   partyName: 	&quot;Lectures Right&quot;
-  partyName.time: 	2018-03-22T15:06:06.750.bob
+  partyName.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
   share: 	23.0
-  share.time: 	2018-03-22T15:06:06.750.bob
+  share.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.750.bob
+  total.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   name: 	Ann
-  name.time: 	2018-03-22T15:06:06.750.bob
+  name.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.750.bob
+  saldo.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.750.bob
+  total.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.750.bob
+  party.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
 - p1: 	Party
   guests: 	bob.p2
+  guests.bob.p2.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
-</pre><p><a name = 'step_2'>Step 2: apply changes</a></p><pre>
+</pre>
+<p><a name = 'step_2'>Step 2: apply changes</a></p>
+<pre>
 orig buf: 
 - p1: 	Party
   partyName: 	&quot;Lectures Wrong&quot;
-  partyName.time: 	2018-03-22T15:06:06.734.ann
+  partyName.time: 	2018-04-20T17:34:22.901.ann
 - p1: 	Party
   share: 	0.0
-  share.time: 	2018-03-22T15:06:06.734.ann
+  share.time: 	2018-04-20T17:34:22.901.ann
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   name: 	Albert
-  name.time: 	2018-03-22T15:06:06.734.ann
+  name.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.734.ann
+  saldo.time: 	2018-04-20T17:34:22.901.ann
 - ann.p2: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.902.ann
 - ann.p2: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.734.ann
+  party.time: 	2018-04-20T17:34:22.902.ann
 - p1: 	Party
 - p1: 	Party
   guests: 	ann.p2
+  guests.ann.p2.time: 	2018-04-20T17:34:22.902.ann
 - ann.p2: 	Person
 - ann.p3: 	Person
   name: 	Nathalie
-  name.time: 	2018-03-22T15:06:06.734.ann
+  name.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.734.ann
+  saldo.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.734.ann
+  total.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.734.ann
+  party.time: 	2018-04-20T17:34:22.902.ann
 - p1: 	Party
 - p1: 	Party
   guests: 	ann.p3
+  guests.ann.p3.time: 	2018-04-20T17:34:22.902.ann
 - ann.p3: 	Person
 - p1: 	Party
   share: 	42.0
-  share.time: 	2018-03-22T15:06:06.766.ann
+  share.time: 	2018-04-20T17:34:22.924.ann
 - p1: 	Party
   partyName: 	&quot;Lectures Right&quot;
-  partyName.time: 	2018-03-22T15:06:06.750.bob
+  partyName.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
   share: 	23.0
-  share.time: 	2018-03-22T15:06:06.750.bob
+  share.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.750.bob
+  total.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   name: 	Ann
-  name.time: 	2018-03-22T15:06:06.750.bob
+  name.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-03-22T15:06:06.750.bob
+  saldo.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   total: 	0.0
-  total.time: 	2018-03-22T15:06:06.750.bob
+  total.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
   party: 	p1
-  party.time: 	2018-03-22T15:06:06.750.bob
+  party.time: 	2018-04-20T17:34:22.913.bob
 - p1: 	Party
 - p1: 	Party
   guests: 	bob.p2
+  guests.bob.p2.time: 	2018-04-20T17:34:22.913.bob
 - bob.p2: 	Person
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -340,8 +351,10 @@ orig buf:
    g.layout(100,100);
 </script>
 <p>Check: Number of guests after merge: 3 actual 3</p>
-<p><a name = 'step_3'>Step 3: change both with remove edit conflict</a></p><p>Check: Number of objects in orig idMap 3 actual 3</p>
+<p><a name = 'step_3'>Step 3: change both with remove edit conflict</a></p>
+<p>Check: Number of objects in orig idMap 3 actual 3</p>
 <p>Check: Number of objects in copy idMap 3 actual 3</p>
 <p><a name = 'step_4'>Step 4: do it with gui</a></p>
+
 </body>
 </html>

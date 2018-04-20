@@ -98,6 +98,12 @@ public class Storyboard {
 		storyboard.addObjectDiagram(elems);
 	}
 
+
+	public void addObjectDiagramViaGraphViz(Object... elems)
+	{
+		storyboard.addObjectDiagramViaGraphViz(elems);
+	}
+
 	public void addObjectDiagramAsImage(Object... elems)
 	{
 		storyboard.addObjectDiagramAsImage(elems);

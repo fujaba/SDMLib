@@ -46,6 +46,15 @@ public class TestPartyAccount extends ApplicationTest
    }
 
 
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/TestPartyAccount.java' type='text/x-java'>GroupAccountYamlPersistence</a></p>
+    * <p>Start: Start a Party GUI and load changes from file</p>
+    * <p><a name = 'step_1'>Step 1: do some editing and log changes to file</a></p>
+    * <p><a name = 'step_2'>Step 2: stop gui</a></p>
+    * <p><a name = 'step_3'>Step 3: restart and load file with changes</a></p>
+    * <p><a name = 'step_4'>Step 4: compress changes</a></p>
+    */
    @Test
    public void testGroupAccountYamlPersistence() throws InterruptedException
    {
