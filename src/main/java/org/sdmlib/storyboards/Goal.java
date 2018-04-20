@@ -28,12 +28,8 @@ import java.util.ArrayList;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.storyboards.util.GoalSet;
-   /**
-    * 
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- */
+
+
    public  class Goal implements SendableEntity
 {
 
@@ -300,10 +296,7 @@ import org.sdmlib.storyboards.util.GoalSet;
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- */
+
    public Goal withPreGoals(Goal... value)
    {
       if(value==null){
@@ -346,10 +339,8 @@ import org.sdmlib.storyboards.util.GoalSet;
       return this;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- */
+
+
    public Goal createPreGoals()
    {
       Goal value = new Goal();
@@ -357,14 +348,8 @@ import org.sdmlib.storyboards.util.GoalSet;
       return value;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
- * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
- * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
- */
+
+
    public Goal clipDone()
    {
       Goal done = new Goal().withDescription("done").withHoursTodo(0);
@@ -374,14 +359,8 @@ import org.sdmlib.storyboards.util.GoalSet;
       return done;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
- * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
- * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
- */
+
+
    private void clipDone(Goal done)
    {
       ArrayList<Goal> preGoals = new ArrayList<>();

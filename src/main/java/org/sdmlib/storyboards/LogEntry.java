@@ -27,11 +27,8 @@ import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
-   /**
-    * 
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- */
+
+
    public  class LogEntry implements SendableEntity
 {
 

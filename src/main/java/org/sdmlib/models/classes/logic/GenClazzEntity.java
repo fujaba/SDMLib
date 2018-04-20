@@ -42,10 +42,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    public abstract void generate(String rootDir, String helpersDir);
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- */
+
    public abstract Parser getOrCreateParser(String rootDir);
 
 
@@ -313,10 +310,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- */
+
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
       if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false
@@ -828,10 +822,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- */
+
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
       if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false)
@@ -984,10 +975,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- */
+
    public Parser getOrCreateParserForCreatorClass(String rootDir)
    {
       ClassModel classModel = (ClassModel) model.getClassModel();

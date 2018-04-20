@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 /**
  *
- * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
+ * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>GenJavaDocStory</a></p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +
@@ -17,8 +17,6 @@ import java.util.StringTokenizer;
     *       LinkedHashMap&lt;String, String&gt; map = yamler.decode(yaml);
     * </pre>
     * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
-    * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  */
 public class Yamler
 {
@@ -30,24 +28,6 @@ public class Yamler
    private int lookAheadPos;
 
 
-   /**
-    *
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
-    * <p>Yamler reads simple key value pairs in YAML syntax.</p>
-    * <p>Example:</p>
-    * <pre>            String yaml = &quot;&quot; +
-    *               &quot;msgType: newPlayer\n&quot; +
-    *               &quot;login: albert\n&quot; +
-    *               &quot;colors: blue red \n&quot;;
-    * 
-    *       Yamler yamler = new Yamler();
-    *       LinkedHashMap&lt;String, String&gt; map = yamler.decode(yaml);
-    * </pre>
-    * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
-    * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
- */
    public Yamler(String yaml)
    {
       this.yaml = yaml;
@@ -58,46 +38,13 @@ public class Yamler
       nextToken();
    }
 
-   /**
-    *
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
-    * <p>Yamler reads simple key value pairs in YAML syntax.</p>
-    * <p>Example:</p>
-    * <pre>            String yaml = &quot;&quot; +
-    *               &quot;msgType: newPlayer\n&quot; +
-    *               &quot;login: albert\n&quot; +
-    *               &quot;colors: blue red \n&quot;;
-    * 
-    *       Yamler yamler = new Yamler();
-    *       LinkedHashMap&lt;String, String&gt; map = yamler.decode(yaml);
-    * </pre>
-    * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
-    * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
- */
+
    public Yamler()
    {
       // empty
    }
 
-   /**
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
-    * <p>Yamler reads simple key value pairs in YAML syntax.</p>
-    * <p>Example:</p>
-    * <pre>            String yaml = &quot;&quot; +
-    *               &quot;msgType: newPlayer\n&quot; +
-    *               &quot;login: albert\n&quot; +
-    *               &quot;colors: blue red \n&quot;;
-    * 
-    *       Yamler yamler = new Yamler();
-    *       LinkedHashMap&lt;String, String&gt; map = yamler.decode(yaml);
-    * </pre>
-    * <pre>{msgType=newPlayer, login=albert, colors=blue red}</pre>
-    * @param yaml yaml text
-    * @return key value table
-    * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
-    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
- */
+
    public LinkedHashMap<String,String> decode(String yaml)
    {
       this.yaml = yaml;

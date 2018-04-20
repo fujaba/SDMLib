@@ -31,12 +31,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonObject;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- */
+
    public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>, SendableEntity
 {
    public static final String PLAIN = "plain"; 

@@ -400,7 +400,6 @@ public class CloneOpSet extends SimpleSet<CloneOp>
     * Loop through the current set of CloneOp objects and collect all contained objects with reference pattern pointing to the object passed as parameter. 
     * 
     * @param value The object required as pattern neighbor of the collected results. 
-    * 
     * @return Set of Pattern objects referring to value via pattern
     */
    public CloneOpSet filterPattern(Object value)
@@ -431,7 +430,8 @@ public class CloneOpSet extends SimpleSet<CloneOp>
 
    /**
     * Loop through current set of ModelType objects and attach the CloneOp object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public CloneOpSet withPattern(Pattern value)

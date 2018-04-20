@@ -431,7 +431,8 @@ public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConst
 
    /**
     * Loop through current set of ModelType objects and attach the MatchIsomorphicConstraint object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public MatchIsomorphicConstraintSet withPattern(Pattern value)

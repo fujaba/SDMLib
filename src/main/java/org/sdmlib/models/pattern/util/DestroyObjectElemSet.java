@@ -433,7 +433,8 @@ public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
 
    /**
     * Loop through current set of ModelType objects and attach the DestroyObjectElem object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public DestroyObjectElemSet withPattern(Pattern value)
@@ -498,7 +499,8 @@ public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
 
    /**
     * Loop through current set of ModelType objects and attach the DestroyObjectElem object passed as parameter to the PatternObject attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their PatternObject attributes.
     */
    public DestroyObjectElemSet withPatternObject(PatternObject value)

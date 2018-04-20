@@ -59,17 +59,6 @@ import de.uniks.networkparser.json.JsonObject;
 import javafx.concurrent.Task;
 import org.sdmlib.modelcouch.ModelDBListener;
 
-/**
- * 
- * @see <a href=
- *      '../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>
- *      ModelCouchModel.java</a>
- * @see <a href=
- *      '../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>
- *      ModelCouchModel.java</a>
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
- * @see org.sdmlib.test.modelcouch.ModelCouchModel#genModelCouchModel
- */
 public class ModelCouch implements SendableEntity, PropertyChangeInterface, ObjectCondition {
 	public enum ApplicationType {
 		StandAlone, JavaFX

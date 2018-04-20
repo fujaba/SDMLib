@@ -28,12 +28,7 @@ import java.util.HashMap;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.models.pattern.ReachableState;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- */
+
    public  class RuleApplication implements SendableEntity
 {
 
@@ -197,10 +192,7 @@ import org.sdmlib.models.pattern.ReachableState;
 
    private ReachableState src = null;
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- */
+
    public ReachableState getSrc()
    {
       return this.src;
@@ -299,10 +291,7 @@ import org.sdmlib.models.pattern.ReachableState;
       return this;
    } 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public ReachableState createTgt()
    {
       ReachableState value = new ReachableState();
@@ -313,10 +302,7 @@ import org.sdmlib.models.pattern.ReachableState;
    HashMap<PatternElement, Object> srcMatch;
 
 
-   /**
-    * @return the srcMatch
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- */
+
    public HashMap<PatternElement, Object> getSrcMatch()
    {
       return srcMatch;

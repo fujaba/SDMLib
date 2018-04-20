@@ -45,12 +45,6 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 
-/**
- * 
- * @see <a href= '../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a >
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- */
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
    public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
@@ -531,10 +525,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
    public PatternObject withCurrentMatch(Object value)
    {
       setCurrentMatch(value);
@@ -765,10 +755,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
    public boolean addToAttrConstraints(AttributeConstraint value)
    {
       boolean changed = false;

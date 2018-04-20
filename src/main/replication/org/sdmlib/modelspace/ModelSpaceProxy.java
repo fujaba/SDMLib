@@ -35,12 +35,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonObject;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- */
+
+
    public  class ModelSpaceProxy implements PropertyChangeInterface, SendableEntity
 {
 

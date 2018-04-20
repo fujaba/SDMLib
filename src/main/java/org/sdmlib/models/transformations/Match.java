@@ -32,12 +32,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
-* @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
-   public class Match implements PropertyChangeInterface, SendableEntity
+public class Match implements PropertyChangeInterface, SendableEntity
 {
       
    //==========================================================================

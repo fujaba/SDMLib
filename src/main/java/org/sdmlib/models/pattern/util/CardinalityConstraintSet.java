@@ -742,7 +742,8 @@ public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the CardinalityConstraint object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value v
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public CardinalityConstraintSet withPattern(Pattern value)
@@ -776,7 +777,6 @@ public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
     * Loop through the current set of CardinalityConstraint objects and collect all contained objects with reference src pointing to the object passed as parameter. 
     * 
     * @param value The object required as src neighbor of the collected results. 
-    * 
     * @return Set of PatternObject objects referring to value via src
     */
    public CardinalityConstraintSet filterSrc(Object value)
@@ -807,7 +807,8 @@ public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the CardinalityConstraint object passed as parameter to the Src attribute of each of it. 
-    * 
+    *
+    * @param value v
     * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
     */
    public CardinalityConstraintSet withSrc(PatternObject value)

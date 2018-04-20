@@ -32,12 +32,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.taskflows.Logger;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
-* @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- */
+
+
    public class LogEntry implements PropertyChangeInterface, SendableEntity
 {
 

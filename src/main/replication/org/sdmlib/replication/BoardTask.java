@@ -33,12 +33,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.replication.SeppelSpaceProxy;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- */
+
+
    public class BoardTask extends Task implements PropertyChangeInterface, SendableEntity
 {
    

@@ -64,18 +64,7 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 
-/**
- * 
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilitGraphSameCertificatesNonIsomorphic
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
    
@@ -438,10 +427,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public ReachableState createStates()
    {
       ReachableState value = new ReachableState();
@@ -522,10 +508,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public ReachabilityGraph withStart(ReachableState startState)
    {
       this
@@ -561,10 +544,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public ReachableState createTodo()
    {
       ReachableState value = new ReachableState();
@@ -599,20 +579,14 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- */
+
    public boolean addToRules(PatternObject po)
    {
       return addToRules(po.getPattern());
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- */
+
    public boolean addToRules(Pattern value)
    {
       boolean changed = false;
@@ -695,10 +669,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public Pattern createRules()
    {
       Pattern value = new Pattern();
@@ -713,25 +684,13 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public long explore()
    {
       return explore(Long.MAX_VALUE, Searchmode.DEPTH);
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public long explore(long maxNoOfNewStates, Searchmode mode)
    {
       long currentStateNum = 1;
@@ -1364,13 +1323,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public long exploreParallel(int numThreads, ReachableState startState)
    {
 
@@ -1612,11 +1565,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilitGraphSameCertificatesNonIsomorphic
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
- */
+
    public Boolean lazyMatch(ReachableState s1, ReachableState s2)
    {
       SimpleKeyValueList<Object, Object> fwdmapping = new SimpleKeyValueList<Object, Object>();
@@ -1944,11 +1893,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilitGraphSameCertificatesNonIsomorphic
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
- */
+
    public void setMasterMap(IdMap newMasterMap)
    {
       Objects.requireNonNull(newMasterMap);
@@ -2039,10 +1984,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public Pattern createRulesNegativeApplicationCondition()
    {
       Pattern value = new NegativeApplicationCondition();
@@ -2051,10 +1993,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public Pattern createRulesOptionalSubPattern()
    {
       Pattern value = new OptionalSubPattern();
@@ -2147,13 +2086,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public long explore(ReachableState startState)
    {
 
@@ -2214,13 +2147,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemExample
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
- */
+
    public long explore(long i, ReachableState startState)
    {
       Object newCertificate = null; 
@@ -2250,10 +2177,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    
    private boolean lazyBackup = true;
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- */
+
    public ReachabilityGraph withLazyBackup()
    {
       lazyBackup = true;
@@ -2300,11 +2224,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
 
    private LinkedHashMap<String, ReachabilityGraph.Trafo> trafoList = new LinkedHashMap<String, ReachabilityGraph.Trafo>();
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- */
+
    public ReachabilityGraph withTrafo(String trafoName, Trafo trafo)
    {
       trafoList.put(trafoName, trafo);
@@ -2323,11 +2243,7 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    
    private ArrayList<PathTrafo> pathTrafosList = new ArrayList<ReachabilityGraph.PathTrafo>();
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemManuel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphFerrymansProblemExample#FerrymansProblemLazyBackup
- */
+
    public ReachabilityGraph withTrafo(String trafoName, Path path, Trafo2 trafo)
    {
       PathTrafo pathTrafo = new PathTrafo();

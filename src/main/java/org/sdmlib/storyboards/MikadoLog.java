@@ -33,12 +33,7 @@ import org.sdmlib.storyboards.util.LogEntrySet;
 import org.sdmlib.storyboards.LogEntry;
 import org.sdmlib.storyboards.Goal;
 
-/**
- *
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- */
+
 public  class MikadoLog implements SendableEntity
 {
    public String burnDownChart()
@@ -315,10 +310,7 @@ public  class MikadoLog implements SendableEntity
       return this;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
- */
+
    public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();

@@ -46,10 +46,7 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Match;
 
 /**
- * 
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
- * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
  */
 public class Template implements PropertyChangeInterface, SendableEntity
 {
@@ -229,10 +226,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return this;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
+
    public Template createPlaceHolderAndSubTemplate()
    {
       PlaceHolderDescription placeholder = this.createPlaceholders();
@@ -255,10 +249,6 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return this.expandedText;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
    public void setExpandedText(String value)
    {
       if (!StrUtil.stringEquals(this.expandedText, value))
@@ -290,20 +280,12 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return this;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
    public Match parseOnceNew()
    {
       this.currentPosInExpandedText = 0;
       return parseOnce();
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
    public MatchSet parse()
    {
       MatchSet result = new MatchSet();
@@ -414,10 +396,6 @@ public class Template implements PropertyChangeInterface, SendableEntity
 
    public static int logStartPos = 8331;
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
    public Match parseOnce()
    {
       // the templateText contains placeholders and constant text fragments.
@@ -727,10 +705,6 @@ public class Template implements PropertyChangeInterface, SendableEntity
 
    public static int expansionStep = 0;
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
    public void generate()
    {
       // expand all placeholder descriptions
@@ -1360,10 +1334,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return value;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
+
    public Template createPlaceHolderAndSubTemplate(String textFragment,
          String attrName, String templateText, String listStart, String listSeparator, String listEnd)
    {
@@ -1373,10 +1344,7 @@ public class Template implements PropertyChangeInterface, SendableEntity
       return subTemplate;
    }
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
- */
+
    public Template createPlaceHolderAndSubTemplate(String textFragment,
          String attrName, String templateText)
    {

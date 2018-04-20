@@ -20,11 +20,8 @@
  */
 
 package org.sdmlib.codegen;
-   /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
- */
-   public class Token 
+
+public class Token
 {
 	public char kind;
 

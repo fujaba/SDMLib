@@ -604,6 +604,7 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
    /**
     * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the Pattern attribute of each of it. 
     * 
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public NegativeApplicationConditionSet withPattern(Pattern value)
@@ -668,7 +669,8 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
    /**
     * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Elements attributes.
     */
    public NegativeApplicationConditionSet withElements(PatternElement value)
@@ -683,7 +685,8 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
    /**
     * Loop through current set of ModelType objects and remove the NegativeApplicationCondition object passed as parameter from the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public NegativeApplicationConditionSet withoutElements(PatternElement value)
@@ -779,7 +782,8 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
    /**
     * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the CurrentSubPattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their CurrentSubPattern attributes.
     */
    public NegativeApplicationConditionSet withCurrentSubPattern(Pattern value)
@@ -853,7 +857,8 @@ public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicati
 
    /**
     * Loop through current set of ModelType objects and attach the NegativeApplicationCondition object passed as parameter to the Rgraph attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Rgraph attributes.
     */
    public NegativeApplicationConditionSet withRgraph(ReachabilityGraph value)

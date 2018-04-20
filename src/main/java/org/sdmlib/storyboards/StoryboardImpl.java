@@ -325,13 +325,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    private void addToSteps(String text)
    {
       StoryboardStep storyStep = new StoryboardStep().withText(text);
@@ -481,13 +475,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void add(String string)
    {
       synchronized (this)
@@ -498,40 +486,21 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addText(String string)
    {
       this.add(string);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addTable(Table table)
    {
       String tableText = table.getHtmlTable();
 
       this.add(tableText);
    }
-   
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addLineChart(Table table)
    {
       String tableText = table.getHtmlLineChart("tableChart"+getStoryboardSteps().size());
@@ -540,13 +509,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addBarChart(Table table)
    {
       String tableText = table.getHtmlBarChart("tableChart"+getStoryboardSteps().size());
@@ -1069,21 +1032,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   /**
-    * Add a class diagram to the generated html page.
-    * 
-    * @param model The ClassModel for drawing
-    * @see <a href= '../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- */
+
    public void addClassDiagram(ClassModel model)
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1092,17 +1041,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- */
+
    public void addClassDiagramAsImage(ClassModel model, int... dimensions)
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1113,14 +1052,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addObjectDiagramWith(Object... elems)
    {
       ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
@@ -1130,55 +1062,27 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addObjectDiagramViaGraphViz(Object... elems)
    {
       this.addObjectDiagramInternal("graphviz-java", elems);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addObjectDiagramAsImage(Object... elems)
    {
       this.addObjectDiagramInternal("diagramEditor", elems);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addObjectDiagram(Object... elems)
    {
       this.addObjectDiagramInternal("javaScript", elems);
    }
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    private void addObjectDiagramInternal(String addAsImageMode, Object... elems)
    {
       String objectName;
@@ -1322,14 +1226,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, String addAsImageMode, int... dimensions)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, Filter.createFull().withPropertyRegard(filter));
@@ -1364,15 +1261,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   /**
-    * Add an image to your storyboard. Example: storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
-    * 
-    * @param image
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
 
    void addSVGImage(String imageFile)
    {
@@ -1380,13 +1269,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addImage(String imageFile)
    {
       this.addToSteps("<img src='" + imageFile + "'>");
@@ -1399,11 +1282,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void markCodeStart()
    {
       // store code start line number
@@ -1420,28 +1299,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addCode()
    {
       addCode(this.getRootDir());
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addCode(String rootDir)
    {
       String className = "";
@@ -1542,26 +1407,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addGenericObjectDiag(GenericGraph graph)
    {
       this.addGenericObjectDiag(graph, GenericObject.EMPTY_SET);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph,
@@ -1569,26 +1422,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
       this.addGenericObjectDiag(diagramName, graph, GenericObject.EMPTY_SET);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       String link = this.getAdapter().addGenericObjectDiag(diagramName, graph, hiddenObjects);
@@ -1613,40 +1454,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.dumpHTML(targetClassName, targetMethodName);
    }
 
-   /**
-    * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- */
+
    public void dumpHTML()
    {
       this.dumpHTML(null, null);
    }
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addAsImage(String htmlbody, boolean autoClose, int... dimensions)
    {
       addAsImage(htmlbody, autoClose, "diagramEditor", dimensions);
    }
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addAsImage(String htmlbody, boolean autoClose, String addAsImageMode, int... dimensions)
    {
       // create a doc-files directory relative to doc dir
@@ -1864,16 +1684,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   /**
-    * Generate an html page from this story. This html file will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- */
+
    public void dumpHTML(String targetClassName, String targetMethodName)
    {
       try
@@ -1997,13 +1808,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    private void addEntryToRefsHtml(String dirName, String entry)
    {
       int pos;
@@ -2267,13 +2072,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
@@ -2281,13 +2080,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
@@ -2360,13 +2153,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public boolean addToStoryboardSteps(StoryboardStep value)
    {
       boolean changed = false;
@@ -2610,13 +2397,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addPreformatted(String expandedText)
    {
       expandedText = StrUtil.htmlEncode(expandedText);
@@ -2626,26 +2407,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addPattern(PatternObject patternObject, boolean showMatch)
    {
       addPattern(patternObject.getPattern(), showMatch);
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addPattern(Pattern pattern, boolean showMatch)
    {
       String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();
@@ -2833,13 +2602,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addStoryToJavaDoc(String classUnderTestName, String methodUnderTestName, String storyText)
    {
       try
@@ -2956,17 +2719,23 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testClass, String testMethod)
    {
       try
       {
+         if (classUnderTestName.startsWith("././"))
+         {
+            classUnderTestName = classUnderTestName.substring(2);
+         }
+
+         if ( ! classUnderTestName.startsWith(this.rootDir))
+         {
+            // target lives e.g. in src/main/java and we run in src/test/java. Thus target will not be able to refer to us.
+            // do not add reference.
+            return;
+         }
+
          // parse the class under test
          Parser parser = new Parser().withFileName(classUnderTestName);
 
@@ -3034,17 +2803,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
    {
       try
       {
+         if (classUnderTestName.startsWith("././"))
+         {
+            classUnderTestName = classUnderTestName.substring(2);
+         }
+
+         if ( ! classUnderTestName.startsWith(this.rootDir))
+         {
+            // target lives e.g. in src/main/java and we run in src/test/java. Thus target will not be able to refer to us.
+            // do not add reference.
+            return;
+         }
+
          // parse the class under test
          Parser parser = new Parser().withFileName(classUnderTestName);
 

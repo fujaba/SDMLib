@@ -68,11 +68,7 @@ public class SDMLibJsonIdMap extends IdMap implements PropertyChangeInterface{
 	   getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
- * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook createFlipBook()
    {
       FlipBook flipBook = new FlipBook().init(this);

@@ -32,12 +32,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>
-* @see org.sdmlib.test.models.objects.GenericGraphModel#testGenericGraphModel
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public class GenericGraph implements PropertyChangeInterface, SendableEntity
 {
    //==========================================================================
@@ -170,10 +165,7 @@ import org.sdmlib.models.objects.GenericObject;
       }
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public GenericObject createObjects()
    {
       GenericObject value = new GenericObject();
@@ -267,10 +259,7 @@ import org.sdmlib.models.objects.GenericObject;
       }
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- */
+
    public GenericLink createLinks()
    {
       GenericLink value = new GenericLink();

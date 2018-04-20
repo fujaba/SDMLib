@@ -573,7 +573,8 @@ public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the LinkConstraint object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public LinkConstraintSet withPattern(Pattern value)

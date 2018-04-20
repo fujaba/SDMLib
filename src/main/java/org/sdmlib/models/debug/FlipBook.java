@@ -29,10 +29,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
       
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook back()
    {
       if (currentStep <= 0 )
@@ -89,10 +86,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
    }
    
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook back(Object target, String property)
    {
       while (true)
@@ -142,10 +136,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
    }
    
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook back(Object target)
    {
       while (true)
@@ -189,11 +180,8 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
       return this;
       
    }
-   
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
+
    public FlipBook back(long steps)
    {
       for (long l = 0; l < steps; l++)
@@ -203,10 +191,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
       return this;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook forward(long steps)
    {
       for (long l = 0; l < steps; l++)
@@ -216,10 +201,7 @@ public class FlipBook implements ObjectCondition, PropertyChangeInterface
       return this;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
- */
+
    public FlipBook forward()
    {
       if (currentStep >= changes.size() )

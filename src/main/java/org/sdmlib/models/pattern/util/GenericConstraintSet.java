@@ -516,7 +516,8 @@ public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the GenericConstraint object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public GenericConstraintSet withPattern(Pattern value)
@@ -640,7 +641,8 @@ public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the GenericConstraint object passed as parameter to the Src attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
     */
    public GenericConstraintSet withSrc(PatternObject value)

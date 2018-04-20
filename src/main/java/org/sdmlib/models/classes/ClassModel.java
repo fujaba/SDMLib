@@ -43,104 +43,8 @@ import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
-   /**
-    * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
-    * <p>1. generate class University</p>
-    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    * 
-    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
-    * <p>2. generate class Student</p>
-    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;id&quot;, DataType.STRING)
-    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
-    * <p>3. add University --> Student association</p>
-    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
-    * <p>4. add University --> Room association</p>
-    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * 
-    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
-    * 
-    *       &#x2F;&#x2F;Association universityToRoom = 
-    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
-    *       
-    *       &#x2F;&#x2F; Association doors = 
-    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
-    * 
-    *       &#x2F;&#x2F; Association studentsInRoom = 
-    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
-    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
-    *       
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
-    * <p>5. add assignments:</p>
-    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
-    *                .withAttribute(&quot;content&quot;, DataType.STRING)
-    *                .withAttribute(&quot;points&quot;, DataType.INT);
-    * 
-    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
-    *       
-    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
-    * <p>6. generate class source files.</p>
-    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
-    * </pre>
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
- * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
- * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
- * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
- * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
- * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
- * @see org.sdmlib.test.examples.SDMLib.ClassModelTest#testClassModelCodeGen
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
- * @see org.sdmlib.test.examples.simpleEnumModel.SimpleClassModelWithEnumeration#testEnumerationInSimpleClassModel
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightReverseClassModel
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute
- * @see org.sdmlib.test.models.objects.GenericGraphModel#testGenericGraphModel
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
+
+
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
@@ -149,103 +53,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	private Set<FeatureProperty> features = Feature.getAll();
 	private GenClassModel generator;
 
-   /**
-    * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
-    * <p>1. generate class University</p>
-    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    * 
-    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
-    * <p>2. generate class Student</p>
-    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;id&quot;, DataType.STRING)
-    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
-    * <p>3. add University --> Student association</p>
-    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
-    * <p>4. add University --> Room association</p>
-    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * 
-    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
-    * 
-    *       &#x2F;&#x2F;Association universityToRoom = 
-    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
-    *       
-    *       &#x2F;&#x2F; Association doors = 
-    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
-    * 
-    *       &#x2F;&#x2F; Association studentsInRoom = 
-    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
-    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
-    *       
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
-    * <p>5. add assignments:</p>
-    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
-    *                .withAttribute(&quot;content&quot;, DataType.STRING)
-    *                .withAttribute(&quot;points&quot;, DataType.INT);
-    * 
-    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
-    *       
-    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
-    * <p>6. generate class source files.</p>
-    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
-    * </pre>
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
- * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
- * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
- * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
- * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
- * @see org.sdmlib.test.examples.SDMLib.ClassModelTest#testClassModelCodeGen
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
- * @see org.sdmlib.test.examples.simpleEnumModel.SimpleClassModelWithEnumeration#testEnumerationInSimpleClassModel
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightReverseClassModel
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute
- * @see org.sdmlib.test.models.objects.GenericGraphModel#testGenericGraphModel
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
+
    public ClassModel() {
 		name = getDefaultPackage();
 		setAuthorName(System.getProperty("user.name"));
@@ -256,188 +64,27 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return DEFAULTPACKAGE;
 	}
 
-   /**
-    * Constructor
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
-    * <p>1. generate class University</p>
-    * <pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    * 
-    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
-    * <p>2. generate class Student</p>
-    * <pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;id&quot;, DataType.STRING)
-    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-    *             .withAttribute(&quot;motivation&quot;, DataType.INT) 
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
-    * <p>3. add University --> Student association</p>
-    * <pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
-    * <p>4. add University --> Room association</p>
-    * <pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * 
-    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
-    * 
-    *       &#x2F;&#x2F;Association universityToRoom = 
-    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
-    *       
-    *       &#x2F;&#x2F; Association doors = 
-    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
-    * 
-    *       &#x2F;&#x2F; Association studentsInRoom = 
-    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
-    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
-    *       
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
-    * <p>5. add assignments:</p>
-    * <pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
-    *                .withAttribute(&quot;content&quot;, DataType.STRING)
-    *                .withAttribute(&quot;points&quot;, DataType.INT);
-    * 
-    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
-    *       
-    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
-    * </pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
-    * <p>6. generate class source files.</p>
-    * <pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
-    * </pre>
-    * @param packageName PackageName of ClassModel 
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
-    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.examples.gofpattern.StrategyModel#GofStrategyModel
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigration
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011SimpleMigrationViaGenericGraphs
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
- * @see org.sdmlib.test.examples.ludo.LudoModel#testLudoModel
- * @see org.sdmlib.test.examples.modelcouch.ModelCouchTasksModel#couchSpaceTasksModel
- * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
- * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
- * @see org.sdmlib.test.examples.SDMLib.ClassModelTest#testClassModelCodeGen
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
- * @see org.sdmlib.test.examples.simpleEnumModel.SimpleClassModelWithEnumeration#testEnumerationInSimpleClassModel
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightReverseClassModel
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
- * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute
- * @see org.sdmlib.test.models.objects.GenericGraphModel#testGenericGraphModel
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
+
    public ClassModel(String packageName)
 	   {
 		  this();
 	      with(packageName);
 	   }
 
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
- * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
- * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
+
    public ClassModel generate() 
    {
       getGenerator().generate();
       return this;
 	}
 
-   /**
-    * 
-    * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.groupaccount.GroupAccountClassModel#testGroupAccountCodegen
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation2WithReferences
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldCountNumberOfNodes
- * @see org.sdmlib.test.examples.helloworld.HelloWorldTTC2011#testTTC2011HelloWorldConstantTransformation1
- * @see org.sdmlib.test.examples.modelspace.chat.ModelSpaceChatModel#testModelSpaceChatModel
- * @see org.sdmlib.test.examples.patternrewriteops.TrainModel#TrainModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#UniDirectFerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#SimpleReachabilityGraphModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.ReachabilityGraphExampleModels#FerryMansProblemModel
- * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
- * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
- * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
- * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
- * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute
- * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
- * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
- * @see org.sdmlib.test.modelspace.ModelSpaceModel#ModelSpaceModel
- * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
- * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
- * @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
- */
+
    public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);
 		return this;
 	}
 
-   /**
-    * 
-    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- */
+
    public GenClassModel getGenerator() {
 		if (generator == null) {
 			this.setGenerator(new GenClassModel());

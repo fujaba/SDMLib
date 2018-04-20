@@ -777,6 +777,7 @@ public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
    /**
     * Loop through current set of ModelType objects and attach the AttributeConstraint object passed as parameter to the Pattern attribute of each of it. 
     * 
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public AttributeConstraintSet withPattern(Pattern value)
@@ -841,7 +842,8 @@ public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 
    /**
     * Loop through current set of ModelType objects and attach the AttributeConstraint object passed as parameter to the Src attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
     */
    public AttributeConstraintSet withSrc(PatternObject value)

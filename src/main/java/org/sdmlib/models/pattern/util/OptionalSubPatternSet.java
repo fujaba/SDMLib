@@ -662,7 +662,8 @@ public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 
    /**
     * Loop through current set of ModelType objects and attach the OptionalSubPattern object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public OptionalSubPatternSet withPattern(Pattern value)
@@ -727,7 +728,8 @@ public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 
    /**
     * Loop through current set of ModelType objects and attach the OptionalSubPattern object passed as parameter to the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Elements attributes.
     */
    public OptionalSubPatternSet withElements(PatternElement value)
@@ -742,7 +744,8 @@ public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 
    /**
     * Loop through current set of ModelType objects and remove the OptionalSubPattern object passed as parameter from the Elements attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public OptionalSubPatternSet withoutElements(PatternElement value)
@@ -838,7 +841,8 @@ public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 
    /**
     * Loop through current set of ModelType objects and attach the OptionalSubPattern object passed as parameter to the CurrentSubPattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their CurrentSubPattern attributes.
     */
    public OptionalSubPatternSet withCurrentSubPattern(Pattern value)
@@ -911,7 +915,8 @@ public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 
    /**
     * Loop through current set of ModelType objects and attach the OptionalSubPattern object passed as parameter to the Rgraph attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Rgraph attributes.
     */
    public OptionalSubPatternSet withRgraph(ReachabilityGraph value)

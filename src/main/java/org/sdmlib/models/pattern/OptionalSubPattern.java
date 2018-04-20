@@ -27,11 +27,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-/**
- * 
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
- * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- */
+
 public class OptionalSubPattern extends Pattern<OptionalSubPattern>implements PropertyChangeInterface
 {
    public OptionalSubPattern()

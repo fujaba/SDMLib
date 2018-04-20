@@ -34,11 +34,7 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.models.pattern.Pattern;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-* @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
- */
+
    public class PatternLink extends PatternElement implements PropertyChangeInterface
 {
 
@@ -215,10 +211,7 @@ import org.sdmlib.models.pattern.Pattern;
       return this.srcRoleName;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public void setSrcRoleName(String value)
    {
       if ( ! StrUtil.stringEquals(this.srcRoleName, value))
@@ -247,10 +240,7 @@ import org.sdmlib.models.pattern.Pattern;
       return this.tgtRoleName;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public void setTgtRoleName(String value)
    {
       if ( ! StrUtil.stringEquals(this.tgtRoleName, value))
@@ -285,10 +275,7 @@ import org.sdmlib.models.pattern.Pattern;
       return this.tgt;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public boolean setTgt(PatternObject value)
    {
       boolean changed = false;
@@ -344,10 +331,7 @@ import org.sdmlib.models.pattern.Pattern;
       return this.src;
    }
    
-     /**
-    * 
-    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
- */
+
    public boolean setSrc(PatternObject value)
    {
       boolean changed = false;

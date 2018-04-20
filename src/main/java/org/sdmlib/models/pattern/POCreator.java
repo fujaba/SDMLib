@@ -8,10 +8,7 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.SimpleSet;
-   /**
-    * 
-    * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- */
+
    public class POCreator
 {
 

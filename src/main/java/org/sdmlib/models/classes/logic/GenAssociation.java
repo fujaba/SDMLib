@@ -1294,6 +1294,7 @@ public class GenAssociation extends Generator<Association>
             "   /**\n" +
             "    * Loop through current set of ModelType objects and attach the ContentType object passed as parameter to the Name attribute of each of it. \n" +
             "    * \n" +
+            "    * @param value value" +
             "    * @return The original set of ModelType objects now with the new neighbor attached to their Name attributes.\n" +
             "    */\n" + 
             "   public ModelSetType withName(TargetType value)\n" + 
@@ -1347,6 +1348,7 @@ public class GenAssociation extends Generator<Association>
                "   /**\n" +
                "    * Loop through current set of ModelType objects and remove the ContentType object passed as parameter from the Name attribute of each of it. \n" +
                "    * \n" +
+               "    * @param value value" +
                "    * @return The original set of ModelType objects now without the old neighbor.\n" +
                "    */\n" + 
                "   public ModelSetType withoutName(TargetType value)\n" + 

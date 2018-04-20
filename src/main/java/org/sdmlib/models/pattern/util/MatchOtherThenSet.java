@@ -492,7 +492,8 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen>
 
    /**
     * Loop through current set of ModelType objects and attach the MatchOtherThen object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public MatchOtherThenSet withPattern(Pattern value)
@@ -557,7 +558,8 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen>
 
    /**
     * Loop through current set of ModelType objects and attach the MatchOtherThen object passed as parameter to the Src attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Src attributes.
     */
    public MatchOtherThenSet withSrc(PatternObject value)
@@ -622,7 +624,8 @@ public class MatchOtherThenSet extends SimpleSet<MatchOtherThen>
 
    /**
     * Loop through current set of ModelType objects and attach the MatchOtherThen object passed as parameter to the Forbidden attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Forbidden attributes.
     */
    public MatchOtherThenSet withForbidden(PatternObject value)

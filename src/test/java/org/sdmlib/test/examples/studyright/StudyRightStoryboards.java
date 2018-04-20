@@ -2361,43 +2361,43 @@ public class StudyRightStoryboards
     *    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <pre>          *             &quot;property&quot;:&quot;neighbors&quot;,
-    *     *             &quot;id&quot;:&quot;R3 : Room&quot;
-    *     *          }
-    *     *       },
-    *     *       {
-    *     *          &quot;type&quot;:&quot;assoc&quot;,
-    *     *          &quot;source&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;neighbors&quot;,
-    *     *             &quot;id&quot;:&quot;R5 : Room&quot;
-    *     *          },
-    *     *          &quot;target&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;neighbors&quot;,
-    *     *             &quot;id&quot;:&quot;R4 : Room&quot;
-    *     *          }
-    *     *       },
-    *     *       {
-    *     *          &quot;type&quot;:&quot;assoc&quot;,
-    *     *          &quot;source&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;neighbors&quot;,
-    *     *             &quot;id&quot;:&quot;R6 : Room&quot;
-    *     *          },
-    *     *          &quot;target&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;neighbors&quot;,
-    *     *             &quot;id&quot;:&quot;R5 : Room&quot;
-    *     *          }
-    *     *       },
-    *     *       {
-    *     *          &quot;type&quot;:&quot;assoc&quot;,
-    *     *          &quot;source&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;rooms&quot;,
-    *     *             &quot;id&quot;:&quot;R2 : Room&quot;
-    *     *          },
+    * <pre>      
+    *       Template rootTemplate = new Template()
+    *          .withModelObject(uni)
+    *          .with(&quot;The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList &quot;,
+    *             &quot;example&quot;, University.PROPERTY_NAME,
+    *             &quot;99&quot;, University.PROPERTY_ROOMS + &quot;.size&quot;,
+    *             &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
+    * 
+    *       Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+    *          .withReferenceLookup(true)
+    *          .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
+    *          .with(
+    *             &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
+    *             &quot;xy&quot;, Room.PROPERTY_ROOMNO,
+    *             &quot;42&quot;, Room.PROPERTY_CREDITS)
+    *          .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+    * 
+    *       Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
+    *          .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
+    *          .withReferenceLookup(true)
+    *          .with(
+    *             &quot;name&quot;,
+    *             &quot;name&quot;, Room.PROPERTY_ROOMNO)
+    *          .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
+    * 
+    *       Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+    *          .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
+    *          .with(
+    *             &quot; - Stud has student number 1234.&quot;,
+    *             &quot;Stud&quot;, Student.PROPERTY_NAME,
+    *             &quot;1234&quot;, Student.PROPERTY_MATRNO)
+    *          .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+    * 
+    *       storyboard.addObjectDiagram(rootTemplate);
+    * 
+    *       rootTemplate.generate();
+    * 
     * </pre>
     * <p>Results in the following text:</p>
     * <pre>The StudyRight University has 5 rooms and 2 students: 
@@ -2410,18 +2410,18 @@ public class StudyRightStoryboards
     *  - Tom has student number 4242.
     *  - Nina has student number 2323.
     *  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p>
-    * <pre>          *          &quot;source&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;many&quot;,
-    *     *             &quot;property&quot;:&quot;rooms&quot;,
-    *     *             &quot;id&quot;:&quot;R3 : Room&quot;
-    *     *          },
-    *     *          &quot;target&quot;:{
-    *     *             &quot;cardinality&quot;:&quot;one&quot;,
-    *     *             &quot;property&quot;:&quot;uni&quot;,
-    *     *             &quot;id&quot;:&quot;U1 : University&quot;
-    *     *          }
-    *     *       },
-    *     *       {
+    * <pre>      
+    *       rootTemplate.setExpandedText(
+    *          &quot;The Study False University has many rooms and some students: \n&quot; +
+    *             &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; +
+    *             &quot; - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n&quot; +
+    *             &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; +
+    *             &quot;The students are: \n&quot; +
+    *             &quot; - Bart has student number 111.\n&quot; +
+    *             &quot; - Meggie has student number 112.\n &quot;);
+    * 
+    *       rootTemplate.parse();
+    * 
     * </pre>
     * <script>
     *    var json = {

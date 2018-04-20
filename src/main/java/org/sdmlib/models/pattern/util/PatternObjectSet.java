@@ -559,7 +559,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the Pattern attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their Pattern attributes.
     */
    public PatternObjectSet withPattern(Pattern value)
@@ -624,7 +625,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the AttrConstraints attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their AttrConstraints attributes.
     */
    public PatternObjectSet withAttrConstraints(AttributeConstraint value)
@@ -639,7 +641,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and remove the PatternObject object passed as parameter from the AttrConstraints attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public PatternObjectSet withoutAttrConstraints(AttributeConstraint value)
@@ -704,7 +707,8 @@ public class PatternObjectSet extends SimpleSet<PatternObject>
 
    /**
     * Loop through current set of ModelType objects and attach the PatternObject object passed as parameter to the DestroyElem attribute of each of it. 
-    * 
+    *
+    * @param value value
     * @return The original set of ModelType objects now with the new neighbor attached to their DestroyElem attributes.
     */
    public PatternObjectSet withDestroyElem(DestroyObjectElem value)
