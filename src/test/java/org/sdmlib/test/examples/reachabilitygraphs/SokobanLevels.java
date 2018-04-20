@@ -59,6 +59,152 @@ public class SokobanLevels
    }
    
    
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java' type='text/x-java'>sokobanTrafoLevel</a></p>
+    * <p>Start: First Level</p>
+    * <p>Check: akarli reaches tiles: 4 actual 4</p>
+    * <p><a name = 'step_1'>Step 1: Statistics:</a></p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Descr</th>
+    * <th class="text-center">Data</th>
+    * <th class="text-center"> </th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td class="text-right col-md-1">nodes per state:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">number of states:</td>
+    * <td class="text-right col-md-1">8</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">product:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">actual object number:</td>
+    * <td class="text-right col-md-1">23</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">collectable object number:</td>
+    * <td class="text-right col-md-1">31</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">garbage object number:</td>
+    * <td class="text-right col-md-1">8</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">ratio:</td>
+    * <td class="text-right col-md-1">Infinity%</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * <pre>7 -move left-&gt;
+    *  6
+    *   wwww
+    *   waaw
+    * wwwaaw
+    * wBBaaw
+    * wwwwww
+    * 
+    * 
+    * </pre>
+    * <pre>1 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwbaw
+    * woobaw
+    * wwwwww
+    * 
+    * 
+    * 1 -move left-&gt;
+    * 2 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwbaw
+    * woBaaw
+    * wwwwww
+    * 
+    * 
+    * 2 -move up-&gt;
+    * 3 0.0
+    *  6
+    *   wwww
+    *   wbaw
+    * wwwaaw
+    * woBaaw
+    * wwwwww
+    * 
+    * 
+    * 2 -move down-&gt;
+    * 4 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwaaw
+    * woBbaw
+    * wwwwww
+    * 
+    * 
+    * 2 -move left-&gt;
+    * 5 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwbaw
+    * wBAaaw
+    * wwwwww
+    * 
+    * 
+    * 3 -move left-&gt;
+    * 5 -move up-&gt;
+    * 6 0.0
+    *  6
+    *   wwww
+    *   wbaw
+    * wwwaaw
+    * wBAaaw
+    * wwwwww
+    * 
+    * 
+    * 5 -move down-&gt;
+    * 7 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwaaw
+    * wBobaw
+    * wwwwww
+    * 
+    * 
+    * 7 -move left-&gt;
+    * 8 0.0
+    *  6
+    *   wwww
+    *   waaw
+    * wwwaaw
+    * wBBaaw
+    * wwwwww
+    * 
+    * 
+    * </pre>
+    */
    private int sokobanTrafoLevel()
    {
       long noOfStates = 30000;
@@ -338,6 +484,75 @@ public class SokobanLevels
    }
 
 
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java' type='text/x-java'>sokobanAbstractLevel</a></p>
+    * <p>Start: First Level</p>
+    * <p><a name = 'step_1'>Step 1: Statistics:</a></p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Descr</th>
+    * <th class="text-center">Data</th>
+    * <th class="text-center"> </th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td class="text-right col-md-1">nodes per state:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">number of states:</td>
+    * <td class="text-right col-md-1">17614</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">product:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">actual object number:</td>
+    * <td class="text-right col-md-1">35258</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">collectable object number:</td>
+    * <td class="text-right col-md-1">67</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">garbage object number:</td>
+    * <td class="text-right col-md-1">-35191</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">ratio:</td>
+    * <td class="text-right col-md-1">Infinity%</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * <pre>15942 -push box-&gt;
+    * 15952 -push box-&gt;
+    *  10
+    *      wwwww
+    *     wwaBaw
+    *    wwaaBaw
+    *   wwaaaaaw
+    *  wwaaaawww
+    *  waaaaww  
+    *  wBBaww   
+    *  waaaww   
+    *  wwwwww   
+    * 
+    * 
+    * </pre>
+    */
    private int sokobanAbstractLevel()
    {
       long noOfStates = 30000;
@@ -567,6 +782,184 @@ public class SokobanLevels
       }
    }
    
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java' type='text/x-java'>SokobanLevel1_Level0false</a></p>
+    * <p>Start: First Level</p>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"s1 : SokobanPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"k2 : KarliPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t3 : TilePO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t4 : TilePO",
+    *          "attributes":[
+    *             "wall == false"
+    *          ]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"b5 : BoxPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"s1 : SokobanPO"
+    *          },
+    *          "target":{
+    *             "property":"karli",
+    *             "id":"k2 : KarliPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t3 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"t3 : TilePO"
+    *          },
+    *          "target":{
+    *             "property":"neighbors",
+    *             "id":"t4 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"s1 : SokobanPO"
+    *          },
+    *          "target":{
+    *             "property":"boxes",
+    *             "id":"b5 : BoxPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"b5 : BoxPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t4 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t3 : TilePO"
+    *          },
+    *          "style":"destroy"
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t4 : TilePO"
+    *          },
+    *          "style":"create"
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasSokobanLevel1_Level0falsePatternDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_1'>Step 1: Statistics:</a></p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Descr</th>
+    * <th class="text-center">Data</th>
+    * <th class="text-center"> </th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td class="text-right col-md-1">nodes per state:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">number of states:</td>
+    * <td class="text-right col-md-1">42</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">product:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">actual object number:</td>
+    * <td class="text-right col-md-1">61</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">collectable object number:</td>
+    * <td class="text-right col-md-1">31</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">garbage object number:</td>
+    * <td class="text-right col-md-1">-30</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">ratio:</td>
+    * <td class="text-right col-md-1">Infinity%</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    */
    public void SokobanLevel1() throws Exception
    {
       
@@ -626,6 +1019,184 @@ public class SokobanLevels
       }
    }
 
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java' type='text/x-java'>SokobanLevel1_Level0false</a></p>
+    * <p>Start: First Level</p>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"s1 : SokobanPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"k2 : KarliPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t3 : TilePO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t4 : TilePO",
+    *          "attributes":[
+    *             "wall == false"
+    *          ]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"b5 : BoxPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"s1 : SokobanPO"
+    *          },
+    *          "target":{
+    *             "property":"karli",
+    *             "id":"k2 : KarliPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t3 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"t3 : TilePO"
+    *          },
+    *          "target":{
+    *             "property":"neighbors",
+    *             "id":"t4 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"s1 : SokobanPO"
+    *          },
+    *          "target":{
+    *             "property":"boxes",
+    *             "id":"b5 : BoxPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"b5 : BoxPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t4 : TilePO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t3 : TilePO"
+    *          },
+    *          "style":"destroy"
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"k2 : KarliPO"
+    *          },
+    *          "target":{
+    *             "property":"tile",
+    *             "id":"t4 : TilePO"
+    *          },
+    *          "style":"create"
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasSokobanLevel1_Level0falsePatternDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_1'>Step 1: Statistics:</a></p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Descr</th>
+    * <th class="text-center">Data</th>
+    * <th class="text-center"> </th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td class="text-right col-md-1">nodes per state:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">number of states:</td>
+    * <td class="text-right col-md-1">42</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">product:</td>
+    * <td class="text-right col-md-1">0</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">actual object number:</td>
+    * <td class="text-right col-md-1">61</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">collectable object number:</td>
+    * <td class="text-right col-md-1">31</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">garbage object number:</td>
+    * <td class="text-right col-md-1">-30</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * <tr>
+    * <td class="text-right col-md-1">ratio:</td>
+    * <td class="text-right col-md-1">Infinity%</td>
+    * <td class="text-right col-md-6"> </td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    */
    public long SokobanLevel1(boolean cleanUp, boolean useLong, String levelName, String level, long noOfStates) throws Exception
    {
       Storyboard story = new Storyboard().withDocDirName("doc/internal");

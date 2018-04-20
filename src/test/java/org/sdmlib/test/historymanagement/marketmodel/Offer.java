@@ -34,6 +34,7 @@ import org.sdmlib.test.historymanagement.marketmodel.Actor;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/historymanagement/HistoryMarketModel.java'>HistoryMarketModel.java</a>
+ * @see org.sdmlib.test.historymanagement.HistoryMarketModel#HistoryMarketModel
  */
    public  class Offer implements SendableEntity
 {

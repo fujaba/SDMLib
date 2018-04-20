@@ -152,6 +152,10 @@ public  class Table implements SendableEntity
 
    private ColumnSet columns = null;
    
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public Column getColumn(String colName)
    {
       for (Column result : this.getColumns())
@@ -164,6 +168,10 @@ public  class Table implements SendableEntity
       return null;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public ColumnSet getColumns()
    {
       if (this.columns == null)
@@ -210,6 +218,10 @@ public  class Table implements SendableEntity
       return this;
    } 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public Table withoutColumns(Column... value)
    {
       for (Column item : value)
@@ -235,6 +247,10 @@ public  class Table implements SendableEntity
       public Object exec (Row r);
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public Column createColumns()
    {
       Column value = new Column();
@@ -242,6 +258,10 @@ public  class Table implements SendableEntity
       return value;
    } 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public Column createColumns(String columnName, RowConsumer cons)
    {
       Column newColumn = this.createColumns()
@@ -348,6 +368,10 @@ public  class Table implements SendableEntity
       return newRow;      
    } 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public void withoutColumns(String... colNames)
    {
       for (String name : colNames)
@@ -618,6 +642,10 @@ public  class Table implements SendableEntity
       return chartText.toString();
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public String getCSV()
    {
       StringBuffer buf = new StringBuffer();

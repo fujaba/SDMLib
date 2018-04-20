@@ -39,6 +39,417 @@ import de.uniks.networkparser.graph.Parameter;
 public class ClassModelTest
 {
    /**
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java' type='text/x-java'>ClassModelCodeGen</a></p>
+    * <p>We start by bootstrapping org.sdmlib.model.classes.ClassModel. </p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Annotation",
+    *          "attributes":[
+    *             "DEPRECATED : String",
+    *             "OVERRIDE : String",
+    *             "SAFE_VARGARGS : String",
+    *             "SUPPRESS_WARNINGS : String"
+    *          ],
+    *          "methods":[
+    *             "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
+    *             "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
+    *             "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation",
+    *             "createSuppressWarningsAnnotation(String... values) org.sdmlib.models.classes.Annotation"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Association"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Attribute"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"ClassModel"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Clazz",
+    *          "attributes":[
+    *             "external : boolean",
+    *             "interfaze : boolean"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Enumeration"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Method",
+    *          "attributes":[
+    *             "body : String",
+    *             "returnType : DataType"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Parameter"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Role",
+    *          "attributes":[
+    *             "card : String",
+    *             "kind : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"SDMLibClass",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Value",
+    *          "attributes":[
+    *             "initialization : String",
+    *             "type : DataType"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"LocalVarTableEntry",
+    *          "attributes":[
+    *             "endPos : int",
+    *             "name : String",
+    *             "startPos : int",
+    *             "type : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"StatementEntry",
+    *          "attributes":[
+    *             "assignTargetVarName : String",
+    *             "endPos : int",
+    *             "kind : String",
+    *             "startPos : int",
+    *             "tokenList : ArrayList<String>"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"SymTabEntry",
+    *          "attributes":[
+    *             "annotations : String",
+    *             "annotationsStartPos : int",
+    *             "bodyStartPos : int",
+    *             "endPos : int",
+    *             "kind : String",
+    *             "memberName : String",
+    *             "modifiers : String",
+    *             "preCommentEndPos : int",
+    *             "preCommentStartPos : int",
+    *             "startPos : int",
+    *             "type : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Annotation",
+    *             "cardinality":"one",
+    *             "property":"annotation"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Association",
+    *             "cardinality":"one",
+    *             "property":"association"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Attribute",
+    *             "cardinality":"one",
+    *             "property":"attribute"
+    *          },
+    *          "target":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"ClassModel",
+    *             "cardinality":"one",
+    *             "property":"classmodel"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Clazz",
+    *             "cardinality":"one",
+    *             "property":"clazz"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Enumeration",
+    *             "cardinality":"one",
+    *             "property":"enumeration"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Method",
+    *             "cardinality":"one",
+    *             "property":"method"
+    *          },
+    *          "target":{
+    *             "id":"Parameter",
+    *             "cardinality":"many",
+    *             "property":"parameter"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Method",
+    *             "cardinality":"one",
+    *             "property":"method"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Parameter",
+    *             "cardinality":"many",
+    *             "property":"parameter"
+    *          },
+    *          "target":{
+    *             "id":"Method",
+    *             "cardinality":"one",
+    *             "property":"method"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Parameter",
+    *             "cardinality":"one",
+    *             "property":"parameter"
+    *          },
+    *          "target":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Role",
+    *             "cardinality":"one",
+    *             "property":"role"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"ClassModel",
+    *             "cardinality":"one",
+    *             "property":"classmodel"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Clazz",
+    *             "cardinality":"one",
+    *             "property":"clazz"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Method",
+    *             "cardinality":"one",
+    *             "property":"method"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Annotation",
+    *             "cardinality":"one",
+    *             "property":"annotation"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Enumeration",
+    *             "cardinality":"one",
+    *             "property":"enumeration"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Association",
+    *             "cardinality":"one",
+    *             "property":"association"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Role",
+    *             "cardinality":"one",
+    *             "property":"role"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          },
+    *          "target":{
+    *             "id":"SDMLibClass",
+    *             "cardinality":"one",
+    *             "property":"sdmlibclass"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Attribute",
+    *             "cardinality":"one",
+    *             "property":"attribute"
+    *          },
+    *          "target":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Parameter",
+    *             "cardinality":"one",
+    *             "property":"parameter"
+    *          },
+    *          "target":{
+    *             "id":"Value",
+    *             "cardinality":"one",
+    *             "property":"value"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasClassModelCodeGenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/internal/ClassModelCodeGen.html'>ClassModelCodeGen.html</a>
     */
    @Test

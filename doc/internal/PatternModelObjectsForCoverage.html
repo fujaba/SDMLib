@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/examples/SDMLib/SDMLibMetaModelObjectDiagramsForCoverage.java' type='text/x-java'>PatternModelObjectsForCoverage</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/SDMLib/SDMLibMetaModelObjectDiagramsForCoverage.java' type='text/x-java'>PatternModelObjectsForCoverage</a></p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
 <script>
    var json = {
@@ -310,14 +311,14 @@
          "type":"clazz",
          "id":"R23 : RuleApplication",
          "attributes":[
-            "description=null",
-            "rule=null"
+            "description=null"
          ]
       },
       {
          "type":"clazz",
          "id":"R25 : ReachableState",
          "attributes":[
+            "descr=0 0.0",
             "failureState=false",
             "graphRoot=null",
             "metricValue=0.0",
@@ -329,6 +330,7 @@
          "type":"clazz",
          "id":"R6 : ReachableState",
          "attributes":[
+            "descr=0 0.0",
             "failureState=false",
             "graphRoot=null",
             "metricValue=0.0",
@@ -339,6 +341,7 @@
          "type":"clazz",
          "id":"R7 : ReachableState",
          "attributes":[
+            "descr=0 0.0",
             "failureState=false",
             "graphRoot=null",
             "metricValue=0.0",
@@ -642,32 +645,6 @@
             "cardinality":"one",
             "property":"src",
             "id":"R6 : ReachableState"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"rules",
-            "id":"P4 : Pattern"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"reachabilitygraph",
-            "id":"R2 : ReachabilityGraph"
-         }
-      },
-      {
-         "type":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"rules",
-            "id":"P3 : Pattern"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"reachabilitygraph",
-            "id":"R2 : ReachabilityGraph"
          }
       },
       {

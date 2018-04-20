@@ -28,6 +28,8 @@ import org.sdmlib.test.examples.simpleModel.model.MacList;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.NumberList;
 
 public class MacListSet extends SimpleSet<MacList>
 {

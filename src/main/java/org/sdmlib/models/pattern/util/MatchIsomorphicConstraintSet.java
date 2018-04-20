@@ -29,6 +29,7 @@ import org.sdmlib.models.pattern.Pattern;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConstraint>
 {

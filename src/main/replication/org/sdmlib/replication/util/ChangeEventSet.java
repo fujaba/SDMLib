@@ -27,6 +27,7 @@ import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class ChangeEventSet extends SimpleSet<ChangeEvent>
 {

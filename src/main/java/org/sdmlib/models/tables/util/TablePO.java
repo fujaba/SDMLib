@@ -6,8 +6,11 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Column;
 import org.sdmlib.models.tables.Row;
 import org.sdmlib.models.tables.Table;
-
-public class TablePO extends PatternObject<TablePO, Table>
+   /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
+   public class TablePO extends PatternObject<TablePO, Table>
 {
 
     public TableSet allMatches()
@@ -27,10 +30,18 @@ public class TablePO extends PatternObject<TablePO, Table>
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public TablePO(){
       newInstance(null);
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public TablePO(Table... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
@@ -38,6 +49,10 @@ public class TablePO extends PatternObject<TablePO, Table>
       newInstance(null, hostGraphObject);
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public TablePO(String modifier)
    {
       this.setModifier(modifier);
@@ -142,6 +157,10 @@ public class TablePO extends PatternObject<TablePO, Table>
       return null;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public RowPO createRowsPO()
    {
       RowPO result = new RowPO(new Row[]{});
@@ -152,6 +171,10 @@ public class TablePO extends PatternObject<TablePO, Table>
       return result;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public RowPO createRowsPO(String modifier)
    {
       RowPO result = new RowPO(new Row[]{});

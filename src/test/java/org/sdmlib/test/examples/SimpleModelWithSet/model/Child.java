@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/SimpleModelWithSet/testSimpleSetModel.java'>testSimpleSetModel.java</a>
+ * @see org.sdmlib.test.examples.SimpleModelWithSet.testSimpleSetModel#testModelGen
  */
    public  class Child implements SendableEntity
 {
@@ -110,6 +111,8 @@ import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    //==========================================================================
    public void setParent( Person parent )
    {
-      
-   }
+if (this.parent != parent) {
+if (this.parent != null) {
+}
+}   }
 }

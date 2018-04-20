@@ -32,6 +32,7 @@ import org.sdmlib.storyboards.util.GoalSet;
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
  */
    public  class Goal implements SendableEntity
 {
@@ -361,6 +362,8 @@ import org.sdmlib.storyboards.util.GoalSet;
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
  */
    public Goal clipDone()
    {
@@ -376,6 +379,8 @@ import org.sdmlib.storyboards.util.GoalSet;
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
  * @see org.sdmlib.test.doc.TestJavaDocStories#testJavaDocStoriesMikadoPlan
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
  */
    private void clipDone(Goal done)
    {

@@ -503,6 +503,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
  */
    public Assignment createAssignments()
    {

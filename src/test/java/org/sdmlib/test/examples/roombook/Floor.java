@@ -31,6 +31,7 @@ import org.sdmlib.test.examples.roombook.Building;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public  class Floor implements SendableEntity
 {

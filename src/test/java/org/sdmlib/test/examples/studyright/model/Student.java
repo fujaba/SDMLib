@@ -36,7 +36,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public class Student extends Female implements Male, PropertyChangeInterface, SendableEntity
 {
 
@@ -354,7 +355,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public University getUni()
    {
       return this.uni;

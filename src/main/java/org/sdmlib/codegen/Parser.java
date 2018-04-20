@@ -102,6 +102,10 @@ public class Parser
 
    private SimpleKeyValueList<String, SymTabEntry> symTab;
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public SimpleKeyValueList<String, SymTabEntry> getSymTab()
    {
       return symTab;
@@ -290,6 +294,10 @@ public class Parser
       return this;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public int indexOf(String searchString)
    {
       indexOfResult = -1;
@@ -1546,6 +1554,10 @@ public class Parser
       return indexOfResult;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public int indexOfInMethodBody(String searchString, int searchStartPos, int searchEndPos)
    {
       indexOfResult = -1;
@@ -2101,6 +2113,10 @@ public class Parser
          indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() + 1, symTabEntry.getEndPos() - 1);
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature)
    {
       ArrayList<SymTabEntry> entries = new ArrayList<SymTabEntry>();
@@ -2113,6 +2129,10 @@ public class Parser
       return entries;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public SymTabEntry getSymTabEntry(String signature)
    {
       return symTab.get(signature);
@@ -2156,6 +2176,10 @@ public class Parser
       return this;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public StringBuilder getText()
    {
       return fileBody;

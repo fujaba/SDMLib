@@ -30,6 +30,8 @@ import org.sdmlib.modelspace.TaskLane;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskSet extends SimpleSet<Task>
 {

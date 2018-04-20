@@ -59,6 +59,10 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.Pattern;
 
 /**
  * 
@@ -69,6 +73,8 @@ import de.uniks.networkparser.list.SimpleList;
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilitGraphSameCertificatesNonIsomorphic
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
+ * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
+ * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
  */
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity
 {
@@ -432,6 +438,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public ReachableState createStates()
    {
       ReachableState value = new ReachableState();
@@ -551,6 +561,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public ReachableState createTodo()
    {
       ReachableState value = new ReachableState();
@@ -681,6 +695,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public Pattern createRules()
    {
       Pattern value = new Pattern();
@@ -2021,6 +2039,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public Pattern createRulesNegativeApplicationCondition()
    {
       Pattern value = new NegativeApplicationCondition();
@@ -2029,6 +2051,10 @@ public class ReachabilityGraph implements PropertyChangeInterface, SendableEntit
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public Pattern createRulesOptionalSubPattern()
    {
       Pattern value = new OptionalSubPattern();

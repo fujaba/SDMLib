@@ -39,6 +39,7 @@ import org.sdmlib.models.pattern.UnifyGraphsOp;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SimpleSet<PatternElement>
 {

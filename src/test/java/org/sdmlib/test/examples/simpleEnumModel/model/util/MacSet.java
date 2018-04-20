@@ -29,6 +29,7 @@ import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class MacSet extends SimpleSet<Mac>
 {

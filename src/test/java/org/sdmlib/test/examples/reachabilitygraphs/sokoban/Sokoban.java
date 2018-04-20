@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
  */
    public  class Sokoban implements SendableEntity
 {

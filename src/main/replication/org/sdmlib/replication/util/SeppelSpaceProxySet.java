@@ -34,6 +34,11 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.replication.util.SeppelChannelSet;
+import org.sdmlib.replication.util.SeppelScopeSet;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
 {

@@ -32,7 +32,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestGenModel#testSimpleModel
+ */
    public class MacList extends ArrayList implements PropertyChangeInterface, SendableEntity
 {
 

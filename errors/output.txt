@@ -93,3 +93,637 @@ call method for model creation code not found
 
 
 
+Fri Apr 20 17:39:40 CEST 2018 memory lazy keep  uselong false certificates 38.264.672 bytes 180 millis 
+
+1 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+woobkw
+wwwwww
+
+2 0.0
+ 6
+  wwww
+  w..w
+wwwbkw
+woob.w
+wwwwww
+
+3 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+woBk.w
+wwwwww
+
+4 0.0
+ 6
+  wwww
+  w.kw
+wwwb.w
+woob.w
+wwwwww
+
+5 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+woB.kw
+wwwwww
+
+6 0.0
+ 6
+  wwww
+  wb.w
+wwwk.w
+woB..w
+wwwwww
+
+7 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+wBK..w
+wwwwww
+
+8 0.0
+ 6
+  wwww
+  wk.w
+wwwb.w
+woob.w
+wwwwww
+
+9 0.0
+ 6
+  wwww
+  w..w
+wwwbkw
+woB..w
+wwwwww
+
+10 0.0
+ 6
+  wwww
+  wb.w
+www.kw
+woB..w
+wwwwww
+
+11 0.0
+ 6
+  wwww
+  wb.w
+www..w
+woBk.w
+wwwwww
+
+12 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+wBok.w
+wwwwww
+
+13 0.0
+ 6
+  wwww
+  w.kw
+wwwb.w
+woB..w
+wwwwww
+
+14 0.0
+ 6
+  wwww
+  wbkw
+www..w
+woB..w
+wwwwww
+
+15 0.0
+ 6
+  wwww
+  wb.w
+www..w
+woB.kw
+wwwwww
+
+16 0.0
+ 6
+  wwww
+  wb.w
+www..w
+wBK..w
+wwwwww
+
+17 0.0
+ 6
+  wwww
+  w..w
+wwwb.w
+wBo.kw
+wwwwww
+
+18 0.0
+ 6
+  wwww
+  wb.w
+wwwk.w
+wBo..w
+wwwwww
+
+19 0.0
+ 6
+  wwww
+  wk.w
+wwwb.w
+woB..w
+wwwwww
+
+20 0.0
+ 6
+  wwww
+  wb.w
+www..w
+wBok.w
+wwwwww
+
+21 0.0
+ 6
+  wwww
+  w..w
+wwwbkw
+wBo..w
+wwwwww
+
+22 0.0
+ 6
+  wwww
+  wb.w
+www.kw
+wBo..w
+wwwwww
+
+23 0.0
+ 6
+  wwww
+  w..w
+wwwk.w
+woBb.w
+wwwwww
+
+24 0.0
+ 6
+  wwww
+  wb.w
+www..w
+wBo.kw
+wwwwww
+
+25 0.0
+ 6
+  wwww
+  w.kw
+wwwb.w
+wBo..w
+wwwwww
+
+26 0.0
+ 6
+  wwww
+  wbkw
+www..w
+wBo..w
+wwwwww
+
+27 0.0
+ 6
+  wwww
+  wk.w
+www..w
+woBb.w
+wwwwww
+
+28 0.0
+ 6
+  wwww
+  w..w
+www.kw
+woBb.w
+wwwwww
+
+29 0.0
+ 6
+  wwww
+  wk.w
+wwwb.w
+wBo..w
+wwwwww
+
+30 0.0
+ 6
+  wwww
+  w.kw
+www..w
+woBb.w
+wwwwww
+
+31 0.0
+ 6
+  wwww
+  w..w
+www..w
+woBbkw
+wwwwww
+
+32 0.0
+ 6
+  wwww
+  w..w
+wwwk.w
+wBob.w
+wwwwww
+
+33 0.0
+ 6
+  wwww
+  wk.w
+www..w
+wBob.w
+wwwwww
+
+34 0.0
+ 6
+  wwww
+  w..w
+www.kw
+wBob.w
+wwwwww
+
+35 0.0
+ 6
+  wwww
+  w.kw
+www..w
+wBob.w
+wwwwww
+
+36 0.0
+ 6
+  wwww
+  w..w
+www..w
+wBobkw
+wwwwww
+
+37 0.0
+ 6
+  wwww
+  w..w
+www..w
+wBBk.w
+wwwwww
+
+38 0.0
+ 6
+  wwww
+  w..w
+wwwk.w
+wBB..w
+wwwwww
+
+39 0.0
+ 6
+  wwww
+  w..w
+www..w
+wBB.kw
+wwwwww
+
+40 0.0
+ 6
+  wwww
+  wk.w
+www..w
+wBB..w
+wwwwww
+
+41 0.0
+ 6
+  wwww
+  w..w
+www.kw
+wBB..w
+wwwwww
+
+42 0.0
+ 6
+  wwww
+  w.kw
+www..w
+wBB..w
+wwwwww
+
+Fri Apr 20 17:39:46 CEST 2018 memory lazy keep  uselong false certificates 33.984.056 bytes 34 millis 
+
+7 -move left->
+ 6
+  wwww
+  waaw
+wwwaaw
+wBBaaw
+wwwwww
+
+
+
+1 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+woobaw
+wwwwww
+
+
+1 -move left->
+2 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+woBaaw
+wwwwww
+
+
+2 -move up->
+3 0.0
+ 6
+  wwww
+  wbaw
+wwwaaw
+woBaaw
+wwwwww
+
+
+2 -move down->
+4 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+woBbaw
+wwwwww
+
+
+2 -move left->
+5 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+wBAaaw
+wwwwww
+
+
+3 -move left->
+5 -move up->
+6 0.0
+ 6
+  wwww
+  wbaw
+wwwaaw
+wBAaaw
+wwwwww
+
+
+5 -move down->
+7 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+wBobaw
+wwwwww
+
+
+7 -move left->
+8 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+wBBaaw
+wwwwww
+
+
+
+Fri Apr 20 17:39:51 CEST 2018 memory lazy keep  uselong false certificates 32.869.928 bytes 49 millis 
+
+7 -push box->
+ 6
+  wwww
+  waaw
+wwwaaw
+wBBaaw
+wwwwww
+
+
+
+1 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+woobaw
+wwwwww
+
+
+1 -push box->
+2 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+woBaaw
+wwwwww
+
+
+2 -push box->
+3 0.0
+ 6
+  wwww
+  wbaw
+wwwaaw
+woBaaw
+wwwwww
+
+
+2 -push box->
+4 0.0
+ 6
+  wwww
+  waaw
+wwwbaw
+wBAaaw
+wwwwww
+
+
+2 -push box->
+5 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+woBbaw
+wwwwww
+
+
+3 -push box->
+4 -push box->
+6 0.0
+ 6
+  wwww
+  wbaw
+wwwaaw
+wBAaaw
+wwwwww
+
+
+4 -push box->
+7 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+wBobaw
+wwwwww
+
+
+7 -push box->
+8 0.0
+ 6
+  wwww
+  waaw
+wwwaaw
+wBBaaw
+wwwwww
+
+
+
+Progress [.                             ] (Generating 30000 graphs)Progress [..                            ] (Generating 30000 graphs)Progress [...                           ] (Generating 30000 graphs)Progress [....                          ] (Generating 30000 graphs)Progress [.....                         ] (Generating 30000 graphs)Progress [......                        ] (Generating 30000 graphs)Progress [.......                       ] (Generating 30000 graphs)Progress [........                      ] (Generating 30000 graphs)Progress [.........                     ] (Generating 30000 graphs)Progress [..........                    ] (Generating 30000 graphs)Progress [...........                   ] (Generating 30000 graphs)Progress [............                  ] (Generating 30000 graphs)Progress [.............                 ] (Generating 30000 graphs)Progress [..............                ] (Generating 30000 graphs)Progress [...............               ] (Generating 30000 graphs)Progress [................              ] (Generating 30000 graphs)Progress [.................             ] (Generating 30000 graphs)Fri Apr 20 17:43:09 CEST 2018 memory lazy keep  uselong false certificates 183.452.952 bytes 189.349 millis 
+
+15942 -push box->
+15952 -push box->
+ 10
+     wwwww
+    wwaBaw
+   wwaaBaw
+  wwaaaaaw
+ wwaaaawww
+ waaaaww  
+ wBBaww   
+ waaaww   
+ wwwwww   
+
+
+
+
+
+
+
+Totalchanges of all Files: 0
+
+
+
+
+
+
+
+
+handle
+handle
+handle
+handle
+handle
+
+ (StudyRightWithAssignmentsStoryboards.java:85)
+[
+  {
+    "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+    "id":"U527235761256301",
+    "timestamp":"527235761256301",
+    "prop":{
+      "name":"StudyRight",
+      "students":[
+        {
+          "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+          "id":"S527235761418756",
+          "timestamp":"527235761418756"
+        },
+        {
+          "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+          "id":"S527235761443393",
+          "timestamp":"527235761443393"
+        }
+      ]
+    }
+  },
+  {
+    "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+    "id":"S527235761418756",
+    "timestamp":"527235761418756",
+    "prop":{
+      "name":"Abu",
+      "id":"1337",
+      "university":{
+        "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+        "id":"U527235761256301"
+      },
+      "friends":[
+        {
+          "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+          "id":"S527235761443393"
+        }
+      ]
+    }
+  },
+  {
+    "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+    "id":"S527235761443393",
+    "timestamp":"527235761443393",
+    "prop":{
+      "name":"Alice",
+      "id":"2323",
+      "university":{
+        "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+        "id":"U527235761256301"
+      },
+      "friends":[
+        {
+          "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
+          "id":"S527235761418756"
+        }
+      ]
+    }
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+Integer: 1

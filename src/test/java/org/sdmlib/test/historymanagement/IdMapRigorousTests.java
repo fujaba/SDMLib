@@ -15,6 +15,11 @@ import de.uniks.networkparser.json.JsonObject;
 
 public class IdMapRigorousTests
 {
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/IdMapRigorousTests.java' type='text/x-java'>updateOnNewObjectAttributes</a></p>
+    * <p>Check: change message should contain 00:00 true</p>
+    */
    @Test
    public void updateOnNewObjectAttributes() throws Exception
    {
@@ -35,6 +40,14 @@ public class IdMapRigorousTests
    }
 
    
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/IdMapRigorousTests.java' type='text/x-java'>updateOnNewComplexNeighbors</a></p>
+    * <p>Check: change message should contain 00:00 true</p>
+    * <p>Check: change message should contain Bid true</p>
+    * <p>Check: change message should contain 42.23 true</p>
+    * <p>Check: change message should contain Starbucks true</p>
+    */
    @Test
    public void updateOnNewComplexNeighbors() throws Exception
    {
@@ -74,6 +87,11 @@ public class IdMapRigorousTests
    }
 
    
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/IdMapRigorousTests.java' type='text/x-java'>updateOnObjectRemoval</a></p>
+    * <p>Check: change message should contain "rem":{} true</p>
+    */
    @Test
    public void updateOnObjectRemoval() throws Exception
    {

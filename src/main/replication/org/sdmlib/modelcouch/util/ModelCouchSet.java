@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.intList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelcouch.util.ModelDBListenerSet;
 
 public class ModelCouchSet extends SimpleSet<ModelCouch>
 {

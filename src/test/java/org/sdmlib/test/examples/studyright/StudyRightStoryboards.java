@@ -15,6 +15,296 @@ import de.uniks.networkparser.ext.story.Story;
 public class StudyRightStoryboards
 {
    /**
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
+    * <p>Start situation: use University class to build object structure</p>
+    * <p>step 1: dump object diagram</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "roomNo=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "room=null",
+    *             "roomNo=ProgMeth"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Albert"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasStudyRightObjectStoryboards3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Number of students:  2 actual 2</p>
+    * <p>step 2: add support for path navigation
+    *       call </p>
+    * <pre>            int sum = albert.getUni().getRooms().getCredits().sum();
+    * </pre>
+    * <p>shall compute to 88.</p>
+    * <p>step 3: call </p>
+    * <pre>            mathRoom.findPath(&quot;&quot;, 88);
+    * </pre>
+    * <p>System.out: 
+    * </p>
+    * <p></p>
     * @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
     */
    @Test
@@ -96,6 +386,942 @@ public class StudyRightStoryboards
 
 
    /**
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
+    * <p>Adding flipbook to protocol changes.</p>
+    * <p>Start situation: use University class to build object structure</p>
+    * <pre>            SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap(&quot;ajz&quot;);
+    *       FlipBook flipBook = idMap.createFlipBook();
+    * 
+    *       &#x2F;&#x2F; =============================================================
+    *       storyboard.add(&quot;Start situation: use University class to build object structure&quot;);
+    * 
+    *       University uni = new University()
+    *          .withName(&quot;StudyRight&quot;);
+    *       idMap.getId(uni);
+    *       
+    * </pre>
+    * <p>From now on the flipbook protocols all changes done to the uni model</p>
+    * <p>Add rooms and students and dump the object model.</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "roomNo=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "room=null",
+    *             "roomNo=ProgMeth"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Albert"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasFlipbook6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Check: Number of students expected:  2 actual 2</p>
+    * <p>Check: Number of rooms expected:  5 actual 5</p>
+    * <p>Test flipbook, with some undo redo steps: </p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasFlipbook10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "roomNo=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "room=null",
+    *             "roomNo=ProgMeth"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Albert"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasFlipbook11", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "room=null",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "room=null",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Albert"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasFlipbook12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <pre>          *          &quot;id&quot;:&quot;S8 : Student&quot;,
+    *     *          &quot;attributes&quot;:[
+    *     *             &quot;credits=0&quot;,
+    *     *             &quot;in=null&quot;,
+    *     *             &quot;matrNo=2323&quot;,
+    *     *             &quot;motivation=0&quot;,
+    *     *             &quot;name=Nina&quot;
+    *     *          ]
+    *     *       },
+    *     *       {
+    *     *          &quot;type&quot;:&quot;clazz&quot;,
+    *     *          &quot;id&quot;:&quot;U1 : University&quot;,
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "room=null",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "room=null",
+    *             "roomNo=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Albert"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasFlipbook14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/Flipbook.html'>Flipbook.html</a>
     */
    @Test
@@ -195,6 +1421,1025 @@ public class StudyRightStoryboards
 
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
+    * <p>Start: We start with the usual StudyRight object model.</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "roomNo=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "room=null",
+    *             "roomNo=ProgMeth"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Tom"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"P10 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=name",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=example",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P11 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=rooms.size",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=99",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P12 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=students.size",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=88",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P13 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=rooms",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "textFragment=roomList",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P14 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=students",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "textFragment=studentList",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P17 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=roomNo",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=xy",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P18 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=credits",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=42",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P19 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=neighbors",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "textFragment=neighbors",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P20 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=name",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=Stud",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P21 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=matrNo",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=1234",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"P23 : PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName=roomNo",
+    *             "isKeyAttribute=false",
+    *             "prefix=null",
+    *             "subTemplate=null",
+    *             "textFragment=name",
+    *             "value=null"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R2 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "roomNo=math"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R3 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=arts"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R4 : Room",
+    *          "attributes":[
+    *             "credits=23",
+    *             "roomNo=sports"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R5 : Room",
+    *          "attributes":[
+    *             "credits=0",
+    *             "roomNo=exam"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"R6 : Room",
+    *          "attributes":[
+    *             "credits=42",
+    *             "room=null",
+    *             "roomNo=ProgMeth"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S7 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "matrNo=4242",
+    *             "motivation=0",
+    *             "name=Tom"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"S8 : Student",
+    *          "attributes":[
+    *             "credits=0",
+    *             "in=null",
+    *             "matrNo=2323",
+    *             "motivation=0",
+    *             "name=Nina"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"T15 : Template",
+    *          "attributes":[
+    *             "chooser=null",
+    *             "expandedText=null",
+    *             "listEnd=\u000a",
+    *             "listSeparator=\u000a",
+    *             "listStart=",
+    *             "modelClassName=null",
+    *             "modelObject=null",
+    *             "name=null",
+    *             "referenceLookup=true",
+    *             "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"T16 : Template",
+    *          "attributes":[
+    *             "chooser=null",
+    *             "expandedText=null",
+    *             "listEnd=\u000a",
+    *             "listSeparator=\u000a",
+    *             "listStart=",
+    *             "modelClassName=null",
+    *             "modelObject=null",
+    *             "name=null",
+    *             "referenceLookup=false",
+    *             "templateText= - Stud has student number 1234."
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"T22 : Template",
+    *          "attributes":[
+    *             "chooser=null",
+    *             "expandedText=null",
+    *             "listEnd=.",
+    *             "listSeparator=, ",
+    *             "listStart=",
+    *             "modelClassName=null",
+    *             "modelObject=null",
+    *             "name=null",
+    *             "referenceLookup=true",
+    *             "templateText=name"
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"T9 : Template",
+    *          "attributes":[
+    *             "chooser=null",
+    *             "expandedText=null",
+    *             "listEnd=",
+    *             "listSeparator=",
+    *             "listStart=",
+    *             "modelClassName=null",
+    *             "name=null",
+    *             "referenceLookup=false",
+    *             "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList "
+    *          ]
+    *       },
+    *       {
+    *          "type":"clazz",
+    *          "id":"U1 : University",
+    *          "attributes":[
+    *             "name=StudyRight"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "type":"edge",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"modelObject",
+    *             "id":"U1 : University"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"template",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R3 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R4 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"neighbors",
+    *             "id":"R5 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P10 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P11 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P12 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P13 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P14 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T9 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P17 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T15 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P18 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T15 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P19 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T15 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P20 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T16 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P21 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T16 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"placeholders",
+    *             "id":"P23 : PlaceHolderDescription"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"owners",
+    *             "id":"T22 : Template"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R2 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R3 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R4 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R5 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"rooms",
+    *             "id":"R6 : Room"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S8 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"uni",
+    *             "id":"U1 : University"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"many",
+    *             "property":"students",
+    *             "id":"S7 : Student"
+    *          },
+    *          "target":{
+    *             "cardinality":"one",
+    *             "property":"in",
+    *             "id":"R2 : Room"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"subTemplate",
+    *             "id":"T15 : Template"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"parents",
+    *             "id":"P13 : PlaceHolderDescription"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"subTemplate",
+    *             "id":"T16 : Template"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"parents",
+    *             "id":"P14 : PlaceHolderDescription"
+    *          }
+    *       },
+    *       {
+    *          "type":"assoc",
+    *          "source":{
+    *             "cardinality":"one",
+    *             "property":"subTemplate",
+    *             "id":"T22 : Template"
+    *          },
+    *          "target":{
+    *             "cardinality":"many",
+    *             "property":"parents",
+    *             "id":"P19 : PlaceHolderDescription"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <pre>          *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R3 : Room&quot;
+    *     *          }
+    *     *       },
+    *     *       {
+    *     *          &quot;type&quot;:&quot;assoc&quot;,
+    *     *          &quot;source&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R5 : Room&quot;
+    *     *          },
+    *     *          &quot;target&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R4 : Room&quot;
+    *     *          }
+    *     *       },
+    *     *       {
+    *     *          &quot;type&quot;:&quot;assoc&quot;,
+    *     *          &quot;source&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R6 : Room&quot;
+    *     *          },
+    *     *          &quot;target&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R5 : Room&quot;
+    *     *          }
+    *     *       },
+    *     *       {
+    *     *          &quot;type&quot;:&quot;assoc&quot;,
+    *     *          &quot;source&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;rooms&quot;,
+    *     *             &quot;id&quot;:&quot;R2 : Room&quot;
+    *     *          },
+    * </pre>
+    * <p>Results in the following text:</p>
+    * <pre>The StudyRight University has 5 rooms and 2 students: 
+    *  - The math room has 42 credits. It is connected to rooms: arts, sports.
+    *  - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
+    *  - The sports room has 23 credits. It is connected to rooms: math, arts, exam.
+    *  - The exam room has 0 credits. It is connected to rooms: sports, arts, ProgMeth.
+    *  - The ProgMeth room has 42 credits. It is connected to rooms: arts, exam.
+    *  The students are: 
+    *  - Tom has student number 4242.
+    *  - Nina has student number 2323.
+    *  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p>
+    * <pre>          *          &quot;source&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;rooms&quot;,
+    *     *             &quot;id&quot;:&quot;R3 : Room&quot;
+    *     *          },
+    *     *          &quot;target&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;one&quot;,
+    *     *             &quot;property&quot;:&quot;uni&quot;,
+    *     *             &quot;id&quot;:&quot;U1 : University&quot;
+    *     *          }
+    *     *       },
+    *     *       {
+    * </pre>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"U24 : University",
+    *          "attributes":[
+    *             "name=Study False"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":null
+    * }   ;
+    *    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/BidirectionalModelToTextTransformation.html'>BidirectionalModelToTextTransformation.html</a>
     * @see <a href='../../../../../../../../doc/BidirectionalModelToTextTransformation.html'>BidirectionalModelToTextTransformation.html</a>
     */

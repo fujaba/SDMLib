@@ -19,6 +19,7 @@ import de.uniks.networkparser.list.SimpleList;
 import org.sdmlib.CGUtil;
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
     * <p>Start: Read graph from yaml text:</p>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -44,11 +45,13 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
+    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     *       
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -369,9 +372,10 @@ import org.sdmlib.CGUtil;
     *    g.layout(100,100);
     * </script>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@4283bb93</p>
     * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
@@ -434,7 +438,8 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -754,12 +759,13 @@ import org.sdmlib.CGUtil;
     *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
+    * <pre>            stud1PO.allMatches();
+    * 
+    *       story.addCode();
+    * 
     *       story.addPattern(roomPO, false);
     * 
-    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
-    * 
-    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
     * </pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
@@ -1091,6 +1097,8 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
  */
    public class YamlIdMap
 {
@@ -1116,6 +1124,7 @@ import org.sdmlib.CGUtil;
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
     * <p>Start: Read graph from yaml text:</p>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -1141,11 +1150,13 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
+    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     *       
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -1466,9 +1477,10 @@ import org.sdmlib.CGUtil;
     *    g.layout(100,100);
     * </script>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@4283bb93</p>
     * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
@@ -1531,7 +1543,8 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -1851,12 +1864,13 @@ import org.sdmlib.CGUtil;
     *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
+    * <pre>            stud1PO.allMatches();
+    * 
+    *       story.addCode();
+    * 
     *       story.addPattern(roomPO, false);
     * 
-    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
-    * 
-    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
     * </pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
@@ -2188,6 +2202,8 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
  */
    private YamlIdMap()
    {
@@ -2196,6 +2212,7 @@ import org.sdmlib.CGUtil;
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>Yaml</a></p>
     * <p>Start: Read graph from yaml text:</p>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -2221,11 +2238,13 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p><pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
+    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     *       
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p><script>
+    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -2546,9 +2565,10 @@ import org.sdmlib.CGUtil;
     *    g.layout(100,100);
     * </script>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@16022d9d</p>
+    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@4283bb93</p>
     * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p><pre>- u1: 	University
+    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
@@ -2611,7 +2631,8 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p><script>
+    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
+    * <script>
     *    var json = {
     *    "type":"objectdiagram",
     *    "nodes":[
@@ -2931,12 +2952,13 @@ import org.sdmlib.CGUtil;
     *    json["options"]={"canvasid":"canvasYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p><pre>      
+    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
+    * <pre>            stud1PO.allMatches();
+    * 
+    *       story.addCode();
+    * 
     *       story.addPattern(roomPO, false);
     * 
-    *       story.addObjectDiagramOnlyWith(mathRoom, mathRoom.getDoors(), mathRoom.getStudents());
-    * 
-    *       story.assertEquals(&quot;New students in math room: &quot;, 3, mathRoom.getStudents().size());
     * </pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
@@ -3268,6 +3290,8 @@ import org.sdmlib.CGUtil;
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testPlainYaml
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testGroupAccountMultiUserYamlMerging
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoProjectPlan#testMikadoProjectPlan
  */
    public YamlIdMap(String... packageNames)
    {
@@ -3278,6 +3302,10 @@ import org.sdmlib.CGUtil;
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.mikado.MikadoProjectPlan#testExcelProjectPlan
+ */
    public Object decodeCSV(String fileName)
    {
       try

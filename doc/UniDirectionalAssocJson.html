@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,14 +21,15 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java' type='text/x-java'>UniDirectionalAssocJson</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java' type='text/x-java'>UniDirectionalAssocJson</a></p>
 <p>adding flipbook to protocol changes.</p>
-<pre>      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) BigBrotherCreator.createIdMap(&quot;#&quot;);
+<pre>            SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) BigBrotherCreator.createIdMap(&quot;#&quot;);
       FlipBook flipBook = idMap.createFlipBook();
       
       BigBrother bigBrother = new BigBrother();
       idMap.put(&quot;#bb&quot;, bigBrother);
-</pre><p>extend uni directional assco with objects and check flipbook for change protocol</p>
+</pre>
+<p>extend uni directional assco with objects and check flipbook for change protocol</p>
 <script>
    var json = {
    "type":"objectdiagram",

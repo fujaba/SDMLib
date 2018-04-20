@@ -43,6 +43,54 @@ public class StudyRightModel implements PropertyChangeInterface
 {
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightReverseClassModel</a></p>
+    * <p>Start situation: There are some java files. We parse them and generate a class model: </p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Topic",
+    *          "attributes":[
+    *             "title : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Professor",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Room",
+    *          "attributes":[
+    *             "credits : int",
+    *             "roomNo : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Student",
+    *          "attributes":[
+    *             "matrNo : int",
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightReverseClassModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/StudyRightReverseClassModel.html'>StudyRightReverseClassModel.html</a>
     */
    @Test
@@ -202,6 +250,236 @@ public class StudyRightModel implements PropertyChangeInterface
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
+    * <p>1. generate class University</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>2. generate class Student with new notation</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Student",
+    *          "attributes":[
+    *             "matrNo : int",
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram3", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>3. add uni --> stud assoc</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Student",
+    *          "attributes":[
+    *             "matrNo : int",
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>4. add uni --> room</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Room",
+    *          "attributes":[
+    *             "credits : int",
+    *             "roomNo : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Student",
+    *          "attributes":[
+    *             "matrNo : int",
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram7", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>add assignments:</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Assignment",
+    *          "attributes":[
+    *             "name : String",
+    *             "points : int"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Room",
+    *          "attributes":[
+    *             "credits : int",
+    *             "roomNo : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Student",
+    *          "attributes":[
+    *             "credits : int",
+    *             "matrNo : int",
+    *             "motivation : int",
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"University",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Assignment",
+    *             "cardinality":"many",
+    *             "property":"done"
+    *          },
+    *          "target":{
+    *             "id":"Student",
+    *             "cardinality":"one",
+    *             "property":"students"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Assignment",
+    *             "cardinality":"one",
+    *             "property":"room"
+    *          },
+    *          "target":{
+    *             "id":"Room",
+    *             "cardinality":"many",
+    *             "property":"assignments"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Room",
+    *             "cardinality":"many",
+    *             "property":"assignments"
+    *          },
+    *          "target":{
+    *             "id":"Assignment",
+    *             "cardinality":"one",
+    *             "property":"room"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Student",
+    *             "cardinality":"one",
+    *             "property":"students"
+    *          },
+    *          "target":{
+    *             "id":"Assignment",
+    *             "cardinality":"many",
+    *             "property":"done"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram9", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>5. generate generic set for attributes and assocs</p>
+    * <p>Check: found method set(String,Object) in class student true</p>
+    * <p>6. generate generic get for attributes and assocs</p>
+    * <p>7. generate creator classes</p>
+    * <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
+    * <p>import java.beans.PropertyChangeListener;
+    * import java.beans.PropertyChangeSupport;
+    * import java.util.LinkedHashSet;
+    * 
+    * import org.sdmlib.StrUtil;
+    * import org.sdmlib.serialization.PropertyChangeInterface;
+    * import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
+    * import org.sdmlib.test.examples.studyright.model.util.LectureSet;
+    * import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+    * 
+    * import de.uniks.networkparser.interfaces.SendableEntity;
+    * import org.sdmlib.test.examples.studyright.model.Assignment;</p>
+    * <p>9. generate property change support</p>
+    * <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
+    * <p>10. generate removeYou method</p>
+    * <p>Check: found method removeYou) in class student true</p>
+    * <p>Check: found symtab entry for method removeYou()  method:removeYou():void</p>
+    * <pre>   public void removeYou()
+    *    {
+    *       super.removeYou();
+    *       withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
+    *       setUni(null);
+    *       setIn(null);
+    *       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
+    *       firePropertyChange("REMOVE_YOU", this, null);
+    *    }</pre><p>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+    * <p>generic set now works for double. Perhabs boolean and other are still missing</p>
+    * <p>Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
     * @see <a href='../../../../../../../../doc/StudyRightClassesCodeGen.html'>StudyRightClassesCodeGen.html</a>
 */
    @Test
@@ -383,6 +661,59 @@ public class StudyRightModel implements PropertyChangeInterface
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightOneToOneAssoc</a></p>
+    * <p>Add class Prof --gives-- Topic</p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Professor",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Topic",
+    *          "attributes":[
+    *             "title : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Professor",
+    *             "cardinality":"one",
+    *             "property":"prof"
+    *          },
+    *          "target":{
+    *             "id":"Topic",
+    *             "cardinality":"one",
+    *             "property":"topic"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Topic",
+    *             "cardinality":"one",
+    *             "property":"topic"
+    *          },
+    *          "target":{
+    *             "id":"Professor",
+    *             "cardinality":"one",
+    *             "property":"prof"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStudyRightOneToOneAssocClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p>One to one assocs now work. </p>
     * @see <a href='../../../../../../../../doc/StudyRightOneToOneAssoc.html'>StudyRightOneToOneAssoc.html</a>
 */
    @Test

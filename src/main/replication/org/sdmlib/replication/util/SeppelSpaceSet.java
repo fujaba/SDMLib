@@ -30,6 +30,9 @@ import org.sdmlib.replication.SeppelSpace;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
 {

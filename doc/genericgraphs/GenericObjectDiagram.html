@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='../.././src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
 <script>
@@ -523,7 +524,7 @@
    new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram8", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
 <p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<pre>      ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.roombook&quot;);
+<pre>            ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.roombook&quot;);
 
       Clazz buildingClass = model.createClazz(&quot;org.sdmlib.test.examples.roombook.Building&quot;)
             .withAttribute(&quot;name&quot;, DataType.STRING);
@@ -539,7 +540,8 @@
 
       &#x2F;&#x2F; FIXME: Alex
       &#x2F;&#x2F; learnedModel.getGenerator().insertModelCreationCodeHere(&quot;examples&quot;);
-</pre><script>
+</pre>
+<script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -668,7 +670,7 @@
          "id":"G17 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=B494462795111054",
+            "name=B527327461422143",
             "type=org.sdmlib.test.examples.roombook.Building"
          ]
       },
@@ -677,7 +679,7 @@
          "id":"G18 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=F494462795590332",
+            "name=F527327461512224",
             "type=org.sdmlib.test.examples.roombook.Floor"
          ]
       },
@@ -686,7 +688,7 @@
          "id":"G19 : GenericObject",
          "attributes":[
             "icon=null",
-            "name=F494462795721604",
+            "name=F527327461625788",
             "type=org.sdmlib.test.examples.roombook.Floor"
          ]
       },

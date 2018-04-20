@@ -21,8 +21,8 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>ExcelProjectPlan</a></p>
-<canvas id="myChart" width="1000" height="600"></canvas>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>ExcelProjectPlan</a></p>
+<canvas id="myChart" width="880" height="550"></canvas>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -31,16 +31,25 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             {
                 label: "Burn Down",
                 data: [
-                    {x: "2018-01-03T12:00:00+01:00", y: 10.0},
-{x: "2018-01-04T12:00:00+01:00", y: 9.0},
-{x: "2018-03-03T12:00:00+01:00", y: 8.0},
-{x: "2018-03-04T00:52:00+01:00", y: 7.0},
+                    {x: "2018-01-03T12:00:00+01:00", y: 5.1},
+{x: "2018-01-04T12:00:00+01:00", y: 4.1},
+{x: "2018-03-03T12:00:00+01:00", y: 3.1},
+{x: "2018-03-04T00:52:00+01:00", y: 2.1},
+{x: "2018-03-04T17:22:00+01:00", y: 1.1},
+{x: "2018-03-04T17:30:00+01:00", y: 1.0},
                 ]
             }
         ]
     },
     options: {
+        animation: false,
         responsive: false,
+         animation: {
+            onComplete: function(animation) {
+                    java.screendump("42");
+                    java.close();
+                }
+         },
         scales: {
             xAxes: [{
                 type: "time",
@@ -92,17 +101,55 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "id":"G1 : Goal",
          "attributes":[
             "description=Summer 18 Release",
-            "hoursDone=0.0",
-            "hoursTodo=4.0"
+            "hoursDone=0.1",
+            "hoursTodo=1.0"
          ]
-      },
+      }
+   ],
+   "edges":null
+}   ;
+   json["options"]={"canvasid":"canvasExcelProjectPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_1'>Step 1: closed goals</a></p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
       {
          "type":"clazz",
          "id":"G2 : Goal",
          "attributes":[
+            "description=done",
+            "hoursDone=0.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G3 : Goal",
+         "attributes":[
             "description=Mikado planning support",
-            "hoursDone=1.0",
-            "hoursTodo=3.0"
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G4 : Goal",
+         "attributes":[
+            "description=Yaml based id map",
+            "hoursDone=8.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G5 : Goal",
+         "attributes":[
+            "description=Allow editing with Excel CSV",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
          ]
       }
    ],
@@ -112,52 +159,14 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "source":{
             "cardinality":"many",
             "property":"preGoals",
-            "id":"G2 : Goal"
+            "id":"G3 : Goal"
          },
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G1 : Goal"
+            "id":"G2 : Goal"
          }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasExcelProjectPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p><a name = 'step_1'>Step 1: closed goals</a></p><script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"G3 : Goal",
-         "attributes":[
-            "description=done",
-            "hoursDone=0.0",
-            "hoursTodo=0.0"
-         ]
       },
-      {
-         "type":"clazz",
-         "id":"G4 : Goal",
-         "attributes":[
-            "description=Allow editing with Excel CSV",
-            "hoursDone=2.0",
-            "hoursTodo=0.0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"G5 : Goal",
-         "attributes":[
-            "description=Yaml based id map",
-            "hoursDone=8.0",
-            "hoursTodo=0.0"
-         ]
-      }
-   ],
-   "edges":[
       {
          "type":"edge",
          "source":{
@@ -168,7 +177,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          "target":{
             "cardinality":"one",
             "property":"goal",
-            "id":"G3 : Goal"
+            "id":"G2 : Goal"
          }
       },
       {

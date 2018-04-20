@@ -329,6 +329,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    private void addToSteps(String text)
    {
@@ -483,6 +485,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void add(String string)
    {
@@ -498,6 +502,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addText(String string)
    {
@@ -509,6 +515,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addTable(Table table)
    {
@@ -521,6 +529,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addLineChart(Table table)
    {
@@ -534,6 +544,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addBarChart(Table table)
    {
@@ -1066,6 +1078,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
  * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
+ * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
+ * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
+ * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
  */
    public void addClassDiagram(ClassModel model)
    {
@@ -1080,6 +1097,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
+ * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
+ * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
+ * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
  */
    public void addClassDiagramAsImage(ClassModel model, int... dimensions)
    {
@@ -1096,6 +1118,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addObjectDiagramWith(Object... elems)
    {
@@ -1111,6 +1135,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addObjectDiagramViaGraphViz(Object... elems)
    {
@@ -1123,6 +1149,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addObjectDiagramAsImage(Object... elems)
    {
@@ -1135,6 +1163,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addObjectDiagram(Object... elems)
    {
@@ -1146,6 +1176,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    private void addObjectDiagramInternal(String addAsImageMode, Object... elems)
    {
@@ -1295,6 +1327,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    private void addObjectDiagram(IdMap jsonIdMap, Object root, ObjectCondition filter, String addAsImageMode, int... dimensions)
    {
@@ -1336,6 +1370,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @param image
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
 
    void addSVGImage(String imageFile)
@@ -1348,6 +1384,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addImage(String imageFile)
    {
@@ -1364,6 +1402,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
      /**
     * 
     * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void markCodeStart()
    {
@@ -1386,6 +1425,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addCode()
    {
@@ -1398,6 +1439,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addCode(String rootDir)
    {
@@ -1503,6 +1546,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addGenericObjectDiag(GenericGraph graph)
    {
@@ -1514,6 +1559,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
@@ -1526,6 +1573,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
@@ -1537,6 +1586,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
@@ -1567,6 +1618,10 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
+ * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
+ * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
  */
    public void dumpHTML()
    {
@@ -1577,6 +1632,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addAsImage(String htmlbody, boolean autoClose, int... dimensions)
    {
@@ -1587,6 +1644,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addAsImage(String htmlbody, boolean autoClose, String addAsImageMode, int... dimensions)
    {
@@ -1810,6 +1869,10 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  * @see org.sdmlib.simple.TestModelCreation#testCreateEntireModel
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
+ * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
+ * @see org.sdmlib.test.replication.ReplicationModel#MinChangeModel
  */
    public void dumpHTML(String targetClassName, String targetMethodName)
    {
@@ -1938,6 +2001,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    private void addEntryToRefsHtml(String dirName, String entry)
    {
@@ -2206,6 +2271,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
@@ -2218,6 +2285,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
    {
@@ -2295,6 +2364,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public boolean addToStoryboardSteps(StoryboardStep value)
    {
@@ -2543,6 +2614,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addPreformatted(String expandedText)
    {
@@ -2557,6 +2630,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addPattern(PatternObject patternObject, boolean showMatch)
    {
@@ -2568,6 +2643,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addPattern(Pattern pattern, boolean showMatch)
    {
@@ -2760,6 +2837,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addStoryToJavaDoc(String classUnderTestName, String methodUnderTestName, String storyText)
    {
@@ -2881,6 +2960,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testClass, String testMethod)
    {
@@ -2957,6 +3038,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * 
     * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
+ * @see org.sdmlib.test.kanban.ProjectBoard#testStoryboardInfrastructure
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
    public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
    {

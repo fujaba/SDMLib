@@ -10,6 +10,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public class UniversityPO extends PatternObject<UniversityPO, University>
 {
@@ -34,6 +35,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public UniversityPO(){
       newInstance(null);
@@ -42,6 +44,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
@@ -53,6 +56,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public UniversityPO(String modifier)
    {
@@ -161,6 +165,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO createRoomsPO()
    {
@@ -175,6 +180,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO createRoomsPO(String modifier)
    {

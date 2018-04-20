@@ -38,7 +38,8 @@ import org.sdmlib.models.transformations.Template;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
-*/
+* @see org.sdmlib.test.templates.ModelToTextToModelClassModel#modelToTextToModelClassModel
+ */
    public class PlaceHolderDescription implements PropertyChangeInterface, SendableEntity
 {
    // ==========================================================================

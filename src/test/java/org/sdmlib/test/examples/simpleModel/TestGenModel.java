@@ -28,6 +28,80 @@ public class TestGenModel
    
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java' type='text/x-java'>UniDirectionalAssoc</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"BigBrother"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Person",
+    *          "attributes":[
+    *             "name : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Person",
+    *             "cardinality":"one",
+    *             "property":"noOne"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Person",
+    *             "cardinality":"many",
+    *             "property":"suspects"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Person",
+    *             "cardinality":"one",
+    *             "property":"noOne"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Person",
+    *             "cardinality":"many",
+    *             "property":"suspects"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasUniDirectionalAssocClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/UniDirectionalAssoc.html'>UniDirectionalAssoc.html</a>
 */
    @Test
@@ -55,6 +129,51 @@ public class TestGenModel
 
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java' type='text/x-java'>UniDirectionalAssocToObject</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"BigBrother"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Object"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Object",
+    *             "cardinality":"many",
+    *             "property":"kids"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Object",
+    *             "cardinality":"many",
+    *             "property":"kids"
+    *          },
+    *          "target":{
+    *             "id":"BigBrother",
+    *             "cardinality":"one",
+    *             "property":"bigbrother"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasUniDirectionalAssocToObjectClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/UniDirectionalAssoc.html'>UniDirectionalAssoc.html</a>
 * @see <a href='../../../../../../../../doc/UniDirectionalAssocToObject.html'>UniDirectionalAssocToObject.html</a>
 */

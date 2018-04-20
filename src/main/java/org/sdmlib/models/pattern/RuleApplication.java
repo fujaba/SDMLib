@@ -32,6 +32,7 @@ import org.sdmlib.models.pattern.ReachableState;
     * 
     * @see <a href='../../../../../../../src/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+ * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
  */
    public  class RuleApplication implements SendableEntity
 {
@@ -298,6 +299,10 @@ import org.sdmlib.models.pattern.ReachableState;
       return this;
    } 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public ReachableState createTgt()
    {
       ReachableState value = new ReachableState();

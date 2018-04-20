@@ -32,7 +32,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/SimpleModel.java'>SimpleModel.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.SimpleModel#testMethodModel
+ */
    public class Item implements PropertyChangeInterface, SendableEntity
 {
 

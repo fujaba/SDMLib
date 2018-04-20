@@ -13,6 +13,57 @@ public class ModelRefactoring {
 
    /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/model/ModelRefactoring.java' type='text/x-java'>RemoveAttribute</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Ludo",
+    *          "attributes":[
+    *             "location : String"
+    *          ],
+    *          "methods":[
+    *             "init(String p)"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Player"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Ludo",
+    *             "cardinality":"one",
+    *             "property":"game"
+    *          },
+    *          "target":{
+    *             "id":"Player",
+    *             "cardinality":"many",
+    *             "property":"players"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Player",
+    *             "cardinality":"many",
+    *             "property":"players"
+    *          },
+    *          "target":{
+    *             "id":"Ludo",
+    *             "cardinality":"one",
+    *             "property":"game"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasRemoveAttributeClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../doc/RemoveAttribute.html'>RemoveAttribute.html</a>/n */
    @Test
 	public void testRemoveAttribute() {

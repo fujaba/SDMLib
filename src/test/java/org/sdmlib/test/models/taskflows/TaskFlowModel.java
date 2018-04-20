@@ -16,6 +16,208 @@ public class TaskFlowModel
 {
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"FetchFileFlow",
+    *          "attributes":[
+    *             "fileName : String",
+    *             "fileServer : PeerProxy"
+    *          ],
+    *          "methods":[
+    *             "run()"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"LogEntry",
+    *          "attributes":[
+    *             "nodeName : String",
+    *             "taskName : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Logger",
+    *          "attributes":[
+    *             "startPeer : PeerProxy"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"PeerProxy",
+    *          "attributes":[
+    *             "idMap : SDMLibJsonIdMap",
+    *             "ip : String",
+    *             "port : int"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"SDMTimer"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"SocketThread",
+    *          "attributes":[
+    *             "defaultTargetThread : Object",
+    *             "idMap : SDMLibJsonIdMap",
+    *             "ip : String",
+    *             "port : int"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"TaskFlow",
+    *          "attributes":[
+    *             "idMap : SDMLibJsonIdMap",
+    *             "taskNo : int"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Timer"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"FetchFileFlow",
+    *             "cardinality":"one",
+    *             "property":"fetchfileflow"
+    *          },
+    *          "target":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"taskflow"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"LogEntry",
+    *             "cardinality":"many",
+    *             "property":"children"
+    *          },
+    *          "target":{
+    *             "id":"LogEntry",
+    *             "cardinality":"one",
+    *             "property":"parent"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"LogEntry",
+    *             "cardinality":"many",
+    *             "property":"entries"
+    *          },
+    *          "target":{
+    *             "id":"Logger",
+    *             "cardinality":"one",
+    *             "property":"logger"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Logger",
+    *             "cardinality":"one",
+    *             "property":"logger"
+    *          },
+    *          "target":{
+    *             "id":"LogEntry",
+    *             "cardinality":"many",
+    *             "property":"entries"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Logger",
+    *             "cardinality":"one",
+    *             "property":"logger"
+    *          },
+    *          "target":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"taskflow"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"SDMTimer",
+    *             "cardinality":"one",
+    *             "property":"sdmtimer"
+    *          },
+    *          "target":{
+    *             "id":"Timer",
+    *             "cardinality":"one",
+    *             "property":"timer"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"subFlow"
+    *          },
+    *          "target":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"parent"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"FetchFileFlow",
+    *             "cardinality":"one",
+    *             "property":"fetchfileflow"
+    *          },
+    *          "target":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"taskflow"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"Logger",
+    *             "cardinality":"one",
+    *             "property":"logger"
+    *          },
+    *          "target":{
+    *             "id":"TaskFlow",
+    *             "cardinality":"one",
+    *             "property":"taskflow"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"SDMTimer",
+    *             "cardinality":"one",
+    *             "property":"sdmtimer"
+    *          },
+    *          "target":{
+    *             "id":"Timer",
+    *             "cardinality":"one",
+    *             "property":"timer"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvastaskFlowModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../doc/taskFlowModel.html'>taskFlowModel.html</a>
 * @see <a href='../../../../../../../../doc/taskFlowModel.html'>taskFlowModel.html</a>
  */

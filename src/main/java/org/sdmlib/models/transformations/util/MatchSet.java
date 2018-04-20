@@ -32,6 +32,9 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
 
 public class MatchSet extends SimpleSet<Match>
 {

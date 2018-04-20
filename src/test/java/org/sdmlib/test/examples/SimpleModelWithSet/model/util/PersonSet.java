@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class PersonSet extends SDMSet<Person>
 {
@@ -147,4 +148,40 @@ public class PersonSet extends SDMSet<Person>
    {
       this.addAll(objects);
    }
+
+
+   public PersonPO createPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
+
+
+   @Override
+   public PersonSet getNewList(boolean keyValue)
+   {
+      return new PersonSet();
+   }
+
+   /**
+    * Loop through the current set of Person objects and collect those Person objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Person objects that match the parameter
+    */
+   public PersonSet createNameCondition(SimpleKeyValueList<String,Person> value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value == obj.getName())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -34,7 +34,10 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
+ * @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssocToObject
+ * @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public class BigBrother implements PropertyChangeInterface, SendableEntity
 {
 
@@ -112,7 +115,8 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public BigBrother withKids(Object... value)
    {
       if(value==null){
@@ -206,7 +210,8 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public Person createNoOne()
    {
       Person value = new Person();
@@ -280,7 +285,8 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public Person createSuspects()
    {
       Person value = new Person();

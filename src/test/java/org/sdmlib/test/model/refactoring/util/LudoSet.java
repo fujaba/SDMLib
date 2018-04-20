@@ -30,6 +30,7 @@ import org.sdmlib.test.model.refactoring.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.model.refactoring.util.PlayerSet;
 
 public class LudoSet extends SimpleSet<Ludo>
 {

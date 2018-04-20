@@ -59,6 +59,7 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilitGraphSameCertificatesNonIsomorphic
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#ReachabilityGraphSimpleIsomorphismTest
  * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
+ * @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
  */
 public class ReachableState implements PropertyChangeInterface, SendableEntity
 {
@@ -1113,6 +1114,10 @@ public class ReachableState implements PropertyChangeInterface, SendableEntity
    }
 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testPatternModelObjectsForCoverage
+ */
    public RuleApplication createRuleapplications()
    {
       RuleApplication value = new RuleApplication();

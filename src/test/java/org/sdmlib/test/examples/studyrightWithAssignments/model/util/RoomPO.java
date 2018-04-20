@@ -11,6 +11,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -35,6 +36,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(){
       newInstance(null);
@@ -43,6 +45,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
@@ -54,6 +57,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(String modifier)
    {

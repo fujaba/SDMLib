@@ -32,6 +32,227 @@ public class ModelToTextToModelClassModel
 {
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java' type='text/x-java'>modelToTextToModelClassModel</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"ChoiceTemplate"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Match",
+    *          "attributes":[
+    *             "endPos : int",
+    *             "fullText : String",
+    *             "matchText : String",
+    *             "modelObject : Object",
+    *             "startPos : int"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"PlaceHolderDescription",
+    *          "attributes":[
+    *             "attrName : String",
+    *             "isKeyAttribute : boolean",
+    *             "prefix : String",
+    *             "textFragment : String",
+    *             "value : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"Template",
+    *          "attributes":[
+    *             "expandedText : String",
+    *             "listEnd : String",
+    *             "listSeparator : String",
+    *             "listStart : String",
+    *             "modelClassName : String",
+    *             "modelObject : Object",
+    *             "name : String",
+    *             "referenceLookup : boolean",
+    *             "templateText : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"ChoiceTemplate",
+    *             "cardinality":"one",
+    *             "property":"chooser"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"many",
+    *             "property":"choices"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"ChoiceTemplate",
+    *             "cardinality":"one",
+    *             "property":"choicetemplate"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"template"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Match",
+    *             "cardinality":"many",
+    *             "property":"matches"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"template"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Match",
+    *             "cardinality":"many",
+    *             "property":"matches"
+    *          },
+    *          "target":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"one",
+    *             "property":"placeholder"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Match",
+    *             "cardinality":"many",
+    *             "property":"subMatches"
+    *          },
+    *          "target":{
+    *             "id":"Match",
+    *             "cardinality":"one",
+    *             "property":"parentMatch"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"many",
+    *             "property":"parents"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"subTemplate"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"one",
+    *             "property":"placeholder"
+    *          },
+    *          "target":{
+    *             "id":"Match",
+    *             "cardinality":"many",
+    *             "property":"matches"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"many",
+    *             "property":"placeholders"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"many",
+    *             "property":"owners"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Template",
+    *             "cardinality":"many",
+    *             "property":"choices"
+    *          },
+    *          "target":{
+    *             "id":"ChoiceTemplate",
+    *             "cardinality":"one",
+    *             "property":"chooser"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Template",
+    *             "cardinality":"many",
+    *             "property":"owners"
+    *          },
+    *          "target":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"many",
+    *             "property":"placeholders"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"subTemplate"
+    *          },
+    *          "target":{
+    *             "id":"PlaceHolderDescription",
+    *             "cardinality":"many",
+    *             "property":"parents"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"template"
+    *          },
+    *          "target":{
+    *             "id":"Match",
+    *             "cardinality":"many",
+    *             "property":"matches"
+    *          }
+    *       },
+    *       {
+    *          "typ":"generalisation",
+    *          "source":{
+    *             "id":"ChoiceTemplate",
+    *             "cardinality":"one",
+    *             "property":"choicetemplate"
+    *          },
+    *          "target":{
+    *             "id":"Template",
+    *             "cardinality":"one",
+    *             "property":"template"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasmodelToTextToModelClassModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../doc/modelToTextToModelClassModel.html'>modelToTextToModelClassModel.html</a>
 */
    @Test

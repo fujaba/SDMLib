@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ChildPO extends PatternObject<ChildPO, Child>
 {
@@ -81,6 +82,39 @@ public class ChildPO extends PatternObject<ChildPO, Child>
       {
          ((Child) getCurrentMatch()).setParent(value);
       }
+      return this;
+   }
+   
+
+   public ChildPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ChildPO createParentCondition(Person value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Child.PROPERTY_PARENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public ChildPO createParentAssignment(Person value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Child.PROPERTY_PARENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    

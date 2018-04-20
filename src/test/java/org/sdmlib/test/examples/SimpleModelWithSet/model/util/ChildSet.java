@@ -26,6 +26,7 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class ChildSet extends SDMSet<Child>
 {
@@ -158,4 +159,40 @@ public class ChildSet extends SDMSet<Child>
    {
       this.addAll(objects);
    }
+
+
+   public ChildPO createChildPO()
+   {
+      return new ChildPO(this.toArray(new Child[this.size()]));
+   }
+
+
+   @Override
+   public ChildSet getNewList(boolean keyValue)
+   {
+      return new ChildSet();
+   }
+
+   /**
+    * Loop through the current set of Child objects and collect those Child objects where the parent attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Child objects that match the parameter
+    */
+   public ChildSet createParentCondition(Person value)
+   {
+      ChildSet result = new ChildSet();
+      
+      for (Child obj : this)
+      {
+         if (value == obj.getParent())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

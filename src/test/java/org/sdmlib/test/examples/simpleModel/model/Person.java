@@ -32,7 +32,9 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestGenModel#testUniDirectionalAssoc
+ * @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public class Person implements PropertyChangeInterface, SendableEntity
 {
 
@@ -105,7 +107,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleModel.TestJsonForUniDirectionalAssoc#testUniDirectionalAssocJson
+ */
    public Person withName(String value)
    {
       setName(value);

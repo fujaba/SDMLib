@@ -25,6 +25,7 @@ import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {
@@ -88,5 +89,18 @@ public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
    public SimpleKeyValueListSet(Collection<SimpleKeyValueList> objects)
    {
       this.addAll(objects);
+   }
+
+
+   public SimpleKeyValueListPO createSimpleKeyValueListPO()
+   {
+      return new SimpleKeyValueListPO(this.toArray(new SimpleKeyValueList[this.size()]));
+   }
+
+
+   @Override
+   public SimpleKeyValueListSet getNewList(boolean keyValue)
+   {
+      return new SimpleKeyValueListSet();
    }
 }

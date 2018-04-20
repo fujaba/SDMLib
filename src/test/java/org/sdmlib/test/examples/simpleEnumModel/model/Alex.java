@@ -31,7 +31,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java'>SimpleClassModelWithEnumeration.java</a>
-*/
+* @see org.sdmlib.test.examples.simpleEnumModel.SimpleClassModelWithEnumeration#testEnumerationInSimpleClassModel
+ */
    public class Alex implements PropertyChangeInterface, SendableEntity
 {
 

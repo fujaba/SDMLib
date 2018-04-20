@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
  */
    public  class Karli implements SendableEntity
 {

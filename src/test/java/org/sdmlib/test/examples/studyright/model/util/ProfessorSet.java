@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.studyright.model.Topic;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.test.examples.studyright.model.util.TopicSet;
 
 public class ProfessorSet extends SimpleSet<Professor>
 {

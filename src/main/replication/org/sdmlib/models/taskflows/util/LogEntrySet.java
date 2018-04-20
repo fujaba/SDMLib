@@ -30,6 +30,7 @@ import org.sdmlib.models.taskflows.Logger;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import org.sdmlib.models.taskflows.util.LoggerSet;
 
 public class LogEntrySet extends SimpleSet<LogEntry>
 {

@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,10 +21,13 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
 <p>This storyboard tests the storyboard infrastructure. </p>
 <p>Start: At first creating the html file just with text should work. </p>
-<p><a name = 'step_1'>Step 1: Next we need to create some class model. This will be done in a parallel activity.</a></p><p><a name = 'step_2'>Step 2: With the class model we create an object model and try to dump it here.</a></p><p><a name = 'step_3'>Step 3: Well, dumping the class model would be great, either.</a></p><script>
+<p><a name = 'step_1'>Step 1: Next we need to create some class model. This will be done in a parallel activity.</a></p>
+<p><a name = 'step_2'>Step 2: With the class model we create an object model and try to dump it here.</a></p>
+<p><a name = 'step_3'>Step 3: Well, dumping the class model would be great, either.</a></p>
+<script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -117,7 +121,8 @@
 }   ;
    new Graph(json, {"canvasid":"canvasStoryboardInfrastructureClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
-<p><a name = 'step_4'>Step 4: Show some internals</a></p><p>Internally, the class model looks like:</p>
+<p><a name = 'step_4'>Step 4: Show some internals</a></p>
+<p>Internally, the class model looks like:</p>
 <script>
    var json = {
    "type":"objectdiagram",
@@ -129,7 +134,8 @@
             "name=org.sdmlib.storyboards"
          ]
       }
-   ]
+   ],
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasStoryboardInfrastructure9", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

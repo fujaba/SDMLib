@@ -32,6 +32,9 @@ import org.sdmlib.test.examples.studyright.model.Student;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.test.examples.studyright.model.util.RoomSet;
+import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {

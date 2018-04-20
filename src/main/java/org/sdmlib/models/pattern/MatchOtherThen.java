@@ -29,7 +29,8 @@ import org.sdmlib.models.pattern.PatternObject;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
-*/
+* @see org.sdmlib.test.examples.SDMLib.PatternModelCodeGen#testPatternModelCodegen
+ */
    public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {
    @Override

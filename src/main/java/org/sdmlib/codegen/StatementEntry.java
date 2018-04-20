@@ -34,7 +34,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
+* @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
+ */
    public class StatementEntry implements PropertyChangeInterface, SendableEntity
 {
 
@@ -152,6 +153,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       }
    }
    
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
+ */
    public StatementEntry withTokenList(ArrayList<String> value)
    {
       setTokenList(value);
@@ -383,11 +388,19 @@ import de.uniks.networkparser.interfaces.SendableEntity;
       return this;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
+ */
    public StatementEntry withToken(Token token)
    {
       return withToken(token.text.toString(), token.endPos);
    } 
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
+ */
    public StatementEntry withToken(String qualifiedName, int endPos)
    {
       this.getTokenList().add(qualifiedName);

@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,8 +21,8 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java' type='text/x-java'>EnumerationInSimpleClassModel</a></p>
-<pre>      ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.simpleEnumModel.model&quot;);
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java' type='text/x-java'>EnumerationInSimpleClassModel</a></p>
+<pre>            ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.simpleEnumModel.model&quot;);
 
       Clazz enumeration = model.createClazz(&quot;TEnum&quot;).enableEnumeration();
 
@@ -43,7 +44,8 @@
       macClazz.withMethod(&quot;select&quot;, DataType.create(enumeration), new Parameter(DataType.INT));
 
       model.generate(&quot;src&#x2F;test&#x2F;java&quot;);
-</pre><script>
+</pre>
+<script>
    var json = {
    "typ":"class",
    "nodes":[

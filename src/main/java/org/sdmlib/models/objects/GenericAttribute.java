@@ -33,7 +33,8 @@ import org.sdmlib.models.objects.GenericObject;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>
-*/
+* @see org.sdmlib.test.models.objects.GenericGraphModel#testGenericGraphModel
+ */
    public class GenericAttribute implements PropertyChangeInterface, SendableEntity
 {
    //==========================================================================

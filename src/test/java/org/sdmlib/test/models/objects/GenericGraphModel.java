@@ -11,6 +11,7 @@ import de.uniks.networkparser.graph.DataType;
 /**
  * 
  * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
+ * @see org.sdmlib.test.models.objects.GenericObjectsTest#testGenericObjectDiagram
  */
 public class GenericGraphModel
 {
@@ -19,6 +20,176 @@ public class GenericGraphModel
 
    /**
     * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"GenericAttribute",
+    *          "attributes":[
+    *             "name : String",
+    *             "value : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"GenericGraph"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"GenericLink",
+    *          "attributes":[
+    *             "srcLabel : String",
+    *             "tgtLabel : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"GenericObject",
+    *          "attributes":[
+    *             "icon : String",
+    *             "name : String",
+    *             "type : String"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericAttribute",
+    *             "cardinality":"many",
+    *             "property":"attrs"
+    *          },
+    *          "target":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"owner"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericGraph",
+    *             "cardinality":"one",
+    *             "property":"graph"
+    *          },
+    *          "target":{
+    *             "id":"GenericObject",
+    *             "cardinality":"many",
+    *             "property":"objects"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericGraph",
+    *             "cardinality":"one",
+    *             "property":"graph"
+    *          },
+    *          "target":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"links"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"incommingLinks"
+    *          },
+    *          "target":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"tgt"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"links"
+    *          },
+    *          "target":{
+    *             "id":"GenericGraph",
+    *             "cardinality":"one",
+    *             "property":"graph"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"outgoingLinks"
+    *          },
+    *          "target":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"src"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericObject",
+    *             "cardinality":"many",
+    *             "property":"objects"
+    *          },
+    *          "target":{
+    *             "id":"GenericGraph",
+    *             "cardinality":"one",
+    *             "property":"graph"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"owner"
+    *          },
+    *          "target":{
+    *             "id":"GenericAttribute",
+    *             "cardinality":"many",
+    *             "property":"attrs"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"src"
+    *          },
+    *          "target":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"outgoingLinks"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"GenericObject",
+    *             "cardinality":"one",
+    *             "property":"tgt"
+    *          },
+    *          "target":{
+    *             "id":"GenericLink",
+    *             "cardinality":"many",
+    *             "property":"incommingLinks"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasGenericGraphModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../../doc/GenericGraphModel.html'>GenericGraphModel.html</a>
     * @see <a href='../../../../../../../../genericgraphs/GenericGraphModel.html'>GenericGraphModel.html</a>
  * @see <a href='../../../../../../../../doc/genericgraphs/GenericGraphModel.html'>GenericGraphModel.html</a>

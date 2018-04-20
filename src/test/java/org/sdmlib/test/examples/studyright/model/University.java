@@ -35,7 +35,11 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public class University implements PropertyChangeInterface, SendableEntity
 {
 
@@ -222,7 +226,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public Room createRooms()
    {
       Room value = new Room();
@@ -328,7 +335,10 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testBidirectionalModelToTextTransformation
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public Student createStudents()
    {
       Student value = new Student();

@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
 <p>Start situation: use University class to build object structure</p>
 <p>step 1: dump object diagram</p>
 <script>
@@ -301,11 +302,13 @@
 <p>Check: Number of students:  2 actual 2</p>
 <p>step 2: add support for path navigation
       call </p>
-<pre>      int sum = albert.getUni().getRooms().getCredits().sum();
-</pre><p>shall compute to 88.</p>
+<pre>            int sum = albert.getUni().getRooms().getCredits().sum();
+</pre>
+<p>shall compute to 88.</p>
 <p>step 3: call </p>
-<pre>      mathRoom.findPath(&quot;&quot;, 88);
-</pre><p>System.out: 
+<pre>            mathRoom.findPath(&quot;&quot;, 88);
+</pre>
+<p>System.out: 
 </p>
 <p></p>
 

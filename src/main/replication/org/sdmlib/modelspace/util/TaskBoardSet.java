@@ -29,6 +29,7 @@ import org.sdmlib.modelspace.TaskLane;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelspace.util.TaskLaneSet;
 
 public class TaskBoardSet extends SimpleSet<TaskBoard>
 {

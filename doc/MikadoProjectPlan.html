@@ -21,8 +21,8 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>MikadoProjectPlan</a></p>
-<canvas id="myChart" width="1000" height="600"></canvas>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>MikadoProjectPlan</a></p>
+<canvas id="myChart" width="880" height="550"></canvas>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -46,7 +46,14 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
         ]
     },
     options: {
+        animation: false,
         responsive: false,
+         animation: {
+            onComplete: function(animation) {
+                    java.screendump("42");
+                    java.close();
+                }
+         },
         scales: {
             xAxes: [{
                 type: "time",
@@ -102,12 +109,14 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
             "hoursTodo=0.0"
          ]
       }
-   ]
+   ],
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasMikadoProjectPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: closed goals</a></p><script>
+<p><a name = 'step_1'>Step 1: closed goals</a></p>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[

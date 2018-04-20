@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
 <p>How to generate table reports from a model.</p>
 <p>Start: Example object structure:</p>
 <script>
@@ -375,14 +376,16 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReports3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Query for table</a></p><pre>
-         UniversityPO universityPO = new UniversityPO(university);
-
-         RoomPO createRoomsPO = universityPO.createRoomsPO();
-
-         Table table = universityPO.createResultTable();
-
-</pre><script>
+<p><a name = 'step_1'>Step 1: Query for table</a></p>
+<pre>          *       {
+    *          &quot;type&quot;:&quot;assoc&quot;,
+    *          &quot;source&quot;:{
+    *             &quot;cardinality&quot;:&quot;many&quot;,
+    *             &quot;property&quot;:&quot;assignments&quot;,
+    *             &quot;id&quot;:&quot;A3 : Assignment&quot;
+    *          },
+</pre>
+<script>
    var json = {
    "type":"object",
    "nodes":[
@@ -417,7 +420,7 @@
    g.layout(100,100);
 </script>
 <p>Results in:</p>
-<table class="table table-bordered table-condensed">
+<table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">A</th>
@@ -553,18 +556,19 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>
-         table.createColumns(&quot;Topic&quot;, row -&gt; {
-            Room r = row.getCellValue(&quot;B&quot;);
-            return r.getTopic();
-         });
-         table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
-            .withTdCssClass(&quot;text-right&quot;);
-         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-            .withTdCssClass(&quot;text-right&quot;);
-         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
-
-</pre><table class="table table-bordered table-condensed">
+<pre>          *             &quot;property&quot;:&quot;students&quot;,
+    *             &quot;id&quot;:&quot;karli : Student&quot;
+    *          }
+    *       },
+    *       {
+    *          &quot;type&quot;:&quot;assoc&quot;,
+    *          &quot;source&quot;:{
+    *             &quot;cardinality&quot;:&quot;many&quot;,
+    *             &quot;property&quot;:&quot;done&quot;,
+    *             &quot;id&quot;:&quot;A3 : Assignment&quot;
+    *          },
+</pre>
+<table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Topic</th>
@@ -707,42 +711,44 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_2'>Step 2: List all topics:</a></p><pre>
-         UniversityPO universityPO = new UniversityPO(university);
-
-         TablePO tablePO = new TablePO(CREATE);
-
-         universityPO.addToPattern(tablePO);
-
-         tablePO.createNameAssignment(&quot;University&quot;);
-
-         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
-
-         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
-            .createNameAssignment(&quot;Credits&quot;)
-            .createTdCssClassAssignment(&quot;text-right&quot;);
-
-         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
-            .createNameAssignment(&quot;Students&quot;)
-            .createTdCssClassAssignment(&quot;text-right&quot;);
-
-         RoomPO roomsPO = universityPO.createRoomsPO();
-
-         RowPO rowPO = tablePO.createRowsPO(CREATE);
-
-         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
-         cell1PO.createCondition(cell -&gt; cell.withValue(roomsPO.getTopic()) != null);
-
-         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
-         cell2PO.createCondition(cell -&gt; cell.withValue(roomsPO.getCredits()) != null);
-
-         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
-         cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
-         
-         universityPO.doAllMatches();
-
-</pre><p>Results in:</p>
-<table class="table table-bordered table-condensed">
+<p><a name = 'step_2'>Step 2: List all topics:</a></p>
+<pre>          *             &quot;id&quot;:&quot;mathRoom : Room&quot;
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json[&quot;options&quot;]={&quot;canvasid&quot;:&quot;canvasStudyRightWithAssignmentsStoryboard12&quot;, &quot;display&quot;:&quot;svg&quot;, &quot;fontsize&quot;:10,&quot;bar&quot;:true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * &lt;&#x2F;script&gt;
+    * &lt;p&gt;5. Since 19 points are more than the 17 points required 
+    * for the 17 math credits, Karli hands the points in and earns the credits 
+    * and has his assignmnet points reset to 0. &lt;br&gt;
+    * (General rule: if the points earned by the assignments are higher or equal than 
+    * the credit points, the credit points will be awarded to the student.)&lt;&#x2F;p&gt;
+    * &lt;pre&gt;               + &amp;quot;for the 17 math credits, Karli hands the points in and earns the credits \n&amp;quot;
+    *          + &amp;quot;and has his assignmnet points reset to 0. &amp;lt;br&amp;gt;\n&amp;quot;
+    *          + &amp;quot;(General rule: if the points earned by the assignments are higher or equal than \n&amp;quot;
+    *          + &amp;quot;the credit points, the credit points will be awarded to the student.)&amp;quot;);
+    * 
+    * &lt;&#x2F;pre&gt;
+    * &lt;script&gt;
+    *    var json = {
+    *    &quot;type&quot;:&quot;objectdiagram&quot;,
+    *    &quot;nodes&quot;:[
+    *       {
+    *          &quot;type&quot;:&quot;clazz&quot;,
+    *          &quot;id&quot;:&quot;A1 : Assignment&quot;,
+    *          &quot;head&quot;:{&quot;src&quot;:&quot;{\&quot;src\&quot;:\&quot;icons&#x2F;matrix.png\&quot;}&quot;},
+    *          &quot;attributes&quot;:[
+    *             &quot;content=Matrix Multiplication&quot;,
+    *             &quot;points=5&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;type&quot;:&quot;clazz&quot;,
+</pre>
+<p>Results in:</p>
+<table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Topic</th>
@@ -1211,20 +1217,22 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReports17", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_3'>Step 3: Do a nested table</a></p><pre>
-         UniversityPO universityPO = new UniversityPO(university);
-
-         RoomPO createRoomsPO = universityPO.createRoomsPO();
-
-         Table table = universityPO.createResultTable();
-
-         table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
-         table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
-         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-            .withTdCssClass(&quot;text-right&quot;);
-         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
-
-</pre><table class="table table-bordered table-condensed">
+<p><a name = 'step_3'>Step 3: Do a nested table</a></p>
+<pre>          *             &quot;content=Integrals&quot;,
+    *             &quot;points=8&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;type&quot;:&quot;clazz&quot;,
+    *          &quot;id&quot;:&quot;karli : Student&quot;,
+    *          &quot;head&quot;:{&quot;src&quot;:&quot;{\&quot;src\&quot;:\&quot;icons&#x2F;karli.png\&quot;}&quot;},
+    *          &quot;attributes&quot;:[
+    *             &quot;assignmentPoints=0&quot;,
+    *             &quot;credits=17&quot;,
+    *             &quot;id=4242&quot;,
+    *             &quot;motivation=0&quot;,
+</pre>
+<table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Topic</th>
@@ -1236,7 +1244,7 @@
 <tbody>
 <tr>
 <td >math</td>
-<td ><table class="table table-bordered table-condensed">
+<td ><table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Content</th>
@@ -1265,7 +1273,7 @@
 </tr>
 <tr>
 <td >arts</td>
-<td ><table class="table table-bordered table-condensed">
+<td ><table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Content</th>
@@ -1282,7 +1290,7 @@
 </tr>
 <tr>
 <td >sports</td>
-<td ><table class="table table-bordered table-condensed">
+<td ><table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
 <th class="text-center">Content</th>

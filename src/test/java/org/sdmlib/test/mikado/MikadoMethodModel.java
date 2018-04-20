@@ -11,6 +11,130 @@ public class MikadoMethodModel
 {
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java' type='text/x-java'>MikadoModel</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"Goal",
+    *          "attributes":[
+    *             "description : String",
+    *             "hoursDone : double",
+    *             "hoursTodo : double"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"LogEntry",
+    *          "attributes":[
+    *             "date : String",
+    *             "hoursDone : double",
+    *             "hoursRemaining : double"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"MikadoLog"
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Goal",
+    *             "cardinality":"one",
+    *             "property":"goal"
+    *          },
+    *          "target":{
+    *             "id":"LogEntry",
+    *             "cardinality":"one",
+    *             "property":"logentry"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Goal",
+    *             "cardinality":"one",
+    *             "property":"mainGoal"
+    *          },
+    *          "target":{
+    *             "id":"MikadoLog",
+    *             "cardinality":"one",
+    *             "property":"mikadolog"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"Goal",
+    *             "cardinality":"many",
+    *             "property":"preGoals"
+    *          },
+    *          "target":{
+    *             "id":"Goal",
+    *             "cardinality":"many",
+    *             "property":"parents"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"LogEntry",
+    *             "cardinality":"many",
+    *             "property":"entries"
+    *          },
+    *          "target":{
+    *             "id":"MikadoLog",
+    *             "cardinality":"one",
+    *             "property":"parent"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Goal",
+    *             "cardinality":"one",
+    *             "property":"goal"
+    *          },
+    *          "target":{
+    *             "id":"LogEntry",
+    *             "cardinality":"one",
+    *             "property":"logentry"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"MikadoLog",
+    *             "cardinality":"one",
+    *             "property":"parent"
+    *          },
+    *          "target":{
+    *             "id":"LogEntry",
+    *             "cardinality":"many",
+    *             "property":"entries"
+    *          }
+    *       },
+    *       {
+    *          "typ":"unidirectional",
+    *          "source":{
+    *             "id":"Goal",
+    *             "cardinality":"one",
+    *             "property":"mainGoal"
+    *          },
+    *          "target":{
+    *             "id":"MikadoLog",
+    *             "cardinality":"one",
+    *             "property":"mikadolog"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasMikadoModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../doc/MikadoModel.html'>MikadoModel.html</a>
  */
    @Test

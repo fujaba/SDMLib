@@ -33,6 +33,11 @@ import org.sdmlib.models.transformations.Template;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.BooleanList;
+import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class ChoiceTemplateSet extends SimpleSet<ChoiceTemplate>
 {

@@ -40,6 +40,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
 * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
  * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ * @see org.sdmlib.test.models.taskflows.TaskFlowModel#taskFlowModel
  */
    public class SocketThread extends Thread implements PropertyChangeInterface, SendableEntity
 {

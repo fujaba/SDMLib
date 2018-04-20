@@ -34,4 +34,9 @@ public class SimpleKeyValueListPO extends PatternObject<SimpleKeyValueListPO, Si
       }
       newInstance(org.sdmlib.test.examples.SimpleModelWithSet.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+
+   public SimpleKeyValueListPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
 }

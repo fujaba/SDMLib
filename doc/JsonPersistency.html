@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,33 +21,35 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>JsonPersistency</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>JsonPersistency</a></p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
-<p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>
-      IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-
-      JsonArray jsonArray = idMap.toJsonArray(university);
-
-      String jsonText = jsonArray.toString(3);
-
-      &#x2F;&#x2F; you might write jsonText into a file
-
-</pre><p>Results in:</p>
+<p><a name = 'step_1'>Step 1: Serialize to json:</a></p>
+<pre>          *             &quot;property&quot;:&quot;students&quot;,
+    *             &quot;id&quot;:&quot;karli : Student&quot;
+    *          }
+    *       },
+    *       {
+    *          &quot;type&quot;:&quot;assoc&quot;,
+    *          &quot;source&quot;:{
+    *             &quot;cardinality&quot;:&quot;many&quot;,
+    *             &quot;property&quot;:&quot;rooms&quot;,
+</pre>
+<p>Results in:</p>
 <pre>[
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-      "id":"U2227783272168832",
-      "timestamp":"2227783272168832",
+      "id":"U527240378695639",
+      "timestamp":"527240378695639",
       "prop":{
          "name":"StudyRight",
          "students":[
             {
                "session":"demo",
                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-               "id":"S2227783272355924",
-               "timestamp":"2227783272355924"
+               "id":"S527240378809973",
+               "timestamp":"527240378809973"
             }
          ]
       }
@@ -54,25 +57,27 @@
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-      "id":"S2227783272355924",
-      "timestamp":"2227783272355924",
+      "id":"S527240378809973",
+      "timestamp":"527240378809973",
       "prop":{
          "name":"Karli",
          "id":"4242",
          "university":{
             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-            "id":"U2227783272168832"
+            "id":"U527240378695639"
          }
       }
    }
-]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>
-      &#x2F;&#x2F; read jsonText from file
-      IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-
-      Object rootObject = readerMap.decode(jsonText);
-
-      University readUniversity = (University) rootObject;
-</pre><script>
+]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p>
+<pre>          *          &quot;source&quot;:{
+    *             &quot;cardinality&quot;:&quot;many&quot;,
+    *             &quot;property&quot;:&quot;rooms&quot;,
+    *             &quot;id&quot;:&quot;artsRoom : Room&quot;
+    *          },
+    *          &quot;target&quot;:{
+    *             &quot;cardinality&quot;:&quot;one&quot;,
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[

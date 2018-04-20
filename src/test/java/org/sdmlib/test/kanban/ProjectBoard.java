@@ -35,6 +35,125 @@ public class ProjectBoard
 {
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
+    * <p>This storyboard tests the storyboard infrastructure. </p>
+    * <p>Start: At first creating the html file just with text should work. </p>
+    * <p><a name = 'step_1'>Step 1: Next we need to create some class model. This will be done in a parallel activity.</a></p>
+    * <p><a name = 'step_2'>Step 2: With the class model we create an object model and try to dump it here.</a></p>
+    * <p><a name = 'step_3'>Step 3: Well, dumping the class model would be great, either.</a></p>
+    * <script>
+    *    var json = {
+    *    "typ":"class",
+    *    "nodes":[
+    *       {
+    *          "typ":"node",
+    *          "id":"KanbanEntry",
+    *          "attributes":[
+    *             "oldNoOfLogEntries : int",
+    *             "phases : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"LogEntryStoryBoard"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"StoryboardStep",
+    *          "attributes":[
+    *             "text : String"
+    *          ]
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"StoryboardWall"
+    *       },
+    *       {
+    *          "typ":"node",
+    *          "id":"StoryboardImpl",
+    *          "attributes":[
+    *             "rootDir : String",
+    *             "stepCounter : int",
+    *             "stepDoneCounter : int"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"StoryboardStep",
+    *             "cardinality":"many",
+    *             "property":"storyboardSteps"
+    *          },
+    *          "target":{
+    *             "id":"StoryboardImpl",
+    *             "cardinality":"one",
+    *             "property":"storyboard"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"StoryboardWall",
+    *             "cardinality":"one",
+    *             "property":"wall"
+    *          },
+    *          "target":{
+    *             "id":"StoryboardImpl",
+    *             "cardinality":"one",
+    *             "property":"storyboard"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"StoryboardImpl",
+    *             "cardinality":"one",
+    *             "property":"storyboard"
+    *          },
+    *          "target":{
+    *             "id":"StoryboardWall",
+    *             "cardinality":"one",
+    *             "property":"wall"
+    *          }
+    *       },
+    *       {
+    *          "typ":"assoc",
+    *          "source":{
+    *             "id":"StoryboardImpl",
+    *             "cardinality":"one",
+    *             "property":"storyboard"
+    *          },
+    *          "target":{
+    *             "id":"StoryboardStep",
+    *             "cardinality":"many",
+    *             "property":"storyboardSteps"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    new Graph(json, {"canvasid":"canvasStoryboardInfrastructureClassDiagram5", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+    * </script>
+    * <p><a name = 'step_4'>Step 4: Show some internals</a></p>
+    * <p>Internally, the class model looks like:</p>
+    * <script>
+    *    var json = {
+    *    "type":"objectdiagram",
+    *    "nodes":[
+    *       {
+    *          "type":"clazz",
+    *          "id":"C1 : ClassModel",
+    *          "attributes":[
+    *             "name=org.sdmlib.storyboards"
+    *          ]
+    *       }
+    *    ],
+    *    "edges":null
+    * }   ;
+    *    json["options"]={"canvasid":"canvasStoryboardInfrastructure9", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
     * @see <a href='../../../../../../../doc/StoryboardInfrastructure.html'>StoryboardInfrastructure.html</a>
 */
    @Test

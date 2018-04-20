@@ -32,7 +32,8 @@ import org.sdmlib.test.examples.replication.chat.ChatUser;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/replication/chat/ReplicationChatModel.java'>ReplicationChatModel.java</a>
-*/
+* @see org.sdmlib.test.examples.replication.chat.ReplicationChatModel#main
+ */
    public class ChatRoot implements PropertyChangeInterface, SendableEntity
 {
 

@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
 <p>Extend the class model:</p>
 <script>
    var json = {
@@ -1586,27 +1587,1358 @@
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
-      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
-      
-      double assignmentsPoints3 =  university.getRooms().stream().flatMap(r -&gt; r.getAssignments().stream())
-            .map(a -&gt; a.getPoints()).reduce(0, (a, b) -&gt; a + b);
-      
-      double assignmentPoints2 = 0;
-      for (Room r : university.getRooms())
+<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p>
+<pre>            story.addObjectDiagram(university);
+
+      &#x2F;&#x2F; =====================================================
+      story.addStep(&quot;Simple set based navigation:&quot;);
+
+</pre>
+<p>Results in:</p>
+<pre>      Sum of assignment points: 23.0. 
+      Sum of points of assignments that have been done by at least one students: 15.0.</pre>
+<p>Check: Assignment points:  23.0 actual 23.0</p>
+<p>Check: donePoints:  15.0 actual 15.0</p>
+<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p>
+<pre>          *          &quot;attributes&quot;:[
+    *             &quot;assignmentPoints : int&quot;,
+    *             &quot;credits : int&quot;,
+    *             &quot;id : String&quot;,
+    *             &quot;motivation : int&quot;,
+</pre>
+<p>Results in:</p>
+<pre>      (senate math 17, gymnasium sports 25)</pre>
+<p>Check: rooms.size():  2 actual 2</p>
+<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p>
+<pre>          *          &quot;attributes&quot;:[
+    *             &quot;certified : boolean&quot;
+    *          ],
+    *          &quot;methods&quot;:[
+</pre>
+<p>Results in:</p>
+<pre>      rooms17: (senate math 17)
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre>
+<p><a name = 'step_4'>Step 4: Filter for even values:</a></p>
+<pre>          *             &quot;createStudentsTeachingAssistant() TeachingAssistant&quot;,
+    *             &quot;firePropertyChange(String p0, Object p1, Object p2) boolean&quot;
+    *          ]
+</pre>
+<p>Results in:</p>
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre>
+<p><a name = 'step_5'>Step 5: Filter for type: </a></p>
+<pre>          *             &quot;removeObject(Object p0)&quot;,
+    *             &quot;setValue(Object p1, String p2, Object p3, String p4) boolean&quot;
+    *          ]
+</pre>
+<pre>(Karli 4242 0 0 0)</pre>
+<p><a name = 'step_6'>Step 6: Write operations on sets: </a></p>
+<pre>          *             &quot;createPointsCondition(int p0, int p1) AssignmentSet&quot;,
+    *             &quot;filterContent(String p0) AssignmentSet&quot;,
+    *             &quot;filterContent(String p0, String p1) AssignmentSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
       {
-         for (Assignment a : r.getAssignments())
-         {
-            assignmentPoints2 += a.getPoints();
+         "type":"clazz",
+         "id":"R5 : Room"
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room"
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=42",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=42",
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=42",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
          }
       }
-
-      double donePoints = university.getStudents().getDone().getPoints().sum();
-
-</pre><p>Results in:</p>
-<pre>      Sum of assignment points: 23.0. 
-      Sum of points of assignments that have been done by at least one students: 15.0.</pre><p>Check: Assignment points:  23.0 actual 23.0</p>
-<p>Check: donePoints:  15.0 actual 15.0</p>
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries32", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p>
+<pre>          *             &quot;getStudents() StudentSet&quot;,
+    *             &quot;getTypClass() Class&lt;?&gt;&quot;,
+    *             &quot;with(Object p1) AssignmentSet&quot;,
+    *             &quot;withContent(String p0) AssignmentSet&quot;,
+    *             &quot;withPoints(int p0) AssignmentSet&quot;,
+    *             &quot;withRoom(Room p0) AssignmentSet&quot;,
+    *             &quot;withStudents(Student p0) AssignmentSet&quot;,
+    *             &quot;without(Assignment p0) AssignmentSet&quot;,
+    *             &quot;withoutStudents(Student p0) AssignmentSet&quot;
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[
+            "motivation == 42"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s3 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram34", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre>
+<p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p>
+<pre>          *             &quot;setValue(Object p1, String p2, Object p3, String p4) boolean&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;typ&quot;:&quot;node&quot;,
+    *          &quot;id&quot;:&quot;PresidentSet&quot;,
+    *          &quot;methods&quot;:[
+    *             &quot;createPresidentPO() PresidentPO&quot;,
+    *             &quot;filterUniversity(Object p0) PresidentSet&quot;,
+    *             &quot;getEntryType() String&quot;,
+    *             &quot;getNewList(boolean p1) PresidentSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[
+            "motivation in [0..50]"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s3 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram39", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre>
+<p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p>
+<pre>          *          ],
+    *          &quot;methods&quot;:[
+    *             &quot;createIdMap(String p0) IdMap&quot;,
+    *             &quot;getSendableInstance(boolean p1) Object&quot;,
+    *             &quot;getValue(Object p1, String p2) Object&quot;,
+    *             &quot;removeObject(Object p0)&quot;,
+    *             &quot;setValue(Object p1, String p2, Object p3, String p4) boolean&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;typ&quot;:&quot;node&quot;,
+    *          &quot;id&quot;:&quot;RoomSet&quot;,
+    *          &quot;methods&quot;:[
+    *             &quot;createCreditsCondition(int p0) RoomSet&quot;,
+    *             &quot;createCreditsCondition(int p0, int p1) RoomSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"u1 : UniversityPO",
+         "attributes":[
+            "<< bound>>"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"r2 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[
+            "motivation in [0..42]"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"s4 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "type":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+            {
+               "type":"patternObject",
+               "id":"p5 : PatternObject",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "type":"patternObject",
+         "style":"create",
+         "id":"t6 : TeachingAssistantPO",
+         "attributes":[
+            "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"u1 : UniversityPO"
+         },
+         "target":{
+            "property":"rooms",
+            "id":"r2 : RoomPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s4 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s4 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RoomPO"
+         },
+         "target":{
+            "property":"tas",
+            "id":"p5 : PatternObject"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r2 : RoomPO"
+         },
+         "target":{
+            "property":"tas",
+            "id":"t6 : TeachingAssistantPO"
+         },
+         "style":"create"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Results in:</p>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=42",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=42",
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T14 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=false",
+            "credits=0",
+            "id=null",
+            "in=null",
+            "motivation=0",
+            "name=null",
+            "university=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"tas",
+            "id":"T14 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries47", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<pre>      (gymnasium sports 25)</pre>
+<p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p>
+<pre>          *             &quot;getTas() TeachingAssistantSet&quot;,
+    *             &quot;getTopic() ObjectSet&quot;,
+    *             &quot;getTypClass() Class&lt;?&gt;&quot;,
+    *             &quot;getUniversity() UniversitySet&quot;,
+    *             &quot;with(Object p1) RoomSet&quot;,
+    *             &quot;withAssignments(Assignment p0) RoomSet&quot;,
+    *             &quot;withCredits(int p0) RoomSet&quot;,
+    *             &quot;withDoors(Room p0) RoomSet&quot;,
+    *             &quot;withName(String p0) RoomSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"t3 : TeachingAssistantPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"instanceof",
+            "id":"t3 : TeachingAssistantPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R5 : Room"
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=42",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries52", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p>
+<pre>          *       },
+    *       {
+    *          &quot;typ&quot;:&quot;node&quot;,
+    *          &quot;id&quot;:&quot;StudentCreator&quot;,
+    *          &quot;attributes&quot;:[
+    *             &quot;properties : String[]&quot;
+    *          ],
+    *          &quot;methods&quot;:[
+    *             &quot;createIdMap(String p0) IdMap&quot;,
+    *             &quot;getSendableInstance(boolean p1) Object&quot;,
+    *             &quot;getValue(Object p1, String p2) Object&quot;,
+    *             &quot;removeObject(Object p0)&quot;,
+    *             &quot;setValue(Object p1, String p2, Object p3, String p4) boolean&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;typ&quot;:&quot;node&quot;,
+    *          &quot;id&quot;:&quot;StudentSet&quot;,
+    *          &quot;methods&quot;:[
+    *             &quot;createAssignmentPointsCondition(int p0) StudentSet&quot;,
+    *             &quot;createAssignmentPointsCondition(int p0, int p1) StudentSet&quot;,
+    *             &quot;createCreditsCondition(int p0) StudentSet&quot;,
+    *             &quot;createCreditsCondition(int p0, int p1) StudentSet&quot;,
+    *             &quot;createIdCondition(String p0) StudentSet&quot;,
+    *             &quot;createIdCondition(String p0, String p1) StudentSet&quot;,
+    *             &quot;createMotivationCondition(int p0) StudentSet&quot;,
+    *             &quot;createMotivationCondition(int p0, int p1) StudentSet&quot;,
+    *             &quot;createNameCondition(String p0) StudentSet&quot;,
+    *             &quot;createNameCondition(String p0, String p1) StudentSet&quot;,
+    *             &quot;createStudentPO() StudentPO&quot;,
+    *             &quot;filterAssignmentPoints(int p0) StudentSet&quot;,
+    *             &quot;filterAssignmentPoints(int p0, int p1) StudentSet&quot;,
+    *             &quot;filterCredits(int p0) StudentSet&quot;,
+    *             &quot;filterCredits(int p0, int p1) StudentSet&quot;,
+    *             &quot;filterDone(Object p0) StudentSet&quot;,
+    *             &quot;filterFriends(Object p0) StudentSet&quot;,
+    *             &quot;filterId(String p0) StudentSet&quot;,
+    *             &quot;filterId(String p0, String p1) StudentSet&quot;,
+    *             &quot;filterIn(Object p0) StudentSet&quot;,
+    *             &quot;filterMotivation(int p0) StudentSet&quot;,
+    *             &quot;filterMotivation(int p0, int p1) StudentSet&quot;,
+    *             &quot;filterName(String p0) StudentSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[]
+      },
+      {
+         "type":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=168",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=168",
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=168",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries56", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p><a name = 'step_12'>Step 12: lure students from other rooms into math room: </a></p>
+<pre>          *             &quot;getMotivation() NumberList&quot;,
+    *             &quot;getName() ObjectSet&quot;,
+    *             &quot;getNewList(boolean p1) StudentSet&quot;,
+    *             &quot;getTypClass() Class&lt;?&gt;&quot;,
+    *             &quot;getUniversity() UniversitySet&quot;,
+    *             &quot;instanceOfTeachingAssistant() TeachingAssistantSet&quot;,
+    *             &quot;with(Object p1) StudentSet&quot;,
+    *             &quot;withAssignmentPoints(int p0) StudentSet&quot;,
+    *             &quot;withCredits(int p0) StudentSet&quot;,
+    *             &quot;withDone(Assignment p0) StudentSet&quot;,
+    *             &quot;withFriends(Student p0) StudentSet&quot;,
+</pre>
+<script>
+   var json = {
+   "type":"object",
+   "nodes":[
+      {
+         "type":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+            "<< bound>>"
+         ]
+      },
+      {
+         "type":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":null,
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"in",
+            "id":"r1 : RoomPO"
+         },
+         "style":"create"
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram58", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"R5 : Room",
+         "attributes":[
+            "credits=17",
+            "name=senate",
+            "topic=math"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R6 : Room",
+         "attributes":[
+            "credits=16",
+            "name=7522",
+            "topic=arts"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"R7 : Room",
+         "attributes":[
+            "credits=25",
+            "name=gymnasium",
+            "topic=sports"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S2 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=1337",
+            "motivation=168",
+            "name=Abu"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"S4 : Student",
+         "attributes":[
+            "assignmentPoints=0",
+            "credits=0",
+            "id=2323",
+            "motivation=168",
+            "name=Alice"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"T3 : TeachingAssistant",
+         "attributes":[
+            "assignmentPoints=0",
+            "certified=true",
+            "credits=0",
+            "id=4242",
+            "motivation=168",
+            "name=Karli",
+            "room=null"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"U1 : University",
+         "attributes":[
+            "president=null"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"T3 : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"assoc",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S4 : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"teachingassistant",
+            "id":"T3 : TeachingAssistant"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"S4 : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U1 : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries60", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: New students in math room:  3 actual 3</p>
 
 </body>
 </html>

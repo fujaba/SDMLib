@@ -37,6 +37,7 @@ import org.sdmlib.storyboards.Goal;
  *
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/mikado/MikadoMethodModel.java'>MikadoMethodModel.java</a>
  * @see org.sdmlib.test.examples.groupaccount.GroupAccountTests#testMultiUserGroupAccountProjectPlan
+ * @see org.sdmlib.test.mikado.MikadoMethodModel#testMikadoModel
  */
 public  class MikadoLog implements SendableEntity
 {

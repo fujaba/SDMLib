@@ -142,6 +142,10 @@ public class RowPO extends PatternObject<RowPO, Row>
       return null;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public CellPO createCellsPO()
    {
       CellPO result = new CellPO(new Cell[]{});
@@ -152,6 +156,10 @@ public class RowPO extends PatternObject<RowPO, Row>
       return result;
    }
 
+     /**
+    * 
+    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
    public CellPO createCellsPO(String modifier)
    {
       CellPO result = new CellPO(new Cell[]{});

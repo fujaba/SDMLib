@@ -28,6 +28,7 @@ import org.sdmlib.modelcouch.ModelDBListener;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.modelcouch.util.ModelCouchSet;
 
 public class ModelDBListenerSet extends SimpleSet<ModelDBListener>
 {

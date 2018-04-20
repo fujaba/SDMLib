@@ -34,7 +34,8 @@ import org.sdmlib.test.examples.studyright.model.Topic;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightOneToOneAssoc
+ */
    public class Professor extends Female implements PropertyChangeInterface, SendableEntity
 {
 

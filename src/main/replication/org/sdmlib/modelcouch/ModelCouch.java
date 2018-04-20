@@ -68,6 +68,7 @@ import org.sdmlib.modelcouch.ModelDBListener;
  *      '../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>
  *      ModelCouchModel.java</a>
  * @see <a href='../../../../../../src/test/java/org/sdmlib/test/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
+ * @see org.sdmlib.test.modelcouch.ModelCouchModel#genModelCouchModel
  */
 public class ModelCouch implements SendableEntity, PropertyChangeInterface, ObjectCondition {
 	public enum ApplicationType {

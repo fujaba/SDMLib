@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/SimpleModelWithSet/testSimpleSetModel.java'>testSimpleSetModel.java</a>
+ * @see org.sdmlib.test.examples.SimpleModelWithSet.testSimpleSetModel#testModelGen
  */
    public  class Person implements SendableEntity
 {

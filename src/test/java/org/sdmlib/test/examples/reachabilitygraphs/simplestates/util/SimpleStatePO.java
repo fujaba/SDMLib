@@ -9,6 +9,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
 {
@@ -33,6 +34,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public SimpleStatePO(){
       newInstance(null);
@@ -41,6 +43,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public SimpleStatePO(SimpleState... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
@@ -52,6 +55,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public SimpleStatePO(String modifier)
    {
@@ -60,6 +64,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public NodePO createNodesPO()
    {
@@ -74,6 +79,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
      /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.ReachbilityGraphSimpleExamples#LazyReachabilityGraphAttrsAndNodes
  */
    public NodePO createNodesPO(String modifier)
    {

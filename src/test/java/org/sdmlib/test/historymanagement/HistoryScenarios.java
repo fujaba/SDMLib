@@ -43,6 +43,7 @@ public class HistoryScenarios
    
      /**
     * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java' type='text/x-java'>HistoryIdMapMarketScenario</a></p>
     * @see <a href='../../../../../../../doc/HistoryIdMapMarketScenario.html'>HistoryIdMapMarketScenario.html</a>
  */
    @Test
@@ -55,6 +56,30 @@ public class HistoryScenarios
       story.dumpHTML();
    }
    
+   /**
+    * 
+    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java' type='text/x-java'>updateHistoryOnNewComplexNeighbors</a></p>
+    * <p>Check: change message should contain 00:00 true</p>
+    * <p>Check: change message should contain Bid true</p>
+    * <p>Check: change message should contain 42.23 true</p>
+    * <p>Check: change message should contain Starbucks true</p>
+    * <p>Check: there should be an insertion in our toManyChanges map true</p>
+    * <p>Check: change message should contain Big Mug true</p>
+    * <p>Check: history should record removal true</p>
+    * <p>Check: coffeeOffer has position 2 in history list now true</p>
+    * <p>Check: removed from toMany should be empty again true</p>
+    * <p>Check: history should store removal ebay.1524239145765.O2#1:org.sdmlib.test.historymanagement.marketmodel.Offer#527254744354910 true</p>
+    * <p>Check: Only non-overwritten changes 12 actual 12</p>
+    * <p>Check: We should have a clone of our market 00:00</p>
+    * <p>Check: We should have another market 00:00</p>
+    * <p>Check: new offer should have lifecounter 2 actual 2</p>
+    * <p>Check: old and new offer should have same prefix ebay.1524239145765.O2 actual ebay.1524239145765.O2</p>
+    * <p>Check: Set of removed object ids should be empty true actual true</p>
+    * <p>Check: Set of removed references on market offers should be empty true actual true</p>
+    * <p>Check: We should have a clone of our market 00:00</p>
+    * <p>Check: number of changes accepted 0 actual 0</p>
+    * <p>Check: Only non-overwritten changes 15 actual 15</p>
+    */
    @Test
    public void updateHistoryOnNewComplexNeighbors() throws Exception
    {
@@ -212,6 +237,11 @@ public class HistoryScenarios
    
 
    
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java' type='text/x-java'>updateHistoryOnObjectRemoval</a></p>
+    * <p>Check: change message should contain REMOVE_YOU true</p>
+    */
    @Test
    public void updateHistoryOnObjectRemoval() throws Exception
    {
@@ -239,6 +269,12 @@ public class HistoryScenarios
    
 
 
+   /**
+    * 
+    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/historymanagement/HistoryScenarios.java' type='text/x-java'>updateHistoryOnNewObjectAttributes</a></p>
+    * <p>Check: change message should contain 00:00 true</p>
+    * <p>Check: history should store time stamp for market time true</p>
+    */
    @Test
    public void updateHistoryOnNewObjectAttributes() throws Exception
    {

@@ -59,6 +59,7 @@ import org.sdmlib.replication.ChangeEventList;
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
+ * @see org.sdmlib.test.replication.ReplicationModel#testSeppelModel
  */
    public class SeppelSpace extends Thread implements PropertyChangeInterface, ObjectCondition, SendableEntity
 {

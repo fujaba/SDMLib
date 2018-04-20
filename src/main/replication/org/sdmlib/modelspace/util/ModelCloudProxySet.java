@@ -32,6 +32,9 @@ import org.sdmlib.modelspace.ModelSpaceProxy;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
+import de.uniks.networkparser.list.NumberList;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+import org.sdmlib.modelspace.util.ModelCloudSet;
 
 public class ModelCloudProxySet extends SimpleSet<ModelCloudProxy>
 {

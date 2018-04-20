@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,10 +21,10 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
 <p>Adding flipbook to protocol changes.</p>
 <p>Start situation: use University class to build object structure</p>
-<pre>      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap(&quot;ajz&quot;);
+<pre>            SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap(&quot;ajz&quot;);
       FlipBook flipBook = idMap.createFlipBook();
 
       &#x2F;&#x2F; =============================================================
@@ -33,7 +34,8 @@
          .withName(&quot;StudyRight&quot;);
       idMap.getId(uni);
       
-</pre><p>From now on the flipbook protocols all changes done to the uni model</p>
+</pre>
+<p>From now on the flipbook protocols all changes done to the uni model</p>
 <p>Add rooms and students and dump the object model.</p>
 <script>
    var json = {
@@ -786,19 +788,20 @@
    json["options"]={"canvasid":"canvasFlipbook12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      flipBook.back(34);
-      storyboard.addObjectDiagram(uni);
-      storyboard.dumpHTML();
-      flipBook.forward(34);
-      storyboard.addObjectDiagram(uni);
-      flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
-      storyboard.addObjectDiagram(uni);
-      flipBook.back()
-         .back()
-         .back()
-         .forward();
-
-</pre><script>
+<pre>          *          &quot;id&quot;:&quot;S8 : Student&quot;,
+    *          &quot;attributes&quot;:[
+    *             &quot;credits=0&quot;,
+    *             &quot;in=null&quot;,
+    *             &quot;matrNo=2323&quot;,
+    *             &quot;motivation=0&quot;,
+    *             &quot;name=Nina&quot;
+    *          ]
+    *       },
+    *       {
+    *          &quot;type&quot;:&quot;clazz&quot;,
+    *          &quot;id&quot;:&quot;U1 : University&quot;,
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -954,8 +957,6 @@
    json["options"]={"canvasid":"canvasFlipbook14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Number of students expected:  2 actual 2</p>
-<p>Check: Number of rooms expected:  3 actual 3</p>
 
 </body>
 </html>

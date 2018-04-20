@@ -36,7 +36,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightModel#testStudyRightClassesCodeGen
+ */
    public class Room implements PropertyChangeInterface, SendableEntity
 {
 
@@ -239,7 +240,9 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testFlipbook
+ * @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public Room withNeighbors(Room... value)
    {
       if(value==null){
@@ -449,7 +452,8 @@ import org.sdmlib.test.examples.studyright.model.Assignment;
     * @param p1
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
-*/
+* @see org.sdmlib.test.examples.studyright.StudyRightStoryboards#testStudyRightObjectStoryboards
+ */
    public void findPath( String p0, int p1 )
    {
       

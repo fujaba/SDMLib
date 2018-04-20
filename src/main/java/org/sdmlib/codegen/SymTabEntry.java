@@ -31,7 +31,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
+* @see org.sdmlib.test.examples.SDMLib.SDMLibMetaModelObjectDiagramsForCoverage#testSDMLibCodeGenObjectsForCoverage
+ */
    public class SymTabEntry implements PropertyChangeInterface, SendableEntity 
 {   
    public static final String PROPERTY_KIND = "kind";

@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>
+ * @see org.sdmlib.test.examples.reachabilitygraphs.SokobanModel#SokobanModelGen
  */
    public  class Tile implements SendableEntity
 {

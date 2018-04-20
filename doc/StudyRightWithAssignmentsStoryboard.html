@@ -11,6 +11,7 @@
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
 <style>
     canvas{
         -moz-user-select: none;
@@ -20,10 +21,16 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightWithAssignmentsStoryboard</a></p>
+<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightWithAssignmentsStoryboard</a></p>
 <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
-<pre>      University university = new University()
+<pre>      
+      &#x2F;&#x2F; =============================================================
+      storyboard.add(&quot;1. (start situation&#x2F;pre-condition) Karli enters the Study-Right University \n&quot;
+         + &quot;in the math room. Karli has no credits yet and still a motivation of 214. &quot;);
+
+      storyboard.markCodeStart();
+      University university = new University()
          .withName(&quot;StudyRight&quot;);
 
       Student karli = university.createStudents()
@@ -66,13 +73,8 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          .withTopic(&quot;exam&quot;)
          .withCredits(0)
          .withDoors(sportsRoom, artsRoom);
-
-      Room softwareEngineering = university.createRooms()
-         .withName(&quot;7422&quot;)
-         .withTopic(&quot;Software Engineering&quot;)
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
-</pre><script>
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -401,9 +403,10 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
-<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-      karli.withDone(matrixMult);
-</pre><script>
+<pre>            &#x2F;&#x2F; ===============================================================================================
+      storyboard.add(&quot;2. Karli does assignment a1 on Matrix Multiplication and earns 5 points &lt;br&gt;\n&quot;
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -455,6 +458,13 @@ Karli's motivation is reduced by 5 points to now 209.
             "name=senate",
             "topic=math"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "president=null"
+         ]
       }
    ],
    "edges":[
@@ -522,6 +532,32 @@ Karli's motivation is reduced by 5 points to now 209.
             "property":"students",
             "id":"karli : Student"
          }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
       }
    ]
 }   ;
@@ -531,9 +567,10 @@ Karli's motivation is reduced by 5 points to now 209.
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
 Thus Karli has 11 points now. Motivation is reduced to 203.
 </p>
-<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-      karli.withDone(series);
-</pre><script>
+<pre>      
+      &#x2F;&#x2F; ===============================================================================================
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -585,6 +622,13 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
             "name=senate",
             "topic=math"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "president=null"
+         ]
       }
    ],
    "edges":[
@@ -665,6 +709,32 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
             "property":"students",
             "id":"karli : Student"
          }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
       }
    ]
 }   ;
@@ -674,9 +744,10 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
 <p>4. Karli does the third assignment on Integrals, earns <br>
 another 8 points and thus Karli has now 19 points and a motivation of 195.
 </p>
-<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      karli.withDone(a3);
-</pre><script>
+<pre>      
+      &#x2F;&#x2F; ===============================================================================================
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -728,6 +799,13 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
             "name=senate",
             "topic=math"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "president=null"
+         ]
       }
    ],
    "edges":[
@@ -821,6 +899,32 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
             "property":"students",
             "id":"karli : Student"
          }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
       }
    ]
 }   ;
@@ -832,12 +936,13 @@ for the 17 math credits, Karli hands the points in and earns the credits
 and has his assignmnet points reset to 0. <br>
 (General rule: if the points earned by the assignments are higher or equal than 
 the credit points, the credit points will be awarded to the student.)</p>
-<pre>      if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
-      {
-         karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-         karli.setAssignmentPoints(0);
-      }
-</pre><script>
+<pre>               + &quot;for the 17 math credits, Karli hands the points in and earns the credits \n&quot;
+         + &quot;and has his assignmnet points reset to 0. &lt;br&gt;\n&quot;
+         + &quot;(General rule: if the points earned by the assignments are higher or equal than \n&quot;
+         + &quot;the credit points, the credit points will be awarded to the student.)&quot;);
+
+</pre>
+<script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
@@ -889,6 +994,13 @@ the credit points, the credit points will be awarded to the student.)</p>
             "name=senate",
             "topic=math"
          ]
+      },
+      {
+         "type":"clazz",
+         "id":"studyRight : University",
+         "attributes":[
+            "president=null"
+         ]
       }
    ],
    "edges":[
@@ -981,6 +1093,32 @@ the credit points, the credit points will be awarded to the student.)</p>
             "cardinality":"many",
             "property":"students",
             "id":"karli : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
          }
       }
    ]
