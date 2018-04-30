@@ -85,8 +85,6 @@ dependencies {
 	testImplementation "io.moquette:moquette-broker:0.10"
 	testImplementation 'org.slf4j:slf4j-simple:1.7.10'
 
-	implementation "com.structurizr:structurizr-client:1.0.0-RC5"
-	implementation "com.structurizr:structurizr-dot:1.0.0-RC5"
 	implementation "guru.nidi:graphviz-java:+"
 
 	if ( ! project.hasProperty('useLocalDependencies'))

@@ -1051,7 +1051,13 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-
+   public void addObjectDiagramWithViaGraphViz(Object... elems)
+   {
+      ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
+      tempElems.add(true);
+      Object[] moreElems = tempElems.toArray();
+      addObjectDiagramViaGraphViz(moreElems);
+   }
 
    public void addObjectDiagramWith(Object... elems)
    {
@@ -1563,6 +1569,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                  "nodes", nodesString,
                  "edges", edgesString);
          String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
+         // System.out.println(dotString.toString());
          Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
       }
       catch (IOException e)
@@ -1603,6 +1610,15 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                           key + "\"];\n");
                }
             }
+            else if (value instanceof JsonObject)
+            {
+               JsonObject jsonElem = (JsonObject) value;
+               String elemId = jsonElem.getString("id");
+               elemId = StrUtil.downFirstChar(elemId);
+
+               buf.append(objId).append(" -> ").append(elemId).append(" [arrowhead=none fontsize=\"10\" headlabel=\"" +
+                       key + "\"];\n");
+            }
          }
       }
 
@@ -1622,15 +1638,24 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          objId = StrUtil.downFirstChar(objId);
          String shortClassName = CGUtil.shortClassName(jsonObj.getString("class"));
 
+         String iconName = iconMap.get(jsonObj.getString("id"));
+
+         String imageLink = "";
+         if (iconName != null)
+         {
+            imageLink = "   image=\"doc-files/karli.png\"\n";
+         }
+
          buf.append(objId).append(" " +
                  "[\n" +
                  "   shape=plaintext\n" +
-                 "   fontsize=\"10\"" +
-                 "   label=<\n" +
+                 "   fontsize=\"10\"\n" +
+                 imageLink +
+                 "   label=<\n"  +
                  "     <table border='0' cellborder='1' cellspacing='0'>\n" +
                  "       <tr><td><u>")
                  .append(objId).append(": ").append(shortClassName)
-                 .append("</u></td></tr>\n" +
+                 .append("</u></td></tr>\n"  +
                  "       <tr><td>");
 
          JsonObject props = jsonObj.getJsonObject("prop");
@@ -1639,13 +1664,13 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          {
             Object value = props.getValue(key);
 
-            if (value instanceof JsonArray)
+            if (value instanceof JsonArray || value instanceof JsonObject)
             {
 
             }
             else
             {
-               buf.append(key).append(": ").append(value.toString()).append("<br  align='left'/>");
+               buf.append(key).append(": ").append("" + value).append("<br  align='left'/>");
             }
          }
 
@@ -1704,7 +1729,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       String storyboardName = this.getName();
 
-      String storyNameLine = "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n";
+      String storyNameLine = "<p>Storyboard storyboardName</p>\n";
 
       storyNameLine = storyNameLine.replaceFirst("storyboardName", storyboardName);
       storyNameLine = storyNameLine.replaceFirst("testfilename", javaTestFileName);

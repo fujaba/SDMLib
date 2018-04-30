@@ -19,13 +19,14 @@ public class TestJavaDocStories
 
    /**
     *
-    * {@link TestJavaDocStories#testGenJavaDocStory()}
-    *
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>JavaDocStoriesMikadoPlan</a></p>
+    * <p>Storyboard JavaDocStoriesMikadoPlan</p>
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep0.png" alt="JavaDocStoriesMikadoPlanStep0.png">
     * <p>Start: open goals:</p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep1.png" alt="JavaDocStoriesMikadoPlanStep1.png">
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep2.png" alt="JavaDocStoriesMikadoPlanStep2.png">
+    * <p>object diagrams as image via graphviz: {@link Storyboard#addObjectDiagramViaGraphViz}</p>
+    * <p>generate charts as png: {@link Storyboard#addAsImage}</p>
     * <p><a name = 'step_1'>Step 1: closed goals:</a></p>
-    * <img src="doc-files/JavaDocStoriesMikadoPlanStep3.png" alt="JavaDocStoriesMikadoPlanStep3.png">
+    * <img src="doc-files/JavaDocStoriesMikadoPlanStep6.png" alt="JavaDocStoriesMikadoPlanStep6.png">
     */
    @Test
    public void testJavaDocStoriesMikadoPlan()
@@ -38,8 +39,10 @@ public class TestJavaDocStories
               "  insertJavaDocInClass: \"insert javadoc in class\"                main       \n" +
               "  insertStoryInTest:    \"insert Story as TestMethod javadoc\"     insertJavaDocInClass       \n" +
               "  genSeeRefsAsLinks:    \"replace see ../xy.java by see xy\"       insertJavaDocInClass       \n" +
-              "  graphVizObjectDiags:  \"object diagrams as image\"               main       \n" +
+              "  graphVizObjectDiags:  \"object diagrams as image via graphviz\"               main       \n" +
+              "  codeGen4OtherRole:    \"extend Creator for other role\"               main       \n" +
               "  graphVizClazzDiags:   \"class diagrams as image\"                main       \n" +
+              "  graphVizPatternDiags:   \"pattern diagrams as image\"                main       \n" +
               "  chartsAsPng:          \"generate charts as png\"                 main       \n" +
               "  objectTables:         \"have object tables in javadocs\"         main       \n" +
               "  \n" +
@@ -54,18 +57,21 @@ public class TestJavaDocStories
               "  l5:       generateJavaDocText  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
               "  l6:       storyBoardExtension  2018-04-03T20:00:00+01:00      1           0              mikadoLog      \n" +
               "  l7:       graphVizObjectDiags  2018-04-08T17:00:00+01:00      2           0              mikadoLog      \n" +
-              "  l8:       graphVizClazzDiags   2018-04-08T17:10:00+01:00      2           0              mikadoLog      \n" +
+              "  l8:       graphVizClazzDiags   2018-04-08T17:10:00+01:00      2           3              mikadoLog      \n" +
               "  l9:       chartsAsPng          2018-04-08T17:20:00+01:00      2           0              mikadoLog      \n" +
+              "  l10:      objectTables         2018-04-22T01:47:00+01:00      4           0              mikadoLog      \n" +
               "";
 
       YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
       Goal root = (Goal) idMap.decode(mikadoText);
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
-      // story.addAsImage(mikadoLog.burnDownChart(), 910, 650);
+      story.addAsImage(mikadoLog.burnDownChart(), 910, 651);
       Goal done = root.clipDone();
       story.addStep("open goals:");
       story.addObjectDiagramViaGraphViz(root, 901, 451);
+      story.add("object diagrams as image via graphviz: {@link " + Storyboard.class.getSimpleName() + "#addObjectDiagramViaGraphViz"  +  "}");
+      story.add("generate charts as png: {@link " + Storyboard.class.getSimpleName() + "#addAsImage"  +  "}");
       story.addStep("closed goals:");
       story.addObjectDiagramViaGraphViz(done, 950, 600);
       story.dumpHTML();

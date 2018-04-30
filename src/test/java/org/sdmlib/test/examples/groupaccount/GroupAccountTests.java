@@ -64,9 +64,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>PlainYaml</a></p>
+    * <p>Storyboard PlainYaml</p>
     * <p>Start: plain yaml to be decoded to map</p>
-    * <pre>joining: abu
+    * <pre>joining: abu 
     * lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia</pre>
     * <pre>{joining=abu, lastChanges=2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia}</pre>
     * <p>Check: value for joining abu actual abu</p>
@@ -76,46 +76,32 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *   lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia</pre>
     * <pre>{joining=abu, lastChanges=2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia}</pre>
     * <p>Check: value for joining abu actual abu</p>
-    * @see <a href='../../../../../../../../doc/PlainYaml.html'>PlainYaml.html</a>
+    * @see #testGroupAccountMultiUserYaml()
+    * @see #testGroupAccountMultiUserYamlMerging()
  */
    @Test
    public void testPlainYaml()
    {
       Storyboard story = new Storyboard();
-
       story.addStep("plain yaml to be decoded to map");
-
       String yaml = "" +
-              "joining: abu\n" +
+              "joining: abu \n" +
               "lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia";
-
       story.addPreformatted(yaml);
-
       Yamler yamler = new Yamler();
-
       LinkedHashMap<String, String> map = yamler.decode(yaml);
-
       story.addPreformatted(map.toString());
-
       story.assertEquals("value for joining", "abu", map.get("joining"));
-
       story.addStep("Alternatively, use special object type map");
-
       yaml = "" +
               "- m: .Map\n" +
               "  joining: abu\n" +
               "  lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia";
-
       story.addPreformatted(yaml);
-
       idMap = new YamlIdMap("");
-
       map = (LinkedHashMap<String, String>) idMap.decode(yaml);
-
       story.addPreformatted(map.toString());
-
       story.assertEquals("value for joining", "abu", map.get("joining"));
-
       story.dumpHTML();
    }
 
@@ -124,7 +110,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountYamlWithUserEncoding</a></p>
+    * <p>Storyboard GroupAccountYamlWithUserEncoding<</p>
     * <p>Start: start mqtt broker</p>
     * <p><a name = 'step_1'>Step 1: test mqtt broker</a></p>
     * <p>Check: got mqtt message World actual World</p>
@@ -292,115 +278,52 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
        *
-       * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYaml</a></p>
+       * <p>Storyboard GroupAccountMultiUserYaml</p>
     * <p>Start: create a party data structure and store it with YamlIdMap</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P3 : Person",
-    *          "attributes":[
-    *             "name=Nathalie",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       },
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P3 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png">
     * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-20T17:34:28.401.albert
+    *   partyName.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-20T17:34:28.402.albert
+    *   share.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.402.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-20T17:34:28.405.albert
+    *   name.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.405.albert
+    *   saldo.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.405.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.405.albert
+    *   party.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-20T17:34:28.405.albert
+    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-20T17:34:28.405.albert
+    *   name.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.405.albert
+    *   saldo.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.405.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.406.albert
+    *   party.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-20T17:34:28.406.albert
+    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     * </pre>
     * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
@@ -409,212 +332,47 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-20T17:34:28.418.albert
+    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-20T17:34:28.418.albert
+    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png">
     * <p>cloned model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P4 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P5 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P5 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P4 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
     * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
+    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
     * <p>original model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png">
     * <p>cloned model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P4 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P5 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P5 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P4 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
     * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
+    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.441.albert
+    *   saldo.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.441.albert
+    *   total.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.441.albert
+    *   party.time: 	2018-04-22T15:51:39.491.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-20T17:34:28.441.albert
+    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-20T17:34:28.442.albert
+    *   name.time: 	2018-04-22T15:51:39.492.albert
     * </pre>
-    * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
    @Test
    public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
@@ -695,115 +453,52 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     *
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountMultiUserYaml</a></p>
+    * <p>Storyboard GroupAccountMultiUserYaml</p>
     * <p>Start: create a party data structure and store it with YamlIdMap</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P3 : Person",
-    *          "attributes":[
-    *             "name=Nathalie",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       },
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P3 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png">
     * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-20T17:34:28.401.albert
+    *   partyName.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-20T17:34:28.402.albert
+    *   share.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.402.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-20T17:34:28.405.albert
+    *   name.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.405.albert
+    *   saldo.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.405.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.405.albert
+    *   party.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-20T17:34:28.405.albert
+    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-20T17:34:28.405.albert
+    *   name.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.405.albert
+    *   saldo.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.405.albert
+    *   total.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.406.albert
+    *   party.time: 	2018-04-22T15:51:37.821.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-20T17:34:28.406.albert
+    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
     * - albert.p3: 	Person
     * </pre>
     * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
@@ -812,210 +507,46 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-20T17:34:28.418.albert
+    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-20T17:34:28.418.albert
+    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png">
     * <p>cloned model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P4 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P5 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P5 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P4 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml14", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
     * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
+    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
     * <p>original model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P1 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P2 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P2 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P1 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png">
     * <p>cloned model</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"P4 : Party",
-    *          "attributes":[
-    *             "partyName=Lectures Done",
-    *             "share=0.0",
-    *             "total=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"P5 : Person",
-    *          "attributes":[
-    *             "name=Albert",
-    *             "saldo=0.0",
-    *             "total=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"assoc",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"guests",
-    *             "id":"P5 : Person"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"party",
-    *             "id":"P4 : Party"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasGroupAccountMultiUserYaml22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
     * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-20T17:34:28.428.albert
+    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:28.441.albert
+    *   saldo.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-20T17:34:28.441.albert
+    *   total.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-20T17:34:28.441.albert
+    *   party.time: 	2018-04-22T15:51:39.491.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-20T17:34:28.441.albert
+    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-20T17:34:28.442.albert
+    *   name.time: 	2018-04-22T15:51:39.492.albert
     * </pre>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
@@ -1030,7 +561,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       Person albert = victoryParty.createGuests().withName("Albert");
       Person nata = victoryParty.createGuests().withName("Nathalie");
 
-      story.addObjectDiagram(victoryParty);
+      story.addObjectDiagramViaGraphViz(victoryParty);
 
 
       story.addStep("add component listener and log changes in yaml format");
@@ -1077,10 +608,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNotNull("match", match);
 
       story.add("original model");
-      story.addObjectDiagram(victoryParty);
+      story.addObjectDiagramViaGraphViz(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagram(copyParty);
+      story.addObjectDiagramViaGraphViz(copyParty);
 
 
       //----------------------------------------------------------------------------
@@ -1105,10 +636,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNull("orig idmap has removed nata", p3);
 
       story.add("original model");
-      story.addObjectDiagram(victoryParty);
+      story.addObjectDiagramViaGraphViz(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagram(copyParty);
+      story.addObjectDiagramViaGraphViz(copyParty);
 
       //----------------------------------------------------------------------------
       story.addStep("add objects after removal");

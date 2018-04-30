@@ -21,369 +21,18 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java' type='text/x-java'>StudyRightTablesAndReports</a></p>
+<p>Storyboard StudyRightTablesAndReports</p>
 <p>How to generate table reports from a model.</p>
 <p>Start: Example object structure:</p>
-<script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"A10 : Assignment",
-         "attributes":[
-            "content=Integrals",
-            "points=8"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A8 : Assignment",
-         "attributes":[
-            "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"A9 : Assignment",
-         "attributes":[
-            "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R5 : Room",
-         "attributes":[
-            "credits=17",
-            "name=senate",
-            "topic=math"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R6 : Room",
-         "attributes":[
-            "credits=16",
-            "name=7522",
-            "topic=arts"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R7 : Room",
-         "attributes":[
-            "credits=25",
-            "name=gymnasium",
-            "topic=sports"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S2 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=1337",
-            "motivation=0",
-            "name=Abu"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"S4 : Student",
-         "attributes":[
-            "assignmentPoints=0",
-            "credits=0",
-            "id=2323",
-            "motivation=0",
-            "name=Alice"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T3 : TeachingAssistant",
-         "attributes":[
-            "assignmentPoints=0",
-            "certified=true",
-            "credits=0",
-            "id=4242",
-            "motivation=0",
-            "name=Karli",
-            "room=null"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"U1 : University",
-         "attributes":[
-            "name=StudyRight",
-            "president=null"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A8 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A9 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A10 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A8 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A8 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A9 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R5 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S2 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"T3 : TeachingAssistant"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S4 : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"U1 : University"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightTablesAndReports3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+<img src="doc-files/StudyRightTablesAndReportsStep2.png" alt="StudyRightTablesAndReportsStep2.png">
 <p><a name = 'step_1'>Step 1: Query for table</a></p>
-<pre>          *       {
-    *          &quot;type&quot;:&quot;assoc&quot;,
-    *          &quot;source&quot;:{
-    *             &quot;cardinality&quot;:&quot;many&quot;,
-    *             &quot;property&quot;:&quot;assignments&quot;,
-    *             &quot;id&quot;:&quot;A3 : Assignment&quot;
-    *          },
+<pre>      
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
 </pre>
 <script>
    var json = {
@@ -556,17 +205,17 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>          *             &quot;property&quot;:&quot;students&quot;,
-    *             &quot;id&quot;:&quot;karli : Student&quot;
-    *          }
-    *       },
-    *       {
-    *          &quot;type&quot;:&quot;assoc&quot;,
-    *          &quot;source&quot;:{
-    *             &quot;cardinality&quot;:&quot;many&quot;,
-    *             &quot;property&quot;:&quot;done&quot;,
-    *             &quot;id&quot;:&quot;A3 : Assignment&quot;
-    *          },
+<pre>      
+         table.createColumns(&quot;Topic&quot;, row -&gt; {
+            Room r = row.getCellValue(&quot;B&quot;);
+            return r.getTopic();
+         });
+         table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
+            .withTdCssClass(&quot;text-right&quot;);
+         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+            .withTdCssClass(&quot;text-right&quot;);
+         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+
 </pre>
 <table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
@@ -712,40 +361,40 @@
    g.layout(100,100);
 </script>
 <p><a name = 'step_2'>Step 2: List all topics:</a></p>
-<pre>          *             &quot;id&quot;:&quot;mathRoom : Room&quot;
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json[&quot;options&quot;]={&quot;canvasid&quot;:&quot;canvasStudyRightWithAssignmentsStoryboard12&quot;, &quot;display&quot;:&quot;svg&quot;, &quot;fontsize&quot;:10,&quot;bar&quot;:true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * &lt;&#x2F;script&gt;
-    * &lt;p&gt;5. Since 19 points are more than the 17 points required 
-    * for the 17 math credits, Karli hands the points in and earns the credits 
-    * and has his assignmnet points reset to 0. &lt;br&gt;
-    * (General rule: if the points earned by the assignments are higher or equal than 
-    * the credit points, the credit points will be awarded to the student.)&lt;&#x2F;p&gt;
-    * &lt;pre&gt;               + &amp;quot;for the 17 math credits, Karli hands the points in and earns the credits \n&amp;quot;
-    *          + &amp;quot;and has his assignmnet points reset to 0. &amp;lt;br&amp;gt;\n&amp;quot;
-    *          + &amp;quot;(General rule: if the points earned by the assignments are higher or equal than \n&amp;quot;
-    *          + &amp;quot;the credit points, the credit points will be awarded to the student.)&amp;quot;);
-    * 
-    * &lt;&#x2F;pre&gt;
-    * &lt;script&gt;
-    *    var json = {
-    *    &quot;type&quot;:&quot;objectdiagram&quot;,
-    *    &quot;nodes&quot;:[
-    *       {
-    *          &quot;type&quot;:&quot;clazz&quot;,
-    *          &quot;id&quot;:&quot;A1 : Assignment&quot;,
-    *          &quot;head&quot;:{&quot;src&quot;:&quot;{\&quot;src\&quot;:\&quot;icons&#x2F;matrix.png\&quot;}&quot;},
-    *          &quot;attributes&quot;:[
-    *             &quot;content=Matrix Multiplication&quot;,
-    *             &quot;points=5&quot;
-    *          ]
-    *       },
-    *       {
-    *          &quot;type&quot;:&quot;clazz&quot;,
+<pre>      
+         UniversityPO universityPO = new UniversityPO(university);
+
+         TablePO tablePO = new TablePO(CREATE);
+
+         universityPO.addToPattern(tablePO);
+
+         tablePO.createNameAssignment(&quot;University&quot;);
+
+         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
+
+         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment(&quot;Credits&quot;)
+            .createTdCssClassAssignment(&quot;text-right&quot;);
+
+         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment(&quot;Students&quot;)
+            .createTdCssClassAssignment(&quot;text-right&quot;);
+
+         RoomPO roomsPO = universityPO.createRoomsPO();
+
+         RowPO rowPO = tablePO.createRowsPO(CREATE);
+
+         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
+         cell1PO.createCondition(cell -&gt; cell.withValue(roomsPO.getTopic()) != null);
+
+         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
+         cell2PO.createCondition(cell -&gt; cell.withValue(roomsPO.getCredits()) != null);
+
+         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
+         cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
+         
+         universityPO.doAllMatches();
+
 </pre>
 <p>Results in:</p>
 <table style="width: auto;" class="table table-bordered table-condensed">
@@ -776,461 +425,21 @@
 </tbody>
 
 </table>
-<script>
-   var json = {
-   "type":"objectdiagram",
-   "nodes":[
-      {
-         "type":"clazz",
-         "id":"C12 : Column",
-         "attributes":[
-            "name=Topic",
-            "tdCssClass=null",
-            "thCssClass=text-center"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C13 : Column",
-         "attributes":[
-            "name=Credits",
-            "tdCssClass=text-right",
-            "thCssClass=text-center"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C14 : Column",
-         "attributes":[
-            "name=Students",
-            "tdCssClass=text-right",
-            "thCssClass=text-center"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C18 : Cell",
-         "attributes":[
-            "value=math"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C19 : Cell",
-         "attributes":[
-            "value=arts"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C20 : Cell",
-         "attributes":[
-            "value=sports"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C21 : Cell",
-         "attributes":[
-            "value=17"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C22 : Cell",
-         "attributes":[
-            "value=16"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C23 : Cell",
-         "attributes":[
-            "value=25"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C24 : Cell",
-         "attributes":[
-            "value=1"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C25 : Cell",
-         "attributes":[
-            "value=0"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"C26 : Cell",
-         "attributes":[
-            "value=2"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R15 : Row",
-         "attributes":[
-            "number=1"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R16 : Row",
-         "attributes":[
-            "number=2"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"R17 : Row",
-         "attributes":[
-            "number=3"
-         ]
-      },
-      {
-         "type":"clazz",
-         "id":"T11 : Table",
-         "attributes":[
-            "name=University"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C18 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C12 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C19 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C12 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C20 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C12 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C21 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C13 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C22 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C13 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C23 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C13 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C24 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C14 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C25 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C14 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C26 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"column",
-            "id":"C14 : Column"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C18 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R15 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C21 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R15 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C24 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R15 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C19 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R16 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C22 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R16 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C25 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R16 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C20 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R17 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C23 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R17 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"cells",
-            "id":"C26 : Cell"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"row",
-            "id":"R17 : Row"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C12 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C13 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"columns",
-            "id":"C14 : Column"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R15 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R16 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      },
-      {
-         "type":"assoc",
-         "source":{
-            "cardinality":"many",
-            "property":"rows",
-            "id":"R17 : Row"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"table",
-            "id":"T11 : Table"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRightTablesAndReports17", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+<img src="doc-files/StudyRightTablesAndReportsStep16.png" alt="StudyRightTablesAndReportsStep16.png">
 <p><a name = 'step_3'>Step 3: Do a nested table</a></p>
-<pre>          *             &quot;content=Integrals&quot;,
-    *             &quot;points=8&quot;
-    *          ]
-    *       },
-    *       {
-    *          &quot;type&quot;:&quot;clazz&quot;,
-    *          &quot;id&quot;:&quot;karli : Student&quot;,
-    *          &quot;head&quot;:{&quot;src&quot;:&quot;{\&quot;src\&quot;:\&quot;icons&#x2F;karli.png\&quot;}&quot;},
-    *          &quot;attributes&quot;:[
-    *             &quot;assignmentPoints=0&quot;,
-    *             &quot;credits=17&quot;,
-    *             &quot;id=4242&quot;,
-    *             &quot;motivation=0&quot;,
+<pre>      
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
+         table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
+         table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+            .withTdCssClass(&quot;text-right&quot;);
+         table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+
 </pre>
 <table style="width: auto;" class="table table-bordered table-condensed">
 <thead>

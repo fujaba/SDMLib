@@ -99,6 +99,11 @@ public class Storyboard {
 	}
 
 
+	/**
+	 * Adds an object diagram to the storyboard, containing all objects reachable from the objects passed as parameters
+	 *
+	 * @param elems the elements, that the diagram will only consist of
+	 */
 	public void addObjectDiagramViaGraphViz(Object... elems)
 	{
 		storyboard.addObjectDiagramViaGraphViz(elems);
@@ -107,6 +112,17 @@ public class Storyboard {
 	public void addObjectDiagramAsImage(Object... elems)
 	{
 		storyboard.addObjectDiagramAsImage(elems);
+	}
+
+
+
+	/**
+	 * Adds an object diagram to the storyboard, that only consists of the given objects.
+	 *
+	 * @param elems the elements, that the diagram will only consist of
+	 */
+	public void addObjectDiagramOnlyWithViaGraphViz(Object... elems) {
+		storyboard.addObjectDiagramWithViaGraphViz(elems);
 	}
 
 
@@ -332,6 +348,18 @@ public class Storyboard {
       return storyboard.getStoryboardSteps().size();
    }
 
+	/**
+	 * Parameter htmlText might be a javascript creating a diagram.<br>
+	 * <br>
+	 * We put this into an empty html page,<br>
+	 * open that page in a browser, and<br>
+	 * do a screen dump.<br>
+	 * <br>
+	 * This screen dump than works within e.g. a javadoc, too.<br>
+	 *
+	 * @param htmlText
+	 * @param dimensions
+	 */
 	public void addAsImage(String htmlText, int... dimensions)
 	{
 		storyboard.addAsImage(htmlText, true, dimensions);
