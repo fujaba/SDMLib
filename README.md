@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:2.3.+'
+    compile 'org.sdmlib:SDMLib:2.+'
     // compile 'org.sdmlib:SDMLib:2.3.204'  // did work when 2.3.+ failed
      
 }
@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sdmlib:SDMLib:2.3.+'
+    compile 'org.sdmlib:SDMLib:2.+'
 }
 ~~~
 

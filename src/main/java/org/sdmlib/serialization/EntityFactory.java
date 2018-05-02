@@ -14,6 +14,34 @@ public class EntityFactory implements SendableEntityCreator
    {
 
    }
+   
+   protected String[] assocs = null;
+   
+   public String getOtherRole(String myRole)
+   {
+      if (assocs == null)
+      {
+         return null;
+      }
+      
+      for (String a : assocs)
+      {
+         if (a.startsWith(myRole))
+         {
+            String[] split = a.split(" ");
+            
+            if (split.length >= 2)
+            {
+               return split[1];
+            }
+            else
+            {
+               return null;
+            }
+         }
+      }
+      return null;
+   }
 
    public Object call(Object entity, String method, Object... args)
    {
