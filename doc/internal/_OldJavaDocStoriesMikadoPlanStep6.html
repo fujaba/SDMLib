@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<!-- 950, 600 -->
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"G10 : Goal",
+         "attributes":[
+            "description=generate charts as png",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G11 : Goal",
+         "attributes":[
+            "description=have object tables in javadocs",
+            "hoursDone=4.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G12 : Goal",
+         "attributes":[
+            "description=insert Story as TestMethod javadoc",
+            "hoursDone=2.5",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G13 : Goal",
+         "attributes":[
+            "description=replace see ../xy.java by see xy",
+            "hoursDone=2.5",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G5 : Goal",
+         "attributes":[
+            "description=done",
+            "hoursDone=0.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G6 : Goal",
+         "attributes":[
+            "description=add gen javadoc methods to storyBoard",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G7 : Goal",
+         "attributes":[
+            "description=generate javadoc text",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G8 : Goal",
+         "attributes":[
+            "description=insert javadoc in class",
+            "hoursDone=1.0",
+            "hoursTodo=0.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G9 : Goal",
+         "attributes":[
+            "description=object diagrams as image via graphviz",
+            "hoursDone=2.0",
+            "hoursTodo=0.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G6 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G7 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G8 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G9 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G10 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G11 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G5 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G12 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G8 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G13 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G8 : Goal"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasOldJavaDocStoriesMikadoPlan7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

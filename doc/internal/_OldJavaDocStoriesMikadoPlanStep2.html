@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<!-- 901, 451 -->
+<script>
+   var json = {
+   "type":"objectdiagram",
+   "nodes":[
+      {
+         "type":"clazz",
+         "id":"G1 : Goal",
+         "attributes":[
+            "description=JavaDoc Stories",
+            "hoursDone=0.0",
+            "hoursTodo=4.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G2 : Goal",
+         "attributes":[
+            "description=extend Creator for other role",
+            "hoursDone=0.0",
+            "hoursTodo=4.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G3 : Goal",
+         "attributes":[
+            "description=class diagrams as image",
+            "hoursDone=2.0",
+            "hoursTodo=3.0"
+         ]
+      },
+      {
+         "type":"clazz",
+         "id":"G4 : Goal",
+         "attributes":[
+            "description=pattern diagrams as image",
+            "hoursDone=0.0",
+            "hoursTodo=4.0"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G2 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G1 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G3 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G1 : Goal"
+         }
+      },
+      {
+         "type":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"preGoals",
+            "id":"G4 : Goal"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"goal",
+            "id":"G1 : Goal"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasOldJavaDocStoriesMikadoPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

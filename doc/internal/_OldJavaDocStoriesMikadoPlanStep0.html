@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+<script src="includes/Chart.bundle.js"></script>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
+<!-- 910, 651 -->
+<canvas id="myChart" width="880" height="550"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [
+            {
+                label: "Burn Down",
+                data: [
+                    {x: "2018-04-03T12:15:00+01:00", y: 33.0},
+{x: "2018-04-03T15:00:00+01:00", y: 30.5},
+{x: "2018-04-03T20:00:00+01:00", y: 28.0},
+{x: "2018-04-03T20:00:00+01:00", y: 27.0},
+{x: "2018-04-03T20:00:00+01:00", y: 26.0},
+{x: "2018-04-03T20:00:00+01:00", y: 25.0},
+{x: "2018-04-08T17:00:00+01:00", y: 23.0},
+{x: "2018-04-08T17:10:00+01:00", y: 21.0},
+{x: "2018-04-08T17:20:00+01:00", y: 19.0},
+{x: "2018-04-22T01:47:00+01:00", y: 15.0},
+                ]
+            }
+        ]
+    },
+    options: {
+        animation: false,
+        responsive: false,
+         animation: {
+            onComplete: function(animation) {
+                    java.screendump("42");
+                    java.close();
+                }
+         },
+        scales: {
+            xAxes: [{
+                type: "time",
+                time: {
+                    displayFormats: {
+                       'millisecond': 'DD MMM hh:mm',
+                       'second': 'DD MMM hh:mm',
+                       'minute': 'DD MMM hh:mm',
+                       'hour': 'DD MMM hh:mm',
+                       'day': 'DD MMM',
+                       'week': 'DD MMM',
+                       'month': 'MMM YYYY',
+                       'quarter': 'MMM YYYY',
+                       'year': 'YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                },
+                ticks: {
+                    major: {
+                        fontStyle: "bold",
+                        fontColor: "#FF0000"
+                    }
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'hours'
+                },
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }});
+</script>
+
+</body>
+</html>
