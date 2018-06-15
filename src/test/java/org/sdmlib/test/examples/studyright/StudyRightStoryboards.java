@@ -1395,6 +1395,7 @@ public class StudyRightStoryboards
       storyboard.add("Test flipbook, with some undo redo steps: ");
 
       storyboard.markCodeStart();
+      long cs = flipBook.currentStep;
       flipBook.back(34);
       storyboard.addObjectDiagram(uni);
       storyboard.dumpHTML();

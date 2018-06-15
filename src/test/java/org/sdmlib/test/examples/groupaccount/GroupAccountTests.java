@@ -83,7 +83,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    public void testPlainYaml()
    {
       Storyboard story = new Storyboard();
-      story.addStep("plain yaml to be decoded to map");
+      story.addStep("plain yaml to be decoded to map ");
       String yaml = "" +
               "joining: abu \n" +
               "lastChanges: 2018-03-17T14:48:00.000.abu 2018-03-17T14:38:00.000.bob 2018-03-17T14:18:00.000.xia";
