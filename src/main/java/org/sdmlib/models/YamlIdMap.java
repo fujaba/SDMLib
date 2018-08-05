@@ -355,17 +355,17 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
+    * <p><a name = 'step_1_1'>Step 1: Call YamlIdMap.decode:</a></p>
     * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     *       
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
+    * <p><a name = 'step_2_1'>Step 2: Decoded object structure:</a></p>
     * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png">
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
     * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@56e8b606</p>
     * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <p><a name = 'step_3_1'>Step 3: Generate Yaml from model:</a></p>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
@@ -429,9 +429,9 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
+    * <p><a name = 'step_4_1'>Step 4: decoded again:</a></p>
     * <img src="doc-files/YamlStep13.png" alt="YamlStep13.png">
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
+    * <p><a name = 'step_5_1'>Step 5: now read from excel file</a></p>
     * <pre>          *       {
     *     *          &quot;type&quot;:&quot;clazz&quot;,
     *     *          &quot;id&quot;:&quot;artsRoom : Room&quot;,
@@ -466,6 +466,7 @@ import org.sdmlib.CGUtil;
     * </pre>
     * <p>result:</p>
     * <img src="doc-files/YamlStep19.png" alt="YamlStep19.png">
+    * @param packageNames Name of Package
     */
    public YamlIdMap(String... packageNames)
    {
