@@ -16,6 +16,7 @@ import de.uniks.networkparser.HistoryIdMap.AttrTimeStampMap;
 import de.uniks.networkparser.HistoryIdMap.RefTime;
 import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
 import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
+import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;
@@ -218,11 +219,13 @@ public class HistoryScenarios
       // read all changes into single json array
       JsonArray result = new JsonArray();
       result.clear();
+      CharacterBuffer buffer = CharacterBuffer.create(inBuf.toString());
       JsonTokener tokener = new JsonTokener();
-      tokener.withBuffer(inBuf.toString());
-      while (!tokener.isEnd())
+//      new Charnew JsonTokener().parseToEntity(this, values);
+
+      while (!buffer.isEnd())
       {
-         tokener.parseToEntity(result);
+         tokener.parseToEntity(result, buffer);
       }
       
       JsonArray revBuf = new JsonArray();

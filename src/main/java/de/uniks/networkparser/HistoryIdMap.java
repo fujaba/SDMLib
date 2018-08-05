@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import org.sdmlib.replication.ChangeEvent;
 
+import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
@@ -37,10 +38,10 @@ public class HistoryIdMap extends IdMap
       JsonArray result = new JsonArray();
       result.clear();
       JsonTokener tokener = new JsonTokener();
-      tokener.withBuffer(value);
-      while (!tokener.isEnd())
+      CharacterBuffer buffer = CharacterBuffer.create(value);
+      while (!buffer.isEnd())
       {
-         tokener.parseToEntity(result);
+         tokener.parseToEntity(result, buffer);
       }
 
       // apply changes if valid

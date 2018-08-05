@@ -23,6 +23,7 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.util.AssociationSet;
+import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
@@ -69,7 +70,7 @@ public class Javascript implements GuiAdapter
 
       // new diagram
       GraphConverter graphConverter = new GraphConverter();
-      JsonObject objectModel = graphConverter.convertToJson(GraphTokener.OBJECT, jsonArray, true);
+      Entity objectModel = graphConverter.convertToJson(GraphTokener.OBJECT, jsonArray, true);
 
       String text =
             "<script>\n" +
