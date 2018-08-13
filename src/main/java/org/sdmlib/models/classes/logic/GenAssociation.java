@@ -604,6 +604,7 @@ public class GenAssociation extends Generator<Association>
          if (!GraphUtil.isInterface(clazz))
          {
         	 if(GraphUtil.isInterface(partnerRole.getClazz()) == false) {
+        		 if(GraphUtil.isEnumeration(partnerRole.getClazz()) == false) {
 	            text.append(     "\n   public partnerClassName createPartnerRoleName()" +
 	                  "\n   {" +
 	                  "\n      partnerClassName value = new realPartnerClassName();" +
@@ -611,6 +612,7 @@ public class GenAssociation extends Generator<Association>
 	                  "\n      return value;" +
 	                  "\n   } " +
 	                  "\n");
+        		 }
         	 }
          }
          else
@@ -1082,6 +1084,9 @@ public class GenAssociation extends Generator<Association>
    private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
+	   if (GraphUtil.isEnumeration(partnerRole.getClazz())) {
+		   return;
+	   }
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO()";
       int pos = parser.indexOf(key);
 
@@ -1139,6 +1144,10 @@ public class GenAssociation extends Generator<Association>
    private void insertCreateModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
+	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+		   return;
+	   }
+
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO(String)";
       int pos = parser.indexOf(key);
 
@@ -1196,6 +1205,9 @@ public class GenAssociation extends Generator<Association>
    private void insertFilterWithParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
+	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+		   return;
+	   }
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
@@ -1238,6 +1250,10 @@ public class GenAssociation extends Generator<Association>
    private void insertFilterWithPOAndModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
+	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+		   return;
+	   }
+
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
