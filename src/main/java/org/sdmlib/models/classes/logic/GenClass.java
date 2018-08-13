@@ -51,7 +51,6 @@ public class GenClass extends GenClazzEntity
 
    private Parser patternObjectCreatorParser = null;
  
-
    public void generate(String rootDir, String helpersDir)
    {
       // first generate the class itself
