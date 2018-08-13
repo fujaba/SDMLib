@@ -386,7 +386,7 @@ public class StudyRightStoryboards
 
 
    /**
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
+    * <p>Storyboard Flipbook</p>
     * <p>Adding flipbook to protocol changes.</p>
     * <p>Start situation: use University class to build object structure</p>
     * <pre>            SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap(&quot;ajz&quot;);
@@ -1153,18 +1153,19 @@ public class StudyRightStoryboards
     *    json["options"]={"canvasid":"canvasFlipbook12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
     *    g.layout(100,100);
     * </script>
-    * <pre>          *          &quot;id&quot;:&quot;S8 : Student&quot;,
-    *     *          &quot;attributes&quot;:[
-    *     *             &quot;credits=0&quot;,
-    *     *             &quot;in=null&quot;,
-    *     *             &quot;matrNo=2323&quot;,
-    *     *             &quot;motivation=0&quot;,
-    *     *             &quot;name=Nina&quot;
-    *     *          ]
+    * <pre>          *          &quot;source&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R4 : Room&quot;
+    *     *          },
+    *     *          &quot;target&quot;:{
+    *     *             &quot;cardinality&quot;:&quot;many&quot;,
+    *     *             &quot;property&quot;:&quot;neighbors&quot;,
+    *     *             &quot;id&quot;:&quot;R2 : Room&quot;
+    *     *          }
     *     *       },
     *     *       {
-    *     *          &quot;type&quot;:&quot;clazz&quot;,
-    *     *          &quot;id&quot;:&quot;U1 : University&quot;,
+    *     *          &quot;type&quot;:&quot;assoc&quot;,
     * </pre>
     * <script>
     *    var json = {
