@@ -357,8 +357,8 @@ public class Storyboard {
 	 * <br>
 	 * This screen dump than works within e.g. a javadoc, too.<br>
 	 *
-	 * @param htmlText
-	 * @param dimensions
+	 * @param htmlText The HTMLText
+	 * @param dimensions Dimension for width and height
 	 */
 	public void addAsImage(String htmlText, int... dimensions)
 	{

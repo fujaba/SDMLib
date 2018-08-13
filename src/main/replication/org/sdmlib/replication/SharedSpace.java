@@ -548,7 +548,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       JsonTokener tokener = new JsonTokener();
       String changeTxt = change.getChangeMsg();
 //      tokener.withBuffer(changeTxt);
-      tokener.parseToEntity(jsonUpdate);
+//      tokener.parseToEntity(jsonUpdate);
       
 
       
