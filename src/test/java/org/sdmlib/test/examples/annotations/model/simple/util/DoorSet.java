@@ -153,7 +153,7 @@ public class DoorSet extends SimpleSet<Door>
    /**
     * Loop through current set of ModelType objects and attach the Door object passed as parameter to the House attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
     */
    public DoorSet withHouse(House value)
    {

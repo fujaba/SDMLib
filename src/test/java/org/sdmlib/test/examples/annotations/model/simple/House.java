@@ -26,11 +26,8 @@ import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
-   /**
-    * 
-    * @see org.sdmlib.test.examples.annotations.AnnotationTest#testFeaturesNone
- */
-   public  class House extends Cube
+
+public  class House extends Cube
 {
 
    

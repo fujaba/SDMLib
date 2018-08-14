@@ -110,7 +110,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     * 
-    * <p>Storyboard GroupAccountYamlWithUserEncoding<</p>
+    * <p>Storyboard GroupAccountYamlWithUserEncoding</p>
     * <p>Start: start mqtt broker</p>
     * <p><a name = 'step_1'>Step 1: test mqtt broker</a></p>
     * <p>Check: got mqtt message World actual World</p>
@@ -121,29 +121,29 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p>Got message:</p>
     * <pre>msg: hello
     * user: abu
-    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * lastTimeStamps: 2018-08-13T16:15:06.054.abu 
     * </pre>
     * <p>Check: its a lobby message:  hello actual hello</p>
     * <p>Got message:</p>
     * <pre>msg: hello
     * user: xia
-    * lastTimeStamps: 2018-04-20T17:34:08.815.xia 
+    * lastTimeStamps: 2018-08-13T16:15:06.407.xia 
     * </pre>
     * <p>Check: its a lobby message from:  xia actual xia</p>
     * <p>Got message:</p>
     * <pre>msg: welcome
     * newUser: xia
     * oldUser: abu
-    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * lastTimeStamps: 2018-08-13T16:15:06.054.abu 
     * </pre>
     * <p>Check: its a lobby message:  welcome actual welcome</p>
     * <pre>- xia.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:09.047.xia
+    *   saldo.time: 	2018-08-13T16:15:06.685.xia
     * </pre>
     * <pre>- p1: 	Party
     *   guests: 	xia.p3
-    *   guests.xia.p3.time: 	2018-04-20T17:34:09.057.xia
+    *   guests.xia.p3.time: 	2018-08-13T16:15:06.740.xia
     * - xia.p3: 	PersonSet
     * </pre>
     */
@@ -284,46 +284,46 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-22T15:51:37.821.albert
+    *   partyName.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-22T15:51:37.821.albert
+    *   share.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.101.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.103.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.105.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p2.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.116.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p3.time: 	2018-08-13T16:15:24.116.albert
     * - albert.p3: 	Person
     * </pre>
     * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
@@ -332,10 +332,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
+    *   party.remove.time: 	2018-08-13T16:15:24.130.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
+    *   guests.remove.albert.p3.time: 	2018-08-13T16:15:24.130.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
@@ -344,7 +344,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
     * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
@@ -354,24 +354,24 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
     * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:39.491.albert
+    *   saldo.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:39.491.albert
+    *   total.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:39.491.albert
+    *   party.time: 	2018-08-13T16:15:24.926.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
+    *   guests.albert.p4.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-22T15:51:39.492.albert
+    *   name.time: 	2018-08-13T16:15:24.926.albert
     * </pre>
     */
    @Test
@@ -459,46 +459,46 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-22T15:51:37.821.albert
+    *   partyName.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-22T15:51:37.821.albert
+    *   share.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.101.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.103.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.105.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p2.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.116.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p3.time: 	2018-08-13T16:15:24.116.albert
     * - albert.p3: 	Person
     * </pre>
     * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
@@ -507,10 +507,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
+    *   party.remove.time: 	2018-08-13T16:15:24.130.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
+    *   guests.remove.albert.p3.time: 	2018-08-13T16:15:24.130.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
@@ -519,7 +519,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
     * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
@@ -529,24 +529,24 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
     * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:39.491.albert
+    *   saldo.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:39.491.albert
+    *   total.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:39.491.albert
+    *   party.time: 	2018-08-13T16:15:24.926.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
+    *   guests.albert.p4.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-22T15:51:39.492.albert
+    *   name.time: 	2018-08-13T16:15:24.926.albert
     * </pre>
     * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
@@ -661,7 +661,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     * 
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
+    * <p>Storyboard MultiUserGroupAccountProjectPlan</p>
     * <p>Start: Project plan: </p>
     * <canvas id="myChart" width="880" height="550"></canvas>
     * <script>
@@ -749,7 +749,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    "type":"objectdiagram",
     *    "nodes":[
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G1 : Goal",
     *          "attributes":[
     *             "description=Multi User Group Account",
@@ -758,7 +758,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G2 : Goal",
     *          "attributes":[
     *             "description=Gui Integration",
@@ -767,7 +767,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G3 : Goal",
     *          "attributes":[
     *             "description=YamlReplication",
@@ -776,7 +776,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G4 : Goal",
     *          "attributes":[
     *             "description=session protocols",
@@ -785,7 +785,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G5 : Goal",
     *          "attributes":[
     *             "description=refactor yaml file map",
@@ -798,65 +798,65 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G2 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G1 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G3 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G1 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G4 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G1 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G5 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G1 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G3 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G2 : Goal"
     *          }
     *       }
@@ -871,7 +871,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *    "type":"objectdiagram",
     *    "nodes":[
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G10 : Goal",
     *          "attributes":[
     *             "description=Persistence",
@@ -880,7 +880,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G11 : Goal",
     *          "attributes":[
     *             "description=Isomorphism Check",
@@ -889,7 +889,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G12 : Goal",
     *          "attributes":[
     *             "description=plain yaml",
@@ -898,7 +898,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G13 : Goal",
     *          "attributes":[
     *             "description=Write",
@@ -907,7 +907,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G14 : Goal",
     *          "attributes":[
     *             "description=Read",
@@ -916,7 +916,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G15 : Goal",
     *          "attributes":[
     *             "description=Remove Link",
@@ -925,7 +925,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G16 : Goal",
     *          "attributes":[
     *             "description=Remove Object",
@@ -934,7 +934,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G17 : Goal",
     *          "attributes":[
     *             "description=session ids",
@@ -943,7 +943,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G18 : Goal",
     *          "attributes":[
     *             "description=merge conflicts",
@@ -952,7 +952,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G19 : Goal",
     *          "attributes":[
     *             "description=timeStamps",
@@ -961,7 +961,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G20 : Goal",
     *          "attributes":[
     *             "description=yaml reader",
@@ -970,7 +970,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G6 : Goal",
     *          "attributes":[
     *             "description=done",
@@ -979,7 +979,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G7 : Goal",
     *          "attributes":[
     *             "description=Simple party objects",
@@ -988,7 +988,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G8 : Goal",
     *          "attributes":[
     *             "description=Component Listener",
@@ -997,7 +997,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *          ]
     *       },
     *       {
-    *          "type":"clazz",
+    *          "type":"class",
     *          "id":"G9 : Goal",
     *          "attributes":[
     *             "description=Yaml Deltas",
@@ -1010,182 +1010,182 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G7 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G8 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G9 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G10 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G11 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G12 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G6 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G13 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G14 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G15 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G16 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G17 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G18 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G19 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G9 : Goal"
     *          }
     *       },
     *       {
     *          "type":"edge",
     *          "source":{
-    *             "cardinality":"many",
     *             "property":"preGoals",
+    *             "cardinality":"many",
     *             "id":"G20 : Goal"
     *          },
     *          "target":{
-    *             "cardinality":"one",
     *             "property":"goal",
+    *             "cardinality":"one",
     *             "id":"G12 : Goal"
     *          }
     *       }

@@ -25,11 +25,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-   /**
-    * 
-    * @see org.sdmlib.test.examples.annotations.AnnotationTest#testFeaturesNone
- */
-   public  class Door implements SendableEntity
+
+public  class Door implements SendableEntity
 {
 
    

@@ -6,7 +6,6 @@ import org.sdmlib.models.Yamler;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -143,7 +142,7 @@ public class TestJavaDocStories
 
 
    /**
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java' type='text/x-java'>GenJavaDocStory</a></p>
+    * <p>Storyboard GenJavaDocStory</p>
     * <p>Yamler reads simple key value pairs in YAML syntax.</p>
     * <p>Example:</p>
     * <pre>            String yaml = &quot;&quot; +

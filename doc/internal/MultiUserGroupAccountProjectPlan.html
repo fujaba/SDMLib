@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
+<p>Storyboard MultiUserGroupAccountProjectPlan</p>
 <p>Start: Project plan: </p>
 <canvas id="myChart" width="880" height="550"></canvas>
 <script>
@@ -109,7 +109,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "type":"objectdiagram",
    "nodes":[
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G1 : Goal",
          "attributes":[
             "description=Multi User Group Account",
@@ -118,7 +118,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G2 : Goal",
          "attributes":[
             "description=Gui Integration",
@@ -127,7 +127,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G3 : Goal",
          "attributes":[
             "description=YamlReplication",
@@ -136,7 +136,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G4 : Goal",
          "attributes":[
             "description=session protocols",
@@ -145,7 +145,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G5 : Goal",
          "attributes":[
             "description=refactor yaml file map",
@@ -158,65 +158,65 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G2 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G3 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G4 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G5 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G3 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G2 : Goal"
          }
       }
@@ -231,7 +231,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
    "type":"objectdiagram",
    "nodes":[
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G10 : Goal",
          "attributes":[
             "description=Persistence",
@@ -240,7 +240,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G11 : Goal",
          "attributes":[
             "description=Isomorphism Check",
@@ -249,7 +249,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G12 : Goal",
          "attributes":[
             "description=plain yaml",
@@ -258,7 +258,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G13 : Goal",
          "attributes":[
             "description=Write",
@@ -267,7 +267,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G14 : Goal",
          "attributes":[
             "description=Read",
@@ -276,7 +276,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G15 : Goal",
          "attributes":[
             "description=Remove Link",
@@ -285,7 +285,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G16 : Goal",
          "attributes":[
             "description=Remove Object",
@@ -294,7 +294,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G17 : Goal",
          "attributes":[
             "description=session ids",
@@ -303,7 +303,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G18 : Goal",
          "attributes":[
             "description=merge conflicts",
@@ -312,7 +312,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G19 : Goal",
          "attributes":[
             "description=timeStamps",
@@ -321,7 +321,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G20 : Goal",
          "attributes":[
             "description=yaml reader",
@@ -330,7 +330,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G6 : Goal",
          "attributes":[
             "description=done",
@@ -339,7 +339,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G7 : Goal",
          "attributes":[
             "description=Simple party objects",
@@ -348,7 +348,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G8 : Goal",
          "attributes":[
             "description=Component Listener",
@@ -357,7 +357,7 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G9 : Goal",
          "attributes":[
             "description=Yaml Deltas",
@@ -370,182 +370,182 @@ var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = 
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G7 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G8 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G9 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G10 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G11 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G12 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G6 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G13 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G14 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G15 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G16 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G17 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G18 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G19 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G9 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G20 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G12 : Goal"
          }
       }

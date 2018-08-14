@@ -9,9 +9,9 @@ import org.sdmlib.models.tables.Table;
 /**
  * A StoryPage allows the use of the most important functionalities
  * of Storyboards.
- * 
+ *
  * @see StoryboardImpl
-*/
+ */
 public class Storyboard {
 
 	private StoryboardImpl storyboard;
@@ -25,6 +25,7 @@ public class Storyboard {
 	 * Constructor for StoryPage, that creates a Storyboard by calling its
 	 * standard constructor, in order to use the necessary functionalities 
 	 * of the Storyboard class.
+	 *
 	*/
 	public Storyboard() {
 		this.storyboard = new StoryboardImpl();
@@ -33,9 +34,8 @@ public class Storyboard {
 	/**
 	 * Adds a new Step to the current Storyboard.
 	 * <p>
-	 * "Start:" + txt, for first step
-	 * <br>
 	 * stepcount + "." + txt, for every following step.
+    * </p>
 	 * 
 	 * @param txt text, that is added to the new step
 	 * @return return the Storyboard
@@ -368,6 +368,11 @@ public class Storyboard {
 	public void addAsImage(String htmlText, boolean autoClose, int... dimensions)
 	{
 		storyboard.addAsImage(htmlText, autoClose, dimensions);
+	}
+
+	public void addClassDiagramAsImage(de.uniks.networkparser.ext.ClassModel model, int... dimensions)
+	{
+		storyboard.addClassDiagramAsImage(model, dimensions);
 	}
 
 	public void addClassDiagramAsImage(ClassModel model, int... dimensions)

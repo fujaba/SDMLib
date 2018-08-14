@@ -1,60 +1,16 @@
-/*
-   Copyright (c) 2016 zuendorf
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
-
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
-
-   The Software shall be used for Good, not Evil. 
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- */
-
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
-/**
- * 
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightReachabilityGraph
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
- */
-public  class University implements SendableEntity
+public class University
 {
-
-
-   //==========================================================================
-
    protected PropertyChangeSupport listeners = null;
 
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue) {
       if (listeners != null) {
          listeners.firePropertyChange(propertyName, oldValue, newValue);
          return true;
@@ -62,7 +18,7 @@ public  class University implements SendableEntity
       return false;
    }
 
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
       if (listeners == null) {
          listeners = new PropertyChangeSupport(this);
@@ -71,7 +27,8 @@ public  class University implements SendableEntity
       return true;
    }
 
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+   {
       if (listeners == null) {
          listeners = new PropertyChangeSupport(this);
       }
@@ -79,36 +36,22 @@ public  class University implements SendableEntity
       return true;
    }
 
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      if (listeners == null) {
+   public boolean removePropertyChangeListener(PropertyChangeListener listener)
+   {
+      if (listeners != null) {
          listeners.removePropertyChangeListener(listener);
       }
       listeners.removePropertyChangeListener(listener);
       return true;
    }
 
-   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener)
+   {
       if (listeners != null) {
          listeners.removePropertyChangeListener(propertyName, listener);
       }
       return true;
    }
-
-
-   //==========================================================================
-
-
-   public void removeYou()
-   {
-      withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
-      for (Room obj : new RoomSet(this.getRooms())) { obj.removeYou(); }
-      if (getPresident() != null) { getPresident().removeYou(); }
-      firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-
-   //==========================================================================
-
    public static final String PROPERTY_NAME = "name";
 
    private String name;
@@ -120,11 +63,10 @@ public  class University implements SendableEntity
 
    public void setName(String value)
    {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
-
-         String oldValue = this.name;
+      if (this.name != value)
+      {         String oldValue = this.name;
          this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+         firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
 
@@ -132,274 +74,55 @@ public  class University implements SendableEntity
    {
       setName(value);
       return this;
-   } 
-
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-
-      result.append(" ").append(this.getName());
-      return result.substring(1);
    }
 
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * University ----------------------------------- Student
-    *              university                   students
-    * </pre>
-    */
 
    public static final String PROPERTY_STUDENTS = "students";
 
    private StudentSet students = null;
 
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- */
    public StudentSet getStudents()
    {
-      if (this.students == null)
-      {
-         return StudentSet.EMPTY_SET;
-      }
-
       return this.students;
    }
 
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- */
    public University withStudents(Student... value)
    {
-      if(value==null){
+      if (value == null) {
          return this;
       }
-      for (Student item : value)
-      {
-         if (item != null)
-         {
-            if (this.students == null)
-            {
+      for (Student item : value) {
+         if (item != null) {
+            if (this.students == null) {
                this.students = new StudentSet();
             }
-
-            boolean changed = this.students.add (item);
-
+            boolean changed = this.students.add(item);
             if (changed)
             {
-               item.withUniversity(this);
+               item.setUniversity(null);
                firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
       }
       return this;
-   } 
+   }
 
    public University withoutStudents(Student... value)
    {
-      for (Student item : value)
-      {
-         if ((this.students != null) && (item != null))
-         {
-            if (this.students.remove(item))
-            {
-               item.setUniversity(null);
-               firePropertyChange(PROPERTY_STUDENTS, item, null);
+      for (Student item : value) {
+         if (this.students != null && item != null) {
+            if (this.students.remove(item)) {
+               item.withUniversity(null);
             }
          }
       }
       return this;
    }
 
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightReachabilityGraph
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
- */
    public Student createStudents()
    {
       Student value = new Student();
       withStudents(value);
       return value;
-   } 
-
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightReachabilityGraph
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
- */
-   public TeachingAssistant createStudentsTeachingAssistant()
-   {
-      TeachingAssistant value = new TeachingAssistant();
-      withStudents(value);
-      return value;
-   } 
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * University ----------------------------------- Room
-    *              university                   rooms
-    * </pre>
-    */
-
-   public static final String PROPERTY_ROOMS = "rooms";
-
-   private RoomSet rooms = null;
-
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- */
-   public RoomSet getRooms()
-   {
-      if (this.rooms == null)
-      {
-         return RoomSet.EMPTY_SET;
-      }
-
-      return this.rooms;
    }
-
-   public University withRooms(Room... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Room item : value)
-      {
-         if (item != null)
-         {
-            if (this.rooms == null)
-            {
-               this.rooms = new RoomSet();
-            }
-
-            boolean changed = this.rooms.add (item);
-
-            if (changed)
-            {
-               item.withUniversity(this);
-               firePropertyChange(PROPERTY_ROOMS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public University withoutRooms(Room... value)
-   {
-      for (Room item : value)
-      {
-         if ((this.rooms != null) && (item != null))
-         {
-            if (this.rooms.remove(item))
-            {
-               item.setUniversity(null);
-               firePropertyChange(PROPERTY_ROOMS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/pattern/POCreatorTest.java'>POCreatorTest.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/doc/TestJavaDocStories.java'>TestJavaDocStories.java</a>
- * @see org.sdmlib.test.doc.TestJavaDocStories#testGenJavaDocStory
- * @see org.sdmlib.test.examples.pattern.POCreatorTest#testPOCreatorLargeModel
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightReachabilityGraph
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- */
-   public Room createRooms()
-   {
-      Room value = new Room();
-      withRooms(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * University ----------------------------------- President
-    *              university                   president
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PRESIDENT = "president";
-
-   private President president = null;
-
-   public President getPresident()
-   {
-      return this.president;
-   }
-
-   public boolean setPresident(President value)
-   {
-      boolean changed = false;
-      
-      if (this.president != value)
-      {
-         President oldValue = this.president;
-         
-         if (this.president != null)
-         {
-            this.president = null;
-            oldValue.setUniversity(null);
-         }
-         
-         this.president = value;
-         
-         if (value != null)
-         {
-            value.withUniversity(this);
-         }
-         
-         firePropertyChange(PROPERTY_PRESIDENT, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public University withPresident(President value)
-   {
-      setPresident(value);
-      return this;
-   } 
-
-   public President createPresident()
-   {
-      President value = new President();
-      withPresident(value);
-      return value;
-   } 
 }

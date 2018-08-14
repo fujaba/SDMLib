@@ -14,7 +14,7 @@ public class TestModelCreation {
 
    /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/simple/TestModelCreation.java' type='text/x-java'>CreateEntireModel</a></p>
+    * <p>Storyboard CreateEntireModel</p>
     * <script>
     *    var json = {
     *    "typ":"class",
@@ -52,10 +52,10 @@ public class TestModelCreation {
     *          "typ":"node",
     *          "id":"StudentEnum",
     *          "attributes":[
-    *             "value0 : Integer"
+    *             "value0 : Object"
     *          ],
     *          "methods":[
-    *             "StudentEnum(java.lang.Integer value0) "
+    *             "StudentEnum(Object value0) "
     *          ]
     *       },
     *       {
@@ -67,10 +67,6 @@ public class TestModelCreation {
     *          "methods":[
     *             "teach() String"
     *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Integer"
     *       },
     *       {
     *          "typ":"node",

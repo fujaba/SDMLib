@@ -36,6 +36,10 @@ import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.TaskFlow;
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ */
    public class Logger extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames 

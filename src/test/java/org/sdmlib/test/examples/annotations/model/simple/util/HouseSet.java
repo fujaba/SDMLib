@@ -168,7 +168,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and attach the House object passed as parameter to the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
     */
    public HouseSet withDoors(Door value)
    {
@@ -183,7 +183,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and remove the House object passed as parameter from the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public HouseSet withoutDoors(Door value)
    {
@@ -248,7 +248,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and attach the House object passed as parameter to the Windows attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Windows attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Windows attributes.
     */
    public HouseSet withWindows(Window value)
    {
@@ -263,7 +263,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and remove the House object passed as parameter from the Windows attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public HouseSet withoutWindows(Window value)
    {

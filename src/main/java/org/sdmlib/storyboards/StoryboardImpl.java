@@ -365,7 +365,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       setName(methodName);
 
-      this.addToSteps(name);
+      // this.addToSteps(name);
 
    }
 
@@ -382,7 +382,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.rootDir = rootDir;
       setName(name);
 
-      this.addToSteps(name);
+      // this.addToSteps(name);
 
       Exception e = new RuntimeException();
 
@@ -457,20 +457,14 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    public StoryboardImpl addStep(String txt)
    {
-      if (stepCounter == 0)
-      {
-         this.add("Start: " + txt);
-         this.setStepCounter(this.getStepCounter() + 1);
-      }
-      else
-      {
-         StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>\n");
-         CGUtil.replaceAll(buf,
-            "stepCounter", "" + stepCounter,
-            "text", txt);
-         this.add(buf.toString());
-         this.setStepCounter(this.getStepCounter() + 1);
-      }
+      this.setStepCounter(this.getStepCounter() + 1);
+
+      StringBuilder buf = new StringBuilder("<h4><a name = 'step_stepCounter'>Step stepCounter: text</a></h4>\n");
+      CGUtil.replaceAll(buf,
+              "stepCounter", "" + stepCounter,
+              "text", txt);
+      this.add(buf.toString());
+
       return this;
    }
 
@@ -1041,6 +1035,16 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
+   public void addClassDiagramAsImage(de.uniks.networkparser.ext.ClassModel model, int... dimensions)
+   {
+      String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
+      String htmlString = model.dumpHTMLString();
+      int startPos = htmlString.indexOf("var json=");
+      int endPos = htmlString.indexOf("};", startPos);
+      String bodyString = htmlString.substring(startPos+9, endPos+1);
+      this.addAsImage(bodyString, true, "graphviz-java", dimensions);
+   }
+
 
    public void addClassDiagramAsImage(ClassModel model, int... dimensions)
    {
@@ -1364,7 +1368,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
                   if (lineNo >= codeEndLineNumber)
                   {
-                     this.add("<pre>      " + StrUtil.htmlEncode(buf.toString()) + "</pre>\n");
+                     this.add("<pre><code class=\"java\" data-lang=\"java\">\n" + StrUtil.htmlEncode(buf.toString()) + "</code></pre>\n");
                      in.close();
                      return;
                   }
@@ -1546,7 +1550,58 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
    }
 
-   private void generateImageInDocFilesWithGraphVizJava(boolean autoClose, String jsonArrayString, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
+
+   private void generateImageInDocFilesWithGraphVizJava(boolean autoClose, String jsonString, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
+   {
+      if (jsonString.startsWith("{"))
+      {
+         this.generateImageInDocFilesWithGraphVizJavaFromJsonObject(autoClose, jsonString, shortStepName, fullStepHtmlName, htmlFile);
+      }
+      else
+      {
+         this.generateImageInDocFilesWithGraphVizJavaFromJsonArray(autoClose, jsonString, shortStepName, fullStepHtmlName, htmlFile, dimensions);
+      }
+   }
+
+
+   private void generateImageInDocFilesWithGraphVizJavaFromJsonObject(boolean autoClose, String jsonString, String shortStepName, String fullStepHtmlName, Path htmlFile)
+   {
+      try
+      {
+         JsonObject jsonDiagram = new JsonObject().withValue(jsonString);
+         JsonArray nodesJson = jsonDiagram.getJsonArray("nodes");
+         JsonArray edgesJson = jsonDiagram.getJsonArray("edges");
+
+         LinkedHashMap<String, Node> nodeMap = new LinkedHashMap<String, Node>();
+
+         StringBuilder dotString = new StringBuilder();
+         dotString.append("" +
+                 "digraph H {\n" +
+                 "nodes \n" +
+                 "edges \n" +
+                 "}\n");
+
+
+         String nodesString = makeClassDiagNodes(nodesJson);
+         String edgesString = makeClassDiagEdges(edgesJson);
+
+         CGUtil.replaceAll(dotString,
+                 "nodes", nodesString,
+                 "edges", edgesString
+         );
+
+         String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
+         // System.out.println(dotString.toString());
+         Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+   }
+
+
+   private void generateImageInDocFilesWithGraphVizJavaFromJsonArray(boolean autoClose, String jsonArrayString, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
    {
       try
       {
@@ -1577,6 +1632,42 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          e.printStackTrace();
       }
    }
+
+   private String makeClassDiagEdges(JsonArray jsonArray)
+   {
+      StringBuilder buf = new StringBuilder();
+
+      for (Object o : jsonArray)
+      {
+         JsonObject jsonObj = (JsonObject) o;
+
+         JsonObject sourceJson = jsonObj.getJsonObject("source");
+         JsonObject targetJson = jsonObj.getJsonObject("target");
+
+         String sourceId = CGUtil.shortClassName(sourceJson.getString("id"));
+         String targetId = CGUtil.shortClassName(targetJson.getString("id"));
+
+         String sourceLabel = sourceJson.getString("property");
+         if ("many".equals(sourceJson.getString("cardinality")))
+         {
+            sourceLabel += " *";
+         }
+
+         String targetLabel = targetJson.getString("property");
+         if ("many".equals(targetJson.getString("cardinality")))
+         {
+            targetLabel += " *";
+         }
+
+         buf.append(sourceId).append(" -> ").append(targetId)
+                 .append(" [arrowhead=none fontsize=\"10\" " +
+                         "taillabel=\"" + sourceLabel + "\" " +
+                         "headlabel=\"" + targetLabel + "\"];\n");
+      }
+
+      return buf.toString();
+   }
+
 
    private String makeEdges(JsonArray jsonArray)
    {
@@ -1625,6 +1716,54 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       return buf.toString();
    }
 
+
+   private String makeClassDiagNodes(JsonArray jsonArray)
+   {
+      StringBuilder buf = new StringBuilder();
+
+      for (Object o : jsonArray)
+      {
+         JsonObject jsonObj = (JsonObject) o;
+
+         String objId = (String) jsonObj.get("id");
+         String shortClassName = CGUtil.shortClassName(objId);
+
+         String iconName = iconMap.get(jsonObj.getString("id"));
+
+         String imageLink = "";
+         if (iconName != null)
+         {
+            imageLink = "   image=\"doc-files/karli.png\"\n";
+         }
+
+         buf.append(shortClassName).append(" " +
+                 "[\n" +
+                 "   shape=plaintext\n" +
+                 "   fontsize=\"10\"\n" +
+                 imageLink +
+                 "   label=<\n"  +
+                 "     <table border='0' cellborder='1' cellspacing='0'>\n" +
+                 "       <tr><td><u>")
+                 .append(shortClassName)
+                 .append("</u></td></tr>\n"  +
+                         "       <tr><td>");
+
+         JsonArray attrs = jsonObj.getJsonArray("attributes");
+
+         for (Object attr : attrs)
+         {
+            String txt = (String) attr;
+
+            buf.append(txt).append("<br  align='left'/>");
+         }
+
+         buf.append("</td></tr>\n" +
+                 "     </table>\n" +
+                 "  >];\n");
+      }
+
+      return buf.toString();
+   }
 
    private String makeNodes(JsonArray jsonArray)
    {
@@ -1729,7 +1868,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       String storyboardName = this.getName();
 
-      String storyNameLine = "<p>Storyboard storyboardName</p>\n";
+      String storyNameLine = "<h3>Storyboard storyboardName</h3>\n";
 
       storyNameLine = storyNameLine.replaceFirst("storyboardName", storyboardName);
       storyNameLine = storyNameLine.replaceFirst("testfilename", javaTestFileName);
@@ -1802,34 +1941,37 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    private String getPageTemplate()
    {
       return "<!DOCTYPE html>\n"
-            + "<html>\n" +
-            "<head>" +
-            "<meta charset=\"utf-8\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-            "\n" +
-            "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
-            "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" +
-            "" +
-            "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
-            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
-            "\n" +
-            "<script src=\"includes/dagre.min.js\"></script>\n" +
-            "<script src=\"includes/drawer.js\"></script>\n" +
-            "<script src=\"includes/graph.js\"></script>\n" +
-            "<script src=\"includes/Chart.bundle.js\"></script>\n" +
-            "<style>\n" +
-            "    canvas{\n" +
-            "        -moz-user-select: none;\n" +
-            "        -webkit-user-select: none;\n" +
-            "        -ms-user-select: none;\n" +
-            "    }\n" +
-            "</style>\n" +
-            "</head>\n" +
-            "<body>\n" +
-            "$text\n" +
-            "</body>\n" +
-            "</html>\n";
+              + "<html>\n" +
+              "    <head>\n" +
+              "    <meta charset=\"utf-8\">\n" +
+              "    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+              "    <link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+              "\n" +
+              "    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n" +
+              "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js\"></script>\n" +
+              "    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n" +
+              "    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>" +
+              "\n" +
+              "    <script src=\"includes/dagre.min.js\"></script>\n" +
+              "    <script src=\"includes/drawer.js\"></script>\n" +
+              "    <script src=\"includes/graph.js\"></script>\n" +
+              "    <script src=\"includes/Chart.bundle.js\"></script>\n" +
+              "    <script src=\"highlight.pack.js\"></script>\n" +
+              "    <script src=\"highlightjs-line-numbers.min.js\"></script>\n" +
+              "    <script language=\"Javascript\">hljs.initHighlightingOnLoad();\n" +
+              "                                  hljs.initLineNumbersOnLoad();</script>" +
+              "    <style>\n" +
+              "        canvas{\n" +
+              "            -moz-user-select: none;\n" +
+              "            -webkit-user-select: none;\n" +
+              "            -ms-user-select: none;\n" +
+              "        }\n" +
+              "    </style>\n" +
+              "    </head>\n" +
+              "<body>\n" +
+              "$text\n" +
+              "</body>\n" +
+              "</html>\n";
    }
 
 

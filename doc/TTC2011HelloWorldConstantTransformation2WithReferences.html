@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
+<p>Storyboard TTC2011HelloWorldConstantTransformation2WithReferences</p>
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
 <script>
@@ -245,7 +245,7 @@
    "type":"objectdiagram",
    "nodes":[
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G1 : Greeting",
          "attributes":[
             "text=null",
@@ -253,14 +253,14 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G2 : GreetingMessage",
          "attributes":[
             "text=Hello"
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"P3 : Person",
          "attributes":[
             "name=TTC Participants"
@@ -271,26 +271,26 @@
       {
          "type":"assoc",
          "source":{
-            "cardinality":"one",
             "property":"greetingMessage",
+            "cardinality":"one",
             "id":"G2 : GreetingMessage"
          },
          "target":{
-            "cardinality":"one",
             "property":"greeting",
+            "cardinality":"one",
             "id":"G1 : Greeting"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"one",
             "property":"person",
+            "cardinality":"one",
             "id":"P3 : Person"
          },
          "target":{
-            "cardinality":"one",
             "property":"greeting",
+            "cardinality":"one",
             "id":"G1 : Greeting"
          }
       }

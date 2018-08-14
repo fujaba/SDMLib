@@ -1,80 +1,54 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
-<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="includes/dagre.min.js"></script>
-<script src="includes/drawer.js"></script>
-<script src="includes/graph.js"></script>
-<script src="includes/Chart.bundle.js"></script>
-<style>
-    canvas{
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-</style>
-</head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
 <body>
-<p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java' type='text/x-java'>StudyRightWithAssignmentsClassGeneration</a></p>
-<p>1. generate class University</p>
-<pre>      	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+<h3>Storyboard StudyRightWithAssignmentsClassGeneration</h3>
+<h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
+<pre><code class="java" data-lang="java">
+      ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
 
       Clazz universityClass = model.createClazz(&quot;University&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING);
-</pre>
+              .withAttribute(&quot;name&quot;, DataType.STRING);
+</code></pre>
 <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
-<p>2. generate class Student</p>
-<pre>            Clazz studentClass = model.createClazz(&quot;Student&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING)
-            .withAttribute(&quot;id&quot;, DataType.STRING)
-            .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-            .withAttribute(&quot;motivation&quot;, DataType.INT) 
-            .withAttribute(&quot;credits&quot;, DataType.INT);
-</pre>
+<h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
+<pre><code class="java" data-lang="java">
+      Clazz studentClass = model.createClazz(&quot;Student&quot;)
+              .withAttribute(&quot;name&quot;, DataType.STRING)
+              .withAttribute(&quot;id&quot;, DataType.STRING)
+              .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+              .withAttribute(&quot;motivation&quot;, DataType.INT)
+              .withAttribute(&quot;credits&quot;, DataType.INT);
+</code></pre>
 <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
 <p>3. add University --> Student association</p>
-<pre>            universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-</pre>
+<pre><code class="java" data-lang="java">
+      universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+</code></pre>
 <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
-<p>4. add University --> Room association</p>
-<pre>            Clazz roomClass = model.createClazz(&quot;Room&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING)
-            .withAttribute(&quot;topic&quot;, DataType.STRING)
-            .withAttribute(&quot;credits&quot;, DataType.INT);
-
-      roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
-
-      &#x2F;&#x2F;Association universityToRoom = 
-      universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
-      
-      &#x2F;&#x2F; Association doors = 
-      roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
-
-      &#x2F;&#x2F; Association studentsInRoom = 
-      studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
-      studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
-      
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
-<p>5. add assignments:</p>
-<pre>            Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
-               .withAttribute(&quot;content&quot;, DataType.STRING)
-               .withAttribute(&quot;points&quot;, DataType.INT);
-
-      assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
-      
-      studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
-<p>6. generate class source files.</p>
-<pre>            model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
-</pre>
 
 </body>
 </html>

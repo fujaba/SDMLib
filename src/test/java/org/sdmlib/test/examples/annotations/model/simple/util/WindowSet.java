@@ -153,7 +153,7 @@ public class WindowSet extends SimpleSet<Window>
    /**
     * Loop through current set of ModelType objects and attach the Window object passed as parameter to the House attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
     */
    public WindowSet withHouse(House value)
    {

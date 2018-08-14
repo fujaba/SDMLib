@@ -47,6 +47,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 /**
  * @deprecated use de.uniks.networkparser.ext.ClassModel instead
+ * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
 @Deprecated
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
@@ -58,6 +59,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	private GenClassModel generator;
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.tables.TableModel#testTableModel
+ */
    public ClassModel() {
 		name = getDefaultPackage();
 		setAuthorName(System.getProperty("user.name"));
@@ -69,6 +74,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.tables.TableModel#testTableModel
+ */
    public ClassModel(String packageName)
 	   {
 		  this();
@@ -76,6 +85,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	   }
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.tables.TableModel#testTableModel
+ */
    public ClassModel generate() 
    {
       getGenerator().generate();
@@ -83,6 +96,10 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.tables.TableModel#testTableModel
+ */
    public ClassModel generate(String rootDir) {
 		getGenerator().generate(rootDir);
 		return this;

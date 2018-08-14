@@ -35,6 +35,10 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ */
    public class SocketThread extends Thread implements PropertyChangeInterface, SendableEntity
 {
 

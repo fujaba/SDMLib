@@ -53,8 +53,8 @@ public class TestEnumeration {
 		Clazz testEnum = model.createClazz("TestEnum");
 //		testEnum.withAttribute("value", DataType.INT);
 		testEnum.enableEnumeration(new Literal("TEACHER").withValue(42));
-		model.generate("src/test/java");
-//		model.getGenerator().testGeneratedCode();
+		// model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
 	}
 	
 }

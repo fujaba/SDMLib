@@ -36,6 +36,10 @@ import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 
 
+     /**
+    * 
+    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
+ */
    public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames

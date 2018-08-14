@@ -14,7 +14,7 @@ public class StrategyModel
 {
      /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java' type='text/x-java'>GofStrategyModel</a></p>
+    * <p>Storyboard GofStrategyModel</p>
     * <script>
     *    var json = {
     *    "typ":"class",

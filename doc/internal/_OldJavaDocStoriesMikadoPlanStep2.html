@@ -27,7 +27,7 @@
    "type":"objectdiagram",
    "nodes":[
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G1 : Goal",
          "attributes":[
             "description=JavaDoc Stories",
@@ -36,7 +36,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G2 : Goal",
          "attributes":[
             "description=extend Creator for other role",
@@ -45,7 +45,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G3 : Goal",
          "attributes":[
             "description=class diagrams as image",
@@ -54,7 +54,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"G4 : Goal",
          "attributes":[
             "description=pattern diagrams as image",
@@ -67,39 +67,39 @@
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G2 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G3 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"many",
             "property":"preGoals",
+            "cardinality":"many",
             "id":"G4 : Goal"
          },
          "target":{
-            "cardinality":"one",
             "property":"goal",
+            "cardinality":"one",
             "id":"G1 : Goal"
          }
       }
