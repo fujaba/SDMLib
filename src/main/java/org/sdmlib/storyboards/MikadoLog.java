@@ -22,12 +22,34 @@
 package org.sdmlib.storyboards;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
+
+import java.awt.*;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.sdmlib.CGUtil;
 import org.sdmlib.storyboards.util.LogEntrySet;
 import org.sdmlib.storyboards.LogEntry;
@@ -36,6 +58,79 @@ import org.sdmlib.storyboards.Goal;
 
 public  class MikadoLog implements SendableEntity
 {
+   public String burnDownChartPng()
+   {
+      double totalHours = getTotalHours();
+
+      String series1 = "Hours";
+
+      TimeSeriesCollection dataset = new TimeSeriesCollection();
+      // dataset.setDomainIsPointsInTime(true);
+
+      final TimeSeries s1 = new TimeSeries("Series 1");
+
+
+      for (LogEntry e : this.getEntries())
+      {
+         totalHours -= e.getHoursDone();
+
+         String date = e.getDate();
+
+         try
+         {
+            OffsetDateTime odt = OffsetDateTime.parse(date);
+            Instant instant = odt.toInstant();
+            Date from = Date.from(instant);
+            Minute minute = new Minute(from);
+            s1.addOrUpdate(minute, totalHours);
+
+         }
+         catch (Exception e1)
+         {
+            e1.printStackTrace();
+         }
+      }
+
+      dataset.addSeries(s1);
+
+      JFreeChart chart = ChartFactory.createTimeSeriesChart(
+              "Project Burndown",
+              "Date",
+              "Story Hours",
+              dataset,
+              false,
+              false,
+              false
+      );
+
+      chart.setBackgroundPaint(Color.white);
+
+      XYPlot plot1 = chart.getXYPlot();
+      ValueAxis rangeAxis = plot1.getRangeAxis();
+      NumberAxis numberAxis = (NumberAxis) rangeAxis;
+      numberAxis.setAutoRangeIncludesZero(true);
+      plot1.setOutlinePaint(null);
+      plot1.setBackgroundPaint(Color.white);
+      plot1.setDomainGridlinePaint(Color.gray);
+      plot1.setRangeGridlinePaint(Color.lightGray);
+      XYLineAndShapeRenderer renderer =
+              (XYLineAndShapeRenderer) plot1.getRenderer();
+      renderer.setBaseShapesVisible(true);
+
+
+      String pngFileName = "doc/doc-files/current.png";
+      try
+      {
+         ChartUtilities.saveChartAsPNG(new File(pngFileName), chart, 880, 550);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
+      return pngFileName;
+   }
+
    public String burnDownChart()
    {
       StringBuilder buf = new StringBuilder();
@@ -108,7 +203,24 @@ public  class MikadoLog implements SendableEntity
               .append("});\n")
               .append("</script>\n")
       ;
+      double totalHours = getTotalHours();
 
+      String burndownDataPoints = "";
+
+      for (LogEntry e : this.getEntries())
+      {
+         totalHours -= e.getHoursDone();
+         burndownDataPoints += String.format(Locale.ENGLISH, "{x: \"%s\", y: %.1f},\n", e.getDate(), totalHours);
+      }
+
+
+      CGUtil.replaceAll(buf, "burndowndatapoints", burndownDataPoints);
+
+      return buf.toString();
+   }
+
+   private double getTotalHours()
+   {
       // collect hours remaining
       double totalHours = 0;
       for (LogEntry e : this.getEntries())
@@ -127,19 +239,7 @@ public  class MikadoLog implements SendableEntity
       {
          totalHours += g.getHoursTodo();
       }
-
-      String burndownDataPoints = "";
-
-      for (LogEntry e : this.getEntries())
-      {
-         totalHours -= e.getHoursDone();
-         burndownDataPoints += String.format(Locale.ENGLISH, "{x: \"%s\", y: %.1f},\n", e.getDate(), totalHours);
-      }
-
-
-      CGUtil.replaceAll(buf, "burndowndatapoints", burndownDataPoints);
-
-      return buf.toString();
+      return totalHours;
    }
 
    //==========================================================================

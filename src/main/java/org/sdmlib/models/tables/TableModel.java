@@ -17,151 +17,8 @@ public class TableModel
 {
    /**
     * 
-    * <p>Storyboard TableModel</p>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"Cell",
-    *          "attributes":[
-    *             "value : Object"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Column",
-    *          "attributes":[
-    *             "name : String",
-    *             "tdCssClass : String",
-    *             "thCssClass : String"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Row",
-    *          "attributes":[
-    *             "number : int"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Table",
-    *          "attributes":[
-    *             "name : String"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Cell",
-    *             "cardinality":"many",
-    *             "property":"cells"
-    *          },
-    *          "target":{
-    *             "id":"Column",
-    *             "cardinality":"one",
-    *             "property":"column"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Cell",
-    *             "cardinality":"many",
-    *             "property":"cells"
-    *          },
-    *          "target":{
-    *             "id":"Row",
-    *             "cardinality":"one",
-    *             "property":"row"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Column",
-    *             "cardinality":"one",
-    *             "property":"column"
-    *          },
-    *          "target":{
-    *             "id":"Cell",
-    *             "cardinality":"many",
-    *             "property":"cells"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Column",
-    *             "cardinality":"many",
-    *             "property":"columns"
-    *          },
-    *          "target":{
-    *             "id":"Table",
-    *             "cardinality":"one",
-    *             "property":"table"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Row",
-    *             "cardinality":"one",
-    *             "property":"row"
-    *          },
-    *          "target":{
-    *             "id":"Cell",
-    *             "cardinality":"many",
-    *             "property":"cells"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Row",
-    *             "cardinality":"many",
-    *             "property":"rows"
-    *          },
-    *          "target":{
-    *             "id":"Table",
-    *             "cardinality":"one",
-    *             "property":"table"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Table",
-    *             "cardinality":"one",
-    *             "property":"table"
-    *          },
-    *          "target":{
-    *             "id":"Column",
-    *             "cardinality":"many",
-    *             "property":"columns"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Table",
-    *             "cardinality":"one",
-    *             "property":"table"
-    *          },
-    *          "target":{
-    *             "id":"Row",
-    *             "cardinality":"many",
-    *             "property":"rows"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasTableModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
+    * <h3>Storyboard TableModel</h3>
+    * <img src="doc-files/TableModelStep0.png" alt="TableModelStep0.png">
     */
    @Test
    public void testTableModel()
@@ -189,7 +46,7 @@ public class TableModel
       columnClass.withBidirectional(cellClass, "cells", MANY, "column", ONE);
       rowClass.withBidirectional(cellClass, "cells", MANY, "row", ONE);
 
-      story.addClassDiagram(model);
+      story.addClassDiagramAsImage(model);
 
       model.generate();
 

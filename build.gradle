@@ -62,6 +62,8 @@ repositories {
     //mavenLocal()
     mavenCentral()
 
+	maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+
     // NetworkParser
 	if((gitVersion.isMaster() || isTravisSnapshot())== false) {
 			maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
@@ -79,6 +81,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/jfree/jfreechart
 	implementation  group: 'jfree', name: 'jfreechart', version: '+'
 
+	implementation 'org.gradle:gradle-tooling-api:4.3.+'
 
 	testImplementation 'org.testfx:testfx-junit:4.0+'
 

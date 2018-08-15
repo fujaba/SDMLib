@@ -26,6 +26,7 @@
     </head>
 <body>
 <h3>Storyboard StudyRightWithAssignmentsClassGeneration</h3>
+<p>Check: gradle compileTestJava result 0 actual 0</p>
 <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
 <pre><code class="java" data-lang="java">
       ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
@@ -33,7 +34,7 @@
       Clazz universityClass = model.createClazz(&quot;University&quot;)
               .withAttribute(&quot;name&quot;, DataType.STRING);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep3.png" alt="StudyRightWithAssignmentsClassGenerationStep3.png">
 <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
 <pre><code class="java" data-lang="java">
       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -43,12 +44,14 @@
               .withAttribute(&quot;motivation&quot;, DataType.INT)
               .withAttribute(&quot;credits&quot;, DataType.INT);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep6.png" alt="StudyRightWithAssignmentsClassGenerationStep6.png">
+<p>Check: gradle compileTestJava result 0 actual 0</p>
 <p>3. add University --> Student association</p>
 <pre><code class="java" data-lang="java">
       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep10.png" alt="StudyRightWithAssignmentsClassGenerationStep10.png">
+<p>Check: gradle compileTestJava result 0 actual 101</p>
 
 </body>
 </html>

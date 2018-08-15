@@ -90,7 +90,7 @@ import static guru.nidi.graphviz.model.Factory.to;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. This html page will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
- * 
+ *
  * @see #dumpHTML()
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
  * @see <a href= '../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'> ProjectBoard.java</a>
@@ -230,8 +230,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             callEntry = stackTrace[i];
 
             if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
-               || callEntry.getClassName().equals(Storyboard.class.getName())
-               || callEntry.getClassName().equals(StoryPage.class.getName()))
+                    || callEntry.getClassName().equals(Storyboard.class.getName())
+                    || callEntry.getClassName().equals(StoryPage.class.getName()))
             {
                i++;
                continue;
@@ -295,7 +295,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
       String testClassName = null;
       if (callEntry.getClassName().equals(Storyboard.class.getName()) ||
-         callEntry.getClassName().equals(StoryPage.class.getName()))
+              callEntry.getClassName().equals(StoryPage.class.getName()))
       {
          callEntry = stackTrace[2];
          testMethodName = stackTrace[2].getMethodName();
@@ -326,7 +326,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-   private void addToSteps(String text)
+   void addToSteps(String text)
    {
       StoryboardStep storyStep = new StoryboardStep().withText(text);
       this.addToStoryboardSteps(storyStep);
@@ -372,7 +372,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    /**
     * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. Similarly, Storyboards get their name from the method they are used in. Name that method appropriately. Use the version without parameters.
-    * 
+    *
     * @param rootDir The RootDir of Sources
     * @param name Name of the html file and page title to be generated.
     */
@@ -568,7 +568,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    public void coverSeldomModelMethods(IdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
-         InvocationTargetException
+           InvocationTargetException
    {
       LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
 
@@ -599,9 +599,9 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             try
             {
                Method addPropertyChangeListenerMetod = objectClass.getMethod("addPropertyChangeListener",
-                  PropertyChangeListener.class);
+                       PropertyChangeListener.class);
                addPropertyChangeListenerMetod.invoke(object, new Object[]
-               { null });
+                       { null });
             }
             catch (Exception e)
             {
@@ -678,7 +678,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             // add entry
             Method withMethod = setClass.getMethod("with", new Class[]
-            { Object.class });
+                    { Object.class });
             withMethod.invoke(setObject, object);
             withMethod.invoke(setObject, setObject);
 
@@ -863,7 +863,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      {
                         // createName
                         Method createMethod = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName),
-                           valueClass);
+                                valueClass);
                         createMethod.invoke(patternObject, value);
                      }
                      catch (Exception e)
@@ -872,7 +872,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      try
                      {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
-                           valueClass);
+                                valueClass);
                         hasMethod.invoke(patternObject, value);
                      }
                      catch (Exception e)
@@ -881,7 +881,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      try
                      {
                         Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
-                           valueClass);
+                                valueClass);
                         hasMethod.invoke(patternObject, value);
                      }
                      catch (Exception e)
@@ -890,7 +890,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      try
                      {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
-                           valueClass, valueClass);
+                                valueClass, valueClass);
                         hasMethod.invoke(patternObject, value, value);
                      }
                      catch (Exception e)
@@ -899,7 +899,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                      try
                      {
                         Method hasMethod = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
-                           valueClass, valueClass);
+                                valueClass, valueClass);
                         hasMethod.invoke(patternObject, value, value);
                      }
                      catch (Exception e)
@@ -937,7 +937,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
-                              po.getClass());
+                                   po.getClass());
                            method.invoke(patternObject, po);
                         }
                         catch (Exception e)
@@ -946,7 +946,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("filter" + StrUtil.upFirstChar(attrName),
-                              po.getClass());
+                                   po.getClass());
                            method.invoke(patternObject, po);
                         }
                         catch (Exception e)
@@ -955,7 +955,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName),
-                              po.getClass());
+                                   po.getClass());
                            method.invoke(patternObject, po);
                         }
                         catch (Exception e)
@@ -964,7 +964,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("without" + StrUtil.upFirstChar(attrName),
-                              po.getClass());
+                                   po.getClass());
                            method.invoke(patternObject, po);
                         }
                         catch (Exception e)
@@ -973,7 +973,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                         try
                         {
                            Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName),
-                              po.getClass());
+                                   po.getClass());
                            method.invoke(patternObject, po);
                         }
                         catch (Exception e)
@@ -1227,6 +1227,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
    }
 
+
    private class AlwaysTrueCondition implements ObjectCondition
    {
       public boolean update(Object value)
@@ -1278,12 +1279,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
    }
 
-
-
-   public void addImage(String imageFile)
-   {
-      this.addToSteps("<img src='" + imageFile + "'>");
-   }
 
 
    public ByteArrayOutputStream getSystemOut()
@@ -1410,8 +1405,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
       String methodText = "<pre>   " +
-         StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
-         + "</pre>";
+              StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
+              + "</pre>";
 
       return methodText;
    }
@@ -1428,7 +1423,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph,
-         hiddenObjects);
+              hiddenObjects);
    }
 
 
@@ -1468,6 +1463,47 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    public void dumpHTML()
    {
       this.dumpHTML(null, null);
+   }
+
+   public void addImage(String imageFile)
+   {
+      int num = 0;
+      if (this.storyboardSteps != null)
+      {
+         num = this.storyboardSteps.size();
+      }
+
+      int suffixPos = imageFile.lastIndexOf('.');
+      String suffix = imageFile.substring(suffixPos);
+      String shortStepName = getName() + "Step" + num;
+      String targetImageName = this.docDirName + "/doc-files/_" + shortStepName + suffix;
+
+      // copy images to doc-files
+      Path docFilesDir = Paths.get(docDirName + "/doc-files");
+
+      try
+      {
+         if ( ! Files.exists(docFilesDir))
+         {
+            Files.createDirectories(docFilesDir);
+         }
+
+         Path srcFile = Paths.get(imageFile);
+         FileTime srclastModifiedTime = Files.getLastModifiedTime(srcFile);
+         Path targetFile = Paths.get(targetImageName);
+
+         if ( ! Files.exists(targetFile) || Files.getLastModifiedTime(targetFile).compareTo(srclastModifiedTime) < 0)
+         {
+            Files.copy(srcFile, targetFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+         }
+
+         this.addToSteps("<img src='doc-files/_" + shortStepName + suffix + "'>");
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
    }
 
 
@@ -1795,7 +1831,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                  "       <tr><td><u>")
                  .append(objId).append(": ").append(shortClassName)
                  .append("</u></td></tr>\n"  +
-                 "       <tr><td>");
+                         "       <tr><td>");
 
          JsonObject props = jsonObj.getJsonObject("prop");
 
@@ -1927,8 +1963,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       pos = htmlText.indexOf("$text");
 
       htmlText = htmlText.substring(0, pos)
-         + text.toString()
-         + htmlText.substring(pos + "$text".length());
+              + text.toString()
+              + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
 
@@ -2037,21 +2073,21 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (!styleFile.exists())
       {
          String text = "" +
-            "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" +
-            "B {font-weight:bold;}\n" +
-            "\n" +
-            "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
-            "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
-            "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
-            "\n" +
-            "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
-            "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" +
-            "\n" +
-            "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
-            "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
-            "\n" +
-            "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
-            "";
+                 "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" +
+                 "B {font-weight:bold;}\n" +
+                 "\n" +
+                 "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+                 "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+                 "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+                 "\n" +
+                 "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" +
+                 "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" +
+                 "\n" +
+                 "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+                 "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+                 "\n" +
+                 "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" +
+                 "";
 
          writeToFile("style.css", text);
       }
@@ -2062,18 +2098,18 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       if (!file.exists())
       {
          String text = "<html>\n" +
-            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
-            "<frameset cols='250,*'>\n" +
-            "<frame src='refs.html' name='Index'>\n" +
-            "<frame name='Main'>a</frame>\n" +
-            "<noframes>\n" +
-            "  <body>\n" +
-            "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
-            "  </body>\n" +
-            "</noframes>\n" +
-            "</frameset>\n" +
-            "</html>\n";
+                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
+                 "<frameset cols='250,*'>\n" +
+                 "<frame src='refs.html' name='Index'>\n" +
+                 "<frame name='Main'>a</frame>\n" +
+                 "<noframes>\n" +
+                 "  <body>\n" +
+                 "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
+                 "  </body>\n" +
+                 "</noframes>\n" +
+                 "</frameset>\n" +
+                 "</html>\n";
 
          writeToFile("index.html", text);
       }
@@ -2085,25 +2121,25 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       {
          // build index
          String refHtml = "<html>\n" +
-            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<body>\n" +
-            "</body>\n" +
-            "</html>\n";
+                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+                 "<body>\n" +
+                 "</body>\n" +
+                 "</html>\n";
 
          if (!docDirName.equals("doc"))
          {
             // add parent link
             String parentLink = "" +
-               "<body>\n" +
-               "<a href=\"../index.html\" target=\"_top\"> back to parent </a><br>\n" +
-               "<br>\n";
+                    "<body>\n" +
+                    "<a href=\"../index.html\" target=\"_top\"> back to parent </a><br>\n" +
+                    "<br>\n";
 
             refHtml = CGUtil.replaceAll(refHtml, "<body>\n", parentLink);
 
             // generate child link in ../refs.html
             String childLink = "" +
-               "<a href=\"subdir/index.html\" target=\"_top\">subdir</a><br>\n";
+                    "<a href=\"subdir/index.html\" target=\"_top\">subdir</a><br>\n";
 
             int pos = docDirName.lastIndexOf('/');
             String childName = docDirName.substring(pos + 1, docDirName.length());
@@ -2266,7 +2302,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    public boolean removePropertyChangeListener(String property,
-         PropertyChangeListener listener)
+                                               PropertyChangeListener listener)
    {
       if (listeners != null)
       {
@@ -2305,7 +2341,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * Storyboard ----------------------------------- StoryboardStep
     *              storyboard                   storyboardSteps
     * </pre>
-    * 
+    *
     * @return The StoryboardWall
     */
 
@@ -2409,7 +2445,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
     * Storyboard ----------------------------------- StoryboardWall
     *              storyboard                   wall
     * </pre>
-    * 
+    *
     * @return The StoryboardWall
     */
    // public StoryboardWall getWall()
@@ -2613,12 +2649,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          PropertyChangeEvent evt = (PropertyChangeEvent) values;
          Object newValue = evt.getNewValue();
          if (newValue != null
-            && ("Integer Float Double Long Boolean String"
-               .indexOf(newValue.getClass().getSimpleName()) >= 0))
+                 && ("Integer Float Double Long Boolean String"
+                 .indexOf(newValue.getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         
+
          if (newValue != null && newValue instanceof Collection)
          {
             boolean allContained = true;
@@ -2631,7 +2667,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             }
             return true;
          }
-         
+
          boolean contains = explicitElems.contains(newValue);
          return contains;
       }
@@ -2685,7 +2721,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             String[] split = callString.split("\\.");
 
             if (split.length < 2
-               || !tokenList.get(1).equals("("))
+                    || !tokenList.get(1).equals("("))
                continue; // <==== sudden death
 
             String varName = split[0];
@@ -2754,8 +2790,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          callEntry = stackTrace[i];
 
          if (callEntry.getClassName().equals(StoryboardImpl.class.getName())
-            || callEntry.getClassName().equals(Storyboard.class.getName())
-            || callEntry.getClassName().equals(StoryPage.class.getName()))
+                 || callEntry.getClassName().equals(Storyboard.class.getName())
+                 || callEntry.getClassName().equals(StoryPage.class.getName()))
          {
             i++;
             continue;
@@ -3012,9 +3048,9 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                // no javadoc yet
                javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos() - 1;
                javaDocText = "   /**\n"
-                  + "    * \n"
-                  + "    */\n"
-                  + "   ";
+                       + "    * \n"
+                       + "    */\n"
+                       + "   ";
             }
             else
             {
@@ -3056,7 +3092,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                   continue; // <================ sudden death
 
                javaDocText = javaDocText.substring(0, insertPos)
-                  + hrefText + "\n " + javaDocText.substring(insertPos);
+                       + hrefText + "\n " + javaDocText.substring(insertPos);
 
                // write new javadoc
                parser.getFileBody().replace(javaDocStartPos, javaDocEndPos + 1, javaDocText);
@@ -3136,7 +3172,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
    private void searchJavaFiles(String rootDir2, String fileName, String packageName,
-         LinkedHashSet<String> importedPackages)
+                                LinkedHashSet<String> importedPackages)
    {
       File dir = new File(rootDir2 + "/" + fileName);
 

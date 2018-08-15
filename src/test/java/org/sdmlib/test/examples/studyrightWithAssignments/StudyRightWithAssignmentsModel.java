@@ -23,20 +23,26 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import de.uniks.networkparser.ext.ClassModel;
-import de.uniks.networkparser.ext.story.Story;
-import de.uniks.networkparser.ext.story.StoryStepSourceCode;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import org.junit.Test;
+import org.sdmlib.codegen.Gradle;
+import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.storyboards.Goal;
+import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 
 public class StudyRightWithAssignmentsModel
 {
-   
+
+   public static final String ORG_SDMLIB_TEST_EXAMPLES_STUDYRIGHT_WITH_ASSIGNMENTS_MODEL = "org.sdmlib.test.examples.studyrightWithAssignments.model";
+   public static final String SRC_TEST_JAVA = "src/test/java";
+
    /**
-    * 
+    *
     * <h3>Storyboard StudyRightWithAssignmentsClassGeneration</h3>
+    * <p>Check: gradle compileTestJava result 0 actual 0</p>
     * <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
     * <pre><code class="java" data-lang="java">
     *       ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
@@ -44,7 +50,7 @@ public class StudyRightWithAssignmentsModel
     *       Clazz universityClass = model.createClazz(&quot;University&quot;)
     *               .withAttribute(&quot;name&quot;, DataType.STRING);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep3.png" alt="StudyRightWithAssignmentsClassGenerationStep3.png">
     * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
     * <pre><code class="java" data-lang="java">
     *       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -54,12 +60,14 @@ public class StudyRightWithAssignmentsModel
     *               .withAttribute(&quot;motivation&quot;, DataType.INT)
     *               .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep6.png" alt="StudyRightWithAssignmentsClassGenerationStep6.png">
+    * <p>Check: gradle compileTestJava result 0 actual 0</p>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep10.png" alt="StudyRightWithAssignmentsClassGenerationStep10.png">
+    * <p>Check: gradle compileTestJava result 0 actual 101</p>
     */
    @Test
    public void testStudyRightWithAssignmentsClassGeneration()
@@ -67,8 +75,15 @@ public class StudyRightWithAssignmentsModel
       /* This file will generate that necessary classes and class diagram for the
        * StudyRight with Assignments example in the Story Driven Modeling book
        */
-
       Storyboard story = new Storyboard();
+
+      // remove old code
+      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_EXAMPLES_STUDYRIGHT_WITH_ASSIGNMENTS_MODEL);
+
+      // project compiles?
+      int result = Gradle.runTask("compileTestJava");
+      story.assertEquals("gradle compileTestJava result", 0, result);
+
 
       //============================================================
       story.addStep("Build model for class University");
@@ -81,6 +96,7 @@ public class StudyRightWithAssignmentsModel
       story.addCode();
 
       story.addClassDiagramAsImage(model, 400, 200);
+
 
       //============================================================
       story.addStep("Add class Student");
@@ -96,6 +112,10 @@ public class StudyRightWithAssignmentsModel
 
       story.addClassDiagramAsImage(model, 400, 240);
 
+      // project compiles?
+      model.generate(SRC_TEST_JAVA);
+      result = Gradle.runTask("compileTestJava");
+      story.assertEquals("gradle compileTestJava result", 0, result);
 
 
       //============================================================
@@ -108,7 +128,10 @@ public class StudyRightWithAssignmentsModel
 
       story.addClassDiagramAsImage(model, 400, 400);
 
-      //      model.generate("src/test/java");
+      // project compiles?
+      model.generate(SRC_TEST_JAVA);
+      result = Gradle.runTask("compileTestJava");
+      story.assertEquals("gradle compileTestJava result", 0, result);
 
 //
 //
@@ -168,18 +191,81 @@ public class StudyRightWithAssignmentsModel
 //
 //      Clazz presidentClass = model.createClazz("President");
 //      universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
-//
-//      //============================================================
-//      story.add("6. generate class source files.");
-//
-//      // model.removeAllGeneratedCode("src/test/java");
-//
-//      model.setAuthorName("zuendorf");
-//      story.markCodeStart();
-        model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
-//      story.addCode();
-//
+
+      //============================================================
+      story.add("6. generate class source files.");
+
+      // model.removeAllGeneratedCode("src/test/java");
+
+      model.setAuthorName("zuendorf");
+      story.markCodeStart();
+      model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
+      story.addCode();
+
+      result = Gradle.runTask("compileTestJava");
+
+      story.assertEquals("gradle build result", 0, result);
+
 //      story.dumpJavaDoc(ClassModel.class.getName());
+
+      story.dumpHTML();
+   }
+
+   /**
+    *
+    * <h3>Storyboard NetworkParserCodeGenProjectPlan</h3>
+    * <img src='doc-files/_NetworkParserCodeGenProjectPlanStep0.png'><h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep2.png" alt="NetworkParserCodeGenProjectPlanStep2.png">
+    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep4.png" alt="NetworkParserCodeGenProjectPlanStep4.png">
+    */
+   @Test
+   public void testNetworkParserCodeGenProjectPlan()
+   {
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
+      String yaml = "" +
+              "- Goal                  description:                             parents:                                \n" +
+              "  root:                 \"migrate to network parser codegen\"    null                                    \n" +
+              "  studyRight:           \"migrate study right example\"          root                                    \n" +
+              "  mikado:               \"add micado diagrams to javadoc\"       root                                    \n" +
+              "  burndown:             \"fix micado burndown\"                  mikado                                  \n" +
+              "  javadoc:              \"enable javadoc for external classes\"  mikado                                  \n" +
+              "  compile:              \"add compile test after code gen\"      studyRight                              \n" +
+              "  yaml:                 \"enhance yaml\"                         mikado                                  \n" +
+              "  yamlSingleQuotes:     \"allow ' for strings in yaml\"          yaml                                    \n" +
+              "  yamlIds:              \"assign yaml ids to objects\"           yaml                                    \n" +
+              "                                                                                                         \n" +
+              "- mikadoLog: MikadoLog                                                                                   \n" +
+              "  mainGoal: root                                                                                         \n" +
+              "                                                                                                         \n" +
+              "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
+              "  l1:       studyRight         2018-08-13T12:00:00+01:00       0           4              mikadoLog      \n" +
+              "  l2:       studyRight         2018-08-14T12:00:00+01:00       3           3              mikadoLog      \n" +
+              "  l3:       mikado             2018-08-15T12:00:00+01:00       3           1              mikadoLog      \n" +
+              "  l4:       burndown           2018-08-15T12:13:30+01:00       1           0              mikadoLog      \n" +
+              "  l5:       compile            2018-08-15T12:17:21+01:00       4           0              mikadoLog      \n" +
+              "";
+
+
+      YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
+
+      Goal root = (Goal) idMap.decode(yaml);
+
+      MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
+
+      story.addImage(mikadoLog.burnDownChartPng());
+
+      Goal done = root.clipDone();
+
+      story.addStep("open goals");
+
+      story.addObjectDiagramViaGraphViz(root);
+
+      story.addStep("closed goals");
+      story.addObjectDiagramViaGraphViz(done);
+
+
       story.dumpHTML();
    }
 

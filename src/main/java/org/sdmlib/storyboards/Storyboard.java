@@ -15,19 +15,20 @@ import org.sdmlib.models.tables.Table;
 public class Storyboard {
 
 	private StoryboardImpl storyboard;
-	
-	public StoryboardImpl getStoryboard()
+
+   public StoryboardImpl getStoryboard()
    {
       return storyboard;
    }
-	
-	/**
+
+   /**
 	 * Constructor for StoryPage, that creates a Storyboard by calling its
 	 * standard constructor, in order to use the necessary functionalities 
 	 * of the Storyboard class.
 	 *
 	*/
-	public Storyboard() {
+	public Storyboard()
+	{
 		this.storyboard = new StoryboardImpl();
 	}
 	
@@ -40,7 +41,8 @@ public class Storyboard {
 	 * @param txt text, that is added to the new step
 	 * @return return the Storyboard
 	*/
-	public StoryboardImpl addStep(String txt) {
+	public StoryboardImpl addStep(String txt)
+	{
 		return storyboard.addStep(txt);
 	}
 	
@@ -77,7 +79,7 @@ public class Storyboard {
 	public void addImage(String imageFile) {
 		storyboard.addImage(imageFile);
 	}
-	
+
 	/**
 	 * Adds a diagram of an classmodel to the storyboard.
 	 * 
