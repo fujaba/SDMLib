@@ -32,7 +32,7 @@ import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.util.ClazzSet;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 

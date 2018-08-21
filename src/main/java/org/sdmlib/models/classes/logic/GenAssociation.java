@@ -15,7 +15,7 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.util.ClazzSet;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;

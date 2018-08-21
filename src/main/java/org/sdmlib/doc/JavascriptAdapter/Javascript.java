@@ -22,7 +22,7 @@ import de.uniks.networkparser.graph.GraphTokener;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.util.AssociationSet;
+import de.uniks.networkparser.graph.AssociationSet;
 import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
