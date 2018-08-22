@@ -23,9 +23,7 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import de.uniks.networkparser.ext.ClassModel;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.*;
 import org.junit.Test;
 import org.sdmlib.codegen.Gradle;
 import org.sdmlib.models.YamlIdMap;
@@ -36,37 +34,20 @@ import org.sdmlib.storyboards.Storyboard;
 public class StudyRightWithAssignmentsModel
 {
 
-   public static final String ORG_SDMLIB_TEST_EXAMPLES_STUDYRIGHT_WITH_ASSIGNMENTS_MODEL = "org.sdmlib.test.examples.studyrightWithAssignments.model";
+   public static final String ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL = "org.sdmlib.test.codegen.studyright.model";
    public static final String SRC_TEST_JAVA = "src/test/java";
 
    /**
     *
     * <h3>Storyboard StudyRightWithAssignmentsClassGeneration</h3>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
     * <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
-    * <p>Check: gradle compileTestJava result after adding University.name 0 actual 0</p>
     * <pre><code class="java" data-lang="java">
     *       ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
-    *       Clazz universityClass = model.createClazz(&quot;University&quot;);
-    * 
-    *       model.generate(SRC_TEST_JAVA);
-    *       result = Gradle.runTask(&quot;compileTestJava&quot;);
-    *       story.assertEquals(&quot;gradle compileTestJava result&quot;, 0, result);
-    * 
-    *       universityClass.withAttribute(&quot;name&quot;, DataType.STRING);
-    * 
-    *       model.resetGenerator();
-    *       model.generate(SRC_TEST_JAVA);
-    *       result = Gradle.runTask(&quot;compileTestJava&quot;);
-    *       story.assertEquals(&quot;gradle compileTestJava result after adding University.name&quot;, 0, result);
-    * 
-    * 
-    * 
-    * 
+    *       Clazz universityClass = model.createClazz(&quot;University&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
     * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
     * <pre><code class="java" data-lang="java">
     *       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -76,14 +57,43 @@ public class StudyRightWithAssignmentsModel
     *               .withAttribute(&quot;motivation&quot;, DataType.INT)
     *               .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
-    * <p>Check: gradle compileTestJava result after adding class Student 0 actual 0</p>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep12.png" alt="StudyRightWithAssignmentsClassGenerationStep12.png">
-    * <p>Check: gradle compileTestJava result after adding students assoc 0 actual 0</p>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
+    * <p>4. add University --> Room association</p>
+    * <pre><code class="java" data-lang="java">
+    *       Clazz roomClass = model.createClazz(&quot;Room&quot;)
+    *             .withAttribute(&quot;name&quot;, DataType.STRING)
+    *             .withAttribute(&quot;topic&quot;, DataType.STRING)
+    *             .withAttribute(&quot;credits&quot;, DataType.INT);
+    * 
+    *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
+    * 
+    *       &#x2F;&#x2F;Association universityToRoom =
+    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+    * 
+    *       &#x2F;&#x2F; Association doors =
+    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
+    * 
+    *       &#x2F;&#x2F; Association studentsInRoom =
+    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
+    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
+    * <p>5. add assignments:</p>
+    * <pre><code class="java" data-lang="java">
+    *       Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
+    *             .withAttribute(&quot;content&quot;, DataType.STRING)
+    *             .withAttribute(&quot;points&quot;, DataType.INT);
+    * 
+    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
+    * 
+    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
     *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
@@ -98,8 +108,137 @@ public class StudyRightWithAssignmentsModel
        */
       Storyboard story = new Storyboard();
 
+      // project compiles?
+      int gradleResult = 0;
+
+
+      //============================================================
+      story.addStep("Build model for class University");
+
+      story.markCodeStart();
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
+
+      Clazz universityClass = model.createClazz("University")
+            .withAttribute("name", DataType.STRING);
+      story.addCode();
+
+      story.addClassDiagramAsImage(model);
+
+
+      //============================================================
+      story.addStep("Add class Student");
+
+      story.markCodeStart();
+      Clazz studentClass = model.createClazz("Student")
+              .withAttribute("name", DataType.STRING)
+              .withAttribute("id", DataType.STRING)
+              .withAttribute("assignmentPoints", DataType.INT)
+              .withAttribute("motivation", DataType.INT)
+              .withAttribute("credits", DataType.INT);
+      story.addCode();
+
+      story.addClassDiagramAsImage(model);
+
+
+      //============================================================
+      story.add("3. add University --> Student association");
+
+      // Association universityToStudent =
+      story.markCodeStart();
+      universityClass.withBidirectional(studentClass, "students", Cardinality.MANY, "university", Cardinality.ONE);
+      story.addCode();
+
+      story.addClassDiagramAsImage(model);
+
+
+      //============================================================
+      story.add("4. add University --> Room association");
+
+      story.markCodeStart();
+      Clazz roomClass = model.createClazz("Room")
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("topic", DataType.STRING)
+            .withAttribute("credits", DataType.INT);
+
+      roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
+
+      //Association universityToRoom =
+      universityClass.createBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+
+      // Association doors =
+      roomClass.createBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
+
+      // Association studentsInRoom =
+      studentClass.createBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      story.addCode();
+
+      story.addClassDiagramAsImage(model);
+
+
+      //============================================================
+      story.add("5. add assignments:");
+
+      story.markCodeStart();
+      Clazz assignmentClass = model.createClazz("Assignment")
+            .withAttribute("content", DataType.STRING)
+            .withAttribute("points", DataType.INT);
+
+      assignmentClass.createBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
+
+      studentClass.createBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
+      story.addCode();
+
+      story.addClassDiagramAsImage(model);
+
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+
+
+      // some more classes for model navigation tests
+      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+
+      model.createClazz("TeachingAssistant")
+            .withSuperClazz(studentClass)
+            .withBidirectional(roomClass, "room", Cardinality.ONE, "tas", Cardinality.MANY)
+            .withAttribute("certified", DataType.BOOLEAN);
+
+
+      Clazz presidentClass = model.createClazz("President");
+      universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+
+
+      //============================================================
+      story.add("6. generate class source files.");
+
+      // model.removeAllGeneratedCode("src/test/java");
+
+      model.setAuthorName("zuendorf");
+
+      story.markCodeStart();
+      model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
+      story.addCode();
+
+      gradleResult = Gradle.runTask("compileTestJava");
+
+      story.assertEquals("gradle build result after all", 0, gradleResult);
+
+      //      story.dumpJavaDoc(ClassModel.class.getName());
+
+      story.dumpHTML();
+   }
+
+
+
+   @Test
+   public void testNetworkParserCodeGen()
+   {
+      /* This file will generate that necessary classes and class diagram for the
+       * StudyRight with Assignments example in the Story Driven Modeling book
+       */
+      Storyboard story = new Storyboard().withDocDirName("doc/internal");
+
       // remove old code
-      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_EXAMPLES_STUDYRIGHT_WITH_ASSIGNMENTS_MODEL);
+      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       // project compiles?
       int result = Gradle.runTask("compileTestJava");
@@ -110,7 +249,7 @@ public class StudyRightWithAssignmentsModel
       story.addStep("Build model for class University");
 
       story.markCodeStart();
-      ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
+      ClassModel model = new ClassModel(ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       Clazz universityClass = model.createClazz("University");
 
@@ -138,11 +277,11 @@ public class StudyRightWithAssignmentsModel
 
       story.markCodeStart();
       Clazz studentClass = model.createClazz("Student")
-              .withAttribute("name", DataType.STRING)
-              .withAttribute("id", DataType.STRING)
-              .withAttribute("assignmentPoints", DataType.INT)
-              .withAttribute("motivation", DataType.INT)
-              .withAttribute("credits", DataType.INT);
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("id", DataType.STRING)
+            .withAttribute("assignmentPoints", DataType.INT)
+            .withAttribute("motivation", DataType.INT)
+            .withAttribute("credits", DataType.INT);
       story.addCode();
 
       story.addClassDiagramAsImage(model, 400, 240);
@@ -243,7 +382,8 @@ public class StudyRightWithAssignmentsModel
 
       story.assertEquals("gradle build result after all", 0, result);
 
-//      story.dumpJavaDoc(ClassModel.class.getName());
+      // remove old code
+      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       story.dumpHTML();
    }

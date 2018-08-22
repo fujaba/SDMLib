@@ -6,6 +6,8 @@ import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -128,6 +130,86 @@ public class UniversitySet extends SimpleSet<University>
       for (University obj : this)
       {
          obj.withStudents(value);
+      }
+      return this;
+   }
+   public UniversitySet getRooms()
+   {
+      UniversitySet result = new UniversitySet();
+      for (University obj : this)
+      {
+         result.with(obj.getRooms());
+      }
+      return result;
+   }
+
+   public UniversitySet filterRooms(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      UniversitySet answer = new UniversitySet();
+      for (University obj : this)
+      {
+         if (! Collections.disjoint(neighbors, obj.getRooms()))
+         {
+            answer.add(obj);
+         }
+      }
+      return answer;
+   }
+
+   public UniversitySet withRooms(Room value)
+   {
+      for (University obj : this)
+      {
+         obj.withRooms(value);
+      }
+      return this;
+   }
+   public UniversitySet getPresident()
+   {
+      UniversitySet result = new UniversitySet();
+      for (University obj : this)
+      {
+         result.with(obj.getPresident());
+      }
+      return result;
+   }
+
+   public UniversitySet filterPresident(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      UniversitySet answer = new UniversitySet();
+      for (University obj : this)
+      {
+         if (neighbors.contains(obj.getPresident()) || (neighbors.isEmpty() && obj.getPresident() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      return answer;
+   }
+
+   public UniversitySet withPresident(President value)
+   {
+      for (University obj : this)
+      {
+         obj.withPresident(value);
       }
       return this;
    }

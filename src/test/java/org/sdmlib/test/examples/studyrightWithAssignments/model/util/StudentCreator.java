@@ -2,6 +2,8 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import de.uniks.networkparser.IdMap;
 
 
@@ -12,10 +14,13 @@ public class StudentCreator implements SendableEntityCreator
    {
       Student.PROPERTY_ASSIGNMENTPOINTS,
       Student.PROPERTY_CREDITS,
+      Student.PROPERTY_FRIENDS,
       Student.PROPERTY_ID,
       Student.PROPERTY_MOTIVATION,
       Student.PROPERTY_NAME,
       Student.PROPERTY_UNIVERSITY,
+      Student.PROPERTY_IN,
+      Student.PROPERTY_DONE,
    };
 
    @Override
@@ -58,6 +63,11 @@ public class StudentCreator implements SendableEntityCreator
          return element.getCredits();
       }
 
+      if (Student.PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
+      {
+         return element.getFriends();
+      }
+
       if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
       {
          return element.getId();
@@ -76,6 +86,16 @@ public class StudentCreator implements SendableEntityCreator
       if (Student.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
       {
          return element.getUniversity();
+      }
+
+      if (Student.PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         return element.getIn();
+      }
+
+      if (Student.PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         return element.getDone();
       }
 
       return null;
@@ -105,6 +125,12 @@ public class StudentCreator implements SendableEntityCreator
          return true;
       }
 
+      if (Student.PROPERTY_FRIENDS.equalsIgnoreCase(attribute))
+      {
+         element.withFriends((Student) value);
+         return true;
+      }
+
       if (Student.PROPERTY_ID.equalsIgnoreCase(attribute))
       {
          element.setId((String) value);
@@ -126,6 +152,18 @@ public class StudentCreator implements SendableEntityCreator
       if (Student.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
       {
          element.setUniversity((University) value);
+         return true;
+      }
+
+      if (Student.PROPERTY_IN.equalsIgnoreCase(attribute))
+      {
+         element.setIn((Room) value);
+         return true;
+      }
+
+      if (Student.PROPERTY_DONE.equalsIgnoreCase(attribute))
+      {
+         element.withDone((Assignment) value);
          return true;
       }
 

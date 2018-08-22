@@ -1509,7 +1509,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    public void addAsImage(String htmlbody, boolean autoClose, int... dimensions)
    {
-      addAsImage(htmlbody, autoClose, "diagramEditor", dimensions);
+      addAsImage(htmlbody, autoClose, "graphviz-java", dimensions);
    }
 
 

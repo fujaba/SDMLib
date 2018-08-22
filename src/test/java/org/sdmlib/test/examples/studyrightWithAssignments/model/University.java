@@ -3,8 +3,14 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
 
 public class University
 {
@@ -123,6 +129,86 @@ public class University
    {
       Student value = new Student();
       withStudents(value);
+      return value;
+   }
+
+   public static final String PROPERTY_ROOMS = "rooms";
+
+   private RoomSet rooms = null;
+
+   public RoomSet getRooms()
+   {
+      return this.rooms;
+   }
+
+   public University withRooms(Room... value)
+   {
+      if (value == null) {
+         return this;
+      }
+      for (Room item : value) {
+         if (item != null) {
+            if (this.rooms == null) {
+               this.rooms = new RoomSet();
+            }
+            boolean changed = this.rooms.add(item);
+            if (changed)
+            {
+               firePropertyChange(PROPERTY_ROOMS, null, item);
+            }
+         }
+      }
+      return this;
+   }
+
+   public University withoutRooms(Room... value)
+   {
+      for (Room item : value) {
+         if (this.rooms != null && item != null) {
+            this.rooms.remove(item);
+         }
+      }
+      return this;
+   }
+
+   public Room createRooms()
+   {
+      Room value = new Room();
+      withRooms(value);
+      return value;
+   }
+
+   public static final String PROPERTY_PRESIDENT = "president";
+
+   private President president = null;
+
+   public President getPresident()
+   {
+      return this.president;
+   }
+
+   public boolean setPresident(President value)
+   {
+      boolean changed = false;
+      if (this.president != value) {
+         President oldValue = this.president;
+         this.president = value;
+         firePropertyChange(PROPERTY_PRESIDENT, oldValue, value);
+         changed = true;
+      }
+      return changed;
+   }
+
+   public University withPresident(President value)
+   {
+      this.setPresident(value);
+      return this;
+   }
+
+   public President createPresident()
+   {
+      President value = new President();
+      withPresident(value);
       return value;
    }
 }

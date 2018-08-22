@@ -2,9 +2,16 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class Student
 {
@@ -173,6 +180,55 @@ public class Student
    }
 
 
+   public static final String PROPERTY_FRIENDS = "friends";
+
+   private StudentSet friends = null;
+
+   public StudentSet getFriends()
+   {
+      return this.friends;
+   }
+
+   public Student withFriends(Student... value)
+   {
+      if (value == null) {
+         return this;
+      }
+      for (Student item : value) {
+         if (item != null) {
+            if (this.friends == null) {
+               this.friends = new StudentSet();
+            }
+            boolean changed = this.friends.add(item);
+            if (changed)
+            {
+               item.withoutFriends(this);
+               firePropertyChange(PROPERTY_FRIENDS, null, item);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Student withoutFriends(Student... value)
+   {
+      for (Student item : value) {
+         if (this.friends != null && item != null) {
+            if (this.friends.remove(item)) {
+               item.withoutFriends(this);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Student createFriends()
+   {
+      Student value = new Student();
+      withFriends(value);
+      return value;
+   }
+
    public static final String PROPERTY_UNIVERSITY = "university";
 
    private University university = null;
@@ -211,6 +267,96 @@ public class Student
    {
       University value = new University();
       withUniversity(value);
+      return value;
+   }
+
+   public static final String PROPERTY_IN = "in";
+
+   private Room in = null;
+
+   public Room getIn()
+   {
+      return this.in;
+   }
+
+   public boolean setIn(Room value)
+   {
+      boolean changed = false;
+      if (this.in != value) {
+         Room oldValue = this.in;
+         if (this.in != null) {
+            this.in = null;
+            oldValue.withoutStudents(this);
+         }
+         this.in = value;
+         if (value != null) {
+            value.withStudents(this);
+         }
+         firePropertyChange(PROPERTY_IN, oldValue, value);
+         changed = true;
+      }
+      return changed;
+   }
+
+   public Student withIn(Room value)
+   {
+      this.setIn(value);
+      return this;
+   }
+
+   public Room createIn()
+   {
+      Room value = new Room();
+      withIn(value);
+      return value;
+   }
+
+   public static final String PROPERTY_DONE = "done";
+
+   private AssignmentSet done = null;
+
+   public AssignmentSet getDone()
+   {
+      return this.done;
+   }
+
+   public Student withDone(Assignment... value)
+   {
+      if (value == null) {
+         return this;
+      }
+      for (Assignment item : value) {
+         if (item != null) {
+            if (this.done == null) {
+               this.done = new AssignmentSet();
+            }
+            boolean changed = this.done.add(item);
+            if (changed)
+            {
+               item.withoutStudents(this);
+               firePropertyChange(PROPERTY_DONE, null, item);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Student withoutDone(Assignment... value)
+   {
+      for (Assignment item : value) {
+         if (this.done != null && item != null) {
+            if (this.done.remove(item)) {
+               item.withoutStudents(this);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Assignment createDone()
+   {
+      Assignment value = new Assignment();
+      withDone(value);
       return value;
    }
 }
