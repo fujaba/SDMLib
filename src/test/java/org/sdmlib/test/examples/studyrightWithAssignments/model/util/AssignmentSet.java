@@ -1,67 +1,25 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import de.uniks.networkparser.list.SimpleSet;
-import java.util.Collection;
 import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
+	public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
 
-   public Class<?> getTypClass()
-   {
-      return Assignment.class;
-   }
+	public Class<?> getTypClass() {
+		return Assignment.class;
+	}
 
-   public AssignmentSet()
-   {
-      // empty
-   }
+	@Override
+	public AssignmentSet getNewList(boolean keyValue) {
+		return new AssignmentSet();
+	}
 
-   public AssignmentSet(Assignment... objects)
-   {
-      for (Assignment obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public AssignmentSet(Collection<Assignment> objects)
-   {
-      this.addAll(objects);
-   }
-		public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment";
-   }
-   @Override   public AssignmentSet getNewList(boolean keyValue)
-   {
-      return new AssignmentSet();
-   }
-
-   @SuppressWarnings("unchecked")
-   public AssignmentSet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Assignment>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Assignment) value);
-      }
-      return this;
-   }
 
    public StringList getContent()
    {
@@ -135,15 +93,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
 
    public AssignmentSet filterRoom(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       AssignmentSet answer = new AssignmentSet();
       for (Assignment obj : this)
       {
@@ -175,19 +125,11 @@ public class AssignmentSet extends SimpleSet<Assignment>
 
    public AssignmentSet filterStudents(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       AssignmentSet answer = new AssignmentSet();
       for (Assignment obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getStudents()))
+         if (! neighbors.containsAny(obj.getStudents()))
          {
             answer.add(obj);
          }

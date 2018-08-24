@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
+<body>
+<h3>Storyboard NetworkParserCodeGen</h3>
+<p>Check: gradle compileTestJava result 0 actual 0</p>
+<h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
+<p>Check: gradle compileTestJava result 0 actual 0</p>
+<p>Check: gradle compileTestJava after manuel insertion, expected 0 actual 0</p>
+<p>Check: gradle compileTestJava result after adding University.name 0 actual 0</p>
+<h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
+<pre><code class="java" data-lang="java">
+      Clazz studentClass = model.createClazz(&quot;Student&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            .withAttribute(&quot;id&quot;, DataType.STRING)
+            .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+            .withAttribute(&quot;motivation&quot;, DataType.INT)
+            .withAttribute(&quot;credits&quot;, DataType.INT);
+</code></pre>
+<img src="doc-files/NetworkParserCodeGenStep7.png" alt="NetworkParserCodeGenStep7.png">
+<p>Check: gradle compileTestJava result after adding class Student 0 actual 0</p>
+<p>3. add University --> Student association</p>
+<pre><code class="java" data-lang="java">
+      universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+</code></pre>
+<img src="doc-files/NetworkParserCodeGenStep11.png" alt="NetworkParserCodeGenStep11.png">
+<p>Check: gradle compileTestJava result after adding students assoc 0 actual 0</p>
+<p>6. generate class source files.</p>
+<pre><code class="java" data-lang="java">
+      model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
+</code></pre>
+<p>Check: gradle build result after all 0 actual 0</p>
+
+</body>
+</html>

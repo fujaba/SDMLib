@@ -1,63 +1,22 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import de.uniks.networkparser.list.SimpleSet;
-import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 public class PresidentSet extends SimpleSet<President>
 {
+	public static final PresidentSet EMPTY_SET = new PresidentSet().withFlag(PresidentSet.READONLY);
 
-   public Class<?> getTypClass()
-   {
-      return President.class;
-   }
+	public Class<?> getTypClass() {
+		return President.class;
+	}
 
-   public PresidentSet()
-   {
-      // empty
-   }
+	@Override
+	public PresidentSet getNewList(boolean keyValue) {
+		return new PresidentSet();
+	}
 
-   public PresidentSet(President... objects)
-   {
-      for (President obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public PresidentSet(Collection<President> objects)
-   {
-      this.addAll(objects);
-   }
-		public static final PresidentSet EMPTY_SET = new PresidentSet().withFlag(PresidentSet.READONLY);
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyrightWithAssignments.model.President";
-   }
-   @Override   public PresidentSet getNewList(boolean keyValue)
-   {
-      return new PresidentSet();
-   }
-
-   @SuppressWarnings("unchecked")
-   public PresidentSet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<President>)value);
-      }
-      else if (value != null)
-      {
-         this.add((President) value);
-      }
-      return this;
-   }
 
    public PresidentSet getUniversity()
    {
@@ -71,15 +30,7 @@ public class PresidentSet extends SimpleSet<President>
 
    public PresidentSet filterUniversity(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       PresidentSet answer = new PresidentSet();
       for (President obj : this)
       {

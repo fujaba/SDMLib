@@ -1,11 +1,9 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import de.uniks.networkparser.list.SimpleSet;
-import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
@@ -13,57 +11,17 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 public class RoomSet extends SimpleSet<Room>
 {
+	public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
 
-   public Class<?> getTypClass()
-   {
-      return Room.class;
-   }
+	public Class<?> getTypClass() {
+		return Room.class;
+	}
 
-   public RoomSet()
-   {
-      // empty
-   }
+	@Override
+	public RoomSet getNewList(boolean keyValue) {
+		return new RoomSet();
+	}
 
-   public RoomSet(Room... objects)
-   {
-      for (Room obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public RoomSet(Collection<Room> objects)
-   {
-      this.addAll(objects);
-   }
-		public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyrightWithAssignments.model.Room";
-   }
-   @Override   public RoomSet getNewList(boolean keyValue)
-   {
-      return new RoomSet();
-   }
-
-   @SuppressWarnings("unchecked")
-   public RoomSet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Room>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Room) value);
-      }
-      return this;
-   }
 
    public NumberList getCredits()
    {
@@ -167,19 +125,11 @@ public class RoomSet extends SimpleSet<Room>
 
    public RoomSet filterDoors(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       RoomSet answer = new RoomSet();
       for (Room obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getDoors()))
+         if (! neighbors.containsAny(obj.getDoors()))
          {
             answer.add(obj);
          }
@@ -207,19 +157,11 @@ public class RoomSet extends SimpleSet<Room>
 
    public RoomSet filterStudents(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       RoomSet answer = new RoomSet();
       for (Room obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getStudents()))
+         if (! neighbors.containsAny(obj.getStudents()))
          {
             answer.add(obj);
          }
@@ -247,19 +189,11 @@ public class RoomSet extends SimpleSet<Room>
 
    public RoomSet filterAssignments(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       RoomSet answer = new RoomSet();
       for (Room obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getAssignments()))
+         if (! neighbors.containsAny(obj.getAssignments()))
          {
             answer.add(obj);
          }
@@ -287,19 +221,11 @@ public class RoomSet extends SimpleSet<Room>
 
    public RoomSet filterTas(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       RoomSet answer = new RoomSet();
       for (Room obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getTas()))
+         if (! neighbors.containsAny(obj.getTas()))
          {
             answer.add(obj);
          }
@@ -327,15 +253,7 @@ public class RoomSet extends SimpleSet<Room>
 
    public RoomSet filterUniversity(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       RoomSet answer = new RoomSet();
       for (Room obj : this)
       {

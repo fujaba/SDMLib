@@ -1,67 +1,25 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import de.uniks.networkparser.list.SimpleSet;
-import java.util.Collection;
 import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
 public class UniversitySet extends SimpleSet<University>
 {
+	public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
 
-   public Class<?> getTypClass()
-   {
-      return University.class;
-   }
+	public Class<?> getTypClass() {
+		return University.class;
+	}
 
-   public UniversitySet()
-   {
-      // empty
-   }
+	@Override
+	public UniversitySet getNewList(boolean keyValue) {
+		return new UniversitySet();
+	}
 
-   public UniversitySet(University... objects)
-   {
-      for (University obj : objects)
-      {
-         this.add(obj);
-      }
-   }
-
-   public UniversitySet(Collection<University> objects)
-   {
-      this.addAll(objects);
-   }
-		public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyrightWithAssignments.model.University";
-   }
-   @Override   public UniversitySet getNewList(boolean keyValue)
-   {
-      return new UniversitySet();
-   }
-
-   @SuppressWarnings("unchecked")
-   public UniversitySet with(Object value)
-   {
-      if (value == null)
-      {
-         return this;
-      }
-      else if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<University>)value);
-      }
-      else if (value != null)
-      {
-         this.add((University) value);
-      }
-      return this;
-   }
 
    public StringList getName()
    {
@@ -105,19 +63,11 @@ public class UniversitySet extends SimpleSet<University>
 
    public UniversitySet filterStudents(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       UniversitySet answer = new UniversitySet();
       for (University obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getStudents()))
+         if (! neighbors.containsAny(obj.getStudents()))
          {
             answer.add(obj);
          }
@@ -145,19 +95,11 @@ public class UniversitySet extends SimpleSet<University>
 
    public UniversitySet filterRooms(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       UniversitySet answer = new UniversitySet();
       for (University obj : this)
       {
-         if (! Collections.disjoint(neighbors, obj.getRooms()))
+         if (! neighbors.containsAny(obj.getRooms()))
          {
             answer.add(obj);
          }
@@ -185,15 +127,7 @@ public class UniversitySet extends SimpleSet<University>
 
    public UniversitySet filterPresident(Object value)
    {
-      ObjectSet neighbors = new ObjectSet();
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      ObjectSet neighbors = new ObjectSet().init(value);
       UniversitySet answer = new UniversitySet();
       for (University obj : this)
       {

@@ -46,7 +46,7 @@ public class TableModel
       columnClass.withBidirectional(cellClass, "cells", MANY, "column", ONE);
       rowClass.withBidirectional(cellClass, "cells", MANY, "row", ONE);
 
-      story.addClassDiagramAsImage(model);
+      story.addClassDiagram(model);
 
       model.generate();
 

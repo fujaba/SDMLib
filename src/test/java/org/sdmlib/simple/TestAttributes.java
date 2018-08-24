@@ -1,7 +1,7 @@
 package org.sdmlib.simple;
 
+import de.uniks.networkparser.ext.ClassModel;
 import org.junit.Test;
-import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;

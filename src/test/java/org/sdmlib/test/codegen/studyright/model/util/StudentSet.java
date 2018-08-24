@@ -1,12 +1,10 @@
-package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+package org.sdmlib.test.codegen.studyright.model.util;
+import org.sdmlib.test.codegen.studyright.model.Student;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.StringList;
 import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.codegen.studyright.model.University;
 
 public class StudentSet extends SimpleSet<Student>
 {
@@ -172,38 +170,6 @@ public class StudentSet extends SimpleSet<Student>
       }
       return this;
    }
-   public StudentSet getFriends()
-   {
-      StudentSet result = new StudentSet();
-      for (Student obj : this)
-      {
-         result.with(obj.getFriends());
-      }
-      return result;
-   }
-
-   public StudentSet filterFriends(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet().init(value);
-      StudentSet answer = new StudentSet();
-      for (Student obj : this)
-      {
-         if (! neighbors.containsAny(obj.getFriends()))
-         {
-            answer.add(obj);
-         }
-      }
-      return answer;
-   }
-
-   public StudentSet withFriends(Student value)
-   {
-      for (Student obj : this)
-      {
-         obj.withFriends(value);
-      }
-      return this;
-   }
    public StudentSet getUniversity()
    {
       StudentSet result = new StudentSet();
@@ -233,70 +199,6 @@ public class StudentSet extends SimpleSet<Student>
       for (Student obj : this)
       {
          obj.withUniversity(value);
-      }
-      return this;
-   }
-   public StudentSet getIn()
-   {
-      StudentSet result = new StudentSet();
-      for (Student obj : this)
-      {
-         result.with(obj.getIn());
-      }
-      return result;
-   }
-
-   public StudentSet filterIn(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet().init(value);
-      StudentSet answer = new StudentSet();
-      for (Student obj : this)
-      {
-         if (neighbors.contains(obj.getIn()) || (neighbors.isEmpty() && obj.getIn() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      return answer;
-   }
-
-   public StudentSet withIn(Room value)
-   {
-      for (Student obj : this)
-      {
-         obj.withIn(value);
-      }
-      return this;
-   }
-   public StudentSet getDone()
-   {
-      StudentSet result = new StudentSet();
-      for (Student obj : this)
-      {
-         result.with(obj.getDone());
-      }
-      return result;
-   }
-
-   public StudentSet filterDone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet().init(value);
-      StudentSet answer = new StudentSet();
-      for (Student obj : this)
-      {
-         if (! neighbors.containsAny(obj.getDone()))
-         {
-            answer.add(obj);
-         }
-      }
-      return answer;
-   }
-
-   public StudentSet withDone(Assignment value)
-   {
-      for (Student obj : this)
-      {
-         obj.withDone(value);
       }
       return this;
    }

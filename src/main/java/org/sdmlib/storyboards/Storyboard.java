@@ -82,14 +82,26 @@ public class Storyboard {
 
 	/**
 	 * Adds a diagram of an classmodel to the storyboard.
-	 * 
+	 *
 	 * @param model object of the classmodel, that will be displayed as a diagram
-	* @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- */
+	 * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+	 */
 	public void addClassDiagram(ClassModel model) {
-		storyboard.addClassDiagram(model);
+		storyboard.addClassDiagramAsImage(model);
 	}
-	
+
+
+	/**
+	 * Adds a diagram of an classmodel to the storyboard.
+	 *
+	 * @param model object of the classmodel, that will be displayed as a diagram
+	 * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+	 */
+	public void addClassDiagram(de.uniks.networkparser.ext.ClassModel model) {
+		storyboard.addClassDiagramAsImage(model);
+	}
+
+
 	/**
 	 * Adds an object diagram to the storyboard, that contains the given objects.
 	 * 
@@ -370,15 +382,5 @@ public class Storyboard {
 	public void addAsImage(String htmlText, boolean autoClose, int... dimensions)
 	{
 		storyboard.addAsImage(htmlText, autoClose, dimensions);
-	}
-
-	public void addClassDiagramAsImage(de.uniks.networkparser.ext.ClassModel model, int... dimensions)
-	{
-		storyboard.addClassDiagramAsImage(model, dimensions);
-	}
-
-	public void addClassDiagramAsImage(ClassModel model, int... dimensions)
-	{
-		storyboard.addClassDiagramAsImage(model, dimensions);
 	}
 }

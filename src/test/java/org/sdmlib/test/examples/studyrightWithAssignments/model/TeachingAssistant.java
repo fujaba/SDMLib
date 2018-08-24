@@ -1,61 +1,10 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 public class TeachingAssistant extends Student
 {
-   protected PropertyChangeSupport listeners = null;
 
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-      if (listeners != null) {
-         listeners.firePropertyChange(propertyName, oldValue, newValue);
-         return true;
-      }
-      return false;
-   }
-
-   public boolean addPropertyChangeListener(PropertyChangeListener listener)
-   {
-      if (listeners == null) {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(listener);
-      return true;
-   }
-
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
-   {
-      if (listeners == null) {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(propertyName, listener);
-      return true;
-   }
-
-   public boolean removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      if (listeners != null) {
-         listeners.removePropertyChangeListener(listener);
-      }
-      listeners.removePropertyChangeListener(listener);
-      return true;
-   }
-
-   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener)
-   {
-      if (listeners != null) {
-         listeners.removePropertyChangeListener(propertyName, listener);
-      }
-      return true;
-   }
    public static final String PROPERTY_CERTIFIED = "certified";
 
    private boolean certified;
