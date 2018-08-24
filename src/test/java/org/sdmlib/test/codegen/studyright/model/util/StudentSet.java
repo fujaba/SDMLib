@@ -170,12 +170,12 @@ public class StudentSet extends SimpleSet<Student>
       }
       return this;
    }
-   public StudentSet getUniversity()
+   public UniversitySet getUniversity()
    {
-      StudentSet result = new StudentSet();
+      UniversitySet result = new UniversitySet();
       for (Student obj : this)
       {
-         result.with(obj.getUniversity());
+         result.add(obj.getUniversity());
       }
       return result;
    }

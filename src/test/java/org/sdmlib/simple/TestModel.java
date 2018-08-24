@@ -16,7 +16,7 @@ public class TestModel {
 	@Test
 	public void testClassWithoutAttributes() {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.test");
-		model.withoutFeature(Feature.PATTERNOBJECT);
+		// model.withoutFeature(Feature.PATTERNOBJECT);
 		model.getFeature(Feature.SETCLASS).withClazzValue(HashSet.class);
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);

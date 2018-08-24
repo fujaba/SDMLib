@@ -118,7 +118,7 @@ public class RoomSet extends SimpleSet<Room>
       RoomSet result = new RoomSet();
       for (Room obj : this)
       {
-         result.with(obj.getDoors());
+         result.addAll(obj.getDoors());
       }
       return result;
    }
@@ -145,12 +145,12 @@ public class RoomSet extends SimpleSet<Room>
       }
       return this;
    }
-   public RoomSet getStudents()
+   public StudentSet getStudents()
    {
-      RoomSet result = new RoomSet();
+      StudentSet result = new StudentSet();
       for (Room obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       return result;
    }
@@ -177,12 +177,12 @@ public class RoomSet extends SimpleSet<Room>
       }
       return this;
    }
-   public RoomSet getAssignments()
+   public AssignmentSet getAssignments()
    {
-      RoomSet result = new RoomSet();
+      AssignmentSet result = new AssignmentSet();
       for (Room obj : this)
       {
-         result.with(obj.getAssignments());
+         result.addAll(obj.getAssignments());
       }
       return result;
    }
@@ -209,12 +209,12 @@ public class RoomSet extends SimpleSet<Room>
       }
       return this;
    }
-   public RoomSet getTas()
+   public TeachingAssistantSet getTas()
    {
-      RoomSet result = new RoomSet();
+      TeachingAssistantSet result = new TeachingAssistantSet();
       for (Room obj : this)
       {
-         result.with(obj.getTas());
+         result.addAll(obj.getTas());
       }
       return result;
    }
@@ -241,12 +241,12 @@ public class RoomSet extends SimpleSet<Room>
       }
       return this;
    }
-   public RoomSet getUniversity()
+   public UniversitySet getUniversity()
    {
-      RoomSet result = new RoomSet();
+      UniversitySet result = new UniversitySet();
       for (Room obj : this)
       {
-         result.with(obj.getUniversity());
+         result.add(obj.getUniversity());
       }
       return result;
    }

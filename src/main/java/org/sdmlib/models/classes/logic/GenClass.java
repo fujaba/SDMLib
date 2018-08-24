@@ -27,7 +27,6 @@ import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
@@ -55,7 +54,7 @@ public class GenClass extends GenClazzEntity
    {
       // first generate the class itself
 	  ClassModel classModel = (ClassModel) model.getClassModel();
-      if (!model.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (!model.isExternal())
       {
          getOrCreateParser(rootDir);
 
@@ -74,8 +73,7 @@ public class GenClass extends GenClazzEntity
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             
-            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
-            	insertRemoveYouMethod(rootDir);
+           	insertRemoveYouMethod(rootDir);
             
             insertInterfaceMethods(model, rootDir, helpersDir);
             
@@ -102,9 +100,8 @@ public class GenClass extends GenClazzEntity
 
             insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
 
-            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model)) {
-            	insertRemoveObjectInCreatorClass();
-            }
+            insertRemoveObjectInCreatorClass();
+
             printFile(creatorParser);
          }
       }
@@ -115,18 +112,17 @@ public class GenClass extends GenClazzEntity
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
 
-         if (getRepairClassModel().hasFeature(Feature.PATTERNOBJECT))
-         {
+//         if (getRepairClassModel().hasFeature(Feature.PATTERNOBJECT))
+//         {
 
-            // now generate the corresponding PatterObject class
-            getOrCreateParserForPatternObjectFile(helpersDir);
-            printFile(patternObjectParser);
-            
-            // now generate the corresponding PatterObjectCreator class
-            getOrCreateParserForPatternObjectCreatorFile(helpersDir);
-            printFile(patternObjectCreatorParser);
-         }
+         // now generate the corresponding PatterObject class
+         getOrCreateParserForPatternObjectFile(helpersDir);
+         printFile(patternObjectParser);
 
+         // now generate the corresponding PatterObjectCreator class
+         getOrCreateParserForPatternObjectCreatorFile(helpersDir);
+         printFile(patternObjectCreatorParser);
+//         }
       }
    }
 
@@ -275,7 +271,7 @@ public class GenClass extends GenClazzEntity
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 		ClassModel model = (ClassModel) clazz.getClassModel();
-		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
+		if(model.hasFeature(Feature.SERIALIZATION) == true && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -308,15 +304,13 @@ public class GenClass extends GenClazzEntity
 			}
 			StringBuilder creators=new StringBuilder();
 			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
-			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PATTERNOBJECT)) {
-				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
-			}
+         creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
 			if(symTabEntriesFor.size()>0) {
 				SymTabEntry symTabEntry = symTabEntriesFor.get(0);
 				String lines = creatorcreator.getFileBody().substring(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 				String newCreators = creators.toString();
-				if (lines.indexOf(newCreators) < 0) 
+				if (lines.indexOf(newCreators) < 0)
 				{
 				   lines = CGUtil.replaceAll(lines, "      return jsonIdMap;", creators+"      return jsonIdMap;");
 				   creatorcreator.replace(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos(), lines);
@@ -326,6 +320,8 @@ public class GenClass extends GenClazzEntity
 			}
 		}
 	}
+
+
 	final String searchString="jsonIdMap.withCreator(new ";
 	private boolean isMultiCreator(Parser creatorcreator) {
 		creatorcreator.indexOf(Parser.CLASS_END);
@@ -675,9 +671,6 @@ public class GenClass extends GenClazzEntity
 
    private void insertImplementsClauseForPropertyChangeInterface()
    {
-	   if(getRepairClassModel().hasFeature(Feature.STANDALONE)) {
-		   return;
-	   }
       String searchString = Parser.IMPLEMENTS;
       int implementsPos = parser.indexOf(searchString);
       String propertyChangeInterface = SendableEntity.class.getSimpleName();
@@ -820,7 +813,7 @@ public class GenClass extends GenClazzEntity
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectCreatorJavaFile.exists() && feature != null)
          {
             List<String> featureSet = feature.getPath();

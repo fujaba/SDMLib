@@ -3223,7 +3223,7 @@ public class GenClassModel implements ClassModelAdapter
       
       // class file
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
-      if (! clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (! clazz.isExternal())
       {
          deleteFile(fileName);
       }

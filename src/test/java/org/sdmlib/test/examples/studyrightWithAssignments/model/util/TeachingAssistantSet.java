@@ -49,12 +49,12 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
       }
       return this;
    }
-   public TeachingAssistantSet getRoom()
+   public RoomSet getRoom()
    {
-      TeachingAssistantSet result = new TeachingAssistantSet();
+      RoomSet result = new RoomSet();
       for (TeachingAssistant obj : this)
       {
-         result.with(obj.getRoom());
+         result.add(obj.getRoom());
       }
       return result;
    }

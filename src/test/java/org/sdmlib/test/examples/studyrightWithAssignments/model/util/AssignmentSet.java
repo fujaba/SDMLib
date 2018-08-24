@@ -81,12 +81,12 @@ public class AssignmentSet extends SimpleSet<Assignment>
       }
       return this;
    }
-   public AssignmentSet getRoom()
+   public RoomSet getRoom()
    {
-      AssignmentSet result = new AssignmentSet();
+      RoomSet result = new RoomSet();
       for (Assignment obj : this)
       {
-         result.with(obj.getRoom());
+         result.add(obj.getRoom());
       }
       return result;
    }
@@ -113,12 +113,12 @@ public class AssignmentSet extends SimpleSet<Assignment>
       }
       return this;
    }
-   public AssignmentSet getStudents()
+   public StudentSet getStudents()
    {
-      AssignmentSet result = new AssignmentSet();
+      StudentSet result = new StudentSet();
       for (Assignment obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       return result;
    }

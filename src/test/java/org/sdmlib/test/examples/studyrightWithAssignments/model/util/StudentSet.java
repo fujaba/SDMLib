@@ -177,7 +177,7 @@ public class StudentSet extends SimpleSet<Student>
       StudentSet result = new StudentSet();
       for (Student obj : this)
       {
-         result.with(obj.getFriends());
+         result.addAll(obj.getFriends());
       }
       return result;
    }
@@ -204,12 +204,12 @@ public class StudentSet extends SimpleSet<Student>
       }
       return this;
    }
-   public StudentSet getUniversity()
+   public UniversitySet getUniversity()
    {
-      StudentSet result = new StudentSet();
+      UniversitySet result = new UniversitySet();
       for (Student obj : this)
       {
-         result.with(obj.getUniversity());
+         result.add(obj.getUniversity());
       }
       return result;
    }
@@ -236,12 +236,12 @@ public class StudentSet extends SimpleSet<Student>
       }
       return this;
    }
-   public StudentSet getIn()
+   public RoomSet getIn()
    {
-      StudentSet result = new StudentSet();
+      RoomSet result = new RoomSet();
       for (Student obj : this)
       {
-         result.with(obj.getIn());
+         result.add(obj.getIn());
       }
       return result;
    }
@@ -268,12 +268,12 @@ public class StudentSet extends SimpleSet<Student>
       }
       return this;
    }
-   public StudentSet getDone()
+   public AssignmentSet getDone()
    {
-      StudentSet result = new StudentSet();
+      AssignmentSet result = new AssignmentSet();
       for (Student obj : this)
       {
-         result.with(obj.getDone());
+         result.addAll(obj.getDone());
       }
       return result;
    }

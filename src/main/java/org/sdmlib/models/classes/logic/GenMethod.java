@@ -43,11 +43,9 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (clazzModel.hasFeature(Feature.PATTERNOBJECT)) {
-         Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
-         insertMethodInPatternObject(clazz, patternObjectParser);
-         generator.printFile(patternObjectParser);
-      }
+      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
+      insertMethodInPatternObject(clazz, patternObjectParser);
+      generator.printFile(patternObjectParser);
 
       return this;
    }

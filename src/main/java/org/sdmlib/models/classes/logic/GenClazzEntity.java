@@ -350,7 +350,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File modelSetJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!modelSetJavaFile.exists() && feature != null)
          {
         	 List<String> featureSet = feature.getPath();
@@ -418,10 +418,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          insertLicense(modelSetParser);
          insertConstructor(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
-         if (((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT))
-         {
-            insertSetStartModelPattern(modelSetParser);
-         }
          insertSetEntryType(modelSetParser);
          if (((ClassModel) model.getClassModel()).getFeature(Feature.SETCLASS).getClassValue().equals(SimpleSet.class)) 
          {
@@ -536,38 +532,38 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    }
 
 
-   private void insertSetStartModelPattern(Parser parser)
-   {
-      String searchString = Parser.METHOD + ":create" + CGUtil.shortClassName(model.getName()) + "PO()";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-               "\n\n" +
-                  "   public ModelPO createModelPO()\n" +
-                  "   {\n" +
-                  "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
-                  "   }\n");
-
-         String packageName = CGUtil.packageName(model.getName());
-
-         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
-         {
-            packageName = packageName.substring(0, packageName.length() - 5);
-         }
-
-         CGUtil.replaceAll(text,
-            "ModelPO", CGUtil.shortClassName(model.getName()) + "PO",
-            "ModelPatternClass", packageName + ".creators.ModelPattern",
-            "ModelItem", CGUtil.shortClassName(model.getName()));
-
-         // insertImport(parser, StringList.class.getName());
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-      }
-   }
+//   private void insertSetStartModelPattern(Parser parser)
+//   {
+//      String searchString = Parser.METHOD + ":create" + CGUtil.shortClassName(model.getName()) + "PO()";
+//      int pos = parser.indexOf(searchString);
+//
+//      if (pos < 0)
+//      {
+//         StringBuilder text = new StringBuilder(
+//               "\n\n" +
+//                  "   public ModelPO createModelPO()\n" +
+//                  "   {\n" +
+//                  "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
+//                  "   }\n");
+//
+//         String packageName = CGUtil.packageName(model.getName());
+//
+//         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+//         {
+//            packageName = packageName.substring(0, packageName.length() - 5);
+//         }
+//
+//         CGUtil.replaceAll(text,
+//            "ModelPO", CGUtil.shortClassName(model.getName()) + "PO",
+//            "ModelPatternClass", packageName + ".creators.ModelPattern",
+//            "ModelItem", CGUtil.shortClassName(model.getName()));
+//
+//         // insertImport(parser, StringList.class.getName());
+//         pos = parser.indexOf(Parser.CLASS_END);
+//
+//         parser.insert(pos, text.toString());
+//      }
+//   }
 
 
    private void insertEmptySetDecl(Parser parser, String modelSetClassName)
@@ -578,7 +574,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          // add attribute declaration in class file
          partnerPos = parser.indexOf(Parser.CLASS_END);
-         FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+         Feature feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          StringBuilder partnerText;
          if (feature.getClassValue() == null || SimpleSet.class.isAssignableFrom(feature.getClassValue()))
          {
@@ -823,10 +819,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          return null;
       }
-      if (((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT) == false)
-      {
-         return null;
-      }
 
       String name = model.getName(false);
 
@@ -856,7 +848,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File patternObjectJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectJavaFile.exists() && feature != null)
          {
         	 List<String> featureSet = feature.getPath();
@@ -1010,7 +1002,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File creatorJavaFile = new File(fileName);
 
-         FeatureProperty feature = classModel.getFeature(Feature.SERIALIZATION);
+         Feature feature = classModel.getFeature(Feature.SERIALIZATION);
 
          if (!creatorJavaFile.exists() && feature != null)
          {
@@ -1042,7 +1034,6 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
          else
          {
-            boolean standAlone = this.getRepairClassModel().hasFeature(Feature.STANDALONE);
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
@@ -1116,13 +1107,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                      "      return false;\n" +
                      "   }\n");
 
-            if (standAlone == false)
-            {
-               text.append("   public static IdMap createIdMap(String sessionID)\n" +
+            text.append("" +
+                  "   public static IdMap createIdMap(String sessionID)\n" +
                   "   {\n" +
                   "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                   "   }");
-            }
 
             text.append("}\n");
 
@@ -1168,13 +1157,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             String instanceCreationClause = "";
             String fullFactoryName = null;
 
-            if (classModel.hasFeature(Feature.EMFSTYLE))
-            {
-               String factoryName = classModel.getName(true) + "Factory";
-               fullFactoryName = classModel.getName() + "." + factoryName;
-               instanceCreationClause = factoryName + ".eINSTANCE.create" + model.getName(true) + "()";
-            }
-            else if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model))
+            if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model))
             {
                instanceCreationClause = entitiyClassName + ".class";
             }
@@ -1219,10 +1202,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             creatorParser.withFileBody(text).withFileChanged(true);
             creatorParser.insertImport(ObjectSet.class.getName());
             creatorParser.insertImport(SendableEntityCreator.class.getName());
-            if (standAlone == false)
-            {
-               creatorParser.insertImport(IdMap.class.getName());
-            }
+
             if (fullFactoryName != null)
             {
                creatorParser.insertImport(fullFactoryName);

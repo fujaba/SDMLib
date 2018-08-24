@@ -51,12 +51,12 @@ public class UniversitySet extends SimpleSet<University>
       }
       return this;
    }
-   public UniversitySet getStudents()
+   public StudentSet getStudents()
    {
-      UniversitySet result = new UniversitySet();
+      StudentSet result = new StudentSet();
       for (University obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       return result;
    }
@@ -83,12 +83,12 @@ public class UniversitySet extends SimpleSet<University>
       }
       return this;
    }
-   public UniversitySet getRooms()
+   public RoomSet getRooms()
    {
-      UniversitySet result = new UniversitySet();
+      RoomSet result = new RoomSet();
       for (University obj : this)
       {
-         result.with(obj.getRooms());
+         result.addAll(obj.getRooms());
       }
       return result;
    }
@@ -115,12 +115,12 @@ public class UniversitySet extends SimpleSet<University>
       }
       return this;
    }
-   public UniversitySet getPresident()
+   public PresidentSet getPresident()
    {
-      UniversitySet result = new UniversitySet();
+      PresidentSet result = new PresidentSet();
       for (University obj : this)
       {
-         result.with(obj.getPresident());
+         result.add(obj.getPresident());
       }
       return result;
    }

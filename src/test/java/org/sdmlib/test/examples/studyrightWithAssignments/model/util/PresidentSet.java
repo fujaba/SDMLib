@@ -18,12 +18,12 @@ public class PresidentSet extends SimpleSet<President>
 	}
 
 
-   public PresidentSet getUniversity()
+   public UniversitySet getUniversity()
    {
-      PresidentSet result = new PresidentSet();
+      UniversitySet result = new UniversitySet();
       for (President obj : this)
       {
-         result.with(obj.getUniversity());
+         result.add(obj.getUniversity());
       }
       return result;
    }

@@ -38,7 +38,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleList;
@@ -143,7 +142,7 @@ public class GenEnumeration extends GenClazzEntity{
 
 	         File modelSetJavaFile = new File(fileName);
 
-	         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+	         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
 	         
 	         if (!modelSetJavaFile.exists()  && feature != null) {
 	        	 List<String> featureSet = feature.getPath();

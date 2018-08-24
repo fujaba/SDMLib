@@ -49,12 +49,12 @@ public class UniversitySet extends SimpleSet<University>
       }
       return this;
    }
-   public UniversitySet getStudents()
+   public StudentSet getStudents()
    {
-      UniversitySet result = new UniversitySet();
+      StudentSet result = new StudentSet();
       for (University obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       return result;
    }

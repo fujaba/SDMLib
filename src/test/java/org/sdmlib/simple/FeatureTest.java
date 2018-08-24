@@ -20,7 +20,7 @@ public class FeatureTest {
 		
 		
 		// Remove Dependency from SDMLib
-		model.withoutFeature(Feature.PATTERNOBJECT);
+		// model.withoutFeature(Feature.PATTERNOBJECT);
 		// So Only Networkparser is a Dependency, add it per Maven de.uniks:NetworkParser:Core
 		
 		// Remove all Dependency
