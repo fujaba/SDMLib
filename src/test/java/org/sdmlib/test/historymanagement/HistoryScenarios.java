@@ -5,17 +5,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.Test;
+import org.sdmlib.HistoryIdMap;
+import org.sdmlib.HistoryIdMap.AttrTimeStampMap;
+import org.sdmlib.HistoryIdMap.RefTime;
+import org.sdmlib.HistoryIdMap.RefTimeStampsMap;
+import org.sdmlib.HistoryIdMap.TimeStampMap;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 import org.sdmlib.test.historymanagement.marketmodel.util.MarketCreator;
 
-import de.uniks.networkparser.HistoryIdMap;
-import de.uniks.networkparser.HistoryIdMap.AttrTimeStampMap;
-import de.uniks.networkparser.HistoryIdMap.RefTime;
-import de.uniks.networkparser.HistoryIdMap.RefTimeStampsMap;
-import de.uniks.networkparser.HistoryIdMap.TimeStampMap;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.ObjectCondition;
